@@ -44,6 +44,13 @@ export const sanityClient = projectId
     })
   : null;
 
+function normalizeSlug(slug: any): string {
+  if (!slug) return '';
+  if (typeof slug === 'string') return slug;
+  if (typeof slug === 'object' && slug.current) return slug.current;
+  return String(slug);
+}
+
 // Unified data access functions with graceful fallback to local data repository
 export async function getSiteSettings(): Promise<SiteSettings> {
   if (sanityClient) {
@@ -61,7 +68,12 @@ export async function getDivisions(): Promise<Division[]> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`*[_type == "division"] | order(order asc)`);
-      if (data && data.length > 0) return data;
+      if (data && data.length > 0) {
+        return data.map((d: any) => ({
+          ...d,
+          slug: normalizeSlug(d.slug),
+        }));
+      }
     } catch {
       // Fallback
     }
@@ -77,8 +89,17 @@ export async function getDivisionBySlug(slug: string): Promise<Division | undefi
 export async function getServices(): Promise<Service[]> {
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "service"]`);
-      if (data && data.length > 0) return data;
+      const data = await sanityClient.fetch(`*[_type == "service"]{
+        ...,
+        "divisionSlug": coalesce(division->slug.current, divisionSlug),
+        "divisionTitle": coalesce(division->title, divisionTitle)
+      }`);
+      if (data && data.length > 0) {
+        return data.map((s: any) => ({
+          ...s,
+          slug: normalizeSlug(s.slug),
+        }));
+      }
     } catch {
       // Fallback
     }
@@ -100,7 +121,12 @@ export async function getSectors(): Promise<Sector[]> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`*[_type == "sector"]`);
-      if (data && data.length > 0) return data;
+      if (data && data.length > 0) {
+        return data.map((sec: any) => ({
+          ...sec,
+          slug: normalizeSlug(sec.slug),
+        }));
+      }
     } catch {
       // Fallback
     }
@@ -129,7 +155,12 @@ export async function getCaseStudies(): Promise<CaseStudy[]> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`*[_type == "caseStudy"] | order(publishedAt desc)`);
-      if (data && data.length > 0) return data;
+      if (data && data.length > 0) {
+        return data.map((cs: any) => ({
+          ...cs,
+          slug: normalizeSlug(cs.slug),
+        }));
+      }
     } catch {
       // Fallback
     }
@@ -146,7 +177,20 @@ export async function getArticles(): Promise<Article[]> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`*[_type == "article"] | order(publishedDate desc)`);
-      if (data && data.length > 0) return data;
+      if (data && data.length > 0) {
+        return data.map((a: any) => ({
+          ...a,
+          slug: normalizeSlug(a.slug),
+          content:
+            Array.isArray(a.content) && a.content.length > 0
+              ? a.content
+              : Array.isArray(a.body)
+              ? a.body
+                  .map((b: any) => (b.children ? b.children.map((c: any) => c.text).join('') : ''))
+                  .filter(Boolean)
+              : [],
+        }));
+      }
     } catch {
       // Fallback
     }

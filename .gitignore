@@ -25,4 +25,6 @@ pnpm-debug.log*
 
 # sanity runtime
 .sanity/
+*.ndjson
+
 
