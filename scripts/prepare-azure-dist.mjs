@@ -14,11 +14,10 @@ const serverCode = fs.readFileSync(scriptPath, 'utf-8');
 fs.writeFileSync(path.join(distDir, 'server.js'), serverCode, 'utf-8');
 fs.writeFileSync(path.join(distDir, 'index.js'), serverCode, 'utf-8');
 
-// 2. Create minimal package.json in dist
+// 2. Create minimal package.json in dist (CommonJS for universal Node compatibility)
 const distPkg = {
   name: 'techsteps-azure-production',
   version: '1.0.0',
-  type: 'module',
   main: 'server.js',
   scripts: {
     start: 'node server.js',

@@ -50,4 +50,6 @@ jobs:
           app-name: 'TECHSTEPS'
           slot-name: 'Production'
           package: './dist'
+          clean: true
+          restart: true
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_07A0ED0BF0F74B2F8747A08AC90AAD0E }}

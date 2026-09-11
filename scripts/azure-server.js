@@ -1,13 +1,9 @@
-import http from 'http';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import zlib from 'zlib';
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const zlib = require('zlib');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const DIST_DIR = __dirname;
-
 const PORT = process.env.PORT || 8080;
 
 const MIME_TYPES = {
@@ -44,36 +40,40 @@ const COMPRESSIBLE = new Set([
 ]);
 
 function resolveFilePath(reqUrl) {
-  const parsedUrl = new URL(reqUrl, `http://localhost:${PORT}`);
-  let pathname = decodeURIComponent(parsedUrl.pathname);
+  try {
+    const parsedUrl = new URL(reqUrl, `http://localhost:${PORT}`);
+    let pathname = decodeURIComponent(parsedUrl.pathname);
 
-  // Security: prevent directory traversal
-  const safePath = path.normalize(pathname).replace(/^(\.\.[\/\\])+/, '');
-  let targetPath = path.join(DIST_DIR, safePath);
+    // Security: prevent directory traversal
+    const safePath = path.normalize(pathname).replace(/^(\.\.[\/\\])+/, '');
+    let targetPath = path.join(DIST_DIR, safePath);
 
-  // 1. If path is a directory or ends with slash, check index.html
-  if (fs.existsSync(targetPath)) {
-    const stat = fs.statSync(targetPath);
-    if (stat.isDirectory()) {
-      const indexPath = path.join(targetPath, 'index.html');
-      if (fs.existsSync(indexPath)) {
-        return indexPath;
+    // 1. If path exists
+    if (fs.existsSync(targetPath)) {
+      const stat = fs.statSync(targetPath);
+      if (stat.isDirectory()) {
+        const indexPath = path.join(targetPath, 'index.html');
+        if (fs.existsSync(indexPath)) {
+          return indexPath;
+        }
+      } else {
+        return targetPath;
       }
-    } else {
-      return targetPath;
     }
-  }
 
-  // 2. Check path + .html (clean URL)
-  const htmlPath = targetPath + '.html';
-  if (fs.existsSync(htmlPath) && fs.statSync(htmlPath).isFile()) {
-    return htmlPath;
-  }
+    // 2. Check path + .html (clean URL)
+    const htmlPath = targetPath + '.html';
+    if (fs.existsSync(htmlPath) && fs.statSync(htmlPath).isFile()) {
+      return htmlPath;
+    }
 
-  // 3. Check path / index.html (in case URL was /about-us without trailing slash)
-  const nestedIndexPath = path.join(targetPath, 'index.html');
-  if (fs.existsSync(nestedIndexPath) && fs.statSync(nestedIndexPath).isFile()) {
-    return nestedIndexPath;
+    // 3. Check path / index.html (in case URL was /about-us without trailing slash)
+    const nestedIndexPath = path.join(targetPath, 'index.html');
+    if (fs.existsSync(nestedIndexPath) && fs.statSync(nestedIndexPath).isFile()) {
+      return nestedIndexPath;
+    }
+  } catch (err) {
+    console.error('Error resolving file path:', err);
   }
 
   return null;
@@ -147,6 +147,14 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-  console.log(`Techsteps Azure production server listening on port ${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Techsteps Azure production server listening on 0.0.0.0:${PORT}`);
+});
+
+process.on('SIGTERM', () => {
+  console.log('SIGTERM signal received: closing HTTP server');
+  server.close(() => {
+    console.log('HTTP server closed');
+    process.exit(0);
+  });
 });
