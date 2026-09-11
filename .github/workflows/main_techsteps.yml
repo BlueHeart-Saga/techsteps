@@ -29,6 +29,10 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
+          PUBLIC_SANITY_PROJECT_ID: ${{ secrets.PUBLIC_SANITY_PROJECT_ID || 'zjv69ibt' }}
+          PUBLIC_SANITY_DATASET: ${{ secrets.PUBLIC_SANITY_DATASET || 'techsteps' }}
+          SANITY_PROJECT_ID: ${{ secrets.PUBLIC_SANITY_PROJECT_ID || secrets.SANITY_PROJECT_ID || 'zjv69ibt' }}
+          SANITY_DATASET: ${{ secrets.PUBLIC_SANITY_DATASET || secrets.SANITY_DATASET || 'techsteps' }}
 
       - name: Verify Astro output
         run: |

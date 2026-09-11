@@ -20,10 +20,20 @@ import type {
   AboutPageData,
 } from './types';
 
-const projectId = import.meta.env.SANITY_PROJECT_ID;
-const dataset = import.meta.env.SANITY_DATASET || 'production';
-const apiVersion = import.meta.env.SANITY_API_VERSION || '2024-01-01';
-const useCdn = import.meta.env.PROD;
+const projectId =
+  import.meta.env.PUBLIC_SANITY_PROJECT_ID ||
+  import.meta.env.SANITY_PROJECT_ID ||
+  'zjv69ibt';
+const dataset =
+  import.meta.env.PUBLIC_SANITY_DATASET ||
+  import.meta.env.SANITY_DATASET ||
+  'techsteps';
+const apiVersion =
+  import.meta.env.PUBLIC_SANITY_API_VERSION ||
+  import.meta.env.SANITY_API_VERSION ||
+  '2026-03-01';
+// In static Astro generation, useCdn: false ensures the current published content is fetched
+const useCdn = false;
 
 export const sanityClient = projectId
   ? createClient({

@@ -3,6 +3,16 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
+import sanity from '@sanity/astro';
+
+const sanityProjectId =
+  process.env.PUBLIC_SANITY_PROJECT_ID ||
+  process.env.SANITY_PROJECT_ID ||
+  'zjv69ibt';
+const sanityDataset =
+  process.env.PUBLIC_SANITY_DATASET ||
+  process.env.SANITY_DATASET ||
+  'techsteps';
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,6 +20,12 @@ export default defineConfig({
   trailingSlash: 'never',
   integrations: [
     react(),
+    sanity({
+      projectId: sanityProjectId,
+      dataset: sanityDataset,
+      apiVersion: '2026-03-01',
+      useCdn: false,
+    }),
     sitemap({
       filter: (page) => {
         const path = page.replace('https://techsteps.co.uk', '');
