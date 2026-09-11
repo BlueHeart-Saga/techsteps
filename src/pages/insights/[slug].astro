@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
-import Section from '../../components/layout/Section.astro';
 import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
 import { articles, siteSettings } from '../../lib/sanity/data';
 import { generateArticleSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
@@ -20,6 +19,17 @@ interface Props {
 
 const { article } = Astro.props;
 
+// Related articles: same category or others, excluding current
+const relatedArticles = articles
+  .filter((a) => a.slug !== article.slug)
+  .slice(0, 3);
+
+// Key takeaways: pull first sentence of each paragraph as a summary point
+const keyTakeaways = article.content.slice(0, 4).map((p: string) => {
+  const firstSentence = p.split('. ')[0];
+  return firstSentence.length > 120 ? firstSentence.substring(0, 120) + '…' : firstSentence + '.';
+});
+
 const breadcrumbs = [
   { name: 'Insights', url: '/insights' },
   { name: article.title, url: `/insights/${article.slug}` },
@@ -27,6 +37,23 @@ const breadcrumbs = [
 
 const articleSchema = generateArticleSchema(article, siteSettings, Astro.site?.origin || 'https://techsteps.co.uk');
 const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs, Astro.site?.origin || 'https://techsteps.co.uk');
+
+// Related service links based on category
+const categoryServiceMap: Record<string, { label: string; href: string }[]> = {
+  'Regulatory Compliance': [
+    { label: 'Simpler Recycling Services', href: '/services/simpler-recycling-services' },
+    { label: 'Secure IT Disposal', href: '/services/secure-it-disposal' },
+  ],
+  'Cyber Security & ITAD': [
+    { label: 'Hard Drive Destruction', href: '/services/ultra-secure-hard-drive-destruction' },
+    { label: 'ITAD Services', href: '/services/it-asset-disposition-services' },
+    { label: 'Secure IT Disposal', href: '/services/secure-it-disposal' },
+  ],
+};
+const relatedServices = categoryServiceMap[article.category] || [
+  { label: 'IT Asset Disposition', href: '/services/it-asset-disposition-services' },
+  { label: 'Secure IT Disposal', href: '/services/secure-it-disposal' },
+];
 ---
 
 <BaseLayout
@@ -35,71 +62,264 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs, Astro.site?.origi
   ogType="article"
   jsonLd={[articleSchema, breadcrumbSchema]}
 >
-  <div class="bg-brand-navy text-white py-16">
+
+  <!-- ===== ARTICLE HERO ===== -->
+  <section class="relative bg-[#f7f8f5] pt-24 pb-0 overflow-hidden">
+    <!-- Subtle grid -->
+    <div class="absolute inset-0 opacity-[0.04]" style="background-image: linear-gradient(#1a2e1f 1px, transparent 1px), linear-gradient(90deg, #1a2e1f 1px, transparent 1px); background-size: 48px 48px;"></div>
+
     <Container size="narrow">
-      <Breadcrumbs items={breadcrumbs} theme="dark" />
-      <div class="space-y-4 mt-6">
-        <div class="flex items-center gap-3 text-xs">
-          <span class="px-2.5 py-1 rounded-md bg-white/10 text-emerald-300 font-bold uppercase tracking-wider">
-            {article.category}
-          </span>
-          <span class="text-slate-400">&bull;</span>
-          <span class="text-slate-300 font-mono">{article.publishedDate}</span>
-          <span class="text-slate-400">&bull;</span>
-          <span class="text-slate-300">{article.readTime}</span>
+      <!-- Breadcrumbs -->
+      <div class="mb-8 relative z-10">
+        <Breadcrumbs items={breadcrumbs} theme="light" />
+      </div>
+
+      <!-- Meta row -->
+      <div class="relative z-10 flex flex-wrap items-center gap-3 mb-6">
+        <span class="inline-block text-[11px] font-bold uppercase tracking-widest text-[#2D6A4F] border border-[#2D6A4F]/40 px-3 py-1 rounded-full bg-[#2D6A4F]/5">
+          {article.category}
+        </span>
+        <span class="text-slate-300">·</span>
+        <span class="text-sm text-slate-500 font-bold">{article.readTime}</span>
+        <span class="text-slate-300">·</span>
+        <time class="text-sm text-slate-500 font-mono" datetime={article.publishedDate}>{article.publishedDate}</time>
+      </div>
+
+      <!-- H1 Title -->
+      <h1 class="relative z-10 text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold text-slate-900 leading-[1.1] tracking-tight mb-7 max-w-3xl">
+        {article.title}
+      </h1>
+
+      <!-- Summary / deck -->
+      <p class="relative z-10 text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl font-medium mb-10">
+        {article.summary}
+      </p>
+
+      <!-- Author row -->
+      <div class="relative z-10 flex items-center gap-4 pb-10 border-b border-slate-200">
+        <div class="h-12 w-12 rounded-full bg-[#2D6A4F]/15 border border-[#2D6A4F]/30 flex items-center justify-center font-bold text-[#2D6A4F] text-base shrink-0">
+          {article.author.split(' ').map((n: string) => n[0]).join('')}
         </div>
-
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-          {article.title}
-        </h1>
-
-        <div class="pt-2 flex items-center gap-3 text-xs text-slate-300">
-          <div class="h-9 w-9 rounded-full bg-brand-accent/30 border border-brand-accent/50 flex items-center justify-center font-bold text-emerald-300">
-            {article.author.split(' ').map((n) => n[0]).join('')}
-          </div>
-          <div>
-            <p class="font-bold text-white">{article.author}</p>
-            <p class="text-slate-400">{article.authorRole}</p>
-          </div>
+        <div>
+          <p class="text-sm font-bold text-slate-900">{article.author}</p>
+          <p class="text-sm text-slate-500">{article.authorRole} · Techsteps</p>
         </div>
       </div>
     </Container>
-  </div>
+  </section>
 
-  <Section theme="white">
+  <!-- ===== FEATURED IMAGE PANEL ===== -->
+  <section class="bg-[#1a2e1f] relative overflow-hidden" style="min-height: 280px;">
+    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 28px 28px;"></div>
+    <div class="absolute inset-0 flex items-center justify-center opacity-5">
+      <svg class="w-96 h-96 text-white" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+      </svg>
+    </div>
+    <!-- Gradient overlays for depth -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#1a2e1f]/60 pointer-events-none"></div>
+    <div class="absolute bottom-8 left-0 right-0">
+      <Container size="narrow">
+        <p class="text-xs font-bold uppercase tracking-widest text-emerald-400 opacity-70">{article.category} · Techsteps Insights</p>
+      </Container>
+    </div>
+  </section>
+
+  <!-- ===== ARTICLE CONTENT ===== -->
+  <section class="bg-white py-14 lg:py-20">
     <Container size="narrow">
-      <div class="prose prose-lg max-w-none text-slate-700 space-y-6">
-        <p class="text-lg sm:text-xl font-medium text-brand-navy leading-relaxed border-l-4 border-brand-accent pl-4">
-          {article.summary}
-        </p>
+      <div class="grid lg:grid-cols-[1fr_260px] gap-14 lg:gap-16 items-start">
 
-        {article.content.map((paragraph) => (
-          <p class="text-base sm:text-lg leading-relaxed text-slate-700">
-            {paragraph}
-          </p>
-        ))}
-      </div>
-
-      <!-- Author Box & Share CTA -->
-      <div class="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <!-- Main Content Column -->
         <div>
-          <a
-            href="/insights"
-            class="text-sm font-bold text-brand-blue hover:text-brand-accent flex items-center gap-2"
-          >
-            <span>&larr;</span>
-            <span>Back to All Insights</span>
-          </a>
+          <!-- Article body -->
+          <div class="space-y-7">
+            {article.content.map((paragraph: string, i: number) => (
+              <p class={`leading-[1.85] text-slate-700 ${i === 0 ? 'text-lg sm:text-xl font-medium text-slate-800' : 'text-base sm:text-[17px]'}`}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          <!-- Key Takeaways -->
+          <div class="mt-12 bg-[#f7f8f5] border border-[#2D6A4F]/20 rounded-2xl p-7">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="h-8 w-8 rounded-lg bg-[#2D6A4F]/10 flex items-center justify-center">
+                <svg class="w-4 h-4 text-[#2D6A4F]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+              </div>
+              <h2 class="text-base font-bold text-slate-900 uppercase tracking-wider">Key Takeaways</h2>
+            </div>
+            <ul class="space-y-3">
+              {keyTakeaways.map((point: string) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#2D6A4F] shrink-0"></span>
+                  <p class="text-sm text-slate-700 leading-relaxed">{point}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Internal service links -->
+          <div class="mt-10 pt-8 border-t border-slate-100">
+            <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Related Techsteps Services</p>
+            <div class="flex flex-wrap gap-2">
+              {relatedServices.map((svc) => (
+                <a
+                  href={svc.href}
+                  class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 text-sm font-semibold text-slate-700 hover:border-[#2D6A4F] hover:text-[#2D6A4F] hover:bg-[#2D6A4F]/5 transition-all duration-200"
+                >
+                  {svc.label}
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Back / Forward nav -->
+          <div class="mt-12 pt-8 border-t border-slate-200 flex items-center justify-between">
+            <a
+              href="/insights"
+              class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-[#2D6A4F] transition-colors"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+              </svg>
+              All Insights
+            </a>
+            <a
+              href="/request-a-quote"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm"
+            >
+              Speak to Our Team →
+            </a>
+          </div>
         </div>
-        <div>
+
+        <!-- Sidebar -->
+        <aside class="hidden lg:block space-y-6 sticky top-24">
+          <!-- Author card -->
+          <div class="bg-[#f7f8f5] rounded-2xl p-6 border border-slate-200">
+            <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4">Written by</p>
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-11 w-11 rounded-full bg-[#2D6A4F]/15 border border-[#2D6A4F]/30 flex items-center justify-center font-bold text-[#2D6A4F] text-sm shrink-0">
+                {article.author.split(' ').map((n: string) => n[0]).join('')}
+              </div>
+              <div>
+                <p class="text-sm font-bold text-slate-900">{article.author}</p>
+                <p class="text-xs text-slate-500">{article.authorRole}</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">Expert in information security and technology lifecycle compliance at Techsteps UK.</p>
+          </div>
+
+          <!-- Article meta -->
+          <div class="bg-white rounded-2xl p-6 border border-slate-200">
+            <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4">Article Details</p>
+            <dl class="space-y-3">
+              <div>
+                <dt class="text-xs text-slate-400 font-semibold">Category</dt>
+                <dd class="text-sm font-bold text-[#2D6A4F] mt-0.5">{article.category}</dd>
+              </div>
+              <div>
+                <dt class="text-xs text-slate-400 font-semibold">Published</dt>
+                <dd class="text-sm font-mono text-slate-700 mt-0.5">{article.publishedDate}</dd>
+              </div>
+              <div>
+                <dt class="text-xs text-slate-400 font-semibold">Read Time</dt>
+                <dd class="text-sm text-slate-700 mt-0.5">{article.readTime}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- CTA card -->
+          <div class="bg-[#1a2e1f] rounded-2xl p-6 border border-[#2D6A4F]/30">
+            <p class="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-3">Need Expert Help?</p>
+            <p class="text-sm text-slate-300 leading-relaxed mb-5">Talk to our team about how Techsteps can support your organisation.</p>
+            <a
+              href="/contact"
+              class="block text-center px-4 py-2.5 rounded-lg bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider transition-all duration-200"
+            >
+              Get in Touch →
+            </a>
+          </div>
+        </aside>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== RELATED INSIGHTS ===== -->
+  {relatedArticles.length > 0 && (
+    <section class="bg-[#f7f8f5] py-16 lg:py-20 border-t border-slate-200">
+      <Container>
+        <div class="flex items-center gap-4 mb-10">
+          <h2 class="text-2xl font-extrabold text-slate-900">Related Insights</h2>
+          <div class="flex-1 h-px bg-slate-200"></div>
+          <a href="/insights" class="text-sm font-bold text-[#2D6A4F] hover:underline shrink-0">View all →</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {relatedArticles.map((rel) => (
+            <a
+              href={`/insights/${rel.slug}`}
+              class="group bg-white rounded-2xl border border-slate-200 hover:border-[#2D6A4F]/50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+            >
+              <div class="h-36 bg-gradient-to-br from-slate-800 to-[#1a2e1f] relative overflow-hidden flex-shrink-0">
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 18px 18px;"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-300">{rel.category}</span>
+                </div>
+              </div>
+              <div class="flex-1 p-5 flex flex-col">
+                <p class="text-[11px] text-slate-400 font-mono mb-2">{rel.publishedDate} · {rel.readTime}</p>
+                <h3 class="text-sm font-bold text-slate-900 group-hover:text-[#2D6A4F] transition-colors leading-snug mb-2 line-clamp-2 flex-1">
+                  {rel.title}
+                </h3>
+                <span class="mt-3 flex items-center gap-1 text-xs font-bold text-[#2D6A4F] group-hover:gap-2 transition-all">
+                  Read
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- ===== ARTICLE CTA (Clean Open Layout - No Background Box) ===== -->
+  <section class="relative z-10 py-16 lg:py-24 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#2D6A4F]/10 blur-3xl pointer-events-none"></div>
+    <Container className="relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Work With Techsteps</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">
+          Ready to Build a Smarter Technology Lifecycle?
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 font-medium max-w-xl mx-auto">
+          Our team of specialists can help you implement secure, compliant, and sustainable IT asset management for your organisation.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/contact"
+            class="px-8 py-4 rounded-xl bg-[#2D6A4F] hover:bg-[#245a41] text-white font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          >
+            Get in Touch →
+          </a>
           <a
             href="/request-a-quote"
-            class="px-6 py-3 rounded-lg bg-brand-accent hover:bg-brand-accent-hover text-white text-xs font-bold uppercase tracking-wider transition-all"
+            class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5"
           >
-            Speak to a Compliance Consultant
+            Request a Quote
           </a>
         </div>
       </div>
     </Container>
-  </Section>
+  </section>
+
 </BaseLayout>

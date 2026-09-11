@@ -1,30 +1,427 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
-import Section from '../../components/layout/Section.astro';
 import PageHero from '../../components/hero/PageHero.astro';
-import SectorGrid from '../../components/sectors/SectorGrid.astro';
-import { sectors } from '../../lib/sanity/data';
+import { sectors, divisions } from '../../lib/sanity/data';
 
 const breadcrumbs = [
   { name: 'Sectors', url: '/sectors' },
 ];
+
+// Verified four core sectors in preferred display order
+const coreSectors = [
+  {
+    slug: 'defence',
+    title: 'Defence',
+    tagline: 'Secure technology and information lifecycle solutions for organisations operating in highly controlled environments.',
+    accent: '#1B3A5C',
+    icon: 'shield-check',
+  },
+  {
+    slug: 'nhs',
+    title: 'NHS & Healthcare',
+    tagline: 'Responsible IT asset, information and destruction solutions supporting healthcare organisations and NHS Trusts.',
+    accent: '#005EB8',
+    icon: 'heart',
+  },
+  {
+    slug: 'finance',
+    title: 'Financial Services',
+    tagline: 'Secure lifecycle management for technology and information where security and accountability are paramount.',
+    accent: '#2D4A6E',
+    icon: 'building',
+  },
+  {
+    slug: 'central-government',
+    title: 'Central Government',
+    tagline: 'Controlled technology and information lifecycle services aligned with public sector requirements and frameworks.',
+    accent: '#375647',
+    icon: 'landmark',
+  },
+];
+
+// Lifecycle steps
+const lifecycleSteps = [
+  { step: 'Collect', desc: 'Secure, GPS-tracked collection by BS 7858 vetted personnel.' },
+  { step: 'Secure', desc: 'Controlled handling and high-security chain of custody.' },
+  { step: 'Sanitise', desc: 'ADISA-certified data erasure, degaussing or physical shredding.' },
+  { step: 'Reuse', desc: 'Refurbishment and remarketing to maximise asset value.' },
+  { step: 'Recycle', desc: 'Zero-landfill, WEEE-compliant responsible recycling.' },
+  { step: 'Report', desc: 'Complete audit trails, serialized certificates and ESG reporting.' },
+];
+
+// Service category cards
+const serviceCategories = [
+  {
+    title: 'IT Lifecycle',
+    items: 'ITAD · Disposal · Data Destruction · Recycling',
+    href: '/services/it-asset-disposition-services',
+    icon: 'cpu',
+  },
+  {
+    title: 'Information Management',
+    items: 'Storage · Scanning · Records Management',
+    href: '/services/document-storage',
+    icon: 'folder',
+  },
+  {
+    title: 'Secure Destruction',
+    items: 'Hard Drive · Media · Document Shredding',
+    href: '/services/ultra-secure-hard-drive-destruction',
+    icon: 'shield',
+  },
+  {
+    title: 'Relocation',
+    items: 'IT Moves · Data Centre · Technology Logistics',
+    href: '/services/it-relocations-specialist',
+    icon: 'truck',
+  },
+];
+
+// Accreditations (verified only)
+const accreditations = [
+  { name: 'ADISA Standard 8.0', note: 'Pass with Distinction' },
+  { name: 'ISO 27001', note: 'Information Security' },
+  { name: 'ISO 14001', note: 'Environmental Management' },
+  { name: 'BS EN 15713', note: 'Secure Destruction' },
+  { name: 'Cyber Essentials Plus', note: 'NCSC Certified' },
+  { name: 'UK GDPR Compliant', note: 'Data Protection' },
+];
 ---
 
 <BaseLayout
-  title="Regulated Sector Solutions UK | Defence, NHS, Finance & Government | Techsteps"
-  description="Explore Techsteps sector-specific lifecycle frameworks. Tailored compliance protocols for UK Defence, NHS Trusts, Financial Institutions, and Central Government."
+  title="Sector Expertise | IT Lifecycle Solutions for Defence, NHS, Finance & Government | Techsteps"
+  description="Specialist information management, IT lifecycle, secure destruction and relocation solutions tailored for the requirements of Defence, NHS, Financial Services and Central Government."
   hasHeroHeader={true}
 >
+  <!-- ===== EXISTING HERO — KEPT UNCHANGED ===== -->
   <PageHero
     title="Sectors"
+    eyebrow="SECTOR EXPERTISE"
+    subheading="Specialist information, IT lifecycle, destruction and relocation solutions designed around the requirements of your organisation."
     breadcrumbs={breadcrumbs}
-    dividerColor="#f1f4ef"
+    dividerColor="#ffffff"
   />
 
-  <Section theme="white">
+  <!-- ===== 1. SECTOR EXPERTISE INTRO ===== -->
+  <section class="bg-white py-16 lg:py-24">
     <Container>
-      <SectorGrid sectors={sectors} />
+      <div class="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+        <!-- Left text -->
+        <div>
+          <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-5 border border-[#2D6A4F]/30 px-3 py-1.5 rounded-full bg-[#2D6A4F]/5">
+            Our Approach
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+            Solutions Built Around<br />Your Organisation
+          </h2>
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
+            Every sector has different requirements for security, compliance, information management and technology. Techsteps brings together the expertise and services needed to manage those requirements throughout the asset lifecycle.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#2D6A4F] hover:bg-[#245a41] text-white text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-sm">
+              Discuss Your Requirements →
+            </a>
+            <a href="/services" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-300 hover:border-slate-900 text-slate-800 text-sm font-bold uppercase tracking-wider transition-all duration-200">
+              Explore Services
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Four pillars -->
+        <div class="grid grid-cols-2 gap-4">
+          {[
+            { label: 'Security', icon: 'lock', desc: 'Uncompromising chain of custody and data protection throughout.' },
+            { label: 'Lifecycle', icon: 'cycle', desc: 'End-to-end asset management from first collection to final report.' },
+            { label: 'Responsibility', icon: 'leaf', desc: 'Zero-landfill, circular economy outcomes for every engagement.' },
+            { label: 'Expertise', icon: 'star', desc: 'Sector-specific knowledge and accredited specialist capabilities.' },
+          ].map((p, i) => (
+            <div class={`rounded-2xl p-6 border ${i % 2 === 0 ? 'bg-[#f7f8f5] border-slate-200' : 'bg-slate-900 border-slate-800'}`}>
+              <div class={`h-9 w-9 rounded-lg flex items-center justify-center mb-4 ${i % 2 === 0 ? 'bg-[#2D6A4F]/10 border border-[#2D6A4F]/20' : 'bg-white/10 border border-white/20'}`}>
+                {p.icon === 'lock' && (
+                  <svg class={`w-4.5 h-4.5 ${i % 2 === 0 ? 'text-[#2D6A4F]' : 'text-emerald-300'}`} fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                    <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" stroke-linecap="round"/>
+                  </svg>
+                )}
+                {p.icon === 'cycle' && (
+                  <svg class={`w-4.5 h-4.5 ${i % 2 === 0 ? 'text-[#2D6A4F]' : 'text-emerald-300'}`} fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                  </svg>
+                )}
+                {p.icon === 'leaf' && (
+                  <svg class={`w-4.5 h-4.5 ${i % 2 === 0 ? 'text-[#2D6A4F]' : 'text-emerald-300'}`} fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 3s2 8 0 12c0 0 4-2 8-2 5.523 0 8 3 8 3S19 4.5 5 3zM5 15s2 3 2 6"/>
+                  </svg>
+                )}
+                {p.icon === 'star' && (
+                  <svg class={`w-4.5 h-4.5 ${i % 2 === 0 ? 'text-[#2D6A4F]' : 'text-emerald-300'}`} fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                  </svg>
+                )}
+              </div>
+              <p class={`text-sm font-bold uppercase tracking-wider mb-1.5 ${i % 2 === 0 ? 'text-slate-900' : 'text-white'}`}>{p.label}</p>
+              <p class={`text-xs leading-relaxed ${i % 2 === 0 ? 'text-slate-600' : 'text-slate-400'}`}>{p.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </Container>
-  </Section>
+  </section>
+
+  <!-- ===== 2. SECTORS WE SERVE — Large Image Cards 2x2 ===== -->
+  <section class="bg-[#f7f8f5] py-16 lg:py-24 border-t border-slate-200">
+    <Container>
+      <div class="text-center mb-14">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Industries</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Sectors We Serve</h2>
+        <p class="mt-4 text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
+          Built around the specific security, compliance and operational requirements of regulated industries.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {coreSectors.map((sector) => (
+          <a
+            href={`/sectors/${sector.slug}`}
+            class="group relative rounded-3xl overflow-hidden border border-slate-200 hover:border-transparent hover:shadow-2xl transition-all duration-500 bg-slate-900 min-h-[280px] flex flex-col justify-end p-8 lg:p-10"
+            style={`background: linear-gradient(145deg, ${sector.accent}ee, #0d1117);`}
+          >
+            <div class="absolute inset-0 opacity-[0.06]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div class="absolute top-0 left-0 right-0 h-1 opacity-60" style={`background: linear-gradient(90deg, ${sector.accent}, transparent);`}></div>
+
+            <div class="relative z-10">
+              <span class="inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 mb-4 border border-white/20 px-2.5 py-1 rounded-full">
+                Sector Expertise
+              </span>
+              <h3 class="text-2xl lg:text-3xl font-extrabold text-white leading-tight mb-3">
+                {sector.title}
+              </h3>
+              <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-sm mb-7">
+                {sector.tagline}
+              </p>
+              <span class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:gap-3 transition-all duration-200">
+                Explore {sector.title}
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </span>
+            </div>
+
+            <div class="absolute bottom-0 right-0 w-48 h-48 opacity-5 pointer-events-none">
+              {sector.icon === 'shield-check' && (
+                <svg fill="currentColor" viewBox="0 0 24 24" class="w-full h-full text-white">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zm-2-8l-2-2 1.4-1.4L10 11.2l4.6-4.6L16 8l-6 6z"/>
+                </svg>
+              )}
+              {sector.icon === 'heart' && (
+                <svg fill="currentColor" viewBox="0 0 24 24" class="w-full h-full text-white">
+                  <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/>
+                </svg>
+              )}
+              {sector.icon === 'building' && (
+                <svg fill="currentColor" viewBox="0 0 24 24" class="w-full h-full text-white">
+                  <path d="M4 3h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1zm4 10v4h8v-4H8zm0-6v4h8V7H8z"/>
+                </svg>
+              )}
+              {sector.icon === 'landmark' && (
+                <svg fill="currentColor" viewBox="0 0 24 24" class="w-full h-full text-white">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 3. SECURITY-FIRST APPROACH ===== -->
+  <section class="bg-white py-16 lg:py-24 border-t border-slate-100">
+    <Container>
+      <div class="max-w-2xl mx-auto text-center mb-14">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Our Philosophy</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Security Is Part of Every Lifecycle
+        </h2>
+        <p class="mt-4 text-base text-slate-600 leading-relaxed">
+          Whatever your sector, our approach is built around three consistent principles.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+        {[
+          {
+            label: 'Protect',
+            number: '01',
+            desc: 'Safeguard information and technology throughout the entire process — from first collection through to final certificate.',
+            color: '#1B3A5C',
+          },
+          {
+            label: 'Control',
+            number: '02',
+            desc: 'Maintain appropriate visibility and accountability at every stage. Serialised tracking, chain-of-custody documentation and real-time reporting.',
+            color: '#2D6A4F',
+          },
+          {
+            label: 'Responsibly Manage',
+            number: '03',
+            desc: 'Choose the right outcome for every asset — reuse, remarketing, destruction or recycling — with zero-landfill commitment and ESG reporting.',
+            color: '#375647',
+          },
+        ].map((principle) => (
+          <div class="relative group">
+            <div class="absolute -top-3 -left-1 text-[72px] font-black text-slate-100 select-none leading-none pointer-events-none group-hover:text-[#2D6A4F]/10 transition-colors duration-300">
+              {principle.number}
+            </div>
+            <div class="relative pt-8 pb-8 px-0 border-t-2 border-slate-200 group-hover:border-[#2D6A4F] transition-colors duration-300">
+              <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] text-[#2D6A4F] mb-3">{principle.label}</span>
+              <p class="text-base text-slate-700 leading-relaxed">{principle.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 4. LIFECYCLE: COLLECT → REPORT ===== -->
+  <section class="bg-[#1a2e1f] py-16 lg:py-20 border-t border-slate-800">
+    <Container>
+      <div class="text-center mb-14">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-emerald-400 mb-4">Our Process</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          From First Collection to Final Outcome.
+        </h2>
+        <p class="mt-4 text-base text-slate-400 max-w-xl mx-auto leading-relaxed">
+          Whatever the sector, our approach connects security, asset management and responsible lifecycle decisions.
+        </p>
+      </div>
+
+      <div class="relative">
+        <div class="hidden lg:block absolute top-7 left-[8.33%] right-[8.33%] h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent pointer-events-none"></div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5 lg:gap-4">
+          {lifecycleSteps.map((step, i) => (
+            <div class="flex flex-col items-center text-center group">
+              <div class="relative mb-4">
+                <div class="h-14 w-14 rounded-2xl bg-[#2D6A4F]/20 border border-[#2D6A4F]/40 flex items-center justify-center group-hover:bg-[#2D6A4F]/40 group-hover:border-[#2D6A4F] transition-all duration-300">
+                  <span class="text-sm font-extrabold text-emerald-300">{String(i + 1).padStart(2, '0')}</span>
+                </div>
+              </div>
+              <p class="text-xs font-bold uppercase tracking-widest text-white mb-2">{step.step}</p>
+              <p class="text-[11px] text-slate-400 leading-relaxed">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 5. SPECIALIST SERVICES ===== -->
+  <section class="bg-white py-16 lg:py-24 border-t border-slate-100">
+    <Container>
+      <div class="text-center mb-12">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Capabilities</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Specialist Services for Your Requirements
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {serviceCategories.map((cat) => (
+          <a
+            href={cat.href}
+            class="group relative bg-[#f7f8f5] rounded-2xl p-6 border border-slate-200 hover:border-[#2D6A4F]/50 hover:shadow-xl hover:bg-white transition-all duration-300 overflow-hidden"
+          >
+            <div class="absolute top-0 left-0 right-0 h-0.5 bg-[#2D6A4F] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl"></div>
+            <div class="h-10 w-10 rounded-xl bg-[#2D6A4F]/10 border border-[#2D6A4F]/20 flex items-center justify-center mb-5">
+              {cat.icon === 'cpu' && (
+                <svg class="w-5 h-5 text-[#2D6A4F]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                  <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor"/><rect x="9" y="9" width="6" height="6" stroke="currentColor"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" stroke="currentColor" stroke-linecap="round"/>
+                </svg>
+              )}
+              {cat.icon === 'folder' && (
+                <svg class="w-5 h-5 text-[#2D6A4F]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+                </svg>
+              )}
+              {cat.icon === 'shield' && (
+                <svg class="w-5 h-5 text-[#2D6A4F]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              )}
+              {cat.icon === 'truck' && (
+                <svg class="w-5 h-5 text-[#2D6A4F]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M1 3h15v13H1V3zm15 5h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="1.5"/><circle cx="18.5" cy="18.5" r="1.5"/>
+                </svg>
+              )}
+            </div>
+            <h3 class="text-base font-bold text-slate-900 group-hover:text-[#2D6A4F] transition-colors mb-2">{cat.title}</h3>
+            <p class="text-xs text-slate-500 leading-relaxed font-mono">{cat.items}</p>
+            <div class="mt-5 flex items-center gap-1.5 text-xs font-bold text-[#2D6A4F] group-hover:gap-2.5 transition-all">
+              Explore
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 6. TRUST & COMPLIANCE ===== -->
+  <section class="bg-[#f7f8f5] py-16 lg:py-20 border-t border-slate-200">
+    <Container>
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Accreditations</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Built Around Trust.</h2>
+        <p class="text-base text-slate-600 leading-relaxed">
+          Our services are designed to help organisations manage technology and information with security, accountability and responsible lifecycle practices.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        {accreditations.map((cert) => (
+          <div class="group bg-white rounded-2xl p-5 border border-slate-200 hover:border-[#2D6A4F]/40 hover:shadow-md transition-all duration-200 text-center">
+            <div class="h-9 w-9 rounded-full bg-[#2D6A4F]/10 border border-[#2D6A4F]/20 flex items-center justify-center mx-auto mb-3">
+              <svg class="w-4 h-4 text-[#2D6A4F]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/>
+              </svg>
+            </div>
+            <p class="text-xs font-bold text-slate-900 leading-snug mb-0.5">{cert.name}</p>
+            <p class="text-[10px] text-slate-400 font-medium">{cert.note}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 7. FINAL CTA (Clean Open Layout - No Background Box) ===== -->
+  <section class="relative z-10 py-16 lg:py-24 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#2D6A4F]/10 blur-3xl pointer-events-none"></div>
+    <Container className="relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Work With Techsteps</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">
+          Let's Build the Right Solution<br />for Your Sector.
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 font-medium max-w-xl mx-auto">
+          Talk to our team about your organisation's technology and information lifecycle requirements.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/contact"
+            class="px-8 py-4 rounded-xl bg-[#2D6A4F] hover:bg-[#245a41] text-white font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          >
+            Get In Touch →
+          </a>
+          <a
+            href="/services"
+            class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5"
+          >
+            Explore Our Services
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
 </BaseLayout>

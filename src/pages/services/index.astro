@@ -1,63 +1,500 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
-import Section from '../../components/layout/Section.astro';
 import PageHero from '../../components/hero/PageHero.astro';
-import ServiceCard from '../../components/services/ServiceCard.astro';
 import { divisions, services } from '../../lib/sanity/data';
 
 const breadcrumbs = [
   { name: 'Services', url: '/services' },
 ];
+
+// Ordered divisions for display
+const orderedDivisions = [...divisions].sort((a, b) => a.order - b.order);
+
+// Division config — featured service slugs + display metadata
+const divisionConfig: Record<string, {
+  number: string;
+  accent: string;
+  bg: string;
+  featuredSlugs: string[];
+  tagline: string;
+  icon: string;
+}> = {
+  'it-lifecycle-services-destruction': {
+    number: '01',
+    accent: '#1B3A5C',
+    bg: '#EFF4FA',
+    tagline: 'Securely manage IT assets from collection and data sanitisation through reuse, remarketing, destruction and recycling.',
+    featuredSlugs: ['secure-it-disposal', 'it-asset-disposition-services', 'ultra-secure-hard-drive-destruction', 'remarketing-recycling', 'it-asset-management-services'],
+    icon: 'cpu',
+  },
+  'information-management': {
+    number: '02',
+    accent: '#5D4037',
+    bg: '#FBF8F6',
+    tagline: 'Securely manage business information through physical storage, high-speed scanning and full records lifecycle governance.',
+    featuredSlugs: ['document-storage', 'document-scanning', 'digital-mailroom', 'document-management'],
+    icon: 'folder',
+  },
+  'secure-shredding-document-integrity': {
+    number: '03',
+    accent: '#2D6A4F',
+    bg: '#F2F8F5',
+    tagline: 'Protect sensitive information through certified on-site and off-site destruction for documents, media and hard drives.',
+    featuredSlugs: ['on-site-shredding', 'off-site-shredding', 'ultra-secure-hard-drive-destruction', 'product-shredding'],
+    icon: 'shield',
+  },
+  'moving-relocation-services': {
+    number: '04',
+    accent: '#374151',
+    bg: '#F8F9FA',
+    tagline: 'Specialist technology relocation services for IT equipment, data centres, laboratories and mission-critical environments.',
+    featuredSlugs: ['it-relocations-specialist', 'business-relocations', 'laboratory-relocations-storage', 'heritage-relocations-storage'],
+    icon: 'truck',
+  },
+};
+
+// Lifecycle steps
+const lifecycleSteps = [
+  { step: 'Collect', number: '01', desc: 'Secure GPS-tracked collection by BS 7858 vetted personnel.' },
+  { step: 'Secure', number: '02', desc: 'Controlled handling, high-security chain of custody.' },
+  { step: 'Sanitise', number: '03', desc: 'ADISA-certified erasure, degaussing or shredding.' },
+  { step: 'Reuse', number: '04', desc: 'Refurbishment and remarketing to maximise residual value.' },
+  { step: 'Recycle', number: '05', desc: 'Zero-landfill, WEEE-compliant responsible recycling.' },
+  { step: 'Report', number: '06', desc: 'Certificates, audit trails and ESG reporting.' },
+];
+
+// Why Techsteps pillars
+const pillars = [
+  {
+    title: 'Security',
+    desc: 'Protecting information and assets with uncompromising standards throughout the lifecycle.',
+    icon: 'lock',
+  },
+  {
+    title: 'Expertise',
+    desc: 'Specialist lifecycle and operational knowledge across every service discipline.',
+    icon: 'star',
+  },
+  {
+    title: 'Responsibility',
+    desc: 'Making better choices for technology and the environment at every stage.',
+    icon: 'leaf',
+  },
+  {
+    title: 'Accountability',
+    desc: 'Clear processes, serialised tracking and complete visibility throughout the lifecycle.',
+    icon: 'check',
+  },
+];
+
+// Sectors for cross-link band
+const sectors = [
+  { title: 'Defence', slug: 'defence' },
+  { title: 'NHS & Healthcare', slug: 'nhs' },
+  { title: 'Financial Services', slug: 'finance' },
+  { title: 'Central Government', slug: 'central-government' },
+];
 ---
 
 <BaseLayout
-  title="All 27 Certified Services | ITAD, Archiving & Secure Shredding | Techsteps UK"
-  description="Explore the complete portfolio of 27 certified lifecycle services offered by Techsteps UK across Information Management, IT Lifecycle & Destruction, Secure Shredding, and Relocations."
+  title="Our Services | IT Lifecycle, Information Management & Secure Destruction | Techsteps"
+  description="Techsteps delivers certified IT asset disposition, secure document and media destruction, information management and specialist relocation services across the UK."
   hasHeroHeader={true}
 >
+  <!-- ===== 1. SERVICES HERO (Simple & Clean, ref: /sustainability) ===== -->
   <PageHero
-    title="Services"
+    eyebrow="OUR SERVICES"
+    title="Solutions Across the Technology Lifecycle."
+    subheading="Specialist IT asset disposition, certified destruction, information management and technology relocation across the UK."
+    bgImage="/images/services/data-centre-hardware.jpg"
     breadcrumbs={breadcrumbs}
-    dividerColor="#f1f4ef"
-  />
+    dividerColor="#ffffff"
+  >
+    <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+      <a
+        href="#divisions"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#2D6A4F] hover:bg-[#245a41] text-white text-sm font-bold shadow-lg transition-all duration-200"
+      >
+        Explore Our Divisions
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
+    </div>
+  </PageHero>
 
-  <Section theme="white">
+  <!-- ===== 1. ONE PARTNER. MULTIPLE SOLUTIONS. ===== -->
+  <section id="divisions" class="bg-white py-16 lg:py-20">
     <Container>
-      <div class="space-y-16">
-        {divisions.map((div) => {
-          const divServices = services.filter((s) => s.divisionSlug === div.slug);
-          return (
-            <div id={div.slug} class="space-y-8 scroll-mt-28">
-              <div class="border-b border-slate-200 pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                <div>
-                  <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Division 0{div.order}</span>
-                  <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-navy mt-1">
-                    {div.title}
-                  </h2>
-                  <p class="text-sm text-slate-600 mt-1 max-w-2xl">
-                    {div.summary}
-                  </p>
-                </div>
-                <div>
-                  <a
-                    href={`/${div.slug}`}
-                    class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-blue hover:text-brand-accent"
-                  >
-                    <span>View Division Overview &rarr;</span>
-                  </a>
-                </div>
-              </div>
+      <div class="text-center mb-14">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4 border border-[#2D6A4F]/30 px-3 py-1.5 rounded-full bg-[#2D6A4F]/5">Service Divisions</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">One Partner. Multiple Solutions.</h2>
+        <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          Four specialist divisions, working together to provide complete coverage of the technology and information lifecycle.
+        </p>
+      </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {divServices.map((service) => (
-                  <ServiceCard service={service} showDivision={false} />
-                ))}
+      <!-- Division cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-7">
+        {orderedDivisions.map((div) => {
+          const cfg = divisionConfig[div.slug];
+          if (!cfg) return null;
+          const featuredServices = services.filter(s => cfg.featuredSlugs.includes(s.slug));
+          return (
+            <div
+              class="group relative rounded-3xl border border-slate-200 overflow-hidden hover:shadow-2xl hover:border-transparent transition-all duration-400"
+              style={`background: ${cfg.bg};`}
+            >
+              <!-- Top accent line -->
+              <div class="absolute top-0 left-0 right-0 h-1" style={`background: ${cfg.accent};`}></div>
+
+              <div class="p-7 lg:p-9">
+                <!-- Header row -->
+                <div class="flex items-start justify-between gap-4 mb-6">
+                  <div>
+                    <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] mb-2" style={`color: ${cfg.accent};`}>
+                      Division {cfg.number}
+                    </span>
+                    <h3 class="text-xl lg:text-2xl font-extrabold text-slate-900 leading-tight">{div.title}</h3>
+                  </div>
+                  <div class="h-12 w-12 rounded-2xl flex items-center justify-center shrink-0 mt-1" style={`background: ${cfg.accent}15; border: 1px solid ${cfg.accent}30;`}>
+                    {cfg.icon === 'cpu' && (
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style={`color: ${cfg.accent}`}>
+                        <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" stroke-linecap="round"/>
+                      </svg>
+                    )}
+                    {cfg.icon === 'folder' && (
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style={`color: ${cfg.accent}`}>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+                      </svg>
+                    )}
+                    {cfg.icon === 'shield' && (
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style={`color: ${cfg.accent}`}>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                      </svg>
+                    )}
+                    {cfg.icon === 'truck' && (
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style={`color: ${cfg.accent}`}>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M1 3h15v13H1V3zm15 5h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="1.5"/><circle cx="18.5" cy="18.5" r="1.5"/>
+                      </svg>
+                    )}
+                  </div>
+                </div>
+
+                <!-- Tagline -->
+                <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">{cfg.tagline}</p>
+
+                <!-- Service chips -->
+                <div class="flex flex-wrap gap-2 mb-7">
+                  {featuredServices.slice(0, 5).map(s => (
+                    <a
+                      href={`/services/${s.slug}`}
+                      class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold border transition-all duration-150 hover:shadow-sm"
+                      style={`border-color: ${cfg.accent}30; color: ${cfg.accent}; background: ${cfg.accent}08;`}
+                    >
+                      {s.title}
+                    </a>
+                  ))}
+                </div>
+
+                <!-- Explore link -->
+                <a
+                  href={`#division-${div.slug}`}
+                  class="inline-flex items-center gap-2 text-sm font-bold group-hover:gap-3 transition-all duration-200"
+                  style={`color: ${cfg.accent};`}
+                >
+                  Explore {div.title.split('&')[0].trim()}
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </a>
               </div>
             </div>
           );
         })}
       </div>
     </Container>
-  </Section>
+  </section>
+
+  <!-- ===== 2. IT ASSET LIFECYCLE VISUAL ===== -->
+  <section class="bg-[#1a2e1f] py-16 lg:py-24 border-t border-slate-800">
+    <Container>
+      <div class="grid lg:grid-cols-[1fr_480px] gap-14 lg:gap-16 items-center">
+        <!-- Left text -->
+        <div>
+          <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-emerald-400 mb-5 border border-emerald-500/30 px-3 py-1.5 rounded-full bg-emerald-500/10">IT Asset Lifecycle</span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-tight mb-6">
+            Every Asset.<br />A Smarter Journey.
+          </h2>
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-xl">
+            We help organisations move technology through the right lifecycle pathway, balancing security, value recovery and responsible end-of-life management.
+          </p>
+          <a
+            href="#division-it-lifecycle-services-destruction"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#2D6A4F] hover:bg-[#245a41] text-white text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-lg"
+          >
+            Explore IT Asset Lifecycle →
+          </a>
+        </div>
+
+        <!-- Right: Lifecycle stepper -->
+        <div class="relative">
+          <!-- Vertical connector -->
+          <div class="absolute left-6 top-6 bottom-6 w-px bg-gradient-to-b from-emerald-500/60 via-emerald-500/30 to-transparent lg:block hidden pointer-events-none"></div>
+          <div class="space-y-4">
+            {lifecycleSteps.map((step, i) => (
+              <div class="group flex items-start gap-5 p-4 rounded-2xl hover:bg-white/5 transition-colors duration-200">
+                <div class="relative shrink-0">
+                  <div class="h-12 w-12 rounded-xl bg-[#2D6A4F]/30 border border-[#2D6A4F]/60 flex items-center justify-center group-hover:bg-[#2D6A4F]/50 group-hover:border-emerald-400/60 transition-all duration-200">
+                    <span class="text-xs font-extrabold text-emerald-300">{step.number}</span>
+                  </div>
+                </div>
+                <div class="pt-1.5">
+                  <p class="text-sm font-bold uppercase tracking-wider text-white mb-1">{step.step}</p>
+                  <p class="text-xs text-slate-400 leading-relaxed">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 3. FULL SERVICE CATALOGUE — per division ===== -->
+  {orderedDivisions.map((div) => {
+    const cfg = divisionConfig[div.slug];
+    if (!cfg) return null;
+    const divServices = services.filter(s => s.divisionSlug === div.slug);
+    return (
+      <section
+        id={`division-${div.slug}`}
+        class="py-14 lg:py-20 border-t border-slate-100 scroll-mt-20"
+        style={`background: ${cfg.bg};`}
+      >
+        <Container>
+          <!-- Section header -->
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-10">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-[11px] font-bold uppercase tracking-[0.2em]" style={`color: ${cfg.accent};`}>Division {cfg.number}</span>
+                <div class="h-px w-12 opacity-30" style={`background: ${cfg.accent};`}></div>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{div.title}</h2>
+              <p class="mt-2 text-sm text-slate-600 max-w-2xl leading-relaxed">{div.summary}</p>
+            </div>
+          </div>
+
+          <!-- Service grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {divServices.map(service => (
+              <a
+                href={`/services/${service.slug}`}
+                class="group relative bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-transparent hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+              >
+                <!-- Top accent -->
+                <div class="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" style={`background: ${cfg.accent};`}></div>
+                <div class="flex-1">
+                  <h3 class="text-sm font-bold text-slate-900 group-hover:text-slate-800 leading-snug mb-2 transition-colors">
+                    {service.title}
+                  </h3>
+                  <p class="text-xs text-slate-500 leading-relaxed line-clamp-3">{service.summary}</p>
+                </div>
+                <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <span class="text-[10px] font-bold uppercase tracking-widest" style={`color: ${cfg.accent}99;`}>
+                    {div.title.split(' ')[0]}
+                  </span>
+                  <span class="flex items-center gap-1 text-xs font-bold group-hover:gap-2 transition-all" style={`color: ${cfg.accent};`}>
+                    Explore
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </Container>
+      </section>
+    );
+  })}
+
+  <!-- ===== 4. ONE LIFECYCLE. CONNECTED SERVICES. ===== -->
+  <section class="bg-slate-950 py-16 lg:py-24 border-t border-slate-800">
+    <Container>
+      <div class="text-center mb-14">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-emerald-400 mb-4">Integration</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">One Lifecycle. Connected Services.</h2>
+        <p class="text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          Combining specialist services allows organisations to manage technology and information through a more connected, efficient, and responsible lifecycle.
+        </p>
+      </div>
+
+      <!-- Visual connection diagram -->
+      <div class="max-w-3xl mx-auto">
+        <!-- Central hub -->
+        <div class="flex justify-center mb-8">
+          <div class="bg-[#2D6A4F]/20 border border-[#2D6A4F]/60 rounded-2xl px-10 py-5 text-center">
+            <p class="text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-1">One Partner</p>
+            <p class="text-2xl font-extrabold text-white">Techsteps</p>
+          </div>
+        </div>
+
+        <!-- Connector lines (decorative) -->
+        <div class="flex justify-center gap-1 mb-8 opacity-40">
+          {[...Array(5)].map((_, i) => (
+            <div class={`h-8 w-px bg-gradient-to-b from-emerald-500 to-transparent ${i === 2 ? '' : 'opacity-50'}`}></div>
+          ))}
+        </div>
+
+        <!-- Four division boxes -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {[
+            { title: 'IT Lifecycle', slug: 'it-lifecycle-services-destruction', accent: '#1B3A5C' },
+            { title: 'Information Management', slug: 'information-management', accent: '#5D4037' },
+            { title: 'Secure Destruction', slug: 'secure-shredding-document-integrity', accent: '#2D6A4F' },
+            { title: 'Relocation', slug: 'moving-relocation-services', accent: '#374151' },
+          ].map((item) => (
+            <a
+              href={`#division-${item.slug}`}
+              class="group bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-2xl p-5 text-center transition-all duration-200"
+            >
+              <p class="text-xs font-bold uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors leading-snug">{item.title}</p>
+            </a>
+          ))}
+        </div>
+
+        <!-- Bottom arrows -->
+        <div class="flex justify-center gap-1 mb-8 opacity-40">
+          {[...Array(5)].map((_, i) => (
+            <div class={`h-8 w-px bg-gradient-to-b from-transparent to-emerald-500 ${i === 2 ? '' : 'opacity-50'}`}></div>
+          ))}
+        </div>
+
+        <!-- Outcome -->
+        <div class="flex justify-center">
+          <div class="bg-emerald-900/30 border border-emerald-500/30 rounded-2xl px-10 py-5 text-center">
+            <p class="text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-1">Every Step</p>
+            <p class="text-lg font-extrabold text-white">Responsible Outcome</p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 5. WHY TECHSTEPS ===== -->
+  <section class="bg-white py-16 lg:py-24 border-t border-slate-100">
+    <Container>
+      <div class="text-center mb-12">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Our Difference</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Why Choose Techsteps?</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        {pillars.map((p, i) => (
+          <div class="relative group">
+            <div class="absolute -top-2 -left-1 text-[64px] font-black text-slate-100 select-none leading-none pointer-events-none group-hover:text-[#2D6A4F]/8 transition-colors duration-300">
+              {String(i + 1).padStart(2, '0')}
+            </div>
+            <div class="relative pt-8 border-t-2 border-slate-200 group-hover:border-[#2D6A4F] transition-colors duration-300">
+              <div class="h-10 w-10 rounded-xl bg-[#2D6A4F]/10 border border-[#2D6A4F]/20 flex items-center justify-center mb-4 group-hover:bg-[#2D6A4F]/20 transition-colors duration-200">
+                {p.icon === 'lock' && (
+                  <svg class="w-5 h-5 text-[#2D6A4F]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                    <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke-linecap="round"/>
+                  </svg>
+                )}
+                {p.icon === 'star' && (
+                  <svg class="w-5 h-5 text-[#2D6A4F]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                  </svg>
+                )}
+                {p.icon === 'leaf' && (
+                  <svg class="w-5 h-5 text-[#2D6A4F]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 3s2 8 0 12c0 0 4-2 8-2 5.523 0 8 3 8 3S19 4.5 5 3zM5 15s2 3 2 6"/>
+                  </svg>
+                )}
+                {p.icon === 'check' && (
+                  <svg class="w-5 h-5 text-[#2D6A4F]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                )}
+              </div>
+              <h3 class="text-base font-bold uppercase tracking-wider text-slate-900 mb-2">{p.title}</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">{p.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 6. SOLUTIONS FOR YOUR SECTOR ===== -->
+  <section class="bg-[#f7f8f5] py-14 lg:py-20 border-t border-slate-200">
+    <Container>
+      <div class="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-16">
+        <div class="lg:w-80 shrink-0">
+          <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Sector Expertise</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-3">
+            Solutions Designed Around Your Sector
+          </h2>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Different organisations face different requirements. Explore how our services support your sector.
+          </p>
+          <a
+            href="/sectors"
+            class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#2D6A4F] hover:underline"
+          >
+            View all sectors →
+          </a>
+        </div>
+
+        <!-- Sector cards -->
+        <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {sectors.map((sector) => (
+            <a
+              href={`/sectors/${sector.slug}`}
+              class="group flex items-center justify-between gap-4 bg-white rounded-2xl px-6 py-5 border border-slate-200 hover:border-[#2D6A4F]/50 hover:shadow-lg transition-all duration-300"
+            >
+              <p class="text-sm font-bold text-slate-900 group-hover:text-[#2D6A4F] transition-colors">{sector.title}</p>
+              <svg class="w-4 h-4 text-slate-400 group-hover:text-[#2D6A4F] group-hover:translate-x-1 transition-all shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 7. FINAL CTA (Clean Open Layout - No Background Box) ===== -->
+  <section class="relative z-10 py-16 lg:py-24 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#2D6A4F]/10 blur-3xl pointer-events-none"></div>
+    <Container className="relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Get Started</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">
+          Let's Find the Right Solution<br />for Your Organisation.
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 font-medium max-w-xl mx-auto">
+          Tell us what you're trying to achieve and our team can help identify the right combination of services.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/contact"
+            class="px-8 py-4 rounded-xl bg-[#2D6A4F] hover:bg-[#245a41] text-white font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          >
+            Get In Touch →
+          </a>
+          <a
+            href="/request-a-quote"
+            class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5"
+          >
+            Request a Quote
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+
 </BaseLayout>

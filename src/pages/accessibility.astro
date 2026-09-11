@@ -1,0 +1,106 @@
+---
+import LegalPageLayout from '../components/legal/LegalPageLayout.astro';
+import { siteSettings } from '../lib/sanity/data';
+---
+
+<LegalPageLayout
+  title="Accessibility Statement"
+  eyebrow="DIGITAL INCLUSION & WCAG 2.1 AA"
+  subheading="Techsteps UK Limited is committed to digital inclusion, ensuring our corporate website and digital tools are accessible to the widest possible audience, regardless of ability or assistive technology."
+  metaTitle="Accessibility Statement | WCAG 2.1 AA Compliance | Techsteps UK"
+  metaDescription="Techsteps UK Accessibility Statement. Learn how we implement WCAG 2.1 Level AA digital standards, test with assistive technologies, and provide accessible communication channels."
+  complianceBadge="WCAG 2.1 Level AA Conformant"
+  activeSlug="accessibility"
+  lastUpdated="February 2026"
+>
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      1. Our Accessibility Commitment
+    </h2>
+    <p>
+      At {siteSettings.legalName}, we firmly believe that the internet should be available and accessible to everyone. We are actively committed to providing a website that is accessible to the widest possible audience, regardless of circumstance, device, or physical ability.
+    </p>
+    <p>
+      To fulfill this commitment, we adhere as strictly as possible to the World Wide Web Consortium’s (W3C) Web Content Accessibility Guidelines 2.1 (WCAG 2.1) at the <strong>Level AA</strong> success criteria. These guidelines explain how to make web content more usable and accessible for individuals with sensory, cognitive, and mobility impairments.
+    </p>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      2. Technical Specifications &amp; Features
+    </h2>
+    <p>
+      Accessibility is built directly into our design system and frontend implementation through the following core techniques:
+    </p>
+    <div class="space-y-3">
+      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+        <h3 class="font-bold text-slate-900 text-base">A. Semantic Document Hierarchy</h3>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1">
+          Every page features semantic HTML5 landmarks (<code class="text-xs font-mono">&lt;header&gt;</code>, <code class="text-xs font-mono">&lt;main&gt;</code>, <code class="text-xs font-mono">&lt;nav&gt;</code>, <code class="text-xs font-mono">&lt;section&gt;</code>, <code class="text-xs font-mono">&lt;footer&gt;</code>), ensuring screen readers can navigate directly between major landmarks without obstruction. Only a single <code class="text-xs font-mono">&lt;h1&gt;</code> is rendered per page.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+        <h3 class="font-bold text-slate-900 text-base">B. High Contrast Typography &amp; Scalability</h3>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1">
+          Color palettes meet or exceed the required minimum contrast ratio of <strong>4.5:1</strong> for normal body text and <strong>3:1</strong> for large headings against their background. Typography dynamically scales up to 200% via standard browser zoom without truncation or horizontal scrolling loss.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+        <h3 class="font-bold text-slate-900 text-base">C. Complete Keyboard Navigation &amp; Focus Indicators</h3>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1">
+          All interactive elements—including mega menus, dropdown toggles, modal dialogues, tab filters, and quote calculation forms—are fully operable via standard keyboard (<kbd class="px-1.5 py-0.5 rounded bg-slate-100 border text-xs font-mono">Tab</kbd>, <kbd class="px-1.5 py-0.5 rounded bg-slate-100 border text-xs font-mono">Enter</kbd>, <kbd class="px-1.5 py-0.5 rounded bg-slate-100 border text-xs font-mono">Space</kbd>, and arrow keys). Focus states feature high-visibility emerald focus rings.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+        <h3 class="font-bold text-slate-900 text-base">D. Screen Reader Optimization &amp; ARIA Attributes</h3>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1">
+          Images feature descriptive alternative text (<code class="text-xs font-mono">alt="..."</code>) or are explicitly marked decorative (<code class="text-xs font-mono">aria-hidden="true"</code>). Complex interactive widgets utilize appropriate WAI-ARIA states (<code class="text-xs font-mono">aria-expanded</code>, <code class="text-xs font-mono">aria-controls</code>, <code class="text-xs font-mono">role="region"</code>).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      3. Assistive Technology Testing Environment
+    </h2>
+    <p>
+      Our digital assets undergo routine accessibility auditing and manual validation using representative assistive technologies, including:
+    </p>
+    <ul class="list-disc pl-5 space-y-1.5 text-slate-600">
+      <li><strong>Screen Readers:</strong> NVDA (NonVisual Desktop Access) on Windows, JAWS on Windows, and VoiceOver on macOS and iOS.</li>
+      <li><strong>Browsers Tested:</strong> Google Chrome, Mozilla Firefox, Microsoft Edge, and Apple Safari.</li>
+      <li><strong>Automated Tooling:</strong> axe DevTools, Lighthouse Accessibility audits (targeting score 95+), and WAVE (Web Accessibility Evaluation Tool).</li>
+    </ul>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      4. Known Limitations &amp; Continuous Improvement
+    </h2>
+    <p>
+      While we strive for comprehensive accessibility across every digital asset, some older historical PDF archives or third-party mapping widgets may not yet fully conform to WCAG 2.1 AA standards. We are actively working to remediate these assets or provide accessible plain-text equivalents upon request.
+    </p>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      5. Accessible Feedback &amp; Contact Channels
+    </h2>
+    <p>
+      We welcome your feedback on the accessibility of Techsteps. If you encounter accessibility barriers, require documentation in alternative formats (such as large print, accessible PDF, or plain text), or need assistance booking a service, please contact our Accessibility Officer:
+    </p>
+    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm font-mono">
+      <div><strong>Role:</strong> Accessibility Lead &amp; Digital Inclusion Officer</div>
+      <div><strong>Email:</strong> <a href="mailto:accessibility@techsteps.co.uk" class="text-emerald-700 hover:underline">accessibility@techsteps.co.uk</a></div>
+      <div><strong>Telephone:</strong> {siteSettings.phone} (Relay UK service supported)</div>
+      <div><strong>Response SLA:</strong> We aim to acknowledge and investigate feedback within two (2) business days.</div>
+    </div>
+    <p class="text-xs text-slate-500 pt-2">
+      If you are not satisfied with how we respond to your complaint, you can contact the Equality Advisory and Support Service (EASS) at <a href="https://www.equalityadvisoryservice.com" target="_blank" rel="noopener noreferrer" class="text-emerald-700 underline">equalityadvisoryservice.com</a>.
+    </p>
+  </section>
+</LegalPageLayout>

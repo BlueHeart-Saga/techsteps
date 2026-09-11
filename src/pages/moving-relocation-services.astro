@@ -1,106 +1,185 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
-import Section from '../components/layout/Section.astro';
-import HeroDivision from '../components/hero/HeroDivision.astro';
-import ServiceGrid from '../components/services/ServiceGrid.astro';
-import BenefitsList from '../components/services/BenefitsList.astro';
-import SectorGrid from '../components/sectors/SectorGrid.astro';
+import PageHero from '../components/hero/PageHero.astro';
+import AccordionFaq from '../components/content/AccordionFaq.astro';
 import { divisions, services, sectors } from '../lib/sanity/data';
+
+const breadcrumbs = [
+  { name: 'Services', url: '/services' },
+  { name: 'Moving & Relocation', url: '/moving-relocation-services' },
+];
 
 const division = divisions.find((d) => d.slug === 'moving-relocation-services')!;
 const divisionServices = services.filter((s) => s.divisionSlug === division.slug);
 
-const divisionBenefits = [
-  'Zero operational business disruption via meticulously planned weekend and overnight transitions',
-  'Certified IT engineers handling server de-racking, anti-static flight packing, and patch recommissioning',
-  'Specialist cold-chain laboratory transport (-80°C freezers powered continuously on-board)',
-  'Government Indemnity Scheme (GIS) compliant museum-grade heritage handling and custom crating',
-  'Post-Brexit cross-border customs clearance, T1 documents, and bonded warehousing across Europe',
-  'Dedicated PRINCE2 and PMP logistics directors providing single-point executive accountability',
+const clr = { accent: '#374151', dark: '#1a1f2e', light: '#F8F9FA' };
+
+const lifecycleStages = [
+  { id: 'assess', label: 'Assess', number: '01', desc: 'We assess your technology assets, infrastructure requirements, locations, volumes and critical dependencies before any move begins.' },
+  { id: 'plan', label: 'Plan', number: '02', desc: 'A detailed relocation plan is produced — covering logistics, scheduling, access requirements and risk management.' },
+  { id: 'prepare', label: 'Prepare', number: '03', desc: 'Equipment is prepared for relocation — appropriately packaged, labelled, inventoried and protected for transit.' },
+  { id: 'move', label: 'Move', number: '04', desc: 'Specialist teams move technology using appropriate vehicles, lifting equipment and handling procedures.' },
+  { id: 'install', label: 'Install', number: '05', desc: 'Equipment is installed, connected and configured at the destination according to your requirements and specifications.' },
+  { id: 'handover', label: 'Handover', number: '06', desc: 'The completed move is signed off with full documentation — asset inventory, condition records and completion report.' },
+];
+
+const sectorLinks = [
+  { title: 'Defence', slug: 'defence' },
+  { title: 'NHS & Healthcare', slug: 'nhs' },
+  { title: 'Financial Services', slug: 'finance' },
+  { title: 'Central Government', slug: 'central-government' },
+];
+
+const faqs = [
+  { question: 'What types of technology can you relocate?', answer: 'We relocate all types of IT equipment including servers, storage arrays, networking infrastructure, workstations, specialist laboratory equipment, heritage and museum artefacts, and complete data centre environments.' },
+  { question: 'How do you minimise disruption during a move?', answer: 'Careful planning is central to minimising disruption. We work with your team to schedule moves at appropriate times, plan in stages where required, and maintain clear communication throughout to keep downtime to a minimum.' },
+  { question: 'Do you provide an inventory of moved assets?', answer: 'Yes. A full asset inventory is produced as part of the relocation process — recording each item before, during and after the move, with condition notes and destination confirmation.' },
+  { question: 'Do you work outside normal office hours?', answer: 'Yes. Many technology relocations take place at weekends or out of hours to minimise operational disruption. We can accommodate requirements outside standard business hours with appropriate planning.' },
 ];
 ---
 
 <BaseLayout
-  title="Moving & Relocation Services UK | Specialist Office & Data Centre Moves | Techsteps"
-  description="Techsteps Relocation Services division provides corporate office migrations, data centre relocations, scientific cold-chain moves, and heritage artifact transport."
+  title="Moving & Relocation Services | IT, Data Centre & Technology Relocation | Techsteps"
+  description="Specialist technology relocation — IT moves, data centre migrations, laboratory relocations and specialist logistics. UK-wide from Techsteps."
+  hasHeroHeader={true}
 >
-  <HeroDivision division={division} serviceCount={divisionServices.length} />
+  <!-- ===== 1. HERO (Simple & Clean, ref: /sustainability) ===== -->
+  <PageHero
+    eyebrow="MOVING & RELOCATION"
+    title="Specialist Technology Relocation."
+    subheading="Precision relocation for data centres, server rooms, laboratories and corporate IT infrastructure with zero disruption."
+    bgImage="/images/services/it-relocations.jpg"
+    breadcrumbs={breadcrumbs}
+    dividerColor="#374151"
+  >
+    <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+      <a
+        href="#reloc-journey"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#374151] hover:bg-[#1f2937] text-white text-sm font-bold shadow-lg transition-all duration-200"
+      >
+        Explore the Journey
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
+      <a
+        href="/request-a-quote?service=relocation"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/20 transition-all duration-200"
+      >
+        Get a Quote
+      </a>
+    </div>
+  </PageHero>
 
-  <!-- Division Introduction -->
-  <Section theme="white">
+  <!-- ===== LIFECYCLE JOURNEY ===== -->
+  <section id="reloc-journey" class="bg-[#374151] py-16 lg:py-20">
     <Container>
-      <div class="max-w-4xl mx-auto text-center space-y-6">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Precision Mission-Critical Logistics</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight">
-          Moving Your Business Without Interrupting Your Work
-        </h2>
-        <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
-          Relocating corporate headquarters, sensitive research laboratories, or live trading server architecture demands rigorous engineering precision. Techsteps ensures your critical infrastructure is protected, transported under climate and vibration controls, and fully operational for Day One.
-        </p>
+      <div class="text-center mb-12">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-slate-300 mb-4">The Relocation Process</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">From Planning to Placement.</h2>
+        <p class="mt-3 text-sm text-slate-300/60 max-w-lg mx-auto">Click any stage to learn more.</p>
+      </div>
+      <div class="max-w-4xl mx-auto" id="reloc-lifecycle-nav">
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-6">
+          {lifecycleStages.map((stage, i) => (
+            <button type="button" data-stage={stage.id} class={`lifecycle-tab group flex flex-col items-center gap-2 p-3 rounded-xl border transition-all duration-200 cursor-pointer ${i === 0 ? 'bg-white/20 border-white/50 shadow-lg' : 'bg-white/5 border-white/15 hover:bg-white/15'}`}>
+              <span class={`text-[10px] font-bold uppercase tracking-widest ${i === 0 ? 'text-slate-200' : 'text-slate-400/50 group-hover:text-slate-200'}`}>{stage.number}</span>
+              <span class={`text-xs font-extrabold uppercase tracking-wider ${i === 0 ? 'text-white' : 'text-white/60 group-hover:text-white'}`}>{stage.label}</span>
+            </button>
+          ))}
+        </div>
+        <div class="bg-white/10 rounded-2xl border border-white/20 p-6 min-h-[90px]">
+          {lifecycleStages.map((stage, i) => (
+            <div data-stage-desc={stage.id} class={i === 0 ? 'block' : 'hidden'}>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">{stage.number} / {stage.label}</p>
+              <p class="text-base text-white leading-relaxed">{stage.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </Container>
-  </Section>
+  </section>
 
-  <!-- Division Services -->
-  <Section theme="slate" id="division-services">
+  <!-- ===== SERVICES GRID ===== -->
+  <section class="py-14 lg:py-20" style={`background: ${clr.light};`} id="division-services">
     <Container>
-      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Specialized Services</span>
-        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
-          {division.title} Solutions
-        </h2>
-        <p class="text-sm sm:text-base text-slate-600">
-          Review our specialized commercial, scientific, and IT relocation capabilities.
-        </p>
+      <div class="text-center mb-10">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#374151] mb-4">Our Services</span>
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Specialist Relocation Services</h2>
       </div>
-      <ServiceGrid services={divisionServices} showDivision={false} />
-    </Container>
-  </Section>
-
-  <!-- Benefits -->
-  <Section theme="white">
-    <Container>
-      <BenefitsList benefits={divisionBenefits} title="Enterprise Benefits of Our Specialist Relocation Services" />
-    </Container>
-  </Section>
-
-  <!-- Relevant Sectors -->
-  <Section theme="slate">
-    <Container>
-      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Sectors Served</span>
-        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
-          Sectors Relying on Our Move Engineering
-        </h2>
-      </div>
-      <SectorGrid sectors={sectors} />
-    </Container>
-  </Section>
-
-  <!-- Final CTA -->
-  <Section theme="navy">
-    <Container className="text-center max-w-4xl mx-auto space-y-6">
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-        Planning an office, laboratory, or data centre move?
-      </h2>
-      <p class="text-base text-slate-300 max-w-2xl mx-auto">
-        Speak with a senior relocation project director to arrange a site walk-through, discuss crate hire, or obtain a comprehensive migration schedule.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
-        <a
-          href="/request-a-quote?service=it-relocations-specialist"
-          class="px-8 py-4 rounded-xl bg-brand-accent hover:bg-brand-accent-hover text-white text-base font-bold shadow-lg transition-all"
-        >
-          Request Relocation Scoping
-        </a>
-        <a
-          href="/contact"
-          class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-base font-bold border border-white/20 transition-all"
-        >
-          Contact Relocation Desk
-        </a>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {divisionServices.map(service => (
+          <a href={`/services/${service.slug}`} class="group bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#374151]/40 hover:shadow-xl transition-all duration-300 flex flex-col relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-0.5 bg-[#374151] opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
+            <h3 class="text-sm font-bold text-slate-900 group-hover:text-[#374151] transition-colors leading-snug mb-2">{service.title}</h3>
+            <p class="text-xs text-slate-500 leading-relaxed line-clamp-3 flex-1">{service.summary}</p>
+            <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-end">
+              <span class="flex items-center gap-1 text-xs font-bold text-[#374151] group-hover:gap-2 transition-all">
+                Explore <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </span>
+            </div>
+          </a>
+        ))}
       </div>
     </Container>
-  </Section>
+  </section>
+
+  <!-- ===== SECTORS ===== -->
+  <section class="bg-white py-14 lg:py-16 border-t border-slate-100">
+    <Container>
+      <div class="text-center mb-10">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#374151] mb-4">Sector Expertise</span>
+        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Built for Organisations Where It Matters</h2>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
+        {sectorLinks.map(s => (
+          <a href={`/sectors/${s.slug}`} class="group bg-[#F8F9FA] rounded-2xl px-5 py-5 border border-slate-200 hover:border-[#374151]/40 hover:shadow-md transition-all text-center">
+            <p class="text-sm font-bold text-slate-900 group-hover:text-[#374151] transition-colors">{s.title}</p>
+            <p class="mt-1 text-[10px] text-[#374151] font-bold">Explore →</p>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="py-14 lg:py-16 border-t border-slate-200" style={`background: ${clr.light};`}>
+    <Container>
+      <AccordionFaq faqs={faqs} title="Relocation Questions" subtitle="Practical answers about our technology relocation services." />
+    </Container>
+  </section>
+
+  <!-- ===== CTA (Clean Open Layout - No Background Box) ===== -->
+  <section class="relative z-10 py-16 lg:py-24 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl pointer-events-none opacity-15" style={`background: ${clr.accent};`}></div>
+    <Container className="relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase mb-4" style={`color: ${clr.accent};`}>Get Started</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">Ready to Plan Your Technology Move?</h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 max-w-xl mx-auto font-medium">Tell us about the move and we'll help you plan and execute it without disruption.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/request-a-quote" class="px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-[#374151] hover:bg-[#1f2937] text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">Get a Quote →</a>
+          <a href="/contact" class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5">Contact Techsteps</a>
+        </div>
+      </div>
+    </Container>
+  </section>
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const nav = document.getElementById('reloc-lifecycle-nav');
+    if (!nav) return;
+    const tabs = nav.querySelectorAll('.lifecycle-tab');
+    const descs = nav.querySelectorAll('[data-stage-desc]');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const id = tab.getAttribute('data-stage');
+        tabs.forEach(t => { t.classList.remove('bg-white/20','border-white/50','shadow-lg'); t.classList.add('bg-white/5','border-white/15'); });
+        tab.classList.add('bg-white/20','border-white/50','shadow-lg'); tab.classList.remove('bg-white/5','border-white/15');
+        descs.forEach(d => { d.classList.toggle('hidden', d.getAttribute('data-stage-desc') !== id); d.classList.toggle('block', d.getAttribute('data-stage-desc') === id); });
+      });
+    });
+  })();
+</script>

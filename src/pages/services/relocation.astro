@@ -1,0 +1,298 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import PageHero from '../../components/hero/PageHero.astro';
+import AccordionFaq from '../../components/content/AccordionFaq.astro';
+import { services } from '../../lib/sanity/data';
+
+const breadcrumbs = [
+  { name: 'Services', url: '/services' },
+  { name: 'Moving & Relocation', url: '/services/relocation' },
+];
+
+const divSlug = 'moving-relocation-services';
+const divServices = services.filter(s => s.divisionSlug === divSlug);
+
+const lifecycleStages = [
+  { id: 'assess', label: 'Assess', number: '01', desc: 'We assess your technology assets, infrastructure requirements, locations, volumes and critical dependencies before any move begins.' },
+  { id: 'plan', label: 'Plan', number: '02', desc: 'A detailed relocation plan is produced — covering logistics, scheduling, access requirements and risk management.' },
+  { id: 'prepare', label: 'Prepare', number: '03', desc: 'Equipment is prepared for relocation — appropriately packaged, labelled, inventoried and protected for transit.' },
+  { id: 'move', label: 'Move', number: '04', desc: 'Specialist teams move technology using appropriate vehicles, lifting equipment and handling procedures.' },
+  { id: 'install', label: 'Install', number: '05', desc: 'Equipment is installed, connected and configured at the destination according to your requirements and specifications.' },
+  { id: 'handover', label: 'Handover', number: '06', desc: 'The completed move is signed off with full documentation — asset inventory, condition records and completion report.' },
+];
+
+const customerJourney = [
+  { number: '01', title: 'Brief Us', desc: 'Tell us about the move — locations, volumes, technology involved and your critical requirements.' },
+  { number: '02', title: 'Plan Together', desc: 'We produce a relocation plan that meets your schedule, minimises disruption and manages risk.' },
+  { number: '03', title: 'We Move It', desc: 'Our specialist teams handle every aspect of the physical move with appropriate care and control.' },
+  { number: '04', title: 'Handover', desc: 'Assets delivered, installed and signed off with full documentation of the completed move.' },
+];
+
+const sectors = [
+  { title: 'Defence', slug: 'defence' },
+  { title: 'NHS & Healthcare', slug: 'nhs' },
+  { title: 'Financial Services', slug: 'finance' },
+  { title: 'Central Government', slug: 'central-government' },
+];
+
+const faqs = [
+  { question: 'What types of technology can you relocate?', answer: 'We relocate all types of IT equipment including servers, storage arrays, networking infrastructure, workstations, specialist laboratory equipment, heritage and museum artefacts, and complete data centre environments.' },
+  { question: 'How do you minimise disruption during a move?', answer: 'Careful planning is central to minimising disruption. We work with your team to schedule moves at appropriate times, plan in stages where required, and maintain clear communication throughout to keep downtime to a minimum.' },
+  { question: 'Can you manage data centre relocations?', answer: 'Yes. Data centre relocations require specialist planning, equipment and teams. We manage the full process from initial assessment through decommissioning, transit and recommissioning at the destination.' },
+  { question: 'Do you provide an inventory of moved assets?', answer: 'Yes. A full asset inventory is produced as part of the relocation process — recording each item before, during and after the move, with condition notes and destination confirmation.' },
+  { question: 'How far in advance should we plan a technology relocation?', answer: 'For complex moves involving data centres, laboratories or large equipment volumes, planning should begin as early as possible — typically several weeks to months in advance. For smaller IT moves we can often work to shorter notice.' },
+  { question: 'Do you work outside normal office hours?', answer: 'Yes. Many technology relocations take place at weekends or out of hours to minimise operational disruption. We can accommodate requirements outside standard business hours with appropriate planning.' },
+];
+---
+
+<BaseLayout
+  title="Moving & Relocation Services | IT, Data Centre & Technology Relocation | Techsteps"
+  description="Specialist technology relocation services — IT moves, data centre relocations, laboratory migrations and equipment logistics. UK-wide from Techsteps."
+  hasHeroHeader={true}
+>
+  <PageHero
+    eyebrow="MOVING & RELOCATION"
+    title="Specialist Technology Relocation."
+    subheading="Precision relocation for data centres, server rooms, laboratories and corporate IT infrastructure with zero disruption."
+    bgImage="/images/services/it-relocations.jpg"
+    breadcrumbs={breadcrumbs}
+    dividerColor="#ffffff"
+  >
+    <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+      <a
+        href="#reloc-services"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#374151] hover:bg-[#1f2937] text-white text-sm font-bold shadow-lg transition-all duration-200"
+      >
+        Explore Relocation Services
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
+      <a
+        href="/request-a-quote?service=relocation"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/20 transition-all duration-200"
+      >
+        Get a Quote
+      </a>
+    </div>
+  </PageHero>
+
+  <!-- ===== OVERVIEW ===== -->
+  <section class="bg-white py-16 lg:py-24">
+    <Container>
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#1a1f2e] via-[#374151] to-[#0d0f14] min-h-[380px] lg:min-h-[440px] flex items-center justify-center">
+          <div class="absolute inset-0 opacity-[0.06]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px;"></div>
+          <svg class="relative z-10 w-52 h-52 opacity-20 text-white" fill="none" stroke="currentColor" stroke-width="0.6" viewBox="0 0 180 180">
+            <rect x="10" y="60" width="100" height="60" rx="4"/>
+            <rect x="110" y="80" width="60" height="40" rx="4"/>
+            <path d="M10 80h100M10 100h100M40 60v60M70 60v60"/>
+            <circle cx="30" cy="130" r="10"/>
+            <circle cx="90" cy="130" r="10"/>
+            <circle cx="145" cy="130" r="10"/>
+            <path d="M20 50 L30 30 L60 30 L70 50" stroke-linecap="round"/>
+          </svg>
+          <div class="absolute bottom-6 left-6">
+            <p class="text-xs font-bold uppercase tracking-widest text-slate-300/60 mb-0.5">Division</p>
+            <p class="text-lg font-extrabold text-white">Moving & Relocation Services</p>
+          </div>
+        </div>
+
+        <div>
+          <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#374151] mb-5 border border-[#374151]/30 px-3 py-1.5 rounded-full bg-[#374151]/5">Value Proposition</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-5">
+            Move Technology<br />Without Disruption.
+          </h2>
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-6">
+            Relocating technology is complex. Equipment must be handled correctly, transit must be managed, and the destination must be ready to receive it. Techsteps provides specialist relocation services that manage every aspect of the move — from planning through to handover.
+          </p>
+          <div class="space-y-3 mb-8">
+            {[
+              { label: 'Specialist', desc: 'Teams and equipment designed specifically for technology relocation.' },
+              { label: 'Controlled', desc: 'Full planning, inventory and documentation throughout the move.' },
+              { label: 'Minimal Disruption', desc: 'Scheduled and managed to minimise operational impact.' },
+            ].map(item => (
+              <div class="flex items-center gap-3">
+                <div class="h-5 w-5 rounded-full bg-[#374151]/10 border border-[#374151]/30 flex items-center justify-center shrink-0">
+                  <svg class="w-2.5 h-2.5 text-[#374151]" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3"/></svg>
+                </div>
+                <span class="text-sm text-slate-700"><strong class="font-semibold text-slate-900">{item.label}</strong> — {item.desc}</span>
+              </div>
+            ))}
+          </div>
+          <a href="/request-a-quote" class="inline-flex items-center gap-2 px-7 py-3 rounded-lg bg-[#374151] hover:bg-[#2d3643] text-white text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-md">
+            Get a Quote →
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== SIGNATURE LIFECYCLE ===== -->
+  <section class="bg-[#1a1f2e] py-16 lg:py-24">
+    <Container>
+      <div class="text-center mb-14">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-4">The Relocation Process</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          From Planning<br />to Placement.
+        </h2>
+        <p class="mt-4 text-base text-slate-400 max-w-xl mx-auto leading-relaxed">Click any stage to understand our relocation approach.</p>
+      </div>
+
+      <div class="max-w-4xl mx-auto" id="reloc-lifecycle-nav">
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-8">
+          {lifecycleStages.map((stage, i) => (
+            <button
+              type="button"
+              data-stage={stage.id}
+              class={`lifecycle-tab group flex flex-col items-center gap-2 p-3 rounded-xl border transition-all duration-200 cursor-pointer ${i === 0 ? 'bg-white/20 border-white/50 shadow-lg' : 'bg-white/5 border-white/15 hover:bg-white/15 hover:border-white/30'}`}
+            >
+              <span class={`text-[10px] font-bold uppercase tracking-widest ${i === 0 ? 'text-slate-300' : 'text-slate-400/60 group-hover:text-slate-300'}`}>{stage.number}</span>
+              <span class={`text-xs font-extrabold uppercase tracking-wider ${i === 0 ? 'text-white' : 'text-white/70 group-hover:text-white'}`}>{stage.label}</span>
+            </button>
+          ))}
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-7 min-h-[110px]">
+          {lifecycleStages.map((stage, i) => (
+            <div data-stage-desc={stage.id} class={i === 0 ? 'block' : 'hidden'}>
+              <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">{stage.number} / {stage.label}</p>
+              <p class="text-base sm:text-lg text-white leading-relaxed font-medium">{stage.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== SERVICES GRID ===== -->
+  <section id="reloc-services" class="bg-[#F8F9FA] py-16 lg:py-20 scroll-mt-20">
+    <Container>
+      <div class="text-center mb-12">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#374151] mb-4">Our Capabilities</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Specialist Relocation Services.</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {divServices.map(service => (
+          <a href={`/services/${service.slug}`} class="group bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#374151]/40 hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden relative">
+            <div class="absolute top-0 left-0 right-0 h-0.5 bg-[#374151] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl"></div>
+            <h3 class="text-base font-bold text-slate-900 group-hover:text-[#374151] transition-colors leading-snug mb-2">{service.title}</h3>
+            <p class="text-xs text-slate-500 leading-relaxed line-clamp-3 flex-1">{service.summary}</p>
+            <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-[#374151]/50">Relocation</span>
+              <span class="flex items-center gap-1 text-xs font-bold text-[#374151] group-hover:gap-2 transition-all">
+                Explore
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== TECHNOLOGY & INFRASTRUCTURE ===== -->
+  <section class="bg-slate-950 py-16 lg:py-20">
+    <Container>
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-4">Our Approach</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">Every Move.<br />Managed End to End.</h2>
+        <p class="text-base text-slate-400 leading-relaxed">Technology relocation requires more than a van and a driver. We plan, manage and execute every aspect of the move.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {[
+          { label: 'Planning', desc: 'Detailed pre-move assessment, planning and documentation to ensure the move is managed correctly from the start.' },
+          { label: 'Logistics', desc: 'Appropriate vehicles, lifting equipment, packaging and specialist handling for every type of technology asset.' },
+          { label: 'Documentation', desc: 'Full asset inventory, condition records and completion handover documentation for every move.' },
+        ].map(item => (
+          <div class="bg-white/5 border border-white/10 hover:bg-white/10 rounded-2xl p-7 text-center transition-all duration-200">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-white mb-3">{item.label}</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="bg-white py-16 lg:py-20 border-t border-slate-100">
+    <Container>
+      <div class="max-w-2xl mx-auto text-center mb-12">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#374151] mb-4">Your Experience</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">Simple for You.<br />Managed by Us.</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        {customerJourney.map((step) => (
+          <div class="group pt-6 border-t-2 border-slate-200 hover:border-[#374151] transition-colors duration-300">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-[#374151] mb-3 block">{step.number}</span>
+            <h3 class="text-base font-bold text-slate-900 mb-2">{step.title}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== SECTORS ===== -->
+  <section class="bg-[#F8F9FA] py-14 lg:py-20 border-t border-slate-200">
+    <Container>
+      <div class="text-center mb-10">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#374151] mb-4">Sector Expertise</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-3">Built for Organisations Where It Matters.</h2>
+        <p class="text-sm text-slate-600 max-w-xl mx-auto leading-relaxed">Technology relocation requirements vary significantly by sector. We tailor our approach to meet yours.</p>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
+        {sectors.map(sector => (
+          <a href={`/sectors/${sector.slug}`} class="group bg-white rounded-2xl px-5 py-5 border border-slate-200 hover:border-[#374151]/50 hover:shadow-lg transition-all duration-300 text-center">
+            <p class="text-sm font-bold text-slate-900 group-hover:text-[#374151] transition-colors leading-snug">{sector.title}</p>
+            <p class="mt-1 text-[10px] text-[#374151] font-bold">Explore →</p>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="bg-white py-14 lg:py-20 border-t border-slate-100">
+    <Container>
+      <AccordionFaq faqs={faqs} title="Relocation Questions" subtitle="Practical answers about our technology relocation services." />
+    </Container>
+  </section>
+
+  <!-- ===== CTA (Clean Open Layout - No Background Box) ===== -->
+  <section class="relative z-10 py-16 lg:py-24 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#374151]/10 blur-3xl pointer-events-none"></div>
+    <Container className="relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#374151] mb-4">Get Started</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">
+          Ready to Plan Your<br />Technology Move?
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 max-w-xl mx-auto font-medium">
+          Tell us about the move and we'll help you plan and execute it efficiently.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/request-a-quote" class="px-8 py-4 rounded-xl bg-[#374151] hover:bg-[#1f2937] text-white font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">Get a Quote →</a>
+          <a href="/contact" class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5">Contact Techsteps</a>
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const nav = document.getElementById('reloc-lifecycle-nav');
+    if (!nav) return;
+    const tabs = nav.querySelectorAll('.lifecycle-tab');
+    const descs = nav.querySelectorAll('[data-stage-desc]');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const id = tab.getAttribute('data-stage');
+        tabs.forEach(t => { t.classList.remove('bg-white/20','border-white/50','shadow-lg'); t.classList.add('bg-white/5','border-white/15'); });
+        tab.classList.add('bg-white/20','border-white/50','shadow-lg'); tab.classList.remove('bg-white/5','border-white/15');
+        descs.forEach(d => { d.classList.toggle('hidden', d.getAttribute('data-stage-desc') !== id); d.classList.toggle('block', d.getAttribute('data-stage-desc') === id); });
+      });
+    });
+  })();
+</script>

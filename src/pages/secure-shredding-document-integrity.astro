@@ -1,106 +1,184 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
-import Section from '../components/layout/Section.astro';
-import HeroDivision from '../components/hero/HeroDivision.astro';
-import ServiceGrid from '../components/services/ServiceGrid.astro';
-import BenefitsList from '../components/services/BenefitsList.astro';
-import SectorGrid from '../components/sectors/SectorGrid.astro';
+import PageHero from '../components/hero/PageHero.astro';
+import AccordionFaq from '../components/content/AccordionFaq.astro';
 import { divisions, services, sectors } from '../lib/sanity/data';
+
+const breadcrumbs = [
+  { name: 'Services', url: '/services' },
+  { name: 'Secure Destruction', url: '/secure-shredding-document-integrity' },
+];
 
 const division = divisions.find((d) => d.slug === 'secure-shredding-document-integrity')!;
 const divisionServices = services.filter((s) => s.divisionSlug === division.slug);
 
-const divisionBenefits = [
-  'BS EN 15713 Level 4 high-security cross-cut granulation rendering files permanently unrecoverable',
-  'Witnessed on-site mobile truck shredding with instant physical and digital Certificates of Destruction',
-  '100% of shredded paper baled and remanufactured at UK paper mills into hygienic paper goods',
-  'Secure lockable office consoles and pre-paid remote worker confidential waste sacks supplied',
-  'Turnkey compliance with the new statutory UK Simpler Recycling workplace segregation rules',
-  'High-torque product shredding defending corporate brands against grey market uniform/prototype leaks',
+const clr = { accent: '#2D6A4F', dark: '#1a2e1f', light: '#F2F8F5' };
+
+const lifecycleStages = [
+  { id: 'collect', label: 'Collect', number: '01', desc: 'Materials requiring destruction are securely collected from your premises by vetted personnel in secure, locked containers.' },
+  { id: 'secure', label: 'Secure', number: '02', desc: 'Collected material is maintained under controlled custody throughout transit — no access, no tampering, full documentation.' },
+  { id: 'destroy', label: 'Destroy', number: '03', desc: 'Material is destroyed through the appropriate process — on-site shredding, off-site destruction or physical hard drive shredding.' },
+  { id: 'verify', label: 'Verify', number: '04', desc: 'Destruction is independently verified to the required standard — including particle size, process compliance and chain of custody.' },
+  { id: 'report', label: 'Report', number: '05', desc: 'A certificated destruction record is issued, providing documented evidence of compliant disposal for audit and regulatory purposes.' },
+];
+
+const sectorLinks = [
+  { title: 'Defence', slug: 'defence' },
+  { title: 'Financial Services', slug: 'finance' },
+  { title: 'NHS & Healthcare', slug: 'nhs' },
+  { title: 'Central Government', slug: 'central-government' },
+];
+
+const faqs = [
+  { question: 'What is secure document destruction?', answer: 'Secure document destruction is the certified, auditable process of permanently destroying documents and media containing sensitive information — preventing any possibility of data recovery or misuse.' },
+  { question: 'What is the difference between on-site and off-site shredding?', answer: 'On-site shredding takes place at your premises using a mobile shredding vehicle — you can witness the destruction. Off-site shredding involves secure collection and destruction at our facility. Both methods are certificated.' },
+  { question: 'Can hard drives be physically destroyed?', answer: 'Yes. Physical hard drive destruction involves the shredding or crushing of the drive to a particle size that renders data irrecoverable — appropriate where standard data erasure is insufficient.' },
+  { question: 'What certificate is issued after destruction?', answer: 'A destruction certificate is issued after each destruction event, recording the material type, quantity, destruction method, date and reference — providing evidence of compliant disposal.' },
 ];
 ---
 
 <BaseLayout
-  title="Secure Shredding & Document Integrity UK | Mobile Shredding & Recycling | Techsteps"
-  description="Techsteps Secure Shredding division provides BS EN 15713 accredited mobile on-site shredding, bulk plant purges, product destruction, and commercial recycling."
+  title="Secure Shredding & Document Integrity | Document & Hard Drive Destruction | Techsteps"
+  description="BS EN 15713 accredited secure document shredding, hard drive destruction and media destruction services. Certificated and compliant. UK-wide from Techsteps."
+  hasHeroHeader={true}
 >
-  <HeroDivision division={division} serviceCount={divisionServices.length} />
+  <!-- ===== 1. HERO (Simple & Clean, ref: /sustainability) ===== -->
+  <PageHero
+    eyebrow="SECURE DESTRUCTION"
+    title="Certified Destruction of Sensitive Assets."
+    subheading="BS EN 15713 accredited on-site and plant shredding for confidential paper records, hard drives and magnetic media."
+    bgImage="/images/services/secure-destruction.jpg"
+    breadcrumbs={breadcrumbs}
+    dividerColor="#2D6A4F"
+  >
+    <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+      <a
+        href="#dest-journey"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#2D6A4F] hover:bg-[#245a41] text-white text-sm font-bold shadow-lg transition-all duration-200"
+      >
+        Explore the Process
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
+      <a
+        href="/request-a-quote?service=secure-destruction"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/20 transition-all duration-200"
+      >
+        Get a Quote
+      </a>
+    </div>
+  </PageHero>
 
-  <!-- Division Introduction -->
-  <Section theme="white">
+  <!-- ===== LIFECYCLE JOURNEY ===== -->
+  <section id="dest-journey" class="bg-[#2D6A4F] py-16 lg:py-20">
     <Container>
-      <div class="max-w-4xl mx-auto text-center space-y-6">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Total Physical Data Defense</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight">
-          Certified Destruction &amp; Sustainable Resource Streams
-        </h2>
-        <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
-          From routine office paper consoles and remote employee sacks to massive multi-tonne historical archive clear-outs and branded apparel pulverisation, Techsteps provides accredited physical destruction with closed-loop domestic recycling.
-        </p>
+      <div class="text-center mb-12">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-emerald-200 mb-4">The Destruction Process</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Secure From Collection to Destruction.</h2>
+        <p class="mt-3 text-sm text-emerald-100/60 max-w-lg mx-auto">Click any stage to learn more.</p>
+      </div>
+      <div class="max-w-4xl mx-auto" id="dest-lifecycle-nav">
+        <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-6">
+          {lifecycleStages.map((stage, i) => (
+            <button type="button" data-stage={stage.id} class={`lifecycle-tab group flex flex-col items-center gap-2 p-3 rounded-xl border transition-all duration-200 cursor-pointer ${i === 0 ? 'bg-white/20 border-white/50 shadow-lg' : 'bg-white/5 border-white/15 hover:bg-white/15'}`}>
+              <span class={`text-[10px] font-bold uppercase tracking-widest ${i === 0 ? 'text-emerald-200' : 'text-emerald-300/50 group-hover:text-emerald-200'}`}>{stage.number}</span>
+              <span class={`text-xs font-extrabold uppercase tracking-wider ${i === 0 ? 'text-white' : 'text-white/60 group-hover:text-white'}`}>{stage.label}</span>
+            </button>
+          ))}
+        </div>
+        <div class="bg-white/10 rounded-2xl border border-white/20 p-6 min-h-[90px]">
+          {lifecycleStages.map((stage, i) => (
+            <div data-stage-desc={stage.id} class={i === 0 ? 'block' : 'hidden'}>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-300 mb-2">{stage.number} / {stage.label}</p>
+              <p class="text-base text-white leading-relaxed">{stage.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </Container>
-  </Section>
+  </section>
 
-  <!-- Division Services -->
-  <Section theme="slate" id="division-services">
+  <!-- ===== SERVICES GRID ===== -->
+  <section class="py-14 lg:py-20" style={`background: ${clr.light};`} id="division-services">
     <Container>
-      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Specialized Services</span>
-        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
-          {division.title} Solutions
-        </h2>
-        <p class="text-sm sm:text-base text-slate-600">
-          Select a confidential destruction or commercial recycling service below.
-        </p>
+      <div class="text-center mb-10">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Our Services</span>
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Secure Destruction Services</h2>
       </div>
-      <ServiceGrid services={divisionServices} showDivision={false} />
-    </Container>
-  </Section>
-
-  <!-- Benefits -->
-  <Section theme="white">
-    <Container>
-      <BenefitsList benefits={divisionBenefits} title="Enterprise Benefits of Our Shredding & Integrity Services" />
-    </Container>
-  </Section>
-
-  <!-- Relevant Sectors -->
-  <Section theme="slate">
-    <Container>
-      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Sectors Served</span>
-        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
-          Industry Frameworks Requiring Certified Shredding
-        </h2>
-      </div>
-      <SectorGrid sectors={sectors} />
-    </Container>
-  </Section>
-
-  <!-- Final CTA -->
-  <Section theme="navy">
-    <Container className="text-center max-w-4xl mx-auto space-y-6">
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-        Schedule regular office consoles or a one-off archive purge
-      </h2>
-      <p class="text-base text-slate-300 max-w-2xl mx-auto">
-        Get an immediate rate card for mobile on-site shredding or set up compliant workplace recycling stations.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
-        <a
-          href="/request-a-quote?service=on-site-shredding"
-          class="px-8 py-4 rounded-xl bg-brand-accent hover:bg-brand-accent-hover text-white text-base font-bold shadow-lg transition-all"
-        >
-          Request Shredding Quote
-        </a>
-        <a
-          href="/contact"
-          class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-base font-bold border border-white/20 transition-all"
-        >
-          Contact Shredding Desk
-        </a>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {divisionServices.map(service => (
+          <a href={`/services/${service.slug}`} class="group bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#2D6A4F]/40 hover:shadow-xl transition-all duration-300 flex flex-col relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-0.5 bg-[#2D6A4F] opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
+            <h3 class="text-sm font-bold text-slate-900 group-hover:text-[#2D6A4F] transition-colors leading-snug mb-2">{service.title}</h3>
+            <p class="text-xs text-slate-500 leading-relaxed line-clamp-3 flex-1">{service.summary}</p>
+            <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-end">
+              <span class="flex items-center gap-1 text-xs font-bold text-[#2D6A4F] group-hover:gap-2 transition-all">
+                Explore <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </span>
+            </div>
+          </a>
+        ))}
       </div>
     </Container>
-  </Section>
+  </section>
+
+  <!-- ===== SECTORS ===== -->
+  <section class="bg-white py-14 lg:py-16 border-t border-slate-100">
+    <Container>
+      <div class="text-center mb-10">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Sector Expertise</span>
+        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Trusted by Regulated Organisations</h2>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
+        {sectorLinks.map(s => (
+          <a href={`/sectors/${s.slug}`} class="group bg-[#F2F8F5] rounded-2xl px-5 py-5 border border-slate-200 hover:border-[#2D6A4F]/40 hover:shadow-md transition-all text-center">
+            <p class="text-sm font-bold text-slate-900 group-hover:text-[#2D6A4F] transition-colors">{s.title}</p>
+            <p class="mt-1 text-[10px] text-[#2D6A4F] font-bold">Explore →</p>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="py-14 lg:py-16 border-t border-slate-200" style={`background: ${clr.light};`}>
+    <Container>
+      <AccordionFaq faqs={faqs} title="Secure Destruction Questions" subtitle="Common questions about our document shredding and destruction services." />
+    </Container>
+  </section>
+
+  <!-- ===== CTA (Clean Open Layout - No Background Box) ===== -->
+  <section class="relative z-10 py-16 lg:py-24 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl pointer-events-none opacity-15" style={`background: ${clr.accent};`}></div>
+    <Container className="relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase mb-4" style={`color: ${clr.accent};`}>Get Started</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">Ready to Destroy Sensitive Information Securely?</h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 max-w-xl mx-auto font-medium">Tell us what you need to destroy — we'll arrange the right certificated destruction solution.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/request-a-quote" class="px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-[#2D6A4F] hover:bg-[#245a41] text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">Get a Quote →</a>
+          <a href="/contact" class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5">Contact Techsteps</a>
+        </div>
+      </div>
+    </Container>
+  </section>
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const nav = document.getElementById('dest-lifecycle-nav');
+    if (!nav) return;
+    const tabs = nav.querySelectorAll('.lifecycle-tab');
+    const descs = nav.querySelectorAll('[data-stage-desc]');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const id = tab.getAttribute('data-stage');
+        tabs.forEach(t => { t.classList.remove('bg-white/20','border-white/50','shadow-lg'); t.classList.add('bg-white/5','border-white/15'); });
+        tab.classList.add('bg-white/20','border-white/50','shadow-lg'); tab.classList.remove('bg-white/5','border-white/15');
+        descs.forEach(d => { d.classList.toggle('hidden', d.getAttribute('data-stage-desc') !== id); d.classList.toggle('block', d.getAttribute('data-stage-desc') === id); });
+      });
+    });
+  })();
+</script>

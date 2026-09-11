@@ -10,6 +10,8 @@
 /request-quote    /request-a-quote  301
 /quote/           /request-a-quote  301
 /quote            /request-a-quote  301
+/terms            /terms-and-conditions  301
+/terms/           /terms-and-conditions  301
 
 # Legacy WordPress admin/content suppression
 /wp-login.php     /404              404

@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../layout/Container.astro';
+import Section from '../layout/Section.astro';
+import PageHero from '../hero/PageHero.astro';
+import { siteSettings } from '../../lib/sanity/data';
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  subheading?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  lastUpdated?: string;
+  complianceBadge?: string;
+  activeSlug:
+    | 'privacy-policy'
+    | 'cookie-policy'
+    | 'terms-and-conditions'
+    | 'accessibility'
+    | 'modern-slavery-statement'
+    | 'environmental-policy'
+    | 'information-security-policy';
+}
+
+const {
+  title,
+  eyebrow = 'GOVERNANCE & COMPLIANCE',
+  subheading,
+  metaTitle,
+  metaDescription,
+  lastUpdated = 'February 2026',
+  complianceBadge = 'UK Statutory & Regulatory Framework',
+  activeSlug,
+} = Astro.props;
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Legal & Governance', url: '/privacy-policy' },
+  { name: title, url: `/${activeSlug}` },
+];
+
+const policyNav = [
+  { slug: 'privacy-policy', label: 'Privacy Policy', desc: 'UK GDPR & Data Protection Act 2018' },
+  { slug: 'cookie-policy', label: 'Cookie Policy', desc: 'PECR & Transparent Consent Choices' },
+  { slug: 'terms-and-conditions', label: 'Terms & Conditions', desc: 'Commercial Agreements & Chain of Custody' },
+  { slug: 'accessibility', label: 'Accessibility Statement', desc: 'WCAG 2.1 Level AA Standards' },
+  { slug: 'modern-slavery-statement', label: 'Modern Slavery Statement', desc: 'Supply Chain Audits & Section 54' },
+  { slug: 'environmental-policy', label: 'Environmental Policy', desc: 'ISO 14001, Circular IT & Zero Landfill' },
+  { slug: 'information-security-policy', label: 'Information Security Policy', desc: 'ISO 27001, ADISA 8.0 & Cyber Essentials' },
+];
+---
+
+<BaseLayout
+  title={metaTitle || `${title} | Compliance & Governance | Techsteps UK`}
+  description={metaDescription || `${title} for Techsteps UK. Read our formal UK regulatory compliance commitments, standards, and operational guidelines.`}
+  hasHeroHeader={true}
+>
+  <!-- Modern Editorial Page Hero -->
+  <PageHero
+    title={title}
+    eyebrow={eyebrow}
+    subheading={subheading || `Official corporate policy of ${siteSettings.legalName}. Compliant with prevailing UK legislation and accredited international standards.`}
+    breadcrumbs={breadcrumbs}
+    dividerColor="#ffffff"
+  />
+
+  <Section theme="white" className="pt-4 pb-20 sm:pb-28">
+    <Container>
+      <!-- Governance Meta Bar -->
+      <div class="mb-10 p-5 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-xs flex flex-wrap items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">
+            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            Active & Verified
+          </span>
+          <span class="text-xs font-medium text-slate-600">
+            <strong>Standard:</strong> {complianceBadge}
+          </span>
+          <span class="text-slate-300 hidden sm:inline">&bull;</span>
+          <span class="text-xs font-medium text-slate-600">
+            <strong>Entity:</strong> {siteSettings.legalName} (Reg #{siteSettings.registrationNumber})
+          </span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-mono text-slate-500">
+            Last Reviewed: {lastUpdated}
+          </span>
+          <button
+            type="button"
+            onclick="window.print()"
+            class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 transition-colors shadow-2xs cursor-pointer"
+            aria-label="Print or Save Policy as PDF"
+          >
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            Print / PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Layout: Sidebar Navigation + Policy Content -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <!-- Left Sidebar: Policy Directory & Contacts -->
+        <aside class="lg:col-span-4 lg:sticky lg:top-24 space-y-6 select-none">
+          <!-- Policy Navigation Card -->
+          <div class="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">
+              Corporate Governance Directory
+            </h2>
+            <nav class="space-y-1" aria-label="Governance and Legal Policies">
+              {policyNav.map((item) => {
+                const isActive = item.slug === activeSlug;
+                return (
+                  <a
+                    href={`/${item.slug}`}
+                    class={`block p-3 rounded-xl transition-all ${
+                      isActive
+                        ? 'bg-[#146B5C]/10 border-l-4 border-[#146B5C] text-[#146B5C] font-bold shadow-2xs'
+                        : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900 border-l-4 border-transparent'
+                    }`}
+                  >
+                    <div class="text-sm font-semibold leading-snug">{item.label}</div>
+                    <div class="text-[11px] text-slate-500 font-normal mt-0.5 leading-tight">{item.desc}</div>
+                  </a>
+                );
+              })}
+            </nav>
+          </div>
+
+          <!-- Compliance & DPO Contact Box -->
+          <div class="p-6 rounded-2xl bg-slate-900 text-white space-y-4 shadow-md">
+            <div class="flex items-center gap-2 text-emerald-400 font-mono text-xs uppercase tracking-wider font-bold">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              Compliance Enquiries
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              For Subject Access Requests (SAR), supply chain audit requests, or compliance verifications, contact our governance secretariat:
+            </p>
+            <div class="space-y-2 pt-1 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 font-mono">Email:</span>
+                <a href="mailto:compliance@techsteps.co.uk" class="text-emerald-300 hover:underline font-semibold">compliance@techsteps.co.uk</a>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 font-mono">Phone:</span>
+                <a href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`} class="text-slate-200 hover:underline">{siteSettings.phone}</a>
+              </div>
+              <div class="text-slate-400 pt-1 leading-normal font-mono text-[11px]">
+                Registered Office: {siteSettings.address.street}, {siteSettings.address.city}, {siteSettings.address.postcode}
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Main Content -->
+        <div class="lg:col-span-8 bg-white p-6 sm:p-10 rounded-2xl border border-slate-200/90 shadow-sm">
+          <div class="prose prose-slate max-w-none text-slate-700 space-y-8 text-sm sm:text-base leading-relaxed">
+            <slot />
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

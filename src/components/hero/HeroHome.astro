@@ -1,5 +1,6 @@
 ---
 import BrandLogo from '../global/BrandLogo.astro';
+import TornPaperDivider from '../layout/TornPaperDivider.astro';
 import WarpText from './WarpText';
 ---
 
@@ -151,12 +152,12 @@ import WarpText from './WarpText';
       pointerStrength={0.38}
       refraction={0.018}
       ripple={true}
-      fontSize="clamp(3.5rem, 8vw, 7.5rem)"
+      fontSize="clamp(2.75rem, 6.5vw, 6rem)"
       fontWeight={800}
       fontFamily="'Big Shoulders Display', sans-serif"
       letterSpacing="0.01em"
       lineHeight={0.92}
-      className="w-full h-[260px] sm:h-[320px] lg:h-[360px] drop-shadow-2xl select-none"
+      className="w-full h-[220px] sm:h-[270px] lg:h-[310px] drop-shadow-2xl select-none"
     />
   </div>
 
@@ -164,13 +165,5 @@ import WarpText from './WarpText';
   <div class="h-20 sm:h-22 w-full pointer-events-none" aria-hidden="true"></div>
 
   <!-- 4. Torn Paper Edge Transition (Editorial Ripped Paper Divider to Next Section) -->
-  <div class="absolute inset-x-0 bottom-[-1px] z-20 w-full overflow-hidden leading-none select-none pointer-events-none" aria-hidden="true">
-    <img
-      src="/images/brand/torn-paper-edge.svg"
-      alt=""
-      class="w-full h-8 sm:h-10 md:h-12 lg:h-14 object-fill object-bottom block"
-      loading="eager"
-      decoding="async"
-    />
-  </div>
+  <TornPaperDivider color="#f1f4ef" />
 </section>

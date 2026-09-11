@@ -1,106 +1,185 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
-import Section from '../components/layout/Section.astro';
-import HeroDivision from '../components/hero/HeroDivision.astro';
-import ServiceGrid from '../components/services/ServiceGrid.astro';
-import BenefitsList from '../components/services/BenefitsList.astro';
-import SectorGrid from '../components/sectors/SectorGrid.astro';
+import PageHero from '../components/hero/PageHero.astro';
+import AccordionFaq from '../components/content/AccordionFaq.astro';
 import { divisions, services, sectors } from '../lib/sanity/data';
+
+const breadcrumbs = [
+  { name: 'Services', url: '/services' },
+  { name: 'Information Management', url: '/information-management' },
+];
 
 const division = divisions.find((d) => d.slug === 'information-management')!;
 const divisionServices = services.filter((s) => s.divisionSlug === division.slug);
 
-const divisionBenefits = [
-  'Full legal compliance with BS 4971, ISO 27001, and UK GDPR data preservation mandates',
-  'Emergency 2-hour physical record recall or 1-hour Scan-on-Demand digital retrieval',
-  'BS 10008 accredited digital scanning giving digital files complete legal court admissibility',
-  'Advanced VESDA smoke detection and gaseous clean-agent fire suppression in all vaults',
-  'Automated retention policy alerts preventing unnecessary physical archival costs',
-  'Seamless API integration with corporate cloud DMS platforms including SharePoint and Box',
+const clr = { accent: '#5D4037', dark: '#3E2723', light: '#FBF8F6' };
+
+const lifecycleStages = [
+  { id: 'capture', label: 'Capture', number: '01', desc: 'Information is captured from physical or digital sources — through scanning, mailroom processing or direct ingestion.' },
+  { id: 'store', label: 'Store', number: '02', desc: 'Records are stored in secure, climate-controlled facilities or structured digital environments with full index and reference.' },
+  { id: 'manage', label: 'Manage', number: '03', desc: 'Information is managed, controlled and accessible to authorised personnel throughout its active lifecycle.' },
+  { id: 'access', label: 'Access', number: '04', desc: 'Records can be retrieved physically or digitally on demand, with appropriate authorisation and audit records.' },
+  { id: 'retain', label: 'Retain', number: '05', desc: 'Retention schedules are tracked and enforced in line with regulatory, legal and organisational requirements.' },
+  { id: 'dispose', label: 'Dispose', number: '06', desc: 'Information is securely and compliantly disposed of at end of retention — with certified destruction records.' },
+];
+
+const sectorLinks = [
+  { title: 'NHS & Healthcare', slug: 'nhs' },
+  { title: 'Financial Services', slug: 'finance' },
+  { title: 'Central Government', slug: 'central-government' },
+  { title: 'Defence', slug: 'defence' },
+];
+
+const faqs = [
+  { question: 'What is information lifecycle management?', answer: 'Information lifecycle management covers the full journey of a business record — from creation or capture through active use, storage, retrieval, retention and compliant disposal — with the goal of keeping information secure, accessible and compliantly managed throughout.' },
+  { question: 'How secure is off-site document storage?', answer: 'Our storage facilities operate under ISO 27001 and BS 4971 standards with climate control, VESDA smoke detection, FM200 fire suppression, and item-level barcode tracking. Access is restricted to authorised personnel only.' },
+  { question: 'Can you digitise our existing paper records?', answer: 'Yes. Our document scanning service processes high volumes to BS 10008 legal admissibility standards, with full OCR indexing and integration with your document management systems.' },
+  { question: 'Can records be securely destroyed at end of retention?', answer: 'Yes. Secure document destruction at end of retention is part of our information management service, with certificates provided for every destruction event.' },
 ];
 ---
 
 <BaseLayout
-  title="Information Management UK | Document Storage, Scanning & Vaults | Techsteps"
-  description="Techsteps Information Management division delivers climate-controlled archive storage, BS 10008 scanning, digital mailroom services, and high-security biometric vaulting."
+  title="Information Management | Document Storage, Scanning & Records Management | Techsteps"
+  description="Secure information management — climate-controlled document storage, BS 10008 scanning, digital mailroom, and records lifecycle services. UK-wide from Techsteps."
+  hasHeroHeader={true}
 >
-  <HeroDivision division={division} serviceCount={divisionServices.length} />
+  <!-- ===== 1. HERO (Simple & Clean, ref: /sustainability) ===== -->
+  <PageHero
+    eyebrow="INFORMATION MANAGEMENT"
+    title="Secure Information for Every Organisation."
+    subheading="Complete physical and digital lifecycle management — from secure vault storage to high-speed digitisation and compliant disposal."
+    bgImage="/images/services/document-storage.jpg"
+    breadcrumbs={breadcrumbs}
+    dividerColor="#5D4037"
+  >
+    <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+      <a
+        href="#lifecycle-nav"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#5D4037] hover:bg-[#4e362e] text-white text-sm font-bold shadow-lg transition-all duration-200"
+      >
+        Explore the Lifecycle
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
+      <a
+        href="/request-a-quote?service=information-management"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/20 transition-all duration-200"
+      >
+        Get a Quote
+      </a>
+    </div>
+  </PageHero>
 
-  <!-- Division Introduction -->
-  <Section theme="white">
+  <!-- ===== LIFECYCLE JOURNEY ===== -->
+  <section class="bg-[#5D4037] py-16 lg:py-20">
     <Container>
-      <div class="max-w-4xl mx-auto text-center space-y-6">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Enterprise Information Governance</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight">
-          Protecting Your Vital Records Across Their Entire Lifecycle
-        </h2>
-        <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
-          From legacy paper deeds and fragile historical museum manuscripts to modern digital backup tapes and active daily mail, Techsteps provides accredited storage, rapid digitisation, and secure destruction under a single unified governance umbrella.
-        </p>
+      <div class="text-center mb-12">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-amber-300 mb-4">The Information Lifecycle</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Every Record. A Clearer Journey.</h2>
+        <p class="mt-3 text-sm text-amber-100/60 max-w-lg mx-auto">Click any stage to learn more.</p>
+      </div>
+      <div class="max-w-4xl mx-auto" id="info-lifecycle-nav">
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-6">
+          {lifecycleStages.map((stage, i) => (
+            <button type="button" data-stage={stage.id} class={`lifecycle-tab group flex flex-col items-center gap-2 p-3 rounded-xl border transition-all duration-200 cursor-pointer ${i === 0 ? 'bg-white/20 border-white/50 shadow-lg' : 'bg-white/5 border-white/15 hover:bg-white/15'}`}>
+              <span class={`text-[10px] font-bold uppercase tracking-widest ${i === 0 ? 'text-amber-200' : 'text-amber-300/50 group-hover:text-amber-200'}`}>{stage.number}</span>
+              <span class={`text-xs font-extrabold uppercase tracking-wider ${i === 0 ? 'text-white' : 'text-white/60 group-hover:text-white'}`}>{stage.label}</span>
+            </button>
+          ))}
+        </div>
+        <div class="bg-white/10 rounded-2xl border border-white/20 p-6 min-h-[90px]">
+          {lifecycleStages.map((stage, i) => (
+            <div data-stage-desc={stage.id} class={i === 0 ? 'block' : 'hidden'}>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-amber-300 mb-2">{stage.number} / {stage.label}</p>
+              <p class="text-base text-white leading-relaxed">{stage.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </Container>
-  </Section>
+  </section>
 
-  <!-- Division Services -->
-  <Section theme="slate" id="division-services">
+  <!-- ===== SERVICES GRID ===== -->
+  <section class="py-14 lg:py-20" style={`background: ${clr.light};`} id="division-services">
     <Container>
-      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Specialized Services</span>
-        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
-          {division.title} Solutions
-        </h2>
-        <p class="text-sm sm:text-base text-slate-600">
-          Select a service below to review technical specifications, compliance standards, and SLAs.
-        </p>
+      <div class="text-center mb-10">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#5D4037] mb-4">Our Services</span>
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Information Management Services</h2>
       </div>
-      <ServiceGrid services={divisionServices} showDivision={false} />
-    </Container>
-  </Section>
-
-  <!-- Benefits -->
-  <Section theme="white">
-    <Container>
-      <BenefitsList benefits={divisionBenefits} title="Strategic Advantages of Our Information Management" />
-    </Container>
-  </Section>
-
-  <!-- Relevant Sectors -->
-  <Section theme="slate">
-    <Container>
-      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Sectors Served</span>
-        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
-          Industry Frameworks Aligned with Information Management
-        </h2>
-      </div>
-      <SectorGrid sectors={sectors} />
-    </Container>
-  </Section>
-
-  <!-- Final CTA -->
-  <Section theme="navy">
-    <Container className="text-center max-w-4xl mx-auto space-y-6">
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-        Modernize your corporate archive and information workflows
-      </h2>
-      <p class="text-base text-slate-300 max-w-2xl mx-auto">
-        Speak with an information management specialist to arrange a site audit or request a competitive storage quotation.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
-        <a
-          href="/request-a-quote"
-          class="px-8 py-4 rounded-xl bg-brand-accent hover:bg-brand-accent-hover text-white text-base font-bold shadow-lg transition-all"
-        >
-          Request an Archiving Quote
-        </a>
-        <a
-          href="/contact"
-          class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-base font-bold border border-white/20 transition-all"
-        >
-          Contact Archive Desk
-        </a>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {divisionServices.map(service => (
+          <a href={`/services/${service.slug}`} class="group bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#5D4037]/40 hover:shadow-xl transition-all duration-300 flex flex-col relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-0.5 bg-[#5D4037] opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
+            <h3 class="text-sm font-bold text-slate-900 group-hover:text-[#5D4037] transition-colors leading-snug mb-2">{service.title}</h3>
+            <p class="text-xs text-slate-500 leading-relaxed line-clamp-3 flex-1">{service.summary}</p>
+            <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-end">
+              <span class="flex items-center gap-1 text-xs font-bold text-[#5D4037] group-hover:gap-2 transition-all">
+                Explore <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </span>
+            </div>
+          </a>
+        ))}
       </div>
     </Container>
-  </Section>
+  </section>
+
+  <!-- ===== SECTORS ===== -->
+  <section class="bg-white py-14 lg:py-16 border-t border-slate-100">
+    <Container>
+      <div class="text-center mb-10">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#5D4037] mb-4">Sector Expertise</span>
+        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Built for Regulated Organisations</h2>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
+        {sectorLinks.map(s => (
+          <a href={`/sectors/${s.slug}`} class="group bg-[#FBF8F6] rounded-2xl px-5 py-5 border border-slate-200 hover:border-[#5D4037]/40 hover:shadow-md transition-all text-center">
+            <p class="text-sm font-bold text-slate-900 group-hover:text-[#5D4037] transition-colors">{s.title}</p>
+            <p class="mt-1 text-[10px] text-[#5D4037] font-bold">Explore →</p>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="py-14 lg:py-16 border-t border-slate-200" style={`background: ${clr.light};`}>
+    <Container>
+      <AccordionFaq faqs={faqs} title="Information Management Questions" subtitle="Common questions about our information lifecycle and records services." />
+    </Container>
+  </section>
+
+  <!-- ===== CTA (Clean Open Layout - No Background Box) ===== -->
+  <section class="relative z-10 py-16 lg:py-24 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl pointer-events-none opacity-15" style={`background: ${clr.accent};`}></div>
+    <Container className="relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase mb-4" style={`color: ${clr.accent};`}>Get Started</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">Ready to Manage Your Information More Securely?</h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 max-w-xl mx-auto font-medium">Tell us about your information volumes and requirements — we'll help you build the right solution.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/request-a-quote" class="px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-[#5D4037] hover:bg-[#4e362e] text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">Get a Quote →</a>
+          <a href="/contact" class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5">Contact Techsteps</a>
+        </div>
+      </div>
+    </Container>
+  </section>
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const nav = document.getElementById('info-lifecycle-nav');
+    if (!nav) return;
+    const tabs = nav.querySelectorAll('.lifecycle-tab');
+    const descs = nav.querySelectorAll('[data-stage-desc]');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const id = tab.getAttribute('data-stage');
+        tabs.forEach(t => { t.classList.remove('bg-white/20','border-white/50','shadow-lg'); t.classList.add('bg-white/5','border-white/15'); });
+        tab.classList.add('bg-white/20','border-white/50','shadow-lg'); tab.classList.remove('bg-white/5','border-white/15');
+        descs.forEach(d => { d.classList.toggle('hidden', d.getAttribute('data-stage-desc') !== id); d.classList.toggle('block', d.getAttribute('data-stage-desc') === id); });
+      });
+    });
+  })();
+</script>

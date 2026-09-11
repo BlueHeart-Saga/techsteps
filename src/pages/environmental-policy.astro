@@ -1,0 +1,138 @@
+---
+import LegalPageLayout from '../components/legal/LegalPageLayout.astro';
+import { siteSettings } from '../lib/sanity/data';
+---
+
+<LegalPageLayout
+  title="Environmental Policy"
+  eyebrow="SUSTAINABILITY & ISO 14001"
+  subheading="Corporate environmental framework governing Techsteps UK Limited's commitments to zero direct landfill disposal, certified WEEE treatment, carbon reduction, and circular IT lifecycle management."
+  metaTitle="Environmental Policy | ISO 14001 & Circular IT | Techsteps UK"
+  metaDescription="Techsteps UK Environmental Policy. Read our ISO 14001 environmental management commitments, WEEE compliance, Scope 1/2/3 carbon reduction, and zero landfill warranty."
+  complianceBadge="ISO 14001 Certified & Zero Landfill"
+  activeSlug="environmental-policy"
+  lastUpdated="February 2026"
+>
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      1. Environmental Commitment &amp; Vision
+    </h2>
+    <p>
+      At {siteSettings.legalName} ("Techsteps"), environmental stewardship is not an auxiliary program—it is a core pillar of our operational identity. As an accredited specialist in IT lifecycle disposition, document archiving, secure destruction, and commercial relocations, our mission is to eliminate waste, advance the UK circular economy, and enable our corporate clients to achieve verifiable carbon reductions.
+    </p>
+    <p>
+      We operate a formal Environmental Management System (EMS) certified to <strong>ISO 14001:2015</strong>, ensuring systematic compliance with environmental legislation and continuous operational improvement across all corporate operations.
+    </p>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      2. The Circular Waste Hierarchy Framework
+    </h2>
+    <p>
+      Techsteps strictly enforces the UK Waste Hierarchy established under Regulation 12 of the Waste (England and Wales) Regulations 2011:
+    </p>
+    <div class="space-y-3">
+      <div class="p-4 rounded-xl border border-emerald-200 bg-emerald-50/50 shadow-2xs">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-emerald-600 text-white font-mono text-xs font-bold">Priority 1</span>
+          <h3 class="font-bold text-slate-900 text-base">Prevention &amp; Asset Life Extension</h3>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-700 mt-1">
+          Assisting enterprise clients with component maintenance, firmware upgrades, and warranty repairs to extend hardware lifespans before considering retirement.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-emerald-700 text-white font-mono text-xs font-bold">Priority 2</span>
+          <h3 class="font-bold text-slate-900 text-base">Direct Hardware Reuse &amp; Remarketing</h3>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1">
+          Fully sanitised laptops, servers, and networking gear are refurbished and remarketed into legitimate secondary markets, preserving up to 80% of the hardware’s embodied carbon footprint.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-teal-700 text-white font-mono text-xs font-bold">Priority 3</span>
+          <h3 class="font-bold text-slate-900 text-base">Component Harvesting &amp; Secondary Refining</h3>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1">
+          Irreparable hardware is disassembled down to base fractions (printed circuit boards, copper heat pipes, aluminium chassis, rare-earth magnets) for domestic secondary raw material smelting.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-xl border border-red-200 bg-red-50/50 shadow-2xs">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-red-700 text-white font-mono text-xs font-bold">Absolute Bar</span>
+          <h3 class="font-bold text-slate-900 text-base">Zero Direct to Landfill Guarantee</h3>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-700 mt-1">
+          100% of material collected by Techsteps is diverted from landfill. Unusable non-metallic residues are directed to certified high-efficiency Energy from Waste (EfW) facilities.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      3. Regulatory Compliance: WEEE &amp; Simpler Recycling
+    </h2>
+    <p>
+      We operate in strict conformity with all statutory UK environmental directives:
+    </p>
+    <ul class="list-disc pl-5 space-y-2 text-slate-600">
+      <li>
+        <strong>WEEE Regulations 2013:</strong> All electrical and electronic equipment is treated pursuant to Best Available Treatment, Recovery and Recycling Techniques (BATRRT). Hazardous components (e.g. mercury backlights, lead solder, lithium-ion battery cells) are extracted prior to mechanical shredding.
+      </li>
+      <li>
+        <strong>Hazardous Waste Regulations 2005:</strong> Full statutory consignment tracking is generated for lithium-ion battery consignments, CRT glass, and hazardous battery packs with Environment Agency notifications.
+      </li>
+      <li>
+        <strong>UK Simpler Recycling Mandate:</strong> Segregated collections for dry mixed recycling, cardboard baling, and confidential paper pulping ensuring clean single-stream material purity.
+      </li>
+    </ul>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      4. Scope 1, 2, and 3 Carbon Reduction Targets
+    </h2>
+    <p>
+      We have established science-based decarbonisation targets targeting Net Zero operational emissions by 2035:
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90 text-center space-y-1">
+        <div class="font-mono text-xs font-bold uppercase text-emerald-700">Scope 1: Fleet</div>
+        <div class="text-2xl font-extrabold text-slate-900">Euro 6 &amp; EV</div>
+        <p class="text-[11px] text-slate-500">100% Euro 6 clean diesel fleet with phased transition to electric collection vans by 2028.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90 text-center space-y-1">
+        <div class="font-mono text-xs font-bold uppercase text-emerald-700">Scope 2: Energy</div>
+        <div class="text-2xl font-extrabold text-slate-900">100% REGO</div>
+        <p class="text-[11px] text-slate-500">Certified renewable electricity powering all archival vaults and processing centres.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90 text-center space-y-1">
+        <div class="font-mono text-xs font-bold uppercase text-emerald-700">Scope 3: Client Avoided</div>
+        <div class="text-2xl font-extrabold text-slate-900">Scope 3 Reports</div>
+        <p class="text-[11px] text-slate-500">Delivering verified Scope 3 GHG avoidance certificates for every refurbished client asset.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      5. Environmental Governance &amp; Auditing
+    </h2>
+    <p>
+      Our Environmental Policy is reviewed annually by our Executive Leadership Team and audited bi-annually by UKAS-accredited certification bodies.
+    </p>
+    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm font-mono">
+      <div><strong>Environmental Management Representative:</strong> Head of Sustainability &amp; Compliance</div>
+      <div><strong>Email:</strong> <a href="mailto:sustainability@techsteps.co.uk" class="text-emerald-700 hover:underline">sustainability@techsteps.co.uk</a></div>
+      <div><strong>Direct Enquiries:</strong> {siteSettings.phone}</div>
+      <div><strong>Accreditation Body:</strong> UKAS Accredited ISO 14001:2015 Cert #EMS-948102</div>
+    </div>
+  </section>
+</LegalPageLayout>

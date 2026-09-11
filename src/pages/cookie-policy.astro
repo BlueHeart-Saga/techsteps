@@ -1,68 +1,149 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Container from '../components/layout/Container.astro';
-import Section from '../components/layout/Section.astro';
-import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
-
-const breadcrumbs = [
-  { name: 'Cookie Policy', url: '/cookie-policy' },
-];
+import LegalPageLayout from '../components/legal/LegalPageLayout.astro';
+import { siteSettings } from '../lib/sanity/data';
 ---
 
-<BaseLayout
-  title="Cookie Policy | Transparent Tracking Controls | Techsteps UK"
-  description="Techsteps UK Cookie Policy. Understand how we use essential, analytics, and preference cookies to provide a secure web experience."
+<LegalPageLayout
+  title="Cookie Policy"
+  eyebrow="TRANSPARENCY & TRACKING CONTROLS"
+  subheading="PECR and UK GDPR cookie disclosures explaining how Techsteps uses essential, functional, and performance cookies to maintain a secure digital environment."
+  metaTitle="Cookie Policy | Transparent Tracking Controls | Techsteps UK"
+  metaDescription="Techsteps UK Cookie Policy. Understand how we use cookies, transparent tracking controls, and how to manage your privacy preferences under UK PECR and GDPR."
+  complianceBadge="PECR & UK GDPR Framework"
+  activeSlug="cookie-policy"
+  lastUpdated="February 2026"
 >
-  <div class="bg-brand-navy text-white py-16">
-    <Container size="narrow">
-      <Breadcrumbs items={breadcrumbs} theme="dark" />
-      <div class="space-y-4 mt-6">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Cookie Governance</span>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-          Cookie Policy
-        </h1>
-        <p class="text-xs text-slate-300 font-mono">
-          Last Updated: February 2026 &bull; Compliant with PECR &amp; UK GDPR
-        </p>
-      </div>
-    </Container>
-  </div>
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      1. What Are Cookies?
+    </h2>
+    <p>
+      Cookies are small alphanumeric text files stored directly in your web browser or local device storage when you visit websites. They enable digital platforms to identify your browser, remember session states (such as active quote requests and navigation preferences), and generate aggregate performance analytics.
+    </p>
+    <p>
+      Under the Privacy and Electronic Communications Regulations (PECR) and the UK GDPR, we are legally required to inform you regarding the cookies we deploy, their functional purpose, and obtain your explicit consent for any non-essential technologies.
+    </p>
+  </section>
 
-  <Section theme="white">
-    <Container size="narrow">
-      <div class="prose max-w-none text-slate-700 space-y-6 text-sm sm:text-base leading-relaxed">
-        <h2 class="text-xl font-bold text-brand-navy">1. What Are Cookies?</h2>
-        <p>
-          Cookies are small text files stored on your browser or device when you navigate websites. They allow our server to recognise your preferences, remember session states, and compile aggregated traffic statistics.
-        </p>
-
-        <h2 class="text-xl font-bold text-brand-navy">2. Categories of Cookies We Use</h2>
-        <div class="space-y-4">
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-            <h3 class="font-bold text-brand-navy text-base">Essential Operational Cookies</h3>
-            <p class="text-xs text-slate-600 mt-1">
-              Required for core site security, accessible form submission, and CSRF token verification. These cannot be disabled.
-            </p>
-          </div>
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-            <h3 class="font-bold text-brand-navy text-base">Preference Cookies</h3>
-            <p class="text-xs text-slate-600 mt-1">
-              Store your consent state (`techsteps_cookie_consent`) so you are not prompted repeatedly across visits.
-            </p>
-          </div>
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-            <h3 class="font-bold text-brand-navy text-base">Privacy-Conscious Performance Analytics</h3>
-            <p class="text-xs text-slate-600 mt-1">
-              Aggregated, anonymized metrics that measure page speed, popular service routes, and broken links without tracking individual browsing histories.
-            </p>
-          </div>
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      2. Cookie Categories We Deploy
+    </h2>
+    <p>
+      Our digital architecture strictly minimizes tracking. We categorize cookies into three clear operational classifications:
+    </p>
+    <div class="space-y-4">
+      <div class="p-5 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-2">
+        <div class="flex items-center justify-between">
+          <h3 class="font-bold text-slate-900 text-base">A. Strictly Necessary / Essential Cookies</h3>
+          <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-mono font-bold">Always Active</span>
         </div>
-
-        <h2 class="text-xl font-bold text-brand-navy">3. Managing Your Preferences</h2>
-        <p>
-          You can reset or change your cookie consent preferences at any time by clearing your browser cache or using the cookie banner displayed at the foot of the screen.
+        <p class="text-xs sm:text-sm text-slate-600">
+          Essential cookies are technically required for core website functionality, security, network routing, and accessibility. They allow you to navigate pages securely, submit interactive quote request forms, verify anti-CSRF tokens, and save your legal consent choices. You cannot disable these cookies in our settings without impairing website security.
         </p>
       </div>
-    </Container>
-  </Section>
-</BaseLayout>
+
+      <div class="p-5 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-2">
+        <div class="flex items-center justify-between">
+          <h3 class="font-bold text-slate-900 text-base">B. Preference &amp; Functionality Cookies</h3>
+          <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-mono font-bold">Optional</span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600">
+          These cookies enable our website to remember choices you make (such as your chosen division or preferred quote contact method) and provide enhanced, personalized navigational efficiency across visits.
+        </p>
+      </div>
+
+      <div class="p-5 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-2">
+        <div class="flex items-center justify-between">
+          <h3 class="font-bold text-slate-900 text-base">C. Privacy-Conscious Performance &amp; Analytics Cookies</h3>
+          <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-mono font-bold">Optional</span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600">
+          We use privacy-respecting aggregated analytics to assess website traffic patterns, popular service pages, and system load times. All telemetry is aggregated and anonymized; we do not build cross-site behavioural profiles, monetize browsing data, or sell data to third-party advertising brokers.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      3. Detailed Cookie Inventory Table
+    </h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs sm:text-sm border-collapse border border-slate-200">
+        <thead>
+          <tr class="bg-slate-100 text-slate-800 font-bold">
+            <th class="p-3 border border-slate-200">Cookie Name</th>
+            <th class="p-3 border border-slate-200">Provider</th>
+            <th class="p-3 border border-slate-200">Purpose</th>
+            <th class="p-3 border border-slate-200">Duration</th>
+            <th class="p-3 border border-slate-200">Category</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200 text-slate-600">
+          <tr>
+            <td class="p-3 border border-slate-200 font-mono text-slate-900 font-semibold">techsteps_session</td>
+            <td class="p-3 border border-slate-200">{siteSettings.companyName}</td>
+            <td class="p-3 border border-slate-200">Maintains secure user state during multi-step quote requests</td>
+            <td class="p-3 border border-slate-200 font-mono">Session</td>
+            <td class="p-3 border border-slate-200 font-semibold text-emerald-700">Strictly Necessary</td>
+          </tr>
+          <tr>
+            <td class="p-3 border border-slate-200 font-mono text-slate-900 font-semibold">techsteps_cookie_consent</td>
+            <td class="p-3 border border-slate-200">{siteSettings.companyName}</td>
+            <td class="p-3 border border-slate-200">Records your specific cookie consent selections</td>
+            <td class="p-3 border border-slate-200 font-mono">12 months</td>
+            <td class="p-3 border border-slate-200 font-semibold text-emerald-700">Strictly Necessary</td>
+          </tr>
+          <tr>
+            <td class="p-3 border border-slate-200 font-mono text-slate-900 font-semibold">__cf_bm</td>
+            <td class="p-3 border border-slate-200">Cloudflare</td>
+            <td class="p-3 border border-slate-200">Bot protection and DDoS mitigation token</td>
+            <td class="p-3 border border-slate-200 font-mono">30 minutes</td>
+            <td class="p-3 border border-slate-200 font-semibold text-emerald-700">Strictly Necessary</td>
+          </tr>
+          <tr>
+            <td class="p-3 border border-slate-200 font-mono text-slate-900 font-semibold">_techsteps_perf</td>
+            <td class="p-3 border border-slate-200">{siteSettings.companyName}</td>
+            <td class="p-3 border border-slate-200">Measures anonymous render speeds and broken routes</td>
+            <td class="p-3 border border-slate-200 font-mono">30 days</td>
+            <td class="p-3 border border-slate-200">Performance Analytics</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      4. Managing &amp; Disabling Cookies
+    </h2>
+    <p>
+      You maintain full autonomy over the storage of cookies on your device:
+    </p>
+    <ul class="list-disc pl-5 space-y-2 text-slate-600">
+      <li>
+        <strong>Via Browser Settings:</strong> You can configure modern web browsers (Chrome, Edge, Firefox, Safari) to reject all third-party cookies, notify you when a cookie is placed, or automatically purge local storage when closing your browser session.
+      </li>
+      <li>
+        <strong>Clearing Existing Cookies:</strong> You can clear your existing browser history and cookie cache at any point via your browser’s privacy settings. This will immediately reset your consent status on Techsteps.
+      </li>
+      <li>
+        <strong>Global Privacy Control (GPC):</strong> Techsteps recognizes the Global Privacy Control signal broadcast by privacy-focused web browsers, automatically suppressing non-essential analytics where detected.
+      </li>
+    </ul>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      5. Updates to This Cookie Policy
+    </h2>
+    <p>
+      We review our cookie inventory annually or upon deploying new digital client services. Any updates will be published on this page with an updated revision date.
+    </p>
+    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-mono space-y-1">
+      <div><strong>Questions regarding cookie usage:</strong> <a href="mailto:privacy@techsteps.co.uk" class="text-emerald-700 hover:underline">privacy@techsteps.co.uk</a></div>
+      <div><strong>Corporate Enquiries:</strong> {siteSettings.phone}</div>
+    </div>
+  </section>
+</LegalPageLayout>

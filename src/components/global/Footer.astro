@@ -175,12 +175,16 @@ const currentYear = new Date().getFullYear();
 
   <!-- Bottom Legal Strip -->
   <div class="w-full bg-[#2B4437] py-4 px-4 sm:px-6 lg:px-12 border-t border-white/10">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-300/80 font-sans">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-300/80 font-sans">
       <p>&copy; {currentYear} {siteSettings.legalName}. All rights reserved.</p>
-      <div class="flex items-center space-x-6 text-xs text-slate-300/80">
+      <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-slate-300/80">
         <a href="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
         <a href="/cookie-policy" class="hover:text-white transition-colors">Cookie Policy</a>
-        <a href="/terms" class="hover:text-white transition-colors">Terms of Business</a>
+        <a href="/terms-and-conditions" class="hover:text-white transition-colors">Terms &amp; Conditions</a>
+        <a href="/accessibility" class="hover:text-white transition-colors">Accessibility</a>
+        <a href="/modern-slavery-statement" class="hover:text-white transition-colors">Modern Slavery</a>
+        <a href="/environmental-policy" class="hover:text-white transition-colors">Environmental Policy</a>
+        <a href="/information-security-policy" class="hover:text-white transition-colors">Information Security</a>
       </div>
     </div>
   </div>

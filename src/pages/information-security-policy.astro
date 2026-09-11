@@ -1,0 +1,144 @@
+---
+import LegalPageLayout from '../components/legal/LegalPageLayout.astro';
+import { siteSettings } from '../lib/sanity/data';
+---
+
+<LegalPageLayout
+  title="Information Security Policy"
+  eyebrow="CYBER RESILIENCE & ISO 27001"
+  subheading="High-level corporate information security framework outlining the organizational, physical, and technical safeguards employed by Techsteps UK Limited to secure client data assets."
+  metaTitle="Information Security Policy | ISO 27001 & Cyber Essentials | Techsteps UK"
+  metaDescription="Techsteps UK Information Security Policy. Learn about our ISO 27001 accredited controls, ADISA 8.0 data sanitisation, Cyber Essentials Plus, and physical vault protections."
+  complianceBadge="ISO 27001 & ADISA 8.0 Certified"
+  activeSlug="information-security-policy"
+  lastUpdated="February 2026"
+>
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      1. Policy Objectives &amp; Executive Mandate
+    </h2>
+    <p>
+      At {siteSettings.legalName} ("Techsteps"), information security is central to our commercial promise. Our corporate clients—spanning Tier-1 investment banks, NHS Trusts, Ministry of Defence contractors, and central government bodies—rely on us to securely store, digitise, sanitise, and destroy their most sensitive digital and physical information assets.
+    </p>
+    <p>
+      Our Information Security Management System (ISMS) is certified to <strong>ISO/IEC 27001:2022</strong> and validated through annual third-party UKAS audits. The objective of this policy is to safeguard the <strong>Confidentiality, Integrity, and Availability (CIA)</strong> of all client and corporate data under our custody.
+    </p>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      2. Security Accreditations &amp; Standards Matrix
+    </h2>
+    <p>
+      We validate our operational security through continuous independent accreditations:
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+        <div class="flex items-center justify-between">
+          <h3 class="font-bold text-slate-900 text-sm">ISO/IEC 27001:2022</h3>
+          <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Certified</span>
+        </div>
+        <p class="text-xs text-slate-600">Enterprise Information Security Management System covering all sites, transport fleets, and software infrastructure.</p>
+      </div>
+
+      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+        <div class="flex items-center justify-between">
+          <h3 class="font-bold text-slate-900 text-sm">ADISA Standard 8.0</h3>
+          <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Pass with Distinction</span>
+        </div>
+        <p class="text-xs text-slate-600">Asset Disposal &amp; Information Security Alliance standard governing chain of custody, data sanitisation, and forensic unannounced audits.</p>
+      </div>
+
+      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+        <div class="flex items-center justify-between">
+          <h3 class="font-bold text-slate-900 text-sm">Cyber Essentials Plus</h3>
+          <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Crown Commercial Validated</span>
+        </div>
+        <p class="text-xs text-slate-600">Technical vulnerability verification, endpoint hardening, firewall controls, and multi-factor authentication enforcement.</p>
+      </div>
+
+      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+        <div class="flex items-center justify-between">
+          <h3 class="font-bold text-slate-900 text-sm">BS 10012 &amp; BS 7858</h3>
+          <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Personnel &amp; Privacy</span>
+        </div>
+        <p class="text-xs text-slate-600">Personal Information Management Systems and mandatory security screening of 100% of staff prior to handling client records.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      3. Physical &amp; Environmental Protection Controls
+    </h2>
+    <p>
+      Client hardware and confidential archives are safeguarded within purpose-built, high-security facilities:
+    </p>
+    <ul class="list-disc pl-5 space-y-2 text-slate-600">
+      <li>
+        <strong>Multi-Tiered Perimeter Defense:</strong> Automated security gates, anti-ram barriers, and RedCare Grade 4 monitored intruder detection systems.
+      </li>
+      <li>
+        <strong>Biometric Access Airlocks:</strong> Physical access to data destruction suites and archival vaults requires dual-custody biometric authentication and RFID card verification.
+      </li>
+      <li>
+        <strong>High-Definition CCTV Coverage:</strong> Continuous 360-degree CCTV surveillance recording all loading bays, disassembly benches, shredder feed hoppers, and vault corridors, with footage retained for a minimum of 90 days.
+      </li>
+      <li>
+        <strong>Climate &amp; Fire Suppression:</strong> Specialized FM-200 / Novec 1230 gaseous fire suppression systems protecting document archives and server vaults without water damage risk.
+      </li>
+    </ul>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      4. Digital Media Sanitisation Protocols
+    </h2>
+    <p>
+      Techsteps enforces strict technical specifications for digital media sanitisation:
+    </p>
+    <div class="space-y-3">
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+        <h4 class="font-bold text-slate-900 text-sm">A. NIST SP 800-88 Rev. 1 Guidelines for Media Sanitization</h4>
+        <p class="text-xs text-slate-600 mt-1">Executing Clear, Purge, and Destroy states utilizing cryptographically verified wiping software. Each serialized asset receives an immutable digital sanitisation certificate.</p>
+      </div>
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+        <h4 class="font-bold text-slate-900 text-sm">B. DIN 66399 High-Torque Physical Shredding</h4>
+        <p class="text-xs text-slate-600 mt-1">For failed or physically damaged drives, magnetic platter and flash memory disintegration is performed to DIN 66399 Level H-5 (&le; 320mm² particle size) or Level H-6 (&le; 10mm² particle size).</p>
+      </div>
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+        <h4 class="font-bold text-slate-900 text-sm">C. DIPCOG Certified Destruction for Defence Clients</h4>
+        <p class="text-xs text-slate-600 mt-1">Dedicated mobile and static destruction processes compliant with Defence Info-structure Protective Security Group (DIPCOG) and HMG Infosec Standard 5.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      5. Security Incident Management &amp; Breach Response
+    </h2>
+    <p>
+      We maintain a documented Security Incident Response Plan aligned with ISO 27001 and UK GDPR requirements:
+    </p>
+    <ul class="list-disc pl-5 space-y-1.5 text-slate-600">
+      <li><strong>24/7 Security Incident Response Team (SIRT):</strong> Dedicated triage team available around the clock.</li>
+      <li><strong>Client Notification SLA:</strong> In the unlikely event of an incident involving client custody, clients are formally notified within four (4) hours of verification.</li>
+      <li><strong>Statutory Breach Reporting:</strong> Formal reporting to the Information Commissioner’s Office (ICO) within 72 hours where required by Article 33 of the UK GDPR.</li>
+    </ul>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+      6. Information Security Governance Contact
+    </h2>
+    <p>
+      For enterprise vendor risk assessments, third-party security audits, or security questionnaire requests, please contact our Chief Information Security Officer (CISO):
+    </p>
+    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm font-mono">
+      <div><strong>Security Office:</strong> Information Security &amp; Compliance Directorate</div>
+      <div><strong>Email:</strong> <a href="mailto:infosec@techsteps.co.uk" class="text-emerald-700 hover:underline">infosec@techsteps.co.uk</a> / <a href="mailto:ciso@techsteps.co.uk" class="text-emerald-700 hover:underline">ciso@techsteps.co.uk</a></div>
+      <div><strong>Direct Inquiries:</strong> {siteSettings.phone}</div>
+      <div><strong>Postal:</strong> {siteSettings.legalName}, {siteSettings.address.street}, {siteSettings.address.city}, {siteSettings.address.postcode}</div>
+    </div>
+  </section>
+</LegalPageLayout>
