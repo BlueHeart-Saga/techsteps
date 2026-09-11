@@ -38,7 +38,9 @@ jobs:
         run: |
           echo "Checking Astro build..."
           test -f dist/index.html
-          echo "dist/index.html exists"
+          test -f dist/server.js
+          test -f dist/package.json
+          echo "dist/index.html and Azure server runner files exist"
           echo "Build output:"
           find dist -maxdepth 2 -type f | head -50
 
