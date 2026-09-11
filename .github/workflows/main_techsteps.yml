@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy Node.js app to Azure Web App - TECHSTEPS
+name: Build and deploy Astro to Azure Web App - TECHSTEPS
 
 on:
   push:
@@ -9,34 +6,45 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js version
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.x'
           cache: 'npm'
 
-      - name: Install dependencies and build static site
-        run: |
-          npm ci --prefer-offline || npm install
-          npm run build
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Astro site
+        run: npm run build
         env:
           NODE_ENV: production
 
-      - name: Deploy directly to Azure Web App (no artifact upload)
-        id: deploy-to-webapp
+      - name: Verify Astro build
+        run: |
+          echo "Checking dist..."
+          test -f dist/index.html
+          echo "dist/index.html exists"
+          find dist -maxdepth 2 -type f | head -50
+
+      - name: Deploy Astro static site to Azure
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'TECHSTEPS'
           slot-name: 'Production'
-          package: dist
+          package: './dist'
+          type: 'static'
+          target-path: '/home/site/wwwroot'
+          clean: true
+          restart: true
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_07A0ED0BF0F74B2F8747A08AC90AAD0E }}
