@@ -1,4 +1,4 @@
-name: Build and deploy Astro to Azure Web App - TECHSTEPS
+name: Build and deploy Astro to Azure - TECHSTEPS
 
 on:
   push:
@@ -25,32 +25,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Astro site
+      - name: Build Astro
         run: npm run build
         env:
           NODE_ENV: production
 
-      - name: Verify Astro build
+      - name: Verify Astro output
         run: |
-          echo "Checking dist..."
+          echo "Checking Astro build..."
           test -f dist/index.html
           echo "dist/index.html exists"
+          echo "Build output:"
           find dist -maxdepth 2 -type f | head -50
 
-      - name: Package for deployment
-        run: |
-          cd dist
-          zip -r ../deploy.zip .
-          cd ..
-
-      - name: Deploy Astro static site to Azure
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'TECHSTEPS'
           slot-name: 'Production'
-          package: './deploy.zip'
-          type: 'static'
-          target-path: '/home/site/wwwroot'
-          clean: true
-          restart: true
+          package: './dist'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_07A0ED0BF0F74B2F8747A08AC90AAD0E }}
