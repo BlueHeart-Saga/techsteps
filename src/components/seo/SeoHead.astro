@@ -1,0 +1,64 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noIndex?: boolean;
+  jsonLd?: Record<string, any> | Record<string, any>[];
+}
+
+const {
+  title = 'Techsteps UK | Secure IT Recycling & Information Management',
+  description = 'Techsteps delivers certified IT asset disposition, secure document integrity, ultra-secure shredding, and specialist relocation services across the UK.',
+  canonicalUrl = Astro.url.href,
+  ogImage = '/images/brand/og-image.jpg',
+  ogType = 'website',
+  noIndex = false,
+  jsonLd,
+} = Astro.props;
+
+const siteName = 'Techsteps UK';
+const formattedTitle = title.includes('Techsteps') ? title : `${title} | Techsteps UK`;
+---
+
+<!-- Primary Meta Tags -->
+<title>{formattedTitle}</title>
+<meta name="title" content={formattedTitle} />
+<meta name="description" content={description} />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="canonical" href={canonicalUrl} />
+
+{noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={formattedTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro.site || 'https://techsteps.co.uk').href} />
+<meta property="og:site_name" content={siteName} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalUrl} />
+<meta property="twitter:title" content={formattedTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro.site || 'https://techsteps.co.uk').href} />
+
+<!-- Favicon & Brand Icons -->
+<link rel="icon" type="image/png" href="/images/brand/logo.png" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="/images/brand/logo.png" />
+
+<!-- JSON-LD Structured Data Injection -->
+{jsonLd && (
+  Array.isArray(jsonLd) ? (
+    jsonLd.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))
+  ) : (
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  )
+)}

@@ -1,0 +1,22 @@
+---
+interface Props {
+  id?: string;
+  className?: string;
+  theme?: 'white' | 'slate' | 'sage' | 'navy' | 'charcoal';
+  padding?: string;
+}
+
+const { id, className = '', theme = 'white', padding = 'py-16 md:py-24' } = Astro.props;
+
+const themeClasses = {
+  white: 'bg-[#f1f4ef] text-slate-900',
+  slate: 'bg-brand-slate text-slate-900',
+  sage: 'bg-accent-soft text-slate-900',
+  navy: 'bg-brand-navy text-white',
+  charcoal: 'bg-brand-charcoal text-white',
+}[theme];
+---
+
+<section id={id} class={`${padding} ${themeClasses} ${className}`}>
+  <slot />
+</section>

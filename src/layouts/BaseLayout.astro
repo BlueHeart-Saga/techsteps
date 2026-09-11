@@ -1,0 +1,86 @@
+---
+import '../styles/global.css';
+import Header from '../components/global/Header.astro';
+import ServicesMegaMenu from '../components/global/ServicesMegaMenu.astro';
+import SectorsDropdown from '../components/global/SectorsDropdown.astro';
+import Footer from '../components/global/Footer.astro';
+import CookieConsent from '../components/global/CookieConsent.astro';
+import SeoHead from '../components/seo/SeoHead.astro';
+import { siteSettings } from '../lib/sanity/data';
+import { generateOrganizationSchema } from '../lib/seo/jsonld';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noIndex?: boolean;
+  jsonLd?: Record<string, any> | Record<string, any>[];
+  hasHeroHeader?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogImage,
+  ogType = 'website',
+  noIndex = false,
+  jsonLd,
+  hasHeroHeader = false,
+} = Astro.props;
+
+const orgSchema = generateOrganizationSchema(siteSettings, Astro.site?.origin || 'https://techsteps.co.uk');
+const combinedSchemas = jsonLd
+  ? (Array.isArray(jsonLd) ? [orgSchema, ...jsonLd] : [orgSchema, jsonLd])
+  : [orgSchema];
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const heroActive = isHome || hasHeroHeader;
+---
+
+<!doctype html>
+<html lang="en-GB" class="h-full scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Google Fonts Preconnect & Optimized Load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <SeoHead
+      title={title}
+      description={description}
+      canonicalUrl={canonicalUrl}
+      ogImage={ogImage}
+      ogType={ogType}
+      noIndex={noIndex}
+      jsonLd={combinedSchemas}
+    />
+  </head>
+  <body class="flex min-h-full flex-col bg-brand-slate text-brand-charcoal antialiased selection:bg-brand-accent selection:text-white">
+    <!-- Skip to main content for screen readers and keyboard users (WCAG 2.2 AA) -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-accent focus:text-white focus:rounded-md focus:shadow-lg"
+    >
+      Skip to main content
+    </a>
+
+    <Header isHome={isHome} hasHeroHeader={heroActive} />
+    <ServicesMegaMenu />
+    <SectorsDropdown />
+
+    <main id="main-content" class:list={['flex-1', { 'home-main': isHome }]}>
+      <slot />
+    </main>
+
+    <Footer />
+    <CookieConsent />
+  </body>
+</html>

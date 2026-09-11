@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Exclude internal studio paths if co-located
+Disallow: /studio/
+Disallow: /admin/
+
+# Sitemap reference
+Sitemap: https://techsteps.co.uk/sitemap-index.xml

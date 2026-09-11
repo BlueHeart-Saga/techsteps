@@ -1,0 +1,244 @@
+---
+import { services, sectors } from '../../lib/sanity/data';
+
+interface Props {
+  preselectedService?: string;
+  preselectedSector?: string;
+}
+
+const { preselectedService = '', preselectedSector = '' } = Astro.props;
+---
+
+<div class="space-y-6">
+  <div class="space-y-2">
+    <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C]">Fast Commercial Response</span>
+    <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-slate-900 tracking-tight">
+      Request a Confidential Quote
+    </h2>
+    <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-medium">
+      Complete the details below to receive a formal proposal, schedule an asset collection, or arrange a secure on-site audit.
+    </p>
+  </div>
+
+  <form
+    name="quote-enquiry"
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    class="space-y-6"
+    id="techsteps-quote-form"
+  >
+    <!-- Honeypot for spam protection -->
+    <p class="hidden">
+      <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+    </p>
+    <input type="hidden" name="form-name" value="quote-enquiry" />
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- Name -->
+      <div class="space-y-1.5">
+        <label for="quote-name" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800">
+          Full Name <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          id="quote-name"
+          name="name"
+          required
+          placeholder="Enter full name"
+          class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none"
+        />
+      </div>
+
+      <!-- Company -->
+      <div class="space-y-1.5">
+        <label for="quote-company" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800">
+          Company / Organisation <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          id="quote-company"
+          name="company"
+          required
+          placeholder="Enter company name"
+          class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none"
+        />
+      </div>
+
+      <!-- Email -->
+      <div class="space-y-1.5">
+        <label for="quote-email" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800">
+          Work Email <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="email"
+          id="quote-email"
+          name="email"
+          required
+          placeholder="Enter email address"
+          class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none"
+        />
+      </div>
+
+      <!-- Phone -->
+      <div class="space-y-1.5">
+        <label for="quote-phone" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800">
+          Telephone Number <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="tel"
+          id="quote-phone"
+          name="phone"
+          required
+          placeholder="Enter phone number"
+          class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none"
+        />
+      </div>
+
+      <!-- Service Selection -->
+      <div class="space-y-1.5">
+        <label for="quote-service" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800">
+          Primary Service Required <span class="text-red-500">*</span>
+        </label>
+        <select
+          id="quote-service"
+          name="service"
+          required
+          class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 outline-none transition-colors duration-200 rounded-none cursor-pointer"
+        >
+          <option value="">Select a certified service...</option>
+          {services.map((srv) => (
+            <option value={srv.slug} selected={preselectedService === srv.slug}>
+              {srv.title} ({srv.divisionTitle})
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <!-- Sector Selection -->
+      <div class="space-y-1.5">
+        <label for="quote-sector" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800">
+          Sector / Operating Context
+        </label>
+        <select
+          id="quote-sector"
+          name="sector"
+          class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 outline-none transition-colors duration-200 rounded-none cursor-pointer"
+        >
+          <option value="">Select industry sector...</option>
+          {sectors.map((sec) => (
+            <option value={sec.slug} selected={preselectedSector === sec.slug}>
+              {sec.title}
+            </option>
+          ))}
+          <option value="commercial-enterprise">Commercial Enterprise</option>
+          <option value="legal-professional">Legal &amp; Professional Services</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <!-- Operational Location -->
+      <div class="space-y-1.5">
+        <label for="quote-location" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800">
+          Site Location / Postcode <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          id="quote-location"
+          name="location"
+          required
+          placeholder="e.g. EC2A 4NE / Manchester Hub"
+          class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none"
+        />
+      </div>
+
+      <!-- Approximate Requirements -->
+      <div class="space-y-1.5">
+        <label for="quote-volume" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800">
+          Approximate Volume / Scale
+        </label>
+        <input
+          type="text"
+          id="quote-volume"
+          name="approximate_requirements"
+          placeholder="e.g. 150 laptops or 500 archive boxes"
+          class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none"
+        />
+      </div>
+    </div>
+
+    <!-- Message / Scope -->
+    <div class="space-y-1.5">
+      <label for="quote-message" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800">
+        Project Scope &amp; Specific Timing
+      </label>
+      <textarea
+        id="quote-message"
+        name="message"
+        rows="3"
+        placeholder="Please detail any security clearance requirements, access restrictions, or target deadlines..."
+        class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none resize-none"
+      ></textarea>
+    </div>
+
+    <!-- Preferred Contact Method -->
+    <div class="space-y-2">
+      <span class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800">Preferred Contact Method:</span>
+      <div class="flex items-center gap-6 text-sm sm:text-base text-slate-800 font-semibold">
+        <label class="inline-flex items-center gap-2 cursor-pointer">
+          <input type="radio" name="preferred_contact" value="email" checked class="text-[#146B5C] focus:ring-[#146B5C]" />
+          <span>Email</span>
+        </label>
+        <label class="inline-flex items-center gap-2 cursor-pointer">
+          <input type="radio" name="preferred_contact" value="phone" class="text-[#146B5C] focus:ring-[#146B5C]" />
+          <span>Telephone Call</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Data Privacy Note -->
+    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+      Your information is protected under UK GDPR and used solely to respond to this commercial enquiry. We never share your details with third parties. Read our{' '}
+      <a href="/privacy-policy" class="underline font-bold text-[#146B5C] hover:text-[#0D5549]">
+        Privacy Policy
+      </a>.
+    </p>
+
+    <!-- Submit Button -->
+    <div class="pt-4">
+      <button
+        type="submit"
+        class="w-full py-4 rounded-xl bg-[#146B5C] hover:bg-[#0D5549] text-white text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
+      >
+        Submit Quote Request
+      </button>
+    </div>
+
+    <!-- Success Message Container -->
+    <div id="form-success" class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-base font-semibold">
+      Thank you! Your quote enquiry has been transmitted to our UK commercial logistics team. We will review your specification and respond within 2 business hours.
+    </div>
+  </form>
+</div>
+
+<script>
+  function setupQuoteForm() {
+    const form = document.getElementById('techsteps-quote-form') as HTMLFormElement | null;
+    const successMsg = document.getElementById('form-success');
+
+    if (!form || !successMsg) return;
+
+    form.addEventListener('submit', (e) => {
+      // In static demo or if submitted via fetch
+      if (!window.location.hostname.includes('netlify')) {
+        e.preventDefault();
+        successMsg.classList.remove('hidden');
+        form.reset();
+        successMsg.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  setupQuoteForm();
+  document.addEventListener('astro:page-load', setupQuoteForm);
+</script>

@@ -1,0 +1,119 @@
+---
+import { sectors } from '../../lib/sanity/data';
+
+// Custom rich filled SVG icons tailored for each sector (no background boxes, no borders, big & solid)
+const sectorMeta: Record<string, { icon: string; shortDesc: string }> = {
+  defence: {
+    shortDesc: 'JSP 440 aligned security, SC-cleared personnel & witnessed on-site mobile granulation.',
+    icon: `<svg class="w-16 h-16 lg:w-20 lg:h-20 transition-transform duration-300 group-hover/item:scale-105 shrink-0 drop-shadow-xs" viewBox="0 0 48 48" fill="none">
+      <path d="M24 3L6 10V22C6 33.1 13.7 43.3 24 45.8C34.3 43.3 42 33.1 42 22V10L24 3Z" fill="#008170"/>
+      <path d="M24 3V45.8C34.3 43.3 42 33.1 42 22V10L24 3Z" fill="#005A4E"/>
+      <path d="M24 13L26.8 19.8L34 20.4L28.5 25.1L30.2 32.2L24 28.5L17.8 32.2L19.5 25.1L14 20.4L21.2 19.8L24 13Z" fill="#FFFFFF"/>
+    </svg>`
+  },
+  nhs: {
+    shortDesc: 'Caldicott-aligned records governance, BS 10008 legal scanning & secure acute clinical IT retirement.',
+    icon: `<svg class="w-16 h-16 lg:w-20 lg:h-20 transition-transform duration-300 group-hover/item:scale-105 shrink-0 drop-shadow-xs" viewBox="0 0 48 48" fill="none">
+      <path d="M18 4C18 2.9 18.9 2 20 2H28C29.1 2 30 2.9 30 4V18H44C45.1 18 46 18.9 46 20V28C46 29.1 45.1 30 44 30H30V44C30 45.1 29.1 46 28 46H20C18.9 46 18 45.1 18 44V30H4C2.9 30 2 29.1 2 28V20C2 18.9 2.9 18 4 18H18V4Z" fill="#005EB8"/>
+      <path d="M24 2H28C29.1 2 30 2.9 30 4V18H44C45.1 18 46 18.9 46 20V24H24V2Z" fill="#003087" fill-opacity="0.3"/>
+      <path d="M12 24H18L21 19L25 29L28 22L30 24H36" stroke="#FFFFFF" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`
+  },
+  finance: {
+    shortDesc: 'FCA & PRA operational resilience, PCI-DSS data sanitisation & zero-downtime weekend trading floor moves.',
+    icon: `<svg class="w-16 h-16 lg:w-20 lg:h-20 transition-transform duration-300 group-hover/item:scale-105 shrink-0 drop-shadow-xs" viewBox="0 0 48 48" fill="none">
+      <path d="M24 3L3 13H45L24 3Z" fill="#D97706"/>
+      <path d="M24 3L45 13H24V3Z" fill="#B45309"/>
+      <rect x="5" y="13" width="38" height="3" fill="#F59E0B"/>
+      <rect x="7" y="18" width="6" height="19" rx="1" fill="#D97706"/>
+      <rect x="17" y="18" width="6" height="19" rx="1" fill="#D97706"/>
+      <rect x="27" y="18" width="6" height="19" rx="1" fill="#D97706"/>
+      <rect x="35" y="18" width="6" height="19" rx="1" fill="#D97706"/>
+      <rect x="4" y="38" width="40" height="4" rx="1" fill="#F59E0B"/>
+      <rect x="2" y="43" width="44" height="3" rx="1" fill="#B45309"/>
+    </svg>`
+  },
+  'central-government': {
+    shortDesc: 'Crown Commercial Service frameworks, Greening Government Commitments & National Archives compliance.',
+    icon: `<svg class="w-16 h-16 lg:w-20 lg:h-20 transition-transform duration-300 group-hover/item:scale-105 shrink-0 drop-shadow-xs" viewBox="0 0 48 48" fill="none">
+      <rect x="23" y="1" width="2" height="4" rx="0.5" fill="#5B21B6"/>
+      <path d="M24 5C17 5 15 9.5 15 15H33C33 9.5 31 5 24 5Z" fill="#7C3AED"/>
+      <path d="M24 5V15H33C33 9.5 31 5 24 5Z" fill="#5B21B6"/>
+      <path d="M24 15L11 21H37L24 15Z" fill="#8B5CF6"/>
+      <path d="M24 15L37 21H24V15Z" fill="#6D28D9"/>
+      <rect x="13" y="23" width="4.5" height="15" rx="1" fill="#7C3AED"/>
+      <rect x="19.5" y="23" width="4.5" height="15" rx="1" fill="#7C3AED"/>
+      <rect x="26" y="23" width="4.5" height="15" rx="1" fill="#7C3AED"/>
+      <rect x="32.5" y="23" width="4.5" height="15" rx="1" fill="#7C3AED"/>
+      <rect x="9" y="39" width="30" height="3.5" rx="1" fill="#8B5CF6"/>
+      <rect x="6" y="43" width="36" height="3" rx="1" fill="#5B21B6"/>
+    </svg>`
+  }
+};
+---
+
+<!-- Sectors Full-Width Centered Mega Dropdown Panel (navbelow position center, full width) -->
+<div
+  id="sectors-dropdown-panel"
+  class="hidden fixed inset-x-0 z-50 transition-all duration-200 transform opacity-0 -translate-y-2 pointer-events-none px-4 sm:px-6 lg:px-8 max-h-[calc(100vh-90px)] overflow-y-auto"
+  role="region"
+  aria-label="Sectors Navigation"
+>
+  <!-- Main Card Container: Full Width max-w-[1540px], Centered, Improved Height -->
+  <div class="relative max-w-[1540px] mx-auto bg-white rounded-[28px] sm:rounded-[32px] shadow-2xl border border-black/10 py-10 sm:py-12 lg:py-14 px-8 sm:px-12 lg:px-16 min-h-[480px] sm:min-h-[520px] lg:min-h-[540px] flex flex-col justify-between overflow-hidden">
+    <!-- 4 Sector Columns with Big Filled Icons (No Background Box, No Borders) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 gap-y-6 sm:gap-y-0 flex-1">
+      {sectors.map((sec) => {
+        const meta = sectorMeta[sec.slug] || {
+          icon: `<svg class="w-16 h-16 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9"/></svg>`,
+          shortDesc: sec.tagline || sec.summary,
+        };
+
+        return (
+          <a
+            href={`/sectors/${sec.slug}`}
+            class="group/item flex flex-col justify-between p-6 sm:p-7 lg:p-8 rounded-2xl hover:bg-slate-50/90 transition-all duration-200"
+          >
+            <div>
+              <!-- Big Filled Icon (No Container Box, No Borders) -->
+              <div class="mb-5">
+                <Fragment set:html={meta.icon} />
+              </div>
+
+              <!-- Sector Title -->
+              <h4 class="text-lg sm:text-xl font-bold text-slate-900 mb-2.5 leading-snug group-hover/item:text-[#008170] transition-colors">
+                {sec.title}
+              </h4>
+
+              <!-- Short Description -->
+              <p class="text-sm text-slate-600 leading-relaxed">
+                {meta.shortDesc}
+              </p>
+            </div>
+
+            <!-- Bottom Action Link -->
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-xs font-bold text-[#E58A3C] group-hover/item:text-[#d97d2e] transition-colors">
+              <span>View Sector Framework</span>
+              <span class="inline-block transition-transform duration-150 group-hover/item:translate-x-1">&rarr;</span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- Bottom Utility Footer -->
+    <div class="relative z-10 mt-8 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-200/70 shadow-xs">
+        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+        <span class="font-medium text-slate-700">Tailored UK Regulatory &amp; Compliance Frameworks &bull; JSP 440 &bull; NHS DSPT &bull; FCA Governance &bull; CCS Framework</span>
+      </div>
+      <a
+        href="/sectors"
+        class="group/link font-bold text-slate-900 hover:text-black flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 shadow-xs hover:shadow-md transition-all"
+      >
+        <span>Explore All Industry Sectors</span>
+        <span class="inline-block transition-transform duration-150 group-hover/link:translate-x-1">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</div>

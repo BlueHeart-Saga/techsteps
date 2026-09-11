@@ -1,0 +1,210 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import Section from '../../components/layout/Section.astro';
+import HeroService from '../../components/hero/HeroService.astro';
+import BenefitsList from '../../components/services/BenefitsList.astro';
+import ProcessSteps from '../../components/services/ProcessSteps.astro';
+import AccordionFaq from '../../components/content/AccordionFaq.astro';
+import ServiceCard from '../../components/services/ServiceCard.astro';
+import SectorCard from '../../components/sectors/SectorCard.astro';
+import { services, sectors, siteSettings } from '../../lib/sanity/data';
+import { generateServiceSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+import type { Service } from '../../lib/sanity/types';
+
+export async function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+
+// Related services calculation
+const relatedServiceList = services
+  .filter((s) => s.slug !== service.slug && (service.relatedServices?.includes(s.slug) || s.divisionSlug === service.divisionSlug))
+  .slice(0, 3);
+
+// Relevant sectors calculation
+const relevantSectorList = sectors.filter((sec) =>
+  service.relatedSectors?.includes(sec.slug)
+);
+
+// JSON-LD
+const serviceSchema = generateServiceSchema(service, siteSettings, Astro.site?.origin || 'https://techsteps.co.uk');
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Services', url: '/services' },
+  { name: service.divisionTitle, url: `/${service.divisionSlug}` },
+  { name: service.title, url: `/services/${service.slug}` },
+], Astro.site?.origin || 'https://techsteps.co.uk');
+---
+
+<BaseLayout
+  title={service.metaTitle || `${service.title} | Techsteps UK`}
+  description={service.metaDescription || service.summary}
+  jsonLd={[serviceSchema, breadcrumbSchema]}
+>
+  <!-- Hero Section -->
+  <HeroService service={service} />
+
+  <!-- Problem vs Solution Section -->
+  <Section theme="white">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <!-- The Challenge / Customer Problem -->
+        <div class="p-8 rounded-2xl bg-brand-slate border border-slate-200/90 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-red-100 text-red-800 text-xs font-bold uppercase tracking-wider">
+            <span>The Operational Challenge</span>
+          </div>
+          <h2 class="text-2xl font-bold text-brand-navy">
+            Why Standard Approaches Fail
+          </h2>
+          <p class="text-base text-slate-700 leading-relaxed">
+            {service.customerProblem}
+          </p>
+        </div>
+
+        <!-- The Techsteps Certified Solution -->
+        <div class="p-8 rounded-2xl bg-brand-navy text-white space-y-4 shadow-lg">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-wider border border-emerald-500/30">
+            <span>The Techsteps Solution</span>
+          </div>
+          <h2 class="text-2xl font-bold text-white">
+            Audited &amp; Certified Protection
+          </h2>
+          <p class="text-base text-slate-300 leading-relaxed">
+            {service.solution}
+          </p>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Key Benefits -->
+  <Section theme="slate">
+    <Container>
+      <BenefitsList benefits={service.keyBenefits} title={`Key Benefits of ${service.title}`} />
+    </Container>
+  </Section>
+
+  <!-- Certified Process Steps -->
+  {service.process && service.process.length > 0 && (
+    <Section theme="white">
+      <Container>
+        <ProcessSteps
+          steps={service.process}
+          title={`The ${service.title} Execution Process`}
+          subtitle="A disciplined, step-by-step chain of custody engineered for complete audit defense."
+        />
+      </Container>
+    </Section>
+  )}
+
+  <!-- Capabilities & Standards -->
+  {service.capabilities && service.capabilities.length > 0 && (
+    <Section theme="navy">
+      <Container>
+        <div class="max-w-4xl mx-auto space-y-8 text-center">
+          <div class="space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Technical Standards</span>
+            <h2 class="text-3xl font-extrabold text-white tracking-tight">
+              Operational Accreditations &amp; Technical Capabilities
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+            {service.capabilities.map((cap) => (
+              <div class="p-4 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3 text-sm text-slate-200">
+                <span class="h-2 w-2 rounded-full bg-emerald-400 flex-shrink-0"></span>
+                <span>{cap}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </Section>
+  )}
+
+  <!-- Relevant Sectors -->
+  {relevantSectorList.length > 0 && (
+    <Section theme="white">
+      <Container>
+        <div class="space-y-8">
+          <div class="text-center max-w-2xl mx-auto space-y-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Industry Context</span>
+            <h2 class="text-2xl sm:text-3xl font-bold text-brand-navy">
+              Sectors Frequently Deploying This Service
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relevantSectorList.map((sec) => (
+              <SectorCard sector={sec} />
+            ))}
+          </div>
+        </div>
+      </Container>
+    </Section>
+  )}
+
+  <!-- FAQs -->
+  {service.faqs && service.faqs.length > 0 && (
+    <Section theme="slate">
+      <Container>
+        <AccordionFaq faqs={service.faqs} title={`Frequently Asked Questions: ${service.title}`} />
+      </Container>
+    </Section>
+  )}
+
+  <!-- Related Services -->
+  {relatedServiceList.length > 0 && (
+    <Section theme="white">
+      <Container>
+        <div class="space-y-8">
+          <div class="border-b border-slate-200 pb-4 flex items-center justify-between">
+            <h2 class="text-2xl font-bold text-brand-navy">Related Services</h2>
+            <a href={`/${service.divisionSlug}`} class="text-xs font-bold text-brand-accent hover:underline">
+              View all {service.divisionTitle} services &rarr;
+            </a>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {relatedServiceList.map((rel) => (
+              <ServiceCard service={rel} showDivision={true} />
+            ))}
+          </div>
+        </div>
+      </Container>
+    </Section>
+  )}
+
+  <!-- Conversion CTA -->
+  <section class="relative bg-[#f1f4ef] py-16 sm:py-24 overflow-hidden select-none border-t border-slate-300/60">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#146B5C]/15 blur-3xl pointer-events-none"></div>
+
+    <Container className="relative z-10 text-center max-w-4xl mx-auto space-y-6">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
+        Need certified {service.title} in the UK?
+      </h2>
+      <p class="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed font-normal">
+        Speak with our senior logistics directors to schedule a collection, arrange an on-site audit, or obtain a formal commercial proposal.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+        <a
+          href={`/request-a-quote?service=${encodeURIComponent(service.slug)}`}
+          class="px-8 py-4 rounded-xl bg-[#146B5C] hover:bg-[#0D5549] text-white text-base font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+        >
+          Request a Quote for {service.title}
+        </a>
+        <a
+          href="/contact"
+          class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 text-brand-navy text-base font-bold border border-slate-300/90 shadow-sm transition-all"
+        >
+          Contact UK Depots
+        </a>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

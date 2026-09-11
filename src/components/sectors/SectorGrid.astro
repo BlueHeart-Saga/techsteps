@@ -1,0 +1,278 @@
+---
+interface SectorItem {
+  id: string;
+  title: string;
+  slug: string;
+  image: string;
+  description: string;
+}
+
+const sectorItems: SectorItem[] = [
+  {
+    id: 'sec-healthcare',
+    title: 'Healthcare',
+    slug: 'nhs',
+    image: '/images/sectors/nhs.jpg',
+    description: 'Caldicott compliant records vaulting, BS 10008 legal scanning, emergency 1-hour scan recall, and hospital ward IT decommissioning.',
+  },
+  {
+    id: 'sec-finance',
+    title: 'Financial Services',
+    slug: 'finance',
+    image: '/images/sectors/finance.jpg',
+    description: 'FCA & PRA aligned governance, trading floor relocations, PCI-DSS compliance, and ADISA certified data wiping.',
+  },
+  {
+    id: 'sec-corporate',
+    title: 'Corporate & Enterprise',
+    slug: 'corporate',
+    image: '/images/sectors/corporate.jpg',
+    description: 'End-to-end IT asset disposal, office relocations, and secure data sanitisation for multi-site corporate headquarters.',
+  },
+  {
+    id: 'sec-government',
+    title: 'Government & Public Sector',
+    slug: 'central-government',
+    image: '/images/sectors/government.jpg',
+    description: 'Crown Commercial Service frameworks, Greening Government Commitments (GGC), zero landfill ITAD, and public records governance.',
+  },
+  {
+    id: 'sec-defence',
+    title: 'Defence & Manufacturing',
+    slug: 'defence',
+    image: '/images/sectors/defence.jpg',
+    description: 'JSP 440 security-cleared personnel, on-site mobile DIN 66399 shredding, SC/DV vetted logistics, and industrial plant disposal.',
+  },
+  {
+    id: 'sec-education',
+    title: 'Education & Research',
+    slug: 'education',
+    image: '/images/sectors/education.jpg',
+    description: 'Secure campus IT retirement, academic research archive digitization, and lab instrument relocation services.',
+  },
+];
+---
+
+<div id="industry-slider-wrapper" class="relative w-full max-w-6xl mx-auto py-4 select-none">
+  <!-- Main Showcase Container -->
+  <div class="relative flex flex-col md:flex-row items-center md:items-stretch gap-6 lg:gap-12 min-h-[460px] lg:min-h-[500px]">
+    
+    <!-- Left: Main Image Box -->
+    <div class="relative w-full md:w-[440px] lg:w-[500px] h-[360px] sm:h-[420px] lg:h-[480px] rounded-2xl overflow-hidden shadow-xl shrink-0 bg-slate-100">
+      {sectorItems.map((item, idx) => (
+        <img
+          key={item.id}
+          data-slide-img={idx}
+          src={item.image}
+          alt={item.title}
+          class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+            idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+          }`}
+        />
+      ))}
+    </div>
+
+    <!-- Center: Content Panel -->
+    <div class="flex-1 flex flex-col justify-between py-2 sm:py-4 px-2 md:px-0 text-left min-w-0">
+      <div>
+        <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C]">
+          Industries
+        </span>
+
+        {sectorItems.map((item, idx) => (
+          <div
+            key={item.id}
+            data-slide-content={idx}
+            class={`transition-all duration-500 ${
+              idx === 0 ? 'block opacity-100 translate-y-0' : 'hidden opacity-0 translate-y-2'
+            }`}
+          >
+            <h3 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight mt-2 mb-5">
+              {item.title}
+            </h3>
+
+            <p class="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-md">
+              {item.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Bottom Controls: Explore Button + Navigation Arrows -->
+      <div class="flex items-center gap-6 pt-6 mt-auto">
+        <!-- Dynamic Explore Link -->
+        <a
+          id="slider-explore-btn"
+          href={`/sectors/${sectorItems[0].slug}`}
+          class="px-7 py-3 rounded-full border border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white text-sm font-bold transition-all duration-300 shadow-xs hover:shadow-md inline-flex items-center gap-2"
+        >
+          <span>Explore</span>
+        </a>
+
+        <!-- Arrows (Left & Right) -->
+        <div class="flex items-center gap-3">
+          <button
+            type="button"
+            id="slider-prev-btn"
+            aria-label="Previous Industry"
+            class="w-10 h-10 rounded-full border border-slate-300 hover:border-brand-navy text-slate-700 hover:text-brand-navy flex items-center justify-center transition-all duration-200 hover:scale-105"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            id="slider-next-btn"
+            aria-label="Next Industry"
+            class="w-10 h-10 rounded-full border border-slate-300 hover:border-brand-navy text-slate-700 hover:text-brand-navy flex items-center justify-center transition-all duration-200 hover:scale-105"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Next Slide Peek Preview -->
+    <div
+      id="slider-peek-container"
+      class="hidden lg:block relative w-24 h-[480px] rounded-2xl overflow-hidden shadow-md cursor-pointer shrink-0 opacity-75 hover:opacity-100 transition-opacity group"
+      title="Next Industry"
+    >
+      {sectorItems.map((item, idx) => (
+        <img
+          key={item.id}
+          data-peek-img={idx}
+          src={item.image}
+          alt={`Peek ${item.title}`}
+          class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+            idx === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+          }`}
+        />
+      ))}
+      <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+    </div>
+
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const initIndustrySlider = () => {
+      const wrapper = document.getElementById('industry-slider-wrapper');
+      if (!wrapper) return;
+
+      const imgs = wrapper.querySelectorAll('[data-slide-img]');
+      const contents = wrapper.querySelectorAll('[data-slide-content]');
+      const peeks = wrapper.querySelectorAll('[data-peek-img]');
+      const exploreBtn = document.getElementById('slider-explore-btn');
+      const prevBtn = document.getElementById('slider-prev-btn');
+      const nextBtn = document.getElementById('slider-next-btn');
+      const peekContainer = document.getElementById('slider-peek-container');
+
+      const slugs = [
+        'nhs',
+        'finance',
+        'corporate',
+        'central-government',
+        'defence',
+        'education',
+      ];
+
+      const total = imgs.length;
+      if (!total) return;
+
+      let currentIndex = 0;
+      let timer = null;
+
+      const goToSlide = (index) => {
+        currentIndex = (index + total) % total;
+        const nextIndex = (currentIndex + 1) % total;
+
+        // Active image
+        imgs.forEach((img, idx) => {
+          if (idx === currentIndex) {
+            img.classList.remove('opacity-0', 'z-0');
+            img.classList.add('opacity-100', 'z-10');
+          } else {
+            img.classList.remove('opacity-100', 'z-10');
+            img.classList.add('opacity-0', 'z-0');
+          }
+        });
+
+        // Active content
+        contents.forEach((content, idx) => {
+          if (idx === currentIndex) {
+            content.classList.remove('hidden', 'opacity-0', 'translate-y-2');
+            content.classList.add('block', 'opacity-100', 'translate-y-0');
+          } else {
+            content.classList.remove('block', 'opacity-100', 'translate-y-0');
+            content.classList.add('hidden', 'opacity-0', 'translate-y-2');
+          }
+        });
+
+        // Peek image
+        peeks.forEach((peek, idx) => {
+          if (idx === nextIndex) {
+            peek.classList.remove('opacity-0', 'z-0');
+            peek.classList.add('opacity-100', 'z-10');
+          } else {
+            peek.classList.remove('opacity-100', 'z-10');
+            peek.classList.add('opacity-0', 'z-0');
+          }
+        });
+
+        // Update explore link
+        if (exploreBtn && slugs[currentIndex]) {
+          exploreBtn.setAttribute('href', `/sectors/${slugs[currentIndex]}`);
+        }
+      };
+
+      const startTimer = () => {
+        stopTimer();
+        timer = setInterval(() => {
+          goToSlide(currentIndex + 1);
+        }, 4000);
+      };
+
+      const stopTimer = () => {
+        if (timer) clearInterval(timer);
+      };
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          goToSlide(currentIndex - 1);
+          startTimer();
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          goToSlide(currentIndex + 1);
+          startTimer();
+        });
+      }
+
+      if (peekContainer) {
+        peekContainer.addEventListener('click', () => {
+          goToSlide(currentIndex + 1);
+          startTimer();
+        });
+      }
+
+      wrapper.addEventListener('mouseenter', stopTimer);
+      wrapper.addEventListener('mouseleave', startTimer);
+
+      startTimer();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initIndustrySlider);
+    } else {
+      initIndustrySlider();
+    }
+  })();
+</script>

@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import Section from '../../components/layout/Section.astro';
+import PageHero from '../../components/hero/PageHero.astro';
+import SectorGrid from '../../components/sectors/SectorGrid.astro';
+import { sectors } from '../../lib/sanity/data';
+
+const breadcrumbs = [
+  { name: 'Sectors', url: '/sectors' },
+];
+---
+
+<BaseLayout
+  title="Regulated Sector Solutions UK | Defence, NHS, Finance & Government | Techsteps"
+  description="Explore Techsteps sector-specific lifecycle frameworks. Tailored compliance protocols for UK Defence, NHS Trusts, Financial Institutions, and Central Government."
+  hasHeroHeader={true}
+>
+  <PageHero
+    title="Sectors"
+    breadcrumbs={breadcrumbs}
+    dividerColor="#f1f4ef"
+  />
+
+  <Section theme="white">
+    <Container>
+      <SectorGrid sectors={sectors} />
+    </Container>
+  </Section>
+</BaseLayout>

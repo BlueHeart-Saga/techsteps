@@ -1,0 +1,69 @@
+---
+import Container from '../layout/Container.astro';
+import Breadcrumbs from '../seo/Breadcrumbs.astro';
+import type { Sector } from '../../lib/sanity/types';
+
+interface Props {
+  sector: Sector;
+}
+
+const { sector } = Astro.props;
+
+const breadcrumbs = [
+  { name: 'Sectors', url: '/#sectors' },
+  { name: sector.title, url: `/sectors/${sector.slug}` },
+];
+---
+
+<div class="relative bg-brand-navy text-white py-16 lg:py-20 overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(#1E3E62_1px,transparent_1px)] [background-size:24px_24px] opacity-20"></div>
+
+  <Container className="relative z-10">
+    <Breadcrumbs items={breadcrumbs} theme="dark" />
+
+    <div class="max-w-4xl space-y-6 mt-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/10 text-brand-accent text-xs font-bold uppercase tracking-wider">
+        <span>Target Sector &bull; UK Compliance Framework</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        {sector.title}
+      </h1>
+
+      <p class="text-lg sm:text-xl text-emerald-300 font-medium leading-snug">
+        {sector.tagline}
+      </p>
+
+      <p class="text-base sm:text-lg text-slate-300 leading-relaxed">
+        {sector.summary}
+      </p>
+
+      <!-- Compliance Standards Chips -->
+      <div class="pt-2">
+        <span class="text-xs font-bold text-slate-400 block mb-2 uppercase tracking-wider">Governing Frameworks:</span>
+        <div class="flex flex-wrap gap-2">
+          {sector.complianceStandards.map((std) => (
+            <span class="px-3 py-1 rounded-md bg-white/10 text-white text-xs font-semibold border border-white/15">
+              {std}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4 pt-3">
+        <a
+          href={`/request-a-quote?sector=${encodeURIComponent(sector.slug)}`}
+          class="px-6 py-3.5 rounded-lg bg-brand-accent hover:bg-brand-accent-hover text-white text-sm font-bold shadow-lg transition-all"
+        >
+          Request {sector.title} Briefing
+        </a>
+        <a
+          href="#relevant-services"
+          class="px-6 py-3.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/20 transition-all"
+        >
+          View Aligned Services
+        </a>
+      </div>
+    </div>
+  </Container>
+</div>

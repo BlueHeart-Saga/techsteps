@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import Section from '../../components/layout/Section.astro';
+import PageHero from '../../components/hero/PageHero.astro';
+import ServiceCard from '../../components/services/ServiceCard.astro';
+import { divisions, services } from '../../lib/sanity/data';
+
+const breadcrumbs = [
+  { name: 'Services', url: '/services' },
+];
+---
+
+<BaseLayout
+  title="All 27 Certified Services | ITAD, Archiving & Secure Shredding | Techsteps UK"
+  description="Explore the complete portfolio of 27 certified lifecycle services offered by Techsteps UK across Information Management, IT Lifecycle & Destruction, Secure Shredding, and Relocations."
+  hasHeroHeader={true}
+>
+  <PageHero
+    title="Services"
+    breadcrumbs={breadcrumbs}
+    dividerColor="#f1f4ef"
+  />
+
+  <Section theme="white">
+    <Container>
+      <div class="space-y-16">
+        {divisions.map((div) => {
+          const divServices = services.filter((s) => s.divisionSlug === div.slug);
+          return (
+            <div id={div.slug} class="space-y-8 scroll-mt-28">
+              <div class="border-b border-slate-200 pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Division 0{div.order}</span>
+                  <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-navy mt-1">
+                    {div.title}
+                  </h2>
+                  <p class="text-sm text-slate-600 mt-1 max-w-2xl">
+                    {div.summary}
+                  </p>
+                </div>
+                <div>
+                  <a
+                    href={`/${div.slug}`}
+                    class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-blue hover:text-brand-accent"
+                  >
+                    <span>View Division Overview &rarr;</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {divServices.map((service) => (
+                  <ServiceCard service={service} showDivision={false} />
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

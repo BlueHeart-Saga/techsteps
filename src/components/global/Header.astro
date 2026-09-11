@@ -1,0 +1,177 @@
+---
+import MegaMenu from './MegaMenu.astro';
+import MobileDrawer from './MobileDrawer.astro';
+import BrandLogo from './BrandLogo.astro';
+import { siteSettings, sectors } from '../../lib/sanity/data';
+
+interface Props {
+  isHome?: boolean;
+  hideUntilScroll?: boolean;
+  hasHeroHeader?: boolean;
+}
+
+const { isHome = false, hideUntilScroll = false, hasHeroHeader = false } = Astro.props;
+const shouldHide = isHome || hideUntilScroll || hasHeroHeader;
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  id="site-header"
+  class:list={[
+    'fixed top-0 inset-x-0 z-[9999] transition-all duration-500 pt-3 sm:pt-4 px-3 sm:px-6 lg:px-8 pointer-events-auto',
+    shouldHide
+      ? '-translate-y-full opacity-0 pointer-events-none'
+      : 'translate-y-0 opacity-100',
+  ]}
+  data-is-home={isHome ? 'true' : 'false'}
+  data-hide-until-scroll={shouldHide ? 'true' : 'false'}
+>
+  <div class="max-w-7xl mx-auto">
+    <!-- Premium Floating Glassic Capsule Container -->
+    <div class="relative flex items-center justify-between h-16 sm:h-18 px-3.5 sm:px-6 bg-white/80 backdrop-blur-2xl backdrop-saturate-200 rounded-full border border-white/70 shadow-[0_10px_35px_0_rgba(15,23,42,0.12)] hover:shadow-[0_14px_45px_0_rgba(15,23,42,0.18)] hover:bg-white/90 hover:border-white transition-all duration-300">
+      
+      <!-- Left: Brand Badge Capsule -->
+      <div class="flex items-center">
+        <a
+          href="/"
+          class="h-11 sm:h-12 flex items-center bg-[#12181A] hover:bg-black text-white px-4 sm:px-5 rounded-full shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 border border-white/10"
+          aria-label="TechSteps UK Home"
+        >
+          <BrandLogo size="md" variant="light" showTagline={false} />
+        </a>
+      </div>
+
+      <!-- Right: Navigation Glassic Links with Bottom Border Hover -->
+      <div class="flex items-center space-x-1 sm:space-x-2">
+        <nav class="hidden lg:flex items-center space-x-5 xl:space-x-7 text-[15px] font-semibold text-slate-800" aria-label="Main Navigation">
+          <a
+            href="/about-us"
+            class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
+              currentPath === '/about-us'
+                ? 'border-slate-900 text-black font-semibold'
+                : 'border-transparent text-slate-800 hover:text-black hover:border-slate-800 font-semibold'
+            }`}
+          >
+            About Us
+          </a>
+
+          <!-- Services Mega Menu Link -->
+          <div class="relative flex items-center">
+            <a
+              href="/services"
+              class={`services-megamenu-toggle inline-flex items-center gap-1.5 py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 font-semibold text-[15px] cursor-pointer focus:outline-none ${
+                currentPath.startsWith('/services') || currentPath === '/information-management' || currentPath === '/it-lifecycle-services-destruction' || currentPath === '/secure-shredding-document-integrity' || currentPath === '/moving-relocation-services'
+                  ? 'border-slate-900 text-black'
+                  : 'border-transparent text-slate-800 hover:text-black hover:border-slate-800'
+              }`}
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="services-megamenu-panel"
+              data-is-active-route={currentPath.startsWith('/services') || currentPath === '/information-management' || currentPath === '/it-lifecycle-services-destruction' || currentPath === '/secure-shredding-document-integrity' || currentPath === '/moving-relocation-services' ? 'true' : 'false'}
+            >
+              <span>Services</span>
+              <svg class="h-4 w-4 text-slate-500 transition-transform duration-200 caret-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Sectors Dropdown Link -->
+          <div class="relative sectors-trigger-wrap flex items-center">
+            <a
+              href="/sectors"
+              class={`sectors-dropdown-toggle inline-flex items-center gap-1.5 py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 font-semibold text-[15px] cursor-pointer focus:outline-none ${
+                currentPath.startsWith('/sectors')
+                  ? 'border-slate-900 text-black'
+                  : 'border-transparent text-slate-800 hover:text-black hover:border-slate-800'
+              }`}
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="sectors-dropdown-panel"
+              data-is-active-route={currentPath.startsWith('/sectors') ? 'true' : 'false'}
+            >
+              <span>Sectors</span>
+              <svg class="h-4 w-4 text-slate-500 transition-transform duration-200 caret-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+          </div>
+
+          <a
+            href="/sustainability"
+            class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
+              currentPath === '/sustainability'
+                ? 'border-slate-900 text-black font-semibold'
+                : 'border-transparent text-slate-800 hover:text-black hover:border-slate-800 font-semibold'
+            }`}
+          >
+            Sustainability
+          </a>
+
+          <a
+            href="/insights"
+            class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
+              currentPath === '/insights' || currentPath.startsWith('/insights/')
+                ? 'border-slate-900 text-black font-semibold'
+                : 'border-transparent text-slate-800 hover:text-black hover:border-slate-800 font-semibold'
+            }`}
+          >
+            Insights
+          </a>
+
+          <a
+            href="/contact"
+            class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
+              currentPath === '/contact'
+                ? 'border-slate-900 text-black font-semibold'
+                : 'border-transparent text-slate-800 hover:text-black hover:border-slate-800 font-semibold'
+            }`}
+          >
+            Contact
+          </a>
+        </nav>
+
+        <!-- Mobile Trigger -->
+        <div class="flex items-center lg:hidden">
+          <button
+            type="button"
+            id="open-mobile-menu"
+            class="open-mobile-menu-btn p-2.5 rounded-full text-slate-700 hover:text-black hover:bg-slate-100/80 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-colors"
+            aria-label="Open mobile navigation menu"
+          >
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Component -->
+  <MobileDrawer />
+</header>
+
+<script>
+  function setupHeader() {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+
+    if (header.dataset.hideUntilScroll === 'true') {
+      const onScroll = () => {
+        if (window.scrollY > 300) {
+          header.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
+          header.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+        } else {
+          header.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+          header.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+  }
+
+  setupHeader();
+  document.addEventListener('astro:page-load', setupHeader);
+</script>

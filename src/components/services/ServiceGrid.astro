@@ -1,0 +1,17 @@
+---
+import ServiceCard from './ServiceCard.astro';
+import type { Service } from '../../lib/sanity/types';
+
+interface Props {
+  services: Service[];
+  showDivision?: boolean;
+}
+
+const { services, showDivision = true } = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {services.map((service) => (
+    <ServiceCard service={service} showDivision={showDivision} />
+  ))}
+</div>

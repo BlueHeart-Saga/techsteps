@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import HeroDivision from '../components/hero/HeroDivision.astro';
+import ServiceGrid from '../components/services/ServiceGrid.astro';
+import BenefitsList from '../components/services/BenefitsList.astro';
+import SectorGrid from '../components/sectors/SectorGrid.astro';
+import { divisions, services, sectors } from '../lib/sanity/data';
+
+const division = divisions.find((d) => d.slug === 'secure-shredding-document-integrity')!;
+const divisionServices = services.filter((s) => s.divisionSlug === division.slug);
+
+const divisionBenefits = [
+  'BS EN 15713 Level 4 high-security cross-cut granulation rendering files permanently unrecoverable',
+  'Witnessed on-site mobile truck shredding with instant physical and digital Certificates of Destruction',
+  '100% of shredded paper baled and remanufactured at UK paper mills into hygienic paper goods',
+  'Secure lockable office consoles and pre-paid remote worker confidential waste sacks supplied',
+  'Turnkey compliance with the new statutory UK Simpler Recycling workplace segregation rules',
+  'High-torque product shredding defending corporate brands against grey market uniform/prototype leaks',
+];
+---
+
+<BaseLayout
+  title="Secure Shredding & Document Integrity UK | Mobile Shredding & Recycling | Techsteps"
+  description="Techsteps Secure Shredding division provides BS EN 15713 accredited mobile on-site shredding, bulk plant purges, product destruction, and commercial recycling."
+>
+  <HeroDivision division={division} serviceCount={divisionServices.length} />
+
+  <!-- Division Introduction -->
+  <Section theme="white">
+    <Container>
+      <div class="max-w-4xl mx-auto text-center space-y-6">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Total Physical Data Defense</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight">
+          Certified Destruction &amp; Sustainable Resource Streams
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+          From routine office paper consoles and remote employee sacks to massive multi-tonne historical archive clear-outs and branded apparel pulverisation, Techsteps provides accredited physical destruction with closed-loop domestic recycling.
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Division Services -->
+  <Section theme="slate" id="division-services">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Specialized Services</span>
+        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
+          {division.title} Solutions
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600">
+          Select a confidential destruction or commercial recycling service below.
+        </p>
+      </div>
+      <ServiceGrid services={divisionServices} showDivision={false} />
+    </Container>
+  </Section>
+
+  <!-- Benefits -->
+  <Section theme="white">
+    <Container>
+      <BenefitsList benefits={divisionBenefits} title="Enterprise Benefits of Our Shredding & Integrity Services" />
+    </Container>
+  </Section>
+
+  <!-- Relevant Sectors -->
+  <Section theme="slate">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Sectors Served</span>
+        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
+          Industry Frameworks Requiring Certified Shredding
+        </h2>
+      </div>
+      <SectorGrid sectors={sectors} />
+    </Container>
+  </Section>
+
+  <!-- Final CTA -->
+  <Section theme="navy">
+    <Container className="text-center max-w-4xl mx-auto space-y-6">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        Schedule regular office consoles or a one-off archive purge
+      </h2>
+      <p class="text-base text-slate-300 max-w-2xl mx-auto">
+        Get an immediate rate card for mobile on-site shredding or set up compliant workplace recycling stations.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+        <a
+          href="/request-a-quote?service=on-site-shredding"
+          class="px-8 py-4 rounded-xl bg-brand-accent hover:bg-brand-accent-hover text-white text-base font-bold shadow-lg transition-all"
+        >
+          Request Shredding Quote
+        </a>
+        <a
+          href="/contact"
+          class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-base font-bold border border-white/20 transition-all"
+        >
+          Contact Shredding Desk
+        </a>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import { siteSettings } from '../lib/sanity/data';
+
+const breadcrumbs = [
+  { name: 'Investors', url: '/investors' },
+];
+
+const pillars = [
+  { title: 'Regulatory Secular Tailwinds', desc: 'Accelerating data protection laws (UK GDPR, NIS 2) and mandatory commercial recycling statutes (Simpler Recycling) mandate third-party certified destruction across all UK enterprises.' },
+  { title: 'Mission-Critical Recurring Demand', desc: 'Our four operational divisions provide multi-year scheduled service contracts spanning scheduled office shredding consoles, rotational tape vaults, and continuous IT buffer management.' },
+  { title: 'Circular Asset Monetization', desc: 'Established B2B remarketing networks monetize decommissioned enterprise hardware, generating revenue sharing while driving Scope 3 carbon reduction.' },
+  { title: 'High Barriers to Entry', desc: 'Stringent accreditations (ADISA Standard 8.0, ISO 27001, BS EN 15713) and security-cleared personnel fleets protect market share from low-end freight commoditization.' },
+];
+---
+
+<BaseLayout
+  title="Investor Relations | Corporate Governance & Market Growth | Techsteps UK"
+  description="Techsteps corporate overview for institutional investors, analysts, and stakeholders. Review our operating model, circular economy positioning, and governance standards."
+>
+  <div class="bg-brand-navy text-white py-16">
+    <Container>
+      <Breadcrumbs items={breadcrumbs} theme="dark" />
+      <div class="max-w-4xl space-y-4 mt-6">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Corporate Governance</span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+          Investor Relations &amp; Governance
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300">
+          Techsteps operates at the intersection of data security, circular logistics, and enterprise compliance. Our scalable operating model delivers resilient service lines across regulated UK industries.
+        </p>
+      </div>
+    </Container>
+  </div>
+
+  <!-- Business Model & Strategy -->
+  <Section theme="white">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Operating Strategy</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight">
+            Integrated Lifecycle Architecture
+          </h2>
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+            Techsteps bridges physical asset logistics and statutory environmental compliance. By integrating information archiving, hardware ITAD, mobile physical destruction, and enterprise relocations, we capture comprehensive client lifecycle value.
+          </p>
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+            Our operational infrastructure is anchored by accredited facilities, dedicated security-screened transport assets, and software-driven chain-of-custody platforms that create deep client stickiness across banking, healthcare, defence, and government sectors.
+          </p>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="p-8 rounded-2xl bg-brand-slate border border-slate-200 shadow-xs space-y-4">
+            <h3 class="text-lg font-bold text-brand-navy border-b border-slate-200 pb-2">
+              Corporate Entity &amp; Structure
+            </h3>
+            <div class="space-y-2 text-xs text-slate-700">
+              <p><strong>Legal Entity:</strong> {siteSettings.legalName}</p>
+              <p><strong>Incorporation:</strong> England &amp; Wales (Registration: {siteSettings.registrationNumber})</p>
+              <p><strong>Operating Model:</strong> Asset-Backed B2B Lifecycle Services</p>
+              <p><strong>ESG Benchmark:</strong> 100% Zero-to-Landfill WEEE Commitment</p>
+              <p><strong>Fiscal Accounting:</strong> Audited under UK GAAP / Companies Act</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Market Growth Pillars -->
+  <Section theme="slate">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Investment Foundations</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight">
+          Structural Market Drivers
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {pillars.map((pillar, index) => (
+          <div class="p-8 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Pillar 0{index + 1}</span>
+            <h3 class="text-xl font-bold text-brand-navy">{pillar.title}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">{pillar.desc}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Governance & ESG Overview -->
+  <Section theme="white">
+    <Container>
+      <div class="p-8 sm:p-12 rounded-2xl bg-brand-navy text-white space-y-6 max-w-4xl mx-auto">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">ESG &amp; Board Governance</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white">
+          Committed to Exemplary Corporate Governance
+        </h2>
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+          The Board of Techsteps maintains robust oversight of cyber risk, chain-of-custody security, health &amp; safety compliance, and environmental stewardship. We mandate third-party external surveillance audits across ISO 27001, ISO 14001, and ADISA certifications annually.
+        </p>
+        <div class="pt-4 flex flex-wrap gap-4">
+          <a
+            href="/sustainability"
+            class="px-6 py-3 rounded-lg bg-brand-accent hover:bg-brand-accent-hover text-white text-xs font-bold uppercase tracking-wider transition-all"
+          >
+            Review ESG &amp; Sustainability Policies
+          </a>
+          <a
+            href="/contact"
+            class="px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider border border-white/20 transition-all"
+          >
+            Investor Enquiries
+          </a>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+import type { StatItem } from '../../lib/sanity/types';
+
+interface Props {
+  stats: StatItem[];
+  theme?: 'dark' | 'light';
+}
+
+const { stats, theme = 'dark' } = Astro.props;
+
+// Strictly filter out any invisible or unverified placeholder values (Section 11 Rule)
+const validStats = stats.filter(
+  (s) => s.isVisible && s.value && s.value !== '0' && s.value !== '+0' && !s.value.includes('+0')
+);
+
+const bgClass = theme === 'dark' ? 'bg-brand-navy-dark text-white border-y border-slate-800' : 'bg-brand-slate text-brand-navy border-y border-slate-200';
+const numberColor = theme === 'dark' ? 'text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400' : 'text-brand-navy';
+const labelColor = theme === 'dark' ? 'text-slate-300' : 'text-slate-700';
+const noteColor = theme === 'dark' ? 'text-slate-400' : 'text-slate-500';
+---
+
+{validStats.length > 0 && (
+  <section class={`py-12 md:py-16 ${bgClass}`} aria-label="Operational Metrics & Statistics">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class={`grid grid-cols-2 md:grid-cols-${Math.min(validStats.length, 4)} gap-8 text-center`}>
+        {validStats.map((stat) => (
+          <div class="space-y-2 p-4">
+            <div class={`text-4xl sm:text-5xl lg:text-6xl font-black font-display tracking-tight ${numberColor}`}>
+              {stat.prefix && <span class="text-3xl sm:text-4xl">{stat.prefix}</span>}
+              <span>{stat.value}</span>
+              {stat.suffix && <span class="text-3xl sm:text-4xl">{stat.suffix}</span>}
+            </div>
+            <h3 class={`text-sm sm:text-base font-bold ${labelColor}`}>{stat.label}</h3>
+            {stat.contextNote && (
+              <p class={`text-xs max-w-xs mx-auto ${noteColor}`}>{stat.contextNote}</p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

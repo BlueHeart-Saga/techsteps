@@ -1,0 +1,808 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import PageHero from '../components/hero/PageHero.astro';
+import { getAboutPage } from '../lib/sanity/client';
+
+const about = await getAboutPage();
+
+const breadcrumbs = [
+  { name: 'About Us', url: '/about-us' },
+];
+
+const canonicalUrl = 'https://techsteps.co.uk/about-us';
+
+const aboutPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': 'https://techsteps.co.uk/about-us#webpage',
+  url: canonicalUrl,
+  name: about.metaTitle,
+  description: about.metaDescription,
+  mainEntity: {
+    '@id': 'https://techsteps.co.uk/#organization',
+  },
+};
+
+const valueCardStyles = [
+  {
+    bg: 'bg-[#146B5C]',
+    border: 'border-[#146B5C]',
+    text: 'text-[#146B5C]',
+    shadow: 'shadow-[#146B5C]/25',
+  },
+  {
+    bg: 'bg-[#008170]',
+    border: 'border-[#008170]',
+    text: 'text-[#008170]',
+    shadow: 'shadow-[#008170]/25',
+  },
+  {
+    bg: 'bg-[#1E7A45]',
+    border: 'border-[#1E7A45]',
+    text: 'text-[#1E7A45]',
+    shadow: 'shadow-[#1E7A45]/25',
+  },
+];
+
+const purposeCardStyles = [
+  {
+    bg: 'bg-[#146B5C]',
+    circle: 'bg-[#146B5C]',
+    shadow: 'shadow-[#146B5C]/25',
+  },
+  {
+    bg: 'bg-[#008170]',
+    circle: 'bg-[#008170]',
+    shadow: 'shadow-[#008170]/25',
+  },
+  {
+    bg: 'bg-[#1E7A45]',
+    circle: 'bg-[#1E7A45]',
+    shadow: 'shadow-[#1E7A45]/25',
+  },
+  {
+    bg: 'bg-[#0D5246]',
+    circle: 'bg-[#0D5246]',
+    shadow: 'shadow-[#0D5246]/25',
+  },
+];
+
+const approachStepStyles = [
+  {
+    tab: 'bg-[#146B5C]',
+    tabFold: 'bg-[#0D483E]',
+    text: 'text-[#146B5C]',
+    iconText: 'text-[#146B5C]',
+    border: 'border-[#146B5C]',
+    shadow: 'shadow-[#146B5C]/20',
+  },
+  {
+    tab: 'bg-[#0D5246]',
+    tabFold: 'bg-[#08352D]',
+    text: 'text-[#0D5246]',
+    iconText: 'text-[#0D5246]',
+    border: 'border-[#0D5246]',
+    shadow: 'shadow-[#0D5246]/20',
+  },
+  {
+    tab: 'bg-[#1E5B8C]',
+    tabFold: 'bg-[#133D5E]',
+    text: 'text-[#1E5B8C]',
+    iconText: 'text-[#1E5B8C]',
+    border: 'border-[#1E5B8C]',
+    shadow: 'shadow-[#1E5B8C]/20',
+  },
+  {
+    tab: 'bg-[#0284C7]',
+    tabFold: 'bg-[#0369A1]',
+    text: 'text-[#0284C7]',
+    iconText: 'text-[#0284C7]',
+    border: 'border-[#0284C7]',
+    shadow: 'shadow-[#0284C7]/20',
+  },
+  {
+    tab: 'bg-[#16A34A]',
+    tabFold: 'bg-[#15803D]',
+    text: 'text-[#16A34A]',
+    iconText: 'text-[#16A34A]',
+    border: 'border-[#16A34A]',
+    shadow: 'shadow-[#16A34A]/20',
+  },
+  {
+    tab: 'bg-[#475569]',
+    tabFold: 'bg-[#334155]',
+    text: 'text-[#475569]',
+    iconText: 'text-[#475569]',
+    border: 'border-[#475569]',
+    shadow: 'shadow-[#475569]/20',
+  },
+];
+
+const defaultCertifications = [
+  {
+    name: 'ADISA Standard 8.0',
+    shortDescription: 'IT Asset Disposal Certification (Pass with Distinction)',
+    badgeText: 'ADISA CERTIFIED',
+    link: 'https://adisa.global',
+  },
+  {
+    name: 'ISO 27001',
+    shortDescription: 'Information Security Management System',
+    badgeText: 'ISO 27001',
+    link: 'https://www.iso.org/iso-iec-27001-information-security.html',
+  },
+  {
+    name: 'ISO 14001',
+    shortDescription: 'Environmental Management & Zero-Landfill',
+    badgeText: 'ISO 14001',
+    link: 'https://www.iso.org/iso-14001-environmental-management.html',
+  },
+  {
+    name: 'ISO 9001',
+    shortDescription: 'Quality Management & Governance System',
+    badgeText: 'ISO 9001',
+    link: 'https://www.iso.org/iso-9001-quality-management.html',
+  },
+  {
+    name: 'Cyber Essentials Plus',
+    shortDescription: 'National Cyber Security Centre (NCSC) Certified',
+    badgeText: 'CYBER ESSENTIALS+',
+    link: 'https://www.ncsc.gov.uk/cyberessentials/overview',
+  },
+  {
+    name: 'BS EN 15713',
+    shortDescription: 'Secure Destruction of Confidential Material',
+    badgeText: 'BS EN 15713',
+    link: 'https://www.bsigroup.com',
+  },
+  {
+    name: 'Environment Agency AATF',
+    shortDescription: 'Licensed Waste Partner & Carrier',
+    badgeText: 'EA AATF LICENSE',
+    link: 'https://www.gov.uk/government/organisations/environment-agency',
+  },
+  {
+    name: 'BS 7858 Vetted',
+    shortDescription: 'Security Vetting of Personnel in Security Operations',
+    badgeText: 'BS 7858 VETTED',
+    link: 'https://www.bsigroup.com',
+  },
+  {
+    name: 'UK GDPR Compliant',
+    shortDescription: 'Full Compliance with UK Data Protection Rules',
+    badgeText: 'UK GDPR',
+    link: 'https://ico.org.uk',
+  },
+  {
+    name: 'NIST 800-88 Rev 1',
+    shortDescription: 'Guidelines for Media Sanitization & Overwriting',
+    badgeText: 'NIST 800-88',
+    link: 'https://csrc.nist.gov',
+  },
+];
+
+const certificationsList = (about.certifications && about.certifications.length > 0)
+  ? about.certifications
+  : defaultCertifications;
+---
+
+<BaseLayout
+  title={about.metaTitle}
+  description={about.metaDescription}
+  canonicalUrl={canonicalUrl}
+  hasHeroHeader={true}
+  jsonLd={aboutPageSchema}
+>
+  <!-- 1. ABOUT HERO (Single H1) -->
+  <PageHero
+    eyebrow={about.heroEyebrow || 'ABOUT TECHSTEPS'}
+    title={about.heroHeadline || 'We Make Every Step Matter.'}
+    subheading={about.heroSubheading || 'A dedicated UK partner delivering secure information governance, compliant IT lifecycle management, and specialist logistical execution.'}
+    bgImage={about.heroImage || '/images/hero/about-hero-bg.jpg'}
+    breadcrumbs={breadcrumbs}
+    dividerColor="#f1f4ef"
+  />
+
+  <!-- CONTINUOUS FLOWING ORGANIC BACKGROUND WRAPPER (Seamless Across All Sections) -->
+  <div class="relative bg-[#f1f4ef]">
+    <!-- Top Finished Soft Blur Fade (Hero After: Gracefully dissolves wave beginnings so they don't look endless) -->
+    <div class="absolute top-0 inset-x-0 h-36 sm:h-52 bg-gradient-to-b from-[#f1f4ef] via-[#f1f4ef]/85 to-transparent pointer-events-none z-10 backdrop-blur-[2px]"></div>
+
+    <!-- Bottom Finished Soft Blur Fade (Footer Top: Gracefully concludes wave ends so they don't look endless) -->
+    <div class="absolute bottom-0 inset-x-0 h-40 sm:h-56 bg-gradient-to-t from-[#f1f4ef] via-[#f1f4ef]/85 to-transparent pointer-events-none z-10 backdrop-blur-[2px]"></div>
+
+    <!-- Single Full-Page Continuous Vector Background with Soft Diffusion Blur & Smooth Edge Masks -->
+    <div
+      class="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden"
+      style="mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 3%, black 8%, black 92%, rgba(0,0,0,0.5) 97%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 3%, black 8%, black 92%, rgba(0,0,0,0.5) 97%, transparent 100%);"
+      aria-hidden="true"
+    >
+      <svg
+        viewBox="0 0 1440 3800"
+        preserveAspectRatio="none"
+        class="w-full h-full opacity-85"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style="filter: blur(10px); -webkit-filter: blur(10px); transform: scale(1.04); transform-origin: center;"
+      >
+        <!-- Gradients for Ribbons & Lines -->
+        <defs>
+          <linearGradient id="ribbon-gradient-continuous" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#B8CEBF" stop-opacity="0.85" />
+            <stop offset="25%" stop-color="#C5D8CC" stop-opacity="0.9" />
+            <stop offset="50%" stop-color="#ADC6B5" stop-opacity="0.85" />
+            <stop offset="75%" stop-color="#BFD5C6" stop-opacity="0.9" />
+            <stop offset="100%" stop-color="#B2CBB9" stop-opacity="0.85" />
+          </linearGradient>
+          <linearGradient id="line-gradient-continuous" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#146B5C" />
+            <stop offset="30%" stop-color="#1E7A45" />
+            <stop offset="60%" stop-color="#146B5C" />
+            <stop offset="100%" stop-color="#2D8A74" />
+          </linearGradient>
+        </defs>
+
+        <!-- Primary Flowing Sage Ribbon (Meanders Unbroken Down Through Sections) -->
+        <path
+          d="M 780,100 C 980,320 1280,520 1180,900 C 1080,1280 260,1120 210,1520 C 160,1920 1120,1960 1220,2360 C 1320,2760 460,2860 360,3240 C 300,3480 540,3620 720,3680"
+          fill="none"
+          stroke="url(#ribbon-gradient-continuous)"
+          stroke-width="56"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+
+        <!-- Secondary Elegant Ribbon (Flows through Sections 2, 3, 5, 7) -->
+        <path
+          d="M 140,120 C 20,440 100,780 340,1060 C 590,1340 840,1640 700,2040 C 540,2440 160,2640 260,3020 C 350,3360 820,3560 1120,3660"
+          fill="none"
+          stroke="url(#ribbon-gradient-continuous)"
+          stroke-width="40"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          opacity="0.65"
+        />
+
+        <!-- Continuous Sweeping Arc Line 1 (Dark Sage) -->
+        <path
+          d="M 340,90 C 360,490 630,890 920,1320 C 1220,1760 1340,2240 1150,2760 C 970,3260 520,3500 440,3690"
+          fill="none"
+          stroke="url(#line-gradient-continuous)"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          opacity="0.48"
+        />
+
+        <!-- Continuous Sweeping Arc Line 2 (Graceful Parabolic Wave) -->
+        <path
+          d="M 1220,90 C 1120,420 870,770 520,1080 C 160,1400 90,1860 340,2320 C 590,2780 1060,2980 1240,3400 C 1300,3540 1280,3620 1220,3690"
+          fill="none"
+          stroke="url(#line-gradient-continuous)"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          opacity="0.45"
+        />
+
+        <!-- Continuous Sweeping Arc Line 3 (Harmonic Cross Line) -->
+        <path
+          d="M 960,100 C 670,400 370,740 260,1220 C 150,1720 660,2140 980,2580 C 1270,3000 1110,3460 880,3680"
+          fill="none"
+          stroke="#146B5C"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          opacity="0.42"
+        />
+
+        <!-- Continuous Sweeping Arc Line 4 (Dynamic Intersecting Curve) -->
+        <path
+          d="M 180,100 C 380,600 880,950 1220,1440 C 1460,1830 1220,2360 760,2820 C 360,3200 200,3500 180,3680"
+          fill="none"
+          stroke="#1E7A45"
+          stroke-width="2"
+          stroke-linecap="round"
+          opacity="0.4"
+        />
+
+        <!-- Continuous Sweeping Arc Line 5 (Soft Accent Orbit) -->
+        <path
+          d="M 620,100 C 860,400 1140,790 1050,1280 C 950,1780 410,2150 310,2640 C 220,3110 680,3480 980,3670"
+          fill="none"
+          stroke="#2D8A74"
+          stroke-width="1.6"
+          stroke-dasharray="8 6"
+          stroke-linecap="round"
+          opacity="0.32"
+        />
+      </svg>
+    </div>
+
+    <!-- 2. WHO WE ARE (Editorial Two-Column Layout) -->
+    <section class="relative z-10 py-10 sm:py-12 lg:py-14">
+      <Container>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <!-- LEFT: Editorial headline and short supporting copy -->
+          <div class="lg:col-span-6 space-y-5">
+            <div class="space-y-2.5">
+              <span class="inline-block text-xs sm:text-sm font-bold uppercase tracking-widest text-[#146B5C]">
+                {about.whoWeAreEyebrow || 'WHO WE ARE'}
+              </span>
+              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-[1.15] whitespace-pre-line">
+                {about.whoWeAreHeadline || 'Technology.\nInformation.\nResponsibility.'}
+              </h2>
+            </div>
+
+            <div class="text-base sm:text-lg text-slate-700 leading-relaxed space-y-3 font-medium">
+              <p>
+                {about.whoWeAreBody || 'Techsteps is a UK-based information management and technology lifecycle services company. We partner with organisations to provide secure information management, end-to-end IT lifecycle services, verified data destruction, responsible electronic recycling, and specialized technology relocation. Our mission is to protect what matters and ensure every asset is handled with total accountability and environmental care.'}
+              </p>
+            </div>
+
+            <!-- Service Navigation Strip -->
+            <div class="pt-5 border-t border-slate-300/60">
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+                <a
+                  href="/information-management"
+                  class="group p-3 rounded-xl bg-white/95 backdrop-blur-xs border border-slate-200/90 hover:border-[#146B5C]/60 hover:bg-white shadow-2xs hover:shadow-xs transition-all duration-200 flex flex-col justify-between"
+                >
+                  <span class="text-[11px] sm:text-xs font-bold font-display uppercase tracking-wider text-slate-800 group-hover:text-[#146B5C] transition-colors">
+                    Information
+                  </span>
+                  <span class="text-[10px] text-slate-500 group-hover:text-[#146B5C] transition-colors mt-1 font-mono">
+                    Governance &rarr;
+                  </span>
+                </a>
+
+                <a
+                  href="/it-lifecycle-services-destruction"
+                  class="group p-3 rounded-xl bg-white/95 backdrop-blur-xs border border-slate-200/90 hover:border-[#146B5C]/60 hover:bg-white shadow-2xs hover:shadow-xs transition-all duration-200 flex flex-col justify-between"
+                >
+                  <span class="text-[11px] sm:text-xs font-bold font-display uppercase tracking-wider text-slate-800 group-hover:text-[#146B5C] transition-colors">
+                    IT Lifecycle
+                  </span>
+                  <span class="text-[10px] text-slate-500 group-hover:text-[#146B5C] transition-colors mt-1 font-mono">
+                    ITAD & Asset &rarr;
+                  </span>
+                </a>
+
+                <a
+                  href="/secure-shredding-document-integrity"
+                  class="group p-3 rounded-xl bg-white/95 backdrop-blur-xs border border-slate-200/90 hover:border-[#146B5C]/60 hover:bg-white shadow-2xs hover:shadow-xs transition-all duration-200 flex flex-col justify-between"
+                >
+                  <span class="text-[11px] sm:text-xs font-bold font-display uppercase tracking-wider text-slate-800 group-hover:text-[#146B5C] transition-colors">
+                    Destruction
+                  </span>
+                  <span class="text-[10px] text-slate-500 group-hover:text-[#146B5C] transition-colors mt-1 font-mono">
+                    Certified &rarr;
+                  </span>
+                </a>
+
+                <a
+                  href="/moving-relocation-services"
+                  class="group p-3 rounded-xl bg-white/95 backdrop-blur-xs border border-slate-200/90 hover:border-[#146B5C]/60 hover:bg-white shadow-2xs hover:shadow-xs transition-all duration-200 flex flex-col justify-between"
+                >
+                  <span class="text-[11px] sm:text-xs font-bold font-display uppercase tracking-wider text-slate-800 group-hover:text-[#146B5C] transition-colors">
+                    Relocation
+                  </span>
+                  <span class="text-[10px] text-slate-500 group-hover:text-[#146B5C] transition-colors mt-1 font-mono">
+                    Specialist &rarr;
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Large CMS-managed image without boxing -->
+          <div class="lg:col-span-6">
+            <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[4/3] group">
+              <img
+                src={about.whoWeAreImage || '/images/brand/story-origin.jpg'}
+                alt="Techsteps secure facilities and lifecycle operations"
+                class="w-full h-full object-cover object-center group-hover:scale-102 transition-transform duration-700"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <!-- 3. OUR PURPOSE (Clean Open Section) -->
+    <section class="relative z-10 py-10 sm:py-12 lg:py-14">
+      <Container>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <!-- Left Side: Content & Principles -->
+          <div class="lg:col-span-7 space-y-7">
+            <div class="space-y-2.5">
+              <span class="inline-block text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C]">
+                {about.purposeEyebrow || 'OUR PURPOSE'}
+              </span>
+              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-[1.15]">
+                {about.purposeHeadline || 'We Create Meaningful Impact.'}<br />
+                <span class="text-[#146B5C]">{about.purposeSubheading || 'Every Solution Builds a Better Future.'}</span>
+              </h2>
+              <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl font-medium pt-1">
+                {about.purposeBody || 'We operate at the critical intersection of digital security and environmental stewardship. By embedding rigorous compliance and circular lifecycle practices into every workflow, we empower organisations to safeguard sensitive assets while building a cleaner, more sustainable future.'}
+              </p>
+            </div>
+
+            <!-- Three Purpose Principles (Horizontal stacked rows matching infographic template) -->
+            <div class="flex flex-col gap-4 sm:gap-5 pt-2 pl-6 sm:pl-7 pr-3 sm:pr-4">
+              {about.purposePrinciples && about.purposePrinciples.map((principle, idx) => {
+                const style = purposeCardStyles[idx % purposeCardStyles.length];
+                return (
+                  <div class="relative group flex items-center">
+                    <!-- Back Colored Layer (Tilted / Offset at Right Edge) -->
+                    <div
+                      class={`absolute inset-0 rounded-2xl ${style.bg} origin-bottom-left transform translate-x-2.5 sm:translate-x-3.5 -translate-y-1.5 rotate-[1.2deg] -z-10 shadow-sm ${style.shadow} transition-all duration-300 group-hover:translate-x-4 group-hover:-translate-y-2 group-hover:rotate-[1.8deg]`}
+                    ></div>
+
+                    <!-- Front White Card -->
+                    <div class="relative z-10 w-full bg-white rounded-2xl py-3.5 sm:py-4 px-4 sm:px-5 flex items-center border border-slate-100/90 shadow-[0_6px_20px_rgba(0,0,0,0.05)] group-hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] transition-all duration-300">
+                      <!-- Overlapping Number Circle on Left (Vertically Centered) -->
+                      <div
+                        class={`absolute -left-6 sm:-left-7 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-full ${style.circle} text-white font-mono font-bold text-sm sm:text-base flex items-center justify-center shadow-md ${style.shadow} group-hover:scale-105 transition-transform duration-300 shrink-0`}
+                      >
+                        0{idx + 1}
+                      </div>
+
+                      <!-- Text Content -->
+                      <div class="pl-8 sm:pl-9 pr-2 sm:pr-3 py-0.5 min-w-0">
+                        <h3 class="text-sm sm:text-base font-extrabold font-display text-slate-900 tracking-wider uppercase">
+                          {principle.title}
+                        </h3>
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold mt-0.5">
+                          {principle.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <!-- Right Side: Visual / Eco-tech visual (Clean floating image without box or white background) -->
+          <div class="lg:col-span-5 flex items-center justify-center relative">
+            <div class="absolute w-72 h-72 rounded-full bg-emerald-200/40 blur-3xl pointer-events-none" aria-hidden="true"></div>
+            <img
+              src="/images/components/batch2.png"
+              alt="Sustainable technology and circular lifecycle illustration"
+              class="relative z-10 w-68 sm:w-84 lg:w-96 h-auto object-contain drop-shadow-xl hover:scale-105 hover:rotate-2 transition-all duration-700 select-none pointer-events-auto"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <!-- 4. WHAT WE STAND FOR (Clean Light Values Section) -->
+    <section class="relative z-10 py-10 sm:py-12 lg:py-14">
+      <Container>
+        <div class="text-center max-w-3xl mx-auto space-y-2 mb-8 sm:mb-10">
+          <span class="inline-block text-xs sm:text-sm font-bold uppercase tracking-widest text-[#146B5C]">
+            WHAT WE STAND FOR
+          </span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-tight">
+            What We Stand For
+          </h2>
+         
+        </div>
+
+        <!-- Three Value Blocks (Infographic Template Design) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 max-w-5xl mx-auto px-4 sm:px-0">
+          {about.values && about.values.map((val, idx) => {
+            const style = valueCardStyles[idx % valueCardStyles.length];
+            return (
+              <div class="relative group pt-4 pr-3.5 pb-2 flex">
+                <!-- Back Colored Card Layer (Tilted / Offset at Top-Right matching infographic template) -->
+                <div class={`absolute inset-0 rounded-[28px] ${style.bg} origin-bottom-left transform translate-x-3 -translate-y-2.5 rotate-[2deg] -z-10 shadow-md ${style.shadow} transition-all duration-300 group-hover:translate-x-3.5 group-hover:-translate-y-3 group-hover:rotate-[2.5deg]`}></div>
+
+                <!-- Front White Card -->
+                <div class="relative z-10 w-full bg-white rounded-[26px] px-6 py-8 sm:px-7 sm:py-9 text-center flex flex-col justify-between border border-slate-100 shadow-[0_12px_28px_rgba(0,0,0,0.06)] group-hover:shadow-[0_20px_38px_rgba(0,0,0,0.1)] transition-all duration-300">
+                  <div class="flex flex-col items-center">
+                    <!-- Top Minimal Line Icon -->
+                    <div class="mb-5 text-slate-700 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center h-10">
+                      {idx === 0 && (
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                          <rect x="2" y="3" width="20" height="14" rx="2" stroke-linecap="round" stroke-linejoin="round" />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4" />
+                        </svg>
+                      )}
+                      {idx === 1 && (
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                          <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                          <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                        </svg>
+                      )}
+                      {idx === 2 && (
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M12 20V10" />
+                          <path d="M18 20V4" />
+                          <path d="M6 20v-4" />
+                        </svg>
+                      )}
+                    </div>
+
+                    <!-- Title -->
+                    <h3 class="text-lg sm:text-xl font-extrabold font-display text-slate-900 tracking-wider uppercase mb-3">
+                      {val.title}
+                    </h3>
+
+                    <!-- Description -->
+                    <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold max-w-[260px] mx-auto">
+                      {val.description}
+                    </p>
+                  </div>
+
+                 
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+
+    <!-- 5. OUR APPROACH (All Cards Scrolling One-by-One with Synchronised Exit) -->
+    <section class="relative z-10 pt-8 sm:pt-12 pb-2 sm:pb-4">
+      <Container>
+        <div id="approach-container" class="relative max-w-3xl mx-auto pb-10 sm:pb-14">
+          
+          <!-- Sticky Title Area (Clean, Open, Completely Unboxed, Synchronised on Exit) -->
+          <div id="approach-sticky-title" class="sticky top-20 sm:top-24 z-30 text-center pb-4 pt-1 will-change-transform">
+            <span class="inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest text-[#146B5C] mb-1.5">
+             
+              {about.approachEyebrow || 'OUR APPROACH'}
+            </span>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-display text-slate-900 tracking-tight leading-tight">
+              {about.approachHeadline || 'Every Asset. A Smarter Journey.'}
+            </h2>
+            <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl mx-auto font-medium mt-1.5">
+              {about.approachBody || 'Our industry-specific IT asset lifecycle methodology delivers end-to-end security, regulatory compliance, and maximum value recovery.'}
+            </p>
+          </div>
+
+          <!-- All 6 Step Cards: Laid out in order, scrolling one by one -->
+          {about.approachSteps && about.approachSteps.map((step, idx) => {
+            const style = approachStepStyles[idx % approachStepStyles.length];
+            const zIndex = 10 + idx;
+            const marginTop = idx === 0 ? 'mt-4' : 'mt-20 sm:mt-24';
+            return (
+              <div
+                class={`approach-scroll-card sticky top-[13.5rem] sm:top-[14.5rem] transition-shadow duration-300 ${marginTop}`}
+                style={`z-index: ${zIndex};`}
+                data-card-index={idx}
+              >
+                <!-- Folded Bookmark Tab Card Container (Matching Infographic Template) -->
+                <div class="relative group bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:shadow-[0_24px_50px_rgba(0,0,0,0.12)] p-4 sm:p-6 flex items-center gap-4 sm:gap-7 min-h-[125px] sm:min-h-[140px] transition-all duration-300">
+                  
+                  <!-- Left Big Minimal Outline Icon Tailored for Each Stage -->
+                  <div class={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center shrink-0 ${style.iconText} bg-slate-50 border border-slate-100/90 shadow-2xs group-hover:scale-105 transition-transform duration-300`}>
+                    {idx === 0 && (
+                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8h4.586a1 1 0 01.707.293l2.414 2.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1" />
+                      </svg>
+                    )}
+                    {idx === 1 && (
+                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                    )}
+                    {idx === 2 && (
+                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
+                      </svg>
+                    )}
+                    {idx === 3 && (
+                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    )}
+                    {idx === 4 && (
+                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                    )}
+                    {idx === 5 && (
+                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 8h2" />
+                      </svg>
+                    )}
+                  </div>
+
+                  <!-- Folded Ribbon Bookmark Tab (PHASE / 01-06) -->
+                  <div class="relative shrink-0 -my-4 sm:-my-6">
+                    <!-- Top-Left Darker Origami Fold Triangle -->
+                    <span
+                      class={`absolute -top-3 left-0 w-3 h-3 ${style.tabFold}`}
+                      style="clip-path: polygon(100% 0, 0 100%, 100% 100%);"
+                      aria-hidden="true"
+                    ></span>
+
+                    <!-- Main Colored Tab Body -->
+                    <div class={`w-18 sm:w-22 ${style.tab} rounded-b-2xl pt-2.5 pb-3 px-1.5 text-center text-white shadow-md flex flex-col items-center justify-center`}>
+                      <span class="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest font-semibold border-b border-white/40 pb-0.5 mb-1 px-1 opacity-90">
+                        PHASE
+                      </span>
+                      <span class="text-2xl sm:text-3xl font-mono font-black tracking-tight leading-none">
+                        0{idx + 1}
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Title, Divider & Description Content -->
+                  <div class="flex-1 min-w-0 pr-2 sm:pr-4">
+                    <h3 class="text-base sm:text-lg lg:text-xl font-black font-display tracking-wider uppercase text-slate-900 mb-1">
+                      {step.title}
+                    </h3>
+                    <div class="w-12 h-0.5 bg-slate-200 mb-2"></div>
+                    <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+
+    <!-- Synchronised Scroll Script: Ensures Title and Cards Move Up in Lockstep on Exit -->
+    <script is:inline>
+      (() => {
+        const initStickySync = () => {
+          const title = document.getElementById('approach-sticky-title');
+          const cards = document.querySelectorAll('.approach-scroll-card');
+          if (!title || !cards.length) return;
+
+          const lastCard = cards[cards.length - 1];
+          let ticking = false;
+
+          const updateSync = () => {
+            // Cards stick at top-[13.5rem] (216px) or sm:top-[14.5rem] (232px)
+            const expectedCardTop = window.innerWidth >= 640 ? 232 : 216;
+            const lastCardRect = lastCard.getBoundingClientRect();
+
+            // When the last card reaches the end of the container and is pushed up,
+            // push the title up by the exact same distance so they never collide!
+            if (lastCardRect.top < expectedCardTop) {
+              const pushDistance = expectedCardTop - lastCardRect.top;
+              title.style.transform = `translateY(-${pushDistance}px)`;
+            } else {
+              title.style.transform = 'translateY(0px)';
+            }
+          };
+
+          const onScroll = () => {
+            if (!ticking) {
+              requestAnimationFrame(() => {
+                updateSync();
+                ticking = false;
+              });
+              ticking = true;
+            }
+          };
+
+          window.addEventListener('scroll', onScroll, { passive: true });
+          window.addEventListener('resize', onScroll, { passive: true });
+          updateSync();
+        };
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initStickySync);
+        } else {
+          initStickySync();
+        }
+        document.addEventListener('astro:page-load', initStickySync);
+      })();
+    </script>
+
+    <!-- 6. CERTIFICATIONS & COMPLIANCE (Continuous Infinite Logo Marquee) -->
+    <section class="relative z-10 pt-6 sm:pt-8 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
+      <Container>
+        <div class="text-center max-w-3xl mx-auto space-y-3">
+          <span class="inline-block text-xs sm:text-sm font-bold uppercase tracking-widest text-[#146B5C]">
+            {about.complianceEyebrow || 'STANDARDS & GOVERNANCE'}
+          </span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-tight">
+            {about.complianceHeadline || 'Built on Trust. Backed by Standards.'}
+          </h2>
+          <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-2xl mx-auto font-medium">
+            {about.complianceBody || 'Our processes are designed around security, accountability and responsible operations.'}
+          </p>
+
+          <!-- Compliance Assurance Note -->
+          <div class="pt-4">
+            <div class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs text-sm sm:text-base text-slate-800 font-semibold">
+              <svg class="w-4 h-4 text-[#146B5C] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Stringent chain-of-custody protocols, fully vetted UK personnel, and defensible audit trails.</span>
+            </div>
+          </div>
+        </div>
+      </Container>
+
+      <!-- Infinite Horizontal Scrolling Logo Marquee Ticker (Single Smooth Row) -->
+      {certificationsList && certificationsList.length > 0 && (
+        <div class="mt-10 sm:mt-12">
+          <div class="relative overflow-hidden py-3 marquee-container">
+            <!-- Left & Right Fade Gradients -->
+            <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-r from-[#F1F4EF] via-[#F1F4EF]/90 to-transparent z-10"></div>
+            <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-l from-[#F1F4EF] via-[#F1F4EF]/90 to-transparent z-10"></div>
+
+            <div class="animate-marquee flex items-center gap-5 sm:gap-6 pr-5 sm:pr-6">
+              {[...certificationsList, ...certificationsList].map((cert) => {
+                return (
+                  <a
+                    href={cert.link || '#'}
+                    target={cert.link ? '_blank' : '_self'}
+                    rel="noopener noreferrer"
+                    title={`${cert.name} accreditation`}
+                    class="h-20 px-6 sm:px-8 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#146B5C]/60 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center shrink-0 group min-w-[200px] sm:min-w-[230px]"
+                  >
+                    {cert.logo ? (
+                      <img src={cert.logo} alt={`${cert.name} logo`} class="h-10 sm:h-12 w-auto object-contain max-w-[170px] group-hover:scale-105 transition-transform duration-300" />
+                    ) : (
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#146B5C]/10 to-emerald-100/70 border border-[#146B5C]/20 text-[#146B5C] flex items-center justify-center shrink-0 group-hover:bg-[#146B5C] group-hover:text-white transition-all duration-300">
+                          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                          </svg>
+                        </div>
+                        <span class="text-sm sm:text-base font-extrabold font-display text-slate-900 tracking-tight group-hover:text-[#146B5C] transition-colors whitespace-nowrap">
+                          {cert.name}
+                        </span>
+                      </div>
+                    )}
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+
+    <!-- 7. FINAL CTA (Clean Open Section) -->
+    <section class="relative z-10 py-12 sm:py-16 lg:py-20">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#146B5C]/15 blur-3xl pointer-events-none"></div>
+
+      <Container className="relative z-10 text-center max-w-3xl mx-auto space-y-5">
+        <span class="inline-block text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C]">
+          {about.ctaEyebrow || "LET'S WORK TOGETHER"}
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-tight">
+          {about.ctaHeadline || 'Ready to Take the Next Step?'}
+        </h2>
+        <p class="text-base sm:text-lg text-slate-800 max-w-xl mx-auto leading-relaxed font-medium">
+          {about.ctaBody || "Let's build a more secure, responsible and sustainable technology lifecycle for your organisation."}
+        </p>
+
+        <div class="pt-3 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href={about.ctaButtonUrl || '/contact'}
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#146B5C] hover:bg-[#0D5549] text-white text-base font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+          >
+            <span>{about.ctaButtonLabel || 'Get In Touch →'}</span>
+          </a>
+          <a
+            href={about.ctaSecondaryButtonUrl || '/request-a-quote'}
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 text-base font-bold shadow-xs hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5"
+          >
+            <span>{about.ctaSecondaryButtonLabel || 'Request a Quote →'}</span>
+          </a>
+        </div>
+      </Container>
+    </section>
+  </div>
+</BaseLayout>

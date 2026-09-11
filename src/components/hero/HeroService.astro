@@ -1,0 +1,90 @@
+---
+import Container from '../layout/Container.astro';
+import Breadcrumbs from '../seo/Breadcrumbs.astro';
+import type { Service } from '../../lib/sanity/types';
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+
+const breadcrumbs = [
+  { name: 'Services', url: '/services' },
+  { name: service.divisionTitle, url: `/${service.divisionSlug}` },
+  { name: service.title, url: `/services/${service.slug}` },
+];
+---
+
+<div class="relative bg-brand-navy text-white py-16 lg:py-20 overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(#1E3E62_1px,transparent_1px)] [background-size:24px_24px] opacity-20"></div>
+
+  <Container className="relative z-10">
+    <Breadcrumbs items={breadcrumbs} theme="dark" />
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mt-6">
+      <div class="lg:col-span-8 space-y-5">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/10 text-brand-accent text-xs font-bold uppercase tracking-wider">
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+          <span>{service.divisionTitle}</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          {service.title}
+        </h1>
+
+        <p class="text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed">
+          {service.summary}
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4 pt-3">
+          <a
+            href={`/request-a-quote?service=${encodeURIComponent(service.slug)}`}
+            class="px-6 py-3.5 rounded-lg bg-brand-accent hover:bg-brand-accent-hover text-white text-sm font-bold shadow-lg transition-all"
+          >
+            Request a Quote for {service.title}
+          </a>
+          <a
+            href="/contact"
+            class="px-6 py-3.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/20 transition-all"
+          >
+            Speak to a Specialist
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Trust Summary Card -->
+      <div class="lg:col-span-4">
+        <div class="rounded-xl bg-white/5 border border-white/10 p-6 backdrop-blur-md space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Compliance &amp; Delivery SLA</h3>
+          <ul class="space-y-3 text-xs text-slate-200">
+            <li class="flex items-center gap-2.5">
+              <svg class="h-4 w-4 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>ADISA &amp; ISO 27001 Certified Standards</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="h-4 w-4 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>BS 7858 Vetted Secure Operations Fleet</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="h-4 w-4 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Serialized Certificate of Destruction</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="h-4 w-4 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>100% Zero-to-Landfill Guarantee</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>

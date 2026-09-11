@@ -1,0 +1,277 @@
+---
+interface TestimonialItem {
+  id: string;
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+  avatar: string;
+}
+
+const testimonials: TestimonialItem[] = [
+  {
+    id: 't1',
+    quote: 'Impressed by the security rigor, speed, and attention to detail from day one. TechSteps transformed our lifecycle compliance.',
+    author: 'David Miller',
+    role: 'Head of Infrastructure Security',
+    company: 'Defence Prime Contractor',
+    avatar: '/images/testimonials/avatar-1.jpg',
+  },
+  {
+    id: 't2',
+    quote: 'A seamless experience from start to finish. Freed 4,000 sq ft of hospital ward space with zero data risk!',
+    author: 'Sarah Jenkins',
+    role: 'Director of Health Records',
+    company: 'NHS Foundation Trust',
+    avatar: '/images/testimonials/avatar-2.jpg',
+  },
+  {
+    id: 't3',
+    quote: 'Reliable and trustworthy. Handled our weekend trading floor migration with complete security and zero downtime!',
+    author: 'James Roberts',
+    role: 'Chief Technology Officer',
+    company: 'Tier 1 Investment Bank',
+    avatar: '/images/testimonials/avatar-3.jpg',
+  },
+  {
+    id: 't4',
+    quote: 'Exceeded all GGC zero-landfill mandates while delivering defensible Scope 3 carbon compliance reporting.',
+    author: 'Eleanor Vance',
+    role: 'Governance & Information Director',
+    company: 'Central Government Agency',
+    avatar: '/images/testimonials/avatar-4.jpg',
+  },
+  {
+    id: 't5',
+    quote: 'Digitized 80 years of irreplaceable historical research archives with 100% precision and legal compliance.',
+    author: 'Prof. Marcus Thorne',
+    role: 'Dean of Research Operations',
+    company: 'Russell Group University',
+    avatar: '/images/testimonials/avatar-5.jpg',
+  },
+  {
+    id: 't6',
+    quote: 'Unlocked substantial rebate value from our retired enterprise server fleet with certified NIST 800-88 erasure.',
+    author: 'Rachel Adams',
+    role: 'Global Head of ESG & Sustainability',
+    company: 'Enterprise Technology Corp',
+    avatar: '/images/testimonials/avatar-6.jpg',
+  },
+];
+---
+
+<div id="testimonial-section-wrapper" class="w-full max-w-5xl mx-auto select-none space-y-8 sm:space-y-10 py-2">
+  <!-- Section Header ("What Our Clients Say") -->
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C]">
+      TESTIMONIALS
+    </span>
+    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
+      What Our Clients Say
+    </h2>
+  </div>
+
+  <!-- Open Premium Layout (No Card Box, No White BG Container) -->
+  <div class="relative pt-2">
+    <!-- Sleek Auto-Play Timer Progress Bar -->
+    <div class="relative w-full h-1 bg-slate-200/80 rounded-full overflow-hidden mb-6">
+      <div
+        id="testimonial-progress-bar"
+        class="absolute left-0 top-0 h-full bg-[#146B5C] rounded-full transition-all duration-100 ease-linear w-0"
+      ></div>
+    </div>
+
+    <!-- Main Open Quote Showcase -->
+    <div class="py-4 sm:py-6 min-h-[220px] sm:min-h-[240px] flex flex-col justify-center">
+      {testimonials.map((item, idx) => (
+        <div
+          key={item.id}
+          data-testimonial-slide={idx}
+          class={`testimonial-slide transition-all duration-500 flex flex-col md:flex-row items-start gap-6 lg:gap-10 ${
+            idx === 0 ? 'block opacity-100 translate-y-0' : 'hidden opacity-0 translate-y-2'
+          }`}
+        >
+          <!-- Left: Large Simple & Clean Double Quotation Symbol (2 Quote Marks) -->
+          <div class="shrink-0 text-[#146B5C]/40 pt-1 select-none">
+            <svg class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 drop-shadow-xs" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+          </div>
+
+          <!-- Right: Open Massive Quote Typography -->
+          <div class="flex-1 min-w-0">
+            <p class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-display text-brand-navy leading-snug sm:leading-[1.25] tracking-tight">
+              {item.quote}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom Horizontal Divider & Profile / Controls Row -->
+    <div class="border-t border-slate-200/90 pt-6 sm:pt-8 mt-4">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        
+        <!-- Left: Author Profile Notch -->
+        <div class="flex items-center gap-4">
+          {testimonials.map((item, idx) => (
+            <div
+              key={`author-${item.id}`}
+              data-testimonial-author={idx}
+              class={`transition-all duration-500 flex items-center gap-4 ${
+                idx === 0 ? 'flex opacity-100' : 'hidden opacity-0'
+              }`}
+            >
+              <!-- Square avatar image with soft rounded corners -->
+              <img
+                src={item.avatar}
+                alt={item.author}
+                class="w-12 h-12 rounded-xl object-cover shadow-xs border border-slate-200 shrink-0"
+              />
+
+              <div class="min-w-0">
+                <h4 class="text-base sm:text-lg font-extrabold font-display text-brand-navy tracking-tight truncate">
+                  {item.author}
+                </h4>
+                <p class="text-xs font-mono uppercase tracking-wider text-slate-500 truncate mt-0.5">
+                  {item.role} OF {item.company}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Right: Modern Square Navigation Arrow Buttons -->
+        <div class="flex items-center gap-2.5 self-end sm:self-auto shrink-0">
+          <button
+            type="button"
+            id="t-prev-btn"
+            aria-label="Previous Testimonial"
+            class="w-11 h-11 bg-slate-200/80 hover:bg-brand-navy hover:text-white text-slate-700 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 shadow-xs"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            id="t-next-btn"
+            aria-label="Next Testimonial"
+            class="w-11 h-11 bg-slate-200/80 hover:bg-brand-navy hover:text-white text-slate-700 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 shadow-xs"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const initTestimonialShowcase = () => {
+      const wrapper = document.getElementById('testimonial-section-wrapper');
+      if (!wrapper) return;
+
+      const slides = Array.from(wrapper.querySelectorAll('[data-testimonial-slide]'));
+      const authors = Array.from(wrapper.querySelectorAll('[data-testimonial-author]'));
+      const progressBar = document.getElementById('testimonial-progress-bar');
+      const prevBtn = document.getElementById('t-prev-btn');
+      const nextBtn = document.getElementById('t-next-btn');
+
+      const total = slides.length;
+      if (!total) return;
+
+      let currentIndex = 0;
+      let elapsed = 0;
+      const DURATION = 4500; // 4.5 seconds auto-change
+      const INTERVAL = 50; // update frequency
+      let timer = null;
+      let isPaused = false;
+
+      const goToSlide = (index) => {
+        currentIndex = (index + total) % total;
+        elapsed = 0;
+
+        slides.forEach((slide, idx) => {
+          if (idx === currentIndex) {
+            slide.classList.remove('hidden', 'opacity-0', 'translate-y-2');
+            slide.classList.add('block', 'opacity-100', 'translate-y-0');
+          } else {
+            slide.classList.remove('block', 'opacity-100', 'translate-y-0');
+            slide.classList.add('hidden', 'opacity-0', 'translate-y-2');
+          }
+        });
+
+        authors.forEach((author, idx) => {
+          if (idx === currentIndex) {
+            author.classList.remove('hidden', 'opacity-0');
+            author.classList.add('flex', 'opacity-100');
+          } else {
+            author.classList.remove('flex', 'opacity-100');
+            author.classList.add('hidden', 'opacity-0');
+          }
+        });
+
+        if (progressBar) {
+          progressBar.style.width = '0%';
+        }
+      };
+
+      const startTimer = () => {
+        stopTimer();
+        timer = setInterval(() => {
+          if (!isPaused) {
+            elapsed += INTERVAL;
+            const progress = Math.min((elapsed / DURATION) * 100, 100);
+            if (progressBar) {
+              progressBar.style.width = `${progress}%`;
+            }
+
+            if (elapsed >= DURATION) {
+              goToSlide(currentIndex + 1);
+            }
+          }
+        }, INTERVAL);
+      };
+
+      const stopTimer = () => {
+        if (timer) clearInterval(timer);
+      };
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          goToSlide(currentIndex - 1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          goToSlide(currentIndex + 1);
+        });
+      }
+
+      wrapper.addEventListener('mouseenter', () => {
+        isPaused = true;
+      });
+
+      wrapper.addEventListener('mouseleave', () => {
+        isPaused = false;
+      });
+
+      goToSlide(0);
+      startTimer();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTestimonialShowcase);
+    } else {
+      initTestimonialShowcase();
+    }
+  })();
+</script>

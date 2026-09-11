@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import HeroDivision from '../components/hero/HeroDivision.astro';
+import ServiceGrid from '../components/services/ServiceGrid.astro';
+import BenefitsList from '../components/services/BenefitsList.astro';
+import ProcessSteps from '../components/services/ProcessSteps.astro';
+import SectorGrid from '../components/sectors/SectorGrid.astro';
+import { divisions, services, sectors } from '../lib/sanity/data';
+
+const division = divisions.find((d) => d.slug === 'it-lifecycle-services-destruction')!;
+const divisionServices = services.filter((s) => s.divisionSlug === division.slug);
+
+const divisionBenefits = [
+  'ADISA Standard 8.0 certified data sanitisation with serialized cryptographic certificates',
+  '100% Zero-to-Landfill guarantee with fully domestic WEEE recycling partnerships',
+  'Witnessed on-site mobile hard drive degaussing and DIN 66399 micro-granulation',
+  'Dedicated secure logistics fleet with satellite GPS tracking and BS 7858 security-screened drivers',
+  'Substantial budget rebates returned to client balance sheets via corporate B2B remarketing',
+  'Comprehensive Scope 3 carbon reduction certificates for your corporate ESG sustainability filings',
+];
+---
+
+<BaseLayout
+  title="IT Lifecycle Services & Destruction UK | ADISA Certified ITAD | Techsteps"
+  description="Techsteps IT Lifecycle & Destruction division delivers certified IT asset disposition, secure collections, hard drive shredding, and WEEE electronics recycling across the UK."
+>
+  <HeroDivision division={division} serviceCount={divisionServices.length} />
+
+  <!-- Division Introduction -->
+  <Section theme="white">
+    <Container>
+      <div class="max-w-4xl mx-auto text-center space-y-6">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Enterprise Hardware Lifecycle</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight">
+          Uncompromised Data Security &amp; Circular Value Recovery
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+          When corporate hardware reaches the end of its operational lifecycle, Techsteps ensures absolute data sanitisation, eliminates environmental liability, and unlocks maximum financial return through certified refurbishment and responsible parts recovery.
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Division Services -->
+  <Section theme="slate" id="division-services">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Specialized Services</span>
+        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
+          {division.title} Solutions
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600">
+          Explore our certified hardware retirement and high-torque destruction services.
+        </p>
+      </div>
+      <ServiceGrid services={divisionServices} showDivision={false} />
+    </Container>
+  </Section>
+
+  <!-- Process -->
+  <Section theme="white">
+    <Container>
+      <ProcessSteps
+        title="Our Certified ITAD Execution Process"
+        subtitle="Every server, laptop, and storage drive is catalogued, sanitized, and certified under rigorous audit standards."
+      />
+    </Container>
+  </Section>
+
+  <!-- Benefits -->
+  <Section theme="slate">
+    <Container>
+      <BenefitsList benefits={divisionBenefits} title="Why UK Enterprises Choose Techsteps IT Lifecycle" />
+    </Container>
+  </Section>
+
+  <!-- Relevant Sectors -->
+  <Section theme="white">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Sectors Served</span>
+        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
+          Regulated Sectors Relying on Our ITAD Standards
+        </h2>
+      </div>
+      <SectorGrid sectors={sectors} />
+    </Container>
+  </Section>
+
+  <!-- Final CTA -->
+  <Section theme="navy">
+    <Container className="text-center max-w-4xl mx-auto space-y-6">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        Book a secure IT asset collection or site survey
+      </h2>
+      <p class="text-base text-slate-300 max-w-2xl mx-auto">
+        Speak with an ITAD logistics manager to review hardware volumes, schedule mobile shredding, or request an asset valuation.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+        <a
+          href="/request-a-quote?service=secure-it-disposal"
+          class="px-8 py-4 rounded-xl bg-brand-accent hover:bg-brand-accent-hover text-white text-base font-bold shadow-lg transition-all"
+        >
+          Request ITAD Proposal
+        </a>
+        <a
+          href="/contact"
+          class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-base font-bold border border-white/20 transition-all"
+        >
+          Contact ITAD Desk
+        </a>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

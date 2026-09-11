@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import Section from '../../components/layout/Section.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import { caseStudies, services } from '../../lib/sanity/data';
+import type { CaseStudy } from '../../lib/sanity/types';
+
+export async function getStaticPaths() {
+  return caseStudies.map((caseStudy) => ({
+    params: { slug: caseStudy.slug },
+    props: { caseStudy },
+  }));
+}
+
+interface Props {
+  caseStudy: CaseStudy;
+}
+
+const { caseStudy } = Astro.props;
+
+const breadcrumbs = [
+  { name: 'Case Studies', url: '/case-studies' },
+  { name: caseStudy.title, url: `/case-studies/${caseStudy.slug}` },
+];
+
+const featuredServices = services.filter((s) =>
+  caseStudy.servicesUsed.includes(s.slug)
+);
+---
+
+<BaseLayout
+  title={caseStudy.metaTitle || `${caseStudy.title} | Techsteps Case Study`}
+  description={caseStudy.metaDescription || caseStudy.challenge}
+>
+  <div class="bg-brand-navy text-white py-16">
+    <Container size="narrow">
+      <Breadcrumbs items={breadcrumbs} theme="dark" />
+      <div class="space-y-4 mt-6">
+        <span class="px-2.5 py-1 rounded-md bg-white/10 text-emerald-300 text-xs font-bold uppercase tracking-wider">
+          {caseStudy.clientIndustry} &bull; Case Study
+        </span>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+          {caseStudy.title}
+        </h1>
+
+        <p class="text-xs text-slate-400 font-mono">
+          Documented Engagement &bull; Verified Deployment
+        </p>
+      </div>
+    </Container>
+  </div>
+
+  <Section theme="white">
+    <Container size="narrow">
+      <div class="space-y-12">
+        <!-- Challenge -->
+        <div class="p-8 rounded-2xl bg-brand-slate border border-slate-200/90 space-y-3">
+          <span class="text-xs font-bold uppercase tracking-wider text-red-600">The Problem &amp; Business Liability</span>
+          <h2 class="text-2xl font-bold text-brand-navy">The Challenge</h2>
+          <p class="text-base text-slate-700 leading-relaxed">
+            {caseStudy.challenge}
+          </p>
+        </div>
+
+        <!-- Solution -->
+        <div class="p-8 rounded-2xl bg-brand-navy text-white space-y-3 shadow-lg">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">The Certified Execution</span>
+          <h2 class="text-2xl font-bold text-white">Our Engineering Solution</h2>
+          <p class="text-base text-slate-200 leading-relaxed">
+            {caseStudy.solution}
+          </p>
+        </div>
+
+        <!-- Results Checkpoints -->
+        <div class="space-y-4">
+          <h2 class="text-2xl font-bold text-brand-navy">Key Measurable Outcomes</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {caseStudy.results.map((res) => (
+              <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200/80 flex items-start gap-3">
+                <span class="h-6 w-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
+                  ✓
+                </span>
+                <p class="text-sm font-semibold text-emerald-950 leading-snug">{res}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Services Used -->
+        {featuredServices.length > 0 && (
+          <div class="space-y-4 pt-4 border-t border-slate-200">
+            <h3 class="text-lg font-bold text-brand-navy">Services Deployed in This Engagement:</h3>
+            <div class="flex flex-wrap gap-2">
+              {featuredServices.map((srv) => (
+                <a
+                  href={`/services/${srv.slug}`}
+                  class="px-4 py-2 rounded-lg bg-brand-slate hover:bg-brand-accent hover:text-white text-xs font-bold text-slate-800 border border-slate-200 transition-colors"
+                >
+                  {srv.title} &rarr;
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Bottom CTA -->
+        <div class="pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <a
+            href="/case-studies"
+            class="text-sm font-bold text-brand-blue hover:text-brand-accent"
+          >
+            &larr; Back to Case Studies
+          </a>
+          <a
+            href="/request-a-quote"
+            class="px-8 py-3.5 rounded-xl bg-brand-accent hover:bg-brand-accent-hover text-white text-xs font-bold uppercase tracking-wider shadow-lg transition-all"
+          >
+            Scope a Similar Project
+          </a>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

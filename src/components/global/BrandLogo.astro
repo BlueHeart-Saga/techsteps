@@ -1,0 +1,69 @@
+---
+interface Props {
+  variant?: 'dark' | 'light';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  showTagline?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'dark',
+  size = 'md',
+  showTagline = true,
+  class: className = '',
+} = Astro.props;
+
+// Sizing maps
+const imageSizeMap = {
+  sm: 'h-8 w-8',
+  md: 'h-10 w-10',
+  lg: 'h-12 w-12',
+  xl: 'h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16',
+};
+
+const brandTextMap = {
+  sm: 'text-xl',
+  md: 'text-2xl',
+  lg: 'text-3xl',
+  xl: 'text-2xl sm:text-3xl lg:text-4xl',
+};
+
+const taglineMap = {
+  sm: 'text-[8px] tracking-[0.16em]',
+  md: 'text-[9px] tracking-[0.18em]',
+  lg: 'text-[10px] tracking-[0.2em]',
+  xl: 'text-[10px] sm:text-xs tracking-[0.22em]',
+};
+---
+
+<div class:list={['inline-flex items-center gap-2.5 sm:gap-3 select-none font-display', className]} style="font-family: var(--font-display);">
+  <img
+    src="/images/brand/logo.png"
+    alt="TechSteps Logo"
+    class:list={[
+      imageSizeMap[size],
+      'object-contain shrink-0 drop-shadow-xs',
+    ]}
+    width="64"
+    height="64"
+    loading="eager"
+    decoding="async"
+  />
+  <div class="flex flex-col justify-center">
+    <div class:list={[brandTextMap[size], 'font-extrabold font-display leading-none tracking-tight']} style="font-family: var(--font-display);">
+      <span class={variant === 'light' ? 'text-[#2EC458]' : 'text-[#23853A]'}>TECH</span><span class={variant === 'light' ? 'text-white' : 'text-[#212121]'}>STEPS</span>
+    </div>
+    {showTagline && (
+      <span
+        class:list={[
+          taglineMap[size],
+          'font-medium uppercase font-mono mt-1 leading-none',
+          variant === 'light' ? 'text-slate-300/90' : 'text-slate-500',
+        ]}
+        style="font-family: var(--font-mono);"
+      >
+        Secure Lifecycle Solutions
+      </span>
+    )}
+  </div>
+</div>

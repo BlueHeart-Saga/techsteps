@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import HeroDivision from '../components/hero/HeroDivision.astro';
+import ServiceGrid from '../components/services/ServiceGrid.astro';
+import BenefitsList from '../components/services/BenefitsList.astro';
+import SectorGrid from '../components/sectors/SectorGrid.astro';
+import { divisions, services, sectors } from '../lib/sanity/data';
+
+const division = divisions.find((d) => d.slug === 'moving-relocation-services')!;
+const divisionServices = services.filter((s) => s.divisionSlug === division.slug);
+
+const divisionBenefits = [
+  'Zero operational business disruption via meticulously planned weekend and overnight transitions',
+  'Certified IT engineers handling server de-racking, anti-static flight packing, and patch recommissioning',
+  'Specialist cold-chain laboratory transport (-80°C freezers powered continuously on-board)',
+  'Government Indemnity Scheme (GIS) compliant museum-grade heritage handling and custom crating',
+  'Post-Brexit cross-border customs clearance, T1 documents, and bonded warehousing across Europe',
+  'Dedicated PRINCE2 and PMP logistics directors providing single-point executive accountability',
+];
+---
+
+<BaseLayout
+  title="Moving & Relocation Services UK | Specialist Office & Data Centre Moves | Techsteps"
+  description="Techsteps Relocation Services division provides corporate office migrations, data centre relocations, scientific cold-chain moves, and heritage artifact transport."
+>
+  <HeroDivision division={division} serviceCount={divisionServices.length} />
+
+  <!-- Division Introduction -->
+  <Section theme="white">
+    <Container>
+      <div class="max-w-4xl mx-auto text-center space-y-6">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Precision Mission-Critical Logistics</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight">
+          Moving Your Business Without Interrupting Your Work
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+          Relocating corporate headquarters, sensitive research laboratories, or live trading server architecture demands rigorous engineering precision. Techsteps ensures your critical infrastructure is protected, transported under climate and vibration controls, and fully operational for Day One.
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Division Services -->
+  <Section theme="slate" id="division-services">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Specialized Services</span>
+        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
+          {division.title} Solutions
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600">
+          Review our specialized commercial, scientific, and IT relocation capabilities.
+        </p>
+      </div>
+      <ServiceGrid services={divisionServices} showDivision={false} />
+    </Container>
+  </Section>
+
+  <!-- Benefits -->
+  <Section theme="white">
+    <Container>
+      <BenefitsList benefits={divisionBenefits} title="Enterprise Benefits of Our Specialist Relocation Services" />
+    </Container>
+  </Section>
+
+  <!-- Relevant Sectors -->
+  <Section theme="slate">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Sectors Served</span>
+        <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
+          Sectors Relying on Our Move Engineering
+        </h2>
+      </div>
+      <SectorGrid sectors={sectors} />
+    </Container>
+  </Section>
+
+  <!-- Final CTA -->
+  <Section theme="navy">
+    <Container className="text-center max-w-4xl mx-auto space-y-6">
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        Planning an office, laboratory, or data centre move?
+      </h2>
+      <p class="text-base text-slate-300 max-w-2xl mx-auto">
+        Speak with a senior relocation project director to arrange a site walk-through, discuss crate hire, or obtain a comprehensive migration schedule.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+        <a
+          href="/request-a-quote?service=it-relocations-specialist"
+          class="px-8 py-4 rounded-xl bg-brand-accent hover:bg-brand-accent-hover text-white text-base font-bold shadow-lg transition-all"
+        >
+          Request Relocation Scoping
+        </a>
+        <a
+          href="/contact"
+          class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-base font-bold border border-white/20 transition-all"
+        >
+          Contact Relocation Desk
+        </a>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

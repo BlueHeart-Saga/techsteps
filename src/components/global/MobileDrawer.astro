@@ -1,0 +1,245 @@
+---
+import { divisions, services, sectors, siteSettings } from '../../lib/sanity/data';
+import BrandLogo from './BrandLogo.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<div
+  id="mobile-menu-drawer"
+  class="fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Mobile Navigation Menu"
+>
+  <!-- Glass Backdrop -->
+  <div id="mobile-menu-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md opacity-0 transition-opacity duration-300"></div>
+
+  <!-- Responsive Drawer Panel -->
+  <div class="fixed inset-y-0 right-0 w-full max-w-sm sm:max-w-md bg-white shadow-2xl flex flex-col justify-between overflow-y-auto rounded-l-3xl border-l border-slate-100">
+    
+    <!-- Drawer Header -->
+    <div class="p-5 sm:p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+      <a href="/" class="flex items-center focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-lg" aria-label="TechSteps UK Home">
+        <BrandLogo size="sm" variant="dark" showTagline={true} />
+      </a>
+      <button
+        type="button"
+        id="close-mobile-menu"
+        class="p-2.5 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-200/70 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-colors"
+        aria-label="Close navigation menu"
+      >
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navigation Links & Semi-bold Responsive Typography -->
+    <div class="px-4 sm:px-6 py-6 space-y-2 flex-1">
+      <!-- Home -->
+      <a
+        href="/"
+        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] font-semibold transition-all ${
+          currentPath === '/'
+            ? 'bg-[#146B5C]/10 text-[#146B5C]'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80'
+        }`}
+      >
+        Home
+      </a>
+
+      <!-- Services Accordion with all 27 services -->
+      <div class="rounded-xl border border-slate-100 overflow-hidden">
+        <button
+          type="button"
+          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-base sm:text-[17px] font-semibold text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
+          aria-expanded="false"
+        >
+          <span class="flex items-center gap-2">
+            <span>Services</span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-[#146B5C]/10 text-[#146B5C]">27</span>
+          </span>
+          <svg class="h-4 w-4 text-slate-500 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="mobile-subnav-content hidden px-4 pt-2 pb-4 space-y-4 bg-slate-50/50 border-t border-slate-100">
+          {divisions.map((div) => {
+            const divServices = services.filter((s) => s.divisionSlug === div.slug);
+            return (
+              <div class="space-y-1.5">
+                <a href={`/${div.slug}`} class="block text-xs font-bold uppercase tracking-wider text-[#E58A3C] hover:text-[#d97d2e] pt-1">
+                  {div.title} ({divServices.length})
+                </a>
+                <div class="pl-2 space-y-1 border-l-2 border-slate-200">
+                  {divServices.map((s) => (
+                    <a href={`/services/${s.slug}`} class="block py-1.5 px-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-[#146B5C] hover:bg-white transition-colors">
+                      {s.title}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+          <div class="pt-2">
+            <a href="/services" class="text-xs font-bold text-[#146B5C] hover:underline flex items-center gap-1">
+              <span>View All 27 Services Directory &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sectors Accordion -->
+      <div class="rounded-xl border border-slate-100 overflow-hidden">
+        <button
+          type="button"
+          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-base sm:text-[17px] font-semibold text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
+          aria-expanded="false"
+        >
+          <span>Sectors</span>
+          <svg class="h-4 w-4 text-slate-500 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="mobile-subnav-content hidden px-4 pt-2 pb-3 space-y-1 bg-slate-50/50 border-t border-slate-100">
+          {sectors.map((sec) => (
+            <a href={`/sectors/${sec.slug}`} class="block py-2 px-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-[#146B5C] hover:bg-white transition-colors">
+              {sec.title}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Sustainability -->
+      <a
+        href="/sustainability"
+        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] font-semibold transition-all ${
+          currentPath === '/sustainability'
+            ? 'bg-[#146B5C]/10 text-[#146B5C]'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80'
+        }`}
+      >
+        Sustainability
+      </a>
+
+      <!-- Investors -->
+      <a
+        href="/investors"
+        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] font-semibold transition-all ${
+          currentPath === '/investors'
+            ? 'bg-[#146B5C]/10 text-[#146B5C]'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80'
+        }`}
+      >
+        Investors
+      </a>
+
+      <!-- About Us -->
+      <a
+        href="/about-us"
+        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] font-semibold transition-all ${
+          currentPath === '/about-us'
+            ? 'bg-[#146B5C]/10 text-[#146B5C]'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80'
+        }`}
+      >
+        About Us
+      </a>
+
+      <!-- Insights -->
+      <a
+        href="/insights"
+        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] font-semibold transition-all ${
+          currentPath.startsWith('/insights')
+            ? 'bg-[#146B5C]/10 text-[#146B5C]'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80'
+        }`}
+      >
+        Insights
+      </a>
+
+      <!-- Contact Us -->
+      <a
+        href="/contact"
+        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] font-semibold transition-all ${
+          currentPath === '/contact'
+            ? 'bg-[#146B5C]/10 text-[#146B5C]'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80'
+        }`}
+      >
+        Contact Us
+      </a>
+    </div>
+
+    <!-- Drawer Footer Quick Action -->
+    <div class="p-5 sm:p-6 border-t border-slate-100 bg-slate-50/80 space-y-3">
+      <a
+        href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`}
+        class="flex items-center justify-center gap-2.5 w-full py-3.5 px-4 rounded-xl bg-[#146B5C] hover:bg-[#0D5549] text-white text-sm sm:text-base font-semibold shadow-md transition-all active:scale-[0.98]"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+        </svg>
+        <span>Call Us: {siteSettings.phone}</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupMobileDrawer() {
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const backdrop = document.getElementById('mobile-menu-backdrop');
+    const openBtn = document.getElementById('open-mobile-menu');
+    const allOpenBtns = document.querySelectorAll('#open-mobile-menu, .open-mobile-menu-btn');
+    const closeBtn = document.getElementById('close-mobile-menu');
+
+    function openDrawer() {
+      if (!drawer || !backdrop) return;
+      drawer.classList.remove('translate-x-full');
+      drawer.setAttribute('aria-hidden', 'false');
+      backdrop.classList.remove('opacity-0');
+      document.body.style.overflow = 'hidden';
+      closeBtn?.focus();
+    }
+
+    function closeDrawer() {
+      if (!drawer || !backdrop) return;
+      drawer.classList.add('translate-x-full');
+      drawer.setAttribute('aria-hidden', 'true');
+      backdrop.classList.add('opacity-0');
+      document.body.style.overflow = '';
+      openBtn?.focus();
+      if (allOpenBtns.length > 0) (allOpenBtns[0] as HTMLElement)?.focus();
+    }
+
+    openBtn?.addEventListener('click', openDrawer);
+    allOpenBtns.forEach((btn) => btn.addEventListener('click', openDrawer));
+    closeBtn?.addEventListener('click', closeDrawer);
+    backdrop?.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer && !drawer.classList.contains('translate-x-full')) {
+        closeDrawer();
+      }
+    });
+
+    const subnavToggles = drawer?.querySelectorAll('.mobile-subnav-toggle');
+    subnavToggles?.forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const content = toggle.nextElementSibling;
+        const icon = toggle.querySelector('svg');
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+        toggle.setAttribute('aria-expanded', (!isExpanded).toString());
+        content?.classList.toggle('hidden');
+        icon?.classList.toggle('rotate-180');
+      });
+    });
+  }
+
+  setupMobileDrawer();
+  document.addEventListener('astro:page-load', setupMobileDrawer);
+</script>

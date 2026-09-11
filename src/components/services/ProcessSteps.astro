@@ -1,0 +1,253 @@
+---
+interface Step {
+  stepNumber: number;
+  title: string;
+  description: string;
+  icon?: string;
+}
+
+interface Props {
+  steps?: Step[];
+  title?: string;
+  subtitle?: string;
+}
+
+const defaultLifecycleSteps: Step[] = [
+  { stepNumber: 1, title: 'Assess', description: 'Comprehensive site audit, asset inventorying, and compliance risk profiling before handling.' },
+  { stepNumber: 2, title: 'Collect', description: 'Point-to-point transit in GPS-monitored vehicles with BS 7858 security-vetted drivers.' },
+  { stepNumber: 3, title: 'Secure', description: 'Ingestion into biometric-monitored facilities with tamper-evident serialized containment.' },
+  { stepNumber: 4, title: 'Process', description: 'Certified sanitisation to NIST 800-88 or on-site mobile DIN 66399 mechanical granulation.' },
+  { stepNumber: 5, title: 'Recover', description: 'Refurbishment and testing to extract maximum economic residual value for your budget.' },
+  { stepNumber: 6, title: 'Reuse / Recycle', description: 'Ethical B2B remarketing or domestic closed-loop raw material separation (0% landfill).' },
+  { stepNumber: 7, title: 'Report', description: 'Defensible compliance documentation, certificates of destruction, and Scope 3 ESG carbon reporting.' },
+];
+
+const {
+  steps = defaultLifecycleSteps,
+  title = 'Our Certified Lifecycle Process',
+  subtitle = 'A secure, auditable, and environmentally responsible end-to-end chain of custody.',
+} = Astro.props;
+
+// Calculate 2D position around circle for desktop layout (radius % = 38)
+const getCirclePosition = (index: number, total: number, radiusPercent = 38) => {
+  const angleRad = ((index * 360 / total - 90) * Math.PI) / 180;
+  const x = 50 + radiusPercent * Math.cos(angleRad);
+  const y = 50 + radiusPercent * Math.sin(angleRad);
+  return { x: x.toFixed(2), y: y.toFixed(2) };
+};
+
+// Calculate midpoint arrow positions & tangent rotation clockwise between steps
+const getArrowPositions = (total: number, radiusPercent = 38) => {
+  const arrows = [];
+  const stepAngle = 360 / total;
+
+  for (let i = 0; i < total; i++) {
+    const startAngleDeg = i * stepAngle - 90;
+    const midAngleDeg = startAngleDeg + (stepAngle / 2);
+    const midAngleRad = (midAngleDeg * Math.PI) / 180;
+
+    const x = 50 + radiusPercent * Math.cos(midAngleRad);
+    const y = 50 + radiusPercent * Math.sin(midAngleRad);
+    const rotation = midAngleDeg + 90;
+
+    arrows.push({
+      x: x.toFixed(2),
+      y: y.toFixed(2),
+      rotation: rotation.toFixed(2),
+      stepIndex: i,
+    });
+  }
+  return arrows;
+};
+
+const arrowPositions = getArrowPositions(steps.length, 38);
+
+const icons = [
+  // 1. Assess (Clipboard / Audit)
+  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`,
+  // 2. Collect (Truck / Transit)
+  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1"/></svg>`,
+  // 3. Secure (Shield / Lock)
+  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
+  // 4. Process (Shredding / Sanitisation)
+  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
+  // 5. Recover (Refurbishment / Value)
+  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+  // 6. Reuse / Recycle (Recycle Loop)
+  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>`,
+  // 7. Report (Certificate / Document)
+  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`,
+];
+---
+
+<div class="space-y-4 sm:space-y-6">
+  <!-- Section Header -->
+  <div class="text-center max-w-3xl mx-auto space-y-2">
+    <h2 class="text-3xl font-extrabold font-display text-brand-navy tracking-tight sm:text-4xl lg:text-5xl">
+      {title}
+    </h2>
+    <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl mx-auto font-medium">
+      {subtitle}
+    </p>
+  </div>
+
+  <!-- DESKTOP CIRCULAR LIFECYCLE DIAGRAM -->
+  <div class="hidden md:block relative w-full max-w-[620px] lg:max-w-[660px] h-[460px] lg:h-[500px] mx-auto select-none py-1">
+
+    <!-- Center Hub: Clean Logo Only (No Background Card/Box) -->
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none flex items-center justify-center">
+      <img
+        src="/images/brand/logo.png"
+        alt="TechSteps Logo"
+        class="h-16 sm:h-20 lg:h-24 w-auto object-contain drop-shadow-md transition-transform duration-300 hover:scale-110"
+      />
+    </div>
+
+    <!-- Step-to-Step Wave-Like Curved Connecting SVG Arrows -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none z-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <defs>
+        <marker id="wave-arrow-head" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#146B5C" />
+        </marker>
+      </defs>
+      {steps.map((_, i) => {
+        const total = steps.length;
+        const radius = 38;
+        const stepAngle = 360 / total;
+        const node1AngleDeg = i * stepAngle - 90;
+        const node2AngleDeg = ((i + 1) % total) * stepAngle - 90;
+
+        // 20-degree angular gap around node titles
+        const startAngleDeg = node1AngleDeg + 20;
+        let endAngleDeg = node2AngleDeg - 20;
+        if (endAngleDeg < startAngleDeg) endAngleDeg += 360;
+
+        const startRad = (startAngleDeg * Math.PI) / 180;
+        const endRad = (endAngleDeg * Math.PI) / 180;
+
+        const x1 = (50 + radius * Math.cos(startRad)).toFixed(2);
+        const y1 = (50 + radius * Math.sin(startRad)).toFixed(2);
+        const x2 = (50 + radius * Math.cos(endRad)).toFixed(2);
+        const y2 = (50 + radius * Math.sin(endRad)).toFixed(2);
+
+        const pathData = `M ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2}`;
+
+        return (
+          <path
+            key={i}
+            d={pathData}
+            fill="none"
+            stroke="#146B5C"
+            stroke-width="0.8"
+            stroke-opacity="0.8"
+            marker-end="url(#wave-arrow-head)"
+          />
+        );
+      })}
+    </svg>
+
+    <!-- Clean Vector Nodes (No Step Numbers) -->
+    {steps.map((step, idx) => {
+      const pos = getCirclePosition(idx, steps.length, 38);
+      const isFirst = idx === 0;
+      const iconSvg = icons[idx % icons.length];
+      return (
+        <div
+          class={`cycle-step-node group absolute cursor-pointer transition-all duration-300 z-20 ${
+            isFirst ? 'active' : ''
+          }`}
+          style={`left: ${pos.x}%; top: ${pos.y}%; transform: translate(-50%, -50%);`}
+          data-step={idx}
+          data-title={step.title}
+          data-desc={step.description}
+          role="button"
+          tabindex="0"
+          aria-label={`Step: ${step.title}`}
+        >
+          <div class="flex flex-col items-center text-center space-y-1">
+            <!-- Icon -->
+            <div class="node-icon text-slate-700 transition-all duration-300 group-hover:text-[#146B5C] group-hover:scale-125 group-[.active]:text-[#146B5C] group-[.active]:scale-125">
+              <Fragment set:html={iconSvg} />
+            </div>
+
+            <!-- Step Title -->
+            <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-brand-navy group-hover:text-[#146B5C] group-[.active]:text-[#146B5C] transition-colors whitespace-nowrap">
+              {step.title}
+            </span>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- MOBILE / TABLET VIEW (Clean List, No Step Numbers, Arrow Dividers) -->
+  <div class="md:hidden space-y-6">
+    {steps.map((step, idx) => {
+      const iconSvg = icons[idx % icons.length];
+      const isLast = idx === steps.length - 1;
+      return (
+        <div class="space-y-3">
+          <div class="flex items-start gap-4 pb-2">
+            <div class="shrink-0 text-[#146B5C] pt-0.5">
+              <Fragment set:html={iconSvg} />
+            </div>
+
+            <div class="space-y-1 min-w-0 flex-1">
+              <h3 class="text-base font-bold font-display text-brand-navy tracking-tight">
+                {step.title}
+              </h3>
+              <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold">
+                {step.description}
+              </p>
+            </div>
+          </div>
+
+          <!-- Mobile Arrow Divider between steps -->
+          {!isLast && (
+            <div class="flex justify-center text-[#146B5C]/70 py-1">
+              <svg class="w-6 h-6 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<!-- Interactive Circular Wheel Script -->
+<script is:inline>
+  (() => {
+    const initLifecycleCycle = () => {
+      const nodes = document.querySelectorAll('.cycle-step-node');
+      if (!nodes.length) return;
+
+      const activateStep = (node) => {
+        nodes.forEach((n) => n.classList.remove('active'));
+        node.classList.add('active');
+      };
+
+      nodes.forEach((node) => {
+        node.addEventListener('mouseenter', () => activateStep(node));
+        node.addEventListener('click', () => activateStep(node));
+        node.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            activateStep(node);
+          }
+        });
+      });
+
+      if (nodes[0]) {
+        activateStep(nodes[0]);
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLifecycleCycle);
+    } else {
+      initLifecycleCycle();
+    }
+  })();
+</script>

@@ -1,0 +1,1568 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import HeroHome from '../components/hero/HeroHome.astro';
+import ServiceCard from '../components/services/ServiceCard.astro';
+import ProcessSteps from '../components/services/ProcessSteps.astro';
+import SectorGrid from '../components/sectors/SectorGrid.astro';
+import StatCounter from '../components/content/StatCounter.astro';
+import TrustBadges from '../components/content/TrustBadges.astro';
+import Testimonials from '../components/content/Testimonials.astro';
+import {
+  divisions,
+  services,
+  sectors,
+  statistics,
+  caseStudies,
+  articles,
+} from '../lib/sanity/data';
+
+// Select featured services from each division for the homepage
+const featuredServices = services.filter((s) =>
+  ['secure-it-disposal', 'it-asset-disposition-services', 'ultra-secure-hard-drive-destruction', 'document-storage', 'document-scanning', 'on-site-shredding', 'it-relocations-specialist', 'simpler-recycling-services'].includes(s.slug)
+);
+
+const divisionMetadata: Record<
+  string,
+  {
+    image: string;
+    imageAlt: string;
+    accreditation: string;
+  }
+> = {
+  'information-management': {
+    image: '/images/services/document-storage.jpg',
+    imageAlt: 'Climate-controlled high-density document archival warehouse with barcoded tracking',
+    accreditation: 'ISO 27001 â€¢ BS 4971 â€¢ UK GDPR',
+  },
+  'it-lifecycle-services-destruction': {
+    image: '/images/services/itad.jpg',
+    imageAlt: 'Certified IT asset disposition and secure hardware testing facility',
+    accreditation: 'ADISA 8.0 â€¢ DIPCOG â€¢ Zero Landfill',
+  },
+  'secure-shredding-document-integrity': {
+    image: '/images/services/hard-drive-destruction.jpg',
+    imageAlt: 'Industrial high-security data destruction and mobile shredding operations',
+    accreditation: 'BS EN 15713 â€¢ DIN 66399 Level P-4/P-7',
+  },
+  'moving-relocation-services': {
+    image: '/images/services/it-relocations.jpg',
+    imageAlt: 'Specialist server rack migration and mission-critical commercial logistics',
+    accreditation: 'BAR Accredited â€¢ SafeContractor â€¢ ISO 9001',
+  },
+};
+
+const detailDrivenSteps = [
+  {
+    stepNumber: '01',
+    title: 'Discovery & Concept',
+    headline: 'Full Audit of Hardware, Data Sensitivities & Compliance Mandates',
+    lead: 'Our specialists audit asset inventories, data classification risks, and legal custody frameworks.',
+    description: 'Before a single device leaves your premises, our security-cleared personnel catalogue every serial number, barcode, and data sensitivity mandate on-site to establish an immutable audit baseline.',
+    image: '/images/brand/story-origin.jpg',
+    imageAlt: 'Specialist inspecting retired computing technology with precision and care',
+    badge: 'PHASE 01 // AUDIT',
+    tag: 'ISO 27001 & NIST 800-88 Auditing',
+  },
+  {
+    stepNumber: '02',
+    title: 'Design & Planning',
+    headline: 'Bespoke Chain of Custody & Dedicated GPS Transit Protocols',
+    lead: 'Our team transforms lifecycle requirements into accredited, fail-safe logistics and security solutions.',
+    description: 'We engineer point-to-point transit workflows utilizing BS 7858 security-vetted drivers, solid-sided GPS-tracked vehicles, and tamper-evident serialized lockboxes under dual signature sign-off.',
+    image: '/images/brand/milestone-team.jpg',
+    imageAlt: 'Vetted UK specialist logistics and engineering personnel',
+    badge: 'PHASE 02 // LOGISTICS',
+    tag: 'BS 7858 Vetted Drivers â€¢ Live GPS Telematics',
+  },
+  {
+    stepNumber: '03',
+    title: 'Planning & Approval',
+    headline: 'Certified Data Sanitisation & Physical Destruction Verification',
+    lead: 'Cryptographic data erasure or physical micro-granulation with documented compliance sign-off.',
+    description: 'Storage media undergoes certified multi-pass Blancco wiping or high-torque DIN 66399 shredding. Every hard drive, SSD, and tape is destroyed with zero possibility of forensic data recovery.',
+    image: '/images/services/hard-drive-destruction.jpg',
+    imageAlt: 'High-torque hydraulic shredder destroying hard drives and media',
+    badge: 'PHASE 03 // DESTRUCTION',
+    tag: 'ADISA 8.0 Level 3 â€¢ DIN 66399 Level P-4/P-7',
+  },
+  {
+    stepNumber: '04',
+    title: 'Construction & Closeout',
+    headline: '100% Zero-Landfill Recycling, Rebates & Defensible ESG Reports',
+    lead: 'Extracting circular commercial value while guaranteeing complete compliance closeout.',
+    description: 'Functional devices are refurbished for corporate resale rebates, while non-working units are separated into clean raw materials with certified zero-landfill documentation and Scope 3 ESG carbon reports.',
+    image: '/images/brand/story-sustainability.jpg',
+    imageAlt: 'Renewable circular IT lifecycle and green sustainable tech',
+    badge: 'PHASE 04 // REPORTING',
+    tag: '100% Zero-Landfill â€¢ Defensible ESG Certificates',
+  },
+];
+---
+
+<BaseLayout
+  title="IT Recycling Company UK â€” Secure and Certified IT Recycling Services | Techsteps"
+  description="Techsteps delivers audited technology lifecycle solutions across the UK: high-security IT asset disposition (ITAD), climate-controlled records management, DIN 66399 mobile shredding, and specialist data centre relocations."
+>
+  <!-- Section 1 â€” Hero -->
+  <HeroHome />
+
+  <!-- Section 2 â€” Corporate Introduction & Impact: Proven Results. Trusted Performance. -->
+  <Section theme="white" padding="pt-4 sm:pt-6 pb-8 md:pb-10" className="relative overflow-hidden">
+    <!-- Ambient World Dots Watermark Background in Upper Section -->
+    <div class="absolute top-6 right-0 w-full lg:w-2/3 h-72 sm:h-96 pointer-events-none opacity-25 select-none overflow-hidden" aria-hidden="true">
+      <img
+        src="/images/brand/world-dots.svg"
+        alt=""
+        class="w-full h-full object-contain object-right-top block"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+
+    <!-- Soft radial eco ambient glow -->
+    <div class="absolute top-16 -left-20 w-80 h-80 rounded-full bg-emerald-100/30 blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+    <Container className="relative z-10">
+      <!-- 1. Top Module: Header & Impact Overview (matching design reference) -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-6 sm:mb-8">
+        <!-- Left Column: Eyebrow + Headline + Subtitle + Accent Line -->
+        <div class="max-w-2xl space-y-3">
+          
+
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-[1.15]">
+  We Create Meaningful Impact.<br class="hidden sm:inline" />
+  <span>Deliver Builds a Better Future.</span>
+</h2>
+
+          <!-- <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
+            Delivering secure, sustainable and reliable lifecycle services across every stage of your IT and information assets.
+          </p> -->
+
+          <div class="w-12 h-1 bg-[#146B5C] rounded-full mt-3"></div>
+        </div>
+
+        <!-- Right Column: Eco-Tech Circular Badge -->
+        <div class="hidden sm:flex items-center justify-end self-end pb-1">
+          <img
+            src="/images/components/batch2.png"
+            alt="Eco-Tech Circular Lifecycle Badge"
+            class="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 xl:w-48 xl:h-48 object-contain drop-shadow-md hover:scale-105 hover:rotate-6 transition-all duration-500"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+
+      <!-- SVG Distressed Dry-Brush Edge Filters for Card Outlines -->
+      <svg class="sr-only" aria-hidden="true">
+        <defs>
+          <!-- Primary Distressed Painted Edge Filter -->
+          <filter id="brush-distress-primary" x="-15%" y="-15%" width="130%" height="130%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+          <!-- Secondary Fine Bristle Texture Filter -->
+          <filter id="brush-distress-fine" x="-15%" y="-15%" width="130%" height="130%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.075" numOctaves="3" result="fineNoise" />
+            <feDisplacementMap in="SourceGraphic" in2="fineNoise" scale="1.8" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
+
+      <!-- 4 Stepped Architectural Cards with Organic Distressed Brush Outline -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 items-end mb-6 sm:mb-8">
+        <!-- Card 1: 25+ Years of Experience (Tall) -->
+        <div class="h-[390px] sm:h-[410px] lg:h-[440px] flex flex-col justify-end group transition-all duration-500">
+          <div class="w-full h-full bg-white rounded-3xl relative transition-all duration-500 group-hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.02)] group-hover:shadow-[0_22px_45px_rgba(20,107,92,0.14),0_4px_12px_rgba(20,107,92,0.06)] border border-transparent flex flex-col justify-between p-6 sm:p-7 sm:py-8">
+            <!-- Distressed Organic Brush Outline Frame -->
+            <div class="absolute inset-0 pointer-events-none rounded-3xl overflow-visible p-[1px] z-10">
+              <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                <rect
+                  x="1.5"
+                  y="1.5"
+                  width="calc(100% - 3px)"
+                  height="calc(100% - 3px)"
+                  rx="24"
+                  ry="24"
+                  fill="none"
+                  stroke="#146B5C"
+                  stroke-width="1"
+                  stroke-opacity="0.15"
+                  filter="url(#brush-distress-fine)"
+                  class="group-hover:stroke-opacity-35 transition-opacity duration-300"
+                />
+                <rect
+                  x="1"
+                  y="1"
+                  width="calc(100% - 2px)"
+                  height="calc(100% - 2px)"
+                  rx="24"
+                  ry="24"
+                  fill="none"
+                  stroke="#146B5C"
+                  stroke-width="1.75"
+                  stroke-opacity="0.35"
+                  filter="url(#brush-distress-primary)"
+                  class="group-hover:stroke-opacity-85 transition-all duration-300"
+                />
+              </svg>
+            </div>
+
+            <!-- Top Row: Icon (Clean, No Background) -->
+            <div class="relative z-10">
+              <div class="text-[#146B5C] group-hover:text-[#0D5549] group-hover:scale-105 transition-all duration-300 inline-block">
+                <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Middle Content -->
+            <div class="my-auto py-2 relative z-10">
+              <div class="text-4xl sm:text-5xl font-black font-display text-brand-navy tracking-tight group-hover:text-[#146B5C] transition-colors duration-300">
+                25+
+              </div>
+              <div class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900 mt-2.5">
+                Years of Experience
+              </div>
+              <p class="text-sm sm:text-base text-slate-700 mt-2 leading-relaxed font-semibold">
+                Trusted expertise in information management and IT lifecycle services.
+              </p>
+            </div>
+
+            <!-- Bottom Action: Learn more -->
+            <div class="pt-4 border-t border-slate-100 mt-auto relative z-10 flex items-center justify-between">
+              <a href="/about-us" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#146B5C] group-hover:text-[#0D5549] transition-all">
+                <span>Learn more</span>
+                <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: 500K+ IT Assets Managed (Short) -->
+        <div class="h-[320px] sm:h-[340px] lg:h-[360px] flex flex-col justify-end group transition-all duration-500">
+          <div class="w-full h-full bg-white rounded-3xl relative transition-all duration-500 group-hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.02)] group-hover:shadow-[0_22px_45px_rgba(20,107,92,0.14),0_4px_12px_rgba(20,107,92,0.06)] border border-transparent flex flex-col justify-between p-6 sm:p-7">
+            <!-- Distressed Organic Brush Outline Frame -->
+            <div class="absolute inset-0 pointer-events-none rounded-3xl overflow-visible p-[1px] z-10">
+              <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                <rect
+                  x="1.5"
+                  y="1.5"
+                  width="calc(100% - 3px)"
+                  height="calc(100% - 3px)"
+                  rx="24"
+                  ry="24"
+                  fill="none"
+                  stroke="#146B5C"
+                  stroke-width="1"
+                  stroke-opacity="0.15"
+                  filter="url(#brush-distress-fine)"
+                  class="group-hover:stroke-opacity-35 transition-opacity duration-300"
+                />
+                <rect
+                  x="1"
+                  y="1"
+                  width="calc(100% - 2px)"
+                  height="calc(100% - 2px)"
+                  rx="24"
+                  ry="24"
+                  fill="none"
+                  stroke="#146B5C"
+                  stroke-width="1.75"
+                  stroke-opacity="0.35"
+                  filter="url(#brush-distress-primary)"
+                  class="group-hover:stroke-opacity-85 transition-all duration-300"
+                />
+              </svg>
+            </div>
+
+            <!-- Top Row: Icon (Clean, No Background) -->
+            <div class="relative z-10">
+              <div class="text-[#146B5C] group-hover:text-[#0D5549] group-hover:scale-105 transition-all duration-300 inline-block">
+                <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Middle Content -->
+            <div class="my-auto py-2 relative z-10">
+              <div class="text-4xl sm:text-5xl font-black font-display text-brand-navy tracking-tight group-hover:text-[#146B5C] transition-colors duration-300">
+                500K+
+              </div>
+              <div class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900 mt-2">
+                IT Assets Managed
+              </div>
+              <p class="text-sm sm:text-base text-slate-700 mt-1.5 leading-relaxed font-semibold">
+                Secure collection, processing and responsible recycling of IT assets.
+              </p>
+            </div>
+
+            <!-- Bottom Action: Learn more -->
+            <div class="pt-3 border-t border-slate-100 mt-auto relative z-10 flex items-center justify-between">
+              <a href="/it-lifecycle-services-destruction" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#146B5C] group-hover:text-[#0D5549] transition-all">
+                <span>Learn more</span>
+                <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: 100K+ Devices & Documents Securely Processed (Tall) -->
+        <div class="h-[390px] sm:h-[410px] lg:h-[440px] flex flex-col justify-end group transition-all duration-500">
+          <div class="w-full h-full bg-white rounded-3xl relative transition-all duration-500 group-hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.02)] group-hover:shadow-[0_22px_45px_rgba(20,107,92,0.14),0_4px_12px_rgba(20,107,92,0.06)] border border-transparent flex flex-col justify-between p-6 sm:p-7 sm:py-8">
+            <!-- Distressed Organic Brush Outline Frame -->
+            <div class="absolute inset-0 pointer-events-none rounded-3xl overflow-visible p-[1px] z-10">
+              <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                <rect
+                  x="1.5"
+                  y="1.5"
+                  width="calc(100% - 3px)"
+                  height="calc(100% - 3px)"
+                  rx="24"
+                  ry="24"
+                  fill="none"
+                  stroke="#146B5C"
+                  stroke-width="1"
+                  stroke-opacity="0.15"
+                  filter="url(#brush-distress-fine)"
+                  class="group-hover:stroke-opacity-35 transition-opacity duration-300"
+                />
+                <rect
+                  x="1"
+                  y="1"
+                  width="calc(100% - 2px)"
+                  height="calc(100% - 2px)"
+                  rx="24"
+                  ry="24"
+                  fill="none"
+                  stroke="#146B5C"
+                  stroke-width="1.75"
+                  stroke-opacity="0.35"
+                  filter="url(#brush-distress-primary)"
+                  class="group-hover:stroke-opacity-85 transition-all duration-300"
+                />
+              </svg>
+            </div>
+
+            <!-- Top Row: Icon (Clean, No Background) -->
+            <div class="relative z-10">
+              <div class="text-[#146B5C] group-hover:text-[#0D5549] group-hover:scale-105 transition-all duration-300 inline-block">
+                <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Middle Content -->
+            <div class="my-auto py-2 relative z-10">
+              <div class="text-4xl sm:text-5xl font-black font-display text-brand-navy tracking-tight group-hover:text-[#146B5C] transition-colors duration-300">
+                100K+
+              </div>
+              <div class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900 mt-2.5">
+                Devices &amp; Documents Securely Processed
+              </div>
+              <p class="text-sm sm:text-base text-slate-700 mt-2 leading-relaxed font-semibold">
+                Ensuring complete data security and compliance.
+              </p>
+            </div>
+
+            <!-- Bottom Action: Learn more -->
+            <div class="pt-4 border-t border-slate-100 mt-auto relative z-10 flex items-center justify-between">
+              <a href="/secure-shredding-document-integrity" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#146B5C] group-hover:text-[#0D5549] transition-all">
+                <span>Learn more</span>
+                <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: 1000+ Successful Moves & Projects (Medium) -->
+        <div class="h-[355px] sm:h-[375px] lg:h-[400px] flex flex-col justify-end group transition-all duration-500">
+          <div class="w-full h-full bg-white rounded-3xl relative transition-all duration-500 group-hover:-translate-y-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.02)] group-hover:shadow-[0_22px_45px_rgba(20,107,92,0.14),0_4px_12px_rgba(20,107,92,0.06)] border border-transparent flex flex-col justify-between p-6 sm:p-7">
+            <!-- Distressed Organic Brush Outline Frame -->
+            <div class="absolute inset-0 pointer-events-none rounded-3xl overflow-visible p-[1px] z-10">
+              <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                <rect
+                  x="1.5"
+                  y="1.5"
+                  width="calc(100% - 3px)"
+                  height="calc(100% - 3px)"
+                  rx="24"
+                  ry="24"
+                  fill="none"
+                  stroke="#146B5C"
+                  stroke-width="1"
+                  stroke-opacity="0.15"
+                  filter="url(#brush-distress-fine)"
+                  class="group-hover:stroke-opacity-35 transition-opacity duration-300"
+                />
+                <rect
+                  x="1"
+                  y="1"
+                  width="calc(100% - 2px)"
+                  height="calc(100% - 2px)"
+                  rx="24"
+                  ry="24"
+                  fill="none"
+                  stroke="#146B5C"
+                  stroke-width="1.75"
+                  stroke-opacity="0.35"
+                  filter="url(#brush-distress-primary)"
+                  class="group-hover:stroke-opacity-85 transition-all duration-300"
+                />
+              </svg>
+            </div>
+
+            <!-- Top Row: Icon (Clean, No Background) -->
+            <div class="relative z-10">
+              <div class="text-[#146B5C] group-hover:text-[#0D5549] group-hover:scale-105 transition-all duration-300 inline-block">
+                <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Middle Content -->
+            <div class="my-auto py-2 relative z-10">
+              <div class="text-4xl sm:text-5xl font-black font-display text-brand-navy tracking-tight group-hover:text-[#146B5C] transition-colors duration-300">
+                1000+
+              </div>
+              <div class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900 mt-2">
+                Successful Moves &amp; Projects
+              </div>
+              <p class="text-sm sm:text-base text-slate-700 mt-1.5 leading-relaxed font-semibold">
+                Reliable relocation services for businesses of all sizes.
+              </p>
+            </div>
+
+            <!-- Bottom Action: Learn more -->
+            <div class="pt-3.5 border-t border-slate-100 mt-auto relative z-10 flex items-center justify-between">
+              <a href="/moving-relocation-services" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#146B5C] group-hover:text-[#0D5549] transition-all">
+                <span>Learn more</span>
+                <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+    </Container>
+  </Section>
+
+  <!-- Section 3 â€” Our Story & Purpose: Sticky Narrative & Interactive Accordion Cards -->
+  <section id="our-story" class="relative bg-slate-50/70 py-8 sm:py-10 lg:py-12">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        <!-- Left Column: Stable Sticky Narrative (Step counter removed) -->
+        <div class="lg:col-span-5 lg:sticky lg:top-28 lg:self-start space-y-6">
+          <!-- <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-[#146B5C] text-xs font-bold uppercase tracking-wider">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#146B5C]"></span>
+            <span>Our Story &amp; Purpose</span>
+          </div> -->
+
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-[1.15]">
+            A Journey of Care, Integrity, and Shared Responsibility
+          </h2>
+
+          <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-medium">
+            TechSteps didn&apos;t start with corporate jargon &mdash; it began with a simple belief: every piece of retiring technology carries confidential history, and every organization deserves honest, friendly, and reliable people to protect it.
+          </p>
+
+          <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-medium">
+            Over the years, we&apos;ve walked alongside NHS hospitals, schools, universities, and enterprise teams across the UK, proving that doing the right thing for data security also creates a cleaner, greener tomorrow.
+          </p>
+
+          <div class="pt-2 flex flex-wrap items-center gap-3">
+            <a
+              href="/about-us"
+              class="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-brand-navy hover:bg-brand-blue text-white text-sm font-bold shadow-md hover:shadow-lg transition-all"
+            >
+              <span>Explore Our Heritage &rarr;</span>
+            </a>
+            <a
+              href="/request-a-quote"
+              class="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-brand-navy border border-slate-300 text-sm font-bold shadow-xs hover:shadow-md transition-all"
+            >
+              <span>Request a Collection</span>
+            </a>
+          </div>
+
+          <!-- Trust Badges List -->
+          <div class="pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-3 text-xs sm:text-sm font-bold text-slate-700">
+            <span class="inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#146B5C]"></span>100% Vetted UK Team</span>
+            <span>&bull;</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#146B5C]"></span>NHS DSPT Compliant</span>
+            <span>&bull;</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#146B5C]"></span>Zero-Landfill Goal</span>
+          </div>
+         
+        </div>
+
+        <!-- Right Story Column (Previous Interactive Accordion Card Style) -->
+        <div class="lg:col-span-7">
+          <div class="space-y-4" id="journey-story-container">
+            <!-- Point 1: Where We Began -->
+            <div
+              class="story-card group relative p-6 sm:p-7 rounded-2xl bg-white border border-transparent shadow-xs hover:shadow-md transition-all duration-300 cursor-pointer"
+              data-story="0"
+            >
+              <!-- Distressed Organic Brush Outline Frame -->
+              <div class="absolute inset-0 pointer-events-none rounded-2xl overflow-visible p-[1px] z-10">
+                <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                  <rect
+                    x="1.5"
+                    y="1.5"
+                    width="calc(100% - 3px)"
+                    height="calc(100% - 3px)"
+                    rx="16"
+                    ry="16"
+                    fill="none"
+                    stroke="#146B5C"
+                    stroke-width="1"
+                    stroke-opacity="0.15"
+                    filter="url(#brush-distress-fine)"
+                    class="group-hover:stroke-opacity-35 group-[.active]:stroke-opacity-40 transition-opacity duration-300"
+                  />
+                  <rect
+                    x="1"
+                    y="1"
+                    width="calc(100% - 2px)"
+                    height="calc(100% - 2px)"
+                    rx="16"
+                    ry="16"
+                    fill="none"
+                    stroke="#146B5C"
+                    stroke-width="1.75"
+                    stroke-opacity="0.3"
+                    filter="url(#brush-distress-primary)"
+                    class="group-hover:stroke-opacity-85 group-[.active]:stroke-opacity-90 transition-all duration-300"
+                  />
+                </svg>
+              </div>
+
+              <!-- Celestial Sparkle Outline Accents -->
+              <!-- Top-Right Sparkle Cluster -->
+              <div class="absolute top-7 right-0 w-0 pointer-events-none text-slate-300 group-hover:text-brand-accent/80 group-[.active]:text-brand-accent transition-colors duration-300 z-20">
+                <!-- Border Line Gap Cutout -->
+                <div class="absolute top-0 -left-[2.5px] w-[5px] h-[72px] bg-white"></div>
+                
+                <svg class="w-7 h-[76px] overflow-visible relative z-10" viewBox="0 0 28 76" fill="currentColor">
+                  <!-- Large 4-point sparkle star -->
+                  <path d="M 0,4 Q 0,16 12,16 Q 0,16 0,28 Q 0,16 -12,16 Q 0,16 0,4 Z" class="transition-transform duration-300 group-hover:scale-110" />
+                  <!-- Center Dot 1 -->
+                  <circle cx="0" cy="36" r="2.2" />
+                  <!-- Small 4-point sparkle star -->
+                  <path d="M 0,42 Q 0,48 6,48 Q 0,48 0,54 Q 0,48 -6,48 Q 0,48 0,42 Z" />
+                  <!-- Center Dot 2 -->
+                  <circle cx="0" cy="62" r="2.2" />
+                  <!-- Outer Dot A (offset right) -->
+                  <circle cx="14" cy="43" r="3.5" />
+                  <!-- Outer Dot B (offset right) -->
+                  <circle cx="14" cy="57" r="3.5" />
+                </svg>
+              </div>
+
+              <!-- Bottom-Left Sparkle Cluster -->
+              <div class="absolute bottom-7 -left-[1px] pointer-events-none text-slate-300 group-hover:text-brand-accent/80 group-[.active]:text-brand-accent transition-colors duration-300 z-20">
+                <!-- Border Line Gap Cutout -->
+                <div class="absolute top-0 -left-[2px] w-[5px] h-[72px] bg-white"></div>
+                
+                <svg class="w-7 h-[76px] overflow-visible relative z-10" viewBox="0 0 28 76" fill="currentColor">
+                  <!-- Outer Dot A (offset left) -->
+                  <circle cx="-14" cy="43" r="3.5" />
+                  <!-- Outer Dot B (offset left) -->
+                  <circle cx="-14" cy="57" r="3.5" />
+                  <!-- Large 4-point sparkle star -->
+                  <path d="M 0,4 Q 0,16 12,16 Q 0,16 0,28 Q 0,16 -12,16 Q 0,16 0,4 Z" class="transition-transform duration-300 group-hover:scale-110" />
+                  <!-- Center Dot 1 -->
+                  <circle cx="0" cy="36" r="2.2" />
+                  <!-- Small 4-point sparkle star -->
+                  <path d="M 0,42 Q 0,48 6,48 Q 0,48 0,54 Q 0,48 -6,48 Q 0,48 0,42 Z" />
+                  <!-- Center Dot 2 -->
+                  <circle cx="0" cy="62" r="2.2" />
+                </svg>
+              </div>
+
+              <div class="flex items-start gap-4 sm:gap-5">
+                <div class="story-badge shrink-0 w-10 h-10 rounded-full bg-slate-100 text-brand-navy font-display font-bold text-sm flex items-center justify-center border border-slate-200 transition-all duration-200">
+                  01
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-xs font-mono font-medium text-brand-accent uppercase tracking-wider">The Spark of Responsibility</span>
+                    <span class="text-xs font-mono text-slate-400 group-hover:text-brand-accent transition-colors">&rarr;</span>
+                  </div>
+                  <h3 class="text-xl sm:text-2xl font-bold font-display text-brand-navy mt-1 tracking-tight group-hover:text-brand-accent transition-colors">
+                    Where It All Began: A Simple Promise of Care
+                  </h3>
+                  <p class="text-sm sm:text-base text-slate-700 mt-2 leading-relaxed font-semibold">
+                    We started with a passionate team and one fundamental conviction: when you let go of retired equipment, you deserve total peace of mind. We replaced casual disposals with personal custody receipts, friendly handshakes, and genuine accountability for every single device.
+                  </p>
+
+                  <!-- Image Drawer (Opens on Hover / Active) -->
+                  <div class="story-drawer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                    <div class="pt-4">
+                      <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm relative">
+                        <img
+                          src="/images/brand/story-origin.jpg"
+                          alt="Specialist inspecting retired computing technology with precision and care"
+                          class="w-full h-52 sm:h-64 object-cover object-center"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div class="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+                          <span class="font-medium text-slate-700">Hands-on care from the very first asset</span>
+                          <span class="font-mono text-brand-accent font-semibold uppercase">Care From Day One</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Point 2: Our People & Nationwide Family -->
+            <div
+              class="story-card group relative p-6 sm:p-7 rounded-2xl bg-white border border-transparent shadow-xs hover:shadow-md transition-all duration-300 cursor-pointer"
+              data-story="1"
+            >
+              <!-- Distressed Organic Brush Outline Frame -->
+              <div class="absolute inset-0 pointer-events-none rounded-2xl overflow-visible p-[1px] z-10">
+                <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                  <rect
+                    x="1.5"
+                    y="1.5"
+                    width="calc(100% - 3px)"
+                    height="calc(100% - 3px)"
+                    rx="16"
+                    ry="16"
+                    fill="none"
+                    stroke="#146B5C"
+                    stroke-width="1"
+                    stroke-opacity="0.15"
+                    filter="url(#brush-distress-fine)"
+                    class="group-hover:stroke-opacity-35 group-[.active]:stroke-opacity-40 transition-opacity duration-300"
+                  />
+                  <rect
+                    x="1"
+                    y="1"
+                    width="calc(100% - 2px)"
+                    height="calc(100% - 2px)"
+                    rx="16"
+                    ry="16"
+                    fill="none"
+                    stroke="#146B5C"
+                    stroke-width="1.75"
+                    stroke-opacity="0.3"
+                    filter="url(#brush-distress-primary)"
+                    class="group-hover:stroke-opacity-85 group-[.active]:stroke-opacity-90 transition-all duration-300"
+                  />
+                </svg>
+              </div>
+
+              <!-- Celestial Sparkle Outline Accents -->
+              <!-- Top-Right Sparkle Cluster -->
+              <div class="absolute top-7 right-0 w-0 pointer-events-none text-slate-300 group-hover:text-brand-accent/80 group-[.active]:text-brand-accent transition-colors duration-300 z-20">
+                <!-- Border Line Gap Cutout -->
+                <div class="absolute top-0 -left-[2.5px] w-[5px] h-[72px] bg-white"></div>
+                
+                <svg class="w-7 h-[76px] overflow-visible relative z-10" viewBox="0 0 28 76" fill="currentColor">
+                  <!-- Large 4-point sparkle star -->
+                  <path d="M 0,4 Q 0,16 12,16 Q 0,16 0,28 Q 0,16 -12,16 Q 0,16 0,4 Z" class="transition-transform duration-300 group-hover:scale-110" />
+                  <!-- Center Dot 1 -->
+                  <circle cx="0" cy="36" r="2.2" />
+                  <!-- Small 4-point sparkle star -->
+                  <path d="M 0,42 Q 0,48 6,48 Q 0,48 0,54 Q 0,48 -6,48 Q 0,48 0,42 Z" />
+                  <!-- Center Dot 2 -->
+                  <circle cx="0" cy="62" r="2.2" />
+                  <!-- Outer Dot A (offset right) -->
+                  <circle cx="14" cy="43" r="3.5" />
+                  <!-- Outer Dot B (offset right) -->
+                  <circle cx="14" cy="57" r="3.5" />
+                </svg>
+              </div>
+
+              <!-- Bottom-Left Sparkle Cluster -->
+              <div class="absolute bottom-7 -left-[1px] pointer-events-none text-slate-300 group-hover:text-brand-accent/80 group-[.active]:text-brand-accent transition-colors duration-300 z-20">
+                <!-- Border Line Gap Cutout -->
+                <div class="absolute top-0 -left-[2px] w-[5px] h-[72px] bg-white"></div>
+                
+                <svg class="w-7 h-[76px] overflow-visible relative z-10" viewBox="0 0 28 76" fill="currentColor">
+                  <!-- Outer Dot A (offset left) -->
+                  <circle cx="-14" cy="43" r="3.5" />
+                  <!-- Outer Dot B (offset left) -->
+                  <circle cx="-14" cy="57" r="3.5" />
+                  <!-- Large 4-point sparkle star -->
+                  <path d="M 0,4 Q 0,16 12,16 Q 0,16 0,28 Q 0,16 -12,16 Q 0,16 0,4 Z" class="transition-transform duration-300 group-hover:scale-110" />
+                  <!-- Center Dot 1 -->
+                  <circle cx="0" cy="36" r="2.2" />
+                  <!-- Small 4-point sparkle star -->
+                  <path d="M 0,42 Q 0,48 6,48 Q 0,48 0,54 Q 0,48 -6,48 Q 0,48 0,42 Z" />
+                  <!-- Center Dot 2 -->
+                  <circle cx="0" cy="62" r="2.2" />
+                </svg>
+              </div>
+
+              <div class="flex items-start gap-4 sm:gap-5">
+                <div class="story-badge shrink-0 w-10 h-10 rounded-full bg-slate-100 text-brand-navy font-display font-bold text-sm flex items-center justify-center border border-slate-200 transition-all duration-200">
+                  02
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-xs font-mono font-medium text-brand-accent uppercase tracking-wider">Dedicated Hands in Every Corner</span>
+                    <span class="text-xs font-mono text-slate-400 group-hover:text-brand-accent transition-colors">&rarr;</span>
+                  </div>
+                  <h3 class="text-xl sm:text-2xl font-bold font-display text-brand-navy mt-1 tracking-tight group-hover:text-brand-accent transition-colors">
+                    Growing Nationwide With People We Trust
+                  </h3>
+                  <p class="text-sm sm:text-base text-slate-700 mt-2 leading-relaxed font-semibold">
+                    Trust spread by word of mouth. To serve clients nationwide, we welcomed dedicated drivers and logistics specialists who undergo BS 7858 security vetting and treat every client's workplace with warmth and utmost respect.
+                  </p>
+
+                  <!-- Image Drawer (Opens on Hover) -->
+                  <div class="story-drawer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                    <div class="pt-4">
+                      <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm relative">
+                        <img
+                          src="/images/brand/milestone-team.jpg"
+                          alt="TechSteps team collaborating with smiles on UK lifecycle and operations"
+                          class="w-full h-52 sm:h-64 object-cover object-center"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div class="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+                          <span class="font-medium text-slate-700">Dedicated UK operations &amp; specialist logistics family</span>
+                          <span class="font-mono text-brand-accent font-semibold uppercase">100% Vetted Team</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Point 3: Protecting What Matters Most -->
+            <div
+              class="story-card group relative p-6 sm:p-7 rounded-2xl bg-white border border-transparent shadow-xs hover:shadow-md transition-all duration-300 cursor-pointer"
+              data-story="2"
+            >
+              <!-- Distressed Organic Brush Outline Frame -->
+              <div class="absolute inset-0 pointer-events-none rounded-2xl overflow-visible p-[1px] z-10">
+                <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                  <rect
+                    x="1.5"
+                    y="1.5"
+                    width="calc(100% - 3px)"
+                    height="calc(100% - 3px)"
+                    rx="16"
+                    ry="16"
+                    fill="none"
+                    stroke="#146B5C"
+                    stroke-width="1"
+                    stroke-opacity="0.15"
+                    filter="url(#brush-distress-fine)"
+                    class="group-hover:stroke-opacity-35 group-[.active]:stroke-opacity-40 transition-opacity duration-300"
+                  />
+                  <rect
+                    x="1"
+                    y="1"
+                    width="calc(100% - 2px)"
+                    height="calc(100% - 2px)"
+                    rx="16"
+                    ry="16"
+                    fill="none"
+                    stroke="#146B5C"
+                    stroke-width="1.75"
+                    stroke-opacity="0.3"
+                    filter="url(#brush-distress-primary)"
+                    class="group-hover:stroke-opacity-85 group-[.active]:stroke-opacity-90 transition-all duration-300"
+                  />
+                </svg>
+              </div>
+
+              <!-- Celestial Sparkle Outline Accents -->
+              <!-- Top-Right Sparkle Cluster -->
+              <div class="absolute top-7 right-0 w-0 pointer-events-none text-slate-300 group-hover:text-brand-accent/80 group-[.active]:text-brand-accent transition-colors duration-300 z-20">
+                <!-- Border Line Gap Cutout -->
+                <div class="absolute top-0 -left-[2.5px] w-[5px] h-[72px] bg-white"></div>
+                
+                <svg class="w-7 h-[76px] overflow-visible relative z-10" viewBox="0 0 28 76" fill="currentColor">
+                  <!-- Large 4-point sparkle star -->
+                  <path d="M 0,4 Q 0,16 12,16 Q 0,16 0,28 Q 0,16 -12,16 Q 0,16 0,4 Z" class="transition-transform duration-300 group-hover:scale-110" />
+                  <!-- Center Dot 1 -->
+                  <circle cx="0" cy="36" r="2.2" />
+                  <!-- Small 4-point sparkle star -->
+                  <path d="M 0,42 Q 0,48 6,48 Q 0,48 0,54 Q 0,48 -6,48 Q 0,48 0,42 Z" />
+                  <!-- Center Dot 2 -->
+                  <circle cx="0" cy="62" r="2.2" />
+                  <!-- Outer Dot A (offset right) -->
+                  <circle cx="14" cy="43" r="3.5" />
+                  <!-- Outer Dot B (offset right) -->
+                  <circle cx="14" cy="57" r="3.5" />
+                </svg>
+              </div>
+
+              <!-- Bottom-Left Sparkle Cluster -->
+              <div class="absolute bottom-7 -left-[1px] pointer-events-none text-slate-300 group-hover:text-brand-accent/80 group-[.active]:text-brand-accent transition-colors duration-300 z-20">
+                <!-- Border Line Gap Cutout -->
+                <div class="absolute top-0 -left-[2px] w-[5px] h-[72px] bg-white"></div>
+                
+                <svg class="w-7 h-[76px] overflow-visible relative z-10" viewBox="0 0 28 76" fill="currentColor">
+                  <!-- Outer Dot A (offset left) -->
+                  <circle cx="-14" cy="43" r="3.5" />
+                  <!-- Outer Dot B (offset left) -->
+                  <circle cx="-14" cy="57" r="3.5" />
+                  <!-- Large 4-point sparkle star -->
+                  <path d="M 0,4 Q 0,16 12,16 Q 0,16 0,28 Q 0,16 -12,16 Q 0,16 0,4 Z" class="transition-transform duration-300 group-hover:scale-110" />
+                  <!-- Center Dot 1 -->
+                  <circle cx="0" cy="36" r="2.2" />
+                  <!-- Small 4-point sparkle star -->
+                  <path d="M 0,42 Q 0,48 6,48 Q 0,48 0,54 Q 0,48 -6,48 Q 0,48 0,42 Z" />
+                  <!-- Center Dot 2 -->
+                  <circle cx="0" cy="62" r="2.2" />
+                </svg>
+              </div>
+
+              <div class="flex items-start gap-4 sm:gap-5">
+                <div class="story-badge shrink-0 w-10 h-10 rounded-full bg-slate-100 text-brand-navy font-display font-bold text-sm flex items-center justify-center border border-slate-200 transition-all duration-200">
+                  03
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-xs font-mono font-medium text-brand-accent uppercase tracking-wider">Safeguarding Critical Hearts</span>
+                    <span class="text-xs font-mono text-slate-400 group-hover:text-brand-accent transition-colors">&rarr;</span>
+                  </div>
+                  <h3 class="text-xl sm:text-2xl font-bold font-display text-brand-navy mt-1 tracking-tight group-hover:text-brand-accent transition-colors">
+                    Earning the Trust of NHS &amp; Vital Public Services
+                  </h3>
+                  <p class="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+                    When hospital wards, emergency departments, and government frameworks needed dependable partners, TechSteps answered. Safeguarding patient confidentiality and enterprise infrastructure became our sacred daily craft.
+                  </p>
+
+                  <!-- Image Drawer (Opens on Hover) -->
+                  <div class="story-drawer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                    <div class="pt-4">
+                      <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm relative">
+                        <img
+                          src="/images/brand/story-security.jpg"
+                          alt="High security enterprise data sanitisation and server lifecycle facility"
+                          class="w-full h-52 sm:h-64 object-cover object-center"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div class="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+                          <span class="font-medium text-slate-700">Certified NIST 800-88 erasure &amp; ADISA 8.0 defense</span>
+                          <span class="font-mono text-brand-accent font-semibold uppercase">NHS DSPT Trusted</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Point 4: The Circular Future -->
+            <div
+              class="story-card group relative p-6 sm:p-7 rounded-2xl bg-white border border-transparent shadow-xs hover:shadow-md transition-all duration-300 cursor-pointer"
+              data-story="3"
+            >
+              <!-- Distressed Organic Brush Outline Frame -->
+              <div class="absolute inset-0 pointer-events-none rounded-2xl overflow-visible p-[1px] z-10">
+                <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                  <rect
+                    x="1.5"
+                    y="1.5"
+                    width="calc(100% - 3px)"
+                    height="calc(100% - 3px)"
+                    rx="16"
+                    ry="16"
+                    fill="none"
+                    stroke="#146B5C"
+                    stroke-width="1"
+                    stroke-opacity="0.15"
+                    filter="url(#brush-distress-fine)"
+                    class="group-hover:stroke-opacity-35 group-[.active]:stroke-opacity-40 transition-opacity duration-300"
+                  />
+                  <rect
+                    x="1"
+                    y="1"
+                    width="calc(100% - 2px)"
+                    height="calc(100% - 2px)"
+                    rx="16"
+                    ry="16"
+                    fill="none"
+                    stroke="#146B5C"
+                    stroke-width="1.75"
+                    stroke-opacity="0.3"
+                    filter="url(#brush-distress-primary)"
+                    class="group-hover:stroke-opacity-85 group-[.active]:stroke-opacity-90 transition-all duration-300"
+                  />
+                </svg>
+              </div>
+
+              <!-- Celestial Sparkle Outline Accents -->
+              <!-- Top-Right Sparkle Cluster -->
+              <div class="absolute top-7 right-0 w-0 pointer-events-none text-slate-300 group-hover:text-brand-accent/80 group-[.active]:text-brand-accent transition-colors duration-300 z-20">
+                <!-- Border Line Gap Cutout -->
+                <div class="absolute top-0 -left-[2.5px] w-[5px] h-[72px] bg-white"></div>
+                
+                <svg class="w-7 h-[76px] overflow-visible relative z-10" viewBox="0 0 28 76" fill="currentColor">
+                  <!-- Large 4-point sparkle star -->
+                  <path d="M 0,4 Q 0,16 12,16 Q 0,16 0,28 Q 0,16 -12,16 Q 0,16 0,4 Z" class="transition-transform duration-300 group-hover:scale-110" />
+                  <!-- Center Dot 1 -->
+                  <circle cx="0" cy="36" r="2.2" />
+                  <!-- Small 4-point sparkle star -->
+                  <path d="M 0,42 Q 0,48 6,48 Q 0,48 0,54 Q 0,48 -6,48 Q 0,48 0,42 Z" />
+                  <!-- Center Dot 2 -->
+                  <circle cx="0" cy="62" r="2.2" />
+                  <!-- Outer Dot A (offset right) -->
+                  <circle cx="14" cy="43" r="3.5" />
+                  <!-- Outer Dot B (offset right) -->
+                  <circle cx="14" cy="57" r="3.5" />
+                </svg>
+              </div>
+
+              <!-- Bottom-Left Sparkle Cluster -->
+              <div class="absolute bottom-7 -left-[1px] pointer-events-none text-slate-300 group-hover:text-brand-accent/80 group-[.active]:text-brand-accent transition-colors duration-300 z-20">
+                <!-- Border Line Gap Cutout -->
+                <div class="absolute top-0 -left-[2px] w-[5px] h-[72px] bg-white"></div>
+                
+                <svg class="w-7 h-[76px] overflow-visible relative z-10" viewBox="0 0 28 76" fill="currentColor">
+                  <!-- Outer Dot A (offset left) -->
+                  <circle cx="-14" cy="43" r="3.5" />
+                  <!-- Outer Dot B (offset left) -->
+                  <circle cx="-14" cy="57" r="3.5" />
+                  <!-- Large 4-point sparkle star -->
+                  <path d="M 0,4 Q 0,16 12,16 Q 0,16 0,28 Q 0,16 -12,16 Q 0,16 0,28 Q 0,16 -12,16 Q 0,16 0,4 Z" class="transition-transform duration-300 group-hover:scale-110" />
+                  <!-- Center Dot 1 -->
+                  <circle cx="0" cy="36" r="2.2" />
+                  <!-- Small 4-point sparkle star -->
+                  <path d="M 0,42 Q 0,48 6,48 Q 0,48 0,54 Q 0,48 -6,48 Q 0,48 0,42 Z" />
+                  <!-- Center Dot 2 -->
+                  <circle cx="0" cy="62" r="2.2" />
+                </svg>
+              </div>
+
+              <div class="flex items-start gap-4 sm:gap-5">
+                <div class="story-badge shrink-0 w-10 h-10 rounded-full bg-slate-100 text-brand-navy font-display font-bold text-sm flex items-center justify-center border border-slate-200 transition-all duration-200">
+                  04
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-xs font-mono font-medium text-brand-accent uppercase tracking-wider">A Greener, Brighter Tomorrow</span>
+                    <span class="text-xs font-mono text-slate-400 group-hover:text-brand-accent transition-colors">&rarr;</span>
+                  </div>
+                  <h3 class="text-xl sm:text-2xl font-bold font-display text-brand-navy mt-1 tracking-tight group-hover:text-brand-accent transition-colors">
+                    Zero Landfill, Giving Technology a Second Life
+                  </h3>
+                  <p class="text-sm sm:text-base text-slate-700 mt-2 leading-relaxed font-semibold">
+                    Our purpose today is building a truly circular Britain. By remarketing, refurbishing, and ethically redistributing retired tech, we ensure 100% zero landfill &mdash; turning obsolete devices into social good, carbon savings, and smiles.
+                  </p>
+
+                  <!-- Image Drawer (Opens on Hover) -->
+                  <div class="story-drawer overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+                    <div class="pt-4">
+                      <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm relative">
+                        <img
+                          src="/images/brand/story-sustainability.jpg"
+                          alt="Renewable circular IT lifecycle and green sustainable tech"
+                          class="w-full h-52 sm:h-64 object-cover object-center"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div class="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+                          <span class="font-medium text-slate-700">100% zero landfill guarantee &amp; verified Scope 3 carbon savings</span>
+                          <span class="font-mono text-brand-accent font-semibold uppercase">Zero-Landfill Future</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Section 3 â€” Expertise: Expert Help Every Step of the Way -->
+  <!-- <Section theme="slate">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white text-brand-blue text-xs font-bold uppercase tracking-wider border border-slate-200">
+            <span>Specialist Advisory &amp; Operations</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight leading-tight">
+            Expert Help Every Step of the Way
+          </h2>
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+            Navigating the intersection of UK GDPR, WEEE directives, Environment Agency permits, and operational relocations requires specialist competence. Techsteps pairs dedicated logistics directors with your IT, compliance, and facilities teams to eliminate operational blindspots.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-xs">
+              <h4 class="font-bold text-brand-navy text-sm mb-1">Tailored Governance</h4>
+              <p class="text-xs text-slate-600">Bespoke SLAs configured to your exact internal security classification mandates.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-xs">
+              <h4 class="font-bold text-brand-navy text-sm mb-1">Rapid Dispatch SLA</h4>
+              <p class="text-xs text-slate-600">Nationwide tracked fleet capable of executing urgent emergency collections.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+              <span class="text-2xl font-black text-brand-accent">01</span>
+              <h3 class="text-base font-bold text-brand-navy">Risk Assessment</h3>
+              <p class="text-xs text-slate-600">Full audit of hardware models, data sensitivities, and logistics access prior to scheduling.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+              <span class="text-2xl font-black text-brand-accent">02</span>
+              <h3 class="text-base font-bold text-brand-navy">Chain of Custody</h3>
+              <p class="text-xs text-slate-600">Tamper-evident barcode seals applied on-site with dual signature verification.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+              <span class="text-2xl font-black text-brand-accent">03</span>
+              <h3 class="text-base font-bold text-brand-navy">Certified Processing</h3>
+              <p class="text-xs text-slate-600">ADISA Standard 8.0 sanitisation or DIN 66399 micro-granulation.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+              <span class="text-2xl font-black text-brand-accent">04</span>
+              <h3 class="text-base font-bold text-brand-navy">Defensible Closeout</h3>
+              <p class="text-xs text-slate-600">Itemized certificates of destruction and corporate ESG rebate returns.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section> -->
+
+  <!-- Section 4 — Company Overview: What We Offer (Asymmetric Bento Grid) -->
+  <section id="divisions" class="relative py-14 sm:py-18 lg:py-20 bg-[#f1f4ef] border-t border-slate-200/80 overflow-hidden">
+    <Container className="relative z-10">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-2.5 mb-8 sm:mb-10">
+        <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C]">
+          Our Core Capabilities
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-[1.15]">
+          What We Offer
+        </h2>
+        <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl mx-auto font-medium">
+          Four integrated divisions delivering secure data management, certified hardware disposition, and mission-critical commercial logistics.
+        </p>
+      </div>
+
+      <!-- Bento Grid (2x2 Asymmetric) matching reference with Theme & Recycling Green Palette -->
+      <div class="space-y-4 sm:space-y-5 max-w-6xl mx-auto">
+        <!-- Row 1: Card 1 (5 cols) + Card 2 (7 cols) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
+          <!-- Card 1: Information Management (Soft Sage Green + Wave) -->
+          <a
+            href="/information-management"
+            class="lg:col-span-5 group relative flex flex-col justify-between bg-[#E3EFE8] hover:bg-[#D7E9DE] rounded-2xl sm:rounded-3xl p-6 sm:p-7 lg:p-8 min-h-[210px] sm:min-h-[230px] border border-[#146B5C]/10 hover:border-[#146B5C]/30 hover:shadow-[0_16px_35px_rgba(20,107,92,0.12)] transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden"
+          >
+            <!-- Content -->
+            <div class="relative z-10 space-y-2">
+              <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 tracking-tight group-hover:text-[#146B5C] transition-colors">
+                Information Management
+              </h3>
+              <p class="text-sm sm:text-base text-slate-800 leading-relaxed max-w-xs sm:max-w-sm font-semibold">
+                Climate-controlled physical document storage, accredited scanning, digital mailrooms, and secure media vaulting.
+              </p>
+            </div>
+
+            <!-- Bottom Link CTA -->
+            <div class="relative z-10 pt-4 mt-auto flex items-center gap-1.5 text-xs font-bold text-[#146B5C] group-hover:text-[#0D5549]">
+              <span>Explore Division</span>
+              <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </div>
+
+            <!-- Organic Wave Graphic (Bottom Right) -->
+            <div class="absolute -bottom-1 -right-1 w-44 sm:w-52 h-32 sm:h-38 pointer-events-none overflow-hidden">
+              <svg viewBox="0 0 240 180" class="w-full h-full" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="theme-wave-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#146B5C" />
+                    <stop offset="50%" stop-color="#2C8675" />
+                    <stop offset="100%" stop-color="#72B5A7" />
+                  </linearGradient>
+                </defs>
+                <path d="M 0,180 Q 70,80 240,40 L 240,180 Z" fill="url(#theme-wave-grad)" opacity="0.85" />
+              </svg>
+            </div>
+          </a>
+
+          <!-- Card 2: IT Lifecycle Services & Destruction (Eucalyptus Teal-Green + Connected Cubes) -->
+          <a
+            href="/it-lifecycle-services-destruction"
+            class="lg:col-span-7 group relative flex flex-col justify-between bg-[#DCEEE7] hover:bg-[#CEE8DF] rounded-2xl sm:rounded-3xl p-6 sm:p-7 lg:p-8 min-h-[210px] sm:min-h-[230px] border border-[#146B5C]/10 hover:border-[#146B5C]/30 hover:shadow-[0_16px_35px_rgba(20,107,92,0.12)] transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden"
+          >
+            <!-- Content -->
+            <div class="relative z-10 space-y-2 max-w-xs sm:max-w-sm">
+              <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 tracking-tight group-hover:text-[#146B5C] transition-colors">
+                IT Lifecycle &amp; Destruction
+              </h3>
+              <p class="text-sm sm:text-base text-slate-800 leading-relaxed font-semibold">
+                ADISA 8.0 certified ITAD, verified data sanitisation, hardware remarketing rebates, and zero-to-landfill recycling.
+              </p>
+            </div>
+
+            <!-- Bottom Link CTA -->
+            <div class="relative z-10 pt-4 mt-auto flex items-center gap-1.5 text-xs font-bold text-[#146B5C] group-hover:text-[#0D5549]">
+              <span>Explore Division</span>
+              <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </div>
+
+            <!-- Connected Cubes Graphic (Right Side - Theme Green Lifecycle Nodes) -->
+            <div class="hidden sm:flex absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-40 sm:w-48 h-44 sm:h-52 items-center justify-center pointer-events-none select-none">
+              <svg viewBox="0 0 180 220" class="w-full h-full" fill="none">
+                <line x1="50" y1="80" x2="50" y2="140" stroke="#146B5C" stroke-width="7" stroke-linecap="round" opacity="0.75" />
+                <line x1="50" y1="40" x2="180" y2="40" stroke="#60A99C" stroke-width="5" stroke-linecap="round" stroke-dasharray="8 8" opacity="0.6" />
+                <line x1="50" y1="180" x2="180" y2="180" stroke="#60A99C" stroke-width="5" stroke-linecap="round" stroke-dasharray="8 8" opacity="0.6" />
+
+                <!-- Top Left Cube -->
+                <g transform="translate(15, 10)">
+                  <polygon points="35,0 70,20 70,55 35,75 0,55 0,20" fill="#B3DDD3" stroke="#146B5C" stroke-width="5.5" stroke-linejoin="round" />
+                  <polyline points="0,20 35,40 70,20" stroke="#146B5C" stroke-width="5.5" stroke-linejoin="round" />
+                  <line x1="35" y1="40" x2="35" y2="75" stroke="#146B5C" stroke-width="5.5" stroke-linejoin="round" />
+                </g>
+
+                <!-- Bottom Left Cube -->
+                <g transform="translate(15, 150)">
+                  <polygon points="35,0 70,20 70,55 35,75 0,55 0,20" fill="#B3DDD3" stroke="#146B5C" stroke-width="5.5" stroke-linejoin="round" />
+                  <polyline points="0,20 35,40 70,20" stroke="#146B5C" stroke-width="5.5" stroke-linejoin="round" />
+                  <line x1="35" y1="40" x2="35" y2="75" stroke="#146B5C" stroke-width="5.5" stroke-linejoin="round" />
+                </g>
+
+                <!-- Right Faded Cubes -->
+                <g transform="translate(145, 10)" opacity="0.45">
+                  <polygon points="25,0 50,15 50,40 25,55 0,40 0,15" fill="#C5E8E0" stroke="#48998C" stroke-width="4.5" stroke-linejoin="round" />
+                  <polyline points="0,15 25,30 50,15" stroke="#48998C" stroke-width="4.5" stroke-linejoin="round" />
+                  <line x1="25" y1="30" x2="25" y2="55" stroke="#48998C" stroke-width="4.5" stroke-linejoin="round" />
+                </g>
+                <g transform="translate(145, 150)" opacity="0.45">
+                  <polygon points="25,0 50,15 50,40 25,55 0,40 0,15" fill="#C5E8E0" stroke="#48998C" stroke-width="4.5" stroke-linejoin="round" />
+                  <polyline points="0,15 25,30 50,15" stroke="#48998C" stroke-width="4.5" stroke-linejoin="round" />
+                  <line x1="25" y1="30" x2="25" y2="55" stroke="#48998C" stroke-width="4.5" stroke-linejoin="round" />
+                </g>
+              </svg>
+            </div>
+          </a>
+        </div>
+
+        <!-- Row 2: Card 3 (7 cols) + Card 4 (5 cols) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
+          <!-- Card 3: Secure Shredding & Document Integrity (Recycle Leaf Green + Concentric Rings) -->
+          <a
+            href="/secure-shredding-document-integrity"
+            class="lg:col-span-7 group relative flex flex-col justify-between bg-[#EAF3E4] hover:bg-[#DEEED6] rounded-2xl sm:rounded-3xl p-6 sm:p-7 lg:p-8 min-h-[210px] sm:min-h-[230px] border border-emerald-800/10 hover:border-emerald-800/30 hover:shadow-[0_16px_35px_rgba(30,107,60,0.12)] transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden"
+          >
+            <!-- Content -->
+            <div class="relative z-10 space-y-2 max-w-xs sm:max-w-sm">
+              <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 tracking-tight group-hover:text-[#1E6B39] transition-colors">
+                Secure Shredding &amp; Integrity
+              </h3>
+              <p class="text-sm sm:text-base text-slate-800 leading-relaxed font-semibold">
+                BS EN 15713 accredited mobile on-site and off-site destruction, eliminating data compromise risk for compliance.
+              </p>
+            </div>
+
+            <!-- Bottom Link CTA -->
+            <div class="relative z-10 pt-4 mt-auto flex items-center gap-1.5 text-xs font-bold text-[#1E6B39] group-hover:text-[#134F28]">
+              <span>Explore Division</span>
+              <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </div>
+
+            <!-- Graphic: Certified Secure Document Shredding & Closed-Loop Recycling (Properly Framed & Visible) -->
+            <div class="absolute right-3 sm:right-7 lg:right-9 top-1/2 -translate-y-1/2 w-32 sm:w-38 lg:w-42 h-32 sm:h-38 lg:h-42 flex items-center justify-center pointer-events-none select-none opacity-80 sm:opacity-100">
+              <svg viewBox="0 0 160 160" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="shred-grad-tech" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#146B5C" />
+                    <stop offset="100%" stop-color="#1E7A45" />
+                  </linearGradient>
+                  <linearGradient id="shred-strip-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#1E7A45" />
+                    <stop offset="70%" stop-color="#48BB78" stop-opacity="0.8" />
+                    <stop offset="100%" stop-color="#81E6D9" stop-opacity="0.2" />
+                  </linearGradient>
+                  <filter id="card3-glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1E7A45" flood-opacity="0.12" />
+                  </filter>
+                </defs>
+
+                <!-- Soft Outer Eco Halo Ring -->
+                <circle cx="80" cy="80" r="72" stroke="#146B5C" stroke-width="1.5" stroke-dasharray="4 4" stroke-opacity="0.25" />
+                <circle cx="80" cy="80" r="62" fill="#1E7A45" fill-opacity="0.05" />
+
+                <!-- Document Body (Upper Half) -->
+                <g filter="url(#card3-glow)" transform="translate(46, 22)">
+                  <!-- White Document Body with Emerald Border -->
+                  <path d="M 0 5 C 0 2.2 2.2 0 5 0 L 46 0 C 47.3 0 48.6 0.5 49.5 1.5 L 66.5 18.5 C 67.5 19.4 68 20.7 68 22 L 68 50 L 0 50 Z" fill="#FFFFFF" stroke="#146B5C" stroke-width="3" stroke-linejoin="round" />
+                  <!-- Folded Corner -->
+                  <path d="M 46 0 L 46 16 C 46 19.3 48.7 22 52 22 L 68 22" fill="#DCF0E6" stroke="#146B5C" stroke-width="2.5" stroke-linejoin="round" />
+
+                  <!-- Certified Security Shield Badge on Document -->
+                  <circle cx="34" cy="24" r="11" fill="#146B5C" />
+                  <path d="M 30 24 L 33 27 L 39 21" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+
+                  <!-- High-Torque Shredding Cutter Bar -->
+                  <line x1="-5" y1="50" x2="73" y2="50" stroke="#1E7A45" stroke-width="3.5" stroke-linecap="round" />
+                  <circle cx="-5" cy="50" r="2.5" fill="#1E7A45" />
+                  <circle cx="73" cy="50" r="2.5" fill="#1E7A45" />
+
+                  <!-- Precision Micro-Shredded Strips Flowing Downward -->
+                  <rect x="7" y="52" width="7" height="40" rx="2" fill="url(#shred-strip-grad)" />
+                  <rect x="20" y="52" width="7" height="50" rx="2" fill="url(#shred-strip-grad)" />
+                  <rect x="33" y="52" width="7" height="46" rx="2" fill="url(#shred-strip-grad)" />
+                  <rect x="46" y="52" width="7" height="52" rx="2" fill="url(#shred-strip-grad)" />
+                  <rect x="58" y="52" width="7" height="38" rx="2" fill="url(#shred-strip-grad)" />
+                </g>
+
+                <!-- Left Closed-Loop Recycling Arrow -->
+                <path d="M 36 122 C 22 106 18 84 25 62" stroke="#1E7A45" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 3" />
+                <polygon points="26,56 20,66 31,64" fill="#1E7A45" />
+
+                <!-- Right Closed-Loop Recycling Arrow -->
+                <path d="M 124 122 C 138 106 142 84 135 62" stroke="#1E7A45" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 3" />
+                <polygon points="134,56 129,64 140,66" fill="#1E7A45" />
+
+                <!-- Bottom 100% Zero-Landfill Loop Arrow -->
+                <path d="M 52 136 C 68 144 92 144 108 136" stroke="#1E7A45" stroke-width="3" stroke-linecap="round" />
+                <polygon points="115,134 104,132 108,142" fill="#1E7A45" />
+              </svg>
+            </div>
+          </a>
+
+          <!-- Card 4: Moving & Relocation Services (Eco Botanical Green + Glowing Orbs) -->
+          <a
+            href="/moving-relocation-services"
+            class="lg:col-span-5 group relative flex flex-col justify-between bg-[#E3EFE9] hover:bg-[#D5EAE0] rounded-2xl sm:rounded-3xl p-6 sm:p-7 lg:p-8 min-h-[210px] sm:min-h-[230px] border border-[#146B5C]/10 hover:border-[#146B5C]/30 hover:shadow-[0_16px_35px_rgba(20,107,92,0.12)] transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden"
+          >
+            <!-- Glowing Spheres Graphic (Eco Green Orbs) -->
+            <div class="absolute top-4 right-8 w-18 sm:w-20 h-18 sm:h-20 rounded-full bg-gradient-to-br from-[#5BBF92] to-[#1D7953] opacity-60 blur-xs pointer-events-none"></div>
+            <div class="absolute -bottom-8 -left-8 w-28 sm:w-32 h-28 sm:h-32 rounded-full bg-gradient-to-tr from-[#78D3A8] to-[#258B60] opacity-50 blur-xs pointer-events-none"></div>
+
+            <!-- Content -->
+            <div class="relative z-10 space-y-2">
+              <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 tracking-tight group-hover:text-[#146B5C] transition-colors">
+                Moving &amp; Relocations
+              </h3>
+              <p class="text-sm sm:text-base text-slate-800 leading-relaxed max-w-xs sm:max-w-sm font-semibold">
+                Mission-critical server rack migrations, sensitive lab transports, and commercial moves with zero downtime.
+              </p>
+            </div>
+
+            <!-- Bottom Link CTA -->
+            <div class="relative z-10 pt-4 mt-auto flex items-center gap-1.5 text-xs font-bold text-[#146B5C] group-hover:text-[#0D5549]">
+              <span>Explore Division</span>
+              <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {/* Section 5 â€” Value: Helping You to Drive Value
+  <Section theme="sage" className="relative overflow-hidden">
+    <Container className="relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 space-y-6">
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Commercial &amp; ESG Value</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight leading-tight">
+            Helping You to Drive Value
+          </h2>
+          <p class="text-base sm:text-lg text-brand-blue leading-relaxed">
+            Rather than viewing IT asset retirement and records retention merely as operational overhead, Techsteps unlocks tangible commercial value. We transform retired hardware into corporate budget rebates through vetted B2B remarketing while generating certified Scope 3 carbon savings.
+          </p>
+          <div class="space-y-3 pt-2 text-sm text-brand-blue">
+            <div class="flex items-center gap-3">
+              <span class="h-2 w-2 rounded-full bg-brand-accent"></span>
+              <span>Direct remarketing revenue returns on enterprise servers, laptops, and networking switches</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="h-2 w-2 rounded-full bg-brand-accent"></span>
+              <span>Substantial reduction in physical office rental overhead through archive scanning and vaulting</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="h-2 w-2 rounded-full bg-brand-accent"></span>
+              <span>Defensible immunity from ICO data breach fines and environmental non-compliance penalties</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <div class="p-8 rounded-2xl bg-white border border-brand-border shadow-sm space-y-6">
+            <h3 class="text-xl font-bold text-brand-navy">Verified Circular Economics</h3>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="p-4 rounded-xl bg-brand-slate border border-brand-border">
+                <span class="text-3xl font-black text-brand-accent">100%</span>
+                <p class="text-xs text-brand-navy mt-1 font-semibold">Zero-to-Landfill</p>
+                <p class="text-[11px] text-brand-muted mt-0.5">All electronic materials recycled through authorized UK smelters.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-brand-slate border border-brand-border">
+                <span class="text-3xl font-black text-brand-accent">Scope 3</span>
+                <p class="text-xs text-brand-navy mt-1 font-semibold">Carbon Reporting</p>
+                <p class="text-[11px] text-brand-muted mt-0.5">Quantified GHG emissions avoided via hardware lifecycle extension.</p>
+              </div>
+            </div>
+            <div class="pt-2">
+              <a
+                href="/sustainability"
+                class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-accent hover:text-brand-accent-hover transition-colors"
+              >
+                <span>Read our complete Sustainability Commitments &rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Proof: operational metrics follow our sustainability commitment. -->
+  <StatCounter stats={statistics} theme="light" />
+  */}
+
+  <!-- Core Service Pillars -->
+  <section id="core-pillars" class="relative pt-12 pb-16 sm:pb-20 bg-white overflow-hidden border-t border-slate-100">
+    <Container className="relative z-10">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-16">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-[1.15]">
+          Our Core Service Pillars
+        </h2>
+        <p class="text-xs sm:text-sm font-semibold tracking-wider text-slate-500 uppercase">
+          Guaranteed Accountability Across Every Asset
+        </p>
+      </div>
+
+      <!-- 3 Open Columns with Numbers 01, 02, 03 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 max-w-5xl mx-auto text-center">
+        <!-- Column 1: Security -->
+        <div class="space-y-3">
+          <div class="text-4xl sm:text-5xl lg:text-6xl font-black font-display text-[#146B5C] leading-none">
+            01
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold font-display text-brand-navy tracking-tight">
+            Security
+          </h3>
+          <p class="text-sm sm:text-base text-slate-700 leading-relaxed max-w-xs mx-auto font-semibold">
+            We protect your information, IT assets and sensitive materials through secure, controlled processes.
+          </p>
+        </div>
+
+        <!-- Column 2: Sustainability -->
+        <div class="space-y-3">
+          <div class="text-4xl sm:text-5xl lg:text-6xl font-black font-display text-[#146B5C] leading-none">
+            02
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold font-display text-brand-navy tracking-tight">
+            Sustainability
+          </h3>
+          <p class="text-sm sm:text-base text-slate-700 leading-relaxed max-w-xs mx-auto font-semibold">
+            We promote responsible reuse, recovery and recycling to reduce environmental impact.
+          </p>
+        </div>
+
+        <!-- Column 3: Reliability -->
+        <div class="space-y-3">
+          <div class="text-4xl sm:text-5xl lg:text-6xl font-black font-display text-[#146B5C] leading-none">
+            03
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold font-display text-brand-navy tracking-tight">
+            Reliability
+          </h3>
+          <p class="text-sm sm:text-base text-slate-700 leading-relaxed max-w-xs mx-auto font-semibold">
+            We deliver dependable, end-to-end services with clear processes, accountability and professional support.
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-8 sm:pt-10 text-center">
+        <a
+          href="/services"
+          class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-brand-navy hover:bg-brand-blue text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+        >
+          <span>Explore All 27 Certified Services &rarr;</span>
+        </a>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Section 12 — Process: Visual Lifecycle -->
+  <Section theme="slate" padding="py-8 md:py-12">
+    <Container>
+      <ProcessSteps />
+    </Container>
+  </Section>
+
+  <!-- Section 13 — Sectors We Serve -->
+  <Section theme="slate" id="sectors" padding="py-8 md:py-12">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-8">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#146B5C]">INDUSTRIES WE SERVE</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-brand-navy tracking-tight">
+          Supporting Every Industry. Securing Every Asset.
+        </h2>
+        <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-medium">
+          From highly regulated environments to fast-moving enterprises, we deliver secure, sustainable and reliable information and IT lifecycle solutions tailored to your industry.
+        </p>
+      </div>
+
+      <SectorGrid sectors={sectors} />
+    </Container>
+  </Section>
+
+
+  <!-- Section 15 — Homepage Final CTA -->
+  <Section theme="slate" padding="py-10 md:py-14" className="relative overflow-hidden border-t border-slate-200/80">
+    <Container className="relative z-10 text-center max-w-4xl mx-auto space-y-8">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
+        Ready to manage your technology lifecycle more responsibly?
+      </h2>
+      <p class="text-base sm:text-lg text-slate-800 max-w-2xl mx-auto leading-relaxed font-medium">
+        Speak with our UK logistics directors to arrange a secure collection, schedule an on-site audit, or obtain a certified quote.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+        <a
+          href="/request-a-quote"
+          class="px-8 py-4 rounded-xl bg-brand-navy hover:bg-brand-blue text-white text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+        >
+          Request a Quote
+        </a>
+        <a
+          href="/contact"
+          class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 text-brand-navy text-base font-bold border border-slate-300 shadow-xs hover:shadow-sm transition-all duration-200"
+        >
+          Contact Us
+        </a>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Interactive Story Journey Hover & Click Script -->
+  <script is:inline>
+    (() => {
+      const initStoryHover = () => {
+        const container = document.getElementById('journey-story-container');
+        if (!container) return;
+
+        const cards = Array.from(container.querySelectorAll('.story-card'));
+        if (!cards.length) return;
+
+        const activateCard = (targetCard) => {
+          cards.forEach((card) => {
+            const drawer = card.querySelector('.story-drawer');
+            const badge = card.querySelector('.story-badge');
+
+            if (card === targetCard) {
+              card.classList.add('active', 'shadow-md');
+              card.classList.remove('shadow-xs');
+
+              if (badge) {
+                badge.classList.add('bg-brand-accent', 'text-white');
+                badge.classList.remove('bg-slate-100', 'text-brand-navy', 'border', 'border-slate-200');
+              }
+              if (drawer) {
+                drawer.style.maxHeight = '420px';
+                drawer.style.opacity = '1';
+              }
+            } else {
+              card.classList.remove('active', 'shadow-md');
+              card.classList.add('shadow-xs');
+
+              if (badge) {
+                badge.classList.remove('bg-brand-accent', 'text-white');
+                badge.classList.add('bg-slate-100', 'text-brand-navy', 'border', 'border-slate-200');
+              }
+              if (drawer) {
+                drawer.style.maxHeight = '0px';
+                drawer.style.opacity = '0';
+              }
+            }
+          });
+        };
+
+        const deactivateAll = () => {
+          cards.forEach((card) => {
+            const drawer = card.querySelector('.story-drawer');
+            const badge = card.querySelector('.story-badge');
+
+            card.classList.remove('active', 'shadow-md');
+            card.classList.add('shadow-xs');
+
+            if (badge) {
+              badge.classList.remove('bg-brand-accent', 'text-white');
+              badge.classList.add('bg-slate-100', 'text-brand-navy', 'border', 'border-slate-200');
+            }
+            if (drawer) {
+              drawer.style.maxHeight = '0px';
+              drawer.style.opacity = '0';
+            }
+          });
+        };
+
+        cards.forEach((card) => {
+          card.addEventListener('mouseenter', () => {
+            activateCard(card);
+          });
+
+          card.addEventListener('mouseleave', () => {
+            deactivateAll();
+          });
+
+          card.addEventListener('click', () => {
+            if (card.classList.contains('active')) {
+              deactivateAll();
+            } else {
+              activateCard(card);
+            }
+          });
+        });
+
+        // Ensure container mouseleave also closes any open card
+        container.addEventListener('mouseleave', () => {
+          deactivateAll();
+        });
+
+        // Initial state: all cards closed, image shows strictly on hover
+        deactivateAll();
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initStoryHover);
+      } else {
+        initStoryHover();
+      }
+    })();
+  </script>
+</BaseLayout>

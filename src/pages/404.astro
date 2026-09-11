@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import { divisions } from '../lib/sanity/data';
+---
+
+<BaseLayout
+  title="404 — Page Not Found | Techsteps UK"
+  description="The requested page could not be found. Explore Techsteps certified IT recycling, document archiving, and relocation services."
+  noIndex={true}
+>
+  <Section theme="white" className="py-24 md:py-32">
+    <Container className="text-center max-w-2xl mx-auto space-y-6">
+      <span class="inline-block px-3 py-1 rounded-md bg-red-100 text-red-800 text-xs font-bold uppercase tracking-wider">
+        Error 404 &bull; Page Not Located
+      </span>
+
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-brand-navy tracking-tight">
+        Page Not Found
+      </h1>
+
+      <p class="text-base text-slate-600 leading-relaxed">
+        The resource you requested may have moved as part of our website rebuild, or the address may have been typed incorrectly.
+      </p>
+
+      <!-- Useful Quick Links -->
+      <div class="pt-6 border-t border-slate-200 text-left space-y-4">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 text-center">
+          Jump Directly to Our Operational Divisions:
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {divisions.map((div) => (
+            <a
+              href={`/${div.slug}`}
+              class="p-3 rounded-lg bg-brand-slate hover:bg-brand-accent hover:text-white text-xs font-bold text-slate-800 border border-slate-200 transition-colors block text-center"
+            >
+              {div.title} &rarr;
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="pt-6 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/"
+          class="px-6 py-3 rounded-lg bg-brand-navy hover:bg-brand-blue text-white text-sm font-bold shadow-md transition-all"
+        >
+          Return to Homepage
+        </a>
+        <a
+          href="/request-a-quote"
+          class="px-6 py-3 rounded-lg bg-brand-accent hover:bg-brand-accent-hover text-white text-sm font-bold shadow-md transition-all"
+        >
+          Request a Quote
+        </a>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

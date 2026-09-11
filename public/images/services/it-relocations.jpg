@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B192C" />
+      <stop offset="60%" stop-color="#1E3E62" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <pattern id="mesh" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#008170" fill-opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect width="800" height="450" fill="url(#mesh)"/>
+  
+  <!-- Subtle enterprise graphic elements -->
+  <g opacity="0.15">
+    <circle cx="700" cy="100" r="180" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="8 8"/>
+    <circle cx="700" cy="100" r="120" fill="none" stroke="#008170" stroke-width="3"/>
+    <rect x="50" y="280" width="220" height="120" rx="12" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+  </g>
+
+  <!-- Content Box -->
+  <rect x="60" y="160" width="680" height="160" rx="16" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)"/>
+  <text x="90" y="210" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="700" fill="#008170" letter-spacing="2">MOVING & RELOCATIONS</text>
+  <text x="90" y="260" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="28" font-weight="800" fill="#FFFFFF">IT Relocations Specialist</text>
+  <text x="90" y="295" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="500" fill="#94A3B8">Techsteps UK &bull; Certified Enterprise Operations</text>
+</svg>

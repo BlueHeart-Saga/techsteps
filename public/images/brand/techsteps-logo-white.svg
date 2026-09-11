@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" fill="none" class="h-10 w-auto">
+  <!-- 3D Logo Mark -->
+  <image href="/images/brand/logo.png" x="2" y="4" width="56" height="56" />
+
+  <!-- Typography -->
+  <text x="64" y="38" font-family="'Big Shoulders Display', system-ui, sans-serif" font-size="30" font-weight="800" letter-spacing="0.01em" fill="#2EC458">TECH<tspan fill="#FFFFFF">STEPS</tspan></text>
+  <text x="66" y="51" font-family="'IBM Plex Mono', monospace" font-size="9" font-weight="500" letter-spacing="0.16em" fill="#94A3B8">SECURE LIFECYCLE SOLUTIONS</text>
+</svg>

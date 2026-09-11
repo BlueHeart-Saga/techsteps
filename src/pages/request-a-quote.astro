@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import PageHero from '../components/hero/PageHero.astro';
+import QuoteForm from '../components/forms/QuoteForm.astro';
+import { siteSettings } from '../lib/sanity/data';
+
+const breadcrumbs = [
+  { name: 'Request a Quote', url: '/request-a-quote' },
+];
+
+const serviceParam = Astro.url.searchParams.get('service') || '';
+const sectorParam = Astro.url.searchParams.get('sector') || '';
+---
+
+<BaseLayout
+  title="Request a Quote | Certified ITAD & Lifecycle Services | Techsteps UK"
+  description="Request a formal commercial proposal for IT asset disposition, secure shredding, archive storage, or specialist data centre relocations. Fast 2-hour UK response."
+  hasHeroHeader={true}
+>
+  <PageHero
+    title="Request a Quote"
+    breadcrumbs={breadcrumbs}
+    dividerColor="#f1f4ef"
+  />
+
+  <section class="relative bg-[#f1f4ef] pt-8 sm:pt-12 pb-20 sm:pb-24">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        <!-- Main Form Column -->
+        <div class="lg:col-span-8">
+          <QuoteForm preselectedService={serviceParam} preselectedSector={sectorParam} />
+        </div>
+
+        <!-- Sidebar: What to Expect -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="p-6 sm:p-7 rounded-3xl bg-white/80 backdrop-blur-xs border border-slate-200/90 space-y-5 shadow-xs">
+            <h3 class="text-xl font-extrabold font-display text-slate-900 border-b border-slate-200 pb-3 tracking-tight">
+              What Happens Next?
+            </h3>
+            <ol class="space-y-4 text-sm">
+              <li class="flex items-start gap-3.5">
+                <span class="w-7 h-7 rounded-full bg-[#146B5C] text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">1</span>
+                <div class="space-y-0.5">
+                  <strong class="text-slate-900 block font-bold text-sm sm:text-base">Initial Review (Within 2 Hours)</strong>
+                  <p class="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">Our commercial team reviews asset quantities, access specifications, and compliance requirements.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3.5">
+                <span class="w-7 h-7 rounded-full bg-[#146B5C] text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">2</span>
+                <div class="space-y-0.5">
+                  <strong class="text-slate-900 block font-bold text-sm sm:text-base">Scoping Call or On-Site Survey</strong>
+                  <p class="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">For complex data centres or multi-tonne archives, we conduct a rapid technical survey.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3.5">
+                <span class="w-7 h-7 rounded-full bg-[#146B5C] text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">3</span>
+                <div class="space-y-0.5">
+                  <strong class="text-slate-900 block font-bold text-sm sm:text-base">Transparent Commercial Proposal</strong>
+                  <p class="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">Receive a transparent quotation detailing logistics, certified destruction SLAs, and estimated remarketing rebates.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3.5">
+                <span class="w-7 h-7 rounded-full bg-[#146B5C] text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">4</span>
+                <div class="space-y-0.5">
+                  <strong class="text-slate-900 block font-bold text-sm sm:text-base">Scheduled Execution &amp; Certification</strong>
+                  <p class="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">Tracked collection by BS 7858 vetted personnel with serialized destruction certificates issued upon completion.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Direct Phone Assistance -->
+          <div class="p-6 sm:p-7 rounded-3xl bg-[#146B5C] text-white space-y-3 shadow-md">
+            <h4 class="text-sm font-bold font-mono tracking-widest text-emerald-200 uppercase">Prefer to Speak by Phone?</h4>
+            <p class="text-xs sm:text-sm text-emerald-50/90 font-medium leading-relaxed">
+              Speak directly with our senior logistics desk for urgent collections or bespoke framework tenders:
+            </p>
+            <p class="pt-1">
+              <a href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`} class="text-xl font-extrabold text-white hover:text-emerald-200 transition-colors">
+                {siteSettings.phone}
+              </a>
+            </p>
+            <p class="text-xs text-emerald-100/80 font-mono">Monday – Friday: 08:00 – 18:00 GMT</p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

@@ -1,0 +1,76 @@
+---
+import type { Service } from '../../lib/sanity/types';
+
+interface Props {
+  service: Service;
+  showDivision?: boolean;
+}
+
+const { service, showDivision = true } = Astro.props;
+---
+
+<div class="group flex flex-col bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-brand-accent/50 transition-all duration-300 overflow-hidden transform hover:-translate-y-1">
+  <!-- Visual Accent Header with Category Badge -->
+  <div class="h-44 relative bg-gradient-to-br from-brand-navy via-brand-blue to-slate-900 overflow-hidden p-6 flex flex-col justify-between">
+    <!-- Subtle Grid Effect -->
+    <div class="absolute inset-0 bg-[radial-gradient(#008170_1px,transparent_1px)] [background-size:16px_16px] opacity-20 group-hover:opacity-30 transition-opacity"></div>
+
+    <!-- Category Pill -->
+    <div class="relative z-10 flex items-center justify-between">
+      {showDivision && (
+        <span class="px-2.5 py-1 rounded-md bg-white/15 backdrop-blur-md text-white text-[11px] font-semibold border border-white/20">
+          {service.divisionTitle}
+        </span>
+      )}
+      <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+    </div>
+
+    <!-- Icon & Service Title in Card Header -->
+    <div class="relative z-10">
+      <div class="h-10 w-10 rounded-xl bg-brand-accent/20 border border-brand-accent/30 text-emerald-400 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Body -->
+  <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+    <div class="space-y-2">
+      <h3 class="text-xl font-bold text-brand-navy group-hover:text-brand-accent transition-colors">
+        <a href={`/services/${service.slug}`} class="focus:outline-none focus:underline">
+          {service.title}
+        </a>
+      </h3>
+
+      <p class="text-sm text-slate-600 line-clamp-3 leading-relaxed">
+        {service.summary}
+      </p>
+    </div>
+
+    <!-- Key Benefit Preview Tag -->
+    {service.keyBenefits && service.keyBenefits.length > 0 && (
+      <div class="pt-2 border-t border-slate-100 text-xs text-slate-500 flex items-center gap-1.5">
+        <svg class="h-4 w-4 text-brand-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        <span class="truncate">{service.keyBenefits[0]}</span>
+      </div>
+    )}
+
+    <!-- Strictly Descriptive CTA (Section 10 Rule) -->
+    <div class="pt-2">
+      <a
+        href={`/services/${service.slug}`}
+        class="inline-flex items-center gap-2 text-sm font-bold text-brand-blue group-hover:text-brand-accent transition-colors"
+        aria-label={`Learn about ${service.title}`}
+      >
+        <span>Learn about {service.title}</span>
+        <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>

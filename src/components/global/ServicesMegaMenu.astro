@@ -1,0 +1,421 @@
+---
+import { divisions, services } from '../../lib/sanity/data';
+
+// Map each division to its services
+const div1 = divisions.find(d => d.slug === 'information-management') || divisions[0];
+const div2 = divisions.find(d => d.slug === 'it-lifecycle-services-destruction') || divisions[1];
+const div3 = divisions.find(d => d.slug === 'secure-shredding-document-integrity') || divisions[2];
+const div4 = divisions.find(d => d.slug === 'moving-relocation-services') || divisions[3];
+
+const div1Services = services.filter(s => s.divisionSlug === div1.slug);
+const div2Services = services.filter(s => s.divisionSlug === div2.slug);
+const div3Services = services.filter(s => s.divisionSlug === div3.slug);
+const div4Services = services.filter(s => s.divisionSlug === div4.slug);
+---
+
+<!-- Services Mega Menu Floating Card (Full-Width 4-Division Layout, No Right Images) -->
+<div
+  id="services-megamenu-panel"
+  class="hidden fixed inset-x-0 z-50 transition-all duration-200 transform opacity-0 -translate-y-2 pointer-events-none px-4 sm:px-6 lg:px-8 max-h-[calc(100vh-90px)] overflow-y-auto"
+  role="region"
+  aria-label="Services Mega Navigation"
+>
+  <div class="relative max-w-[1540px] mx-auto bg-[#a0cc9d] rounded-[28px] sm:rounded-[32px] shadow-2xl border border-black/10 py-10 sm:py-12 lg:py-16 px-8 sm:px-12 lg:px-16 min-h-[580px] sm:min-h-[640px] lg:min-h-[700px] flex flex-col justify-between overflow-hidden">
+    <!-- Custom Services Background Graphic (/images/navabar/image.png) -->
+    <div
+      class="absolute inset-0 bg-no-repeat pointer-events-none select-none z-0 opacity-95"
+      style="background-image: url('/images/navabar/image.png'); background-position: left bottom; background-size: contain; transform: scaleX(-1);"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Soft Top Vignette in Matching #a0cc9d -->
+    <div class="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#a0cc9d] via-[#a0cc9d]/80 to-transparent pointer-events-none select-none z-0" aria-hidden="true"></div>
+
+    <!-- 4 Division Service Columns (All 27 Services Across Full Width) -->
+    <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 w-full flex-1">
+      <!-- Division 1: Information Management (7 Services) -->
+      <div class="space-y-4">
+        <a href={`/${div1.slug}`} class="block text-xs sm:text-sm font-bold text-[#143224] hover:text-black uppercase tracking-wider transition-colors pb-1 border-b border-black/15">
+          {div1.title}
+        </a>
+        <ul class="space-y-3">
+          {div1Services.map((s) => (
+            <li>
+              <a href={`/services/${s.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0f241a] hover:text-black transition-colors leading-snug py-0.5">
+                {s.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Division 2: IT Lifecycle Services & Destruction (6 Services) -->
+      <div class="space-y-4">
+        <a href={`/${div2.slug}`} class="block text-xs sm:text-sm font-bold text-[#143224] hover:text-black uppercase tracking-wider transition-colors pb-1 border-b border-black/15">
+          {div2.title}
+        </a>
+        <ul class="space-y-3">
+          {div2Services.map((s) => (
+            <li>
+              <a href={`/services/${s.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0f241a] hover:text-black transition-colors leading-snug py-0.5">
+                {s.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Division 3: Secure Shredding & Document Integrity (8 Services) -->
+      <div class="space-y-4">
+        <a href={`/${div3.slug}`} class="block text-xs sm:text-sm font-bold text-[#143224] hover:text-black uppercase tracking-wider transition-colors pb-1 border-b border-black/15">
+          {div3.title}
+        </a>
+        <ul class="space-y-3">
+          {div3Services.map((s) => (
+            <li>
+              <a href={`/services/${s.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0f241a] hover:text-black transition-colors leading-snug py-0.5">
+                {s.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Division 4: Moving & Relocation Services (6 Services) -->
+      <div class="space-y-4">
+        <a href={`/${div4.slug}`} class="block text-xs sm:text-sm font-bold text-[#143224] hover:text-black uppercase tracking-wider transition-colors pb-1 border-b border-black/15">
+          {div4.title}
+        </a>
+        <ul class="space-y-3">
+          {div4Services.map((s) => (
+            <li>
+              <a href={`/services/${s.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0f241a] hover:text-black transition-colors leading-snug py-0.5">
+                {s.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Utility Footer -->
+    <div class="relative z-10 mt-10 lg:mt-12 pt-6 border-t border-black/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <div class="flex items-center gap-2 bg-white/90 backdrop-blur-xs px-4 py-2 rounded-full border border-black/10 shadow-xs">
+        <span class="h-2 w-2 rounded-full bg-emerald-600"></span>
+        <span class="font-medium text-slate-800">27 Certified Services &bull; 4 Specialized Divisions &bull; ADISA Standard 8.0 &bull; 100% Zero-Landfill Guarantee</span>
+      </div>
+      <a href="/services" class="font-bold text-slate-900 hover:text-black flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white/95 hover:bg-white border border-black/10 shadow-xs hover:shadow-md transition-all">
+        <span>View Full Service Directory &rarr;</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Dimmed Backdrop Overlay -->
+<div
+  id="services-megamenu-backdrop"
+  class="hidden fixed inset-0 z-40 bg-black/40 backdrop-blur-xs transition-opacity duration-200 opacity-0 pointer-events-none"
+  aria-hidden="true"
+></div>
+
+<script>
+  function setupNavDropdowns() {
+    const servicesPanel = document.getElementById('services-megamenu-panel');
+    const sectorsPanel = document.getElementById('sectors-dropdown-panel');
+    const backdrop = document.getElementById('services-megamenu-backdrop');
+    const servicesToggles = document.querySelectorAll('.services-megamenu-toggle');
+    const sectorsToggles = document.querySelectorAll('.sectors-dropdown-toggle');
+
+    if (!servicesPanel || !backdrop) return;
+
+    let openMenu = null; // null | 'services' | 'sectors'
+    let closeTimer = null;
+    const GRACE_DELAY = 180; // ms buffer to traverse between triggers and panels
+
+    function updateDropdownPositions() {
+      const stickyHeader = document.getElementById('site-header');
+      const heroHeader = document.getElementById('hero-header');
+      const isStickyVisible = stickyHeader && !stickyHeader.classList.contains('-translate-y-full') && stickyHeader.getBoundingClientRect().height > 0 && stickyHeader.getBoundingClientRect().top >= 0;
+      
+      let topOffset = 80;
+      if (isStickyVisible) {
+        topOffset = stickyHeader.getBoundingClientRect().bottom;
+      } else if (heroHeader) {
+        topOffset = heroHeader.getBoundingClientRect().bottom;
+      } else if (stickyHeader) {
+        topOffset = stickyHeader.getBoundingClientRect().bottom;
+      }
+      const topPx = `${Math.max(topOffset + 8, 80)}px`;
+      if (servicesPanel) servicesPanel.style.top = topPx;
+      if (sectorsPanel) sectorsPanel.style.top = topPx;
+    }
+
+    function openServices() {
+      if (openMenu === 'sectors') {
+        closeSectors(true);
+      }
+      clearTimeout(closeTimer);
+      openMenu = 'services';
+      updateDropdownPositions();
+
+      servicesPanel.classList.remove('hidden');
+      backdrop.classList.remove('hidden');
+
+      requestAnimationFrame(() => {
+        servicesPanel.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
+        servicesPanel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        backdrop.classList.add('opacity-100', 'pointer-events-auto');
+      });
+
+      servicesToggles.forEach((btn) => {
+        btn.setAttribute('aria-expanded', 'true');
+        btn.classList.add('border-slate-900', 'text-black');
+        btn.classList.remove('border-transparent');
+        const caret = btn.querySelector('.caret-icon');
+        if (caret) {
+          caret.classList.add('rotate-180', 'text-black');
+          caret.classList.remove('text-slate-500');
+        }
+      });
+    }
+
+    function closeServices(immediate = false) {
+      if (openMenu === 'services') openMenu = null;
+
+      servicesPanel.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
+      servicesPanel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+
+      if (openMenu !== 'sectors') {
+        backdrop.classList.add('opacity-0', 'pointer-events-none');
+        backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+      }
+
+      servicesToggles.forEach((btn) => {
+        btn.setAttribute('aria-expanded', 'false');
+        if (btn.dataset.isActiveRoute !== 'true') {
+          btn.classList.remove('border-slate-900', 'text-black');
+          btn.classList.add('border-transparent');
+        }
+        const caret = btn.querySelector('.caret-icon');
+        if (caret) {
+          caret.classList.remove('rotate-180', 'text-black');
+          caret.classList.add('text-slate-500');
+        }
+      });
+
+      if (immediate) {
+        servicesPanel.classList.add('hidden');
+        if (openMenu !== 'sectors') backdrop.classList.add('hidden');
+      } else {
+        setTimeout(() => {
+          if (openMenu !== 'services') {
+            servicesPanel.classList.add('hidden');
+            if (openMenu !== 'sectors') backdrop.classList.add('hidden');
+          }
+        }, 200);
+      }
+    }
+
+    function openSectors() {
+      if (!sectorsPanel) return;
+      if (openMenu === 'services') {
+        closeServices(true);
+      }
+      clearTimeout(closeTimer);
+      openMenu = 'sectors';
+      updateDropdownPositions();
+
+      sectorsPanel.classList.remove('hidden');
+      backdrop.classList.remove('hidden');
+
+      requestAnimationFrame(() => {
+        sectorsPanel.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
+        sectorsPanel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        backdrop.classList.add('opacity-100', 'pointer-events-auto');
+      });
+
+      sectorsToggles.forEach((btn) => {
+        btn.setAttribute('aria-expanded', 'true');
+        btn.classList.add('border-slate-900', 'text-black');
+        btn.classList.remove('border-transparent');
+        const caret = btn.querySelector('.caret-icon');
+        if (caret) {
+          caret.classList.add('rotate-180', 'text-black');
+          caret.classList.remove('text-slate-500');
+        }
+      });
+    }
+
+    function closeSectors(immediate = false) {
+      if (!sectorsPanel) return;
+      if (openMenu === 'sectors') openMenu = null;
+
+      sectorsPanel.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
+      sectorsPanel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+
+      if (openMenu !== 'services') {
+        backdrop.classList.add('opacity-0', 'pointer-events-none');
+        backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+      }
+
+      sectorsToggles.forEach((btn) => {
+        btn.setAttribute('aria-expanded', 'false');
+        if (btn.dataset.isActiveRoute !== 'true') {
+          btn.classList.remove('border-slate-900', 'text-black');
+          btn.classList.add('border-transparent');
+        }
+        const caret = btn.querySelector('.caret-icon');
+        if (caret) {
+          caret.classList.remove('rotate-180', 'text-black');
+          caret.classList.add('text-slate-500');
+        }
+      });
+
+      if (immediate) {
+        sectorsPanel.classList.add('hidden');
+        if (openMenu !== 'services') backdrop.classList.add('hidden');
+      } else {
+        setTimeout(() => {
+          if (openMenu !== 'sectors') {
+            sectorsPanel.classList.add('hidden');
+            if (openMenu !== 'services') backdrop.classList.add('hidden');
+          }
+        }, 200);
+      }
+    }
+
+    function closeAll(immediate = false) {
+      clearTimeout(closeTimer);
+      closeServices(immediate);
+      closeSectors(immediate);
+    }
+
+    // Services trigger listeners
+    servicesToggles.forEach((btn) => {
+      btn.addEventListener('mouseenter', () => {
+        clearTimeout(closeTimer);
+        if (openMenu !== 'services') {
+          openServices();
+        }
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(() => {
+          if (openMenu === 'services') closeServices();
+        }, GRACE_DELAY);
+      });
+
+      // Direct click navigates naturally to /services page
+      btn.addEventListener('click', () => {
+        closeAll(true);
+      });
+    });
+
+    // Hover inside Services MegaMenu Panel
+    servicesPanel.addEventListener('mouseenter', () => {
+      clearTimeout(closeTimer);
+    });
+
+    servicesPanel.addEventListener('mouseleave', () => {
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => {
+        if (openMenu === 'services') closeServices();
+      }, GRACE_DELAY);
+    });
+
+    // Sectors trigger listeners
+    sectorsToggles.forEach((btn) => {
+      btn.addEventListener('mouseenter', () => {
+        clearTimeout(closeTimer);
+        if (openMenu !== 'sectors') {
+          openSectors();
+        }
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(() => {
+          if (openMenu === 'sectors') closeSectors();
+        }, GRACE_DELAY);
+      });
+
+      // Direct click navigates naturally to /sectors page
+      btn.addEventListener('click', () => {
+        closeAll(true);
+      });
+    });
+
+    // Hover inside Sectors Dropdown Panel
+    if (sectorsPanel) {
+      sectorsPanel.addEventListener('mouseenter', () => {
+        clearTimeout(closeTimer);
+      });
+
+      sectorsPanel.addEventListener('mouseleave', () => {
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(() => {
+          if (openMenu === 'sectors') closeSectors();
+        }, GRACE_DELAY);
+      });
+    }
+
+    // Dismiss when hovering over non-dropdown top navigation links (instant feedback)
+    document.querySelectorAll('nav a').forEach((link) => {
+      if (link.classList.contains('services-megamenu-toggle') || link.classList.contains('sectors-dropdown-toggle')) return;
+      if (link.closest('#services-megamenu-panel') || link.closest('#sectors-dropdown-panel')) return;
+      
+      link.addEventListener('mouseenter', () => {
+        if (openMenu !== null) {
+          closeAll(true);
+        }
+      });
+    });
+
+    // Outside click dismisses both
+    backdrop.addEventListener('click', () => closeAll());
+
+    document.addEventListener('click', (e) => {
+      if (!openMenu) return;
+      const target = e.target;
+      const insideServices = servicesPanel.contains(target) || Array.from(servicesToggles).some(b => b.contains(target));
+      const insideSectors = (sectorsPanel && sectorsPanel.contains(target)) || Array.from(sectorsToggles).some(b => b.contains(target));
+
+      if (!insideServices && !insideSectors) {
+        closeAll();
+      }
+    });
+
+    // Keyboard accessibility: Escape closes both
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && openMenu) {
+        closeAll();
+      }
+    });
+
+    // Close when clicking any link inside either dropdown menu
+    servicesPanel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => closeAll(true));
+    });
+
+    if (sectorsPanel) {
+      sectorsPanel.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => closeAll(true));
+      });
+    }
+
+    // Reposition Dropdown Menus on scroll & resize
+    window.addEventListener('scroll', () => {
+      if (openMenu) updateDropdownPositions();
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      if (openMenu) updateDropdownPositions();
+    }, { passive: true });
+  }
+
+  setupNavDropdowns();
+  document.addEventListener('astro:page-load', setupNavDropdowns);
+</script>

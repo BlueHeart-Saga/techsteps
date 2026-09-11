@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { name: 'Cookie Policy', url: '/cookie-policy' },
+];
+---
+
+<BaseLayout
+  title="Cookie Policy | Transparent Tracking Controls | Techsteps UK"
+  description="Techsteps UK Cookie Policy. Understand how we use essential, analytics, and preference cookies to provide a secure web experience."
+>
+  <div class="bg-brand-navy text-white py-16">
+    <Container size="narrow">
+      <Breadcrumbs items={breadcrumbs} theme="dark" />
+      <div class="space-y-4 mt-6">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Cookie Governance</span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+          Cookie Policy
+        </h1>
+        <p class="text-xs text-slate-300 font-mono">
+          Last Updated: February 2026 &bull; Compliant with PECR &amp; UK GDPR
+        </p>
+      </div>
+    </Container>
+  </div>
+
+  <Section theme="white">
+    <Container size="narrow">
+      <div class="prose max-w-none text-slate-700 space-y-6 text-sm sm:text-base leading-relaxed">
+        <h2 class="text-xl font-bold text-brand-navy">1. What Are Cookies?</h2>
+        <p>
+          Cookies are small text files stored on your browser or device when you navigate websites. They allow our server to recognise your preferences, remember session states, and compile aggregated traffic statistics.
+        </p>
+
+        <h2 class="text-xl font-bold text-brand-navy">2. Categories of Cookies We Use</h2>
+        <div class="space-y-4">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <h3 class="font-bold text-brand-navy text-base">Essential Operational Cookies</h3>
+            <p class="text-xs text-slate-600 mt-1">
+              Required for core site security, accessible form submission, and CSRF token verification. These cannot be disabled.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <h3 class="font-bold text-brand-navy text-base">Preference Cookies</h3>
+            <p class="text-xs text-slate-600 mt-1">
+              Store your consent state (`techsteps_cookie_consent`) so you are not prompted repeatedly across visits.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <h3 class="font-bold text-brand-navy text-base">Privacy-Conscious Performance Analytics</h3>
+            <p class="text-xs text-slate-600 mt-1">
+              Aggregated, anonymized metrics that measure page speed, popular service routes, and broken links without tracking individual browsing histories.
+            </p>
+          </div>
+        </div>
+
+        <h2 class="text-xl font-bold text-brand-navy">3. Managing Your Preferences</h2>
+        <p>
+          You can reset or change your cookie consent preferences at any time by clearing your browser cache or using the cookie banner displayed at the foot of the screen.
+        </p>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,187 @@
+---
+import { divisions, sectors, siteSettings } from '../../lib/sanity/data';
+import BrandLogo from './BrandLogo.astro';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="relative w-full bg-transparent mt-auto" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+
+  <!-- Scenic Skyline Transition -->
+  <div class="w-full overflow-hidden leading-none select-none pointer-events-none -mb-px">
+    <img
+      src="/images/brand/footer-skyline.png"
+      alt=""
+      aria-hidden="true"
+      class="w-full h-16 sm:h-24 md:h-28 lg:h-32 object-cover object-bottom"
+      loading="lazy"
+    />
+  </div>
+
+  <!-- Main Dark Green Body -->
+  <div class="w-full bg-[#375647] text-white pt-4 pb-14 px-4 sm:px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-6 lg:gap-8 items-start">
+        <!-- Column 1: Navigation & Socials -->
+        <div class="md:col-span-3 space-y-5">
+          <a href="/" class="inline-block focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-lg" aria-label="TechSteps Home">
+            <BrandLogo size="md" variant="light" showTagline={false} />
+          </a>
+
+          <nav aria-label="Footer Quick Links">
+            <ul class="space-y-2.5 text-sm font-medium text-slate-100/90">
+              <li>
+                <a href="/about-us" class="hover:text-emerald-300 transition-colors inline-block">About Us</a>
+              </li>
+              <li>
+                <a href="/services" class="hover:text-emerald-300 transition-colors inline-block">Services</a>
+              </li>
+              <li>
+                <a href="/sectors" class="hover:text-emerald-300 transition-colors inline-block">Sectors</a>
+              </li>
+              <li>
+                <a href="/sustainability" class="hover:text-emerald-300 transition-colors inline-block">Sustainability &amp; ESG</a>
+              </li>
+              <li>
+                <a href="/insights" class="hover:text-emerald-300 transition-colors inline-block">Insights &amp; News</a>
+              </li>
+              <li>
+                <a href="/contact" class="hover:text-emerald-300 transition-colors inline-block">Contact Us</a>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Circular Outline Social Icons -->
+          <div class="flex items-center gap-3 pt-2">
+            {siteSettings.socialLinks.linkedin && (
+              <a
+                href={siteSettings.socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="h-8 w-8 rounded-full border border-white/40 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-colors"
+                aria-label="TechSteps on LinkedIn"
+              >
+                <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              </a>
+            )}
+            {siteSettings.socialLinks.twitter && (
+              <a
+                href={siteSettings.socialLinks.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="h-8 w-8 rounded-full border border-white/40 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-colors"
+                aria-label="TechSteps on X"
+              >
+                <svg class="h-3 w-3 fill-current" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+            )}
+            <a
+              href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`}
+              class="h-8 w-8 rounded-full border border-white/40 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-colors"
+              aria-label="Call TechSteps"
+            >
+              <svg class="h-3.5 w-3.5 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Newsletter "Get Updates" -->
+        <div class="md:col-span-6 md:border-x md:border-white/20 md:px-6 lg:px-12 text-center">
+          <h3 class="font-serif text-3xl sm:text-4xl font-normal text-white tracking-tight">Get Updates</h3>
+          <p class="font-serif italic text-sm text-slate-200/90 mt-2 max-w-sm mx-auto leading-relaxed">
+            Subscribe to our newsletter to receive updates and special announcements.
+          </p>
+
+          <form class="mt-6 max-w-md mx-auto space-y-3" action="/contact" method="get">
+            <div>
+              <label for="footer-email" class="sr-only">Email address</label>
+              <input
+                id="footer-email"
+                name="email"
+                type="email"
+                required
+                placeholder="*Email"
+                class="w-full bg-transparent border border-white/40 rounded-xs px-3.5 py-2 text-sm text-white placeholder-slate-300/80 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <label for="footer-name" class="sr-only">First Name</label>
+              <input
+                id="footer-name"
+                name="name"
+                type="text"
+                placeholder="*First Name"
+                class="flex-1 min-w-0 bg-transparent border border-white/40 rounded-xs px-3.5 py-2 text-sm text-white placeholder-slate-300/80 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all"
+              />
+              <button
+                type="submit"
+                class="bg-white hover:bg-slate-100 text-[#375647] font-bold text-xs uppercase tracking-wider px-6 py-2.5 rounded-xs transition-colors shadow-sm shrink-0 cursor-pointer"
+              >
+                Sign Up
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Column 3: Contact Details & Accreditation -->
+        <div class="md:col-span-3 space-y-5 text-left md:text-right flex flex-col md:items-end justify-between">
+          <div class="space-y-4">
+            <a
+              href="/contact"
+              class="group inline-flex items-center gap-1.5 font-semibold text-white hover:text-emerald-300 transition-colors text-base"
+            >
+              <span>Send Us A Message</span>
+              <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
+            </a>
+
+            <p class="pt-1">
+              <a
+                href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`}
+                class="text-sm font-medium text-slate-100 hover:text-emerald-300 transition-colors"
+              >
+                {siteSettings.phone}
+              </a>
+            </p>
+
+            <address class="not-italic text-xs text-slate-200/80 leading-relaxed space-y-0.5">
+              <p>{siteSettings.address.street}</p>
+              <p>{siteSettings.address.city}, {siteSettings.address.county} {siteSettings.address.postcode}</p>
+            </address>
+          </div>
+
+          <!-- Accreditation Seal Stamp -->
+          <div class="pt-4">
+            <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-white/30 bg-white/5 text-slate-200 shadow-xs">
+              <svg class="h-5 w-5 text-emerald-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+              </svg>
+              <div class="text-left font-sans">
+                <p class="text-[10px] font-bold uppercase tracking-wider text-white leading-tight">ADISA &amp; ISO Accredited</p>
+                <p class="text-[9px] text-slate-300/80 leading-none">UK Zero Landfill Certified</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Legal Strip -->
+  <div class="w-full bg-[#2B4437] py-4 px-4 sm:px-6 lg:px-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-300/80 font-sans">
+      <p>&copy; {currentYear} {siteSettings.legalName}. All rights reserved.</p>
+      <div class="flex items-center space-x-6 text-xs text-slate-300/80">
+        <a href="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="/cookie-policy" class="hover:text-white transition-colors">Cookie Policy</a>
+        <a href="/terms" class="hover:text-white transition-colors">Terms of Business</a>
+      </div>
+    </div>
+  </div>
+</footer>

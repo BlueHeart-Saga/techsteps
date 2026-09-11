@@ -1,0 +1,50 @@
+---
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  theme?: 'light' | 'dark';
+}
+
+const { items, theme = 'light' } = Astro.props;
+
+const textColor = theme === 'dark' ? 'text-slate-300' : 'text-slate-500';
+const activeColor = theme === 'dark' ? 'text-white' : 'text-slate-900';
+const separatorColor = theme === 'dark' ? 'text-slate-500' : 'text-slate-400';
+---
+
+<nav aria-label="Breadcrumb" class="py-3">
+  <ol class="flex flex-wrap items-center gap-2 text-sm">
+    <li>
+      <a href="/" class={`${textColor} hover:text-brand-accent transition-colors flex items-center gap-1`}>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        <span>Home</span>
+      </a>
+    </li>
+
+    {items.map((item, index) => {
+      const isLast = index === items.length - 1;
+      return (
+        <li class="flex items-center gap-2">
+          <svg class={`h-4 w-4 ${separatorColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          {isLast ? (
+            <span class={`font-medium ${activeColor}`} aria-current="page">
+              {item.name}
+            </span>
+          ) : (
+            <a href={item.url} class={`${textColor} hover:text-brand-accent transition-colors`}>
+              {item.name}
+            </a>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>

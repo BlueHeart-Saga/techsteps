@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import { siteSettings } from '../lib/sanity/data';
+
+const breadcrumbs = [
+  { name: 'Terms of Business', url: '/terms' },
+];
+---
+
+<BaseLayout
+  title="Terms of Business | Corporate Logistics & Custody | Techsteps UK"
+  description="Techsteps UK Terms of Business. Governing commercial contracts, certified chain of custody, and environmental compliance terms."
+>
+  <div class="bg-brand-navy text-white py-16">
+    <Container size="narrow">
+      <Breadcrumbs items={breadcrumbs} theme="dark" />
+      <div class="space-y-4 mt-6">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Commercial Framework</span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+          Terms of Business
+        </h1>
+        <p class="text-xs text-slate-300 font-mono">
+          Governed under the Laws of England &amp; Wales
+        </p>
+      </div>
+    </Container>
+  </div>
+
+  <Section theme="white">
+    <Container size="narrow">
+      <div class="prose max-w-none text-slate-700 space-y-6 text-sm sm:text-base leading-relaxed">
+        <h2 class="text-xl font-bold text-brand-navy">1. Scope of Agreement</h2>
+        <p>
+          These Standard Terms of Business apply to all services provided by {siteSettings.legalName} ("Techsteps"), including IT Asset Disposition (ITAD), on-site and off-site shredding, archive storage, document scanning, and specialist business relocation services.
+        </p>
+
+        <h2 class="text-xl font-bold text-brand-navy">2. Chain of Custody &amp; Handover</h2>
+        <p>
+          Legal chain of custody commences upon signature of the joint Asset Handover Manifest by the client’s designated representative and our BS 7858 security-screened logistics operative.
+        </p>
+
+        <h2 class="text-xl font-bold text-brand-navy">3. Data Sanitisation &amp; Destruction Guarantee</h2>
+        <p>
+          Techsteps guarantees that all digital storage devices designated for destruction or erasure will be processed according to NIST 800-88 Rev 1, ADISA Standard 8.0, or DIN 66399 Level H-5 specifications. Formal Certificates of Destruction will be provided within five business days of processing completion.
+        </p>
+
+        <h2 class="text-xl font-bold text-brand-navy">4. Environmental Compliance (WEEE)</h2>
+        <p>
+          Techsteps warrants that zero unprocessed e-waste will be exported overseas and zero electronic fractions will be deposited into landfills. Full Waste Transfer Documentation will be issued compliant with the Environment Agency regulations.
+        </p>
+
+        <h2 class="text-xl font-bold text-brand-navy">5. Governing Law &amp; Jurisdiction</h2>
+        <p>
+          These Terms and any dispute or claim arising out of or in connection with them shall be governed by and construed in accordance with the law of England and Wales.
+        </p>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

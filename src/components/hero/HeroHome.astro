@@ -1,0 +1,176 @@
+---
+import BrandLogo from '../global/BrandLogo.astro';
+import WarpText from './WarpText';
+---
+
+<section class="relative w-full overflow-hidden bg-slate-950 min-h-[720px] sm:min-h-[780px] lg:min-h-[860px] flex flex-col justify-between">
+  <!-- Background Image: Cinematic Stone Cavern Vista (Full-Bleed, No Outside Gaps) -->
+  <img
+    src="/images/brand/hero-bg.jpg"
+    alt="Lush green mountain valley and pine forest viewed through a dramatic natural stone cavern arch"
+    class="absolute inset-0 w-full h-full object-cover object-center scale-105 select-none pointer-events-none"
+    loading="eager"
+    decoding="async"
+  />
+
+  <!-- Multi-layered Atmospheric Vignettes for Contrast & Soft Lighting -->
+  <div class="absolute inset-0 bg-radial-[ellipse_at_center] from-black/15 via-black/35 to-black/80 pointer-events-none"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/50 pointer-events-none"></div>
+  <!-- Softened top vignette without harsh dark line -->
+  <div class="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/35 via-black/15 to-transparent pointer-events-none"></div>
+
+  <!-- 1. Integrated Navbar at Top of Hero (Full width, \ curve leading edge) -->
+  <header id="hero-header" class="relative z-50 w-full flex items-center justify-between h-20 sm:h-22">
+    <!-- Left: Transparent Brand Area (Cavern Vista visible behind logo, enlarged logo size) -->
+    <div class="flex items-center h-full pl-6 sm:pl-10 lg:pl-12 pr-2 sm:pr-4 bg-transparent shrink-0">
+      <a
+        href="/"
+        class="flex items-center focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-lg py-1.5"
+        aria-label="TechSteps UK Home"
+      >
+        <BrandLogo size="xl" variant="light" showTagline={false} />
+      </a>
+    </div>
+
+    <!-- Right / Other Area: White Bar with \ Smooth Curved Leading Edge -->
+    <div class="h-full flex-1 flex items-center justify-end min-w-0">
+      <!-- SVG Curved Leading Edge (\ slope with G1 smooth bezier rounding) -->
+      <svg
+        viewBox="0 0 64 88"
+        preserveAspectRatio="none"
+        class="h-full w-10 sm:w-14 lg:w-16 shrink-0 -mr-[1px] pointer-events-none select-none drop-shadow-xs"
+        aria-hidden="true"
+      >
+        <!-- White Filled Wedge with \ slope -->
+        <path
+          d="M 0,0 Q 14,0 24,20 L 44,66 Q 52,88 64,88 L 64,0 Z"
+          fill="#FFFFFF"
+        />
+      </svg>
+
+      <!-- Solid White Navigation Container (No Bottom Border) -->
+      <div class="h-full flex-1 flex items-center justify-end bg-white shadow-md pl-2 sm:pl-4 pr-6 sm:pr-10 lg:pr-12">
+        <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-base font-semibold text-slate-800" aria-label="Main Navigation">
+          <a
+            href="/about-us"
+            class="py-1.5 border-b-2 border-transparent bg-transparent text-slate-800 hover:text-black hover:border-slate-800 transition-all duration-150"
+          >
+            About Us
+          </a>
+
+          <!-- Services Mega Menu Link (Direct Click to /services, Hover Opens Mega Menu) -->
+          <div class="relative flex items-center">
+            <a
+              href="/services"
+              class="services-megamenu-toggle text-slate-800 hover:text-black transition-all duration-150 inline-flex items-center gap-1.5 py-1.5 border-b-2 border-transparent hover:border-slate-800 font-semibold text-base cursor-pointer focus:outline-none bg-transparent"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="services-megamenu-panel"
+              data-is-active-route="false"
+            >
+              <span>Services</span>
+              <svg class="h-4 w-4 text-slate-500 transition-transform duration-200 caret-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Sectors Dropdown Link (Direct Click to /sectors, Hover Opens Dropdown) -->
+          <div class="relative sectors-trigger-wrap flex items-center">
+            <a
+              href="/sectors"
+              class="sectors-dropdown-toggle inline-flex items-center gap-1.5 py-1.5 border-b-2 border-transparent text-slate-800 hover:text-black hover:border-slate-800 transition-all duration-150 font-semibold text-base cursor-pointer focus:outline-none bg-transparent"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="sectors-dropdown-panel"
+              data-is-active-route="false"
+            >
+              <span>Sectors</span>
+              <svg class="h-4 w-4 text-slate-500 transition-transform duration-200 caret-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+          </div>
+
+          <a
+            href="/sustainability"
+            class="py-1.5 border-b-2 border-transparent bg-transparent text-slate-800 hover:text-black hover:border-slate-800 transition-all duration-150"
+          >
+            Sustainability
+          </a>
+
+          <a
+            href="/insights"
+            class="py-1.5 border-b-2 border-transparent bg-transparent text-slate-800 hover:text-black hover:border-slate-800 transition-all duration-150"
+          >
+            Insights
+          </a>
+
+          <a
+            href="/contact"
+            class="py-1.5 border-b-2 border-transparent bg-transparent text-slate-800 hover:text-black hover:border-slate-800 transition-all duration-150"
+          >
+            Contact
+          </a>
+        </nav>
+
+        <!-- CTA Pill Button & Mobile Trigger in White Area -->
+        <div class="flex items-center gap-3 ml-6 sm:ml-8">
+          <a
+            href="/request-a-quote"
+            class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#E58A3C] hover:bg-[#d97d2e] text-white text-sm font-semibold shadow-md transition-all duration-150 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#E58A3C]"
+          >
+            Request a Quote
+          </a>
+
+          <!-- Mobile Hamburger Button -->
+          <button
+            type="button"
+            class="open-mobile-menu-btn lg:hidden p-2 rounded-lg text-slate-700 hover:text-black hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            aria-label="Open mobile navigation menu"
+          >
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. Centered Editorial Title Only (Optical Centering in Cavern Opening) -->
+  <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 text-center flex flex-col items-center justify-center my-auto">
+    <WarpText
+      client:load
+      text={`SECURE IT.\nSMARTER LIFECYCLES.`}
+      color="#FFFFFF"
+      warpStrength={0.08}
+      warpScale={1.7}
+      speed={0.55}
+      pointerInfluence={0.42}
+      pointerStrength={0.38}
+      refraction={0.018}
+      ripple={true}
+      fontSize="clamp(3.5rem, 8vw, 7.5rem)"
+      fontWeight={800}
+      fontFamily="'Big Shoulders Display', sans-serif"
+      letterSpacing="0.01em"
+      lineHeight={0.92}
+      className="w-full h-[260px] sm:h-[320px] lg:h-[360px] drop-shadow-2xl select-none"
+    />
+  </div>
+
+  <!-- 3. Bottom Balancing Spacer (Ensures Title Remains Centered in Opening) -->
+  <div class="h-20 sm:h-22 w-full pointer-events-none" aria-hidden="true"></div>
+
+  <!-- 4. Torn Paper Edge Transition (Editorial Ripped Paper Divider to Next Section) -->
+  <div class="absolute inset-x-0 bottom-[-1px] z-20 w-full overflow-hidden leading-none select-none pointer-events-none" aria-hidden="true">
+    <img
+      src="/images/brand/torn-paper-edge.svg"
+      alt=""
+      class="w-full h-8 sm:h-10 md:h-12 lg:h-14 object-fill object-bottom block"
+      loading="eager"
+      decoding="async"
+    />
+  </div>
+</section>

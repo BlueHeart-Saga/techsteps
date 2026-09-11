@@ -1,0 +1,228 @@
+@import "tailwindcss";
+
+@theme {
+  /* A deliberately small, editorial colour system. */
+  --color-paper: #F1F4EF;
+  --color-surface: #FFFFFF;
+  --color-ink: #12181A;
+  --color-ink-soft: #47564D;
+  --color-ink-muted: #7C8A80;
+  --color-line: #D3DCD0;
+  --color-accent: #146B5C;
+  --color-accent-soft: #DFEAE5;
+  --color-accent-strong: #0D5549;
+  --color-flag: #A8631F;
+  --color-flag-soft: #F3E2CD;
+
+  /* Existing component aliases keep the system consistent site-wide. */
+  --color-brand-navy: #12181A;
+  --color-brand-navy-dark: #12181A;
+  --color-brand-blue: #47564D;
+  --color-brand-blue-light: #7C8A80;
+  --color-brand-accent: #146B5C;
+  --color-brand-accent-hover: #0D5549;
+  --color-brand-green: #0D5549;
+  --color-brand-charcoal: #12181A;
+  --color-brand-slate: #F1F4EF;
+  --color-brand-muted: #7C8A80;
+  --color-brand-light: #DFEAE5;
+  --color-brand-border: #D3DCD0;
+  --color-brand-border-dark: #47564D;
+
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Big Shoulders Display', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-poppins: 'Poppins', system-ui, sans-serif;
+
+  /* Editorial & Manifest Letter Spacing System */
+  --tracking-tight: 0.01em;
+  --tracking-tighter: 0.005em;
+  --tracking-display: 0.01em;
+  --tracking-eyebrow: 0.14em;
+  --tracking-mono: 0.08em;
+  --tracking-wider: 0.14em;
+  --tracking-widest: 0.18em;
+}
+
+@layer base {
+  *, ::after, ::before {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    color: var(--color-brand-charcoal);
+    background-color: var(--color-surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Accessibility focus styles for WCAG 2.2 AA */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--color-brand-accent);
+    outline-offset: 2px;
+  }
+
+  /* Typography defaults */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    color: var(--color-brand-navy);
+  }
+}
+
+/* Custom utility components */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.font-mono,
+.mono {
+  font-family: var(--font-mono);
+}
+
+.font-poppins {
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+/* Eyebrows, kickers & telemetry */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brand-accent);
+  font-weight: 500;
+}
+
+/* Kicker tags across existing components: apply IBM Plex Mono & 0.14em tracking */
+[class*="tracking-wider"][class*="uppercase"] {
+  letter-spacing: 0.14em;
+}
+
+span[class*="uppercase"][class*="text-xs"],
+div[class*="uppercase"][class*="text-xs"] {
+  font-family: var(--font-mono);
+}
+
+/* Display numbers & big counters */
+.num,
+.idx {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+/* Tags & micro labels */
+.tagline,
+.tag,
+.out {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Editorial finishing: one quiet line, one restrained shadow, no inflated corners. */
+:where(.rounded, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl) {
+  border-radius: 3px;
+}
+
+:where(.shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl, .shadow-xs) {
+  box-shadow: 0 1px 0 rgba(18, 24, 26, 0.04);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.glass-panel-dark {
+  background: rgba(11, 25, 44, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #0B192C 0%, #1E3E62 60%, #008170 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #008170 0%, #00A896 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Homepage content uses a single calm paper ground; the photographic hero remains intact. */
+.home-main > section:not(:first-child) {
+  background-color: #F1F4EF !important;
+}
+
+/* Infinite Scrolling Marquee Ticker */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 35s linear infinite;
+}
+
+.marquee-container:hover .animate-marquee,
+.marquee-container:hover .animate-marquee-reverse {
+  animation-play-state: paused;
+}
+

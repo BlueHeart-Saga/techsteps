@@ -1,0 +1,142 @@
+---
+---
+
+<div class="bg-white rounded-3xl shadow-xl border border-slate-200/90 p-6 sm:p-10 space-y-6">
+  <div class="space-y-2">
+    <span class="inline-block px-3.5 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-xs font-bold uppercase tracking-wider border border-brand-accent/20">
+      Contact Us
+    </span>
+    <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-brand-navy tracking-tight">
+      Get In Touch !
+    </h2>
+    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+      Have a question regarding our certifications, UK collections, or existing contracts? Fill out the form below and our team will respond within 2 business hours.
+    </p>
+  </div>
+
+  <form
+    name="contact-enquiry"
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    class="space-y-4"
+    id="techsteps-contact-form"
+  >
+    <p class="hidden">
+      <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+    </p>
+    <input type="hidden" name="form-name" value="contact-enquiry" />
+
+    <div class="space-y-1.5">
+      <label for="contact-email" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+        Email <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="email"
+        id="contact-email"
+        name="email"
+        required
+        placeholder="your.name@company.co.uk"
+        class="w-full px-4 py-3.5 rounded-xl bg-[#F9FAF8] border border-slate-300/90 focus:border-brand-accent focus:bg-white focus:ring-2 focus:ring-brand-accent/20 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="space-y-1.5">
+        <label for="contact-name" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+          Name <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          id="contact-name"
+          name="name"
+          required
+          placeholder="Full Name"
+          class="w-full px-4 py-3.5 rounded-xl bg-[#F9FAF8] border border-slate-300/90 focus:border-brand-accent focus:bg-white focus:ring-2 focus:ring-brand-accent/20 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all"
+        />
+      </div>
+
+      <div class="space-y-1.5">
+        <label for="contact-phone" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+          Telephone <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="tel"
+          id="contact-phone"
+          name="phone"
+          required
+          placeholder="020 7946 0888"
+          class="w-full px-4 py-3.5 rounded-xl bg-[#F9FAF8] border border-slate-300/90 focus:border-brand-accent focus:bg-white focus:ring-2 focus:ring-brand-accent/20 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all"
+        />
+      </div>
+    </div>
+
+    <div class="space-y-1.5">
+      <label for="contact-subject" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+        Service Required <span class="text-red-500">*</span>
+      </label>
+      <select
+        id="contact-subject"
+        name="subject"
+        required
+        class="w-full px-4 py-3.5 rounded-xl bg-[#F9FAF8] border border-slate-300/90 focus:border-brand-accent focus:bg-white focus:ring-2 focus:ring-brand-accent/20 text-sm text-slate-900 outline-none transition-all"
+      >
+        <option value="">Select a service...</option>
+        <option value="it-disposal">IT Asset Disposition (ITAD)</option>
+        <option value="document-archiving">Document Archiving &amp; Scanning</option>
+        <option value="shredding-destruction">Secure Shredding &amp; Destruction</option>
+        <option value="business-relocation">Business &amp; Server Relocation</option>
+        <option value="carrier-partner">Supplier / Carrier Enquiry</option>
+        <option value="general">General Corporate Enquiry</option>
+      </select>
+    </div>
+
+    <div class="space-y-1.5">
+      <label for="contact-message" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+        Message <span class="text-red-500">*</span>
+      </label>
+      <textarea
+        id="contact-message"
+        name="message"
+        required
+        rows="4"
+        placeholder="How can our UK team assist you today?"
+        class="w-full px-4 py-3.5 rounded-xl bg-[#F9FAF8] border border-slate-300/90 focus:border-brand-accent focus:bg-white focus:ring-2 focus:ring-brand-accent/20 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all"
+      ></textarea>
+    </div>
+
+    <div class="pt-2">
+      <button
+        type="submit"
+        class="w-full sm:w-auto px-10 py-3.5 rounded-full bg-[#146B5C] hover:bg-[#0D5549] text-white text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer"
+      >
+        Send Message
+      </button>
+    </div>
+
+    <div id="contact-success" class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-medium">
+      Thank you for contacting Techsteps. Your enquiry has been routed to our UK support desk and a team member will reply shortly.
+    </div>
+  </form>
+</div>
+
+<script>
+  function setupContactForm() {
+    const form = document.getElementById('techsteps-contact-form') as HTMLFormElement | null;
+    const successMsg = document.getElementById('contact-success');
+
+    if (!form || !successMsg) return;
+
+    form.addEventListener('submit', (e) => {
+      if (!window.location.hostname.includes('netlify')) {
+        e.preventDefault();
+        successMsg.classList.remove('hidden');
+        form.reset();
+        successMsg.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  setupContactForm();
+  document.addEventListener('astro:page-load', setupContactForm);
+</script>

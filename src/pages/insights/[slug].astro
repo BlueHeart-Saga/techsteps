@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import Section from '../../components/layout/Section.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import { articles, siteSettings } from '../../lib/sanity/data';
+import { generateArticleSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+import type { Article } from '../../lib/sanity/types';
+
+export async function getStaticPaths() {
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+
+const breadcrumbs = [
+  { name: 'Insights', url: '/insights' },
+  { name: article.title, url: `/insights/${article.slug}` },
+];
+
+const articleSchema = generateArticleSchema(article, siteSettings, Astro.site?.origin || 'https://techsteps.co.uk');
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs, Astro.site?.origin || 'https://techsteps.co.uk');
+---
+
+<BaseLayout
+  title={article.metaTitle || `${article.title} | Techsteps Insights`}
+  description={article.metaDescription || article.summary}
+  ogType="article"
+  jsonLd={[articleSchema, breadcrumbSchema]}
+>
+  <div class="bg-brand-navy text-white py-16">
+    <Container size="narrow">
+      <Breadcrumbs items={breadcrumbs} theme="dark" />
+      <div class="space-y-4 mt-6">
+        <div class="flex items-center gap-3 text-xs">
+          <span class="px-2.5 py-1 rounded-md bg-white/10 text-emerald-300 font-bold uppercase tracking-wider">
+            {article.category}
+          </span>
+          <span class="text-slate-400">&bull;</span>
+          <span class="text-slate-300 font-mono">{article.publishedDate}</span>
+          <span class="text-slate-400">&bull;</span>
+          <span class="text-slate-300">{article.readTime}</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+          {article.title}
+        </h1>
+
+        <div class="pt-2 flex items-center gap-3 text-xs text-slate-300">
+          <div class="h-9 w-9 rounded-full bg-brand-accent/30 border border-brand-accent/50 flex items-center justify-center font-bold text-emerald-300">
+            {article.author.split(' ').map((n) => n[0]).join('')}
+          </div>
+          <div>
+            <p class="font-bold text-white">{article.author}</p>
+            <p class="text-slate-400">{article.authorRole}</p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </div>
+
+  <Section theme="white">
+    <Container size="narrow">
+      <div class="prose prose-lg max-w-none text-slate-700 space-y-6">
+        <p class="text-lg sm:text-xl font-medium text-brand-navy leading-relaxed border-l-4 border-brand-accent pl-4">
+          {article.summary}
+        </p>
+
+        {article.content.map((paragraph) => (
+          <p class="text-base sm:text-lg leading-relaxed text-slate-700">
+            {paragraph}
+          </p>
+        ))}
+      </div>
+
+      <!-- Author Box & Share CTA -->
+      <div class="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <a
+            href="/insights"
+            class="text-sm font-bold text-brand-blue hover:text-brand-accent flex items-center gap-2"
+          >
+            <span>&larr;</span>
+            <span>Back to All Insights</span>
+          </a>
+        </div>
+        <div>
+          <a
+            href="/request-a-quote"
+            class="px-6 py-3 rounded-lg bg-brand-accent hover:bg-brand-accent-hover text-white text-xs font-bold uppercase tracking-wider transition-all"
+          >
+            Speak to a Compliance Consultant
+          </a>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,75 @@
+---
+---
+
+<div
+  id="cookie-consent-banner"
+  class="hidden fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 transition-all duration-300 transform translate-y-4 opacity-0"
+  role="region"
+  aria-label="Cookie Preferences"
+>
+  <div class="flex items-start gap-3">
+    <div class="p-2 rounded-lg bg-brand-slate text-brand-accent flex-shrink-0">
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+      </svg>
+    </div>
+    <div class="space-y-1 text-xs text-slate-600">
+      <h3 class="text-sm font-bold text-brand-navy">Privacy &amp; Cookie Consent</h3>
+      <p>
+        Techsteps uses cookies to analyze site traffic, personalize content, and ensure secure website performance. Read our{' '}
+        <a href="/cookie-policy" class="underline font-semibold text-brand-blue hover:text-brand-accent">
+          Cookie Policy
+        </a>.
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-4 flex items-center justify-end gap-2 text-xs font-bold">
+    <button
+      type="button"
+      id="cookie-essential-btn"
+      class="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors"
+    >
+      Essential Only
+    </button>
+    <button
+      type="button"
+      id="cookie-accept-btn"
+      class="px-4 py-2 rounded-lg bg-brand-accent hover:bg-brand-accent-hover text-white transition-colors shadow-sm"
+    >
+      Accept All
+    </button>
+  </div>
+</div>
+
+<script>
+  function setupCookieConsent() {
+    const banner = document.getElementById('cookie-consent-banner');
+    const acceptBtn = document.getElementById('cookie-accept-btn');
+    const essentialBtn = document.getElementById('cookie-essential-btn');
+
+    if (!banner) return;
+
+    const consent = localStorage.getItem('techsteps_cookie_consent');
+    if (!consent) {
+      setTimeout(() => {
+        banner.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          banner.classList.remove('translate-y-4', 'opacity-0');
+        });
+      }, 800);
+    }
+
+    function saveConsent(value: string) {
+      localStorage.setItem('techsteps_cookie_consent', value);
+      banner?.classList.add('translate-y-4', 'opacity-0');
+      setTimeout(() => banner?.classList.add('hidden'), 300);
+    }
+
+    acceptBtn?.addEventListener('click', () => saveConsent('all'));
+    essentialBtn?.addEventListener('click', () => saveConsent('essential'));
+  }
+
+  setupCookieConsent();
+  document.addEventListener('astro:page-load', setupCookieConsent);
+</script>

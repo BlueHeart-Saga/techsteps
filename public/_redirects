@@ -1,0 +1,16 @@
+# Fix legacy external broken link pointing to devopstrio.co.uk (Section 43)
+/devopstrio*  /services/secure-it-disposal  301!
+
+# WordPress migration 301 redirects (Section 42)
+/about/           /about-us         301
+/about            /about-us         301
+/contact-us/      /contact          301
+/contact-us       /contact          301
+/request-quote/   /request-a-quote  301
+/request-quote    /request-a-quote  301
+/quote/           /request-a-quote  301
+/quote            /request-a-quote  301
+
+# Legacy WordPress admin/content suppression
+/wp-login.php     /404              404
+/wp-admin/*       /404              404
