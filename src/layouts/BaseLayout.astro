@@ -6,7 +6,9 @@ import SectorsDropdown from '../components/global/SectorsDropdown.astro';
 import Footer from '../components/global/Footer.astro';
 import CookieConsent from '../components/global/CookieConsent.astro';
 import SeoHead from '../components/seo/SeoHead.astro';
-import { siteSettings } from '../lib/sanity/data';
+import { getSiteSettings } from '../lib/sanity/client';
+
+const siteSettings = await getSiteSettings();
 import { generateOrganizationSchema } from '../lib/seo/jsonld';
 
 interface Props {

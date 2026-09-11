@@ -3,11 +3,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import Section from '../../components/layout/Section.astro';
 import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
-import { caseStudies, services } from '../../lib/sanity/data';
+import { getCaseStudies, getServices } from '../../lib/sanity/client';
 import type { CaseStudy } from '../../lib/sanity/types';
 
 export async function getStaticPaths() {
-  return caseStudies.map((caseStudy) => ({
+  const allCaseStudies = await getCaseStudies();
+  return allCaseStudies.map((caseStudy) => ({
     params: { slug: caseStudy.slug },
     props: { caseStudy },
   }));
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const { caseStudy } = Astro.props;
+const services = await getServices();
 
 const breadcrumbs = [
   { name: 'Case Studies', url: '/case-studies' },

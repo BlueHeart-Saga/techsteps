@@ -1,6 +1,12 @@
 ---
-import { divisions, sectors, siteSettings } from '../../lib/sanity/data';
+import { getDivisions, getSectors, getSiteSettings } from '../../lib/sanity/client';
 import BrandLogo from './BrandLogo.astro';
+
+const [divisions, sectors, siteSettings] = await Promise.all([
+  getDivisions(),
+  getSectors(),
+  getSiteSettings(),
+]);
 
 const currentYear = new Date().getFullYear();
 ---

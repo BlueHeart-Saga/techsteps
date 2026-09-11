@@ -1,6 +1,13 @@
 ---
-import { divisions, services, sectors, siteSettings } from '../../lib/sanity/data';
+import { getDivisions, getServices, getSectors, getSiteSettings } from '../../lib/sanity/client';
 import BrandLogo from './BrandLogo.astro';
+
+const [divisions, services, sectors, siteSettings] = await Promise.all([
+  getDivisions(),
+  getServices(),
+  getSectors(),
+  getSiteSettings(),
+]);
 
 const currentPath = Astro.url.pathname;
 ---

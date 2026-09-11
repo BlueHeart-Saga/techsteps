@@ -14,4 +14,10 @@ export default {
     { name: 'metaTitle', title: 'SEO Meta Title', type: 'string' },
     { name: 'metaDescription', title: 'SEO Meta Description', type: 'text', rows: 3 },
   ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'clientIndustry',
+    },
+  },
 };

@@ -1,6 +1,7 @@
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { schemaTypes } from './sanity/schemas';
+import { deskStructure } from './sanity/deskStructure';
 
 export default defineConfig({
   name: 'default',
@@ -9,7 +10,11 @@ export default defineConfig({
   projectId: process.env.PUBLIC_SANITY_PROJECT_ID || process.env.SANITY_PROJECT_ID || 'zjv69ibt',
   dataset: process.env.PUBLIC_SANITY_DATASET || process.env.SANITY_DATASET || 'techsteps',
 
-  plugins: [structureTool()],
+  plugins: [
+    structureTool({
+      structure: deskStructure,
+    }),
+  ],
 
   schema: {
     types: schemaTypes,

@@ -11,4 +11,18 @@ export default {
     { name: 'isVisible', title: 'Visible on Live Site', type: 'boolean', initialValue: true },
     { name: 'contextNote', title: 'Context / Verification Note', type: 'string' },
   ],
+  preview: {
+    select: {
+      title: 'label',
+      value: 'value',
+      prefix: 'prefix',
+      suffix: 'suffix',
+    },
+    prepare({ title, value, prefix, suffix }: any) {
+      return {
+        title: title || 'Statistic',
+        subtitle: `${prefix || ''}${value || ''}${suffix || ''}`,
+      };
+    },
+  },
 };

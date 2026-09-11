@@ -1,5 +1,7 @@
 ---
-import { sectors } from '../../lib/sanity/data';
+import { getSectors } from '../../lib/sanity/client';
+
+const sectors = await getSectors();
 
 // Custom rich filled SVG icons tailored for each sector (no background boxes, no borders, big & solid)
 const sectorMeta: Record<string, { icon: string; shortDesc: string }> = {

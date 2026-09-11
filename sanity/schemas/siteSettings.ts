@@ -34,4 +34,16 @@ export default {
     { name: 'defaultMetaTitle', title: 'Default Meta Title', type: 'string' },
     { name: 'defaultMetaDescription', title: 'Default Meta Description', type: 'text', rows: 3 },
   ],
+  preview: {
+    select: {
+      title: 'companyName',
+      subtitle: 'email',
+    },
+    prepare({ title, subtitle }: any) {
+      return {
+        title: title || 'Techsteps UK',
+        subtitle: subtitle || 'Site Settings',
+      };
+    },
+  },
 };

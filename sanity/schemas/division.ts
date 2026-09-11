@@ -10,4 +10,10 @@ export default {
     { name: 'icon', title: 'Icon Identifier', type: 'string' },
     { name: 'order', title: 'Display Order', type: 'number', initialValue: 1 },
   ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'headline',
+    },
+  },
 };

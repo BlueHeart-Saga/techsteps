@@ -5,12 +5,13 @@ import PageHero from '../../components/hero/PageHero.astro';
 import AccordionFaq from '../../components/content/AccordionFaq.astro';
 import ServiceCard from '../../components/services/ServiceCard.astro';
 import SectorCard from '../../components/sectors/SectorCard.astro';
-import { services, sectors, siteSettings } from '../../lib/sanity/data';
+import { getServices, getSectors, getSiteSettings } from '../../lib/sanity/client';
 import { generateServiceSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 import type { Service } from '../../lib/sanity/types';
 
 export async function getStaticPaths() {
-  return services.map((service) => ({
+  const allServices = await getServices();
+  return allServices.map((service) => ({
     params: { slug: service.slug },
     props: { service },
   }));
@@ -21,6 +22,11 @@ interface Props {
 }
 
 const { service } = Astro.props;
+const [allServices, sectors, siteSettings] = await Promise.all([
+  getServices(),
+  getSectors(),
+  getSiteSettings(),
+]);
 
 // Division accent colour map — consistent with hub pages
 const divisionAccent: Record<string, { accent: string; dark: string; light: string; pill: string }> = {
@@ -55,7 +61,7 @@ const clr = divisionAccent[service.divisionSlug] ?? {
 };
 
 // Related services calculation
-const relatedServiceList = services
+const relatedServiceList = allServices
   .filter((s) => s.slug !== service.slug && (service.relatedServices?.includes(s.slug) || s.divisionSlug === service.divisionSlug))
   .slice(0, 3);
 

@@ -6,11 +6,12 @@ import HeroSector from '../../components/hero/HeroSector.astro';
 import BenefitsList from '../../components/services/BenefitsList.astro';
 import ServiceCard from '../../components/services/ServiceCard.astro';
 import AccordionFaq from '../../components/content/AccordionFaq.astro';
-import { sectors, services, caseStudies } from '../../lib/sanity/data';
+import { getSectors, getServices, getCaseStudies } from '../../lib/sanity/client';
 import type { Sector } from '../../lib/sanity/types';
 
 export async function getStaticPaths() {
-  return sectors.map((sector) => ({
+  const allSectors = await getSectors();
+  return allSectors.map((sector) => ({
     params: { slug: sector.slug },
     props: { sector },
   }));
@@ -21,6 +22,10 @@ interface Props {
 }
 
 const { sector } = Astro.props;
+const [services, caseStudies] = await Promise.all([
+  getServices(),
+  getCaseStudies(),
+]);
 
 // Fetch services aligned with this sector
 const alignedServices = services.filter((s) =>

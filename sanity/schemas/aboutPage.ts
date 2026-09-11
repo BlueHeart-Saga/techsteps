@@ -108,4 +108,16 @@ export default {
     { name: 'ctaSecondaryButtonLabel', title: 'Secondary Button Label', type: 'string', initialValue: 'Request a Quote →' },
     { name: 'ctaSecondaryButtonUrl', title: 'Secondary Button URL', type: 'string', initialValue: '/request-a-quote' },
   ],
+  preview: {
+    select: {
+      title: 'heroHeadline',
+      subtitle: 'heroEyebrow',
+    },
+    prepare({ title, subtitle }: any) {
+      return {
+        title: title || 'About Techsteps',
+        subtitle: subtitle || 'About Us Page Configuration',
+      };
+    },
+  },
 };

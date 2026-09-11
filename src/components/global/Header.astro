@@ -2,7 +2,12 @@
 import MegaMenu from './MegaMenu.astro';
 import MobileDrawer from './MobileDrawer.astro';
 import BrandLogo from './BrandLogo.astro';
-import { siteSettings, sectors } from '../../lib/sanity/data';
+import { getSiteSettings, getSectors } from '../../lib/sanity/client';
+
+const [siteSettings, sectors] = await Promise.all([
+  getSiteSettings(),
+  getSectors(),
+]);
 
 interface Props {
   isHome?: boolean;

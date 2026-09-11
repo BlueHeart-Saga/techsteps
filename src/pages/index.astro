@@ -10,13 +10,22 @@ import StatCounter from '../components/content/StatCounter.astro';
 import TrustBadges from '../components/content/TrustBadges.astro';
 import Testimonials from '../components/content/Testimonials.astro';
 import {
-  divisions,
-  services,
-  sectors,
-  statistics,
-  caseStudies,
-  articles,
-} from '../lib/sanity/data';
+  getDivisions,
+  getServices,
+  getSectors,
+  getStatistics,
+  getCaseStudies,
+  getArticles,
+} from '../lib/sanity/client';
+
+const [divisions, services, sectors, statistics, caseStudies, articles] = await Promise.all([
+  getDivisions(),
+  getServices(),
+  getSectors(),
+  getStatistics(),
+  getCaseStudies(),
+  getArticles(),
+]);
 
 // Select featured services from each division for the homepage
 const featuredServices = services.filter((s) =>

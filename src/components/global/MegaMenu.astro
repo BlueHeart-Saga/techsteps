@@ -1,6 +1,12 @@
 ---
-import { divisions, services, sectors } from '../../lib/sanity/data';
+import { getDivisions, getServices, getSectors } from '../../lib/sanity/client';
 import BrandLogo from './BrandLogo.astro';
+
+const [divisions, services, sectors] = await Promise.all([
+  getDivisions(),
+  getServices(),
+  getSectors(),
+]);
 
 interface Props {
   id?: string;

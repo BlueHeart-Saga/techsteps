@@ -3,7 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
 import PageHero from '../components/hero/PageHero.astro';
 import AccordionFaq from '../components/content/AccordionFaq.astro';
-import { divisions, services, sectors } from '../lib/sanity/data';
+import { getDivisions, getServices, getSectors } from '../lib/sanity/client';
+
+const [divisions, services, sectors] = await Promise.all([
+  getDivisions(),
+  getServices(),
+  getSectors(),
+]);
 
 const division = divisions.find((d) => d.slug === 'it-lifecycle-services-destruction')!;
 const divisionServices = services.filter((s) => s.divisionSlug === division.slug);

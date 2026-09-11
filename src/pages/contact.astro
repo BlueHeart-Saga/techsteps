@@ -2,7 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
 import PageHero from '../components/hero/PageHero.astro';
-import { siteSettings } from '../lib/sanity/data';
+import { getSiteSettings } from '../lib/sanity/client';
+
+const siteSettings = await getSiteSettings();
 import { Map, MapGeoJSON, CustomStyleExample } from '@/components/ui/map';
 import { WORLD_GEOJSON } from '@/lib/use-world-data';
 

@@ -68,4 +68,16 @@ export default {
     { name: 'metaDescription', title: 'SEO Meta Description', type: 'text', rows: 3, validation: (Rule: any) => Rule.max(160) },
     { name: 'noIndex', title: 'Exclude from Search Engines (noindex)', type: 'boolean', initialValue: false },
   ],
+  preview: {
+    select: {
+      title: 'title',
+      division: 'division.title',
+    },
+    prepare({ title, division }: any) {
+      return {
+        title: title || 'Service',
+        subtitle: division ? `Division: ${division}` : 'Service Specification',
+      };
+    },
+  },
 };

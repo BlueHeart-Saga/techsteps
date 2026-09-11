@@ -1,5 +1,10 @@
 ---
-import { divisions, services } from '../../lib/sanity/data';
+import { getDivisions, getServices } from '../../lib/sanity/client';
+
+const [divisions, services] = await Promise.all([
+  getDivisions(),
+  getServices(),
+]);
 
 // Map each division to its services
 const div1 = divisions.find(d => d.slug === 'information-management') || divisions[0];

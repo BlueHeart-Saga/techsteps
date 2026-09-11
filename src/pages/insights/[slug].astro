@@ -2,12 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
-import { articles, siteSettings } from '../../lib/sanity/data';
+import { getArticles, getSiteSettings } from '../../lib/sanity/client';
 import { generateArticleSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 import type { Article } from '../../lib/sanity/types';
 
 export async function getStaticPaths() {
-  return articles.map((article) => ({
+  const allArticles = await getArticles();
+  return allArticles.map((article) => ({
     params: { slug: article.slug },
     props: { article },
   }));
@@ -18,6 +19,10 @@ interface Props {
 }
 
 const { article } = Astro.props;
+const [articles, siteSettings] = await Promise.all([
+  getArticles(),
+  getSiteSettings(),
+]);
 
 // Related articles: same category or others, excluding current
 const relatedArticles = articles
