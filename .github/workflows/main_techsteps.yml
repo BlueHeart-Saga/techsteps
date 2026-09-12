@@ -53,3 +53,8 @@ jobs:
           clean: true
           restart: true
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_07A0ED0BF0F74B2F8747A08AC90AAD0E }}
+
+      - name: Manage Kudu App Service and verify clean URLs
+        run: node scripts/azure-kudu-manage.mjs
+        env:
+          AZURE_PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_07A0ED0BF0F74B2F8747A08AC90AAD0E }}
