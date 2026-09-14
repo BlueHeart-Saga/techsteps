@@ -1,4 +1,4 @@
-﻿import https from 'https';
+import https from 'https';
 
 const publishProfile = process.env.AZURE_PUBLISH_PROFILE;
 if (!publishProfile) {
@@ -16,9 +16,9 @@ if (!urlMatch || !userMatch || !pwdMatch) {
 }
 
 const scmHost = urlMatch[1].replace(/^https?:\/\//, '').replace(/\/.*$/, '');
-const auth = Buffer.from(${userMatch[1]}:).toString('base64');
+const auth = Buffer.from(userMatch[1] + ':' + pwdMatch[1]).toString('base64');
 
-console.log(Connecting to Kudu at https:// as ...);
+console.log('Connecting to Kudu at https://' + scmHost + ' as ' + userMatch[1] + '...');
 
 function kuduRequest(method, path, body = null) {
   return new Promise((resolve, reject) => {
@@ -28,7 +28,7 @@ function kuduRequest(method, path, body = null) {
       path: path,
       method: method,
       headers: {
-        'Authorization': Basic ,
+        'Authorization': 'Basic ' + auth,
         'Content-Type': 'application/json',
       },
     };
@@ -72,33 +72,33 @@ async function run() {
       command: 'ps aux',
       dir: '/home/site/wwwroot',
     }));
-    console.log('ps aux output:', psRes.data);
+    console.log('ps aux output:\n' + psRes.data);
 
     console.log('\n--- 2. Inspecting /home/site/wwwroot ---');
     const lsRes = await kuduRequest('POST', '/api/command', JSON.stringify({
       command: 'ls -la /home/site/wwwroot',
       dir: '/home/site/wwwroot',
     }));
-    console.log('ls output:', lsRes.data);
+    console.log('ls output:\n' + lsRes.data);
 
     console.log('\n--- 3. Inspecting Startup Configuration ---');
     const startupRes = await kuduRequest('POST', '/api/command', JSON.stringify({
       command: 'cat /opt/startup/startup.sh 2>/dev/null || echo "No /opt/startup/startup.sh"',
       dir: '/home/site/wwwroot',
     }));
-    console.log('startup.sh:', startupRes.data);
+    console.log('startup.sh:\n' + startupRes.data);
 
     console.log('\n--- 4. Restarting Azure App Service ---');
     const restartRes = await kuduRequest('POST', '/api/restart');
-    console.log('POST /api/restart status:', restartRes.statusCode);
+    console.log('POST /api/restart status: ' + restartRes.statusCode);
 
     if (restartRes.statusCode !== 200 && restartRes.statusCode !== 204) {
-      console.log('Restart via API returned status', restartRes.statusCode, '- killing node processes directly...');
+      console.log('Restart via API returned status ' + restartRes.statusCode + ' - killing node processes directly...');
       const killRes = await kuduRequest('POST', '/api/command', JSON.stringify({
         command: 'pkill -9 -f node || true',
         dir: '/home/site/wwwroot',
       }));
-      console.log('kill output:', killRes.data);
+      console.log('kill output:\n' + killRes.data);
     }
 
     console.log('\n--- 5. Verifying Clean URLs on Live Website ---');
@@ -106,21 +106,21 @@ async function run() {
 
     let allPassed = false;
     for (let attempt = 1; attempt <= 12; attempt++) {
-      console.log(Attempt /12: waiting 5 seconds...);
+      console.log('Attempt ' + attempt + '/12: waiting 5 seconds...');
       await sleep(5000);
 
       try {
-        const check = await httpsGet(${siteUrl}/about-us);
-        console.log(GET /about-us -> HTTP );
+        const check = await httpsGet(siteUrl + '/about-us');
+        console.log('GET /about-us -> HTTP ' + check.statusCode);
         if (check.statusCode === 200) {
           console.log('SUCCESS! /about-us returned HTTP 200!');
           allPassed = true;
           break;
         } else {
-          console.log('Response body snippet:', check.data.slice(0, 150));
+          console.log('Response body snippet: ' + check.data.slice(0, 150));
         }
       } catch (err) {
-        console.log('Request error (app may be restarting):', err.message);
+        console.log('Request error (app may be restarting): ' + err.message);
       }
     }
 
@@ -135,3 +135,4 @@ async function run() {
 }
 
 run();
+
