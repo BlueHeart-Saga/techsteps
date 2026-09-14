@@ -67,26 +67,25 @@ function sleep(ms) {
 
 async function run() {
   try {
-    console.log('\n--- 1. Inspecting Running Processes ---');
-    const psRes = await kuduRequest('POST', '/api/command', JSON.stringify({
-      command: 'ps aux',
-      dir: '/home/site/wwwroot',
-    }));
-    console.log('ps aux output:\n' + psRes.data);
+    console.log('\n--- 1. Inspecting Environment & Settings ---');
+    const envRes = await kuduRequest('GET', '/api/environment');
+    console.log('Environment:\n' + envRes.data);
 
-    console.log('\n--- 2. Inspecting /home/site/wwwroot ---');
+    const settingsRes = await kuduRequest('GET', '/api/settings');
+    console.log('Settings:\n' + settingsRes.data);
+
+    console.log('\n--- 2. Inspecting /home/site/wwwroot & /home/LogFiles ---');
     const lsRes = await kuduRequest('POST', '/api/command', JSON.stringify({
-      command: 'ls -la /home/site/wwwroot',
+      command: 'ls -lat /home/LogFiles | head -20',
       dir: '/home/site/wwwroot',
     }));
-    console.log('ls output:\n' + lsRes.data);
+    console.log('LogFiles:\n' + lsRes.data);
 
-    console.log('\n--- 3. Inspecting Startup Configuration ---');
-    const startupRes = await kuduRequest('POST', '/api/command', JSON.stringify({
-      command: 'cat /opt/startup/startup.sh 2>/dev/null || echo "No /opt/startup/startup.sh"',
+    const dockerLogRes = await kuduRequest('POST', '/api/command', JSON.stringify({
+      command: 'tail -n 100 /home/LogFiles/*_docker.log 2>/dev/null || true',
       dir: '/home/site/wwwroot',
     }));
-    console.log('startup.sh:\n' + startupRes.data);
+    console.log('Docker Log Tail:\n' + dockerLogRes.data);
 
     console.log('\n--- 4. Restarting Azure App Service ---');
     const restartRes = await kuduRequest('POST', '/api/restart');
