@@ -14,8 +14,7 @@ const [divisions, services, sectors] = await Promise.all([
 const division = divisions.find((d) => d.slug === 'it-lifecycle-services-destruction')!;
 const divisionServices = services.filter((s) => s.divisionSlug === division.slug);
 
-const clr = { accent: '#1B3A5C', dark: '#0f2238', light: '#EFF4FA' };
-
+const clr = { accent: '#3FB33D', dark: '#0f2238', light: '#EFF9EE' };
 const breadcrumbs = [
   { name: 'Services', url: '/services' },
   { name: 'IT Lifecycle & Destruction', url: '/it-lifecycle-services-destruction' },
@@ -57,12 +56,12 @@ const faqs = [
     subheading="Secure collection, ADISA-certified data sanitisation, remarketing and zero-landfill recycling."
     bgImage="/images/services/remarketing.jpg"
     breadcrumbs={breadcrumbs}
-    dividerColor="#1B3A5C"
+    dividerColor="#3FB33D"
   >
     <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
       <a
         href="#asset-journey"
-        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1B3A5C] hover:bg-[#142d4a] text-white text-sm font-bold shadow-lg transition-all duration-200"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1B3A5C] hover:bg-[#359c34] text-white text-sm font-bold shadow-lg transition-all duration-200"
       >
         Explore the Journey
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -79,7 +78,7 @@ const faqs = [
   </PageHero>
 
   <!-- ===== LIFECYCLE JOURNEY ===== -->
-  <section id="asset-journey" class="bg-[#1B3A5C] py-16 lg:py-20">
+  <section id="asset-journey" class="bg-[#3FB33D] py-16 lg:py-20">
     <Container>
       <div class="text-center mb-12">
         <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-blue-300 mb-4">The Asset Journey</span>
@@ -165,7 +164,7 @@ const faqs = [
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">Ready to Manage Your IT Assets More Responsibly?</h2>
         <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 max-w-xl mx-auto font-medium">Speak with our team to arrange a collection, request an audit or obtain a formal proposal.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/request-a-quote" class="px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-[#1B3A5C] hover:bg-[#142d4a] text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">Get a Quote →</a>
+          <a href="/request-a-quote" class="px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-[#3FB33D] hover:bg-[#359c34] text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
           <a href="/contact" class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5">Contact Techsteps</a>
         </div>
       </div>

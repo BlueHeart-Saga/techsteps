@@ -33,8 +33,8 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
       aria-hidden="true"
     ></div>
 
-    <!-- Soft Top Vignette in Matching #a0cc9d -->
-    <div class="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#a0cc9d] via-[#a0cc9d]/80 to-transparent pointer-events-none select-none z-0" aria-hidden="true"></div>
+    {/*<!-- Soft Top Vignette in Matching #a0cc9d -->
+    <div class="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#a0cc9d] via-[#a0cc9d]/80 to-transparent pointer-events-none select-none z-0" aria-hidden="true"></div>*/}
 
     <!-- 4 Division Service Columns (All 27 Services Across Full Width) -->
     <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 w-full flex-1">
@@ -103,16 +103,12 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
       </div>
     </div>
 
-    <!-- Bottom Utility Footer -->
-    <div class="relative z-10 mt-10 lg:mt-12 pt-6 border-t border-black/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-      <div class="flex items-center gap-2 bg-white/90 backdrop-blur-xs px-4 py-2 rounded-full border border-black/10 shadow-xs">
-        <span class="h-2 w-2 rounded-full bg-emerald-600"></span>
-        <span class="font-medium text-slate-800">27 Certified Services &bull; 4 Specialized Divisions &bull; ADISA Standard 8.0 &bull; 100% Zero-Landfill Guarantee</span>
-      </div>
-      <a href="/services" class="font-bold text-slate-900 hover:text-black flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white/95 hover:bg-white border border-black/10 shadow-xs hover:shadow-md transition-all">
-        <span>View Full Service Directory &rarr;</span>
-      </a>
-    </div>
+<!-- Bottom Utility Footer -->
+<div class="relative z-10 mt-10 lg:mt-12 pt-6 border-t border-black/10 flex flex-col sm:flex-row items-center justify-end gap-4 text-xs">
+  <a href="/services" class="font-bold text-slate-900 hover:text-black flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white/95 hover:bg-white border border-black/10 shadow-xs hover:shadow-md transition-all">
+    <span>View Full Service Directory &rarr;</span>
+  </a>
+</div>
   </div>
 </div>
 
