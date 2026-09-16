@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/global/Header.astro';
 import ServicesMegaMenu from '../components/global/ServicesMegaMenu.astro';
 import SectorsDropdown from '../components/global/SectorsDropdown.astro';
+import InsightsMegaMenu from '../components/global/InsightsMegaMenu.astro';
 import Footer from '../components/global/Footer.astro';
 import CookieConsent from '../components/global/CookieConsent.astro';
 import SeoHead from '../components/seo/SeoHead.astro';
@@ -77,6 +78,7 @@ const heroActive = isHome || hasHeroHeader;
     <Header isHome={isHome} hasHeroHeader={heroActive} />
     <ServicesMegaMenu />
     <SectorsDropdown />
+    <InsightsMegaMenu />
 
     <main id="main-content" class:list={['flex-1', { 'home-main': isHome }]}>
       <slot />

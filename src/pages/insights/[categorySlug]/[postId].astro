@@ -1,0 +1,495 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/layout/Container.astro';
+import Breadcrumbs from '../../../components/seo/Breadcrumbs.astro';
+import InteractiveLikeButton from '../../../components/insights/InteractiveLikeButton';
+import { insightsApi, isPublishedPost, type Post } from '../../../lib/insightsApi';
+
+export async function getStaticPaths() {
+  let allPosts: Post[] = [];
+
+  try {
+    const res = await insightsApi.getAllPosts(100);
+    allPosts = (res || []).filter(isPublishedPost);
+  } catch (err) {
+    console.error('Error fetching posts for getStaticPaths:', err);
+  }
+
+  const paths: any[] = [];
+  const seenPaths = new Set<string>();
+
+  for (const post of allPosts) {
+    const categorySlug = post.category?.slug || 'blogs';
+    const primarySlug = post.seoSlug || post.id;
+
+    const pathKey1 = `${categorySlug}/${primarySlug}`;
+    if (!seenPaths.has(pathKey1)) {
+      seenPaths.add(pathKey1);
+      paths.push({
+        params: { categorySlug, postId: primarySlug },
+        props: { post, allPosts },
+      });
+    }
+
+    // Also support raw ID if different from seoSlug
+    if (post.id && post.id !== primarySlug) {
+      const pathKey2 = `${categorySlug}/${post.id}`;
+      if (!seenPaths.has(pathKey2)) {
+        seenPaths.add(pathKey2);
+        paths.push({
+          params: { categorySlug, postId: post.id },
+          props: { post, allPosts },
+        });
+      }
+    }
+  }
+
+  return paths;
+}
+
+interface Props {
+  post: Post;
+  allPosts: Post[];
+}
+
+const { post, allPosts } = Astro.props;
+
+const categorySlug = post.category?.slug || 'blogs';
+const categoryName = post.category?.name || 'Blogs';
+
+const breadcrumbs = [
+  { name: 'Insights', url: '/insights' },
+  { name: categoryName, url: `/insights/${categorySlug}` },
+  { name: post.title, url: `/insights/${categorySlug}/${post.seoSlug || post.id}` },
+];
+
+// Related posts: prioritize same category, exclude current
+const relatedPosts = (allPosts || [])
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => {
+    if (a.category?.slug === categorySlug && b.category?.slug !== categorySlug) return -1;
+    if (b.category?.slug === categorySlug && a.category?.slug !== categorySlug) return 1;
+    return 0;
+  })
+  .slice(0, 3);
+
+// Document attachments
+const documents = post.documents || [];
+
+// Simple markdown formatter for body content
+function formatMarkdown(content: string = ''): string {
+  if (!content) return '';
+
+  return content
+    // Headings
+    .replace(/^### (.*$)/gim, '<h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-8 mb-4 tracking-tight">$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-10 mb-5 tracking-tight border-b border-slate-100 pb-3">$1</h2>')
+    // Blockquotes
+    .replace(/^\> (.*$)/gim, '<blockquote class="border-l-4 border-[#2D6A4F] bg-emerald-50/50 p-5 rounded-r-2xl my-6 text-base italic text-slate-800 font-medium">$1</blockquote>')
+    // Bold / Italic
+    .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-bold text-slate-900">$1</strong>')
+    .replace(/\*(.*?)\*/gim, '<em class="italic text-slate-800">$1</em>')
+    // Unordered lists
+    .replace(/^- (.*$)/gim, '<li class="flex items-start gap-2.5 my-1.5"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-[#2D6A4F] shrink-0"></span><span class="text-slate-700 leading-relaxed">$1</span></li>')
+    // Numbered lists
+    .replace(/^([0-9]+)\. (.*$)/gim, '<li class="flex items-start gap-2.5 my-1.5"><span class="font-bold text-[#2D6A4F] text-sm shrink-0">$1.</span><span class="text-slate-700 leading-relaxed">$2</span></li>')
+    // Paragraphs (double newlines)
+    .split(/\n\n+/)
+    .map((block) => {
+      const trimmed = block.trim();
+      if (!trimmed) return '';
+      if (trimmed.startsWith('<h2') || trimmed.startsWith('<h3') || trimmed.startsWith('<blockquote') || trimmed.startsWith('<li')) {
+        if (trimmed.startsWith('<li')) {
+          return `<ul class="my-4 pl-1 space-y-1">${trimmed}</ul>`;
+        }
+        return trimmed;
+      }
+      return `<p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-5">${trimmed}</p>`;
+    })
+    .join('\n');
+}
+
+const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
+---
+
+<BaseLayout
+  title={`${post.title} | TechSteps Insights`}
+  description={post.excerpt || post.subtitle || 'Read verified technical analysis, regulatory briefs, and zero-landfill insights from TechSteps UK.'}
+  ogType="article"
+>
+
+  <!-- ===== ARTICLE HERO ===== -->
+  <section class="relative bg-[#f7f8f5] pt-24 pb-12 overflow-hidden border-b border-slate-200">
+    <!-- Subtle pattern -->
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#1a2e1f 1px, transparent 1px), linear-gradient(90deg, #1a2e1f 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+    <Container size="narrow">
+      <!-- Breadcrumbs -->
+      <div class="mb-6 relative z-10">
+        <Breadcrumbs items={breadcrumbs} theme="light" />
+      </div>
+
+      <!-- Top Meta Badges & Social Bar -->
+      <div class="relative z-10 flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href={`/insights/${categorySlug}`}
+            class="inline-block text-[11px] font-bold uppercase tracking-widest text-[#2D6A4F] bg-[#2D6A4F]/10 hover:bg-[#2D6A4F]/20 border border-[#2D6A4F]/30 px-3 py-1 rounded-full transition-colors"
+          >
+            {categoryName}
+          </a>
+          <span class="text-slate-300">&bull;</span>
+          <span class="text-xs font-bold text-slate-600 font-mono">{post.readTime}</span>
+          <span class="text-slate-300">&bull;</span>
+          <time class="text-xs text-slate-500 font-mono">{post.date}</time>
+          <span class="text-slate-300">&bull;</span>
+          <span class="text-xs text-slate-500 flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            {post.views || 0} Views
+          </span>
+        </div>
+
+        <!-- Interactive Like Button Island -->
+        <div class="shrink-0">
+          <InteractiveLikeButton
+            client:load
+            postId={post.id}
+            initialLikes={post.likes || 0}
+          />
+        </div>
+      </div>
+
+      <!-- Article Title -->
+      <h1 class="relative z-10 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-[1.15] tracking-tight mb-6">
+        {post.title}
+      </h1>
+
+      <!-- Subtitle / Deck -->
+      {post.subtitle && (
+        <p class="relative z-10 text-lg sm:text-xl text-slate-600 leading-relaxed font-medium mb-8">
+          {post.subtitle}
+        </p>
+      )}
+
+      <!-- Author Attribution Row -->
+      <div class="relative z-10 flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-slate-200">
+        <div class="flex items-center gap-3.5">
+          <div class="h-12 w-12 rounded-full bg-[#2D6A4F]/15 border border-[#2D6A4F]/30 flex items-center justify-center font-bold text-[#2D6A4F] text-base shrink-0">
+            {post.author.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
+          </div>
+          <div>
+            <p class="text-sm font-bold text-slate-900">{post.author}</p>
+            <p class="text-xs text-slate-500">{post.authorRole || 'Compliance & Technical Assurance'}</p>
+          </div>
+        </div>
+
+        {post.tags && post.tags.length > 0 && (
+          <div class="flex flex-wrap gap-1.5">
+            {post.tags.map((t) => (
+              <span class="text-[11px] font-semibold text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded-md">
+                #{t}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== FEATURED VISUAL / COVER IMAGE ===== -->
+  <section class="bg-[#152e20] relative overflow-hidden py-10 lg:py-14">
+    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 28px 28px;"></div>
+    
+    <Container size="narrow">
+      <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-slate-900 min-h-[280px] sm:min-h-[380px] flex items-center justify-center">
+        {post.coverImage || (post as any).image ? (
+          <img
+            src={insightsApi.getImageUrl(post.coverImage || (post as any).image)}
+            alt={post.title}
+            class="w-full h-full object-cover max-h-[460px]"
+          />
+        ) : (
+          <div class="p-8 sm:p-12 text-center relative z-10">
+            <div class="h-16 w-16 rounded-2xl bg-[#2D6A4F]/40 border border-[#2D6A4F]/80 flex items-center justify-center mx-auto mb-4 text-emerald-300">
+              <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <p class="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-2">
+              TechSteps Verified Publication
+            </p>
+            <h3 class="text-xl sm:text-2xl font-bold text-white max-w-xl mx-auto">
+              {post.title}
+            </h3>
+            <p class="text-xs text-slate-400 mt-2 font-mono">
+              ADISA 8.0 &bull; BS 10008 &bull; Scope 3 ITAD
+            </p>
+          </div>
+        )}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== ARTICLE BODY & SIDEBAR ===== -->
+  <section class="bg-white py-14 lg:py-20">
+    <Container size="narrow">
+      <div class="grid lg:grid-cols-[1fr_280px] gap-12 lg:gap-14 items-start">
+        
+        <!-- Main Content Area -->
+        <main class="min-w-0">
+          <!-- Article Rendered Content -->
+          <div class="article-content prose-slate max-w-none space-y-4">
+            <Fragment set:html={renderedHtml} />
+          </div>
+
+          <!-- Document Attachments Download Card -->
+          {documents.length > 0 && (
+            <div class="mt-12 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="h-10 w-10 rounded-xl bg-[#2D6A4F]/10 flex items-center justify-center text-[#2D6A4F]">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-base font-bold text-slate-900">Official Downloadable Documents</h3>
+                  <p class="text-xs text-slate-500">Verified cryptographic whitepapers &amp; audit checklists</p>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                {documents.map((doc: any) => (
+                  <div class="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-200 hover:border-[#2D6A4F]/50 transition-colors">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <svg class="w-5 h-5 text-[#2D6A4F] shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
+                      </svg>
+                      <div class="truncate">
+                        <p class="text-sm font-bold text-slate-900 truncate">{doc.name || 'Technical Document.pdf'}</p>
+                        <p class="text-[11px] text-slate-400 font-mono">
+                          {doc.size ? `${(doc.size / 1024).toFixed(1)} KB` : 'PDF Document'} &bull; Verified Safe
+                        </p>
+                      </div>
+                    </div>
+                    <a
+                      href={insightsApi.getDocumentUrl(doc.id || doc.file_id, doc.url)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="px-4 py-2 rounded-lg bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider shrink-0 transition-colors"
+                    >
+                      Download &darr;
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- Interactive Bottom Engagement Bar -->
+          <div class="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#fafbf9] p-6 rounded-2xl border">
+            <div>
+              <p class="text-sm font-bold text-slate-900">Did you find this analysis helpful?</p>
+              <p class="text-xs text-slate-500">Share your feedback or save it to your compliance records.</p>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <InteractiveLikeButton
+                client:load
+                postId={post.id}
+                initialLikes={post.likes || 0}
+              />
+              <button
+                type="button"
+                id="copy-article-link"
+                class="px-4 py-2 rounded-full border border-slate-200 bg-white text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-slate-900 hover:border-slate-300 shadow-xs cursor-pointer transition-colors"
+              >
+                Share / Copy Link
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Navigation Links -->
+          <div class="mt-10 flex items-center justify-between pt-6 border-t border-slate-100">
+            <a
+              href={`/insights/${categorySlug}`}
+              class="inline-flex items-center gap-2 text-sm font-bold text-[#2D6A4F] hover:underline"
+            >
+              &larr; More in {categoryName}
+            </a>
+            <a
+              href="/insights"
+              class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-slate-900"
+            >
+              All Insights Hub &rarr;
+            </a>
+          </div>
+        </main>
+
+        <!-- Right Sticky Sidebar -->
+        <aside class="space-y-6 lg:sticky lg:top-24">
+          <!-- Author Card -->
+          <div class="bg-[#f7f8f5] rounded-2xl p-6 border border-slate-200">
+            <span class="text-[11px] font-bold uppercase tracking-widest text-slate-400 block mb-3">
+              Author Profile
+            </span>
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-11 w-11 rounded-full bg-[#2D6A4F]/15 border border-[#2D6A4F]/30 flex items-center justify-center font-bold text-[#2D6A4F] text-sm shrink-0">
+                {post.author.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
+              </div>
+              <div>
+                <p class="text-sm font-bold text-slate-900">{post.author}</p>
+                <p class="text-xs text-slate-500">{post.authorRole || 'Senior Contributor'}</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Specialising in ADISA standard compliance, chain of custody auditing, and zero-landfill electronic lifecycle strategies at TechSteps.
+            </p>
+          </div>
+
+          <!-- Key Metrics Box -->
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
+            <span class="text-[11px] font-bold uppercase tracking-widest text-slate-400 block mb-3">
+              Publication Metrics
+            </span>
+            <dl class="space-y-2.5 text-xs">
+              <div class="flex justify-between py-1 border-b border-slate-100">
+                <dt class="text-slate-500">Category</dt>
+                <dd class="font-bold text-[#2D6A4F]">{categoryName}</dd>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-100">
+                <dt class="text-slate-500">Read Time</dt>
+                <dd class="font-mono text-slate-800">{post.readTime}</dd>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-100">
+                <dt class="text-slate-500">Total Views</dt>
+                <dd class="font-mono text-slate-800">{post.views || 0}</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-slate-500">Verified Likes</dt>
+                <dd class="font-mono text-slate-800">{post.likes || 0}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Contact Advisor Card -->
+          <div class="bg-[#152e20] text-white rounded-2xl p-6 border border-[#2D6A4F]/40 shadow-md">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-300 block mb-2">
+              Compliance Consultation
+            </span>
+            <h4 class="text-base font-bold mb-2 leading-snug">
+              Discuss your enterprise ITAD &amp; storage sanitisation.
+            </h4>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+              Connect directly with our certified technical assurance engineers to schedule an on-site audit.
+            </p>
+            <a
+              href="/contact"
+              class="block text-center py-2.5 px-4 rounded-xl bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-xs"
+            >
+              Speak to Our Specialists &rarr;
+            </a>
+          </div>
+        </aside>
+
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== RELATED INSIGHTS SECTION ===== -->
+  {relatedPosts.length > 0 && (
+    <section class="bg-[#fafbf9] py-16 lg:py-20 border-t border-slate-200">
+      <Container>
+        <div class="flex items-center justify-between mb-10">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-[#2D6A4F] block mb-1">
+              Recommended Reading
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              Related Research &amp; Articles
+            </h2>
+          </div>
+          <a
+            href="/insights"
+            class="text-xs font-bold uppercase tracking-wider text-[#2D6A4F] hover:underline"
+          >
+            All Insights &rarr;
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {relatedPosts.map((rel) => (
+            <a
+              href={`/insights/${rel.category?.slug || 'blogs'}/${rel.seoSlug || rel.id}`}
+              class="group bg-white rounded-2xl border border-slate-200 hover:border-[#2D6A4F]/50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+            >
+              <div class="h-40 bg-gradient-to-br from-slate-900 via-[#182f22] to-[#2D6A4F] relative overflow-hidden flex-shrink-0">
+                <div class="absolute inset-0 opacity-15" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 18px 18px;"></div>
+                
+                {rel.coverImage && (
+                  <img
+                    src={insightsApi.getImageUrl(rel.coverImage)}
+                    alt={rel.title}
+                    class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50 group-hover:scale-105 transition-transform duration-500"
+                  />
+                )}
+
+                <div class="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[10px] font-bold text-emerald-300 uppercase tracking-widest">
+                  <span>{rel.category?.name || 'Insight'}</span>
+                  <span class="font-mono text-emerald-200">{rel.readTime}</span>
+                </div>
+              </div>
+
+              <div class="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <p class="text-[11px] text-slate-400 font-mono mb-2">{rel.date}</p>
+                  <h3 class="text-base font-bold text-slate-900 group-hover:text-[#2D6A4F] transition-colors leading-snug mb-2 line-clamp-2">
+                    {rel.title}
+                  </h3>
+                  <p class="text-xs text-slate-600 line-clamp-2 mb-4">
+                    {rel.excerpt}
+                  </p>
+                </div>
+
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                  <span class="text-slate-500 font-medium">{rel.author}</span>
+                  <span class="font-bold text-[#2D6A4F] flex items-center gap-1">
+                    Read &rarr;
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )}
+
+</BaseLayout>
+
+<script>
+  function setupCopyButton() {
+    const copyBtn = document.getElementById('copy-article-link');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          const originalText = copyBtn.innerText;
+          copyBtn.innerText = 'Copied Link!';
+          copyBtn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-300');
+          setTimeout(() => {
+            copyBtn.innerText = originalText;
+            copyBtn.classList.remove('bg-emerald-50', 'text-emerald-700', 'border-emerald-300');
+          }, 2500);
+        } catch (err) {
+          console.error('Failed to copy link:', err);
+        }
+      });
+    }
+  }
+
+  setupCopyButton();
+  document.addEventListener('astro:page-load', setupCopyButton);
+</script>

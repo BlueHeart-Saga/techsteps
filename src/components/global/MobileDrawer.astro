@@ -1,6 +1,14 @@
 ---
 import { getDivisions, getServices, getSectors, getSiteSettings } from '../../lib/sanity/client';
+import { insightsApi } from '../../lib/insightsApi';
 import BrandLogo from './BrandLogo.astro';
+
+let siteStructure: any[] = [];
+try {
+  siteStructure = (await insightsApi.getFullSiteStructure()) || [];
+} catch (e) {
+  console.error('Failed to load insights structure for mobile drawer:', e);
+}
 
 const [divisions, services, sectors, siteSettings] = await Promise.all([
   getDivisions(),
@@ -155,17 +163,47 @@ const currentPath = Astro.url.pathname;
         About Us
       </a>
 
-      <!-- Insights -->
-      <a
-        href="/insights"
-        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] font-semibold transition-all ${
-          currentPath.startsWith('/insights')
-            ? 'bg-[#146B5C]/10 text-[#146B5C]'
-            : 'text-slate-800 hover:text-black hover:bg-slate-100/80'
-        }`}
-      >
-        Insights
-      </a>
+      <!-- Insights Accordion -->
+      <div class="rounded-xl border border-slate-100 overflow-hidden">
+        <button
+          type="button"
+          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-base sm:text-[17px] font-semibold text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
+          aria-expanded={currentPath.startsWith('/insights') ? 'true' : 'false'}
+        >
+          <span class="flex items-center gap-2">
+            <span>Insights</span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-[#146B5C]/10 text-[#146B5C]">Hub</span>
+          </span>
+          <svg class={`h-4 w-4 text-slate-500 transition-transform duration-200 ${currentPath.startsWith('/insights') ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class={`mobile-subnav-content ${currentPath.startsWith('/insights') ? '' : 'hidden'} px-4 pt-2 pb-4 space-y-4 bg-slate-50/50 border-t border-slate-100`}>
+          <a
+            href="/insights"
+            class="block py-2 px-2.5 rounded-lg text-sm font-bold text-[#146B5C] bg-[#146B5C]/10 hover:bg-[#146B5C]/20 transition-colors"
+          >
+            Explore All Insights &amp; Publications &rarr;
+          </a>
+          {siteStructure.map((sec: any) => (
+            <div class="space-y-1.5">
+              <span class="block text-xs font-bold uppercase tracking-wider text-[#E58A3C] pt-1">
+                {sec.name}
+              </span>
+              <div class="pl-2 space-y-1 border-l-2 border-slate-200">
+                {(sec.categories || []).map((cat: any) => (
+                  <a
+                    href={`/insights/${cat.slug}`}
+                    class="block py-1.5 px-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[#146B5C] hover:bg-white transition-colors"
+                  >
+                    {cat.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <!-- Contact Us -->
       <a

@@ -1,6 +1,7 @@
 ---
 import { getDivisions, getSectors, getSiteSettings } from '../../lib/sanity/client';
 import BrandLogo from './BrandLogo.astro';
+import FooterNewsletter from '../newsletter/FooterNewsletter';
 
 const [divisions, sectors, siteSettings] = await Promise.all([
   getDivisions(),
@@ -100,40 +101,7 @@ const currentYear = new Date().getFullYear();
 
         <!-- Column 2: Newsletter "Get Updates" -->
         <div class="md:col-span-6 md:border-x md:border-white/20 md:px-6 lg:px-12 text-center">
-          <h3 class="font-serif text-3xl sm:text-4xl font-normal text-white tracking-tight">Get Updates</h3>
-          <p class="font-serif italic text-sm text-slate-200/90 mt-2 max-w-sm mx-auto leading-relaxed">
-            Subscribe to our newsletter to receive updates and special announcements.
-          </p>
-
-          <form class="mt-6 max-w-md mx-auto space-y-3" action="/contact" method="get">
-            <div>
-              <label for="footer-email" class="sr-only">Email address</label>
-              <input
-                id="footer-email"
-                name="email"
-                type="email"
-                required
-                placeholder="*Email"
-                class="w-full bg-transparent border border-white/40 rounded-xs px-3.5 py-2 text-sm text-white placeholder-slate-300/80 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all"
-              />
-            </div>
-            <div class="flex items-center gap-2">
-              <label for="footer-name" class="sr-only">First Name</label>
-              <input
-                id="footer-name"
-                name="name"
-                type="text"
-                placeholder="*First Name"
-                class="flex-1 min-w-0 bg-transparent border border-white/40 rounded-xs px-3.5 py-2 text-sm text-white placeholder-slate-300/80 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all"
-              />
-              <button
-                type="submit"
-                class="bg-white hover:bg-slate-100 text-[#375647] font-bold text-xs uppercase tracking-wider px-6 py-2.5 rounded-xs transition-colors shadow-sm shrink-0 cursor-pointer"
-              >
-                Sign Up
-              </button>
-            </div>
-          </form>
+          <FooterNewsletter client:load />
         </div>
 
         <!-- Column 3: Contact Details & Accreditation -->

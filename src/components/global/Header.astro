@@ -113,16 +113,26 @@ const currentPath = Astro.url.pathname;
             Sustainability
           </a>
 
-          <a
-            href="/insights"
-            class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
-              currentPath === '/insights' || currentPath.startsWith('/insights/')
-                ? 'border-slate-900 text-black font-semibold'
-                : 'border-transparent text-slate-800 hover:text-black hover:border-slate-800 font-semibold'
-            }`}
-          >
-            Insights
-          </a>
+          <!-- Insights Mega Menu Link -->
+          <div class="relative insights-trigger-wrap flex items-center">
+            <a
+              href="/insights"
+              class={`insights-megamenu-toggle inline-flex items-center gap-1.5 py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 font-semibold text-[15px] cursor-pointer focus:outline-none ${
+                currentPath === '/insights' || currentPath.startsWith('/insights/')
+                  ? 'border-slate-900 text-black'
+                  : 'border-transparent text-slate-800 hover:text-black hover:border-slate-800'
+              }`}
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="insights-megamenu-panel"
+              data-is-active-route={currentPath === '/insights' || currentPath.startsWith('/insights/') ? 'true' : 'false'}
+            >
+              <span>Insights</span>
+              <svg class="h-4 w-4 text-slate-500 transition-transform duration-200 caret-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+          </div>
 
           <a
             href="/contact"

@@ -2,85 +2,73 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import PageHero from '../../components/hero/PageHero.astro';
-import { articles } from '../../lib/sanity/data';
+import { insightsApi, isPublishedPost, type Post } from '../../lib/insightsApi';
+import InlineNewsletter from '../../components/newsletter/InlineNewsletter';
 
 const breadcrumbs = [
   { name: 'Insights', url: '/insights' },
 ];
 
-// Derive unique categories from articles
-const allCategories = ['All', ...Array.from(new Set(articles.map((a) => a.category)))];
+let apiPosts: Post[] = [];
+let siteStructure: any[] = [];
 
-// Featured = first article; rest = latest
-const featuredArticle = articles[0];
-const latestArticles = articles.slice(1);
+try {
+  const [postsRes, structureRes] = await Promise.all([
+    insightsApi.getAllPosts(50),
+    insightsApi.getFullSiteStructure()
+  ]);
+  apiPosts = (postsRes || []).filter(isPublishedPost);
+  siteStructure = structureRes || [];
+} catch (err) {
+  console.error('Failed to fetch live insights:', err);
+}
 
-// Category expertise blocks
-const expertiseAreas = [
-  {
-    title: 'IT Asset Lifecycle',
-    description: 'Secure ITAD, asset remarketing, ADISA-certified disposal and hardware reuse strategies.',
-    icon: 'cpu',
-    href: '/insights?cat=it-lifecycle',
-    accent: '#2D6A4F',
-  },
-  {
-    title: 'Data Security',
-    description: 'Data sanitisation, hard drive destruction, encryption and information security governance.',
-    icon: 'shield',
-    href: '/insights?cat=data-security',
-    accent: '#1B4F72',
-  },
-  {
-    title: 'Sustainability',
-    description: 'Circular technology economy, zero-landfill recycling and environmental impact reporting.',
-    icon: 'leaf',
-    href: '/insights?cat=sustainability',
-    accent: '#375647',
-  },
-  {
-    title: 'Information Management',
-    description: 'Records lifecycle governance, document scanning, storage and GDPR-compliant destruction.',
-    icon: 'folder',
-    href: '/insights?cat=information-management',
-    accent: '#5D4037',
-  },
-];
+const posts = apiPosts;
 
-// News items (company updates separate from expertise articles)
-const newsItems = [
-  {
-    date: 'September 2026',
-    tag: 'Company Update',
-    title: 'Techsteps Expands Secure IT Collection to Scotland & Northern Ireland',
-    excerpt: 'We are delighted to announce nationwide coverage extension to Scotland and Northern Ireland, servicing all UK postcodes for IT asset collection and secure destruction.',
-  },
-  {
-    date: 'August 2026',
-    tag: 'Accreditation',
-    title: 'Techsteps Achieves ADISA Standard 8.0 Pass with Distinction',
-    excerpt: 'Following rigorous third-party audit, Techsteps has been awarded the highest grade in the ADISA IT Asset Disposal certification — Pass with Distinction.',
-  },
-  {
-    date: 'July 2026',
-    tag: 'Partnership',
-    title: 'New Crown Commercial Service Framework Agreement Awarded',
-    excerpt: 'Techsteps has been awarded a position on the Crown Commercial Service IT Hardware framework, simplifying procurement for all UK central government departments.',
-  },
-];
+// Dynamic categories derived directly from live CMS site structure and posts
+const categoriesMap = new Map<string, { name: string; slug: string; count: number }>();
+
+posts.forEach((p) => {
+  const slug = p.category?.slug || 'blogs';
+  const name = p.category?.name || 'Blogs';
+  const existing = categoriesMap.get(slug);
+  if (existing) {
+    existing.count += 1;
+  } else {
+    categoriesMap.set(slug, { name, slug, count: 1 });
+  }
+});
+
+// Also include categories from live siteStructure
+siteStructure.forEach((sec: any) => {
+  (sec.categories || []).forEach((cat: any) => {
+    if (!categoriesMap.has(cat.slug)) {
+      categoriesMap.set(cat.slug, { name: cat.name, slug: cat.slug, count: 0 });
+    }
+  });
+});
+
+const availableCategories = Array.from(categoriesMap.values());
+
+// Featured post: priority to post with featured: true, else first post
+const featuredArticle = posts.find((p) => p.featured) || posts[0];
+const remainingArticles = posts.filter((p) => p.id !== featuredArticle?.id);
+
+// Sections for knowledge area blocks directly from live CMS structure
+const displaySections = siteStructure;
 ---
 
 <BaseLayout
-  title="Insights & Expertise | Ideas for a Smarter Technology Lifecycle | Techsteps"
-  description="Practical insights on IT asset management, data security, responsible recycling, sustainability and information management from Techsteps UK."
+  title="Insights & Research Hub | Technology Lifecycle & Data Security | TechSteps"
+  description="Explore expert analysis, certified ITAD whitepapers, BS 10008 legal admissibility guides, and zero-landfill ESG case studies from TechSteps UK."
   hasHeroHeader={true}
 >
 
-  <!-- ===== 1. INSIGHTS HERO (Simple & Clean, ref: /sustainability) ===== -->
+  <!-- ===== 1. INSIGHTS HERO ===== -->
   <PageHero
-    eyebrow="INSIGHTS & EXPERTISE"
+    eyebrow="INSIGHTS & RESEARCH HUB"
     title="Ideas for a Smarter Technology Lifecycle."
-    subheading="Practical insights on IT asset management, data security, responsible recycling and sustainability."
+    subheading="Explore verified analysis on IT asset management, military-grade data sanitisation, BS 10008 document integrity, and circular ESG metrics."
     bgImage="/images/brand/hero-bg.jpg"
     breadcrumbs={breadcrumbs}
     dividerColor="#ffffff"
@@ -90,96 +78,45 @@ const newsItems = [
         href="#featured-insight"
         class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#2D6A4F] hover:bg-[#245a41] text-white text-sm font-bold shadow-lg transition-all duration-200"
       >
-        Explore Featured Insights
+        Explore Featured Research
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
       </a>
+      <a
+        href="#all-insights"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/25 text-sm font-bold backdrop-blur-sm transition-all duration-200"
+      >
+        Browse All Articles ({posts.length})
+      </a>
     </div>
   </PageHero>
 
-  <!-- ===== FEATURED INSIGHT ===== -->
-  <section id="featured-insight" class="bg-white py-16 lg:py-20">
+  <!-- ===== 2. DYNAMIC TAXONOMY & CATEGORY PILLS BAR ===== -->
+  <section class="bg-white border-b border-slate-200 sticky top-0 z-30 backdrop-blur-md bg-white/95 shadow-xs">
     <Container>
-      <!-- Section Label -->
-      <div class="flex items-center gap-4 mb-10">
-        <span class="text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F]">Featured</span>
-        <div class="flex-1 h-px bg-slate-200"></div>
-      </div>
-
-      <a href={`/insights/${featuredArticle.slug}`} class="group block">
-        <div class="grid lg:grid-cols-5 gap-0 rounded-3xl overflow-hidden border border-slate-200 hover:border-[#2D6A4F]/40 hover:shadow-2xl transition-all duration-500 bg-white">
-          <!-- Image panel -->
-          <div class="lg:col-span-3 relative min-h-[280px] lg:min-h-[420px] bg-gradient-to-br from-slate-900 via-[#1a2e1f] to-[#2D6A4F] overflow-hidden">
-            <!-- Pattern overlay -->
-            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px;"></div>
-            <!-- Category + date overlay -->
-            <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/60 to-transparent">
-              <span class="inline-block text-[10px] font-bold uppercase tracking-widest text-emerald-300 border border-emerald-400/30 px-2.5 py-1 rounded-full mb-3">
-                {featuredArticle.category}
-              </span>
-              <p class="text-xs text-slate-300 font-mono">{featuredArticle.publishedDate} · {featuredArticle.readTime}</p>
-            </div>
-            <!-- Decorative icon -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5">
-              <svg class="w-64 h-64 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Content panel -->
-          <div class="lg:col-span-2 p-8 lg:p-12 flex flex-col justify-between">
-            <div>
-              <h2 class="text-2xl lg:text-3xl font-extrabold text-slate-900 leading-tight group-hover:text-[#2D6A4F] transition-colors duration-300 mb-5">
-                {featuredArticle.title}
-              </h2>
-              <p class="text-base text-slate-600 leading-relaxed">
-                {featuredArticle.summary}
-              </p>
-            </div>
-
-            <div class="mt-8">
-              <!-- Author -->
-              <div class="flex items-center gap-3 mb-8">
-                <div class="h-10 w-10 rounded-full bg-[#2D6A4F]/15 border border-[#2D6A4F]/30 flex items-center justify-center font-bold text-[#2D6A4F] text-sm">
-                  {featuredArticle.author.split(' ').map((n: string) => n[0]).join('')}
-                </div>
-                <div>
-                  <p class="text-sm font-bold text-slate-900">{featuredArticle.author}</p>
-                  <p class="text-xs text-slate-500">{featuredArticle.authorRole}</p>
-                </div>
-              </div>
-
-              <span class="inline-flex items-center gap-2 text-sm font-bold text-[#2D6A4F] group-hover:gap-3 transition-all duration-200">
-                Read the Insight
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </span>
-            </div>
-          </div>
-        </div>
-      </a>
-    </Container>
-  </section>
-
-  <!-- ===== TOPIC FILTER BAR ===== -->
-  <section class="bg-white border-t border-b border-slate-100 py-5 sticky top-0 z-30 backdrop-blur-sm bg-white/95">
-    <Container>
-      <div class="overflow-x-auto scrollbar-hide -mx-4 px-4">
+      <div class="overflow-x-auto scrollbar-hide py-4 -mx-4 px-4">
         <div class="flex items-center gap-2 min-w-max">
-          <span class="text-xs font-bold uppercase tracking-widest text-slate-400 mr-3 shrink-0">Filter:</span>
-          {allCategories.map((cat, i) => (
+          <span class="text-xs font-bold uppercase tracking-widest text-slate-400 mr-2 shrink-0">
+            Categories:
+          </span>
+          <a
+            href="/insights"
+            class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-900 text-white border border-slate-900 transition-all duration-200 shrink-0"
+          >
+            All Insights ({posts.length})
+          </a>
+          {availableCategories.map((cat) => (
             <a
-              href={cat === 'All' ? '/insights' : `/insights?cat=${cat.toLowerCase().replace(/\s+/g, '-')}`}
-              class={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider border transition-all duration-200 shrink-0 whitespace-nowrap ${
-                i === 0
-                  ? 'bg-slate-900 text-white border-slate-900'
-                  : 'bg-transparent text-slate-600 border-slate-200 hover:border-slate-900 hover:text-slate-900'
-              }`}
+              href={`/insights/${cat.slug}`}
+              class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 border border-slate-200 hover:border-emerald-300 transition-all duration-200 shrink-0 flex items-center gap-1.5"
             >
-              {cat}
+              <span>{cat.name}</span>
+              {cat.count > 0 && (
+                <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-200 text-slate-700">
+                  {cat.count}
+                </span>
+              )}
             </a>
           ))}
         </div>
@@ -187,50 +124,232 @@ const newsItems = [
     </Container>
   </section>
 
-  <!-- ===== LATEST INSIGHTS GRID ===== -->
-  <section class="bg-white py-16 lg:py-20">
-    <Container>
-      <h2 class="text-3xl font-extrabold text-slate-900 mb-3">Latest Insights</h2>
-      <p class="text-base text-slate-500 mb-12 font-medium">Expert analysis on technology lifecycle, data security and sustainability.</p>
+  <!-- ===== 3. FEATURED INSIGHT ===== -->
+  {featuredArticle && (
+    <section id="featured-insight" class="bg-white py-14 lg:py-18">
+      <Container>
+        <div class="flex items-center justify-between gap-4 mb-8">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold tracking-widest uppercase text-[#2D6A4F] bg-[#2D6A4F]/10 px-3 py-1 rounded-full">
+              <span class="w-2 h-2 rounded-full bg-[#2D6A4F] animate-pulse"></span>
+              Spotlight Insight
+            </span>
+            <span class="text-xs text-slate-400 font-mono">ADISA &amp; ESG Series</span>
+          </div>
+          <a
+            href={`/insights/${featuredArticle.category?.slug || 'blogs'}`}
+            class="text-xs font-bold text-slate-500 hover:text-[#2D6A4F] transition-colors"
+          >
+            More in {featuredArticle.category?.name || 'Blogs'} &rarr;
+          </a>
+        </div>
 
-      {latestArticles.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {latestArticles.map((article) => (
-            <a
-              href={`/insights/${article.slug}`}
-              class="group flex flex-col bg-white rounded-2xl border border-slate-200 hover:border-[#2D6A4F]/50 hover:shadow-xl transition-all duration-300 overflow-hidden"
-            >
+        <a
+          href={`/insights/${featuredArticle.category?.slug || 'blogs'}/${featuredArticle.seoSlug || featuredArticle.id}`}
+          class="group block"
+        >
+          <div class="grid lg:grid-cols-12 gap-0 rounded-3xl overflow-hidden border border-slate-200 hover:border-[#2D6A4F]/40 hover:shadow-2xl transition-all duration-500 bg-white">
+            <!-- Cover / Illustration Panel -->
+            <div class="lg:col-span-7 relative min-h-[300px] lg:min-h-[460px] bg-gradient-to-br from-slate-900 via-[#152e20] to-[#2D6A4F] overflow-hidden flex flex-col justify-between p-8 sm:p-10">
+              <!-- Background pattern -->
+              <div class="absolute inset-0 opacity-15" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px;"></div>
 
-              <div class="relative h-48 bg-gradient-to-br from-slate-800 to-[#1a2e1f] overflow-hidden flex-shrink-0">
-                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 20px 20px;"></div>
-                <div class="absolute inset-0 flex items-center justify-center opacity-5">
-                  <svg class="w-40 h-40 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                  </svg>
-                </div>
-                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                  <span class="inline-block text-[10px] font-bold uppercase tracking-widest text-emerald-300 border border-emerald-400/30 px-2 py-0.5 rounded-full">
-                    {article.category}
+              {featuredArticle.coverImage && (
+                <img
+                  src={insightsApi.getImageUrl(featuredArticle.coverImage)}
+                  alt={featuredArticle.title}
+                  class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40 group-hover:scale-105 transition-transform duration-700"
+                />
+              )}
+
+              <!-- Top badges -->
+              <div class="relative z-10 flex items-center justify-between">
+                <span class="text-[11px] font-bold uppercase tracking-widest text-emerald-300 border border-emerald-400/40 bg-emerald-950/60 backdrop-blur-sm px-3 py-1 rounded-full">
+                  {featuredArticle.category?.name || 'Insight'}
+                </span>
+                <span class="text-xs font-mono text-emerald-200/90 bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">
+                  {featuredArticle.readTime}
+                </span>
+              </div>
+
+              <!-- Decorative center watermark icon -->
+              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 pointer-events-none">
+                <svg class="w-72 h-72 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+              </div>
+
+              <!-- Bottom metadata on visual card -->
+              <div class="relative z-10 mt-auto pt-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent -mx-8 -mb-8 sm:-mx-10 sm:-mb-10 p-8 sm:p-10">
+                <div class="flex flex-wrap items-center gap-4 text-xs text-slate-300">
+                  <span class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    {featuredArticle.date}
+                  </span>
+                  <span>&bull;</span>
+                  <span class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-rose-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                    </svg>
+                    {featuredArticle.likes || 0} Likes
+                  </span>
+                  <span>&bull;</span>
+                  <span class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    {featuredArticle.views || 0} Views
                   </span>
                 </div>
               </div>
+            </div>
 
+            <!-- Content Panel -->
+            <div class="lg:col-span-5 p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 mb-4">
+                  <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    {featuredArticle.section?.name || 'Knowledge Hub'}
+                  </span>
+                </div>
 
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight group-hover:text-[#2D6A4F] transition-colors duration-300 mb-4">
+                  {featuredArticle.title}
+                </h2>
+
+                {featuredArticle.subtitle && (
+                  <p class="text-sm font-semibold text-slate-700 mb-3">
+                    {featuredArticle.subtitle}
+                  </p>
+                )}
+
+                <p class="text-sm sm:text-base text-slate-600 leading-relaxed line-clamp-4">
+                  {featuredArticle.excerpt}
+                </p>
+
+                {featuredArticle.tags && featuredArticle.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-1.5 mt-5">
+                    {featuredArticle.tags.map((tag) => (
+                      <span class="text-[11px] font-medium text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-md">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
+                <!-- Author -->
+                <div class="flex items-center gap-3">
+                  <div class="h-10 w-10 rounded-full bg-[#2D6A4F]/15 border border-[#2D6A4F]/30 flex items-center justify-center font-bold text-[#2D6A4F] text-sm shrink-0">
+                    {featuredArticle.author.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-slate-900">{featuredArticle.author}</p>
+                    <p class="text-xs text-slate-500">{featuredArticle.authorRole || 'Contributor'}</p>
+                  </div>
+                </div>
+
+                <span class="inline-flex items-center gap-2 text-sm font-bold text-[#2D6A4F] group-hover:gap-3 transition-all duration-200">
+                  Read Full Insight
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </Container>
+    </section>
+  )}
+
+  <!-- ===== 4. ALL INSIGHTS GRID ===== -->
+  <section id="all-insights" class="bg-[#fafbf9] py-16 lg:py-20 border-t border-slate-200">
+    <Container>
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-[#2D6A4F] block mb-2">
+            Research &amp; Publications
+          </span>
+          <h2 class="text-3xl font-extrabold text-slate-900">Latest Insights</h2>
+          <p class="text-sm text-slate-500 mt-1">
+            Browse all certified analyses, whitepapers, and operational reports.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-semibold text-slate-500 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-xs">
+            Showing {posts.length} Active Articles
+          </span>
+        </div>
+      </div>
+
+      {posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {remainingArticles.map((article) => (
+            <a
+              href={`/insights/${article.category?.slug || 'blogs'}/${article.seoSlug || article.id}`}
+              class="group flex flex-col bg-white rounded-2xl border border-slate-200 hover:border-[#2D6A4F]/50 hover:shadow-xl transition-all duration-300 overflow-hidden"
+            >
+              <!-- Card visual header -->
+              <div class="relative h-48 bg-gradient-to-br from-slate-900 via-[#182f22] to-[#2D6A4F] overflow-hidden flex-shrink-0">
+                <div class="absolute inset-0 opacity-15" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+                {article.coverImage && (
+                  <img
+                    src={insightsApi.getImageUrl(article.coverImage)}
+                    alt={article.title}
+                    class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50 group-hover:scale-105 transition-transform duration-500"
+                  />
+                )}
+
+                <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                  <span class="inline-block text-[10px] font-bold uppercase tracking-widest text-emerald-300 border border-emerald-400/40 bg-black/40 backdrop-blur-xs px-2.5 py-0.5 rounded-full">
+                    {article.category?.name || 'Insight'}
+                  </span>
+                  <span class="text-[11px] font-mono text-emerald-200 bg-black/40 px-2.5 py-0.5 rounded-full backdrop-blur-xs">
+                    {article.readTime}
+                  </span>
+                </div>
+
+                <div class="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] text-slate-300">
+                  <span>{article.date}</span>
+                  <div class="flex items-center gap-3">
+                    <span class="flex items-center gap-1">
+                      <svg class="w-3.5 h-3.5 text-rose-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                      </svg>
+                      {article.likes || 0}
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <svg class="w-3.5 h-3.5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      {article.views || 0}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card body -->
               <div class="flex-1 flex flex-col p-6">
-                <p class="text-[11px] text-slate-400 font-mono mb-3">{article.publishedDate} · {article.readTime}</p>
                 <h3 class="text-lg font-bold text-slate-900 group-hover:text-[#2D6A4F] transition-colors leading-snug mb-3 line-clamp-2">
                   {article.title}
                 </h3>
-                <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 flex-1">
-                  {article.summary}
+                <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 flex-1 mb-4">
+                  {article.excerpt}
                 </p>
 
-                <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <div class="h-7 w-7 rounded-full bg-[#2D6A4F]/10 border border-[#2D6A4F]/20 flex items-center justify-center text-[10px] font-bold text-[#2D6A4F]">
-                      {article.author.split(' ').map((n: string) => n[0]).join('')}
+                      {article.author.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
                     </div>
-                    <p class="text-xs font-semibold text-slate-700">{article.author}</p>
+                    <p class="text-xs font-semibold text-slate-700 line-clamp-1">{article.author}</p>
                   </div>
                   <span class="flex items-center gap-1 text-xs font-bold text-[#2D6A4F] group-hover:gap-2 transition-all">
                     Read
@@ -244,132 +363,81 @@ const newsItems = [
           ))}
         </div>
       ) : (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {articles.map((article) => (
-            <a
-              href={`/insights/${article.slug}`}
-              class="group flex flex-col bg-white rounded-2xl border border-slate-200 hover:border-[#2D6A4F]/50 hover:shadow-xl transition-all duration-300 overflow-hidden"
-            >
-              <div class="relative h-48 bg-gradient-to-br from-slate-800 to-[#1a2e1f] overflow-hidden flex-shrink-0">
-                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 20px 20px;"></div>
-                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                  <span class="inline-block text-[10px] font-bold uppercase tracking-widest text-emerald-300 border border-emerald-400/30 px-2 py-0.5 rounded-full">
-                    {article.category}
-                  </span>
-                </div>
-              </div>
-              <div class="flex-1 flex flex-col p-6">
-                <p class="text-[11px] text-slate-400 font-mono mb-3">{article.publishedDate} · {article.readTime}</p>
-                <h3 class="text-lg font-bold text-slate-900 group-hover:text-[#2D6A4F] transition-colors leading-snug mb-3 line-clamp-2">{article.title}</h3>
-                <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 flex-1">{article.summary}</p>
-                <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <p class="text-xs font-semibold text-slate-700">{article.author}</p>
-                  <span class="flex items-center gap-1 text-xs font-bold text-[#2D6A4F] group-hover:gap-2 transition-all">
-                    Read <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                  </span>
-                </div>
-              </div>
-            </a>
-          ))}
+        <div class="max-w-xl mx-auto bg-white rounded-3xl p-10 border border-slate-200 text-center shadow-sm my-6">
+          <div class="h-16 w-16 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex items-center justify-center mx-auto mb-5 text-[#2D6A4F]">
+            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">
+            No Insights Published Yet
+          </h3>
+          <p class="text-sm text-slate-600 mb-8 leading-relaxed">
+            Our team is currently preparing verified case studies, compliance briefs, and whitepapers for TechSteps. Check back soon or contact our advisory team directly.
+          </p>
+          <a
+            href="/contact"
+            class="inline-block px-6 py-3 rounded-xl bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider transition-colors"
+          >
+            Speak to Our Team
+          </a>
         </div>
       )}
     </Container>
   </section>
 
-  <!-- ===== EXPLORE OUR EXPERTISE ===== -->
-  <section class="bg-[#f7f8f5] py-16 lg:py-24 border-t border-slate-200">
+  <!-- ===== 5. KNOWLEDGE SECTIONS DIRECTORY ===== -->
+  <section class="bg-white py-16 lg:py-24 border-t border-slate-200">
     <Container>
-      <div class="text-center mb-14">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Knowledge Areas</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Explore Our Expertise</h2>
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-3">
+          Taxonomy &amp; Divisions
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Explore Insights By Section
+        </h2>
+        <p class="text-sm text-slate-500 mt-2">
+          Dive into specific technical domains across our enterprise lifecycle and data security capabilities.
+        </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {expertiseAreas.map((area) => (
-          <a
-            href={area.href}
-            class="group relative bg-white rounded-2xl p-7 border border-slate-200 hover:border-transparent hover:shadow-xl transition-all duration-300 overflow-hidden"
-          >
-            <!-- Accent bar -->
-            <div class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={`background: ${area.accent};`}></div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {displaySections.map((sec: any, idx: number) => (
+          <div class="bg-slate-50 rounded-2xl p-7 border border-slate-200/90 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2.5 mb-4">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#2D6A4F]"></span>
+                <h3 class="text-lg font-bold text-slate-900">{sec.name}</h3>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed mb-6">
+                {sec.description || 'Verified operational guides, regulatory summaries, and technical best practices.'}
+              </p>
 
-            <!-- Icon -->
-            <div class="mb-5 h-11 w-11 rounded-xl flex items-center justify-center" style={`background: ${area.accent}15; border: 1px solid ${area.accent}30;`}>
-              {area.icon === 'cpu' && (
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" style={`color: ${area.accent}`}>
-                  <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor"/><rect x="9" y="9" width="6" height="6" stroke="currentColor"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" stroke="currentColor" stroke-linecap="round"/>
-                </svg>
-              )}
-              {area.icon === 'shield' && (
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" style={`color: ${area.accent}`}>
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
-              )}
-              {area.icon === 'leaf' && (
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" style={`color: ${area.accent}`}>
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 3s2 8 0 12c0 0 4-2 8-2 5.523 0 8 3 8 3S19 4.5 5 3zM5 15s2 3 2 6"/>
-                </svg>
-              )}
-              {area.icon === 'folder' && (
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" style={`color: ${area.accent}`}>
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
-                </svg>
-              )}
+              <div class="space-y-2 mb-6">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
+                  Categories in this Section:
+                </span>
+                <div class="flex flex-wrap gap-2">
+                  {(sec.categories || []).map((cat: any) => (
+                    <a
+                      href={`/insights/${cat.slug}`}
+                      class="text-xs font-semibold px-3 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-[#2D6A4F] hover:border-[#2D6A4F]/40 transition-colors"
+                    >
+                      {cat.name} &rarr;
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            <h3 class="text-base font-bold text-slate-900 mb-2 group-hover:text-[#2D6A4F] transition-colors">{area.title}</h3>
-            <p class="text-sm text-slate-600 leading-relaxed">{area.description}</p>
-
-            <div class="mt-5 flex items-center gap-1.5 text-xs font-bold" style={`color: ${area.accent}`}>
-              Explore
-              <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-              </svg>
-            </div>
-          </a>
-        ))}
-      </div>
-    </Container>
-  </section>
-
-  <!-- ===== TECHSTEPS NEWS ===== -->
-  <section class="bg-white py-16 lg:py-20 border-t border-slate-100">
-    <Container>
-      <div class="flex items-center justify-between mb-12">
-        <div>
-          <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-2">Company</span>
-          <h2 class="text-3xl font-extrabold text-slate-900">Techsteps News</h2>
-        </div>
-        <a href="/contact" class="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-[#2D6A4F] transition-colors">
-          Contact us
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
-      </div>
-
-      <div class="space-y-0 divide-y divide-slate-100">
-        {newsItems.map((item) => (
-          <div class="group flex flex-col sm:flex-row gap-6 py-7 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors duration-200 cursor-pointer">
-            <div class="sm:w-36 shrink-0">
-              <p class="text-xs font-mono text-slate-400">{item.date}</p>
-              <span class="inline-block mt-1.5 text-[10px] font-bold uppercase tracking-widest text-[#2D6A4F] border border-[#2D6A4F]/30 px-2 py-0.5 rounded-full bg-[#2D6A4F]/5">
-                {item.tag}
-              </span>
-            </div>
-            <div class="flex-1">
-              <h3 class="text-base font-bold text-slate-900 group-hover:text-[#2D6A4F] transition-colors mb-2 leading-snug">
-                {item.title}
-              </h3>
-              <p class="text-sm text-slate-600 leading-relaxed">{item.excerpt}</p>
-            </div>
-            <div class="shrink-0 self-start sm:self-center">
-              <span class="flex items-center gap-1 text-xs font-bold text-slate-400 group-hover:text-[#2D6A4F] group-hover:gap-2 transition-all">
-                Read
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </span>
+            <div class="pt-4 border-t border-slate-200">
+              <a
+                href={`/insights/${(sec.categories && sec.categories[0]?.slug) || 'blogs'}`}
+                class="text-xs font-bold text-[#2D6A4F] hover:underline flex items-center gap-1"
+              >
+                <span>Browse {sec.name} archive</span>
+                <span>&rarr;</span>
+              </a>
             </div>
           </div>
         ))}
@@ -377,36 +445,24 @@ const newsItems = [
     </Container>
   </section>
 
-  <!-- ===== NEWSLETTER CTA (Clean Open Layout - No Background Box) ===== -->
-  <section class="relative z-10 py-16 lg:py-24 overflow-hidden">
+  <!-- ===== 6. NEWSLETTER CTA ===== -->
+  <section class="relative z-10 py-16 lg:py-24 overflow-hidden bg-slate-50 border-t border-slate-200">
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#2D6A4F]/10 blur-3xl pointer-events-none"></div>
     <Container className="relative z-10">
       <div class="max-w-2xl mx-auto text-center">
-        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Newsletter</span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 leading-tight tracking-tight">Stay Informed.</h2>
-        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 font-medium">
-          Get the latest insights on technology lifecycle management, security and sustainability — straight to your inbox.
+        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">
+          Regulatory Updates
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 leading-tight tracking-tight">
+          Stay Ahead of UK Compliance.
+        </h2>
+        <p class="text-base text-slate-600 leading-relaxed mb-8 font-medium">
+          Receive our quarterly digest covering ADISA audits, Scope 3 IT recycling metrics, and BS 10008 legal precedents directly to your inbox.
         </p>
 
-        <form class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" action="/contact" method="get">
-          <label for="newsletter-email" class="sr-only">Your email address</label>
-          <input
-            id="newsletter-email"
-            name="email"
-            type="email"
-            required
-            placeholder="Your email address"
-            class="flex-1 min-w-0 bg-white border border-slate-300 rounded-xl px-5 py-3.5 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/20 shadow-xs transition-all"
-          />
-          <button
-            type="submit"
-            class="shrink-0 bg-[#2D6A4F] hover:bg-[#245a41] text-white font-bold text-xs uppercase tracking-widest px-7 py-3.5 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-          >
-            Subscribe →
-          </button>
-        </form>
+        <InlineNewsletter client:visible buttonText="Subscribe →" />
 
-        <p class="mt-4 text-xs text-slate-400">No spam. Unsubscribe at any time. Privacy Policy applies.</p>
+        <p class="mt-4 text-xs text-slate-400">Zero spam. Unsubscribe at any time. Protected under UK GDPR.</p>
       </div>
     </Container>
   </section>
