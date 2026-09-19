@@ -1502,7 +1502,7 @@ export const defaultAboutPage: AboutPageData = {
   ctaBody: "Let's build a more secure, responsible and sustainable technology lifecycle for your organisation.",
   ctaButtonLabel: 'Get In Touch →',
   ctaButtonUrl: '/contact',
-  ctaSecondaryButtonLabel: 'Request a Quote →',
+  ctaSecondaryButtonLabel: 'Request a Collection →',
   ctaSecondaryButtonUrl: '/request-a-quote',
 };
 

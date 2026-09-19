@@ -105,7 +105,7 @@ export default {
     { name: 'ctaBody', title: 'CTA Body', type: 'text', rows: 3 },
     { name: 'ctaButtonLabel', title: 'Primary Button Label', type: 'string', initialValue: 'Get In Touch →' },
     { name: 'ctaButtonUrl', title: 'Primary Button URL', type: 'string', initialValue: '/contact' },
-    { name: 'ctaSecondaryButtonLabel', title: 'Secondary Button Label', type: 'string', initialValue: 'Request a Quote →' },
+    { name: 'ctaSecondaryButtonLabel', title: 'Secondary Button Label', type: 'string', initialValue: 'Request a Collection →' },
     { name: 'ctaSecondaryButtonUrl', title: 'Secondary Button URL', type: 'string', initialValue: '/request-a-quote' },
   ],
   preview: {

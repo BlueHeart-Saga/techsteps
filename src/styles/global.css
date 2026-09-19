@@ -45,7 +45,10 @@
 }
 
 @layer base {
-  *, ::after, ::before {
+
+  *,
+  ::after,
+  ::before {
     box-sizing: border-box;
   }
 
@@ -68,7 +71,10 @@
     html {
       scroll-behavior: auto;
     }
-    *, ::before, ::after {
+
+    *,
+    ::before,
+    ::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -77,13 +83,22 @@
   }
 
   /* Accessibility focus styles for WCAG 2.2 AA */
-  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
     outline: 2px solid var(--color-brand-accent);
     outline-offset: 2px;
   }
 
   /* Typography defaults */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
     font-weight: 700;
     line-height: 1.15;
@@ -186,8 +201,30 @@ div[class*="uppercase"][class*="text-xs"] {
 }
 
 /* Homepage content uses a single calm paper ground; the photographic hero remains intact. */
-.home-main > section:not(:first-child) {
+.home-main>section:not(:first-child) {
   background-color: #F1F4EF !important;
+}
+
+/* Global body text weight reduction and size increase:
+   All non-heading text uses normal (400) weight and a slightly larger font size.
+   Headings (h1–h6), buttons, CTAs, and nav links keep their intentional bold weights. */
+p,
+li,
+span:not([class*="font-bold"]):not([class*="font-extrabold"]):not([class*="font-black"]):not([class*="font-semibold"]):not([class*="font-medium"]),
+a:not([class*="font-bold"]):not([class*="font-extrabold"]):not([class*="font-black"]):not([class*="font-semibold"]):not([class*="font-medium"]),
+address,
+blockquote,
+figcaption {
+  font-weight: 400 !important;
+}
+
+p,
+li,
+address,
+blockquote,
+figcaption {
+  font-size: 1.075rem !important;
+  line-height: 1.65 !important;
 }
 
 /* Infinite Scrolling Marquee Ticker */
@@ -195,6 +232,7 @@ div[class*="uppercase"][class*="text-xs"] {
   0% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -204,6 +242,7 @@ div[class*="uppercase"][class*="text-xs"] {
   0% {
     transform: translateX(-50%);
   }
+
   100% {
     transform: translateX(0%);
   }
@@ -225,4 +264,3 @@ div[class*="uppercase"][class*="text-xs"] {
 .marquee-container:hover .animate-marquee-reverse {
   animation-play-state: paused;
 }
-

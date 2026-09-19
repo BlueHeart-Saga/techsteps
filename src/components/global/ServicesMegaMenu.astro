@@ -25,28 +25,31 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
   role="region"
   aria-label="Services Mega Navigation"
 >
-  <div class="relative max-w-[1540px] mx-auto bg-[#a0cc9d] rounded-[28px] sm:rounded-[32px] shadow-2xl border border-black/10 py-10 sm:py-12 lg:py-16 px-8 sm:px-12 lg:px-16 min-h-[580px] sm:min-h-[640px] lg:min-h-[700px] flex flex-col justify-between overflow-hidden">
-    <!-- Custom Services Background Graphic (/images/navabar/image.png) -->
+  <div class="relative max-w-[1540px] mx-auto bg-white rounded-[28px] sm:rounded-[32px] shadow-2xl border border-slate-200/90 py-8 sm:py-10 lg:py-12 px-8 sm:px-12 lg:px-16 flex flex-col justify-between overflow-hidden font-sans">
+    <!-- Custom Services Background Graphic (/images/navabar/servicesbg2.png) -->
     <div
-      class="absolute inset-0 bg-no-repeat pointer-events-none select-none z-0 opacity-95"
-      style="background-image: url('/images/navabar/image.png'); background-position: left bottom; background-size: contain; transform: scaleX(-1);"
+      class="absolute left-0 bottom-0 pointer-events-none select-none z-0 opacity-20 sm:opacity-30 lg:opacity-35 max-w-[240px] sm:max-w-[290px] lg:max-w-[330px] -translate-x-4 translate-y-3"
       aria-hidden="true"
-    ></div>
-
-    {/*<!-- Soft Top Vignette in Matching #a0cc9d -->
-    <div class="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#a0cc9d] via-[#a0cc9d]/80 to-transparent pointer-events-none select-none z-0" aria-hidden="true"></div>*/}
+    >
+      <img
+        src="/images/navabar/servicesbg2.png"
+        alt=""
+        class="w-full h-auto object-contain"
+        loading="eager"
+      />
+    </div>
 
     <!-- 4 Division Service Columns (All 27 Services Across Full Width) -->
     <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 w-full flex-1">
       <!-- Division 1: Information Management (7 Services) -->
       <div class="space-y-4">
-        <a href={`/${div1.slug}`} class="block text-xs sm:text-sm font-bold text-[#143224] hover:text-black uppercase tracking-wider transition-colors pb-1 border-b border-black/15">
+        <a href={`/${div1.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0F623A] hover:text-black uppercase tracking-wider transition-colors pb-2 border-b border-slate-200">
           {div1.title}
         </a>
         <ul class="space-y-3">
           {div1Services.map((s) => (
             <li>
-              <a href={`/services/${s.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0f241a] hover:text-black transition-colors leading-snug py-0.5">
+              <a href={`/services/${s.slug}`} class="block text-[15px] sm:text-base font-medium text-slate-700 hover:text-[#0F623A] hover:translate-x-1 transition-all leading-snug py-0.5">
                 {s.title}
               </a>
             </li>
@@ -56,13 +59,13 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
 
       <!-- Division 2: IT Lifecycle Services & Destruction (6 Services) -->
       <div class="space-y-4">
-        <a href={`/${div2.slug}`} class="block text-xs sm:text-sm font-bold text-[#143224] hover:text-black uppercase tracking-wider transition-colors pb-1 border-b border-black/15">
+        <a href={`/${div2.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0F623A] hover:text-black uppercase tracking-wider transition-colors pb-2 border-b border-slate-200">
           {div2.title}
         </a>
         <ul class="space-y-3">
           {div2Services.map((s) => (
             <li>
-              <a href={`/services/${s.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0f241a] hover:text-black transition-colors leading-snug py-0.5">
+              <a href={`/services/${s.slug}`} class="block text-[15px] sm:text-base font-medium text-slate-700 hover:text-[#0F623A] hover:translate-x-1 transition-all leading-snug py-0.5">
                 {s.title}
               </a>
             </li>
@@ -72,13 +75,13 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
 
       <!-- Division 3: Secure Shredding & Document Integrity (8 Services) -->
       <div class="space-y-4">
-        <a href={`/${div3.slug}`} class="block text-xs sm:text-sm font-bold text-[#143224] hover:text-black uppercase tracking-wider transition-colors pb-1 border-b border-black/15">
+        <a href={`/${div3.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0F623A] hover:text-black uppercase tracking-wider transition-colors pb-2 border-b border-slate-200">
           {div3.title}
         </a>
         <ul class="space-y-3">
           {div3Services.map((s) => (
             <li>
-              <a href={`/services/${s.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0f241a] hover:text-black transition-colors leading-snug py-0.5">
+              <a href={`/services/${s.slug}`} class="block text-[15px] sm:text-base font-medium text-slate-700 hover:text-[#0F623A] hover:translate-x-1 transition-all leading-snug py-0.5">
                 {s.title}
               </a>
             </li>
@@ -88,13 +91,13 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
 
       <!-- Division 4: Moving & Relocation Services (6 Services) -->
       <div class="space-y-4">
-        <a href={`/${div4.slug}`} class="block text-xs sm:text-sm font-bold text-[#143224] hover:text-black uppercase tracking-wider transition-colors pb-1 border-b border-black/15">
+        <a href={`/${div4.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0F623A] hover:text-black uppercase tracking-wider transition-colors pb-2 border-b border-slate-200">
           {div4.title}
         </a>
         <ul class="space-y-3">
           {div4Services.map((s) => (
             <li>
-              <a href={`/services/${s.slug}`} class="block text-sm sm:text-[15px] font-bold text-[#0f241a] hover:text-black transition-colors leading-snug py-0.5">
+              <a href={`/services/${s.slug}`} class="block text-[15px] sm:text-base font-medium text-slate-700 hover:text-[#0F623A] hover:translate-x-1 transition-all leading-snug py-0.5">
                 {s.title}
               </a>
             </li>
@@ -103,12 +106,13 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
       </div>
     </div>
 
-<!-- Bottom Utility Footer -->
-<div class="relative z-10 mt-10 lg:mt-12 pt-6 border-t border-black/10 flex flex-col sm:flex-row items-center justify-end gap-4 text-xs">
-  <a href="/services" class="font-bold text-slate-900 hover:text-black flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white/95 hover:bg-white border border-black/10 shadow-xs hover:shadow-md transition-all">
-    <span>View Full Service Directory &rarr;</span>
-  </a>
-</div>
+    <!-- Bottom Utility Footer -->
+    <div class="relative z-10 mt-6 sm:mt-7 pt-4 sm:pt-5 border-t border-slate-100 flex items-center justify-end text-sm">
+      <a href="/services" class="font-bold text-white bg-[#0F623A] hover:bg-[#0c4e2e] flex items-center gap-2 px-6 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all">
+        <span>View Full Service Directory</span>
+        <span>&rarr;</span>
+      </a>
+    </div>
   </div>
 </div>
 

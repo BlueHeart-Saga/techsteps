@@ -56,12 +56,12 @@ const divisionConfig: Record<string, {
 
 // Lifecycle steps
 const lifecycleSteps = [
-  { step: 'Collect', number: '01', desc: 'Secure GPS-tracked collection by BS 7858 vetted personnel.' },
-  { step: 'Secure', number: '02', desc: 'Controlled handling, high-security chain of custody.' },
-  { step: 'Sanitise', number: '03', desc: 'ADISA-certified erasure, degaussing or shredding.' },
-  { step: 'Reuse', number: '04', desc: 'Refurbishment and remarketing to maximise residual value.' },
-  { step: 'Recycle', number: '05', desc: 'Zero-landfill, WEEE-compliant responsible recycling.' },
-  { step: 'Report', number: '06', desc: 'Certificates, audit trails and ESG reporting.' },
+  { step: 'Collect', number: '01', desc: 'Secure GPS-tracked collection by BS 7858 vetted personnel.', image: '/images/services/process-step-1-collect.jpg' },
+  { step: 'Secure', number: '02', desc: 'Controlled handling, high-security chain of custody.', image: '/images/services/process-step-2-secure.jpg' },
+  { step: 'Sanitise', number: '03', desc: 'ADISA-certified erasure, degaussing or shredding.', image: '/images/services/process-step-3-sanitise.jpg' },
+  { step: 'Reuse', number: '04', desc: 'Refurbishment and remarketing to maximise residual value.', image: '/images/services/process-step-4-reuse.jpg' },
+  { step: 'Recycle', number: '05', desc: 'Zero-landfill, WEEE-compliant responsible recycling.', image: '/images/services/process-step-5-recycle.jpg' },
+  { step: 'Report', number: '06', desc: 'Certificates, audit trails and ESG reporting.', image: '/images/services/process-step-6-report.jpg' },
 ];
 
 // Why Techsteps pillars
@@ -95,6 +95,50 @@ const sectors = [
   { title: 'Financial Services', slug: 'finance' },
   { title: 'Central Government', slug: 'central-government' },
 ];
+
+// 4 Division Cards for the catalogue showcase
+const divisionCards = [
+  {
+    division: 'DIVISION 01',
+    slug: 'information-management',
+    title: 'Information Management',
+    desc: 'Secure, compliant storage, scanning and management of physical and digital information, designed to protect valuable records throughout their lifecycle.',
+    cta: 'EXPLORE INFORMATION MANAGEMENT',
+    href: '/services/information-management',
+    bgImage: '/images/services/image1.png',
+    icon: 'doc-shield',
+  },
+  {
+    division: 'DIVISION 02',
+    slug: 'it-lifecycle-services-destruction',
+    title: 'IT Lifecycle Services & Destruction',
+    desc: 'End-to-end IT asset disposition, secure collection, data sanitisation, hardware refurbishment and responsible electronic recycling.',
+    cta: 'EXPLORE IT LIFECYCLE',
+    href: '/services/it-lifecycle',
+    bgImage: '/images/services/image2.jpg',
+    icon: 'laptop-recycle',
+  },
+  {
+    division: 'DIVISION 03',
+    slug: 'secure-shredding-document-integrity',
+    title: 'Secure Shredding & Document Integrity',
+    desc: 'Secure destruction of confidential documents, media and products through compliant shredding, collection and responsible recycling services.',
+    cta: 'EXPLORE SECURE SHREDDING',
+    href: '/services/secure-destruction',
+    bgImage: '/images/services/image3.jpg',
+    icon: 'shredder',
+  },
+  {
+    division: 'DIVISION 04',
+    slug: 'moving-relocation-services',
+    title: 'Moving & Relocation Services',
+    desc: 'Specialist IT relocation, laboratory moves, museum and archive transportation, commercial office moves and turnkey logistics management.',
+    cta: 'EXPLORE RELOCATION',
+    href: '/services/relocation',
+    bgImage: '/images/services/image4.jpg',
+    icon: 'truck',
+  },
+];
 ---
 
 <BaseLayout
@@ -103,222 +147,677 @@ const sectors = [
   hasHeroHeader={true}
 >
   <!-- ===== 1. SERVICES HERO (Simple & Clean, ref: /sustainability) ===== -->
-  <PageHero
-    eyebrow="OUR SERVICES"
-    title="Solutions Across the Technology Lifecycle."
-    subheading="Specialist IT asset disposition, certified destruction, information management and technology relocation across the UK."
-    bgImage="/images/services/data-centre-hardware.jpg"
-    breadcrumbs={breadcrumbs}
-    dividerColor="#ffffff"
-  >
-    <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
-      <a
-        href="#divisions"
-class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#3FB33D] hover:bg-[#329632] text-white text-sm font-bold shadow-lg transition-all duration-200"      >
-        Explore Our Divisions
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </a>
-    </div>
-  </PageHero>
+<PageHero
+  layout="split"
+  eyebrow="OUR SERVICES"
+  title="Solutions Across the Tecnology Lifecycle"
+  subheading="Specialist IT asset disposition, secure destruction, information management and technology relocation services for organisations across the UK."
+  bgImage="/images/services/data-centre-hardware.jpg"
+  breadcrumbs={breadcrumbs}
+  dividerColor="#ffffff"
+/>
 
   <!-- ===== 1. ONE PARTNER. MULTIPLE SOLUTIONS. ===== -->
-  <section id="divisions" class="bg-white py-16 lg:py-20">
-    <Container>
-      <div class="text-center mb-14">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#3FB33D] mb-4 border border-[#2D6A4F]/30 px-3 py-1.5 rounded-full bg-[#2D6A4F]/5">Service Divisions</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">One Partner. Multiple Solutions.</h2>
-        <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-          Four specialist divisions, working together to provide complete coverage of the technology and information lifecycle.
-        </p>
-      </div>
+<!-- ===== SERVICE DIVISIONS SHOWCASE ===== -->
+<section id="divisions" class="bg-white py-10 lg:py-14 overflow-hidden">
+  <Container>
 
-      <!-- Division cards -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-7">
-        {orderedDivisions.map((div) => {
-          const cfg = divisionConfig[div.slug];
-          if (!cfg) return null;
-          const featuredServices = services.filter(s => cfg.featuredSlugs.includes(s.slug));
-          return (
-            <div
-              class="group relative rounded-3xl border border-slate-200 overflow-hidden hover:shadow-2xl hover:border-transparent transition-all duration-400"
-              style={`background: ${cfg.bg};`}
+<!-- SECTION HEADER -->
+<div class="text-center mb-4 lg:mb-6">
+  <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#3FB33D] mb-3">
+    Service Divisions
+  </span>
+
+  <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+    One Partner. Multiple Solutions.
+  </h2>
+</div>
+
+
+    <!-- TWO COLUMNS -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-24 items-center">
+
+
+      <!-- ========================================= -->
+      <!-- COLUMN 1 : TITLE + DESCRIPTION -->
+      <!-- ========================================= -->
+
+      <div class="flex items-center">
+
+        <div class="max-w-xl">
+
+          <span
+            id="division-label"
+            class="text-[11px] font-bold tracking-[0.2em] uppercase text-[#3FB33D]"
+          >
+            Division 01
+          </span>
+
+          <h2
+            id="division-heading"
+            class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-light text-slate-900 leading-[1.08] tracking-tight"
+          >
+            Information Management
+          </h2>
+
+          <p
+            id="division-description"
+            class="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed"
+          >
+            Secure and efficient information management solutions designed
+            to help organisations store, manage and protect their critical
+            business information.
+          </p>
+
+          <a
+            id="division-link"
+            href="/services/information-management"
+            class="mt-8 inline-flex items-center gap-5 bg-[#3FB33D] text-white px-6 py-4 text-sm font-bold hover:bg-[#329532] transition-all duration-200"
+          >
+            <span id="division-button">
+              Explore Information Management
+            </span>
+
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
             >
-              <!-- Top accent line -->
-              <div class="absolute top-0 left-0 right-0 h-1" style={`background: ${cfg.accent};`}></div>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
+            </svg>
+          </a>
 
-              <div class="p-7 lg:p-9">
-                <!-- Header row -->
-                <div class="flex items-start justify-between gap-4 mb-6">
-                  <div>
-                    <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] mb-2" style={`color: ${cfg.accent};`}>
-                      Division {cfg.number}
-                    </span>
-                    <h3 class="text-xl lg:text-2xl font-extrabold text-slate-900 leading-tight">{div.title}</h3>
-                  </div>
-                  <div class="h-12 w-12 rounded-2xl flex items-center justify-center shrink-0 mt-1" style={`background: ${cfg.accent}15; border: 1px solid ${cfg.accent}30;`}>
-                    {cfg.icon === 'cpu' && (
-                      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style={`color: ${cfg.accent}`}>
-                        <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" stroke-linecap="round"/>
-                      </svg>
-                    )}
-                    {cfg.icon === 'folder' && (
-                      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style={`color: ${cfg.accent}`}>
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
-                      </svg>
-                    )}
-                    {cfg.icon === 'shield' && (
-                      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style={`color: ${cfg.accent}`}>
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                      </svg>
-                    )}
-                    {cfg.icon === 'truck' && (
-                      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style={`color: ${cfg.accent}`}>
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M1 3h15v13H1V3zm15 5h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="1.5"/><circle cx="18.5" cy="18.5" r="1.5"/>
-                      </svg>
-                    )}
-                  </div>
-                </div>
+        </div>
 
-                <!-- Tagline -->
-                <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">{cfg.tagline}</p>
-
-                <!-- Service chips -->
-                <div class="flex flex-wrap gap-2 mb-7">
-                  {featuredServices.slice(0, 5).map(s => (
-                    <a
-                      href={`/services/${s.slug}`}
-                      class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold border transition-all duration-150 hover:shadow-sm"
-                      style={`border-color: ${cfg.accent}30; color: ${cfg.accent}; background: ${cfg.accent}08;`}
-                    >
-                      {s.title}
-                    </a>
-                  ))}
-                </div>
-
-                <!-- Explore link -->
-                <a
-                  href={`#division-${div.slug}`}
-                  class="inline-flex items-center gap-2 text-sm font-bold group-hover:gap-3 transition-all duration-200"
-                  style={`color: ${cfg.accent};`}
-                >
-                  Explore {div.title.split('&')[0].trim()}
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          );
-        })}
       </div>
-    </Container>
-  </section>
+
+
+      <!-- ========================================= -->
+      <!-- COLUMN 2 : CIRCULAR IMAGE -->
+      <!-- ========================================= -->
+
+      <div class="relative h-[380px] lg:h-[440px] flex items-center justify-center">
+
+        <!-- LARGE ORBIT -->
+<div
+  class="absolute
+         w-[340px] h-[340px]
+         sm:w-[410px] sm:h-[410px]
+         lg:w-[480px] lg:h-[480px]
+         rounded-full
+         border border-dashed
+         border-[#3FB33D]/25"
+></div>
+
+
+        <!-- SECOND ORBIT -->
+<div
+  class="absolute
+         w-[260px] h-[260px]
+         sm:w-[320px] sm:h-[320px]
+         lg:w-[380px] lg:h-[380px]
+         rounded-full
+         border border-[#3FB33D]/10"
+></div>
+
+
+        <!-- ROTATING ORBIT -->
+        <div
+          class="absolute inset-0 flex items-center justify-center animate-orbit"
+        >
+
+          <!-- ORBIT DOT -->
+          <span
+            class="absolute
+                   top-[1px]
+                   w-3 h-3
+                   rounded-full
+                   bg-[#3FB33D]
+                   shadow-[0_0_0_7px_rgba(63,179,61,0.12)]"
+          ></span>
+
+        </div>
+
+
+        <!-- IMAGE -->
+<div
+  class="relative z-10
+         w-[270px] h-[270px]
+         sm:w-[330px] sm:h-[330px]
+         lg:w-[390px] lg:h-[390px]
+         rounded-full
+         overflow-hidden
+         border-[7px]
+         border-white
+         shadow-[0_20px_60px_rgba(15,98,58,0.18)]"
+>
+          <img
+            id="division-image"
+            src="/images/services/image1.png"
+            alt="Information Management"
+            class="w-full h-full object-cover transition-all duration-500"
+          />
+        </div>
+
+
+        <!-- SMALL DECORATIVE DOTS -->
+
+        <span
+          class="absolute
+                 left-[12%] top-[32%]
+                 w-2 h-2
+                 rounded-full
+                 bg-[#3FB33D]/50"
+        ></span>
+
+        <span
+          class="absolute
+                 right-[12%] bottom-[30%]
+                 w-2 h-2
+                 rounded-full
+                 bg-[#3FB33D]/40"
+        ></span>
+
+      </div>
+
+    </div>
+
+  </Container>
+</section>
+<style>
+  @keyframes orbit {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-orbit {
+    animation: orbit 18s linear infinite;
+  }
+
+  #division-image {
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s ease;
+  }
+</style>
+<script>
+  const divisionData = {
+    information: {
+      label: "Division 01",
+      title: "Information Management",
+      description:
+        "Secure and efficient information management solutions designed to help organisations store, manage and protect their critical business information.",
+      image: "/images/services/image1.png",
+      link: "/services/information-management",
+      button: "Explore Information Management",
+    },
+
+    lifecycle: {
+      label: "Division 02",
+      title: "IT Lifecycle Services",
+      description:
+        "Responsible IT asset lifecycle services covering collection, data sanitisation, reuse, remarketing, recycling and secure destruction.",
+      image: "/images/services/image2.jpg",
+      link: "/services/it-lifecycle",
+      button: "Explore IT Lifecycle Services",
+    },
+
+    shredding: {
+      label: "Division 03",
+      title: "Secure Shredding",
+      description:
+        "Secure destruction services for confidential documents, data-bearing media and sensitive materials, helping organisations protect information throughout its lifecycle.",
+      image: "/images/services/image3.jpg",
+      link: "/services/secure-shredding",
+      button: "Explore Secure Shredding",
+    },
+
+    relocation: {
+      label: "Division 04",
+      title: "Moving & Relocation",
+      description:
+        "Specialist technology relocation services for safely moving IT equipment, infrastructure and technology environments with minimal disruption.",
+      image: "/images/services/image4.jpg",
+      link: "/services/relocation",
+      button: "Explore Moving & Relocation",
+    },
+  };
+
+
+  const tabs = document.querySelectorAll(".division-tab");
+
+  const image = document.getElementById("division-image");
+  const label = document.getElementById("division-label");
+  const heading = document.getElementById("division-heading");
+  const description = document.getElementById("division-description");
+  const link = document.getElementById("division-link");
+  const button = document.getElementById("division-button");
+
+
+  tabs.forEach((tab) => {
+
+    tab.addEventListener("click", () => {
+
+      const key = tab.getAttribute("data-division");
+
+      if (!key || !divisionData[key]) return;
+
+      const data = divisionData[key];
+
+
+      // Reset all tabs
+      tabs.forEach((item) => {
+
+        const title = item.querySelector(".division-title");
+        const arrow = item.querySelector(".division-arrow");
+
+        title?.classList.remove("text-[#3FB33D]");
+        title?.classList.add("text-slate-500");
+
+        arrow?.classList.remove("text-[#3FB33D]");
+        arrow?.classList.add("text-slate-300");
+
+      });
+
+
+      // Activate selected tab
+      const activeTitle = tab.querySelector(".division-title");
+      const activeArrow = tab.querySelector(".division-arrow");
+
+      activeTitle?.classList.remove("text-slate-500");
+      activeTitle?.classList.add("text-[#3FB33D]");
+
+      activeArrow?.classList.remove("text-slate-300");
+      activeArrow?.classList.add("text-[#3FB33D]");
+
+
+      // Small fade effect for image
+      if (image) {
+
+        image.style.opacity = "0";
+
+        setTimeout(() => {
+
+          image.setAttribute("src", data.image);
+          image.setAttribute("alt", data.title);
+
+          image.style.opacity = "1";
+
+        }, 180);
+
+      }
+
+
+      // Update content
+      if (label) {
+        label.textContent = data.label;
+      }
+
+      if (heading) {
+        heading.textContent = data.title;
+      }
+
+      if (description) {
+        description.textContent = data.description;
+      }
+
+      if (link) {
+        link.setAttribute("href", data.link);
+      }
+
+      if (button) {
+        button.textContent = data.button;
+      }
+
+    });
+
+  });
+</script>
 
   <!-- ===== 2. IT ASSET LIFECYCLE VISUAL ===== -->
-<section class="bg-[#0F623A] py-16 lg:py-24 border-t border-[#3FB33D]/20">    <Container>
-      <div class="grid lg:grid-cols-[1fr_480px] gap-14 lg:gap-16 items-center">
-        <!-- Left text -->
-        <div>
-          <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#3FB33D] mb-5 border border-[#3FB33D]/30 px-3 py-1.5 rounded-full bg-[#3FB33D]/10">IT Asset Lifecycle</span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-tight mb-6">
-            Every Asset.<br />A Smarter Journey.
-          </h2>
-          <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-xl">
-            We help organisations move technology through the right lifecycle pathway, balancing security, value recovery and responsible end-of-life management.
-          </p>
-          <a
-            href="#division-it-lifecycle-services-destruction"
-class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#3FB33D] hover:bg-[#329632] text-white text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-lg">
-            Explore IT Asset Lifecycle →
-          </a>
+  <section class="relative bg-white py-20 lg:py-28 overflow-hidden border-t border-slate-100">
+    <!-- Subtle organic corner gradient (matching bottom-right of reference design) -->
+    <div class="absolute -right-24 -bottom-24 w-96 h-96 rounded-full bg-gradient-to-tl from-[#3FB33D]/10 via-[#0F623A]/5 to-transparent blur-3xl pointer-events-none select-none"></div>
+
+    <!-- Floating botanical leaves in bottom-right (from reference design) -->
+    <div class="absolute right-4 sm:right-10 bottom-6 sm:bottom-12 pointer-events-none select-none z-0 hidden md:block">
+      <div class="relative w-52 h-40">
+        <svg class="absolute bottom-2 right-12 w-16 h-16 text-[#3FB33D] opacity-40 rotate-[35deg] drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+        </svg>
+        <svg class="absolute bottom-12 right-2 w-12 h-12 text-[#0F623A] opacity-30 -rotate-[20deg] drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+        </svg>
+        <svg class="absolute bottom-20 right-24 w-8 h-8 text-[#3FB33D] opacity-30 rotate-[65deg]" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+        </svg>
+        <svg class="absolute bottom-6 right-36 w-6 h-6 text-[#0F623A] opacity-25 -rotate-[40deg]" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+        </svg>
+      </div>
+    </div>
+
+    <Container className="relative z-10">
+      <!-- Top Left Header & Intro (matching the image layout) -->
+      <div class="max-w-2xl mb-14 sm:mb-16 lg:mb-20">
+        <!-- Eyebrow Pill -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A] text-white text-[11px] font-bold uppercase tracking-wider mb-4 shadow-xs">
+          <svg class="w-3.5 h-3.5 text-[#3FB33D]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+          </svg>
+          <span>Our Work Process</span>
         </div>
 
-        <!-- Right: Lifecycle stepper -->
-        <div class="relative">
-          <!-- Vertical connector -->
-{/*<div class="absolute left-6 top-6 bottom-6 w-px bg-gradient-to-b from-[#3FB33D]/70 via-[#3FB33D]/30 to-transparent lg:block hidden pointer-events-none"></div>*/}
-          <div class="space-y-4">
-            {lifecycleSteps.map((step, i) => (
-              <div class="group flex items-start gap-5 p-4 rounded-2xl hover:bg-white/5 transition-colors duration-200">
-                <div class="relative shrink-0">
-<div class="h-12 w-12 rounded-xl bg-[#3FB33D]/20 border border-[#3FB33D]/50 flex items-center justify-center group-hover:bg-[#3FB33D]/30 group-hover:border-[#3FB33D]/70 transition-all duration-200">                    
-<span class="text-xs font-extrabold text-[#3FB33D]">{step.number}</span>
+        <!-- Main Title: First line bold dark, second line light styled -->
+<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
+  Every Asset.
+  <span class="block font-light text-slate-400">
+    A Smarter Journey.
+  </span>
+</h2>
+
+        <!-- Description Paragraph -->
+        <p class="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
+          We help organisations move technology through the right lifecycle pathway, balancing security, value recovery and responsible end-of-life management.
+        </p>
+
+        <!-- CTA Link -->
+        <div class="mt-5">
+          <a
+            href="#division-it-lifecycle-services-destruction"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0F623A] hover:bg-[#146B5C] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+          >
+            <span>Explore IT Asset Lifecycle</span>
+            <span class="text-sm font-bold">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Stepper Wave Track Area -->
+      <div class="relative pt-4 pb-8 lg:pb-16">
+        <!-- Connecting Smooth Wave Line (SVG Bezier Path, visible on lg screens) -->
+        <svg
+          class="absolute inset-x-0 top-0 w-full h-[260px] pointer-events-none z-0 hidden lg:block"
+          viewBox="0 0 1200 260"
+          fill="none"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M 20 125 C 60 120, 80 112, 100 112 C 180 112, 220 48, 300 48 C 380 48, 420 120, 500 120 C 580 120, 620 40, 700 40 C 780 40, 820 104, 900 104 C 980 104, 1020 48, 1100 48 C 1130 48, 1150 44, 1180 40"
+            stroke="#3FB33D"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            opacity="0.8"
+          />
+        </svg>
+
+        <!-- Steps Items: Responsive (horizontal swipe on mobile/tablet, 6-col wave grid on desktop) -->
+        <div class="flex lg:grid lg:grid-cols-6 gap-6 sm:gap-8 lg:gap-4 overflow-x-auto lg:overflow-visible pb-6 lg:pb-0 scrollbar-none snap-x relative z-10 px-2 lg:px-0">
+          {lifecycleSteps.map((step, i) => {
+            // Alternating wave translation classes for desktop to follow the curved SVG path
+            const waveY = [
+              'lg:translate-y-12',  // Step 1 (Collect): lower
+              'lg:-translate-y-4',  // Step 2 (Secure): higher
+              'lg:translate-y-14',  // Step 3 (Sanitise): lower
+              'lg:-translate-y-6',  // Step 4 (Reuse): higher
+              'lg:translate-y-10',  // Step 5 (Recycle): lower
+              'lg:-translate-y-4',  // Step 6 (Report): higher
+            ][i] || '';
+
+            return (
+              <div class={`shrink-0 w-[230px] sm:w-[250px] lg:w-auto snap-center flex flex-col items-center group transition-all duration-300 ${waveY}`}>
+                <!-- Circular Photo Card with Radial Halo -->
+                <div class="relative mx-auto w-28 h-28 sm:w-32 sm:h-32 mb-4">
+                  <!-- Decorative radial rays / dashed ring (matching reference design) -->
+                  <svg
+                    class="absolute -inset-3 sm:-inset-3.5 w-[calc(100%+24px)] sm:w-[calc(100%+28px)] h-[calc(100%+24px)] sm:h-[calc(100%+28px)] text-[#3FB33D]/45 pointer-events-none select-none transition-transform duration-700 group-hover:rotate-45"
+                    viewBox="0 0 160 160"
+                    fill="none"
+                  >
+                    <circle cx="80" cy="80" r="70" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.6"/>
+                    <circle cx="80" cy="80" r="63" stroke="currentColor" stroke-width="0.8" opacity="0.3"/>
+                    {Array.from({ length: 24 }).map((_, idx) => (
+                      <line
+                        x1="80"
+                        y1="3"
+                        x2="80"
+                        y2="9"
+                        stroke="currentColor"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        transform={`rotate(${idx * 15} 80 80)`}
+                      />
+                    ))}
+                  </svg>
+
+                  <!-- Crisp White Circle Container with Drop Shadow -->
+                  <div class="relative w-full h-full rounded-full p-1.5 bg-white shadow-[0_12px_28px_rgba(0,0,0,0.12)] border border-slate-100 z-10 transition-transform duration-300 group-hover:scale-105">
+                    <div class="w-full h-full rounded-full overflow-hidden bg-slate-100">
+                      <img
+                        src={step.image}
+                        alt={step.step}
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Numbered Badge Pinned to Bottom Center (solid green with white digit) -->
+                  <div class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#0F623A] text-white flex items-center justify-center text-xs sm:text-sm font-extrabold shadow-md border-2 border-white z-20">
+                    {i + 1}
                   </div>
                 </div>
-                <div class="pt-1.5">
-                  <p class="text-base font-bold uppercase tracking-wider text-white mb-1">{step.step}</p>
-                  <p class="text-sm text-slate-300 leading-relaxed">{step.desc}</p>
+
+                <!-- Text Content Below Node -->
+                <div class="text-center px-1">
+                  <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-1.5 tracking-tight group-hover:text-[#0F623A] transition-colors leading-snug">
+                    {step.step}
+                  </h3>
+                  <p class="text-xs sm:text-[13px] text-slate-500 leading-relaxed max-w-[190px] mx-auto">
+                    {step.desc}
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </Container>
   </section>
+  <!-- ===== 3. WHY CHOOSE TECHSTEPS & PROVEN SCALE ===== -->
+  <section class="relative bg-white pt-0 pb-12 lg:pb-16 overflow-hidden">
+    <!-- Photographic Banner with Visible Image & Light Overlay -->
+    <div class="relative w-full overflow-hidden pt-24 sm:pt-32 lg:pt-36 pb-32 sm:pb-40 lg:pb-48 bg-[#072011]">
+      <!-- Background Image (Vivid & Clearly Visible) -->
+      <img
+        src="/images/services/why-choose-banner.jpg"
+        alt="TechSteps Team Collaborating"
+        class="absolute inset-0 w-full h-full object-cover object-[center_30%] opacity-90 select-none pointer-events-none"
+        loading="lazy"
+      />
 
-  <!-- ===== 3. FULL SERVICE CATALOGUE — per division ===== -->
-  {orderedDivisions.map((div) => {
-    const cfg = divisionConfig[div.slug];
-    if (!cfg) return null;
-    const divServices = services.filter(s => s.divisionSlug === div.slug);
-    return (
-      <section
-        id={`division-${div.slug}`}
-        class="py-14 lg:py-20 border-t border-slate-100 scroll-mt-20"
-        style={`background: ${cfg.bg};`}
-      >
-        <Container>
-          <!-- Section header -->
-          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-10">
-            <div>
-              <div class="flex items-center gap-3 mb-3">
-                <span class="text-[11px] font-bold uppercase tracking-[0.2em]" style={`color: ${cfg.accent};`}>Division {cfg.number}</span>
-                <div class="h-px w-12 opacity-30" style={`background: ${cfg.accent};`}></div>
-              </div>
-              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">{div.title}</h2>
-              <p class="mt-3 text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed">{div.summary}</p>
+      <!-- Light, Translucent Green-Dark Contrast Scrim -->
+      <div class="absolute inset-0 bg-gradient-to-r from-[#051a0e]/80 via-[#072412]/55 to-[#051a0e]/80 pointer-events-none select-none"></div>
+      <div class="absolute inset-0 bg-black/35 pointer-events-none select-none"></div>
+
+      <!-- Center Banner Content with BIG Typography -->
+      <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px] font-black text-white tracking-tight leading-[1.16] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+          TechSteps is a Leading IT Recycling Company Providing Secure IT Disposal, Data Destruction, and Certified Recycling Services across the UK.
+        </h2>
+        <div class="mt-8 sm:mt-10">
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center bg-[#009b3a] hover:bg-[#008632] text-black font-extrabold text-base sm:text-lg md:text-xl px-10 sm:px-12 py-4 sm:py-5 rounded-md transition-all duration-200 shadow-2xl hover:shadow-[0_10px_30px_rgba(0,155,58,0.4)] hover:scale-105 font-sans"
+          >
+            Get In Touch
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating White Stats Card Set Below Banner -->
+    <div class="relative z-20 max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 -mt-16 sm:-mt-20 lg:-mt-24">
+      <div class="bg-white rounded-3xl sm:rounded-[36px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100/90 py-8 sm:py-10 lg:py-12 px-6 sm:px-8 lg:px-10">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 xl:gap-10 text-center">
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display">
+              +25M
             </div>
+            <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
+              Items In Storage
+            </p>
           </div>
-
-          <!-- Service grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {divServices.map(service => (
-              <a
-                href={`/services/${service.slug}`}
-                class="group relative bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-transparent hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
-              >
-                <!-- Top accent -->
-                <div class="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" style={`background: ${cfg.accent};`}></div>
-                <div class="flex-1">
-                  <h3 class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-slate-800 leading-snug mb-2 transition-colors">
-                    {service.title}
-                  </h3>
-                  <p class="text-sm sm:text-base text-slate-500 leading-relaxed line-clamp-3">{service.summary}</p>
-                </div>
-                <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <span class="text-xs font-bold uppercase tracking-widest" style={`color: ${cfg.accent}99;`}>
-                    {div.title.split(' ')[0]}
-                  </span>
-                  <span class="flex items-center gap-1 text-sm font-bold group-hover:gap-2 transition-all" style={`color: ${cfg.accent};`}>
-                    Explore
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
-                  </span>
-                </div>
-              </a>
-            ))}
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display">
+              +238M
+            </div>
+            <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
+              Images Scanned
+            </p>
           </div>
-        </Container>
-      </section>
-    );
-  })}
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display">
+              +500K
+            </div>
+            <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
+              Desktops Moved
+            </p>
+          </div>
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display">
+              +52K
+            </div>
+            <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
+              Tonnes Shredded
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- ===== 4. ONE LIFECYCLE. CONNECTED SERVICES. ===== -->
-<section class="bg-[#0F623A] py-16 lg:py-24 border-t border-[#3FB33D]/20">
+  <!-- ===== 4. SERVICE DIVISIONS CATALOGUE ===== -->
+  <section id="divisions-catalogue" class="py-16 lg:py-24 bg-[#FAFBFB] border-t border-slate-100 scroll-mt-20">
+    <Container>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+        {divisionCards.map((card) => (
+          <a
+            id={`division-${card.slug}`}
+            href={card.href}
+            class="group relative rounded-[28px] sm:rounded-[32px] overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 flex flex-col justify-between p-6 sm:p-7 min-h-[490px] sm:min-h-[530px] border border-black/5"
+          >
+            <!-- Background Image -->
+            <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+              <img
+                src={card.bgImage}
+                alt=""
+                aria-hidden="true"
+                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                loading="lazy"
+              />
+              <!-- Subtle top shadow for badges -->
+              <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/50 via-black/20 to-transparent"></div>
+              <!-- Bottom gradient for copy and button contrast -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent via-50%"></div>
+            </div>
+
+            <!-- Top Row: Translucent Category Pill & Circular Icon Badge -->
+            <div class="relative z-10 flex items-center justify-between w-full">
+              <!-- Pill Badge -->
+              <span class="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-[11px] sm:text-xs font-semibold tracking-wider uppercase shadow-sm">
+                {card.division}
+              </span>
+
+              <!-- Circular Icon Badge -->
+              <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-sm group-hover:bg-white/35 group-hover:scale-105 transition-all duration-300">
+                {card.icon === 'doc-shield' && (
+                  <svg class="w-5 h-5 text-white" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5h14l8 8v22a3 3 0 0 1-3 3H12a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z" />
+                    <path d="M26 5v8h8" />
+                    <line x1="16" y1="18" x2="24" y2="18" />
+                    <line x1="16" y1="23" x2="22" y2="23" />
+                    <path d="M26 27c0 4.5 5 7.5 5 7.5s5-3 5-7.5v-4l-5-2-5 2v4z" stroke="currentColor" stroke-width="2.2" />
+                    <path d="M28.5 29.5l2 2 3.5-3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                )}
+                {card.icon === 'laptop-recycle' && (
+                  <svg class="w-5 h-5 text-white" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="26" height="19" rx="2.5" />
+                    <path d="M5 31h34a1.5 1.5 0 0 1-1.5 1.5H6.5A1.5 1.5 0 0 1 5 31z" />
+                    <line x1="18" y1="31" x2="26" y2="31" />
+                    <path d="M22 15a4 4 0 0 1 3.8 2.8" />
+                    <path d="M26 15v3h-3" />
+                    <path d="M22 22a4 4 0 0 1-3.8-2.8" />
+                    <path d="M18 22v-3h3" />
+                  </svg>
+                )}
+                {card.icon === 'shredder' && (
+                  <svg class="w-5 h-5 text-white" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 13V5h16v8" />
+                    <line x1="18" y1="9" x2="26" y2="9" />
+                    <rect x="7" y="13" width="30" height="10" rx="2.5" />
+                    <line x1="12" y1="18" x2="32" y2="18" />
+                    <line x1="12" y1="27" x2="12" y2="35" />
+                    <line x1="17" y1="27" x2="17" y2="39" />
+                    <line x1="22" y1="27" x2="22" y2="34" />
+                    <line x1="27" y1="27" x2="27" y2="38" />
+                    <line x1="32" y1="27" x2="32" y2="35" />
+                  </svg>
+                )}
+                {card.icon === 'truck' && (
+                  <svg class="w-5 h-5 text-white" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="6" y="11" width="20" height="17" rx="2" />
+                    <path d="M26 16h7l5 6v6h-12V16z" />
+                    <path d="M28 18h4.5l3.5 4H28v-4z" />
+                    <circle cx="13" cy="31" r="3.5" stroke="currentColor" stroke-width="2.2" />
+                    <circle cx="33" cy="31" r="3.5" stroke="currentColor" stroke-width="2.2" />
+                    <line x1="16.5" y1="31" x2="29.5" y2="31" />
+                    <line x1="6" y1="28" x2="9.5" y2="28" />
+                    <line x1="36.5" y1="28" x2="39" y2="28" />
+                  </svg>
+                )}
+              </div>
+            </div>
+
+            <!-- Bottom Content: Title, Description, and Pill Button -->
+            <div class="relative z-10 flex flex-col items-start mt-auto pt-16">
+              <!-- Title -->
+              <h3 class="text-xl sm:text-[22px] font-bold text-white tracking-tight leading-snug mb-2 group-hover:text-emerald-300 transition-colors">
+                {card.title}
+              </h3>
+
+              <!-- Description -->
+              <p class="text-xs sm:text-[13px] text-white/80 leading-relaxed font-normal mb-5 line-clamp-3">
+                {card.desc}
+              </p>
+
+              <!-- Pill CTA Button with Explore -->
+              <div class="inline-flex items-center gap-2.5 pl-4 pr-1.5 py-1.5 rounded-full bg-white text-slate-900 font-semibold text-xs sm:text-sm shadow-md group-hover:bg-[#009b3a] group-hover:text-white transition-all duration-300">
+                <span>Explore</span>
+                <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 text-white flex items-center justify-center group-hover:bg-white group-hover:text-[#009b3a] transition-colors shrink-0">
+                  <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 5. ONE LIFECYCLE. CONNECTED SERVICES. ===== -->
+  {/*<section class="bg-[#0F623A] py-16 lg:py-24 border-t border-[#3FB33D]/20">
     <Container>
       <div class="text-center mb-14">
         <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#3FB33D] mb-4">Integration</span>
@@ -378,83 +877,40 @@ class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#3FB33D] hover:bg
         </div>
       </div>
     </Container>
-  </section>
-
-  <!-- ===== 5. WHY TECHSTEPS ===== -->
-  <section class="bg-white py-20 lg:py-28 border-t border-slate-100">
-    <Container>
-      <div class="text-center mb-16">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#3FB33D] mb-4">Our Difference</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Why Choose Techsteps?</h2>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-        {pillars.map((p, i) => (
-          <div class="relative group">
-            <div class="absolute -top-2 -left-1 text-[64px] font-black text-slate-100 select-none leading-none pointer-events-none group-hover:text-[#3FB33D]/8 transition-colors duration-300">
-              {String(i + 1).padStart(2, '0')}
-            </div>
-            <div class="relative pt-8 border-t-2 border-slate-200 group-hover:border-[#3FB33D] transition-colors duration-300">
-              <div class="h-10 w-10 rounded-xl bg-[#3FB33D]/10 border border-[#3FB33D]/20 flex items-center justify-center mb-4 group-hover:bg-[#3FB33D]/20 transition-colors duration-200">
-                {p.icon === 'lock' && (
-                  <svg class="w-5 h-5 text-[#3FB33D]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-                    <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke-linecap="round"/>
-                  </svg>
-                )}
-                {p.icon === 'star' && (
-                  <svg class="w-5 h-5 text-[#3FB33D]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
-                  </svg>
-                )}
-                {p.icon === 'leaf' && (
-                  <svg class="w-5 h-5 text-[#3FB33D]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 3s2 8 0 12c0 0 4-2 8-2 5.523 0 8 3 8 3S19 4.5 5 3zM5 15s2 3 2 6"/>
-                  </svg>
-                )}
-                {p.icon === 'check' && (
-                  <svg class="w-5 h-5 text-[#3FB33D]" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                )}
-              </div>
-              <h3 class="text-lg sm:text-xl font-bold uppercase tracking-wider text-slate-900 mb-3">{p.title}</h3>
-              <p class="text-base sm:text-lg text-slate-600 leading-relaxed">{p.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Container>
-  </section>
+  </section>*/}
 
   <!-- ===== 6. SOLUTIONS FOR YOUR SECTOR ===== -->
-  <section class="bg-[#F5FAF4] py-14 lg:py-20 border-t border-[#3FB33D]/10">
+  <section class="bg-[#0F623A] py-16 lg:py-24 text-white">
     <Container>
-      <div class="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-16">
-        <div class="lg:w-80 shrink-0">
-          <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#3FB33D] mb-4">Sector Expertise</span>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-3">
+      <div class="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-16 xl:gap-20">
+        <div class="lg:w-96 xl:w-[420px] shrink-0">
+          <span class="inline-block text-xs sm:text-[13px] font-bold tracking-[0.2em] uppercase text-[#2EC458] mb-4">
+            Sector Expertise
+          </span>
+          <h2 class="text-3xl sm:text-4xl lg:text-[40px] xl:text-[44px] font-extrabold text-white tracking-tight leading-[1.15] mb-4">
             Solutions Designed Around Your Sector
           </h2>
-          <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p class="text-base sm:text-lg lg:text-xl text-slate-200/90 leading-relaxed mb-6 font-normal">
             Different organisations face different requirements. Explore how our services support your sector.
           </p>
           <a
             href="/sectors"
-            class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#3FB33D] hover:underline"
+            class="inline-flex items-center gap-2.5 text-base sm:text-lg font-bold text-white hover:text-[#2EC458] transition-colors group"
           >
-            View all sectors →
+            <span>View all sectors</span>
+            <span class="group-hover:translate-x-1 transition-transform">→</span>
           </a>
         </div>
 
         <!-- Sector cards -->
-        <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
           {sectors.map((sector) => (
             <a
               href={`/sectors/${sector.slug}`}
-              class="group flex items-center justify-between gap-4 bg-white rounded-2xl px-6 py-5 border border-slate-200 hover:border-[#3FB33D]/50 hover:shadow-lg transition-all duration-300"
+              class="group flex items-center justify-between gap-4 bg-white rounded-[20px] sm:rounded-[24px] px-7 py-6 sm:py-7 shadow-md hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
             >
-              <p class="text-sm font-bold text-slate-900 group-hover:text-[#3FB33D] transition-colors">{sector.title}</p>
-              <svg class="w-4 h-4 text-slate-400 group-hover:text-[#3FB33D] group-hover:translate-x-1 transition-all shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <p class="text-base sm:text-lg lg:text-xl font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug">{sector.title}</p>
+              <svg class="w-5 h-5 text-slate-400 group-hover:text-[#0F623A] group-hover:translate-x-1.5 transition-all shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
               </svg>
             </a>
@@ -487,7 +943,7 @@ class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#3FB33D] hover:bg
             href="/request-a-quote"
             class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5"
           >
-            Request a Quote
+            Request a Collection
           </a>
         </div>
       </div>
