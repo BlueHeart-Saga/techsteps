@@ -62,9 +62,22 @@ const sectorMeta: Record<string, { icon: string; shortDesc: string }> = {
   aria-label="Sectors Navigation"
 >
   <!-- Main Card Container: Full Width max-w-[1540px], Centered, Improved Height -->
-  <div class="relative max-w-[1540px] mx-auto bg-white rounded-[28px] sm:rounded-[32px] shadow-2xl border border-black/10 py-10 sm:py-12 lg:py-14 px-8 sm:px-12 lg:px-16 min-h-[480px] sm:min-h-[520px] lg:min-h-[540px] flex flex-col justify-between overflow-hidden font-sans">
+  <div class="relative max-w-[1540px] mx-auto bg-white rounded-none shadow-2xl border border-black/10 py-10 sm:py-12 lg:py-14 px-8 sm:px-12 lg:px-16 min-h-[480px] sm:min-h-[520px] lg:min-h-[540px] flex flex-col justify-between overflow-hidden font-sans">
+    <!-- Custom Background Illustration for Sectors Dropdown (Left aligned with soft fade mask so text remains clear) -->
+    <div
+      class="absolute left-0 bottom-0 pointer-events-none select-none z-0 opacity-15 sm:opacity-20 lg:opacity-25 max-w-[400px] sm:max-w-[540px] lg:max-w-[660px] -translate-x-8 translate-y-4 [mask-image:linear-gradient(to_right,black_35%,transparent_95%)] [-webkit-mask-image:linear-gradient(to_right,black_35%,transparent_95%)]"
+      aria-hidden="true"
+    >
+      <img
+        src="/images/navabar/sectors-bg.png"
+        alt=""
+        class="w-full h-auto object-contain mix-blend-multiply"
+        loading="eager"
+      />
+    </div>
+
     <!-- 4 Sector Columns with Big Filled Icons (No Background Box, No Borders) -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 gap-y-6 sm:gap-y-0 flex-1">
+    <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 gap-y-6 sm:gap-y-0 flex-1">
       {sectors.map((sec) => {
         const meta = sectorMeta[sec.slug] || {
           icon: `<svg class="w-16 h-16 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9"/></svg>`,
@@ -74,7 +87,7 @@ const sectorMeta: Record<string, { icon: string; shortDesc: string }> = {
         return (
           <a
             href={`/sectors/${sec.slug}`}
-            class="group/item flex flex-col justify-between p-6 sm:p-7 lg:p-8 rounded-2xl hover:bg-slate-50/90 transition-all duration-200"
+            class="group/item flex flex-col justify-between p-6 sm:p-7 lg:p-8 rounded-none hover:bg-slate-50/90 transition-all duration-200"
           >
             <div>
               <!-- Big Filled Icon (No Container Box, No Borders) -->
@@ -94,7 +107,7 @@ const sectorMeta: Record<string, { icon: string; shortDesc: string }> = {
             </div>
 
             <!-- Bottom Action Link -->
-            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-sm font-bold text-[#E58A3C] group-hover/item:text-[#d97d2e] transition-colors">
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-sm font-bold text-[#0F623A] group-hover/item:text-[#0c4e2e] transition-colors">
               <span>View Sector Framework</span>
               <span class="inline-block transition-transform duration-150 group-hover/item:translate-x-1">&rarr;</span>
             </div>
@@ -103,15 +116,15 @@ const sectorMeta: Record<string, { icon: string; shortDesc: string }> = {
       })}
     </div>
 
-<!-- Bottom Utility Footer -->
-<div class="relative z-10 mt-8 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-end gap-4 text-sm">
-  <a
-    href="/sectors"
-    class="group/link font-bold text-slate-900 hover:text-black flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 shadow-xs hover:shadow-md transition-all"
-  >
-    <span>Explore All Industry Sectors</span>
-    <span class="inline-block transition-transform duration-150 group-hover/link:translate-x-1">&rarr;</span>
-  </a>
-</div>
+    <!-- Bottom Utility Footer -->
+    <div class="relative z-10 mt-8 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-end gap-4 text-sm">
+      <a
+        href="/sectors"
+        class="font-bold text-white bg-[#0F623A] hover:bg-[#0c4e2e] flex items-center gap-2 px-6 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all shrink-0"
+      >
+        <span>Explore All Industry Sectors</span>
+        <span>&rarr;</span>
+      </a>
+    </div>
   </div>
 </div>

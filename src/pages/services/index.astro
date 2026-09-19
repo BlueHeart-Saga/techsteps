@@ -22,23 +22,23 @@ const divisionConfig: Record<string, {
 }> = {
   'it-lifecycle-services-destruction': {
     number: '02',
-    accent: '#1B3A5C',
-    bg: '#EFF4FA',
+    accent: '#0F623A',
+    bg: '#F2F8F5',
     tagline: 'Securely manage IT assets from collection and data sanitisation through reuse, remarketing, destruction and recycling.',
     featuredSlugs: ['secure-it-disposal', 'it-asset-disposition-services', 'ultra-secure-hard-drive-destruction', 'remarketing-recycling', 'it-asset-management-services'],
     icon: 'cpu',
   },
   'information-management': {
     number: '01',
-    accent: '#5D4037',
-    bg: '#FBF8F6',
+    accent: '#0F623A',
+    bg: '#F2F8F5',
     tagline: 'Securely manage business information through physical storage, high-speed scanning and full records lifecycle governance.',
     featuredSlugs: ['document-storage', 'document-scanning', 'digital-mailroom', 'document-management'],
     icon: 'folder',
   },
   'secure-shredding-document-integrity': {
     number: '03',
-    accent: '#2D6A4F',
+    accent: '#0F623A',
     bg: '#F2F8F5',
     tagline: 'Protect sensitive information through certified on-site and off-site destruction for documents, media and hard drives.',
     featuredSlugs: ['on-site-shredding', 'off-site-shredding', 'ultra-secure-hard-drive-destruction', 'product-shredding'],
@@ -46,8 +46,8 @@ const divisionConfig: Record<string, {
   },
   'moving-relocation-services': {
     number: '04',
-    accent: '#374151',
-    bg: '#F8F9FA',
+    accent: '#0F623A',
+    bg: '#F2F8F5',
     tagline: 'Specialist technology relocation services for IT equipment, data centres, laboratories and mission-critical environments.',
     featuredSlugs: ['it-relocations-specialist', 'business-relocations', 'laboratory-relocations-storage', 'heritage-relocations-storage'],
     icon: 'truck',
@@ -847,10 +847,10 @@ const divisionCards = [
         <!-- Four division boxes -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {[
-            { title: 'IT Lifecycle', slug: 'it-lifecycle-services-destruction', accent: '#1B3A5C' },
-            { title: 'Information Management', slug: 'information-management', accent: '#5D4037' },
-            { title: 'Secure Destruction', slug: 'secure-shredding-document-integrity', accent: '#2D6A4F' },
-            { title: 'Relocation', slug: 'moving-relocation-services', accent: '#374151' },
+            { title: 'IT Lifecycle', slug: 'it-lifecycle-services-destruction', accent: '#0F623A' },
+            { title: 'Information Management', slug: 'information-management', accent: '#0F623A' },
+            { title: 'Secure Destruction', slug: 'secure-shredding-document-integrity', accent: '#0F623A' },
+            { title: 'Relocation', slug: 'moving-relocation-services', accent: '#0F623A' },
           ].map((item) => (
             <a
               href={`#division-${item.slug}`}

@@ -521,7 +521,7 @@ const WarpText = ({
           if (!disposed && !contextLost) {
             drawToTexture();
           }
-        }).catch(() => {});
+        }).catch(() => { });
       }
     };
 
@@ -669,9 +669,8 @@ const WarpText = ({
     >
       <h1
         ref={fallbackRef}
-        className={`warp-text-fallback font-display font-black tracking-tight uppercase leading-[0.92] select-none ${
-          isReady ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        } transition-opacity duration-700 ease-out`}
+        className={`warp-text-fallback font-display font-black tracking-tight uppercase leading-[0.92] select-none ${isReady ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          } transition-opacity duration-700 ease-out`}
         style={{
           color: color || '#FFFFFF',
           fontSize: fontSize || 'clamp(3.5rem, 8vw, 7.5rem)',

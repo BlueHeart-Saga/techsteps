@@ -15,10 +15,67 @@ try {
   console.error('Failed to load insights for megamenu:', e);
 }
 
+// Fallback site structure if CMS is offline/empty
+if (!siteStructure || siteStructure.length === 0) {
+  siteStructure = [
+    {
+      name: 'Insights & Knowledge',
+      categories: [
+        { name: 'Blogs', slug: 'blogs' },
+        { name: 'Case Studies', slug: 'case-studies' },
+        { name: 'Newsletters', slug: 'newsletters' },
+        { name: 'Podcasts', slug: 'podcasts' }
+      ]
+    },
+    {
+      name: 'News & Events',
+      categories: [
+        { name: 'Industry Events', slug: 'industry-events' },
+        { name: 'Company Announcements', slug: 'company-announcements' },
+        { name: 'Achievements', slug: 'achievements' },
+        { name: 'Awards & Milestones', slug: 'awards-milestones' }
+      ]
+    },
+    {
+      name: 'Success Stories',
+      categories: [
+        { name: 'Client Transformations', slug: 'client-transformations' },
+        { name: 'Impact Metrics', slug: 'impact-metrics' },
+        { name: 'Testimonials', slug: 'testimonials' }
+      ]
+    },
+    {
+      name: 'Life at Techsteps',
+      categories: [
+        { name: 'Celebrations', slug: 'celebrations' },
+        { name: 'Team Culture', slug: 'team-culture' },
+        { name: 'Posters', slug: 'posters' },
+        { name: 'Community', slug: 'community' }
+      ]
+    }
+  ];
+}
+
 // Extract real sections directly from CMS site structure
 const sections = siteStructure.slice(0, 4);
 
-const featuredPost = allPosts.find(p => p.featured) || allPosts[0];
+// Default featured post fallback with rich details & image if CMS empty
+const fallbackFeatured = {
+  title: 'UK Simpler Recycling Mandate: Complete Business Compliance Guide',
+  excerpt: 'Key timelines, legal duties, and practical steps for business leaders preparing for mandatory workplace recycling reforms.',
+  readTime: 4,
+  author: 'Techsteps Advisory',
+  date: 'March 2025',
+  category: { slug: 'blogs', name: 'Regulatory Update' },
+  seoSlug: 'uk-simpler-recycling-mandate-business-guide',
+  coverImage: '/images/services/sustainability-approach.jpg'
+};
+
+const activeFeatured = (allPosts && allPosts.length > 0)
+  ? (allPosts.find(p => p.featured) || allPosts[0])
+  : fallbackFeatured;
+
+const featuredImage = activeFeatured?.coverImage || activeFeatured?.image || '/images/services/sustainability-approach.jpg';
 ---
 
 <!-- Insights Full-Width Mega Dropdown Panel -->
@@ -28,106 +85,114 @@ const featuredPost = allPosts.find(p => p.featured) || allPosts[0];
   role="region"
   aria-label="Insights Navigation"
 >
-  <div class="relative max-w-[1540px] mx-auto bg-white rounded-[28px] sm:rounded-[32px] shadow-2xl border border-black/10 py-8 sm:py-10 lg:py-12 px-8 sm:px-12 lg:px-14 min-h-[460px] flex flex-col justify-between overflow-hidden font-sans">
+  <div class="relative max-w-[1540px] mx-auto bg-white rounded-none shadow-2xl border border-black/10 py-8 sm:py-10 lg:py-12 px-8 sm:px-12 lg:px-14 flex flex-col justify-between overflow-hidden font-sans">
     
     <!-- Top Content Grid: Dynamic Taxonomy Columns + Featured Article Spotlight Card -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 flex-1">
+    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 flex-1 items-start">
       
       <!-- Left 8 Cols: Dynamic Sections & Categories -->
-      <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 border-b sm:border-b-0 sm:border-r border-slate-100 pb-6 sm:pb-0 sm:pr-8">
-        {sections.map((section: any) => (
-          <div class="space-y-3.5">
-            <div class="flex items-center gap-2 pb-2 border-b border-slate-200/80">
-              <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
-              <h4 class="text-sm sm:text-base font-bold uppercase tracking-wider text-slate-900">
-                {section.name}
-              </h4>
-            </div>
+      <div class="lg:col-span-8 border-b lg:border-b-0 lg:border-r border-slate-100 pb-6 lg:pb-0 lg:pr-8">
+        <!-- 4 Taxonomy Columns -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 lg:gap-8">
+          {sections.map((section: any) => (
+            <div class="space-y-5">
+              <div class="flex items-center gap-2 pb-3 border-b border-slate-200">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 shrink-0"></span>
+                <h4 class="text-[16px] sm:text-[17px] lg:text-[17.5px] font-bold uppercase tracking-wider text-slate-900 leading-tight">
+                  {section.name}
+                </h4>
+              </div>
 
-            <ul class="space-y-2">
-              {(section.categories || []).map((category: any) => (
-                <li>
-                  <a
-                    href={`/insights/${category.slug}`}
-                    class="group flex items-center justify-between text-[15px] font-medium text-slate-600 hover:text-emerald-800 transition-colors py-1 px-1.5 rounded-lg hover:bg-slate-50"
-                  >
-                    <span>{category.name}</span>
-                    <span class="text-sm text-slate-400 group-hover:text-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity">
-                      &rarr;
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+              <ul class="space-y-3.5">
+                {(section.categories || []).map((category: any) => (
+                  <li>
+                    <a
+                      href={`/insights/${category.slug}`}
+                      class="group flex items-center justify-between text-[17px] sm:text-[17.5px] lg:text-[18px] font-semibold text-slate-700 hover:text-emerald-800 transition-colors py-1.5 px-2 rounded-none hover:bg-slate-50/90"
+                    >
+                      <span class="leading-snug">{category.name}</span>
+                      <span class="text-base text-slate-400 group-hover:text-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity ml-1.5 shrink-0">
+                        &rarr;
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <!-- Right 4 Cols: Featured Insight Spotlight Card -->
-      <div class="lg:col-span-4 flex flex-col justify-between bg-slate-50/80 p-6 rounded-2xl border border-slate-200/70">
+      <!-- Right 4 Cols: Featured Insight Spotlight Card with Image -->
+      <div class="lg:col-span-4 flex flex-col justify-between bg-slate-50/80 p-5 sm:p-6 rounded-none border border-slate-200/70 hover:border-emerald-300 transition-colors">
         <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-[11px] font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100/70 px-2.5 py-1 rounded-full">
+          <!-- Header Badge & Read Time -->
+          <div class="flex items-center justify-between mb-3.5">
+            <span class="text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-100/80 px-3 py-1 rounded-none">
               Featured Insight
             </span>
-            {featuredPost && (
-              <span class="text-sm text-slate-500 font-medium">
-                {featuredPost.readTime} min read
-              </span>
-            )}
+            <span class="text-xs text-slate-500 font-medium">
+              {activeFeatured?.readTime || 4} min read
+            </span>
           </div>
 
-          {featuredPost ? (
-            <div>
-              <a
-                href={`/insights/${featuredPost.category?.slug || 'blogs'}/${featuredPost.seoSlug || featuredPost.id}`}
-                class="group block"
-              >
-                <h3 class="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors leading-snug line-clamp-2 mb-2">
-                  {featuredPost.title}
-                </h3>
-                <p class="text-sm sm:text-[15px] text-slate-600 leading-relaxed line-clamp-3 mb-4">
-                  {featuredPost.excerpt}
-                </p>
-              </a>
+          <!-- Featured Card Link & Content -->
+          <a
+            href={activeFeatured?.seoSlug ? `/insights/${activeFeatured.category?.slug || 'blogs'}/${activeFeatured.seoSlug}` : '/insights'}
+            class="group/feat block"
+          >
+            <!-- Image with subtle hover zoom effect -->
+            <div class="relative h-36 sm:h-44 rounded-none overflow-hidden mb-3.5 border border-slate-200/80 shadow-xs group-hover/feat:shadow-md transition-all">
+              <img
+                src={featuredImage}
+                alt={activeFeatured?.title || 'Featured Insight'}
+                class="w-full h-full object-cover object-center group-hover/feat:scale-105 transition-transform duration-500"
+                loading="eager"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <span class="absolute bottom-2.5 left-2.5 text-[10.5px] font-bold uppercase tracking-wider text-white bg-emerald-800/90 backdrop-blur-xs px-2.5 py-0.5 rounded-none">
+                {activeFeatured?.category?.name || 'Compliance & Strategy'}
+              </span>
+            </div>
 
-              <div class="flex items-center gap-3 pt-3 border-t border-slate-200/80 text-sm text-slate-500">
-                <span class="font-semibold text-slate-800">{featuredPost.author}</span>
-                <span>&bull;</span>
-                <span>{featuredPost.date}</span>
-              </div>
-            </div>
-          ) : (
-            <div class="text-[15px] text-slate-500 py-6">
-              Browse our technical publications, compliance briefs, and whitepapers.
-            </div>
-          )}
+            <!-- Headline -->
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 group-hover/feat:text-emerald-700 transition-colors leading-snug line-clamp-2 mb-2">
+              {activeFeatured?.title || 'UK Simpler Recycling Mandate: Complete Business Compliance Guide'}
+            </h3>
+
+            <!-- Excerpt -->
+            <p class="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed line-clamp-2 mb-3">
+              {activeFeatured?.excerpt || 'Key timelines, legal duties, and practical steps for business leaders preparing for mandatory workplace recycling reforms.'}
+            </p>
+          </a>
+
+          <!-- Meta (Author & Date) -->
+          <div class="flex items-center gap-2 pt-2.5 border-t border-slate-200/70 text-xs text-slate-500">
+            <span class="font-semibold text-slate-700">{activeFeatured?.author || 'Techsteps Advisory'}</span>
+            <span>&bull;</span>
+            <span>{activeFeatured?.date || 'March 2025'}</span>
+          </div>
         </div>
 
-        <div class="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between">
+        <!-- Card Footer -->
+        <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs sm:text-sm">
           <a
             href="/insights"
-            class="text-sm font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1.5 transition-colors"
+            class="font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1.5 transition-colors group/hub"
           >
             <span>View All Insights Hub</span>
-            <span>&rarr;</span>
+            <span class="inline-block transition-transform duration-150 group-hover/hub:translate-x-1">&rarr;</span>
           </a>
-          <span class="text-xs text-slate-400 font-mono">Live CMS Data</span>
+          <span class="text-[11px] text-slate-400 font-mono">Live CMS Data</span>
         </div>
       </div>
     </div>
 
     <!-- Bottom Utility Footer -->
-    <div class="relative z-10 mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
-      <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-200/70">
-        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-        <span class="font-medium text-slate-700">
-          ADISA Certified &bull; BS 10008 Legal Admissibility &bull; JSP 440 Security &bull; Zero-Landfill ITAD
-        </span>
-      </div>
+    <div class="relative z-10 mt-6 pt-4 border-t border-slate-100 flex items-center justify-end text-sm">
       <a
         href="/insights"
-        class="font-bold text-slate-900 hover:text-black flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 transition-all shadow-xs hover:shadow-md"
+        class="font-bold text-white bg-[#0F623A] hover:bg-[#0c4e2e] flex items-center gap-2 px-6 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all shrink-0"
       >
         <span>Explore All Articles &amp; Case Studies</span>
         <span>&rarr;</span>

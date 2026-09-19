@@ -78,14 +78,26 @@ const serviceCategories = [
   },
 ];
 
-// Accreditations (verified only)
+// Accreditations & Certifications (comprehensive compliance register with official logos)
 const accreditations = [
-  { name: 'ADISA Standard 8.0', note: 'Pass with Distinction' },
-  { name: 'ISO 27001', note: 'Information Security' },
-  { name: 'ISO 14001', note: 'Environmental Management' },
-  { name: 'BS EN 15713', note: 'Secure Destruction' },
-  { name: 'Cyber Essentials Plus', note: 'NCSC Certified' },
-  { name: 'UK GDPR Compliant', note: 'Data Protection' },
+  { name: 'BSI Kitemark™', note: 'Remanufactured IT Devices', logo: '/images/certifications/bsi-kitemark.png' },
+  { name: 'NCSC CAS Certified', note: 'Government Security Scheme', logo: '/images/certifications/cas-sanitisation.jpg' },
+  { name: 'ISO 27001', note: 'Information Security Management', logo: '/images/certifications/iso-27001.png' },
+  { name: 'ISO 9001', note: 'Quality Management Systems', logo: '/images/certifications/iso-9001.png' },
+  { name: 'ISO 14001', note: 'Environmental Management', logo: '/images/certifications/iso-14001.png' },
+  { name: 'BS 7858:2012', note: 'Security Screening of Personnel', logo: '/images/certifications/bs-7858.png' },
+  { name: 'BS EN 15713', note: 'Secure Destruction of Material', logo: '/images/certifications/bs-en-15713.png' },
+  { name: 'ISO 45001', note: 'Health & Safety Management', logo: '/images/certifications/iso-45001.png' },
+  { name: 'Blancco Certified', note: 'Industry Standard Data Erasure', logo: '/images/certifications/blancco.jpg' },
+  { name: 'Cyber Essentials Plus', note: 'NCSC Government-Backed Cyber', logo: '/images/certifications/cyber-essentials-plus.png' },
+  { name: 'Crown Commercial Service', note: 'CCS Framework Supplier', logo: '/images/certifications/crown-commercial.png' },
+  { name: 'NHS IG Toolkit / DSPT', note: 'Data Security & Protection', logo: '/images/certifications/nhs.png' },
+  { name: 'Environment Agency', note: 'Approved AATF Waste Carrier', logo: '/images/certifications/environment-agency.png' },
+  { name: 'EcoVadis Sustainability', note: 'Business Sustainability Rating', logo: '/images/certifications/ecovadis.png' },
+  { name: 'Committed to Equality', note: 'Diversity & Equality Standard', logo: '/images/certifications/equality.png' },
+  { name: 'PCI DSS Compliant', note: 'Cardholder Data Security', logo: '/images/certifications/pci-dss.png' },
+  { name: 'King’s Award Enterprise', note: 'Promoting Opportunity & ESG', logo: '/images/certifications/kings-award.jpg' },
+  { name: 'Diamond Membership', note: 'Verified Quality & Warranty', logo: '/images/certifications/diamond-member.png' },
 ];
 ---
 
@@ -369,26 +381,33 @@ const accreditations = [
   </section>
 
   <!-- ===== 6. TRUST & COMPLIANCE ===== -->
-  <section class="bg-[#f7f8f5] py-16 lg:py-20 border-t border-slate-200">
+  <section class="bg-[#F2F8F5] py-16 lg:py-24 border-t border-slate-200">
     <Container>
       <div class="max-w-3xl mx-auto text-center mb-12">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Accreditations</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Built Around Trust.</h2>
-        <p class="text-base text-slate-600 leading-relaxed">
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">Accreditations</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4 font-display">Built Around Trust.</h2>
+        <p class="text-base text-slate-600 leading-relaxed font-sans">
           Our services are designed to help organisations manage technology and information with security, accountability and responsible lifecycle practices.
         </p>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5">
         {accreditations.map((cert) => (
-          <div class="group bg-white rounded-2xl p-5 border border-slate-200 hover:border-[#2D6A4F]/40 hover:shadow-md transition-all duration-200 text-center">
-            <div class="h-9 w-9 rounded-full bg-[#2D6A4F]/10 border border-[#2D6A4F]/20 flex items-center justify-center mx-auto mb-3">
-              <svg class="w-4 h-4 text-[#2D6A4F]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/>
-              </svg>
+          <div class="group bg-white rounded-xl p-5 border border-slate-200/90 hover:border-[#0F623A]/40 hover:shadow-lg transition-all duration-200 text-center flex flex-col items-center justify-between min-h-[170px]">
+            <!-- Official Accreditation Logo -->
+            <div class="h-14 w-full flex items-center justify-center mb-2 px-1">
+              <img
+                src={cert.logo}
+                alt={`${cert.name} certification logo`}
+                class="max-h-12 max-w-[110px] w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+              />
             </div>
-            <p class="text-xs font-bold text-slate-900 leading-snug mb-0.5">{cert.name}</p>
-            <p class="text-[10px] text-slate-400 font-medium">{cert.note}</p>
+
+            <div class="space-y-1 w-full pt-2 border-t border-slate-100">
+              <p class="text-xs sm:text-[13px] font-bold text-slate-900 leading-snug">{cert.name}</p>
+              <p class="text-[10px] sm:text-[11px] text-slate-500 font-medium leading-tight">{cert.note}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -397,11 +416,11 @@ const accreditations = [
 
   <!-- ===== 7. FINAL CTA (Clean Open Layout - No Background Box) ===== -->
   <section class="relative z-10 py-16 lg:py-24 overflow-hidden">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#2D6A4F]/10 blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#0F623A]/10 blur-3xl pointer-events-none"></div>
     <Container className="relative z-10">
       <div class="max-w-3xl mx-auto text-center">
-        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Work With Techsteps</span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">
+        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4 font-mono">Work With Techsteps</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight font-display">
           Let's Build the Right Solution<br />for Your Sector.
         </h2>
         <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 font-medium max-w-xl mx-auto">
@@ -410,7 +429,7 @@ const accreditations = [
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="/contact"
-            class="px-8 py-4 rounded-xl bg-[#2D6A4F] hover:bg-[#245a41] text-white font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            class="px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
             Get In Touch →
           </a>

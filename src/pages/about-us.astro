@@ -1,14 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Container from '../components/layout/Container.astro';
-import PageHero from '../components/hero/PageHero.astro';
 import { getAboutPage } from '../lib/sanity/client';
 
-const about = await getAboutPage();
-
-const breadcrumbs = [
-  { name: 'About Us', url: '/about-us' },
-];
+const about = await getAboutPage().catch(() => ({}));
 
 const canonicalUrl = 'https://techsteps.co.uk/about-us';
 
@@ -17,792 +11,1464 @@ const aboutPageSchema = {
   '@type': 'AboutPage',
   '@id': 'https://techsteps.co.uk/about-us#webpage',
   url: canonicalUrl,
-  name: about.metaTitle,
-  description: about.metaDescription,
+  name: about?.metaTitle || 'About Techsteps — Managing What Matters',
+  description: about?.metaDescription || 'We look after the assets that carry the most risk when a business changes — data, records, equipment and premises. Handled securely, recorded end to end, and returned to value wherever it can be.',
   mainEntity: {
     '@id': 'https://techsteps.co.uk/#organization',
   },
 };
-
-const valueCardStyles = [
-  {
-    bg: 'bg-[#146B5C]',
-    border: 'border-[#146B5C]',
-    text: 'text-[#146B5C]',
-    shadow: 'shadow-[#146B5C]/25',
-  },
-  {
-    bg: 'bg-[#008170]',
-    border: 'border-[#008170]',
-    text: 'text-[#008170]',
-    shadow: 'shadow-[#008170]/25',
-  },
-  {
-    bg: 'bg-[#1E7A45]',
-    border: 'border-[#1E7A45]',
-    text: 'text-[#1E7A45]',
-    shadow: 'shadow-[#1E7A45]/25',
-  },
-];
-
-const purposeCardStyles = [
-  {
-    bg: 'bg-[#146B5C]',
-    circle: 'bg-[#146B5C]',
-    shadow: 'shadow-[#146B5C]/25',
-  },
-  {
-    bg: 'bg-[#008170]',
-    circle: 'bg-[#008170]',
-    shadow: 'shadow-[#008170]/25',
-  },
-  {
-    bg: 'bg-[#1E7A45]',
-    circle: 'bg-[#1E7A45]',
-    shadow: 'shadow-[#1E7A45]/25',
-  },
-  {
-    bg: 'bg-[#0D5246]',
-    circle: 'bg-[#0D5246]',
-    shadow: 'shadow-[#0D5246]/25',
-  },
-];
-
-const approachStepStyles = [
-  {
-    tab: 'bg-[#146B5C]',
-    tabFold: 'bg-[#0D483E]',
-    text: 'text-[#146B5C]',
-    iconText: 'text-[#146B5C]',
-    border: 'border-[#146B5C]',
-    shadow: 'shadow-[#146B5C]/20',
-  },
-  {
-    tab: 'bg-[#0D5246]',
-    tabFold: 'bg-[#08352D]',
-    text: 'text-[#0D5246]',
-    iconText: 'text-[#0D5246]',
-    border: 'border-[#0D5246]',
-    shadow: 'shadow-[#0D5246]/20',
-  },
-  {
-    tab: 'bg-[#1E5B8C]',
-    tabFold: 'bg-[#133D5E]',
-    text: 'text-[#1E5B8C]',
-    iconText: 'text-[#1E5B8C]',
-    border: 'border-[#1E5B8C]',
-    shadow: 'shadow-[#1E5B8C]/20',
-  },
-  {
-    tab: 'bg-[#0284C7]',
-    tabFold: 'bg-[#0369A1]',
-    text: 'text-[#0284C7]',
-    iconText: 'text-[#0284C7]',
-    border: 'border-[#0284C7]',
-    shadow: 'shadow-[#0284C7]/20',
-  },
-  {
-    tab: 'bg-[#16A34A]',
-    tabFold: 'bg-[#15803D]',
-    text: 'text-[#16A34A]',
-    iconText: 'text-[#16A34A]',
-    border: 'border-[#16A34A]',
-    shadow: 'shadow-[#16A34A]/20',
-  },
-  {
-    tab: 'bg-[#475569]',
-    tabFold: 'bg-[#334155]',
-    text: 'text-[#475569]',
-    iconText: 'text-[#475569]',
-    border: 'border-[#475569]',
-    shadow: 'shadow-[#475569]/20',
-  },
-];
-
-const defaultCertifications = [
-  {
-    name: 'ADISA Standard 8.0',
-    shortDescription: 'IT Asset Disposal Certification (Pass with Distinction)',
-    badgeText: 'ADISA CERTIFIED',
-    link: 'https://adisa.global',
-  },
-  {
-    name: 'ISO 27001',
-    shortDescription: 'Information Security Management System',
-    badgeText: 'ISO 27001',
-    link: 'https://www.iso.org/iso-iec-27001-information-security.html',
-  },
-  {
-    name: 'ISO 14001',
-    shortDescription: 'Environmental Management & Zero-Landfill',
-    badgeText: 'ISO 14001',
-    link: 'https://www.iso.org/iso-14001-environmental-management.html',
-  },
-  {
-    name: 'ISO 9001',
-    shortDescription: 'Quality Management & Governance System',
-    badgeText: 'ISO 9001',
-    link: 'https://www.iso.org/iso-9001-quality-management.html',
-  },
-  {
-    name: 'Cyber Essentials Plus',
-    shortDescription: 'National Cyber Security Centre (NCSC) Certified',
-    badgeText: 'CYBER ESSENTIALS+',
-    link: 'https://www.ncsc.gov.uk/cyberessentials/overview',
-  },
-  {
-    name: 'BS EN 15713',
-    shortDescription: 'Secure Destruction of Confidential Material',
-    badgeText: 'BS EN 15713',
-    link: 'https://www.bsigroup.com',
-  },
-  {
-    name: 'Environment Agency AATF',
-    shortDescription: 'Licensed Waste Partner & Carrier',
-    badgeText: 'EA AATF LICENSE',
-    link: 'https://www.gov.uk/government/organisations/environment-agency',
-  },
-  {
-    name: 'BS 7858 Vetted',
-    shortDescription: 'Security Vetting of Personnel in Security Operations',
-    badgeText: 'BS 7858 VETTED',
-    link: 'https://www.bsigroup.com',
-  },
-  {
-    name: 'UK GDPR Compliant',
-    shortDescription: 'Full Compliance with UK Data Protection Rules',
-    badgeText: 'UK GDPR',
-    link: 'https://ico.org.uk',
-  },
-  {
-    name: 'NIST 800-88 Rev 1',
-    shortDescription: 'Guidelines for Media Sanitization & Overwriting',
-    badgeText: 'NIST 800-88',
-    link: 'https://csrc.nist.gov',
-  },
-];
-
-const certificationsList = (about.certifications && about.certifications.length > 0)
-  ? about.certifications
-  : defaultCertifications;
 ---
 
 <BaseLayout
-  title={about.metaTitle}
-  description={about.metaDescription}
+  title={about?.metaTitle || 'About Techsteps — Managing What Matters'}
+  description={about?.metaDescription || 'We look after the assets that carry the most risk when a business changes — data, records, equipment and premises. Handled securely, recorded end to end, and returned to value wherever it can be.'}
   canonicalUrl={canonicalUrl}
-  hasHeroHeader={true}
   jsonLd={aboutPageSchema}
 >
-  <!-- 1. ABOUT HERO (Single H1) -->
-  <PageHero
-    eyebrow={about.heroEyebrow || 'ABOUT TECHSTEPS'}
-    title={about.heroHeadline || 'We Make Every Step Matter.'}
-    subheading={about.heroSubheading || 'A dedicated UK partner delivering secure information governance, compliant IT lifecycle management, and specialist logistical execution.'}
-    bgImage={about.heroImage || '/images/hero/about-hero-bg.jpg'}
-    breadcrumbs={breadcrumbs}
-    dividerColor="#f1f4ef"
+  <!-- Google Fonts for Archivo and IBM Plex Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+    slot="head"
   />
 
-  <!-- CONTINUOUS FLOWING ORGANIC BACKGROUND WRAPPER (Seamless Across All Sections) -->
-  <div class="relative bg-[#f1f4ef]">
-    <!-- Top Finished Soft Blur Fade (Hero After: Gracefully dissolves wave beginnings so they don't look endless) -->
-    <div class="absolute top-0 inset-x-0 h-36 sm:h-52 bg-gradient-to-b from-[#f1f4ef] via-[#f1f4ef]/85 to-transparent pointer-events-none z-10 backdrop-blur-[2px]"></div>
-
-    <!-- Bottom Finished Soft Blur Fade (Footer Top: Gracefully concludes wave ends so they don't look endless) -->
-    <div class="absolute bottom-0 inset-x-0 h-40 sm:h-56 bg-gradient-to-t from-[#f1f4ef] via-[#f1f4ef]/85 to-transparent pointer-events-none z-10 backdrop-blur-[2px]"></div>
-
-    <!-- Single Full-Page Continuous Vector Background with Soft Diffusion Blur & Smooth Edge Masks -->
-    <div
-      class="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden"
-      style="mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 3%, black 8%, black 92%, rgba(0,0,0,0.5) 97%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 3%, black 8%, black 92%, rgba(0,0,0,0.5) 97%, transparent 100%);"
-      aria-hidden="true"
-    >
-      <svg
-        viewBox="0 0 1440 3800"
-        preserveAspectRatio="none"
-        class="w-full h-full opacity-85"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="filter: blur(10px); -webkit-filter: blur(10px); transform: scale(1.04); transform-origin: center;"
-      >
-        <!-- Gradients for Ribbons & Lines -->
-        <defs>
-          <linearGradient id="ribbon-gradient-continuous" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#B8CEBF" stop-opacity="0.85" />
-            <stop offset="25%" stop-color="#C5D8CC" stop-opacity="0.9" />
-            <stop offset="50%" stop-color="#ADC6B5" stop-opacity="0.85" />
-            <stop offset="75%" stop-color="#BFD5C6" stop-opacity="0.9" />
-            <stop offset="100%" stop-color="#B2CBB9" stop-opacity="0.85" />
-          </linearGradient>
-          <linearGradient id="line-gradient-continuous" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#146B5C" />
-            <stop offset="30%" stop-color="#1E7A45" />
-            <stop offset="60%" stop-color="#146B5C" />
-            <stop offset="100%" stop-color="#2D8A74" />
-          </linearGradient>
-        </defs>
-
-        <!-- Primary Flowing Sage Ribbon (Meanders Unbroken Down Through Sections) -->
-        <path
-          d="M 780,100 C 980,320 1280,520 1180,900 C 1080,1280 260,1120 210,1520 C 160,1920 1120,1960 1220,2360 C 1320,2760 460,2860 360,3240 C 300,3480 540,3620 720,3680"
-          fill="none"
-          stroke="url(#ribbon-gradient-continuous)"
-          stroke-width="56"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+  <div class="about-page-wrapper">
+    <!-- 1 · HERO WITH CLEAR, VIBRANT BACKGROUND IMAGE AS IT IS -->
+    <section id="top" class="hero on-dark pt-28 sm:pt-36 lg:pt-40">
+      <!-- Background Image Layer: Visible As It Is -->
+      <div class="hero-bg-media absolute inset-0 select-none pointer-events-none overflow-hidden z-0" aria-hidden="true">
+        <img
+          src="/images/hero/about-hero-technicians.jpg"
+          alt="Techsteps technicians in secure facility"
+          class="w-full h-full object-cover object-center brightness-[0.92] contrast-[1.03] scale-100"
+          loading="eager"
         />
+        <!-- Subtle Natural Scrim for Text Readability without Obscuring Photo -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/20"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25"></div>
+      </div>
 
-        <!-- Secondary Elegant Ribbon (Flows through Sections 2, 3, 5, 7) -->
-        <path
-          d="M 140,120 C 20,440 100,780 340,1060 C 590,1340 840,1640 700,2040 C 540,2440 160,2640 260,3020 C 350,3360 820,3560 1120,3660"
-          fill="none"
-          stroke="url(#ribbon-gradient-continuous)"
-          stroke-width="40"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          opacity="0.65"
-        />
-
-        <!-- Continuous Sweeping Arc Line 1 (Dark Sage) -->
-        <path
-          d="M 340,90 C 360,490 630,890 920,1320 C 1220,1760 1340,2240 1150,2760 C 970,3260 520,3500 440,3690"
-          fill="none"
-          stroke="url(#line-gradient-continuous)"
-          stroke-width="2.2"
-          stroke-linecap="round"
-          opacity="0.48"
-        />
-
-        <!-- Continuous Sweeping Arc Line 2 (Graceful Parabolic Wave) -->
-        <path
-          d="M 1220,90 C 1120,420 870,770 520,1080 C 160,1400 90,1860 340,2320 C 590,2780 1060,2980 1240,3400 C 1300,3540 1280,3620 1220,3690"
-          fill="none"
-          stroke="url(#line-gradient-continuous)"
-          stroke-width="2.4"
-          stroke-linecap="round"
-          opacity="0.45"
-        />
-
-        <!-- Continuous Sweeping Arc Line 3 (Harmonic Cross Line) -->
-        <path
-          d="M 960,100 C 670,400 370,740 260,1220 C 150,1720 660,2140 980,2580 C 1270,3000 1110,3460 880,3680"
-          fill="none"
-          stroke="#146B5C"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          opacity="0.42"
-        />
-
-        <!-- Continuous Sweeping Arc Line 4 (Dynamic Intersecting Curve) -->
-        <path
-          d="M 180,100 C 380,600 880,950 1220,1440 C 1460,1830 1220,2360 760,2820 C 360,3200 200,3500 180,3680"
-          fill="none"
-          stroke="#1E7A45"
-          stroke-width="2"
-          stroke-linecap="round"
-          opacity="0.4"
-        />
-
-        <!-- Continuous Sweeping Arc Line 5 (Soft Accent Orbit) -->
-        <path
-          d="M 620,100 C 860,400 1140,790 1050,1280 C 950,1780 410,2150 310,2640 C 220,3110 680,3480 980,3670"
-          fill="none"
-          stroke="#2D8A74"
-          stroke-width="1.6"
-          stroke-dasharray="8 6"
-          stroke-linecap="round"
-          opacity="0.32"
-        />
-      </svg>
-    </div>
-
-    <!-- 2. WHO WE ARE (Editorial Two-Column Layout) -->
-    <section class="relative z-10 py-10 sm:py-12 lg:py-14">
-      <Container>
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          <!-- LEFT: Editorial headline and short supporting copy -->
-          <div class="lg:col-span-6 space-y-5">
-            <div class="space-y-2.5">
-              <span class="inline-block text-xs sm:text-sm font-bold uppercase tracking-widest text-[#146B5C]">
-                {about.whoWeAreEyebrow || 'WHO WE ARE'}
-              </span>
-              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-[1.15] whitespace-pre-line">
-                {about.whoWeAreHeadline || 'Technology.\nInformation.\nResponsibility.'}
-              </h2>
-            </div>
-
-            <div class="text-base sm:text-lg text-slate-700 leading-relaxed space-y-3 font-medium">
-              <p>
-                {about.whoWeAreBody || 'Techsteps is a UK-based information management and technology lifecycle services company. We partner with organisations to provide secure information management, end-to-end IT lifecycle services, verified data destruction, responsible electronic recycling, and specialized technology relocation. Our mission is to protect what matters and ensure every asset is handled with total accountability and environmental care.'}
-              </p>
-            </div>
-
-            <!-- Service Navigation Strip -->
-            <div class="pt-5 border-t border-slate-300/60">
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
-                <a
-                  href="/information-management"
-                  class="group p-3 rounded-xl bg-white/95 backdrop-blur-xs border border-slate-200/90 hover:border-[#146B5C]/60 hover:bg-white shadow-2xs hover:shadow-xs transition-all duration-200 flex flex-col justify-between"
-                >
-                  <span class="text-[11px] sm:text-xs font-bold font-display uppercase tracking-wider text-slate-800 group-hover:text-[#146B5C] transition-colors">
-                    Information
-                  </span>
-                  <span class="text-[10px] text-slate-500 group-hover:text-[#146B5C] transition-colors mt-1 font-mono">
-                    Governance &rarr;
-                  </span>
-                </a>
-
-                <a
-                  href="/it-lifecycle-services-destruction"
-                  class="group p-3 rounded-xl bg-white/95 backdrop-blur-xs border border-slate-200/90 hover:border-[#146B5C]/60 hover:bg-white shadow-2xs hover:shadow-xs transition-all duration-200 flex flex-col justify-between"
-                >
-                  <span class="text-[11px] sm:text-xs font-bold font-display uppercase tracking-wider text-slate-800 group-hover:text-[#146B5C] transition-colors">
-                    IT Lifecycle
-                  </span>
-                  <span class="text-[10px] text-slate-500 group-hover:text-[#146B5C] transition-colors mt-1 font-mono">
-                    ITAD & Asset &rarr;
-                  </span>
-                </a>
-
-                <a
-                  href="/secure-shredding-document-integrity"
-                  class="group p-3 rounded-xl bg-white/95 backdrop-blur-xs border border-slate-200/90 hover:border-[#146B5C]/60 hover:bg-white shadow-2xs hover:shadow-xs transition-all duration-200 flex flex-col justify-between"
-                >
-                  <span class="text-[11px] sm:text-xs font-bold font-display uppercase tracking-wider text-slate-800 group-hover:text-[#146B5C] transition-colors">
-                    Destruction
-                  </span>
-                  <span class="text-[10px] text-slate-500 group-hover:text-[#146B5C] transition-colors mt-1 font-mono">
-                    Certified &rarr;
-                  </span>
-                </a>
-
-                <a
-                  href="/moving-relocation-services"
-                  class="group p-3 rounded-xl bg-white/95 backdrop-blur-xs border border-slate-200/90 hover:border-[#146B5C]/60 hover:bg-white shadow-2xs hover:shadow-xs transition-all duration-200 flex flex-col justify-between"
-                >
-                  <span class="text-[11px] sm:text-xs font-bold font-display uppercase tracking-wider text-slate-800 group-hover:text-[#146B5C] transition-colors">
-                    Relocation
-                  </span>
-                  <span class="text-[10px] text-slate-500 group-hover:text-[#146B5C] transition-colors mt-1 font-mono">
-                    Specialist &rarr;
-                  </span>
-                </a>
-              </div>
-            </div>
+      <div class="shell relative z-10">
+        <div class="grid">
+          <div>
+            <p class="eyebrow lift">About Techsteps</p>
+            <h1 class="lift">Managing What Matters.<span class="l2 text-[#3FB33D]">Protecting What Comes Next.</span></h1>
+            <p class="lede lift text-white">We look after the assets that carry the most risk when a business changes — data, records, equipment and premises. Handled securely, recorded end to end, and returned to value wherever it can be.</p>
           </div>
-
-          <!-- RIGHT: Large CMS-managed image without boxing -->
-          <div class="lg:col-span-6">
-            <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[4/3] group">
+          <figure class="hero-figure lift">
+            <div class="photo border-2 border-white/20 shadow-2xl" data-caption="Techsteps secure processing facility">
               <img
-                src={about.whoWeAreImage || '/images/brand/story-origin.jpg'}
-                alt="Techsteps secure facilities and lifecycle operations"
-                class="w-full h-full object-cover object-center group-hover:scale-102 transition-transform duration-700"
-                loading="lazy"
-                decoding="async"
+                src="/images/hero/about-hero-technicians.jpg"
+                alt="Techsteps secure processing facility"
+                class="w-full h-full object-cover object-center"
+                loading="eager"
               />
             </div>
-          </div>
+            <div class="ring" aria-hidden="true"></div>
+            <div class="seal" aria-hidden="true">Chain of<br>custody</div>
+          </figure>
         </div>
-      </Container>
+      </div>
     </section>
 
-    <!-- 3. OUR PURPOSE (Clean Open Section) -->
-    <section class="relative z-10 py-10 sm:py-12 lg:py-14">
-      <Container>
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          <!-- Left Side: Content & Principles -->
-          <div class="lg:col-span-7 space-y-7">
-            <div class="space-y-2.5">
-              <span class="inline-block text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C]">
-                {about.purposeEyebrow || 'OUR PURPOSE'}
-              </span>
-              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-[1.15]">
-                {about.purposeHeadline || 'We Create Meaningful Impact.'}<br />
-                <span class="text-[#146B5C]">{about.purposeSubheading || 'Every Solution Builds a Better Future.'}</span>
-              </h2>
-              <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl font-medium pt-1">
-                {about.purposeBody || 'We operate at the critical intersection of digital security and environmental stewardship. By embedding rigorous compliance and circular lifecycle practices into every workflow, we empower organisations to safeguard sensitive assets while building a cleaner, more sustainable future.'}
-              </p>
-            </div>
+    <!-- MANIFEST: Chamfered tiles riding the diagonal -->
+    <div class="shell">
+      <dl class="manifest lift">
+        <div>
+          <dt>IT Lifecycle</dt>
+          <dd>Collection, secure erasure, ITAD and remarketing.</dd>
+        </div>
+        <div class="active-manifest">
+          <dt>Information Management</dt>
+          <dd>Storage, scanning and digital mailroom services.</dd>
+        </div>
+        <div>
+          <dt>Moving &amp; Relocation</dt>
+          <dd>Business, IT and heritage moves with specialist storage.</dd>
+        </div>
+      </dl>
+    </div>
 
-            <!-- Three Purpose Principles (Horizontal stacked rows matching infographic template) -->
-            <div class="flex flex-col gap-4 sm:gap-5 pt-2 pl-6 sm:pl-7 pr-3 sm:pr-4">
-              {about.purposePrinciples && about.purposePrinciples.map((principle, idx) => {
-                const style = purposeCardStyles[idx % purposeCardStyles.length];
-                return (
-                  <div class="relative group flex items-center">
-                    <!-- Back Colored Layer (Tilted / Offset at Right Edge) -->
-                    <div
-                      class={`absolute inset-0 rounded-2xl ${style.bg} origin-bottom-left transform translate-x-2.5 sm:translate-x-3.5 -translate-y-1.5 rotate-[1.2deg] -z-10 shadow-sm ${style.shadow} transition-all duration-300 group-hover:translate-x-4 group-hover:-translate-y-2 group-hover:rotate-[1.8deg]`}
-                    ></div>
-
-                    <!-- Front White Card -->
-                    <div class="relative z-10 w-full bg-white rounded-2xl py-3.5 sm:py-4 px-4 sm:px-5 flex items-center border border-slate-100/90 shadow-[0_6px_20px_rgba(0,0,0,0.05)] group-hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] transition-all duration-300">
-                      <!-- Overlapping Number Circle on Left (Vertically Centered) -->
-                      <div
-                        class={`absolute -left-6 sm:-left-7 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-full ${style.circle} text-white font-mono font-bold text-sm sm:text-base flex items-center justify-center shadow-md ${style.shadow} group-hover:scale-105 transition-transform duration-300 shrink-0`}
-                      >
-                        0{idx + 1}
-                      </div>
-
-                      <!-- Text Content -->
-                      <div class="pl-8 sm:pl-9 pr-2 sm:pr-3 py-0.5 min-w-0">
-                        <h3 class="text-sm sm:text-base font-extrabold font-display text-slate-900 tracking-wider uppercase">
-                          {principle.title}
-                        </h3>
-                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold mt-0.5">
-                          {principle.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+    <!-- 2 · WHO WE ARE (CLEAN WHITE SURFACE WITH VIBRANT LEAF GREEN ACCENTS) -->
+    <section id="who" class="band bg-white">
+      <div class="shell">
+        <div class="head-rule">
+          <span class="dot"></span>
+          <p class="eyebrow">Who we are</p>
+          <span class="line"></span>
+        </div>
+        <div class="who">
+          <div class="body">
+            <h2>Three disciplines, one chain of custody.</h2>
+            <p class="first">Techsteps was built around a problem most businesses meet at the worst possible moment: what to do with the equipment, records and premises they are leaving behind.</p>
+            <p>We started in secure IT disposal and grew into the services that sit either side of it. Today a single team can clear a floor, erase and remarket the hardware, digitise the paper records, move what stays and store what is not needed yet — under one point of accountability rather than four suppliers pointing at each other.</p>
+            <p>That matters because the risk does not stop at the loading bay. Every asset we touch is logged, tracked and reported on, from the moment it leaves your site to the certificate that closes the job. Data-bearing media is erased or destroyed to standard. Equipment with life left in it is refurbished and resold, and the recovered value goes back to you.</p>
+            <p>We work with organisations that cannot afford a gap in the record: NHS trusts and healthcare providers, councils and public bodies, financial and legal firms, schools and universities, museums and archives, and IT teams inside businesses of every size.</p>
+            <ul class="sectors">
+              <li><a href="/sectors/nhs">Healthcare &amp; NHS</a></li>
+              <li><a href="/sectors/central-government">Public sector</a></li>
+              <li><a href="/sectors/finance">Finance &amp; legal</a></li>
+              <li><a href="/sectors">Education</a></li>
+              <li><a href="/sectors">Heritage &amp; archives</a></li>
+              <li><a href="/sectors">Corporate IT</a></li>
+            </ul>
           </div>
+          <div class="arcwrap">
+            <svg viewBox="0 0 200 420" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M8 10 C 78 92, 104 200, 60 410" fill="none" stroke="rgba(63, 179, 61, 0.3)" stroke-width="1.8"/>
+            </svg>
+            <ol>
+              <li>
+                <p class="yr">Founded</p>
+                <h3>Secure IT disposal</h3>
+                <p>One job: get redundant IT off site without losing control of the data on it.</p>
+              </li>
+              <li>
+                <p class="yr">Expanded</p>
+                <h3>Records and media</h3>
+                <p>Clients kept asking who would handle the paper. Storage and scanning followed.</p>
+              </li>
+              <li>
+                <p class="yr">Scaled</p>
+                <h3>Facilities and fleet</h3>
+                <p>Dedicated secure premises, vetted crews and a tracked fleet covering the UK.</p>
+              </li>
+              <li class="now">
+                <p class="yr">Today</p>
+                <h3>Three divisions, one contract</h3>
+                <p>Lifecycle, information and relocation run as one service with a single audit trail.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <!-- Right Side: Visual / Eco-tech visual (Clean floating image without box or white background) -->
-          <div class="lg:col-span-5 flex items-center justify-center relative">
-            <div class="absolute w-72 h-72 rounded-full bg-emerald-200/40 blur-3xl pointer-events-none" aria-hidden="true"></div>
-            <img
-              src="/images/components/batch2.png"
-              alt="Sustainable technology and circular lifecycle illustration"
-              class="relative z-10 w-68 sm:w-84 lg:w-96 h-auto object-contain drop-shadow-xl hover:scale-105 hover:rotate-2 transition-all duration-700 select-none pointer-events-auto"
-              loading="lazy"
-              decoding="async"
+    <!-- 3 · WHAT WE DO (WHITE SURFACE WITH #3FB33D & #0F623A) -->
+    <section id="do" class="band bg-white" style="padding-top:0">
+      <div class="shell">
+        <div class="head-rule">
+          <span class="dot"></span>
+          <p class="eyebrow">What we do</p>
+          <span class="line"></span>
+        </div>
+        <div class="divisions">
+          <article class="division">
+            <div class="shot">
+              <div class="photo" data-caption="Asset processing line">
+                <img
+                  src="/images/services/process-step-2-secure.jpg"
+                  alt="IT Lifecycle asset processing"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
+              </div>
+              <span class="no">01</span>
+            </div>
+            <h3>IT Lifecycle Services</h3>
+            <p>Secure IT disposal, collection, ITAD, asset management, remarketing and recycling — with certified erasure and a full audit trail.</p>
+            <a class="go" href="/it-lifecycle-services-destruction">Explore services <em aria-hidden="true">&rarr;</em></a>
+          </article>
+          <article class="division">
+            <div class="shot">
+              <div class="photo" data-caption="Records storage and scanning">
+                <img
+                  src="/images/services/process-step-3-sanitise.jpg"
+                  alt="Records storage and scanning"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
+              </div>
+              <span class="no">02</span>
+            </div>
+            <h3>Information Management</h3>
+            <p>Document storage, scanning, digital mailroom, document management and media storage for organisations that must keep the record.</p>
+            <a class="go" href="/information-management">Explore services <em aria-hidden="true">&rarr;</em></a>
+          </article>
+          <article class="division">
+            <div class="shot">
+              <div class="photo" data-caption="Relocation crew on site">
+                <img
+                  src="/images/services/process-step-1-collect.jpg"
+                  alt="Relocation crew on site"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
+              </div>
+              <span class="no">03</span>
+            </div>
+            <h3>Moving &amp; Relocation</h3>
+            <p>Business relocation, IT relocation, heritage relocation and specialist storage, planned and crewed to keep you operating.</p>
+            <a class="go" href="/moving-relocation-services">Explore services <em aria-hidden="true">&rarr;</em></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · APPROACH (DEEP FOREST GREEN #0F623A WITH #3FB33D SINE WAVE) -->
+    <section id="approach" class="approach on-dark">
+      <div class="shell">
+        <div class="head-rule">
+          <span class="dot"></span>
+          <p class="eyebrow">Our approach</p>
+          <span class="line"></span>
+        </div>
+        <h2>Every job runs the same four ways.</h2>
+        <p class="intro">Different services, one method. It is what lets us give you a single line of accountability from the first survey to the final certificate.</p>
+        <div class="flow">
+          <svg viewBox="0 0 1000 80" preserveAspectRatio="none" aria-hidden="true">
+            <path
+              d="M120 12 C 250 12, 250 60, 375 60 S 500 12, 625 12 S 750 60, 875 60"
+              fill="none"
+              stroke="#3FB33D"
+              stroke-width="2.5"
+              stroke-dasharray="7 7"
+              opacity=".9"
             />
+          </svg>
+          <div class="steps">
+            <div class="step">
+              <div class="hex">01</div>
+              <h3>Secure</h3>
+              <p>Vetted crews, tracked vehicles, controlled facilities. Custody recorded at every handover.</p>
+            </div>
+            <div class="step">
+              <div class="hex">02</div>
+              <h3>Smart</h3>
+              <p>We survey before we lift. The plan is built around your operation, not our schedule.</p>
+            </div>
+            <div class="step">
+              <div class="hex">03</div>
+              <h3>Responsible</h3>
+              <p>Reuse before recycling, zero to landfill, data destroyed to standard with evidence to match.</p>
+            </div>
+            <div class="step">
+              <div class="hex">04</div>
+              <h3>Value-focused</h3>
+              <p>Working assets are refurbished and remarketed, and the recovered value comes back to you.</p>
+            </div>
           </div>
         </div>
-      </Container>
+      </div>
     </section>
 
-    <!-- 4. WHAT WE STAND FOR (Clean Light Values Section) -->
-    <section class="relative z-10 py-10 sm:py-12 lg:py-14">
-      <Container>
-        <div class="text-center max-w-3xl mx-auto space-y-2 mb-8 sm:mb-10">
-          <span class="inline-block text-xs sm:text-sm font-bold uppercase tracking-widest text-[#146B5C]">
-            WHAT WE STAND FOR
-          </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-tight">
-            What We Stand For
-          </h2>
-         
+    <!-- 5 · CAPABILITIES (WHITE SURFACE WITH #3FB33D MEDALLIONS & SKEWED STATS) -->
+    <section id="caps" class="band bg-white">
+      <div class="shell">
+        <div class="head-rule">
+          <span class="dot"></span>
+          <p class="eyebrow">Our capabilities</p>
+          <span class="line"></span>
         </div>
-
-        <!-- Three Value Blocks (Infographic Template Design) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 max-w-5xl mx-auto px-4 sm:px-0">
-          {about.values && about.values.map((val, idx) => {
-            const style = valueCardStyles[idx % valueCardStyles.length];
-            return (
-              <div class="relative group pt-4 pr-3.5 pb-2 flex">
-                <!-- Back Colored Card Layer (Tilted / Offset at Top-Right matching infographic template) -->
-                <div class={`absolute inset-0 rounded-[28px] ${style.bg} origin-bottom-left transform translate-x-3 -translate-y-2.5 rotate-[2deg] -z-10 shadow-md ${style.shadow} transition-all duration-300 group-hover:translate-x-3.5 group-hover:-translate-y-3 group-hover:rotate-[2.5deg]`}></div>
-
-                <!-- Front White Card -->
-                <div class="relative z-10 w-full bg-white rounded-[26px] px-6 py-8 sm:px-7 sm:py-9 text-center flex flex-col justify-between border border-slate-100 shadow-[0_12px_28px_rgba(0,0,0,0.06)] group-hover:shadow-[0_20px_38px_rgba(0,0,0,0.1)] transition-all duration-300">
-                  <div class="flex flex-col items-center">
-                    <!-- Top Minimal Line Icon -->
-                    <div class="mb-5 text-slate-700 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center h-10">
-                      {idx === 0 && (
-                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                          <rect x="2" y="3" width="20" height="14" rx="2" stroke-linecap="round" stroke-linejoin="round" />
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4" />
-                        </svg>
-                      )}
-                      {idx === 1 && (
-                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-                          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-                          <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
-                          <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-                        </svg>
-                      )}
-                      {idx === 2 && (
-                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M12 20V10" />
-                          <path d="M18 20V4" />
-                          <path d="M6 20v-4" />
-                        </svg>
-                      )}
-                    </div>
-
-                    <!-- Title -->
-                    <h3 class="text-lg sm:text-xl font-extrabold font-display text-slate-900 tracking-wider uppercase mb-3">
-                      {val.title}
-                    </h3>
-
-                    <!-- Description -->
-                    <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold max-w-[260px] mx-auto">
-                      {val.description}
-                    </p>
-                  </div>
-
-                 
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </Container>
-    </section>
-
-    <!-- 5. OUR APPROACH (All Cards Scrolling One-by-One with Synchronised Exit) -->
-    <section class="relative z-10 pt-8 sm:pt-12 pb-2 sm:pb-4">
-      <Container>
-        <div id="approach-container" class="relative max-w-3xl mx-auto pb-10 sm:pb-14">
-          
-          <!-- Sticky Title Area (Clean, Open, Completely Unboxed, Synchronised on Exit) -->
-          <div id="approach-sticky-title" class="sticky top-20 sm:top-24 z-30 text-center pb-4 pt-1 will-change-transform">
-            <span class="inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest text-[#146B5C] mb-1.5">
-             
-              {about.approachEyebrow || 'OUR APPROACH'}
-            </span>
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-display text-slate-900 tracking-tight leading-tight">
-              {about.approachHeadline || 'Every Asset. A Smarter Journey.'}
-            </h2>
-            <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl mx-auto font-medium mt-1.5">
-              {about.approachBody || 'Our industry-specific IT asset lifecycle methodology delivers end-to-end security, regulatory compliance, and maximum value recovery.'}
-            </p>
-          </div>
-
-          <!-- All 6 Step Cards: Laid out in order, scrolling one by one -->
-          {about.approachSteps && about.approachSteps.map((step, idx) => {
-            const style = approachStepStyles[idx % approachStepStyles.length];
-            const zIndex = 10 + idx;
-            const marginTop = idx === 0 ? 'mt-4' : 'mt-20 sm:mt-24';
-            return (
-              <div
-                class={`approach-scroll-card sticky top-[13.5rem] sm:top-[14.5rem] transition-shadow duration-300 ${marginTop}`}
-                style={`z-index: ${zIndex};`}
-                data-card-index={idx}
-              >
-                <!-- Folded Bookmark Tab Card Container (Matching Infographic Template) -->
-                <div class="relative group bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:shadow-[0_24px_50px_rgba(0,0,0,0.12)] p-4 sm:p-6 flex items-center gap-4 sm:gap-7 min-h-[125px] sm:min-h-[140px] transition-all duration-300">
-                  
-                  <!-- Left Big Minimal Outline Icon Tailored for Each Stage -->
-                  <div class={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center shrink-0 ${style.iconText} bg-slate-50 border border-slate-100/90 shadow-2xs group-hover:scale-105 transition-transform duration-300`}>
-                    {idx === 0 && (
-                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8h4.586a1 1 0 01.707.293l2.414 2.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1" />
-                      </svg>
-                    )}
-                    {idx === 1 && (
-                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                      </svg>
-                    )}
-                    {idx === 2 && (
-                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
-                      </svg>
-                    )}
-                    {idx === 3 && (
-                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    )}
-                    {idx === 4 && (
-                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                      </svg>
-                    )}
-                    {idx === 5 && (
-                      <svg class="w-9 h-9 sm:w-11 sm:h-11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 8h2" />
-                      </svg>
-                    )}
-                  </div>
-
-                  <!-- Folded Ribbon Bookmark Tab (PHASE / 01-06) -->
-                  <div class="relative shrink-0 -my-4 sm:-my-6">
-                    <!-- Top-Left Darker Origami Fold Triangle -->
-                    <span
-                      class={`absolute -top-3 left-0 w-3 h-3 ${style.tabFold}`}
-                      style="clip-path: polygon(100% 0, 0 100%, 100% 100%);"
-                      aria-hidden="true"
-                    ></span>
-
-                    <!-- Main Colored Tab Body -->
-                    <div class={`w-18 sm:w-22 ${style.tab} rounded-b-2xl pt-2.5 pb-3 px-1.5 text-center text-white shadow-md flex flex-col items-center justify-center`}>
-                      <span class="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest font-semibold border-b border-white/40 pb-0.5 mb-1 px-1 opacity-90">
-                        PHASE
-                      </span>
-                      <span class="text-2xl sm:text-3xl font-mono font-black tracking-tight leading-none">
-                        0{idx + 1}
-                      </span>
-                    </div>
-                  </div>
-
-                  <!-- Title, Divider & Description Content -->
-                  <div class="flex-1 min-w-0 pr-2 sm:pr-4">
-                    <h3 class="text-base sm:text-lg lg:text-xl font-black font-display tracking-wider uppercase text-slate-900 mb-1">
-                      {step.title}
-                    </h3>
-                    <div class="w-12 h-0.5 bg-slate-200 mb-2"></div>
-                    <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </Container>
-    </section>
-
-    <!-- Synchronised Scroll Script: Ensures Title and Cards Move Up in Lockstep on Exit -->
-    <script is:inline>
-      (() => {
-        const initStickySync = () => {
-          const title = document.getElementById('approach-sticky-title');
-          const cards = document.querySelectorAll('.approach-scroll-card');
-          if (!title || !cards.length) return;
-
-          const lastCard = cards[cards.length - 1];
-          let ticking = false;
-
-          const updateSync = () => {
-            // Cards stick at top-[13.5rem] (216px) or sm:top-[14.5rem] (232px)
-            const expectedCardTop = window.innerWidth >= 640 ? 232 : 216;
-            const lastCardRect = lastCard.getBoundingClientRect();
-
-            // When the last card reaches the end of the container and is pushed up,
-            // push the title up by the exact same distance so they never collide!
-            if (lastCardRect.top < expectedCardTop) {
-              const pushDistance = expectedCardTop - lastCardRect.top;
-              title.style.transform = `translateY(-${pushDistance}px)`;
-            } else {
-              title.style.transform = 'translateY(0px)';
-            }
-          };
-
-          const onScroll = () => {
-            if (!ticking) {
-              requestAnimationFrame(() => {
-                updateSync();
-                ticking = false;
-              });
-              ticking = true;
-            }
-          };
-
-          window.addEventListener('scroll', onScroll, { passive: true });
-          window.addEventListener('resize', onScroll, { passive: true });
-          updateSync();
-        };
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initStickySync);
-        } else {
-          initStickySync();
-        }
-        document.addEventListener('astro:page-load', initStickySync);
-      })();
-    </script>
-
-    <!-- 6. CERTIFICATIONS & COMPLIANCE (Continuous Infinite Logo Marquee) -->
-    <section class="relative z-10 pt-6 sm:pt-8 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
-      <Container>
-        <div class="text-center max-w-3xl mx-auto space-y-3">
-          <span class="inline-block text-xs sm:text-sm font-bold uppercase tracking-widest text-[#146B5C]">
-            {about.complianceEyebrow || 'STANDARDS & GOVERNANCE'}
-          </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-tight">
-            {about.complianceHeadline || 'Built on Trust. Backed by Standards.'}
-          </h2>
-          <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-2xl mx-auto font-medium">
-            {about.complianceBody || 'Our processes are designed around security, accountability and responsible operations.'}
-          </p>
-
-          <!-- Compliance Assurance Note -->
-          <div class="pt-4">
-            <div class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs text-sm sm:text-base text-slate-800 font-semibold">
-              <svg class="w-4 h-4 text-[#146B5C] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+        <div class="caps">
+          <div class="cap">
+            <div class="medal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <circle cx="9" cy="8" r="3.2"/>
+                <path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/>
+                <path d="M16 5.5a3 3 0 0 1 0 5.6M18 20c0-2.3-.8-3.9-2.2-5"/>
               </svg>
-              <span>Stringent chain-of-custody protocols, fully vetted UK personnel, and defensible audit trails.</span>
+            </div>
+            <div>
+              <h3>Specialist people</h3>
+              <p>Vetted, trained crews who handle complex projects — live data centres, occupied buildings, fragile heritage collections.</p>
+            </div>
+          </div>
+          <div class="cap">
+            <div class="medal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M12 2.5 20 6v6.2c0 4.6-3.3 8-8 9.3-4.7-1.3-8-4.7-8-9.3V6z"/>
+                <path d="m8.8 12.2 2.2 2.2 4.3-4.6"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Secure facilities</h3>
+              <p>Alarmed, access-controlled and CCTV-monitored premises with segregated areas for data-bearing media.</p>
+            </div>
+          </div>
+          <div class="cap">
+            <div class="medal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M3 7.5h11v9H3zM14 10.5h4l3 3v3h-7z"/>
+                <circle cx="7" cy="18" r="1.9"/>
+                <circle cx="17" cy="18" r="1.9"/>
+              </svg>
+            </div>
+            <div>
+              <h3>End-to-end service</h3>
+              <p>Collection, processing, erasure, reporting, resale and recycling — handled in house, not passed down a chain.</p>
+            </div>
+          </div>
+          <div class="cap">
+            <div class="medal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M3 12h18M12 3c2.6 2.6 2.6 15 0 18-2.6-3-2.6-15.4 0-18z"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Business coverage</h3>
+              <p>UK-wide collections and relocations, with regional teams for multi-site programmes and rolling refresh cycles.</p>
             </div>
           </div>
         </div>
-      </Container>
 
-      <!-- Infinite Horizontal Scrolling Logo Marquee Ticker (Single Smooth Row) -->
-      {certificationsList && certificationsList.length > 0 && (
-        <div class="mt-10 sm:mt-12">
-          <div class="relative overflow-hidden py-3 marquee-container">
-            <!-- Left & Right Fade Gradients -->
-            <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-r from-[#F1F4EF] via-[#F1F4EF]/90 to-transparent z-10"></div>
-            <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-20 sm:w-40 bg-gradient-to-l from-[#F1F4EF] via-[#F1F4EF]/90 to-transparent z-10"></div>
-
-            <div class="animate-marquee flex items-center gap-5 sm:gap-6 pr-5 sm:pr-6">
-              {[...certificationsList, ...certificationsList].map((cert) => {
-                return (
-                  <a
-                    href={cert.link || '#'}
-                    target={cert.link ? '_blank' : '_self'}
-                    rel="noopener noreferrer"
-                    title={`${cert.name} accreditation`}
-                    class="h-20 px-6 sm:px-8 rounded-2xl bg-white/95 backdrop-blur-xs border border-slate-200/90 shadow-2xs hover:border-[#146B5C]/60 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center shrink-0 group min-w-[200px] sm:min-w-[230px]"
-                  >
-                    {cert.logo ? (
-                      <img src={cert.logo} alt={`${cert.name} logo`} class="h-10 sm:h-12 w-auto object-contain max-w-[170px] group-hover:scale-105 transition-transform duration-300" />
-                    ) : (
-                      <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#146B5C]/10 to-emerald-100/70 border border-[#146B5C]/20 text-[#146B5C] flex items-center justify-center shrink-0 group-hover:bg-[#146B5C] group-hover:text-white transition-all duration-300">
-                          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                          </svg>
-                        </div>
-                        <span class="text-sm sm:text-base font-extrabold font-display text-slate-900 tracking-tight group-hover:text-[#146B5C] transition-colors whitespace-nowrap">
-                          {cert.name}
-                        </span>
-                      </div>
-                    )}
-                  </a>
-                );
-              })}
+        <div class="stats">
+          <div class="stat">
+            <div>
+              <b>20<em>+</em></b>
+              <span>Years handling secure disposal and relocation</span>
+            </div>
+          </div>
+          <div class="stat">
+            <div>
+              <b>500k<em>+</em></b>
+              <span>Assets processed and reported on</span>
+            </div>
+          </div>
+          <div class="stat highlight-stat">
+            <div>
+              <b>98<em>%</em></b>
+              <span>Diverted from landfill through reuse and recycling</span>
+            </div>
+          </div>
+          <div class="stat">
+            <div>
+              <b>UK</b>
+              <span>Nationwide collection and service coverage</span>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </section>
 
-    <!-- 7. FINAL CTA (Clean Open Section) -->
-    <section class="relative z-10 py-12 sm:py-16 lg:py-20">
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#146B5C]/15 blur-3xl pointer-events-none"></div>
-
-      <Container className="relative z-10 text-center max-w-3xl mx-auto space-y-5">
-        <span class="inline-block text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C]">
-          {about.ctaEyebrow || "LET'S WORK TOGETHER"}
-        </span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-tight">
-          {about.ctaHeadline || 'Ready to Take the Next Step?'}
-        </h2>
-        <p class="text-base sm:text-lg text-slate-800 max-w-xl mx-auto leading-relaxed font-medium">
-          {about.ctaBody || "Let's build a more secure, responsible and sustainable technology lifecycle for your organisation."}
-        </p>
-
-        <div class="pt-3 flex flex-wrap items-center justify-center gap-4">
-          <a
-            href={about.ctaButtonUrl || '/contact'}
-            class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#146B5C] hover:bg-[#0D5549] text-white text-base font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
-          >
-            <span>{about.ctaButtonLabel || 'Get In Touch →'}</span>
-          </a>
-          <a
-            href={about.ctaSecondaryButtonUrl || '/request-a-quote'}
-            class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 text-base font-bold shadow-xs hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5"
-          >
-            <span>{about.ctaSecondaryButtonLabel || 'Request a Quote →'}</span>
-          </a>
+    <!-- 6 · TRUST & ACCREDITATIONS (COMMENTED OUT)
+    <section id="trust" class="trust bg-white">
+      <div class="shell">
+        <div class="head-rule">
+          <span class="dot"></span>
+          <p class="eyebrow">Accreditations</p>
+          <span class="line"></span>
         </div>
-      </Container>
+        <h2>Trust built into every process.</h2>
+        <p class="sub">Certifications are only useful if you know what they prove. Here is what each one means for the work we do for you.</p>
+        <div class="comb">
+          <div class="badge">
+            <div class="stamp stamp-green">ISO<br>27001</div>
+            <h3>Information security</h3>
+            <p>Independently audited controls over how your data is handled, stored and destroyed.</p>
+          </div>
+          <div class="badge">
+            <div class="stamp stamp-forest">ISO<br>9001</div>
+            <h3>Quality management</h3>
+            <p>Documented procedures, so the job runs the same way every time and can be checked.</p>
+          </div>
+          <div class="badge">
+            <div class="stamp stamp-green">ISO<br>14001</div>
+            <h3>Environmental</h3>
+            <p>Measured impact, reuse before recycling and zero to landfill.</p>
+          </div>
+          <div class="badge">
+            <div class="stamp stamp-forest">ISO<br>45001</div>
+            <h3>Health &amp; safety</h3>
+            <p>Safe working on your site, from occupied offices to live data halls.</p>
+          </div>
+          <div class="badge">
+            <div class="stamp stamp-green">ADISA</div>
+            <h3>Asset disposal standard</h3>
+            <p>Sector auditing of our ITAD process, including unannounced inspections.</p>
+          </div>
+          <div class="badge">
+            <div class="stamp stamp-forest">CE<br>PLUS</div>
+            <h3>Cyber Essentials Plus</h3>
+            <p>Our own systems tested against the government-backed cyber standard.</p>
+          </div>
+          <div class="badge">
+            <div class="stamp stamp-green">BAR</div>
+            <h3>British Association of Removers</h3>
+            <p>Commercial moving carried out to a recognised code of practice.</p>
+          </div>
+          <div class="badge">
+            <div class="stamp stamp-forest">EA</div>
+            <h3>Registered waste carrier</h3>
+            <p>Licensed to transport and process waste electricals, with duty-of-care paperwork.</p>
+          </div>
+        </div>
+        <p class="note">Certificates, licence numbers and insurance details are available on request, and supplied as standard with every tender response.</p>
+      </div>
+    </section>
+    -->
+
+    <!-- 7 · LET'S TALK ABOUT SECTION (WHITE BACKGROUND, SPLIT LAYOUT WITH IMAGE ON LEFT & CONTENT ON RIGHT) -->
+    <section id="talk" class="talk-white-section py-16 sm:py-20 lg:py-28 bg-white relative overflow-hidden border-t border-slate-200">
+      <div class="shell relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          
+          <!-- Left Column: Visual Image Card with Services Green Badge -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative photo-split-frame rounded-2xl overflow-hidden shadow-xl border border-slate-200 group">
+              <img
+                src="/images/services/process-step-1-collect.jpg"
+                alt="Techsteps fleet and collection team on site"
+                class="w-full h-[360px] sm:h-[420px] lg:h-[460px] object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                onerror="this.src='/images/brand/about-hero-bg.jpg'"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0A331E]/80 via-transparent to-transparent"></div>
+              
+              <!-- Bottom Badge on Image -->
+              <div class="absolute bottom-5 left-5 right-5 flex items-center justify-between text-white text-xs font-mono tracking-wider">
+                <span class="bg-[#3FB33D] px-3.5 py-1.5 rounded-full font-bold shadow-md flex items-center gap-1.5 text-white">
+                  <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                  UK-WIDE LOGISTICS
+                </span>
+                <span class="text-white text-[11px] bg-[#0A331E]/85 px-2.5 py-1 rounded-md backdrop-blur-xs border border-emerald-500/20">
+                  Vetted Crews
+                </span>
+              </div>
+            </div>
+
+            <!-- Ambient Background Accent Behind Image -->
+            <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-[#3FB33D]/10 rounded-full filter blur-2xl -z-10"></div>
+          </div>
+
+          <!-- Right Column: Content, Headings, Buttons & Contact Details -->
+          <div class="lg:col-span-7">
+            <div class="head-rule mb-5">
+              <span class="dot"></span>
+              <p class="eyebrow">Get in touch with Techsteps</p>
+              <span class="line"></span>
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08]">
+              Let's Talk About <span class="text-[#3FB33D] block mt-1">What Comes Next.</span>
+            </h2>
+
+            <p class="text-base sm:text-lg text-slate-600 max-w-2xl mt-5 leading-relaxed font-normal">
+              Whether you need secure IT disposal, information management or relocation support, speak with the Techsteps team. We will survey, scope and quote before anything moves.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap items-center gap-4 mt-8">
+              <a class="btn btn-primary" href="/contact">
+                <span>Talk to Techsteps</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+              <a class="btn btn-secondary" href="/request-a-collection">
+                <span>Request a Collection</span>
+              </a>
+            </div>
+
+            <!-- Direct Contact Line -->
+            <div class="talk-contactline mt-10 pt-6 border-t border-slate-200 flex flex-wrap gap-y-3 gap-x-8 text-sm text-slate-600">
+              <span><b class="text-slate-900">Call:</b> <a href="tel:+442079460888" class="hover:text-[#3FB33D] font-semibold transition-colors">+44 (0) 20 7946 0888</a></span>
+              <span><b class="text-slate-900">Email:</b> <a href="mailto:hello@techsteps.co.uk" class="hover:text-[#3FB33D] font-semibold transition-colors">hello@techsteps.co.uk</a></span>
+              <span><b class="text-slate-900">Hours:</b> Mon–Fri, 8am–6pm</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </section>
   </div>
 </BaseLayout>
+
+<style>
+.about-page-wrapper {
+  /* Techsteps Services Page Signature Color System (#3FB33D + #0F623A + White) */
+  --green-primary: #3FB33D;
+  --green-forest: #0F623A;
+  --green-darkest: #0A331E;
+  --green-hover: #329532;
+  --green-light: #F2F8F5;
+  --green-surface: #EFF8F3;
+  
+  --surface: #FFFFFF;
+  --paper: #F8FAF9;
+  --on-surface: #0F172A;
+  --on-surface-dim: #475569;
+  --hairline: #E2E8F0;
+  --panel: #FFFFFF;
+  
+  --shell: 1320px;
+  --gutter: clamp(20px, 5vw, 72px);
+  --display: "Archivo", system-ui, sans-serif;
+  --text: "IBM Plex Sans", system-ui, sans-serif;
+  --cut: 46px;
+
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--text);
+  font-size: clamp(15.5px, 1.02vw, 17px);
+  line-height: 1.62;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.about-page-wrapper *,
+.about-page-wrapper *::before,
+.about-page-wrapper *::after {
+  box-sizing: border-box;
+}
+
+.about-page-wrapper img,
+.about-page-wrapper svg {
+  display: block;
+  max-width: 100%;
+}
+
+.about-page-wrapper a {
+  color: inherit;
+}
+
+.about-page-wrapper h1,
+.about-page-wrapper h2,
+.about-page-wrapper h3 {
+  font-family: var(--display);
+  margin: 0;
+  letter-spacing: -.026em;
+  line-height: 1.03;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.on-dark h1,
+.on-dark h2,
+.on-dark h3 {
+  color: #FFFFFF;
+}
+
+.about-page-wrapper p {
+  margin: 0;
+}
+
+.shell {
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  position: relative;
+}
+
+.eyebrow {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--green-primary);
+}
+
+.on-dark .eyebrow {
+  color: #3FB33D;
+}
+
+/* Photo slots — chamfered "seal cut", never a plain rectangle */
+.photo {
+  position: relative;
+  overflow: hidden;
+  background: #0A331E;
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+}
+
+.photo img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo::before {
+  display: none;
+}
+
+.photo::after {
+  content: attr(data-caption);
+  position: absolute;
+  left: 18px;
+  bottom: 14px;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: rgba(15, 98, 58, 0.88);
+  padding: 3px 9px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.2);
+  z-index: 3;
+}
+
+/* 1 · HERO — diagonal bottom edge on services dark forest green */
+.hero {
+  background: var(--green-darkest);
+  color: #fff;
+  position: relative;
+  padding-bottom: clamp(120px, 15vw, 210px);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - clamp(48px, 6vw, 96px)));
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  right: -14%;
+  top: -24%;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1.5px solid rgba(63, 179, 61, 0.3);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero .grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .86fr);
+  gap: clamp(28px, 4vw, 66px);
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: clamp(40px, 6.1vw, 82px);
+  line-height: .96;
+  margin: 22px 0 26px;
+  color: #fff;
+  letter-spacing: -.033em;
+}
+
+.hero h1 .l2 {
+  display: block;
+  color: #3FB33D;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+}
+
+.hero .lede {
+  font-size: clamp(16.5px, 1.32vw, 19.5px);
+  color: #FFFFFF;
+  max-width: 48ch;
+  line-height: 1.55;
+}
+
+.hero-figure {
+  margin: 0;
+  position: relative;
+}
+
+.hero-figure .photo {
+  --cut: 74px;
+  aspect-ratio: 4/3.4;
+}
+
+.hero-figure .ring {
+  position: absolute;
+  left: -44px;
+  bottom: -40px;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(63, 179, 61, 0.7);
+  pointer-events: none;
+}
+
+.seal {
+  position: absolute;
+  right: -16px;
+  top: -26px;
+  width: 92px;
+  height: 104px;
+  background: var(--green-primary);
+  color: #FFFFFF;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  display: grid;
+  place-content: center;
+  text-align: center;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: .06em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  z-index: 4;
+  box-shadow: 0 8px 24px rgba(15,98,58,0.35);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+/* Manifest — chamfered tiles riding the diagonal */
+.manifest {
+  position: relative;
+  z-index: 5;
+  margin-top: clamp(-70px, -7vw, -46px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 1.6vw, 22px);
+}
+
+.manifest div {
+  --cut: 24px;
+  background: var(--panel);
+  padding: 24px 26px 26px;
+  border: 1px solid var(--hairline);
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+  box-shadow: 0 10px 30px rgba(15,98,58,0.07);
+}
+
+.manifest div.active-manifest {
+  background: var(--green-primary);
+  border-color: var(--green-primary);
+  color: #FFFFFF;
+  box-shadow: 0 12px 35px rgba(63,179,61,0.35);
+}
+
+.manifest dt {
+  font-size: 11px;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  color: var(--green-forest);
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.manifest div.active-manifest dt {
+  color: #FFFFFF;
+}
+
+.manifest dd {
+  margin: 0;
+  font-size: 14px;
+  color: var(--on-surface-dim);
+  line-height: 1.5;
+}
+
+.manifest div.active-manifest dd {
+  color: #F2F8F5;
+}
+
+@media (max-width: 900px) {
+  .hero .grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-figure {
+    order: -1;
+  }
+  .seal {
+    right: 6px;
+    top: -18px;
+    width: 76px;
+    height: 86px;
+  }
+  .manifest {
+    grid-template-columns: 1fr;
+    margin-top: -40px;
+  }
+}
+
+.band {
+  padding-block: clamp(64px, 8.5vw, 120px);
+}
+
+.head-rule {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: clamp(28px, 3.6vw, 50px);
+}
+
+.head-rule .dot {
+  width: 10px;
+  height: 11px;
+  background: var(--green-primary);
+  flex: none;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+.head-rule .line {
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+
+/* 2 · WHO WE ARE */
+.who {
+  display: grid;
+  grid-template-columns: minmax(0, 60fr) minmax(0, 40fr);
+  gap: clamp(34px, 5vw, 80px);
+}
+
+.who h2 {
+  font-size: clamp(30px, 3.5vw, 48px);
+  margin-bottom: 24px;
+  max-width: 16ch;
+  color: #0F172A;
+}
+
+.who .body p + p {
+  margin-top: 17px;
+}
+
+.who .body p {
+  color: var(--on-surface-dim);
+  max-width: 62ch;
+}
+
+.who .body p.first {
+  color: #0F172A;
+  font-size: clamp(17px, 1.3vw, 20px);
+  line-height: 1.55;
+  padding-left: 20px;
+  border-left: 4px solid var(--green-primary);
+}
+
+.sectors {
+  margin: 30px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sectors li {
+  list-style: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border: 1px solid #E2E8F0;
+  border-radius: 999px;
+  color: var(--green-forest);
+  background: var(--green-surface);
+  transition: all .2s ease;
+}
+
+.sectors li:hover {
+  background: var(--green-primary);
+  color: #FFFFFF;
+  border-color: var(--green-primary);
+  transform: translateY(-1px);
+}
+
+.arcwrap {
+  position: relative;
+  min-height: 420px;
+}
+
+.arcwrap > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.arcwrap ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.arcwrap li {
+  position: relative;
+  padding-bottom: 26px;
+}
+
+.arcwrap li:nth-child(1) { margin-left: 4%; }
+.arcwrap li:nth-child(2) { margin-left: 15%; }
+.arcwrap li:nth-child(3) { margin-left: 22%; }
+.arcwrap li:nth-child(4) { margin-left: 14%; }
+
+.arcwrap li::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 8px;
+  width: 11px;
+  height: 12px;
+  background: var(--green-forest);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+.arcwrap li.now::before {
+  background: var(--green-primary);
+  transform: scale(1.4);
+  box-shadow: 0 0 12px rgba(63, 179, 61, 0.6);
+}
+
+.arcwrap .yr {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: .07em;
+  color: var(--green-primary);
+  text-transform: uppercase;
+}
+
+.arcwrap h3 {
+  font-size: 17.5px;
+  font-weight: 700;
+  margin: 2px 0 5px;
+  color: #0F172A;
+}
+
+.arcwrap li p {
+  font-size: 14px;
+  color: var(--on-surface-dim);
+  max-width: 30ch;
+}
+
+@media (max-width: 900px) {
+  .who {
+    grid-template-columns: 1fr;
+  }
+  .arcwrap {
+    min-height: 0;
+  }
+  .arcwrap > svg {
+    display: none;
+  }
+  .arcwrap li {
+    margin-left: 26px !important;
+  }
+}
+
+/* 3 · DIVISIONS — sheared panels */
+.divisions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.2vw, 30px);
+  align-items: start;
+}
+
+.division:nth-child(2) {
+  margin-top: clamp(0px, 4.5vw, 58px);
+}
+
+.division:nth-child(3) {
+  margin-top: clamp(0px, 9vw, 116px);
+}
+
+.division .shot {
+  position: relative;
+  height: clamp(210px, 21vw, 300px);
+  clip-path: polygon(0 34px, 100% 0, 100% calc(100% - 34px), 0 100%);
+}
+
+.division .shot .photo {
+  clip-path: none;
+  height: 100%;
+}
+
+.division .no {
+  position: absolute;
+  left: 0;
+  top: 44px;
+  z-index: 3;
+  background: var(--green-primary);
+  color: #FFFFFF;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: .1em;
+  padding: 6px 14px 6px 10px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+.division h3 {
+  font-size: clamp(19px, 1.6vw, 23px);
+  margin: 22px 0 10px;
+  text-transform: uppercase;
+  color: #0F172A;
+}
+
+.division p {
+  font-size: 14.6px;
+  color: var(--on-surface-dim);
+  max-width: 34ch;
+}
+
+.division .go {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #FFFFFF;
+  background: var(--green-primary);
+  padding: 11px 20px;
+  border-radius: 999px;
+  transition: all .2s ease;
+}
+
+.division .go:hover {
+  background: var(--green-hover);
+  color: #FFFFFF;
+  box-shadow: 0 6px 18px rgba(63,179,61,0.35);
+  transform: translateY(-1px);
+}
+
+.division .go em {
+  font-style: normal;
+  transition: transform .18s ease;
+}
+
+.division:hover .go em {
+  transform: translateX(4px);
+}
+
+@media (max-width: 860px) {
+  .divisions {
+    grid-template-columns: 1fr;
+    gap: 46px;
+  }
+  .division:nth-child(2),
+  .division:nth-child(3) {
+    margin-top: 0;
+  }
+}
+
+/* 4 · APPROACH — wave flow, angled band on services deep forest green */
+.approach {
+  background: var(--green-forest);
+  color: #fff;
+  position: relative;
+  padding-block: clamp(90px, 11vw, 150px);
+  clip-path: polygon(0 clamp(30px, 4vw, 70px), 100% 0, 100% 100%, 0 calc(100% - clamp(30px, 4vw, 70px)));
+}
+
+.approach .head-rule .line {
+  background: rgba(255, 255, 255, .25);
+}
+
+.approach h2 {
+  font-size: clamp(30px, 3.5vw, 48px);
+  color: #fff;
+  max-width: 18ch;
+}
+
+.approach .intro {
+  color: #D1EFE2;
+  max-width: 54ch;
+  margin-top: 18px;
+}
+
+.flow {
+  position: relative;
+  margin-top: clamp(44px, 5vw, 70px);
+}
+
+.flow > svg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34px;
+  width: 100%;
+  height: 70px;
+  overflow: visible;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 2vw, 28px);
+  position: relative;
+  z-index: 2;
+}
+
+.step {
+  text-align: center;
+  padding-top: 0;
+}
+
+.step:nth-child(odd) {
+  transform: translateY(0);
+}
+
+.step:nth-child(even) {
+  transform: translateY(46px);
+}
+
+.hex {
+  width: 74px;
+  height: 84px;
+  margin: 0 auto 18px;
+  background: var(--green-primary);
+  color: #FFFFFF;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  display: grid;
+  place-content: center;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 22px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.step:nth-child(even) .hex {
+  background: #FFFFFF;
+  color: var(--green-forest);
+}
+
+.step h3 {
+  font-size: clamp(15px, 1.24vw, 18px);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: #fff;
+  margin-bottom: 9px;
+}
+
+.step p {
+  font-size: 14.2px;
+  color: #D1EFE2;
+  max-width: 26ch;
+  margin-inline: auto;
+}
+
+@media (max-width: 860px) {
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+  .flow > svg {
+    display: none;
+  }
+  .step,
+  .step:nth-child(even) {
+    transform: none;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 74px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .hex {
+    margin: 0;
+  }
+  .step p {
+    margin-inline: 0;
+  }
+  .step h3 {
+    margin-top: 6px;
+  }
+}
+
+/* 5 · CAPABILITIES — medallions + green stats */
+.caps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(26px, 3.4vw, 52px);
+}
+
+.cap {
+  display: grid;
+  grid-template-columns: 78px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.medal {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  color: var(--green-forest);
+  border: 1.5px solid var(--hairline);
+  position: relative;
+  background: var(--green-surface);
+}
+
+.medal::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(63,179,61,.45);
+}
+
+.medal svg {
+  width: 32px;
+  height: 32px;
+}
+
+.cap h3 {
+  font-size: clamp(17px, 1.4vw, 20px);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin: 8px 0 9px;
+  color: #0F172A;
+}
+
+.cap p {
+  font-size: 14.6px;
+  color: var(--on-surface-dim);
+  max-width: 40ch;
+}
+
+.stats {
+  margin-top: clamp(44px, 5.4vw, 74px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(10px, 1.4vw, 18px);
+}
+
+.stat {
+  transform: skewX(-9deg);
+  background: var(--green-darkest);
+  color: #fff;
+  padding: clamp(22px, 2.6vw, 34px) clamp(18px, 2.2vw, 30px);
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.stat.highlight-stat {
+  background: var(--green-primary);
+  color: #FFFFFF;
+  box-shadow: 0 10px 30px rgba(63,179,61,0.35);
+}
+
+.stat > div {
+  transform: skewX(9deg);
+}
+
+.stat b {
+  display: block;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(32px, 4vw, 54px);
+  letter-spacing: -.04em;
+  line-height: 1;
+}
+
+.stat em {
+  font-style: normal;
+  color: #3FB33D;
+}
+
+.stat.highlight-stat em {
+  color: #FFFFFF;
+  opacity: .9;
+}
+
+.stat span {
+  display: block;
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: #D1EFE2;
+  line-height: 1.45;
+}
+
+.stat.highlight-stat span {
+  color: #FFFFFF;
+}
+
+@media (max-width: 860px) {
+  .caps {
+    grid-template-columns: 1fr;
+  }
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 6 · TRUST — honeycomb with Green stamps */
+.trust {
+  background: var(--panel);
+  position: relative;
+  clip-path: polygon(0 clamp(30px, 4vw, 70px), 100% 0, 100% 100%, 0 100%);
+  padding-block: clamp(90px, 11vw, 150px) clamp(64px, 8vw, 110px);
+}
+
+.trust h2 {
+  font-size: clamp(28px, 3.4vw, 46px);
+  max-width: 16ch;
+  color: #0F172A;
+}
+
+.trust .sub {
+  color: var(--on-surface-dim);
+  max-width: 52ch;
+  margin-top: 16px;
+}
+
+.comb {
+  margin-top: clamp(40px, 5vw, 66px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: clamp(18px, 2.6vw, 38px);
+  row-gap: clamp(26px, 3vw, 44px);
+}
+
+.badge {
+  text-align: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding: 8px 4px;
+}
+
+.badge:hover {
+  transform: translateY(-4px);
+}
+
+.comb .badge:nth-child(even) {
+  transform: translateY(34px);
+}
+
+.comb .badge:nth-child(even):hover {
+  transform: translateY(30px);
+}
+
+.stamp {
+  width: 112px;
+  height: 126px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  color: #FFFFFF;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 13.5px;
+  line-height: 1.2;
+  letter-spacing: .03em;
+  position: relative;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  filter: drop-shadow(0 8px 18px rgba(15, 98, 58, 0.22));
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
+  cursor: default;
+}
+
+.badge:hover .stamp {
+  transform: scale(1.08);
+  filter: drop-shadow(0 14px 26px rgba(63, 179, 61, 0.42));
+}
+
+.stamp::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  border: 1.5px solid rgba(255, 255, 255, 0.42);
+  pointer-events: none;
+}
+
+.stamp.stamp-green {
+  background: linear-gradient(145deg, #4ADE80 0%, #3FB33D 50%, #208732 100%);
+  color: #FFFFFF;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.stamp.stamp-forest {
+  background: linear-gradient(145deg, #108A4E 0%, #0F623A 55%, #073B20 100%);
+  color: #FFFFFF;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.badge h3 {
+  font-size: 15.5px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #0F172A;
+  transition: color 0.2s ease;
+}
+
+.badge:hover h3 {
+  color: #0F623A;
+}
+
+.badge p {
+  font-size: 13px;
+  color: var(--on-surface-dim);
+  line-height: 1.5;
+  max-width: 26ch;
+  margin-inline: auto;
+}
+
+.trust .note {
+  margin-top: clamp(52px, 5vw, 74px);
+  padding-top: 20px;
+  border-top: 1px solid var(--hairline);
+  font-size: 13px;
+  color: var(--on-surface-dim);
+  max-width: 70ch;
+}
+
+@media (max-width: 1000px) {
+  .comb {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .comb {
+    grid-template-columns: 1fr;
+  }
+  .comb .badge:nth-child(even) {
+    transform: none;
+  }
+}
+
+/* 7 · BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  transition: all .2s ease;
+}
+
+.btn-primary {
+  background: var(--green-primary);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(63,179,61,0.35);
+}
+
+.btn-primary:hover {
+  background: var(--green-hover);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(63,179,61,0.45);
+}
+
+.btn-secondary {
+  border: 1.5px solid var(--green-primary);
+  color: var(--green-forest);
+  background: var(--green-surface);
+}
+
+.btn-secondary:hover {
+  border-color: var(--green-hover);
+  background: var(--green-primary);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lift {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: lift .7s cubic-bezier(.22, .8, .3, 1) forwards;
+  }
+  .hero .eyebrow { animation-delay: .05s; }
+  .hero h1 { animation-delay: .14s; }
+  .hero .lede { animation-delay: .26s; }
+  .hero-figure { animation-delay: .2s; }
+  .manifest { animation-delay: .38s; }
+}
+
+@keyframes lift {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+</style>

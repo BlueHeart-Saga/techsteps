@@ -19,7 +19,7 @@ const [divisions, services, sectors] = await Promise.all([
 const division = divisions.find((d) => d.slug === 'moving-relocation-services')!;
 const divisionServices = services.filter((s) => s.divisionSlug === division.slug);
 
-const clr = { accent: '#374151', dark: '#1a1f2e', light: '#F8F9FA' };
+const clr = { accent: '#0F623A', dark: '#0A331E', light: '#F2F8F5' };
 
 const lifecycleStages = [
   { id: 'assess', label: 'Assess', number: '01', desc: 'We assess your technology assets, infrastructure requirements, locations, volumes and critical dependencies before any move begins.' },
@@ -57,12 +57,12 @@ const faqs = [
     subheading="Precision relocation for data centres, server rooms, laboratories and corporate IT infrastructure with zero disruption."
     bgImage="/images/services/it-relocations.jpg"
     breadcrumbs={breadcrumbs}
-    dividerColor="#374151"
+    dividerColor="#ffffff"
   >
     <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
       <a
         href="#reloc-journey"
-        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#374151] hover:bg-[#1f2937] text-white text-sm font-bold shadow-lg transition-all duration-200"
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-lg transition-all duration-200"
       >
         Explore the Journey
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -79,18 +79,18 @@ const faqs = [
   </PageHero>
 
   <!-- ===== LIFECYCLE JOURNEY ===== -->
-  <section id="reloc-journey" class="bg-[#374151] py-16 lg:py-20">
+  <section id="reloc-journey" class="bg-[#0A331E] py-16 lg:py-20">
     <Container>
       <div class="text-center mb-12">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-slate-300 mb-4">The Relocation Process</span>
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#3FB33D] mb-4">The Relocation Process</span>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">From Planning to Placement.</h2>
-        <p class="mt-3 text-sm text-slate-300/60 max-w-lg mx-auto">Click any stage to learn more.</p>
+        <p class="mt-3 text-sm text-emerald-100/70 max-w-lg mx-auto">Click any stage to learn more.</p>
       </div>
       <div class="max-w-4xl mx-auto" id="reloc-lifecycle-nav">
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-6">
           {lifecycleStages.map((stage, i) => (
             <button type="button" data-stage={stage.id} class={`lifecycle-tab group flex flex-col items-center gap-2 p-3 rounded-xl border transition-all duration-200 cursor-pointer ${i === 0 ? 'bg-white/20 border-white/50 shadow-lg' : 'bg-white/5 border-white/15 hover:bg-white/15'}`}>
-              <span class={`text-[10px] font-bold uppercase tracking-widest ${i === 0 ? 'text-slate-200' : 'text-slate-400/50 group-hover:text-slate-200'}`}>{stage.number}</span>
+              <span class={`text-[10px] font-bold uppercase tracking-widest ${i === 0 ? 'text-emerald-200' : 'text-emerald-300/50 group-hover:text-emerald-200'}`}>{stage.number}</span>
               <span class={`text-xs font-extrabold uppercase tracking-wider ${i === 0 ? 'text-white' : 'text-white/60 group-hover:text-white'}`}>{stage.label}</span>
             </button>
           ))}
@@ -98,7 +98,7 @@ const faqs = [
         <div class="bg-white/10 rounded-2xl border border-white/20 p-6 min-h-[90px]">
           {lifecycleStages.map((stage, i) => (
             <div data-stage-desc={stage.id} class={i === 0 ? 'block' : 'hidden'}>
-              <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">{stage.number} / {stage.label}</p>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-[#3FB33D] mb-2">{stage.number} / {stage.label}</p>
               <p class="text-base text-white leading-relaxed">{stage.desc}</p>
             </div>
           ))}
@@ -111,17 +111,17 @@ const faqs = [
   <section class="py-14 lg:py-20" style={`background: ${clr.light};`} id="division-services">
     <Container>
       <div class="text-center mb-10">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#374151] mb-4">Our Services</span>
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4">Our Services</span>
         <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Specialist Relocation Services</h2>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {divisionServices.map(service => (
-          <a href={`/services/${service.slug}`} class="group bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#374151]/40 hover:shadow-xl transition-all duration-300 flex flex-col relative overflow-hidden">
-            <div class="absolute top-0 left-0 right-0 h-0.5 bg-[#374151] opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
-            <h3 class="text-sm font-bold text-slate-900 group-hover:text-[#374151] transition-colors leading-snug mb-2">{service.title}</h3>
+          <a href={`/services/${service.slug}`} class="group bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#0F623A]/40 hover:shadow-xl transition-all duration-300 flex flex-col relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-0.5 bg-[#0F623A] opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
+            <h3 class="text-sm font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug mb-2">{service.title}</h3>
             <p class="text-xs text-slate-500 leading-relaxed line-clamp-3 flex-1">{service.summary}</p>
             <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-end">
-              <span class="flex items-center gap-1 text-xs font-bold text-[#374151] group-hover:gap-2 transition-all">
+              <span class="flex items-center gap-1 text-xs font-bold text-[#0F623A] group-hover:gap-2 transition-all">
                 Explore <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
               </span>
             </div>
@@ -135,14 +135,14 @@ const faqs = [
   <section class="bg-white py-14 lg:py-16 border-t border-slate-100">
     <Container>
       <div class="text-center mb-10">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#374151] mb-4">Sector Expertise</span>
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4">Sector Expertise</span>
         <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Built for Organisations Where It Matters</h2>
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
         {sectorLinks.map(s => (
-          <a href={`/sectors/${s.slug}`} class="group bg-[#F8F9FA] rounded-2xl px-5 py-5 border border-slate-200 hover:border-[#374151]/40 hover:shadow-md transition-all text-center">
-            <p class="text-sm font-bold text-slate-900 group-hover:text-[#374151] transition-colors">{s.title}</p>
-            <p class="mt-1 text-[10px] text-[#374151] font-bold">Explore →</p>
+          <a href={`/sectors/${s.slug}`} class="group bg-[#F2F8F5] rounded-2xl px-5 py-5 border border-slate-200 hover:border-[#0F623A]/40 hover:shadow-md transition-all text-center">
+            <p class="text-sm font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors">{s.title}</p>
+            <p class="mt-1 text-[10px] text-[#0F623A] font-bold">Explore →</p>
           </a>
         ))}
       </div>
@@ -165,7 +165,7 @@ const faqs = [
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">Ready to Plan Your Technology Move?</h2>
         <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 max-w-xl mx-auto font-medium">Tell us about the move and we'll help you plan and execute it without disruption.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/request-a-quote" class="px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-[#374151] hover:bg-[#1f2937] text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">Get a Quote →</a>
+          <a href="/request-a-quote" class="px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-[#0F623A] hover:bg-[#0c4e2e] text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">Get a Quote →</a>
           <a href="/contact" class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5">Contact Techsteps</a>
         </div>
       </div>
