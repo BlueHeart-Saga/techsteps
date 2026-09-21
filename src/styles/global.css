@@ -42,6 +42,41 @@
   --tracking-mono: 0.08em;
   --tracking-wider: 0.14em;
   --tracking-widest: 0.18em;
+
+  /* Refined font weights across the design system */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 450;
+  --font-weight-semibold: 500;
+  --font-weight-bold: 600;
+  --font-weight-extrabold: 600;
+  --font-weight-black: 700;
+
+  /* Scaled up typography sizing for improved legibility and prominent descriptions */
+  --text-xs: 0.875rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 1rem;
+  --text-sm--line-height: 1.6;
+  --text-base: 1.125rem;
+  --text-base--line-height: 1.68;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.65;
+  --text-xl: 1.45rem;
+  --text-xl--line-height: 1.5;
+  --text-2xl: 1.7rem;
+  --text-2xl--line-height: 1.35;
+  --text-3xl: 2.1rem;
+  --text-3xl--line-height: 1.25;
+  --text-4xl: 2.65rem;
+  --text-4xl--line-height: 1.18;
+  --text-5xl: 3.4rem;
+  --text-5xl--line-height: 1.12;
+  --text-6xl: 4.25rem;
+  --text-6xl--line-height: 1.08;
+  --text-7xl: 5.25rem;
+  --text-7xl--line-height: 1.05;
 }
 
 @layer base {
@@ -55,6 +90,7 @@
   html {
     scroll-behavior: smooth;
     font-family: var(--font-sans);
+    font-size: 16px;
     color: var(--color-brand-charcoal);
     background-color: var(--color-surface);
     -webkit-font-smoothing: antialiased;
@@ -64,7 +100,8 @@
   body {
     font-family: var(--font-sans);
     font-weight: 400;
-    line-height: 1.5;
+    font-size: 1.125rem;
+    line-height: 1.68;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -92,7 +129,7 @@
     outline-offset: 2px;
   }
 
-  /* Typography defaults */
+  /* Typography defaults — reduced boldness across all headings */
   h1,
   h2,
   h3,
@@ -100,12 +137,46 @@
   h5,
   h6 {
     font-family: var(--font-display);
-    font-weight: 700;
-    line-height: 1.15;
+    font-weight: 600;
+    line-height: 1.18;
     letter-spacing: 0.01em;
     text-wrap: balance;
     color: var(--color-brand-navy);
   }
+
+  b,
+  strong {
+    font-weight: 600;
+  }
+}
+
+/* Universal Font-Weight Softening / Boldness Reduction across all classes */
+.font-black {
+  font-weight: 700 !important;
+}
+
+.font-extrabold {
+  font-weight: 600 !important;
+}
+
+.font-bold {
+  font-weight: 600 !important;
+}
+
+.font-semibold {
+  font-weight: 500 !important;
+}
+
+.font-medium {
+  font-weight: 450 !important;
+}
+
+.font-normal {
+  font-weight: 400 !important;
+}
+
+.font-light {
+  font-weight: 300 !important;
 }
 
 /* Custom utility components */
@@ -163,6 +234,7 @@ div[class*="uppercase"][class*="text-xs"] {
   font-size: 11px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  font-weight: 500;
 }
 
 /* Editorial finishing: one quiet line, one restrained shadow, no inflated corners. */
@@ -205,26 +277,84 @@ div[class*="uppercase"][class*="text-xs"] {
   background-color: #F1F4EF !important;
 }
 
-/* Global body text weight reduction and size increase:
-   All non-heading text uses normal (400) weight and a slightly larger font size.
-   Headings (h1–h6), buttons, CTAs, and nav links keep their intentional bold weights. */
+/* Descriptions, Paragraphs & Narrative text — increased size & comfortable legibility */
 p,
-li,
-span:not([class*="font-bold"]):not([class*="font-extrabold"]):not([class*="font-black"]):not([class*="font-semibold"]):not([class*="font-medium"]),
-a:not([class*="font-bold"]):not([class*="font-extrabold"]):not([class*="font-black"]):not([class*="font-semibold"]):not([class*="font-medium"]),
-address,
-blockquote,
-figcaption {
-  font-weight: 400 !important;
+.description,
+[class*="description"],
+.subheading,
+[class*="subheading"],
+.lead,
+[class*="lead-"],
+.prose p,
+.post-excerpt {
+  font-weight: 400;
+  line-height: 1.7;
 }
 
-p,
-li,
-address,
-blockquote,
-figcaption {
-  font-size: 1.075rem !important;
-  line-height: 1.65 !important;
+/* Base paragraph font size */
+p:not(.eyebrow):not(.tag):not(.tagline):not(.num):not(.idx) {
+  font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.2rem);
+}
+
+/* Explicit text size utility scaling on descriptions & paragraphs */
+p.text-xs,
+.text-xs p,
+[class*="description"].text-xs,
+.desc.text-xs {
+  font-size: 0.875rem !important; /* 14px */
+}
+
+p.text-sm,
+.text-sm p,
+[class*="description"].text-sm,
+.desc.text-sm {
+  font-size: 1.025rem !important; /* 16.4px */
+}
+
+p.text-base,
+.text-base p,
+[class*="description"].text-base,
+.desc.text-base {
+  font-size: 1.15rem !important; /* 18.4px */
+}
+
+p.text-lg,
+.text-lg p,
+[class*="description"].text-lg,
+.subheading {
+  font-size: 1.3rem !important; /* 20.8px */
+}
+
+p.text-xl,
+.text-xl p,
+[class*="description"].text-xl {
+  font-size: 1.45rem !important; /* 23.2px */
+}
+
+p.text-2xl,
+.text-2xl p,
+[class*="description"].text-2xl {
+  font-size: 1.65rem !important; /* 26.4px */
+}
+
+/* Lists, blockquotes & captions */
+li {
+  font-weight: 400;
+  font-size: 1.075rem;
+  line-height: 1.68;
+}
+
+blockquote {
+  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 1.75;
+}
+
+figcaption,
+address {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 /* Infinite Scrolling Marquee Ticker */
