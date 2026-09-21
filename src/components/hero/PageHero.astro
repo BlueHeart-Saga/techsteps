@@ -9,20 +9,22 @@ interface BreadcrumbItem {
 }
 
 interface Props {
-  title: string;
+  title?: string;
   breadcrumbs?: BreadcrumbItem[];
   dividerColor?: string;
+  showDivider?: boolean;
   minHeight?: string;
   eyebrow?: string;
   subheading?: string;
   bgImage?: string;
-  layout?: 'default' | 'split';
+  layout?: 'default' | 'split' | 'custom';
 }
 
 const {
-  title,
+  title = '',
   breadcrumbs = [],
   dividerColor = '#ffffff',
+  showDivider = true,
   minHeight = 'min-h-[440px] sm:min-h-[480px] lg:min-h-[520px]',
   eyebrow,
   subheading,
@@ -290,7 +292,13 @@ const currentPath = Astro.url.pathname;
   </div>
 )}
 
-{layout !== 'split' && (
+{layout === 'custom' && (
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-6 sm:py-10 lg:py-14 my-auto">
+    <slot />
+  </div>
+)}
+
+{layout === 'default' && (
   <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 text-center flex flex-col items-center justify-center my-auto">
 
     {eyebrow && (
@@ -299,15 +307,19 @@ const currentPath = Astro.url.pathname;
       </span>
     )}
 
-    <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight uppercase leading-[1.05] drop-shadow-2xl select-none max-w-4xl">
-      {title}
-    </h1>
+    {title && (
+      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight uppercase leading-[1.05] drop-shadow-2xl select-none max-w-4xl">
+        {title}
+      </h1>
+    )}
 
     {subheading && (
       <p class="mt-3 text-sm sm:text-base lg:text-lg text-slate-200/90 max-w-2xl leading-relaxed font-normal drop-shadow-sm">
         {subheading}
       </p>
     )}
+
+    <slot />
 
   </div>
 )}
@@ -316,5 +328,5 @@ const currentPath = Astro.url.pathname;
   <div class="h-2 sm:h-4 w-full pointer-events-none" aria-hidden="true"></div>
 
   <!-- 5. Torn Paper Edge Transition -->
-  <TornPaperDivider color={dividerColor} />
+  {showDivider && <TornPaperDivider color={dividerColor} />}
 </section>

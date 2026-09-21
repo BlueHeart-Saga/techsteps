@@ -43,6 +43,41 @@ const faqs = [
   { question: 'Can you digitise our existing paper records?', answer: 'Yes. Our document scanning service processes high volumes to BS 10008 legal admissibility standards, with full OCR indexing and integration with your document management systems.' },
   { question: 'Can records be securely destroyed at end of retention?', answer: 'Yes. Secure document destruction at end of retention is part of our information management service, with certificates provided for every destruction event.' },
 ];
+
+const mainServices = [
+  {
+    number: '01',
+    title: 'Information Management',
+    slug: '/services/information-management',
+    description: 'Climate-controlled physical document storage, accredited high-speed scanning, digital mailrooms, and secure media vaulting.',
+    image: '/images/services/image1.png',
+    badge: 'Division 01',
+  },
+  {
+    number: '02',
+    title: 'IT Lifecycle & Destruction',
+    slug: '/services/it-lifecycle',
+    description: 'End-to-end ITAD, tracked GPS logistics, verified data sanitisation (ADISA compliant), and zero-landfill electronic recycling.',
+    image: '/images/services/image2.jpg',
+    badge: 'Division 02',
+  },
+  {
+    number: '03',
+    title: 'Secure Shredding & Destruction',
+    slug: '/services/secure-destruction',
+    description: 'BS EN 15713 accredited mobile cross-cut shredding, secure console management, product destruction, and certified recycling.',
+    image: '/images/services/image3_web.jpg',
+    badge: 'Division 03',
+  },
+  {
+    number: '04',
+    title: 'Moving & Relocation Services',
+    slug: '/services/relocation',
+    description: 'Specialist IT relocation, laboratory migration, delicate museum archives, commercial office moves, and turnkey logistics.',
+    image: '/images/services/image4.jpg',
+    badge: 'Division 04',
+  },
+];
 ---
 
 <BaseLayout
@@ -50,88 +85,478 @@ const faqs = [
   description="Secure information management — climate-controlled document storage, BS 10008 scanning, digital mailroom, and records lifecycle services. UK-wide from Techsteps."
   hasHeroHeader={true}
 >
-  <!-- ===== 1. HERO (Simple & Clean, ref: /sustainability) ===== -->
+  <!-- ===== 1. HERO ===== -->
   <PageHero
-    eyebrow="INFORMATION MANAGEMENT"
-    title="Secure Information for Every Organisation."
-    subheading="Complete physical and digital lifecycle management — from secure vault storage to high-speed digitisation and compliant disposal."
-    bgImage="/images/services/document-storage.jpg"
     breadcrumbs={breadcrumbs}
-    dividerColor="#ffffff"
+    bgImage="/images/brand/hero-bg.jpg"
+    showDivider={false}
+    minHeight="min-h-[480px] sm:min-h-[520px] lg:min-h-[560px]"
+    layout="custom"
   >
-    <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
-      <a
-        href="#lifecycle-nav"
-        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-lg transition-all duration-200"
-      >
-        Explore the Lifecycle
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </a>
-      <a
-        href="/request-a-quote?service=information-management"
-        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/20 transition-all duration-200"
-      >
-        Get a Quote
-      </a>
+    <div class="max-w-4xl mx-auto text-center space-y-6">
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.08] drop-shadow-2xl">
+        Information Management Services UK
+      </h1>
+
+      <p class="text-base sm:text-lg lg:text-xl text-slate-200/90 leading-relaxed max-w-2xl mx-auto font-medium">
+        Secure, organised and compliant information management solutions designed to help UK businesses store, manage, protect and access critical business information.
+      </p>
+
+      <!-- CTA Buttons (TechSteps Logo Theme Color) -->
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+        <a
+          href="/contact?service=information-management"
+          class="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 border border-emerald-500/30"
+        >
+          Talk to an Information Management Specialist
+        </a>
+        <a
+          href="#im-services"
+          class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm sm:text-base border border-white/25 hover:border-white transition-all duration-200 backdrop-blur-xs transform hover:-translate-y-0.5"
+        >
+          Explore Our Services
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </a>
+      </div>
     </div>
   </PageHero>
 
-  <!-- ===== LIFECYCLE JOURNEY ===== -->
-  <section class="bg-[#0A331E] py-16 lg:py-20">
+  <!-- ===== 2. INTRODUCTION TO INFORMATION MANAGEMENT ===== -->
+  <section class="bg-white py-16 lg:py-24 border-b border-slate-200/80 relative overflow-hidden">
     <Container>
-      <div class="text-center mb-12">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#3FB33D] mb-4">The Information Lifecycle</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Every Record. A Clearer Journey.</h2>
-        <p class="mt-3 text-sm text-emerald-100/70 max-w-lg mx-auto">Click any stage to learn more.</p>
-      </div>
-      <div class="max-w-4xl mx-auto" id="info-lifecycle-nav">
-        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-6">
-          {lifecycleStages.map((stage, i) => (
-            <button type="button" data-stage={stage.id} class={`lifecycle-tab group flex flex-col items-center gap-2 p-3 rounded-xl border transition-all duration-200 cursor-pointer ${i === 0 ? 'bg-white/20 border-white/50 shadow-lg' : 'bg-white/5 border-white/15 hover:bg-white/15'}`}>
-              <span class={`text-[10px] font-bold uppercase tracking-widest ${i === 0 ? 'text-emerald-200' : 'text-emerald-300/50 group-hover:text-emerald-200'}`}>{stage.number}</span>
-              <span class={`text-xs font-extrabold uppercase tracking-wider ${i === 0 ? 'text-white' : 'text-white/60 group-hover:text-white'}`}>{stage.label}</span>
-            </button>
-          ))}
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <!-- Left Side: Introduction Content -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+            About Our Service
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-[1.12]">
+            Information Management Built Around Your Business
+          </h2>
+
+          <div class="space-y-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+            <p>
+              Every organisation holds information it cannot afford to lose: contracts, client files, employee records, backup media and historic collections. Information management is the discipline of keeping all of it under control, whether it sits in a box, on a tape or in a digital system.
+            </p>
+            <p>
+              We look after physical and digital information for UK businesses, from the moment it is created to the day it is securely destroyed or permanently archived. That means secure storage, controlled access and a clear record of where every item is and who has handled it. It also means meeting your compliance obligations and reducing the risks that come with lost, misfiled or exposed information, while making sure your team can get to what they need, when they need it.
+            </p>
+          </div>
+
+          <div class="pt-2">
+            <a
+              href="#specialist-services"
+              class="inline-flex items-center gap-2 text-[#0F623A] hover:text-[#0A331E] font-bold text-sm sm:text-base transition-colors group"
+            >
+              <span>See our four service groups</span>
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
         </div>
-        <div class="bg-white/10 rounded-2xl border border-white/20 p-6 min-h-[90px]">
-          {lifecycleStages.map((stage, i) => (
-            <div data-stage-desc={stage.id} class={i === 0 ? 'block' : 'hidden'}>
-              <p class="text-[10px] font-bold uppercase tracking-widest text-[#3FB33D] mb-2">{stage.number} / {stage.label}</p>
-              <p class="text-base text-white leading-relaxed">{stage.desc}</p>
-            </div>
-          ))}
+
+        <!-- Right Side: Technician Photo -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-slate-200/80 bg-slate-100 aspect-[4/3] sm:aspect-[4/3] lg:aspect-[5/4] group">
+            <img
+              src="/images/services/information-management-intro.png"
+              alt="Techsteps Information Management and hardware specialist"
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+          </div>
         </div>
       </div>
     </Container>
   </section>
 
-  <!-- ===== SERVICES GRID ===== -->
-  <section class="py-14 lg:py-20" style={`background: ${clr.light};`} id="division-services">
+  <!-- ===== 2.5 SPECIALIST SERVICES OVERVIEW (4 MAIN SERVICES) ===== -->
+  <section id="specialist-services" class="bg-slate-50 py-16 lg:py-24 border-b border-slate-200/80 scroll-mt-20">
     <Container>
-      <div class="text-center mb-10">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4">Our Services</span>
-        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Information Management Services</h2>
+      <div class="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+          Core Divisions
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-display">
+          Specialist Services for Your Requirements
+        </h2>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+          Explore our four specialist core divisions delivering nationwide compliance, security, and lifecycle management.
+        </p>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {divisionServices.map(service => (
-          <a href={`/services/${service.slug}`} class="group bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-[#0F623A]/40 hover:shadow-xl transition-all duration-300 flex flex-col relative overflow-hidden">
-            <div class="absolute top-0 left-0 right-0 h-0.5 bg-[#0F623A] opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
-            <h3 class="text-sm font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug mb-2">{service.title}</h3>
-            <p class="text-xs text-slate-500 leading-relaxed line-clamp-3 flex-1">{service.summary}</p>
-            <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-end">
-              <span class="flex items-center gap-1 text-xs font-bold text-[#0F623A] group-hover:gap-2 transition-all">
-                Explore <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+
+      <!-- 4 Main Services Grid (Direct display without carousel navigation) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {mainServices.map((service) => (
+          <div class="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl overflow-hidden min-h-[420px] sm:min-h-[460px] p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5 border border-slate-200/80 bg-slate-900">
+            <!-- Background Image & Dark Gradient -->
+            <img
+              src={service.image}
+              alt={service.title}
+              class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/30 pointer-events-none"></div>
+
+            <!-- Top Row (Badge + Number) -->
+            <div class="relative z-10 flex items-center justify-between w-full">
+              <span class="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-[11px] font-mono font-bold tracking-widest uppercase shadow-sm">
+                {service.badge}
+              </span>
+              <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center text-white font-mono text-xs font-bold shadow-sm">
+                {service.number}
               </span>
             </div>
-          </a>
+
+            <!-- Bottom Content Area -->
+            <div class="relative z-10 flex flex-col justify-end mt-auto pt-12">
+              <h3 class="text-xl sm:text-2xl font-bold font-display text-white tracking-tight leading-snug group-hover:text-emerald-400 transition-colors">
+                {service.title}
+              </h3>
+              <p class="mt-2.5 text-xs sm:text-sm text-slate-200/90 leading-relaxed font-normal">
+                {service.description}
+              </p>
+            </div>
+          </div>
         ))}
+      </div>
+
+      <!-- Common Navigation Button to Main Service Page -->
+      <div class="mt-12 sm:mt-16 text-center">
+        <a
+          href="/services"
+          class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-base shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 border border-emerald-500/30 group"
+        >
+          <span>Explore All Services</span>
+          <svg class="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
       </div>
     </Container>
   </section>
 
-  <!-- ===== SECTORS ===== -->
+  <!-- ===== WHY EFFECTIVE INFORMATION MANAGEMENT MATTERS (GREEN THEME) ===== -->
+  <section class="bg-[#0A331E] py-16 sm:py-20 lg:py-24 border-b border-emerald-900/50 relative overflow-hidden">
+    <div class="absolute inset-0 bg-radial-[ellipse_at_top_right] from-emerald-500/10 via-transparent to-transparent pointer-events-none"></div>
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <!-- Left Column: Title & Intro -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-mono font-medium uppercase tracking-wider">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            Strategic Value
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
+            Why Effective Information Management Matters
+          </h2>
+
+          <p class="text-base sm:text-lg text-emerald-100/80 leading-relaxed font-normal">
+            The right controls keep information safer, quicker to find and cheaper to hold.
+          </p>
+        </div>
+
+        <!-- Right Column: 2x2 Pillar Grid with Top Dividers -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10 lg:gap-y-12">
+          <!-- Pillar 1: Protect Critical Information -->
+          <div class="pt-6 border-t border-emerald-500/30 space-y-3">
+            <div class="w-9 h-9 rounded-lg bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <h3 class="text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug">
+              Protect Critical Information
+            </h3>
+            <p class="text-sm text-emerald-100/75 leading-relaxed font-normal">
+              Keep important business records secure and accessible.
+            </p>
+          </div>
+
+          <!-- Pillar 2: Improve Information Access -->
+          <div class="pt-6 border-t border-emerald-500/30 space-y-3">
+            <div class="w-9 h-9 rounded-lg bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <circle cx="11" cy="11" r="7" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35" />
+              </svg>
+            </div>
+            <h3 class="text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug">
+              Improve Information Access
+            </h3>
+            <p class="text-sm text-emerald-100/75 leading-relaxed font-normal">
+              Find the information your teams need faster.
+            </p>
+          </div>
+
+          <!-- Pillar 3: Support Compliance -->
+          <div class="pt-6 border-t border-emerald-500/30 space-y-3">
+            <div class="w-9 h-9 rounded-lg bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <rect x="5" y="3" width="14" height="18" rx="2" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
+              </svg>
+            </div>
+            <h3 class="text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug">
+              Support Compliance
+            </h3>
+            <p class="text-sm text-emerald-100/75 leading-relaxed font-normal">
+              Maintain appropriate controls around sensitive and regulated information.
+            </p>
+          </div>
+
+          <!-- Pillar 4: Reduce Storage Pressure -->
+          <div class="pt-6 border-t border-emerald-500/30 space-y-3">
+            <div class="w-9 h-9 rounded-lg bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              </svg>
+            </div>
+            <h3 class="text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug">
+              Reduce Storage Pressure
+            </h3>
+            <p class="text-sm text-emerald-100/75 leading-relaxed font-normal">
+              Move physical records and media away from valuable office space.
+            </p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== OUR INFORMATION MANAGEMENT PROCESS (WORKFLOW) ===== -->
+  <section class="bg-white py-16 sm:py-20 lg:py-24 border-b border-slate-200/80 relative overflow-hidden">
+    <Container>
+      <div class="relative z-10">
+        <!-- Section Header -->
+        <div class="max-w-3xl mb-12 sm:mb-16">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-mono font-medium uppercase tracking-wider mb-4">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+            Workflow & Execution
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-display">
+            Our Information Management Process
+          </h2>
+          <p class="mt-3 text-base sm:text-lg text-slate-600 font-normal">
+            A structured, secure end-to-end framework to audit, transition, safeguard and retrieve your organization's records.
+          </p>
+        </div>
+
+        <!-- 4-Step Process Flow -->
+        <div class="relative">
+          <!-- Continuous connecting line on large screens -->
+          <div class="hidden lg:block absolute top-[21px] left-6 right-20 h-[2px] bg-slate-200 -z-0"></div>
+
+          <!-- Steps Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 relative z-10">
+            <!-- Step 1 -->
+            <div class="flex flex-col group">
+              <div class="mb-5 flex items-center">
+                <div class="w-11 h-11 rounded-lg bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                  01
+                </div>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
+                Assess
+              </h3>
+              <p class="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                Understand your information, storage requirements and business needs.
+              </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex flex-col group">
+              <div class="mb-5 flex items-center">
+                <div class="w-11 h-11 rounded-lg bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                  02
+                </div>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
+                Collect & Prepare
+              </h3>
+              <p class="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                Securely collect, catalogue and prepare records or media.
+              </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex flex-col group">
+              <div class="mb-5 flex items-center">
+                <div class="w-11 h-11 rounded-lg bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                  03
+                </div>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
+                Store & Manage
+              </h3>
+              <p class="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                Store information in the appropriate physical or digital environment.
+              </p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flex flex-col group">
+              <div class="mb-5 flex items-center">
+                <div class="w-11 h-11 rounded-lg bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                  04
+                </div>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
+                Access & Retrieve
+              </h3>
+              <p class="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                Provide controlled access, retrieval and ongoing management when required.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== ONE PARTNER FOR PHYSICAL & DIGITAL INFORMATION ===== -->
+  <section id="im-services" class="bg-white text-[#0A331E] py-16 sm:py-20 lg:py-24 border-b border-slate-200 relative overflow-hidden scroll-mt-20">
+    <div class="absolute inset-0 bg-radial-[ellipse_at_top] from-emerald-50/60 via-transparent to-transparent pointer-events-none"></div>
+    <Container>
+      <!-- Section Heading -->
+      <div class="max-w-3xl mb-12 sm:mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-300 text-[#0F623A] text-xs font-mono font-medium uppercase tracking-wider mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+          Integrated Lifecycle Management
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A331E] tracking-tight font-display leading-tight">
+          One Partner for Physical & Digital Information
+        </h2>
+      </div>
+
+      <!-- Split Card Container -->
+      <div class="max-w-5xl mx-auto relative">
+        <div class="grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden shadow-2xl relative border border-emerald-500/20">
+          
+          <!-- Left Column: Physical Information (Techsteps Green #0F623A) -->
+          <div class="bg-[#0F623A] text-white p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
+            <div>
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-display mb-6 pb-2 border-b border-white/20">
+                Physical Information
+              </h3>
+              <div class="space-y-1 font-sans">
+                <a
+                  href="/services/document-storage"
+                  class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group"
+                >
+                  <span class="group-hover:underline">Document Storage</span>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+                <a
+                  href="/services/tape-media-storage"
+                  class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group"
+                >
+                  <span class="group-hover:underline">Tape & Media Storage</span>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+                <a
+                  href="/services/vault-storage"
+                  class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group"
+                >
+                  <span class="group-hover:underline">Vault Storage</span>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+                <a
+                  href="/services/heritage-storage"
+                  class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group"
+                >
+                  <span class="group-hover:underline">Heritage Storage</span>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center "One Partner" Badge (Desktop) -->
+          <div class="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white text-[#0F623A] border-4 border-[#0A331E] shadow-2xl items-center justify-center text-center font-bold text-[11px] leading-tight z-20 select-none">
+            <span>One<br />partner</span>
+          </div>
+
+          <!-- Right Column: Digital Information (Deep Forest Green #062615) -->
+          <div class="bg-[#062615] text-white p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
+            <div>
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-display mb-6 pb-2 border-b border-white/20">
+                Digital Information
+              </h3>
+              <div class="space-y-1 font-sans">
+                <a
+                  href="/services/document-scanning"
+                  class="flex items-center justify-between py-3.5 border-b border-white/20 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-300 transition-all duration-200 group"
+                >
+                  <span class="group-hover:underline">Document Scanning</span>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+                <a
+                  href="/services/digital-mailroom"
+                  class="flex items-center justify-between py-3.5 border-b border-white/20 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-300 transition-all duration-200 group"
+                >
+                  <span class="group-hover:underline">Digital Mailroom</span>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+                <a
+                  href="/services/document-management"
+                  class="flex items-center justify-between py-3.5 border-b border-white/20 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-300 transition-all duration-200 group"
+                >
+                  <span class="group-hover:underline">Document Management</span>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Center "One Partner" Badge (Mobile Fallback) -->
+        <div class="md:hidden flex justify-center -my-4 relative z-20">
+          <div class="w-14 h-14 rounded-full bg-white text-[#0F623A] border-4 border-[#0A331E] shadow-xl flex items-center justify-center text-center font-bold text-[10px] leading-tight">
+            <span>One<br />partner</span>
+          </div>
+        </div>
+
+        <!-- Bottom CTA Button -->
+        <div class="mt-12 sm:mt-14 text-center">
+          <a
+            href="/services"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0A331E] text-white font-bold text-sm sm:text-base shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-0.5 border border-[#0F623A]"
+          >
+            <span>Explore Information Management Solutions</span>
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  {/* ===== SECTORS (COMMENTED OUT) =====
   <section class="bg-white py-14 lg:py-16 border-t border-slate-100">
     <Container>
       <div class="text-center mb-10">
@@ -148,13 +573,15 @@ const faqs = [
       </div>
     </Container>
   </section>
+  ===== */}
 
-  <!-- ===== FAQ ===== -->
+  {/* ===== FAQ (COMMENTED OUT) =====
   <section class="py-14 lg:py-16 border-t border-slate-200" style={`background: ${clr.light};`}>
     <Container>
       <AccordionFaq faqs={faqs} title="Information Management Questions" subtitle="Common questions about our information lifecycle and records services." />
     </Container>
   </section>
+  ===== */}
 
   <!-- ===== CTA (Clean Open Layout - No Background Box) ===== -->
   <section class="relative z-10 py-16 lg:py-24 overflow-hidden">
@@ -165,7 +592,7 @@ const faqs = [
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">Ready to Manage Your Information More Securely?</h2>
         <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 max-w-xl mx-auto font-medium">Tell us about your information volumes and requirements — we'll help you build the right solution.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/request-a-quote" class="px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-[#0F623A] hover:bg-[#0c4e2e] text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">Get a Quote →</a>
+          <a href="/request-a-collection" class="px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-[#0F623A] hover:bg-[#0c4e2e] text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">Get a Collection →</a>
           <a href="/contact" class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5">Contact Techsteps</a>
         </div>
       </div>

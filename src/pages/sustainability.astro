@@ -115,25 +115,12 @@ const serviceCards = [
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start pt-4">
           
           <!-- LEFT FEATURE IMAGE CARD (Sticky Pin on Desktop) -->
-          <div class="lg:col-span-5 lg:sticky lg:top-28 rounded-[32px] overflow-hidden relative shadow-xl min-h-[420px] lg:h-[calc(100vh-140px)] border border-slate-200/90 group flex flex-col justify-end p-8">
+          <div class="lg:col-span-5 lg:sticky lg:top-28 rounded-[32px] overflow-hidden relative shadow-xl min-h-[420px] lg:h-[calc(100vh-140px)] border border-slate-200/90 group">
             <img
               src="/images/services/sustainability-approach.jpg"
               alt="TechSteps Sustainable Enterprise Hardware Lifecycle Laboratory"
-              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent z-10"></div>
-            
-            <div class="relative z-20 space-y-2">
-              <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-[#2DD4BF] text-xs sm:text-sm font-bold uppercase tracking-wider border border-white/20">
-                CIRCULAR LIFECYCLE
-              </span>
-              <h3 class="text-2xl sm:text-3xl font-bold font-display text-white">
-                Extending Enterprise Hardware Utility
-              </h3>
-              <p class="text-sm sm:text-base text-slate-100 font-semibold leading-relaxed">
-                Refurbishment, component harvesting, and secure remarketing to maximize secondary B2B asset value.
-              </p>
-            </div>
           </div>
 
           <!-- RIGHT STACK OF 6 CARDS: Sticky Scroll One-by-One Stacking -->
@@ -570,7 +557,7 @@ const serviceCards = [
         </div>
       </div>
 
-      <!-- 7. RESPONSIBLE DATA & REPORTING -->
+      <!-- 7. RESPONSIBLE DATA & REPORTING (ACCOUNTABILITY & GOVERNANCE) - COMMENTED OUT
       <div class="mt-24 sm:mt-32 max-w-6xl mx-auto space-y-10">
         <div class="text-center max-w-3xl mx-auto space-y-4">
           <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#146B5C]">
@@ -584,11 +571,9 @@ const serviceCards = [
           </p>
         </div>
 
-        <!-- Accreditation & Compliance Governance Logos Grid -->
         <div class="bg-white/80 backdrop-blur-xs rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-md space-y-8">
           <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 items-center">
             
-            <!-- Logo 1: ADISA -->
             <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-[#146B5C]/50 transition-all duration-300 flex flex-col items-center justify-center text-center space-y-2 group">
               <div class="w-10 h-10 rounded-xl bg-slate-900 text-[#2DD4BF] flex items-center justify-center font-extrabold text-[11px] tracking-wider shadow-xs group-hover:scale-105 transition-transform">
                 ADISA
@@ -599,7 +584,6 @@ const serviceCards = [
               </div>
             </div>
 
-            <!-- Logo 2: Environment Agency -->
             <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-[#146B5C]/50 transition-all duration-300 flex flex-col items-center justify-center text-center space-y-2 group">
               <div class="w-10 h-10 rounded-xl bg-[#146B5C]/15 text-[#146B5C] flex items-center justify-center group-hover:scale-105 transition-transform">
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -612,7 +596,6 @@ const serviceCards = [
               </div>
             </div>
 
-            <!-- Logo 3: ISO 27001 -->
             <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-[#146B5C]/50 transition-all duration-300 flex flex-col items-center justify-center text-center space-y-2 group">
               <div class="w-10 h-10 rounded-xl bg-slate-200 text-slate-900 flex items-center justify-center font-extrabold text-[10px] tracking-tighter border border-slate-300 group-hover:scale-105 transition-transform">
                 ISO 27001
@@ -623,7 +606,6 @@ const serviceCards = [
               </div>
             </div>
 
-            <!-- Logo 4: ISO 14001 -->
             <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-[#146B5C]/50 transition-all duration-300 flex flex-col items-center justify-center text-center space-y-2 group">
               <div class="w-10 h-10 rounded-xl bg-[#146B5C] text-white flex items-center justify-center font-extrabold text-[10px] tracking-tighter shadow-xs group-hover:scale-105 transition-transform">
                 ISO 14001
@@ -634,7 +616,6 @@ const serviceCards = [
               </div>
             </div>
 
-            <!-- Logo 5: NIST 800-88 -->
             <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-[#146B5C]/50 transition-all duration-300 flex flex-col items-center justify-center text-center space-y-2 group col-span-2 sm:col-span-1">
               <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center group-hover:scale-105 transition-transform">
                 <svg class="w-5 h-5 text-[#2DD4BF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -649,7 +630,6 @@ const serviceCards = [
 
           </div>
 
-          <!-- Supporting Points List -->
           <div class="mt-8 pt-6 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div class="flex items-center gap-3">
               <div class="w-7 h-7 rounded-full bg-[#146B5C]/10 text-[#146B5C] flex items-center justify-center shrink-0">
@@ -698,6 +678,7 @@ const serviceCards = [
           </div>
         </div>
       </div>
+      -->
 
       <!-- 8. SUSTAINABILITY ACROSS OUR SERVICES -->
       <div class="mt-24 sm:mt-32 max-w-6xl mx-auto space-y-10">

@@ -4,10 +4,10 @@ import TornPaperDivider from '../layout/TornPaperDivider.astro';
 ---
 
 <section class="relative w-full overflow-hidden bg-slate-950 min-h-[640px] sm:min-h-[700px] lg:min-h-[760px] flex flex-col justify-between select-none">
-  <!-- Background Image: Enterprise Data Centre & IT Technician (Full-Bleed) -->
+  <!-- Background Image: Eco & IT Lifecycle Landscape (Full-Bleed) -->
   <img
     src="/images/brand/hero-recycle-nature.jpg"
-    alt="Recycling symbol made of moss and leaves surrounded by lush green foliage"
+    alt="Lush eco landscape with electronic recycling and sustainability backdrop"
     class="absolute inset-0 w-full h-full object-cover object-center scale-105 select-none pointer-events-none"
     loading="eager"
     decoding="async"
@@ -156,17 +156,22 @@ import TornPaperDivider from '../layout/TornPaperDivider.astro';
         </p>
       </div>
 
-      <!-- RIGHT IMAGE CARD -->
-      <div class="relative">
-        <div class="relative overflow-hidden rounded-3xl border border-white/20 shadow-2xl">
+      <!-- RIGHT IMAGE CARD: Nature Recycle Image -->
+      <div class="hidden lg:flex justify-end items-center">
+        <!-- Soft ambient eco glow -->
+        <div class="absolute w-80 h-80 xl:w-96 xl:h-96 rounded-full bg-emerald-400/20 blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+        <!-- Rounded card with glassmorphism border -->
+        <div class="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl backdrop-blur-sm transition-transform duration-500 hover:scale-[1.02] w-full max-w-[460px] xl:max-w-[500px]">
+          <!-- Subtle green tint overlay on image -->
+          <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/20 to-transparent pointer-events-none z-10"></div>
           <img
-            src="/images/brand/hero-recycle-nature.jpg"
-            alt="Recycling symbol made of moss and leaves surrounded by lush green foliage"
-            class="w-full h-[300px] sm:h-[360px] lg:h-[430px] object-cover"
+            src="/images/brand/hero-recycle-card.jpg"
+            alt="Sustainable green recycling – moss recycling symbol surrounded by lush foliage"
+            class="w-full aspect-[4/3] object-cover object-center"
             loading="eager"
             decoding="async"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"></div>
         </div>
       </div>
 
