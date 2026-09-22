@@ -15,9 +15,13 @@ const breadcrumbs = [
 
 const sectorBgImages: Record<string, string> = {
   defence: '/images/sectors/defence.jpg',
-  nhs: '/images/sectors/healthcare.jpg',
-  finance: '/images/sectors/financial.jpg',
+  nhs: '/images/sectors/nhs.jpg',
+  finance: '/images/sectors/finance.jpg',
   'central-government': '/images/sectors/government.jpg',
+  'it-technology': '/images/sectors/technology.jpg',
+  'manufacturing-engineering': '/images/sectors/manufacturing.jpg',
+  'education-universities': '/images/sectors/education.jpg',
+  'legal-professional-services': '/images/sectors/legal.jpg',
 };
 
 const bgImage = sectorBgImages[sector.slug] || '/images/brand/hero-bg.jpg';
@@ -42,7 +46,7 @@ const bgImage = sectorBgImages[sector.slug] || '/images/brand/hero-bg.jpg';
       </svg>
     </a>
     <a
-      href="#relevant-services"
+      href="/services"
       class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/20 transition-all duration-200"
     >
       Explore Services

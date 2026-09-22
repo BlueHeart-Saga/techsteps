@@ -47,12 +47,31 @@ export async function getStaticPaths() {
     }
   });
 
-  const allCategoryList = Array.from(categoriesMap.values());
+  const ALLOWED_SLUGS = new Set(['blogs', 'testimonials', 'impact-metrics', 'impact']);
+
+  // Ensure the 3 core categories are always present
+  if (!categoriesMap.has('blogs')) {
+    categoriesMap.set('blogs', { name: 'Blogs', slug: 'blogs', description: 'Expert analysis and technical guides.', sectionName: 'Insights & Knowledge' });
+  }
+  if (!categoriesMap.has('testimonials')) {
+    categoriesMap.set('testimonials', { name: 'Testimonials', slug: 'testimonials', description: 'Client reviews and partner endorsements.', sectionName: 'Success Stories' });
+  }
+  if (!categoriesMap.has('impact-metrics')) {
+    categoriesMap.set('impact-metrics', { name: 'Impact Content', slug: 'impact-metrics', description: 'Sustainability metrics and ESG data.', sectionName: 'Success Stories' });
+  }
+  if (!categoriesMap.has('impact')) {
+    categoriesMap.set('impact', { name: 'Impact Content', slug: 'impact', description: 'Sustainability metrics and ESG data.', sectionName: 'Success Stories' });
+  }
+
+  const allCategoryList = Array.from(categoriesMap.values()).filter((c) =>
+    ALLOWED_SLUGS.has(c.slug)
+  );
 
   return allCategoryList.map((cat) => {
-    const categoryPosts = allPosts.filter(
-      (p) => (p.category?.slug || 'blogs') === cat.slug
-    );
+    const categoryPosts = allPosts.filter((p) => {
+      const pSlug = (p.category?.slug || 'blogs').toLowerCase();
+      return pSlug === cat.slug || (cat.slug === 'impact' && pSlug === 'impact-metrics');
+    });
 
     return {
       params: { categorySlug: cat.slug },

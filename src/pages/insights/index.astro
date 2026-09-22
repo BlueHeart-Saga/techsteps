@@ -25,37 +25,47 @@ try {
 
 const posts = apiPosts;
 
-// Dynamic categories derived directly from live CMS site structure and posts
-const categoriesMap = new Map<string, { name: string; slug: string; count: number }>();
+// Allowed categories requested: Blogs, Testimonials, Impact
+const ALLOWED_CATEGORIES_CONFIG = [
+  {
+    name: 'Blogs',
+    slug: 'blogs',
+    description: 'Expert technical analysis, regulatory compliance briefings, and IT lifecycle best practice guides.',
+    aliases: ['blogs', 'blog'],
+  },
+  {
+    name: 'Testimonials',
+    slug: 'testimonials',
+    description: 'Verified enterprise client feedback, NHS acute trust reviews, and stakeholder endorsements.',
+    aliases: ['testimonials', 'testimonial', 'reviews'],
+  },
+  {
+    name: 'Impact Content',
+    slug: 'impact-metrics',
+    description: 'Measured sustainability metrics, e-waste diversion results, carbon footprint reduction, and ESG reporting.',
+    aliases: ['impact-metrics', 'impact', 'impact-content'],
+  },
+];
 
-posts.forEach((p) => {
-  const slug = p.category?.slug || 'blogs';
-  const name = p.category?.name || 'Blogs';
-  const existing = categoriesMap.get(slug);
-  if (existing) {
-    existing.count += 1;
-  } else {
-    categoriesMap.set(slug, { name, slug, count: 1 });
-  }
+// Dynamic categories restricted to only the 3 requested categories
+const availableCategories = ALLOWED_CATEGORIES_CONFIG.map((conf) => {
+  const count = posts.filter((p) => {
+    const slug = (p.category?.slug || '').toLowerCase();
+    const name = (p.category?.name || '').toLowerCase();
+    return conf.aliases.includes(slug) || conf.aliases.some((a) => slug.includes(a) || name.includes(a));
+  }).length;
+
+  return {
+    name: conf.name,
+    slug: conf.slug,
+    description: conf.description,
+    count,
+  };
 });
-
-// Also include categories from live siteStructure
-siteStructure.forEach((sec: any) => {
-  (sec.categories || []).forEach((cat: any) => {
-    if (!categoriesMap.has(cat.slug)) {
-      categoriesMap.set(cat.slug, { name: cat.name, slug: cat.slug, count: 0 });
-    }
-  });
-});
-
-const availableCategories = Array.from(categoriesMap.values());
 
 // Featured post: priority to post with featured: true, else first post
 const featuredArticle = posts.find((p) => p.featured) || posts[0];
 const remainingArticles = posts.filter((p) => p.id !== featuredArticle?.id);
-
-// Sections for knowledge area blocks directly from live CMS structure
-const displaySections = siteStructure;
 ---
 
 <BaseLayout
@@ -386,56 +396,43 @@ const displaySections = siteStructure;
     </Container>
   </section>
 
-  <!-- ===== 5. KNOWLEDGE SECTIONS DIRECTORY ===== -->
+  <!-- ===== 5. CURATED KNOWLEDGE PILLARS ===== -->
   <section class="bg-white py-16 lg:py-24 border-t border-slate-200">
     <Container>
       <div class="text-center max-w-2xl mx-auto mb-14">
         <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-3">
-          Taxonomy &amp; Divisions
+          Knowledge Pillars
         </span>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Explore Insights By Section
+          Explore Our Insights
         </h2>
         <p class="text-sm text-slate-500 mt-2">
-          Dive into specific technical domains across our enterprise lifecycle and data security capabilities.
+          Dive into our verified industry research, client reviews, and environmental impact data.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {displaySections.map((sec: any, idx: number) => (
-          <div class="bg-slate-50 rounded-2xl p-7 border border-slate-200/90 flex flex-col justify-between">
+        {availableCategories.map((cat) => (
+          <div class="bg-slate-50 rounded-2xl p-7 border border-slate-200/90 flex flex-col justify-between hover:border-[#2D6A4F]/40 hover:shadow-md transition-all">
             <div>
               <div class="flex items-center gap-2.5 mb-4">
                 <span class="w-2.5 h-2.5 rounded-full bg-[#2D6A4F]"></span>
-                <h3 class="text-lg font-bold text-slate-900">{sec.name}</h3>
+                <h3 class="text-xl font-bold text-slate-900">{cat.name}</h3>
               </div>
-              <p class="text-xs text-slate-600 leading-relaxed mb-6">
-                {sec.description || 'Verified operational guides, regulatory summaries, and technical best practices.'}
+              <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                {cat.description}
               </p>
-
-              <div class="space-y-2 mb-6">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
-                  Categories in this Section:
-                </span>
-                <div class="flex flex-wrap gap-2">
-                  {(sec.categories || []).map((cat: any) => (
-                    <a
-                      href={`/insights/${cat.slug}`}
-                      class="text-xs font-semibold px-3 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-[#2D6A4F] hover:border-[#2D6A4F]/40 transition-colors"
-                    >
-                      {cat.name} &rarr;
-                    </a>
-                  ))}
-                </div>
-              </div>
             </div>
 
-            <div class="pt-4 border-t border-slate-200">
+            <div class="pt-4 border-t border-slate-200 flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-400">
+                {cat.count > 0 ? `${cat.count} published` : 'Curated Hub'}
+              </span>
               <a
-                href={`/insights/${(sec.categories && sec.categories[0]?.slug) || 'blogs'}`}
+                href={`/insights/${cat.slug}`}
                 class="text-xs font-bold text-[#2D6A4F] hover:underline flex items-center gap-1"
               >
-                <span>Browse {sec.name} archive</span>
+                <span>Browse {cat.name}</span>
                 <span>&rarr;</span>
               </a>
             </div>

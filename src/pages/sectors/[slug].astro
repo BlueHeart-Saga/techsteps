@@ -4,9 +4,8 @@ import Container from '../../components/layout/Container.astro';
 import Section from '../../components/layout/Section.astro';
 import HeroSector from '../../components/hero/HeroSector.astro';
 import BenefitsList from '../../components/services/BenefitsList.astro';
-import ServiceCard from '../../components/services/ServiceCard.astro';
 import AccordionFaq from '../../components/content/AccordionFaq.astro';
-import { getSectors, getServices, getCaseStudies } from '../../lib/sanity/client';
+import { getSectors, getCaseStudies } from '../../lib/sanity/client';
 import type { Sector } from '../../lib/sanity/types';
 
 export async function getStaticPaths() {
@@ -22,15 +21,8 @@ interface Props {
 }
 
 const { sector } = Astro.props;
-const [services, caseStudies] = await Promise.all([
-  getServices(),
-  getCaseStudies(),
-]);
+const caseStudies = await getCaseStudies();
 
-// Fetch services aligned with this sector
-const alignedServices = services.filter((s) =>
-  sector.relevantServices.includes(s.slug) || s.relatedSectors?.includes(sector.slug)
-);
 
 // Matching case study
 const matchingCaseStudy = caseStudies.find(
@@ -127,30 +119,11 @@ const matchingCaseStudy = caseStudies.find(
     </Container>
   </Section>
 
-  <!-- Sector Benefits -->
-  <Section theme="white">
-    <Container>
-      <BenefitsList benefits={sector.keyBenefits} title={`Commercial & Compliance Outcomes for ${sector.title}`} />
-    </Container>
-  </Section>
-
-  <!-- Relevant Services Grid -->
-  {alignedServices.length > 0 && (
-    <Section theme="slate" id="relevant-services">
+  <!-- Sector Benefits: Commercial & Compliance Outcomes (Commented out for IT & Technology, Manufacturing & Engineering, Legal & Professional Services, Education & Universities) -->
+  {!['it-technology', 'manufacturing-engineering', 'legal-professional-services', 'education-universities'].includes(sector.slug) && (
+    <Section theme="white">
       <Container>
-        <div class="space-y-8">
-          <div class="text-center max-w-2xl mx-auto space-y-2">
-            <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Certified Capability Matrix</span>
-            <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">
-              Recommended Services for {sector.title}
-            </h2>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {alignedServices.slice(0, 4).map((service) => (
-              <ServiceCard service={service} showDivision={true} />
-            ))}
-          </div>
-        </div>
+        <BenefitsList benefits={sector.keyBenefits} title={`Commercial & Compliance Outcomes for ${sector.title}`} />
       </Container>
     </Section>
   )}

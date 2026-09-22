@@ -1,63 +1,36 @@
 ---
 import { insightsApi } from '../../lib/insightsApi';
 
-let siteStructure: any[] = [];
 let allPosts: any[] = [];
 
 try {
-  const [structureRes, postsRes] = await Promise.all([
-    insightsApi.getFullSiteStructure(),
-    insightsApi.getAllPosts(8)
-  ]);
-  siteStructure = structureRes || [];
+  const postsRes = await insightsApi.getAllPosts(8);
   allPosts = postsRes || [];
 } catch (e) {
   console.error('Failed to load insights for megamenu:', e);
 }
 
-// Fallback site structure if CMS is offline/empty
-if (!siteStructure || siteStructure.length === 0) {
-  siteStructure = [
-    {
-      name: 'Insights & Knowledge',
-      categories: [
-        { name: 'Blogs', slug: 'blogs' },
-        { name: 'Case Studies', slug: 'case-studies' },
-        { name: 'Newsletters', slug: 'newsletters' },
-        { name: 'Podcasts', slug: 'podcasts' }
-      ]
-    },
-    {
-      name: 'News & Events',
-      categories: [
-        { name: 'Industry Events', slug: 'industry-events' },
-        { name: 'Company Announcements', slug: 'company-announcements' },
-        { name: 'Achievements', slug: 'achievements' },
-        { name: 'Awards & Milestones', slug: 'awards-milestones' }
-      ]
-    },
-    {
-      name: 'Success Stories',
-      categories: [
-        { name: 'Client Transformations', slug: 'client-transformations' },
-        { name: 'Impact Metrics', slug: 'impact-metrics' },
-        { name: 'Testimonials', slug: 'testimonials' }
-      ]
-    },
-    {
-      name: 'Life at Techsteps',
-      categories: [
-        { name: 'Celebrations', slug: 'celebrations' },
-        { name: 'Team Culture', slug: 'team-culture' },
-        { name: 'Posters', slug: 'posters' },
-        { name: 'Community', slug: 'community' }
-      ]
-    }
-  ];
-}
-
-// Extract real sections directly from CMS site structure
-const sections = siteStructure.slice(0, 4);
+// 3 Curated Categories requested: Blogs, Testimonials, Impact
+const curatedCategories = [
+  {
+    name: 'Blogs',
+    slug: 'blogs',
+    tagline: 'Expert Analysis & Guides',
+    description: 'In-depth articles on ITAD standards, NIST 800-88 media sanitisation, and regulatory compliance.',
+  },
+  {
+    name: 'Testimonials',
+    slug: 'testimonials',
+    tagline: 'Client & Partner Reviews',
+    description: 'Verified feedback from UK public sector bodies, NHS trusts, and enterprise corporate partners.',
+  },
+  {
+    name: 'Impact Content',
+    slug: 'impact-metrics',
+    tagline: 'Sustainability & ESG',
+    description: 'Scope 3 emissions reduction data, zero-landfill avoidance statistics, and circular economy metrics.',
+  },
+];
 
 // Default featured post fallback with rich details & image if CMS empty
 const fallbackFeatured = {
@@ -66,7 +39,7 @@ const fallbackFeatured = {
   readTime: 4,
   author: 'Techsteps Advisory',
   date: 'March 2025',
-  category: { slug: 'blogs', name: 'Regulatory Update' },
+  category: { slug: 'blogs', name: 'Blogs' },
   seoSlug: 'uk-simpler-recycling-mandate-business-guide',
   coverImage: '/images/services/sustainability-approach.jpg'
 };
@@ -86,38 +59,37 @@ const featuredImage = activeFeatured?.coverImage || activeFeatured?.image || '/i
   aria-label="Insights Navigation"
 >
   <div class="relative max-w-[1540px] mx-auto bg-white rounded-none shadow-2xl border border-black/10 py-8 sm:py-10 lg:py-12 px-8 sm:px-12 lg:px-14 flex flex-col justify-between overflow-hidden font-sans">
-    <!-- Top Content Grid: Dynamic Taxonomy Columns + Featured Article Spotlight Card -->
+    <!-- Top Content Grid: 3 Curated Knowledge Pillars + Featured Article Spotlight Card -->
     <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 flex-1 items-start">
       
-      <!-- Left 8 Cols: Dynamic Sections & Categories -->
+      <!-- Left 8 Cols: 3 Core Categories -->
       <div class="lg:col-span-8 border-b lg:border-b-0 lg:border-r border-slate-100 pb-6 lg:pb-0 lg:pr-8">
-        <!-- 4 Taxonomy Columns -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 lg:gap-8">
-          {sections.map((section: any) => (
-            <div class="space-y-5">
-              <div class="flex items-center gap-2 pb-3 border-b border-slate-200">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-7 lg:gap-8">
+          {curatedCategories.map((cat) => (
+            <a
+              href={`/insights/${cat.slug}`}
+              class="group block space-y-3 p-4 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all duration-200"
+            >
+              <div class="flex items-center gap-2 pb-2 border-b border-slate-200">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 shrink-0"></span>
-                <h4 class="text-[16px] sm:text-[17px] lg:text-[17.5px] font-bold uppercase tracking-wider text-slate-900 leading-tight">
-                  {section.name}
+                <h4 class="text-[16px] sm:text-[17px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-emerald-700 transition-colors">
+                  {cat.name}
                 </h4>
               </div>
 
-              <ul class="space-y-3.5">
-                {(section.categories || []).map((category: any) => (
-                  <li>
-                    <a
-                      href={`/insights/${category.slug}`}
-                      class="group flex items-center justify-between text-[17px] sm:text-[17.5px] lg:text-[18px] font-semibold text-slate-700 hover:text-emerald-800 transition-colors py-1.5 px-2 rounded-none hover:bg-slate-50/90"
-                    >
-                      <span class="leading-snug">{category.name}</span>
-                      <span class="text-base text-slate-400 group-hover:text-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity ml-1.5 shrink-0">
-                        &rarr;
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <span class="inline-block text-xs font-semibold text-emerald-700 uppercase tracking-wider">
+                {cat.tagline}
+              </span>
+
+              <p class="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal group-hover:text-slate-800 transition-colors">
+                {cat.description}
+              </p>
+
+              <div class="pt-2 flex items-center gap-1 text-xs font-bold text-emerald-700 group-hover:gap-2 transition-all">
+                <span>Browse {cat.name}</span>
+                <span>&rarr;</span>
+              </div>
+            </a>
           ))}
         </div>
       </div>
@@ -150,7 +122,7 @@ const featuredImage = activeFeatured?.coverImage || activeFeatured?.image || '/i
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
               <span class="absolute bottom-2.5 left-2.5 text-[10.5px] font-bold uppercase tracking-wider text-white bg-emerald-800/90 backdrop-blur-xs px-2.5 py-0.5 rounded-none">
-                {activeFeatured?.category?.name || 'Compliance & Strategy'}
+                {activeFeatured?.category?.name || 'Blogs'}
               </span>
             </div>
 
@@ -160,42 +132,43 @@ const featuredImage = activeFeatured?.coverImage || activeFeatured?.image || '/i
             </h3>
 
             <!-- Excerpt -->
-            <p class="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed line-clamp-2 mb-3">
-              {activeFeatured?.excerpt || 'Key timelines, legal duties, and practical steps for business leaders preparing for mandatory workplace recycling reforms.'}
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2 font-normal">
+              {activeFeatured?.excerpt}
             </p>
           </a>
-
-          <!-- Meta (Author & Date) -->
-          <div class="flex items-center gap-2 pt-2.5 border-t border-slate-200/70 text-xs text-slate-500">
-            <span class="font-semibold text-slate-700">{activeFeatured?.author || 'Techsteps Advisory'}</span>
-            <span>&bull;</span>
-            <span>{activeFeatured?.date || 'March 2025'}</span>
-          </div>
         </div>
 
         <!-- Card Footer -->
-        <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs sm:text-sm">
+        <div class="mt-4 pt-3.5 border-t border-slate-200/70 flex items-center justify-between text-xs text-slate-500">
+          <span>By {activeFeatured?.author || 'Techsteps Advisory'}</span>
           <a
-            href="/insights"
-            class="font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1.5 transition-colors group/hub"
+            href={activeFeatured?.seoSlug ? `/insights/${activeFeatured.category?.slug || 'blogs'}/${activeFeatured.seoSlug}` : '/insights'}
+            class="font-bold text-emerald-800 hover:text-emerald-950 inline-flex items-center gap-1 group-hover/feat:gap-1.5 transition-all"
           >
-            <span>View All Insights Hub</span>
-            <span class="inline-block transition-transform duration-150 group-hover/hub:translate-x-1">&rarr;</span>
+            <span>Read Article</span>
+            <span>&rarr;</span>
           </a>
-          <span class="text-[11px] text-slate-400 font-mono">Live CMS Data</span>
         </div>
       </div>
+
     </div>
 
     <!-- Bottom Utility Footer -->
-    <div class="relative z-10 mt-6 pt-4 border-t border-slate-100 flex items-center justify-end text-sm">
-      <a
-        href="/insights"
-        class="font-bold text-white bg-[#0F623A] hover:bg-[#0c4e2e] flex items-center gap-2 px-6 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all shrink-0"
-      >
-        <span>Explore All Articles &amp; Case Studies</span>
-        <span>&rarr;</span>
-      </a>
+    <div class="relative z-10 mt-6 sm:mt-7 pt-4 sm:pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
+      <div class="flex items-center gap-2 text-slate-500 font-medium">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+        <span>Independent analysis from certified UK ITAD &amp; information governance consultants.</span>
+      </div>
+
+      <div class="flex items-center gap-4 shrink-0">
+        <a
+          href="/insights"
+          class="font-bold text-white bg-emerald-800 hover:bg-emerald-900 flex items-center gap-2 px-5 py-2 rounded-none shadow-xs hover:shadow-sm transition-all"
+        >
+          <span>Explore All Insights</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
     </div>
   </div>
 </div>
