@@ -3,7 +3,8 @@ interface Step {
   stepNumber: number;
   title: string;
   description: string;
-  icon?: string;
+  shortDesc?: string;
+  image: string;
 }
 
 interface Props {
@@ -12,14 +13,72 @@ interface Props {
   subtitle?: string;
 }
 
+const vbWidth = 1200;
+const vbHeight = 460;
+
+// Upward Bezier curve control points
+const p0 = { x: 0, y: 395 };
+const p1 = { x: 300, y: 375 };
+const p2 = { x: 700, y: 245 };
+const p3 = { x: 1200, y: 95 };
+
+const pathD = `M ${p0.x} ${p0.y} C ${p1.x} ${p1.y}, ${p2.x} ${p2.y}, ${p3.x} ${p3.y}`;
+
+function bezier(t: number, c0: number, c1: number, c2: number, c3: number) {
+  const mt = 1 - t;
+  return mt * mt * mt * c0 + 3 * mt * mt * t * c1 + 3 * mt * t * t * c2 + t * t * t * c3;
+}
+
+function getYAtXPct(xPct: number) {
+  const targetX = (xPct / 100) * vbWidth;
+  let low = 0, high = 1;
+  for (let i = 0; i < 40; i++) {
+    const mid = (low + high) / 2;
+    const x = bezier(mid, p0.x, p1.x, p2.x, p3.x);
+    if (x < targetX) low = mid;
+    else high = mid;
+  }
+  const t = (low + high) / 2;
+  const y = bezier(t, p0.y, p1.y, p2.y, p3.y);
+  return (y / vbHeight) * 100;
+}
+
 const defaultLifecycleSteps: Step[] = [
-  { stepNumber: 1, title: 'Assess', description: 'Comprehensive site audit, asset inventorying, and compliance risk profiling before handling.' },
-  { stepNumber: 2, title: 'Collect', description: 'Point-to-point transit in GPS-monitored vehicles with BS 7858 security-vetted drivers.' },
-  { stepNumber: 3, title: 'Secure', description: 'Ingestion into biometric-monitored facilities with tamper-evident serialized containment.' },
-  { stepNumber: 4, title: 'Process', description: 'Certified sanitisation to NIST 800-88 or on-site mobile DIN 66399 mechanical granulation.' },
-  { stepNumber: 5, title: 'Recover', description: 'Refurbishment and testing to extract maximum economic residual value for your budget.' },
-  { stepNumber: 6, title: 'Reuse / Recycle', description: 'Ethical B2B remarketing or domestic closed-loop raw material separation (0% landfill).' },
-  { stepNumber: 7, title: 'Report', description: 'Defensible compliance documentation, certificates of destruction, and Scope 3 ESG carbon reporting.' },
+  {
+    stepNumber: 1,
+    title: 'Collect',
+    shortDesc: 'GPS-Tracked Transit',
+    description: 'Point-to-point transit in GPS-monitored vehicles with BS 7858 security-vetted drivers.',
+    image: '/images/process/new/step-1-collect.png',
+  },
+  {
+    stepNumber: 2,
+    title: 'Secure',
+    shortDesc: 'Chain of Custody',
+    description: 'Ingestion into biometric-monitored facilities with tamper-evident serialized containment.',
+    image: '/images/process/new/step-2-secure.png',
+  },
+  {
+    stepNumber: 3,
+    title: 'Process',
+    shortDesc: 'Data Sanitisation',
+    description: 'Certified sanitisation to NIST 800-88 or on-site mobile DIN 66399 mechanical granulation.',
+    image: '/images/process/new/step-3-sanitise.png',
+  },
+  {
+    stepNumber: 4,
+    title: 'Recover',
+    shortDesc: 'Value Recovery',
+    description: 'Refurbishment and testing to extract maximum economic residual value for your budget.',
+    image: '/images/process/new/step-4-recover.png',
+  },
+  {
+    stepNumber: 5,
+    title: 'Reuse / Recycle',
+    shortDesc: 'Zero Landfill',
+    description: 'Ethical B2B remarketing or domestic closed-loop raw material separation (0% landfill).',
+    image: '/images/process/new/step-5-recycle.png',
+  },
 ];
 
 const {
@@ -28,61 +87,19 @@ const {
   subtitle = 'A secure, auditable, and environmentally responsible end-to-end chain of custody.',
 } = Astro.props;
 
-// Calculate 2D position around circle for desktop layout (radius % = 38)
-const getCirclePosition = (index: number, total: number, radiusPercent = 38) => {
-  const angleRad = ((index * 360 / total - 90) * Math.PI) / 180;
-  const x = 50 + radiusPercent * Math.cos(angleRad);
-  const y = 50 + radiusPercent * Math.sin(angleRad);
-  return { x: x.toFixed(2), y: y.toFixed(2) };
-};
-
-// Calculate midpoint arrow positions & tangent rotation clockwise between steps
-const getArrowPositions = (total: number, radiusPercent = 38) => {
-  const arrows = [];
-  const stepAngle = 360 / total;
-
-  for (let i = 0; i < total; i++) {
-    const startAngleDeg = i * stepAngle - 90;
-    const midAngleDeg = startAngleDeg + (stepAngle / 2);
-    const midAngleRad = (midAngleDeg * Math.PI) / 180;
-
-    const x = 50 + radiusPercent * Math.cos(midAngleRad);
-    const y = 50 + radiusPercent * Math.sin(midAngleRad);
-    const rotation = midAngleDeg + 90;
-
-    arrows.push({
-      x: x.toFixed(2),
-      y: y.toFixed(2),
-      rotation: rotation.toFixed(2),
-      stepIndex: i,
-    });
-  }
-  return arrows;
-};
-
-const arrowPositions = getArrowPositions(steps.length, 38);
-
-const icons = [
-  // 1. Assess (Clipboard / Audit)
-  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`,
-  // 2. Collect (Truck / Transit)
-  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1"/></svg>`,
-  // 3. Secure (Shield / Lock)
-  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
-  // 4. Process (Shredding / Sanitisation)
-  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
-  // 5. Recover (Refurbishment / Value)
-  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
-  // 6. Reuse / Recycle (Recycle Loop)
-  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>`,
-  // 7. Report (Certificate / Document)
-  `<svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`,
+// 5 evenly spaced steps along the curve (10%, 30%, 50%, 70%, 90%)
+const curvePositions = [
+  { x: 10, y: getYAtXPct(10) },
+  { x: 30, y: getYAtXPct(30) },
+  { x: 50, y: getYAtXPct(50) },
+  { x: 70, y: getYAtXPct(70) },
+  { x: 90, y: getYAtXPct(90) },
 ];
 ---
 
-<div class="space-y-4 sm:space-y-6">
+<div class="space-y-6 sm:space-y-10">
   <!-- Section Header -->
-  <div class="text-center max-w-3xl mx-auto space-y-2">
+  <div class="text-center max-w-3xl mx-auto space-y-2.5">
     <h2 class="text-3xl font-extrabold font-display text-brand-navy tracking-tight sm:text-4xl lg:text-5xl">
       {title}
     </h2>
@@ -91,141 +108,193 @@ const icons = [
     </p>
   </div>
 
-  <!-- DESKTOP CIRCULAR LIFECYCLE DIAGRAM -->
-  <div class="hidden md:block relative w-full max-w-[620px] lg:max-w-[660px] h-[460px] lg:h-[500px] mx-auto select-none py-1">
+  <!-- DESKTOP ASCENDING WORKFLOW PATH (Big floating 3D images touching the line, NO box shape) -->
+  <div class="hidden lg:block relative w-full max-w-7xl mx-auto min-h-[500px] xl:min-h-[540px] select-none pt-4 pb-2">
+    <!-- Ambient glowing path background -->
+    <div class="absolute inset-x-0 bottom-6 h-48 bg-gradient-to-t from-emerald-500/10 via-emerald-500/5 to-transparent pointer-events-none blur-3xl"></div>
 
-    <!-- Center Hub: Clean Logo Only (No Background Card/Box) -->
-    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none flex items-center justify-center">
-      <img
-        src="/images/brand/logo.png"
-        alt="TechSteps Logo"
-        class="h-16 sm:h-20 lg:h-24 w-auto object-contain drop-shadow-md transition-transform duration-300 hover:scale-110"
-      />
-    </div>
-
-    <!-- Step-to-Step Wave-Like Curved Connecting SVG Arrows -->
-    <svg class="absolute inset-0 w-full h-full pointer-events-none z-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <!-- Ascending SVG Track Curve -->
+    <svg
+      class="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
+      viewBox={`0 0 ${vbWidth} ${vbHeight}`}
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
       <defs>
-        <marker id="wave-arrow-head" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0F623A" />
-        </marker>
+        <!-- Linear gradient along path from emerald to dark green -->
+        <linearGradient id="processCurveGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#0F623A" stop-opacity="0.3" />
+          <stop offset="25%" stop-color="#0F623A" stop-opacity="0.8" />
+          <stop offset="65%" stop-color="#2EC458" stop-opacity="1" />
+          <stop offset="100%" stop-color="#146B5C" stop-opacity="0.9" />
+        </linearGradient>
+
+        <!-- Soft diffuse glow filter -->
+        <filter id="processGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="6" result="blur" />
+        </filter>
       </defs>
-      {steps.map((_, i) => {
-        const total = steps.length;
-        const radius = 38;
-        const stepAngle = 360 / total;
-        const node1AngleDeg = i * stepAngle - 90;
-        const node2AngleDeg = ((i + 1) % total) * stepAngle - 90;
 
-        // 20-degree angular gap around node titles
-        const startAngleDeg = node1AngleDeg + 20;
-        let endAngleDeg = node2AngleDeg - 20;
-        if (endAngleDeg < startAngleDeg) endAngleDeg += 360;
+      <!-- Diffuse Glow under curve -->
+      <path
+        d={pathD}
+        fill="none"
+        stroke="#2EC458"
+        stroke-width="12"
+        stroke-opacity="0.35"
+        filter="url(#processGlow)"
+      />
 
-        const startRad = (startAngleDeg * Math.PI) / 180;
-        const endRad = (endAngleDeg * Math.PI) / 180;
+      <!-- Solid Primary Track Line -->
+      <path
+        d={pathD}
+        fill="none"
+        stroke="url(#processCurveGrad)"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
 
-        const x1 = (50 + radius * Math.cos(startRad)).toFixed(2);
-        const y1 = (50 + radius * Math.sin(startRad)).toFixed(2);
-        const x2 = (50 + radius * Math.cos(endRad)).toFixed(2);
-        const y2 = (50 + radius * Math.sin(endRad)).toFixed(2);
-
-        const pathData = `M ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2}`;
-
-        return (
-          <path
-            key={i}
-            d={pathData}
-            fill="none"
-            stroke="#0F623A"
-            stroke-width="0.8"
-            stroke-opacity="0.8"
-            marker-end="url(#wave-arrow-head)"
-          />
-        );
-      })}
+      <!-- Animated Pulse Dash Line -->
+      <path
+        d={pathD}
+        fill="none"
+        stroke="#FFFFFF"
+        stroke-width="2.2"
+        stroke-dasharray="6 14"
+        stroke-linecap="round"
+        stroke-opacity="0.8"
+        class="animate-pulse"
+      />
     </svg>
 
-    <!-- Clean Vector Nodes (No Step Numbers) -->
+    <!-- Step Items situated along the Ascending Curve (Touching the line) -->
     {steps.map((step, idx) => {
-      const pos = getCirclePosition(idx, steps.length, 38);
+      const pos = curvePositions[idx] || { x: (idx + 1) * 18, y: 50 };
       const isFirst = idx === 0;
-      const iconSvg = icons[idx % icons.length];
+
       return (
         <div
-          class={`cycle-step-node group absolute cursor-pointer transition-all duration-300 z-20 ${
-            isFirst ? 'active' : ''
-          }`}
-          style={`left: ${pos.x}%; top: ${pos.y}%; transform: translate(-50%, -50%);`}
+          class={`curve-step-node group absolute cursor-pointer z-10 ${isFirst ? 'active' : ''}`}
+          style={`left: ${pos.x}%; top: ${pos.y}%; transform: translate(-50%, calc(-100% + 4px));`}
           data-step={idx}
+          data-number={step.stepNumber}
           data-title={step.title}
+          data-short={step.shortDesc || ''}
           data-desc={step.description}
           role="button"
           tabindex="0"
-          aria-label={`Step: ${step.title}`}
+          aria-label={`Step ${step.stepNumber}: ${step.title}`}
         >
-          <div class="flex flex-col items-center text-center space-y-1">
-            <!-- Icon -->
-            <div class="node-icon text-slate-700 transition-all duration-300 group-hover:text-[#0F623A] group-hover:scale-125 group-[.active]:text-[#0F623A] group-[.active]:scale-125">
-              <Fragment set:html={iconSvg} />
+          <div class="flex flex-col items-center text-center">
+            <!-- 1. Text Header above Image (Number, Title & Short Desc) -->
+            <div class="mb-2 text-center transition-transform duration-300 group-hover:-translate-y-1.5">
+              <div class="flex items-center justify-center gap-1.5 text-sm sm:text-[15px] font-extrabold uppercase tracking-wider text-brand-navy group-hover:text-[#0F623A] group-[.active]:text-[#0F623A] transition-colors whitespace-nowrap">
+                <span class="text-[#0F623A] group-hover:text-[#2EC458] group-[.active]:text-[#2EC458] font-black">{step.stepNumber}.</span>
+                <span>{step.title}</span>
+              </div>
+              <p class="text-xs sm:text-[13px] text-slate-600 font-semibold tracking-normal mt-0.5 whitespace-nowrap group-hover:text-slate-950 group-[.active]:text-slate-950 transition-colors">
+                {step.shortDesc || step.title}
+              </p>
             </div>
 
-            <!-- Step Title -->
-            <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-brand-navy group-hover:text-[#0F623A] group-[.active]:text-[#0F623A] transition-colors whitespace-nowrap">
-              {step.title}
-            </span>
+            <!-- 2. Pure 3D Illustration Image touching the line -->
+            <div class="relative group/pedestal flex flex-col items-center justify-end">
+              <!-- Soft Aura Glow behind 3D image -->
+              <div class="absolute inset-0 bg-emerald-400/25 rounded-full blur-xl opacity-0 group-hover:opacity-100 group-[.active]:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+              <!-- Contact Shadow right on the line -->
+              <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-24 sm:w-28 h-3 bg-emerald-950/25 rounded-full blur-[3px] pointer-events-none transition-all group-hover:w-32"></div>
+
+              <!-- Large Prominent 3D Step Image (Bottom touches the line) -->
+              <img
+                src={step.image}
+                alt={`${step.title} process step`}
+                class="relative z-10 h-28 sm:h-32 lg:h-36 xl:h-40 w-auto max-w-[150px] sm:max-w-[170px] lg:max-w-[190px] object-contain object-bottom block drop-shadow-xl transition-all duration-300 group-hover:scale-110 group-[.active]:scale-110 group-hover:-translate-y-2 group-[.active]:-translate-y-2 select-none"
+                loading="eager"
+                decoding="async"
+              />
+
+              <!-- Alignment Dot Anchoring Directly on SVG Curve Track -->
+              <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-[#0F623A] border-2 border-white shadow-md z-20 group-hover:scale-125 group-hover:bg-[#2EC458] group-[.active]:bg-[#2EC458] group-[.active]:scale-125 transition-all"></div>
+            </div>
           </div>
         </div>
       );
     })}
   </div>
 
-  <!-- MOBILE / TABLET VIEW (Clean List, No Step Numbers, Arrow Dividers) -->
-  <div class="md:hidden space-y-6">
-    {steps.map((step, idx) => {
-      const iconSvg = icons[idx % icons.length];
-      const isLast = idx === steps.length - 1;
-      return (
-        <div class="space-y-3">
-          <div class="flex items-start gap-4 pb-2">
-            <div class="shrink-0 text-[#0F623A] pt-0.5">
-              <Fragment set:html={iconSvg} />
-            </div>
+  <!-- INTERACTIVE DETAIL CARD (Highlights the selected phase with compliance context) -->
+  <div class="hidden lg:block max-w-2xl mx-auto text-center p-4 sm:p-5 rounded-2xl bg-white/90 border border-slate-200/80 shadow-xs backdrop-blur-sm transition-all duration-300 mt-2" id="step-detail-card">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-[#0F623A] text-xs font-bold uppercase tracking-wider mb-2">
+      <span id="detail-card-badge">Phase 01</span>
+      <span class="text-emerald-300">&bull;</span>
+      <span id="detail-card-title">{steps[0].title}</span>
+    </div>
+    <p id="detail-card-desc" class="text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
+      {steps[0].description}
+    </p>
+  </div>
 
-            <div class="space-y-1 min-w-0 flex-1">
-              <h3 class="text-base font-bold font-display text-brand-navy tracking-tight">
-                {step.title}
-              </h3>
-              <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold">
-                {step.description}
-              </p>
-            </div>
-          </div>
+  <!-- MOBILE / TABLET RESPONSIVE WORKFLOW (Vertical timeline with prominent images, NO box) -->
+  <div class="lg:hidden relative pl-6 sm:pl-8 space-y-6 sm:space-y-8">
+    <!-- Vertical Connecting Glowing Guideline -->
+    <div class="absolute left-10 sm:left-12 top-6 bottom-6 w-0.5 bg-gradient-to-b from-[#0F623A] via-[#2EC458] to-[#146B5C] rounded-full" aria-hidden="true"></div>
 
-          <!-- Mobile Arrow Divider between steps -->
-          {!isLast && (
-            <div class="flex justify-center text-[#0F623A]/70 py-1">
-              <svg class="w-6 h-6 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </div>
-          )}
+    {steps.map((step) => (
+      <div class="relative flex items-start gap-4 sm:gap-6 group">
+        <!-- Pure Step Image (No Box) -->
+        <div class="relative z-10 shrink-0 w-20 h-20 flex items-center justify-center">
+          <img
+            src={step.image}
+            alt={`${step.title} process step`}
+            class="w-18 h-18 object-contain drop-shadow-md"
+            loading="lazy"
+            decoding="async"
+          />
+          <!-- Step Number Badge -->
+          <span class="absolute top-0 right-0 w-5 h-5 rounded-full bg-[#0F623A] text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
+            {step.stepNumber}
+          </span>
         </div>
-      );
-    })}
+
+        <!-- Step Narrative -->
+        <div class="space-y-1 pt-2 min-w-0 flex-1">
+          <h3 class="text-base sm:text-lg font-bold font-display text-brand-navy tracking-tight group-hover:text-[#0F623A] transition-colors">
+            {step.stepNumber}. {step.title}
+          </h3>
+          <p class="text-xs sm:text-sm font-semibold text-[#0F623A] mb-1">
+            {step.shortDesc}
+          </p>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+            {step.description}
+          </p>
+        </div>
+      </div>
+    ))}
   </div>
 </div>
 
-<!-- Interactive Circular Wheel Script -->
+<!-- Interactive Hover & Click Script for Ascending Workflow -->
 <script is:inline>
   (() => {
-    const initLifecycleCycle = () => {
-      const nodes = document.querySelectorAll('.cycle-step-node');
+    const initWorkflowCurve = () => {
+      const nodes = document.querySelectorAll('.curve-step-node');
+      const badgeEl = document.getElementById('detail-card-badge');
+      const titleEl = document.getElementById('detail-card-title');
+      const descEl = document.getElementById('detail-card-desc');
       if (!nodes.length) return;
 
       const activateStep = (node) => {
         nodes.forEach((n) => n.classList.remove('active'));
         node.classList.add('active');
+
+        const number = node.getAttribute('data-number') || '1';
+        const title = node.getAttribute('data-title') || '';
+        const desc = node.getAttribute('data-desc') || '';
+
+        if (badgeEl) badgeEl.textContent = `Phase 0${number}`;
+        if (titleEl) titleEl.textContent = title;
+        if (descEl) descEl.textContent = desc;
       };
 
       nodes.forEach((node) => {
@@ -238,16 +307,12 @@ const icons = [
           }
         });
       });
-
-      if (nodes[0]) {
-        activateStep(nodes[0]);
-      }
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initLifecycleCycle);
+      document.addEventListener('DOMContentLoaded', initWorkflowCurve);
     } else {
-      initLifecycleCycle();
+      initWorkflowCurve();
     }
   })();
 </script>

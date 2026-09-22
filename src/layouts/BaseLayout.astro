@@ -78,7 +78,7 @@ const heroActive = isHome || hasHeroHeader;
     <Header isHome={isHome} hasHeroHeader={heroActive} />
     <ServicesMegaMenu />
     <SectorsDropdown />
-    <InsightsMegaMenu />
+    {/* <InsightsMegaMenu /> */}
 
     <main id="main-content" class:list={['flex-1', { 'home-main': isHome }]}>
       <slot />

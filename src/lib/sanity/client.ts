@@ -118,11 +118,12 @@ export async function getServicesByDivision(divisionSlug: string): Promise<Servi
 }
 
 export async function getSectors(): Promise<Sector[]> {
+  let sanitySectors: Sector[] = [];
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`*[_type == "sector"]`);
       if (data && data.length > 0) {
-        return data.map((sec: any) => ({
+        sanitySectors = data.map((sec: any) => ({
           ...sec,
           slug: normalizeSlug(sec.slug),
         }));
@@ -131,7 +132,12 @@ export async function getSectors(): Promise<Sector[]> {
       // Fallback
     }
   }
-  return sectors;
+  const knownSlugs = new Set(sanitySectors.map((s) => s.slug));
+  const merged = [
+    ...sanitySectors,
+    ...sectors.filter((s) => !knownSlugs.has(s.slug)),
+  ];
+  return merged.length > 0 ? merged : sectors;
 }
 
 export async function getSectorBySlug(slug: string): Promise<Sector | undefined> {

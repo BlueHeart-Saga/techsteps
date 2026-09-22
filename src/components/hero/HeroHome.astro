@@ -4,19 +4,19 @@ import TornPaperDivider from '../layout/TornPaperDivider.astro';
 ---
 
 <section class="relative w-full overflow-hidden bg-slate-950 min-h-[640px] sm:min-h-[700px] lg:min-h-[760px] flex flex-col justify-between select-none">
-  <!-- Background Image: Eco & IT Lifecycle Landscape (Full-Bleed) -->
+  <!-- Background Image: Hardware Recycling Technician (Full-Bleed) -->
   <img
-    src="/images/brand/hero-recycle-nature.jpg"
-    alt="Lush eco landscape with electronic recycling and sustainability backdrop"
-    class="absolute inset-0 w-full h-full object-cover object-center scale-105 select-none pointer-events-none"
+    src="/images/brand/hero-technician-hardware.jpg"
+    alt="IT recycling technician inspecting motherboards and electronic components"
+    class="absolute inset-0 w-full h-full object-cover object-[70%_center] lg:object-right select-none pointer-events-none"
     loading="eager"
     decoding="async"
   />
 
-  <!-- Multi-layered Atmospheric Vignettes for Contrast & Soft Lighting -->
-  <div class="absolute inset-0 bg-radial-[ellipse_at_center] from-black/15 via-black/35 to-black/80 pointer-events-none"></div>
-  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/60 pointer-events-none"></div>
-  <div class="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/40 via-black/15 to-transparent pointer-events-none"></div>
+  <!-- Multi-layered Atmospheric Vignettes & Dedicated Left-Side Black Scrim for High Text Visibility -->
+  <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 via-48% to-transparent pointer-events-none z-[1]"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40 pointer-events-none z-[1]"></div>
+  <div class="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/50 to-transparent pointer-events-none z-[1]"></div>
 
   <!-- 1. Integrated Navbar at Top of Hero (Full width, \ curve leading edge) -->
   <header id="hero-header" class="relative z-50 w-full flex items-center justify-between h-20 sm:h-22">
@@ -137,44 +137,20 @@ import TornPaperDivider from '../layout/TornPaperDivider.astro';
     </div>
   </header>
 
-  <!-- 2. Hero Split Content (Left Narrative + Right Floating Card) -->
-  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-10 lg:py-14 my-auto">
-    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+  <!-- 2. Hero Content (Left Narrative with background technician visible on the right) -->
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-14 sm:py-20 lg:py-28 my-auto">
+    <div class="max-w-2xl lg:max-w-3xl">
+      <span class="inline-block text-sm sm:text-base font-sans font-bold uppercase tracking-wider text-[#2EC458] mb-4">
+        SUSTAINABLE IT RECYCLING
+      </span>
 
-      <!-- LEFT CONTENT -->
-      <div class="max-w-2xl">
-        <span class="inline-block text-sm sm:text-base font-sans font-bold uppercase tracking-wider text-[#2EC458] mb-4">
-          SUSTAINABLE IT RECYCLING
-        </span>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white tracking-tight uppercase leading-[1.12] drop-shadow-2xl">
+        GIVING TECHNOLOGY A SECOND LIFE
+      </h1>
 
-        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white tracking-tight uppercase leading-[1.12] drop-shadow-2xl">
-          GIVING TECHNOLOGY A SECOND LIFE
-        </h1>
-
-        <p class="mt-5 text-xl sm:text-2xl text-slate-200/90 max-w-xl leading-relaxed font-medium">
-          We responsibly recycle, refurbish and remarket end-of-life IT equipment, ensuring zero landfill and maximum value recovery while protecting your data and the environment.
-        </p>
-      </div>
-
-      <!-- RIGHT IMAGE CARD: Nature Recycle Image -->
-      <div class="hidden lg:flex justify-end items-center">
-        <!-- Soft ambient eco glow -->
-        <div class="absolute w-80 h-80 xl:w-96 xl:h-96 rounded-full bg-emerald-400/20 blur-3xl pointer-events-none" aria-hidden="true"></div>
-
-        <!-- Rounded card with glassmorphism border -->
-        <div class="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl backdrop-blur-sm transition-transform duration-500 hover:scale-[1.02] w-full max-w-[460px] xl:max-w-[500px]">
-          <!-- Subtle green tint overlay on image -->
-          <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/20 to-transparent pointer-events-none z-10"></div>
-          <img
-            src="/images/brand/hero-recycle-card.jpg"
-            alt="Sustainable green recycling – moss recycling symbol surrounded by lush foliage"
-            class="w-full aspect-[4/3] object-cover object-center"
-            loading="eager"
-            decoding="async"
-          />
-        </div>
-      </div>
-
+      <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-200 max-w-xl leading-relaxed font-sans font-normal font-[400]">
+        We responsibly recycle and remarket retired IT equipment, ensuring zero landfill and maximum value recovery.
+      </p>
     </div>
   </div>
 
