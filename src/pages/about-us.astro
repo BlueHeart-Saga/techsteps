@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BrandLogo from '../components/global/BrandLogo.astro';
 import { getAboutPage } from '../lib/sanity/client';
 
 const about = await getAboutPage().catch(() => ({}));
@@ -26,7 +25,6 @@ const aboutPageSchema = {
   description={about?.metaDescription || 'We look after the assets that carry the most risk when a business changes — data, records, equipment and premises. Handled securely, recorded end to end, and returned to value wherever it can be.'}
   canonicalUrl={canonicalUrl}
   jsonLd={aboutPageSchema}
-  hasHeroHeader={true}
 >
   <!-- Google Fonts for Archivo and IBM Plex Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
@@ -38,8 +36,8 @@ const aboutPageSchema = {
   />
 
   <div class="about-page-wrapper">
-    <!-- 1 · HERO WITH CLEAR, VIBRANT BACKGROUND IMAGE & INTEGRATED NAVBAR -->
-    <section id="top" class="hero on-dark">
+    <!-- 1 · HERO WITH CLEAR, VIBRANT BACKGROUND IMAGE AS IT IS -->
+    <section id="top" class="hero on-dark pt-28 sm:pt-32 lg:pt-36">
       <!-- Background Image Layer: Visible As It Is -->
       <div class="hero-bg-media absolute inset-0 select-none pointer-events-none overflow-hidden z-0" aria-hidden="true">
         <img
@@ -53,150 +51,19 @@ const aboutPageSchema = {
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25"></div>
       </div>
 
-      <!-- 1. Integrated Navbar at Top of Hero (Full width, \ curve leading edge) -->
-      <header id="hero-header" class="relative z-50 w-full flex items-center justify-between h-20 sm:h-22">
-        <!-- Left: Transparent Brand Area -->
-        <div class="flex items-center h-full pl-6 sm:pl-10 lg:pl-12 pr-2 sm:pr-4 bg-transparent shrink-0">
-          <a
-            href="/"
-            class="flex items-center focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-lg py-1.5"
-            aria-label="TechSteps UK Home"
-          >
-            <BrandLogo size="xl" variant="light" showTagline={false} />
-          </a>
-        </div>
-
-        <!-- Right / Other Area: White Bar with \ Smooth Curved Leading Edge -->
-        <div class="h-full flex-1 flex items-center justify-end min-w-0">
-          <!-- SVG Curved Leading Edge (\ slope with G1 smooth bezier rounding) -->
-          <svg
-            viewBox="0 0 64 88"
-            preserveAspectRatio="none"
-            class="h-full w-10 sm:w-14 lg:w-16 shrink-0 -mr-[1px] pointer-events-none select-none drop-shadow-xs"
-            aria-hidden="true"
-          >
-            <!-- White Filled Wedge with \ slope -->
-            <path
-              d="M 0,0 Q 14,0 24,20 L 44,66 Q 52,88 64,88 L 64,0 Z"
-              fill="#FFFFFF"
-            />
-          </svg>
-
-          <!-- Solid White Navigation Container (No Bottom Border) -->
-          <div class="h-full flex-1 flex items-center justify-end bg-white shadow-md pl-2 sm:pl-4 pr-6 sm:pr-10 lg:pr-12">
-            <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-[16px] xl:text-[17px] font-sans tracking-normal" aria-label="Main Navigation">
-              <a
-                href="/about-us"
-                class="py-1.5 px-1 border-b-2 border-slate-900 text-slate-950 font-bold bg-transparent transition-all duration-150"
-              >
-                About Us
-              </a>
-
-              <!-- Services Mega Menu Link (Direct Click to /services, Hover Opens Mega Menu) -->
-              <div class="relative flex items-center group">
-                <a
-                  href="/services"
-                  class={`services-megamenu-toggle inline-flex items-center gap-1.5 py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 cursor-pointer focus:outline-none ${
-                    currentPath.startsWith('/services') || currentPath === '/information-management' || currentPath === '/it-lifecycle-services-destruction' || currentPath === '/secure-shredding-document-integrity' || currentPath === '/moving-relocation-services'
-                      ? 'border-slate-900 text-slate-950 font-bold'
-                      : 'border-transparent text-slate-600 hover:text-slate-950 hover:border-slate-800 font-medium'
-                  }`}
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  aria-controls="services-megamenu-panel"
-                  data-is-active-route={currentPath.startsWith('/services') ? 'true' : 'false'}
-                >
-                  <span>Services</span>
-                  <svg class="h-3.5 w-3.5 text-slate-400 group-hover:text-slate-700 transition-transform duration-200 caret-icon shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-              </div>
-
-              <!-- Sectors Dropdown Link (Direct Click to /sectors, Hover Opens Dropdown) -->
-              <div class="relative sectors-trigger-wrap flex items-center group">
-                <a
-                  href="/sectors"
-                  class={`sectors-dropdown-toggle inline-flex items-center gap-1.5 py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 cursor-pointer focus:outline-none ${
-                    currentPath.startsWith('/sectors')
-                      ? 'border-slate-900 text-slate-950 font-bold'
-                      : 'border-transparent text-slate-600 hover:text-slate-950 hover:border-slate-800 font-medium'
-                  }`}
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  aria-controls="sectors-dropdown-panel"
-                  data-is-active-route={currentPath.startsWith('/sectors') ? 'true' : 'false'}
-                >
-                  <span>Sectors</span>
-                  <svg class="h-3.5 w-3.5 text-slate-400 group-hover:text-slate-700 transition-transform duration-200 caret-icon shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-              </div>
-
-              <a
-                href="/insights"
-                class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
-                  currentPath.startsWith('/insights')
-                    ? 'border-slate-900 text-slate-950 font-bold'
-                    : 'border-transparent text-slate-600 hover:text-slate-950 hover:border-slate-800 font-medium'
-                }`}
-              >
-                Insights
-              </a>
-
-              <a
-                href="/contact"
-                class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
-                  currentPath === '/contact'
-                    ? 'border-slate-900 text-slate-950 font-bold'
-                    : 'border-transparent text-slate-600 hover:text-slate-950 hover:border-slate-800 font-medium'
-                }`}
-              >
-                Contact
-              </a>
-            </nav>
-
-            <!-- CTA Pill Button & Mobile Trigger in White Area -->
-            <div class="flex items-center gap-3 ml-6 sm:ml-8">
-              <a
-                href="/request-a-quote"
-                class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#E58A3C] hover:bg-[#d97d2e] text-white text-[15px] font-sans font-bold shadow-md transition-all duration-150 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#E58A3C]"
-              >
-                Request a Collection
-              </a>
-
-              <!-- Mobile Hamburger Button -->
-              <button
-                type="button"
-                class="open-mobile-menu-btn lg:hidden p-2 rounded-lg text-slate-700 hover:text-black hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-                aria-label="Open mobile navigation menu"
-              >
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <!-- 2. Breadcrumbs: Positioned cleanly below the header -->
-      <div class="shell relative z-40 pt-4 pb-2 w-full">
-        <nav class="flex items-center text-xs sm:text-sm font-sans font-medium text-slate-300/90" aria-label="Breadcrumb">
+      <div class="shell relative z-10">
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center text-xs sm:text-sm font-sans font-medium text-slate-300/90 pb-4 sm:pb-6" aria-label="Breadcrumb">
           <a href="/" class="hover:text-white transition-colors duration-150">Home</a>
           <span class="inline-flex items-center">
             <span class="mx-2 text-slate-400/80">/</span>
             <span class="text-white font-semibold">About Us</span>
           </span>
         </nav>
-      </div>
-
-      <div class="shell relative z-10 pt-6 sm:pt-10 lg:pt-12">
         <div class="grid">
           <div>
             <p class="eyebrow lift">About Techsteps</p>
-            <h1 class="lift">Managing What Matters.<span class="l2 text-[#3FB33D]">Protecting What Comes Next.</span></h1>
+            <h1 class="lift">Managing What Matters.<span class="l2 text-[#0F623A]">Protecting What Comes Next.</span></h1>
             <p class="lede lift text-white">We protect your business's critical assets — data, records, and hardware — handled securely and returned to value.</p>
           </div>
           <figure class="hero-figure lift">
@@ -215,56 +82,102 @@ const aboutPageSchema = {
       </div>
     </section>
 
-    <!-- 2 · WHO WE ARE (CLEAN WHITE SURFACE WITH VIBRANT LEAF GREEN ACCENTS) -->
-    <section id="who" class="band bg-white">
+    <!-- 2 · WHO WE ARE (EXACT REFERENCE DESIGN WITH SITE FONTS) -->
+    <section id="who" class="band bg-white py-12 sm:py-16 lg:py-20">
       <div class="shell">
-        <div class="head-rule">
-          <span class="dot"></span>
-          <p class="eyebrow">Who we are</p>
-          <span class="line"></span>
-        </div>
-        <div class="who">
-          <div class="body">
-            <h2>Three disciplines, one chain of custody.</h2>
-            <p class="first">Techsteps was built around a problem most businesses meet at the worst possible moment: what to do with the equipment, records and premises they are leaving behind.</p>
-            <p>We started in secure IT disposal and grew into the services that sit either side of it. Today a single team can clear a floor, erase and remarket the hardware, digitise the paper records, move what stays and store what is not needed yet — under one point of accountability rather than four suppliers pointing at each other.</p>
-            <p>That matters because the risk does not stop at the loading bay. Every asset we touch is logged, tracked and reported on, from the moment it leaves your site to the certificate that closes the job. Data-bearing media is erased or destroyed to standard. Equipment with life left in it is refurbished and resold, and the recovered value goes back to you.</p>
-            <p>We work with organisations that cannot afford a gap in the record: NHS trusts and healthcare providers, councils and public bodies, financial and legal firms, schools and universities, museums and archives, and IT teams inside businesses of every size.</p>
-            <ul class="sectors">
-              <li><a href="/sectors/nhs">Healthcare &amp; NHS</a></li>
-              <li><a href="/sectors/central-government">Public sector</a></li>
-              <li><a href="/sectors/finance">Finance &amp; legal</a></li>
-              <li><a href="/sectors">Education</a></li>
-              <li><a href="/sectors">Heritage &amp; archives</a></li>
-              <li><a href="/sectors">Corporate IT</a></li>
-            </ul>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <!-- Left Column: Content, Headline & 3 Icon Pillars -->
+          <div class="lg:col-span-7 flex flex-col">
+            <!-- Eyebrow with green line -->
+            <div class="flex items-center gap-3 mb-4 sm:mb-5">
+              <span class="text-xs sm:text-sm font-bold tracking-widest text-[#0F623A] uppercase font-sans">
+                WHO WE ARE
+              </span>
+              <span class="w-8 h-[2.5px] bg-[#0F623A] rounded-full inline-block"></span>
+            </div>
+
+            <!-- Main Heading -->
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-950 tracking-tight leading-[1.12] mb-6 sm:mb-8">
+              Technology With <span class="text-[#0F623A]">Purpose</span>
+            </h2>
+
+            <!-- Narrative Paragraphs -->
+            <div class="space-y-4 text-base sm:text-lg text-slate-700 leading-relaxed font-normal mb-8 sm:mb-10">
+              <p>
+                Techsteps helps businesses manage the complete lifecycle of their IT and information assets &mdash; from secure collection and data destruction to remarketing, recycling and responsible recovery.
+              </p>
+              <p>
+                Our approach combines security, sustainability and value recovery to help organisations handle retired assets with confidence.
+              </p>
+            </div>
+
+            <!-- 3 Feature Pillars Row -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
+              <!-- Feature 1: Secure Asset Handling -->
+              <div class="space-y-3">
+                <div class="w-12 h-12 rounded-full bg-[#EBF5EF] text-[#0F623A] flex items-center justify-center">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="text-base sm:text-[17px] font-bold text-slate-900 leading-snug">
+                    Secure Asset<br class="hidden sm:inline" /> Handling
+                  </h3>
+                  <p class="text-xs sm:text-[13.5px] text-slate-500 leading-relaxed font-normal">
+                    Protecting your data and your business.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Feature 2: Responsible Recovery -->
+              <div class="space-y-3">
+                <div class="w-12 h-12 rounded-full bg-[#EBF5EF] text-[#0F623A] flex items-center justify-center">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
+                    <line x1="16" y1="8" x2="2" y2="22" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="text-base sm:text-[17px] font-bold text-slate-900 leading-snug">
+                    Responsible<br class="hidden sm:inline" /> Recovery
+                  </h3>
+                  <p class="text-xs sm:text-[13.5px] text-slate-500 leading-relaxed font-normal">
+                    Reducing e-waste, protecting the planet.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Feature 3: Value From Retirements -->
+              <div class="space-y-3">
+                <div class="w-12 h-12 rounded-full bg-[#EBF5EF] text-[#0F623A] flex items-center justify-center">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="text-base sm:text-[17px] font-bold text-slate-900 leading-snug">
+                    Value From<br class="hidden sm:inline" /> Retirements
+                  </h3>
+                  <p class="text-xs sm:text-[13.5px] text-slate-500 leading-relaxed font-normal">
+                    Giving IT assets a second life.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="arcwrap">
-            <svg viewBox="0 0 200 420" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M8 10 C 78 92, 104 200, 60 410" fill="none" stroke="rgba(63, 179, 61, 0.3)" stroke-width="1.8"/>
-            </svg>
-            <ol>
-              <li>
-                <p class="yr">Founded</p>
-                <h3>Secure IT disposal</h3>
-                <p>One job: get redundant IT off site without losing control of the data on it.</p>
-              </li>
-              <li>
-                <p class="yr">Expanded</p>
-                <h3>Records and media</h3>
-                <p>Clients kept asking who would handle the paper. Storage and scanning followed.</p>
-              </li>
-              <li>
-                <p class="yr">Scaled</p>
-                <h3>Facilities and fleet</h3>
-                <p>Dedicated secure premises, vetted crews and a tracked fleet covering the UK.</p>
-              </li>
-              <li class="now">
-                <p class="yr">Today</p>
-                <h3>Three divisions, one contract</h3>
-                <p>Lifecycle, information and relocation run as one service with a single audit trail.</p>
-              </li>
-            </ol>
+
+          <!-- Right Column: Image -->
+          <div class="lg:col-span-5 flex items-center justify-center lg:justify-end">
+            <div class="relative w-full max-w-[520px]">
+              <img
+                src="/images/about/who-we-are-technician.png"
+                alt="Techsteps certified technician inspecting refurbished hardware"
+                class="w-full h-auto object-contain max-h-[560px] drop-shadow-md mx-auto lg:ml-auto"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -349,7 +262,7 @@ const aboutPageSchema = {
             <path
               d="M120 12 C 250 12, 250 60, 375 60 S 500 12, 625 12 S 750 60, 875 60"
               fill="none"
-              stroke="#3FB33D"
+              stroke="#0F623A"
               stroke-width="2"
               stroke-dasharray="6 6"
               opacity=".4"
@@ -552,7 +465,7 @@ const aboutPageSchema = {
     -->
 
     <!-- 7 · LET'S TALK ABOUT SECTION (WHITE BACKGROUND, SPLIT LAYOUT WITH IMAGE ON LEFT & CONTENT ON RIGHT) -->
-    <section id="talk" class="talk-white-section py-16 sm:py-20 lg:py-28 bg-white relative overflow-hidden border-t border-slate-200">
+    <section id="talk" class="talk-white-section py-10 sm:py-12 lg:py-16 bg-white relative overflow-hidden border-t border-slate-200">
       <div class="shell relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
@@ -570,7 +483,7 @@ const aboutPageSchema = {
               
               <!-- Bottom Badge on Image -->
               <div class="absolute bottom-5 left-5 right-5 flex items-center justify-between text-white text-xs font-mono tracking-wider">
-                <span class="bg-[#3FB33D] px-3.5 py-1.5 rounded-full font-medium shadow-md flex items-center gap-1.5 text-white">
+                <span class="bg-[#0F623A] px-3.5 py-1.5 rounded-full font-medium shadow-md flex items-center gap-1.5 text-white">
                   <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
                   UK-WIDE LOGISTICS
                 </span>
@@ -581,7 +494,7 @@ const aboutPageSchema = {
             </div>
 
             <!-- Ambient Background Accent Behind Image -->
-            <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-[#3FB33D]/10 rounded-full filter blur-2xl -z-10"></div>
+            <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-[#0F623A]/10 rounded-full filter blur-2xl -z-10"></div>
           </div>
 
           <!-- Right Column: Content, Headings, Buttons & Contact Details -->
@@ -593,7 +506,7 @@ const aboutPageSchema = {
             </div>
 
             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight leading-[1.08]">
-              Let's Talk About <span class="text-[#3FB33D] block mt-1">What Comes Next.</span>
+              Let's Talk About <span class="text-[#0F623A] block mt-1">What Comes Next.</span>
             </h2>
 
             <p class="text-base sm:text-lg text-slate-600 max-w-2xl mt-5 leading-relaxed font-normal">
@@ -602,9 +515,9 @@ const aboutPageSchema = {
 
             <!-- Action Buttons -->
             <div class="flex flex-wrap items-center gap-4 mt-8">
-              <a class="btn btn-primary" href="/contact">
-                <span>Talk to Techsteps</span>
-                <span aria-hidden="true">&rarr;</span>
+              <a class="btn btn-primary text-white font-bold" href="/contact">
+                <span class="text-white">Talk to Techsteps</span>
+                <span aria-hidden="true" class="text-white">&rarr;</span>
               </a>
               <a class="btn btn-secondary" href="/request-a-collection">
                 <span>Request a Collection</span>
@@ -613,8 +526,8 @@ const aboutPageSchema = {
 
             <!-- Direct Contact Line -->
             <div class="talk-contactline mt-10 pt-6 border-t border-slate-200 flex flex-wrap gap-y-3 gap-x-8 text-sm text-slate-600">
-              <span><span class="text-slate-900 font-medium">Call:</span> <a href="tel:+442079460888" class="hover:text-[#3FB33D] font-medium transition-colors">+44 (0) 20 7946 0888</a></span>
-              <span><span class="text-slate-900 font-medium">Email:</span> <a href="mailto:hello@techsteps.co.uk" class="hover:text-[#3FB33D] font-medium transition-colors">hello@techsteps.co.uk</a></span>
+              <span><span class="text-slate-900 font-medium">Call:</span> <a href="tel:+442079460888" class="hover:text-[#0F623A] font-medium transition-colors">+44 (0) 20 7946 0888</a></span>
+              <span><span class="text-slate-900 font-medium">Email:</span> <a href="mailto:hello@techsteps.co.uk" class="hover:text-[#0F623A] font-medium transition-colors">hello@techsteps.co.uk</a></span>
               <span><span class="text-slate-900 font-medium">Hours:</span> Mon–Fri, 8am–6pm</span>
             </div>
           </div>
@@ -627,11 +540,11 @@ const aboutPageSchema = {
 
 <style>
 .about-page-wrapper {
-  /* Techsteps Services Page Signature Color System (#3FB33D + #0F623A + White) */
-  --green-primary: #3FB33D;
+  /* Techsteps Services Page Signature Color System (#0F623A + #0F623A + White) */
+  --green-primary: #0F623A;
   --green-forest: #0F623A;
   --green-darkest: #0A331E;
-  --green-hover: #329532;
+  --green-hover: #124d2b;
   --green-light: #F2F8F5;
   --green-surface: #EFF8F3;
   
@@ -664,12 +577,12 @@ const aboutPageSchema = {
 }
 
 .about-page-wrapper img,
-.about-page-wrapper svg:not(#hero-header svg) {
+.about-page-wrapper svg {
   display: block;
   max-width: 100%;
 }
 
-.about-page-wrapper a:not(#hero-header a) {
+.about-page-wrapper a {
   color: inherit;
 }
 
@@ -710,7 +623,7 @@ const aboutPageSchema = {
 }
 
 .on-dark .eyebrow {
-  color: #3FB33D;
+  color: #0F623A;
 }
 
 /* Photo slots — chamfered "seal cut", never a plain rectangle */
@@ -756,8 +669,8 @@ const aboutPageSchema = {
   background: var(--green-darkest);
   color: #fff;
   position: relative;
-  padding-bottom: clamp(70px, 9vw, 120px);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - clamp(48px, 6vw, 96px)));
+  padding-bottom: clamp(36px, 5vw, 64px);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - clamp(28px, 3.5vw, 48px)));
 }
 
 .hero::after {
@@ -768,7 +681,7 @@ const aboutPageSchema = {
   width: 60%;
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 1.5px solid rgba(63, 179, 61, 0.3);
+  border: 1.5px solid rgba(24, 98, 55, 0.3);
   pointer-events: none;
   z-index: 1;
 }
@@ -790,7 +703,7 @@ const aboutPageSchema = {
 
 .hero h1 .l2 {
   display: block;
-  color: #3FB33D;
+  color: #0F623A;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
 }
 
@@ -915,14 +828,14 @@ const aboutPageSchema = {
 }
 
 .band {
-  padding-block: clamp(64px, 8.5vw, 120px);
+  padding-block: clamp(32px, 4.2vw, 56px);
 }
 
 .head-rule {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: clamp(28px, 3.6vw, 50px);
+  margin-bottom: clamp(18px, 2.4vw, 32px);
 }
 
 .head-rule .dot {
@@ -942,8 +855,9 @@ const aboutPageSchema = {
 /* 2 · WHO WE ARE */
 .who {
   display: grid;
-  grid-template-columns: minmax(0, 60fr) minmax(0, 40fr);
+  grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
   gap: clamp(34px, 5vw, 80px);
+  align-items: center;
 }
 
 .who h2 {
@@ -998,88 +912,23 @@ const aboutPageSchema = {
   transform: translateY(-1px);
 }
 
-.arcwrap {
+.who-image-wrap {
   position: relative;
-  min-height: 420px;
-}
-
-.arcwrap > svg {
-  position: absolute;
-  inset: 0;
   width: 100%;
-  height: 100%;
-  overflow: visible;
 }
 
-.arcwrap ol {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  z-index: 2;
+.who-image-wrap img {
+  transform-origin: center;
+  transition: transform 0.4s ease;
 }
 
-.arcwrap li {
-  position: relative;
-  padding-bottom: 26px;
-}
-
-.arcwrap li:nth-child(1) { margin-left: 4%; }
-.arcwrap li:nth-child(2) { margin-left: 15%; }
-.arcwrap li:nth-child(3) { margin-left: 22%; }
-.arcwrap li:nth-child(4) { margin-left: 14%; }
-
-.arcwrap li::before {
-  content: "";
-  position: absolute;
-  left: -26px;
-  top: 8px;
-  width: 11px;
-  height: 12px;
-  background: var(--green-forest);
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-}
-
-.arcwrap li.now::before {
-  background: var(--green-primary);
-  transform: scale(1.4);
-  box-shadow: 0 0 12px rgba(63, 179, 61, 0.6);
-}
-
-.arcwrap .yr {
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: 12.5px;
-  letter-spacing: .07em;
-  color: var(--green-primary);
-  text-transform: uppercase;
-}
-
-.arcwrap h3 {
-  font-size: 17.5px;
-  font-weight: 600;
-  margin: 2px 0 5px;
-  color: #0F172A;
-}
-
-.arcwrap li p {
-  font-size: 14px;
-  color: var(--on-surface-dim);
-  max-width: 30ch;
+.who-image-wrap:hover img {
+  transform: scale(1.02);
 }
 
 @media (max-width: 900px) {
   .who {
     grid-template-columns: 1fr;
-  }
-  .arcwrap {
-    min-height: 0;
-  }
-  .arcwrap > svg {
-    display: none;
-  }
-  .arcwrap li {
-    margin-left: 26px !important;
   }
 }
 
@@ -1092,11 +941,11 @@ const aboutPageSchema = {
 }
 
 .division:nth-child(2) {
-  margin-top: clamp(0px, 4.5vw, 58px);
+  margin-top: clamp(0px, 2vw, 24px);
 }
 
 .division:nth-child(3) {
-  margin-top: clamp(0px, 9vw, 116px);
+  margin-top: clamp(0px, 4vw, 48px);
 }
 
 .division .shot {
@@ -1186,7 +1035,7 @@ const aboutPageSchema = {
   background: var(--surface);
   color: var(--on-surface);
   position: relative;
-  padding-block: clamp(70px, 8.5vw, 120px);
+  padding-block: clamp(32px, 4.2vw, 56px);
 }
 
 .approach .head-rule .line {
@@ -1207,7 +1056,7 @@ const aboutPageSchema = {
 
 .flow {
   position: relative;
-  margin-top: clamp(44px, 5vw, 70px);
+  margin-top: clamp(24px, 3.2vw, 40px);
 }
 
 .flow > svg {
@@ -1238,7 +1087,7 @@ const aboutPageSchema = {
 }
 
 .step:nth-child(even) {
-  transform: translateY(46px);
+  transform: translateY(28px);
 }
 
 .hex {
@@ -1370,7 +1219,7 @@ const aboutPageSchema = {
 }
 
 .stats {
-  margin-top: clamp(44px, 5.4vw, 74px);
+  margin-top: clamp(24px, 3.2vw, 40px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: clamp(10px, 1.4vw, 18px);
@@ -1406,7 +1255,7 @@ const aboutPageSchema = {
 
 .stat em {
   font-style: normal;
-  color: #3FB33D;
+  color: #0F623A;
 }
 
 .stat.highlight-stat em {
@@ -1503,7 +1352,7 @@ const aboutPageSchema = {
 
 .badge:hover .stamp {
   transform: scale(1.08);
-  filter: drop-shadow(0 14px 26px rgba(63, 179, 61, 0.42));
+  filter: drop-shadow(0 14px 26px rgba(24, 98, 55, 0.42));
 }
 
 .stamp::after {
@@ -1516,7 +1365,7 @@ const aboutPageSchema = {
 }
 
 .stamp.stamp-green {
-  background: linear-gradient(145deg, #4ADE80 0%, #3FB33D 50%, #208732 100%);
+  background: linear-gradient(145deg, #2A7E4F 0%, #0F623A 50%, #104627 100%);
   color: #FFFFFF;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
@@ -1586,15 +1435,15 @@ const aboutPageSchema = {
 
 .btn-primary {
   background: var(--green-primary);
-  color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(63,179,61,0.35);
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(15, 98, 58, 0.35);
 }
 
 .btn-primary:hover {
   background: var(--green-hover);
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(63,179,61,0.45);
+  box-shadow: 0 6px 20px rgba(15, 98, 58, 0.45);
 }
 
 .btn-secondary {

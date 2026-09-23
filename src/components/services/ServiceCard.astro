@@ -13,7 +13,7 @@ const { service, showDivision = true } = Astro.props;
   <!-- Visual Accent Header with Category Badge -->
   <div class="h-44 relative bg-gradient-to-br from-[#0A331E] via-[#0F623A] to-[#072011] overflow-hidden p-6 flex flex-col justify-between">
     <!-- Subtle Grid Effect -->
-    <div class="absolute inset-0 bg-[radial-gradient(#3FB33D_1px,transparent_1px)] [background-size:16px_16px] opacity-20 group-hover:opacity-30 transition-opacity"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#0F623A_1px,transparent_1px)] [background-size:16px_16px] opacity-20 group-hover:opacity-30 transition-opacity"></div>
 
     <!-- Category Pill -->
     <div class="relative z-10 flex items-center justify-between">
@@ -22,12 +22,12 @@ const { service, showDivision = true } = Astro.props;
           {service.divisionTitle}
         </span>
       )}
-      <span class="h-2 w-2 rounded-full bg-[#3FB33D]"></span>
+      <span class="h-2 w-2 rounded-full bg-[#0F623A]"></span>
     </div>
 
     <!-- Icon & Service Title in Card Header -->
     <div class="relative z-10">
-      <div class="h-10 w-10 rounded-xl bg-white/10 border border-white/20 text-[#3FB33D] flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+      <div class="h-10 w-10 rounded-xl bg-white/10 border border-white/20 text-[#0F623A] flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
         </svg>

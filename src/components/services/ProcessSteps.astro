@@ -125,7 +125,7 @@ const curvePositions = [
         <linearGradient id="processCurveGrad" x1="0%" y1="100%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#0F623A" stop-opacity="0.3" />
           <stop offset="25%" stop-color="#0F623A" stop-opacity="0.8" />
-          <stop offset="65%" stop-color="#2EC458" stop-opacity="1" />
+          <stop offset="65%" stop-color="#0F623A" stop-opacity="1" />
           <stop offset="100%" stop-color="#146B5C" stop-opacity="0.9" />
         </linearGradient>
 
@@ -139,7 +139,7 @@ const curvePositions = [
       <path
         d={pathD}
         fill="none"
-        stroke="#2EC458"
+        stroke="#0F623A"
         stroke-width="12"
         stroke-opacity="0.35"
         filter="url(#processGlow)"
@@ -189,7 +189,7 @@ const curvePositions = [
             <!-- 1. Text Header above Image (Number, Title & Short Desc) -->
             <div class="mb-2 text-center transition-transform duration-300 group-hover:-translate-y-1.5">
               <div class="flex items-center justify-center gap-1.5 text-sm sm:text-[15px] font-extrabold uppercase tracking-wider text-brand-navy group-hover:text-[#0F623A] group-[.active]:text-[#0F623A] transition-colors whitespace-nowrap">
-                <span class="text-[#0F623A] group-hover:text-[#2EC458] group-[.active]:text-[#2EC458] font-black">{step.stepNumber}.</span>
+                <span class="text-[#0F623A] group-hover:text-[#0F623A] group-[.active]:text-[#0F623A] font-black">{step.stepNumber}.</span>
                 <span>{step.title}</span>
               </div>
               <p class="text-xs sm:text-[13px] text-slate-600 font-semibold tracking-normal mt-0.5 whitespace-nowrap group-hover:text-slate-950 group-[.active]:text-slate-950 transition-colors">
@@ -215,7 +215,7 @@ const curvePositions = [
               />
 
               <!-- Alignment Dot Anchoring Directly on SVG Curve Track -->
-              <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-[#0F623A] border-2 border-white shadow-md z-20 group-hover:scale-125 group-hover:bg-[#2EC458] group-[.active]:bg-[#2EC458] group-[.active]:scale-125 transition-all"></div>
+              <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-[#0F623A] border-2 border-white shadow-md z-20 group-hover:scale-125 group-hover:bg-[#0F623A] group-[.active]:bg-[#0F623A] group-[.active]:scale-125 transition-all"></div>
             </div>
           </div>
         </div>
@@ -238,7 +238,7 @@ const curvePositions = [
   <!-- MOBILE / TABLET RESPONSIVE WORKFLOW (Vertical timeline with prominent images, NO box) -->
   <div class="lg:hidden relative pl-6 sm:pl-8 space-y-6 sm:space-y-8">
     <!-- Vertical Connecting Glowing Guideline -->
-    <div class="absolute left-10 sm:left-12 top-6 bottom-6 w-0.5 bg-gradient-to-b from-[#0F623A] via-[#2EC458] to-[#146B5C] rounded-full" aria-hidden="true"></div>
+    <div class="absolute left-10 sm:left-12 top-6 bottom-6 w-0.5 bg-gradient-to-b from-[#0F623A] via-[#0F623A] to-[#146B5C] rounded-full" aria-hidden="true"></div>
 
     {steps.map((step) => (
       <div class="relative flex items-start gap-4 sm:gap-6 group">

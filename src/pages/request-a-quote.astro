@@ -184,10 +184,10 @@ const description = "Book an IT equipment collection. Takes about two minutes. Y
             </div>
           </div>
 
-          <!-- Section: DEVICES -->
+          <!-- Section: DEVICES & IT ASSETS -->
           <div class="pt-3">
-            <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[#0F5A47] mb-4 font-sans">
-              DEVICES
+            <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[#0F623A] mb-4 font-sans">
+              DEVICES &amp; IT ASSETS
             </h2>
             <div class="space-y-3.5">
               <!-- Laptops -->
@@ -198,7 +198,7 @@ const description = "Book an IT equipment collection. Takes about two minutes. Y
                   value="0"
                   id="device_laptops"
                   name="device_laptops"
-                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all font-sans"
+                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
                 />
                 <label for="device_laptops" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none">
                   Laptops
@@ -213,7 +213,7 @@ const description = "Book an IT equipment collection. Takes about two minutes. Y
                   value="0"
                   id="device_chromebooks"
                   name="device_chromebooks"
-                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all font-sans"
+                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
                 />
                 <label for="device_chromebooks" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none">
                   Chromebooks
@@ -228,10 +228,25 @@ const description = "Book an IT equipment collection. Takes about two minutes. Y
                   value="0"
                   id="device_tablets"
                   name="device_tablets"
-                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all font-sans"
+                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
                 />
                 <label for="device_tablets" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none">
                   Tablets
+                </label>
+              </div>
+
+              <!-- IT Assets (Desktops, Servers, Networking) -->
+              <div class="flex items-center gap-4">
+                <input
+                  type="number"
+                  min="0"
+                  value="0"
+                  id="device_it_assets"
+                  name="device_it_assets"
+                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
+                />
+                <label for="device_it_assets" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none">
+                  IT Assets (Desktops, Servers &amp; Networking)
                 </label>
               </div>
 
@@ -243,11 +258,25 @@ const description = "Book an IT equipment collection. Takes about two minutes. Y
                   value="0"
                   id="device_accessories"
                   name="device_accessories"
-                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all font-sans"
+                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
                 />
                 <label for="device_accessories" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none">
                   Chargers &amp; accessories
                 </label>
+              </div>
+
+              <!-- Other Assets with Text Input -->
+              <div class="flex flex-col sm:flex-row sm:items-center gap-3 pt-1">
+                <label for="device_other_text" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none shrink-0 w-20">
+                  Other
+                </label>
+                <input
+                  type="text"
+                  id="device_other_text"
+                  name="device_other_text"
+                  placeholder="Enter other asset details (e.g. Monitors, Printers, Hard Drives, Racks...)"
+                  class="w-full sm:flex-1 bg-[#F1F3EE] border border-slate-200/90 rounded-lg px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
+                />
               </div>
             </div>
           </div>
@@ -262,7 +291,7 @@ const description = "Book an IT equipment collection. Takes about two minutes. Y
               name="notes"
               rows="4"
               placeholder="e.g. one laptop won't power on; building has a loading bay at the rear"
-              class="w-full bg-[#F1F3EE] border border-slate-200/90 rounded-lg px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all resize-y font-sans"
+              class="w-full bg-[#F1F3EE] border border-slate-200/90 rounded-lg px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all resize-y font-sans"
             ></textarea>
           </div>
 
@@ -273,7 +302,7 @@ const description = "Book an IT equipment collection. Takes about two minutes. Y
             </p>
             <button
               type="submit"
-              class="bg-[#0F5A47] hover:bg-[#0B4536] text-white font-bold text-sm sm:text-base px-8 py-3.5 rounded-lg shadow-sm hover:shadow-md transition-all shrink-0 cursor-pointer font-sans"
+              class="bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm sm:text-base px-8 py-3.5 rounded-lg shadow-sm hover:shadow-md transition-all shrink-0 cursor-pointer font-sans"
             >
               Submit request
             </button>
@@ -285,7 +314,7 @@ const description = "Book an IT equipment collection. Takes about two minutes. Y
       <div class="max-w-4xl mx-auto mt-8 text-center">
         <p class="text-xs sm:text-sm text-slate-500 font-medium">
           Need an urgent or same-day collection? Contact our logistics desk directly on{" "}
-          <a href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`} class="font-bold text-[#0F5A47] hover:underline">
+          <a href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`} class="font-bold text-[#0F623A] hover:underline">
             {siteSettings.phone}
           </a>
         </p>
@@ -313,7 +342,9 @@ const description = "Book an IT equipment collection. Takes about two minutes. Y
     const laptops = formData.get("device_laptops") || "0";
     const chromebooks = formData.get("device_chromebooks") || "0";
     const tablets = formData.get("device_tablets") || "0";
+    const itAssets = formData.get("device_it_assets") || "0";
     const accessories = formData.get("device_accessories") || "0";
+    const otherText = formData.get("device_other_text") || "";
     const notes = formData.get("notes") || "";
 
     const ref = `TS-COL-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -341,11 +372,13 @@ const description = "Book an IT equipment collection. Takes about two minutes. Y
       `- Collection Address: ${address}\n` +
       `- Preferred Outcome: ${outcome}\n` +
       `- Preferred Collection Date: ${collectionDate || "Flexible"}\n\n` +
-      `Devices:\n` +
+      `Devices & IT Assets:\n` +
       `- Laptops: ${laptops}\n` +
       `- Chromebooks: ${chromebooks}\n` +
       `- Tablets: ${tablets}\n` +
-      `- Chargers & Accessories: ${accessories}\n\n` +
+      `- IT Assets (Desktops / Servers / Networking): ${itAssets}\n` +
+      `- Chargers & Accessories: ${accessories}\n` +
+      `- Other: ${otherText || "None specified"}\n\n` +
       `Notes / Instructions:\n${notes || "None provided"}\n`
     );
 

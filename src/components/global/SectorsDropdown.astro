@@ -81,7 +81,7 @@ const columnsData = sectorColumns.map((col) => ({
         <div class="space-y-4">
           <a
             href="/sectors"
-            class="block text-sm sm:text-[15px] font-bold text-[#0F623A] hover:text-black uppercase tracking-wider transition-colors pb-2 border-b border-slate-200"
+            class="block text-[15px] sm:text-base font-bold text-[#0F623A] hover:text-black uppercase tracking-wider transition-colors pb-2.5 border-b border-slate-200"
           >
             {col.title}
           </a>
@@ -92,7 +92,7 @@ const columnsData = sectorColumns.map((col) => ({
                 href={`/sectors/${sec.slug}`}
                 class="group block space-y-1 hover:translate-x-1 transition-all duration-150 py-0.5"
               >
-                <h4 class="text-[15px] sm:text-base font-bold text-slate-800 group-hover:text-[#0F623A] transition-colors leading-snug">
+                <h4 class="text-lg sm:text-[20px] lg:text-[21px] font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug">
                   {sec.title}
                 </h4>
                 <p class="text-xs sm:text-[13px] text-slate-500 leading-relaxed font-normal group-hover:text-slate-700 transition-colors">
@@ -106,19 +106,18 @@ const columnsData = sectorColumns.map((col) => ({
     </div>
 
     <!-- Bottom Utility Footer (Matching Services Mega Menu) -->
-    <div class="relative z-10 mt-6 sm:mt-7 pt-4 sm:pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-sm">
+    <div class="relative z-10 mt-6 sm:mt-8 pt-4 sm:pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-sm sm:text-base">
       <a
         href="/sustainability"
-        class="font-bold text-[#0F623A] hover:text-[#0c4e2e] flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100/90 border border-emerald-200/90 shadow-xs transition-all duration-150 group"
+        class="text-lg sm:text-xl font-bold text-[#0F623A] hover:text-black flex items-center gap-2 transition-colors group py-1"
       >
-        <span class="w-2 h-2 rounded-full bg-[#2EC458]"></span>
         <span>Sustainability &amp; ESG</span>
-        <span class="transition-transform duration-150 group-hover:translate-x-0.5">&rarr;</span>
+        <span class="transition-transform duration-150 group-hover:translate-x-1">&rarr;</span>
       </a>
 
       <a
         href="/sectors"
-        class="font-bold text-white bg-[#0F623A] hover:bg-[#0c4e2e] flex items-center gap-2 px-6 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all"
+        class="font-bold text-sm sm:text-base text-white bg-[#0F623A] hover:bg-[#0c4e2e] flex items-center gap-2 px-6 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all"
       >
         <span>View Full Sector Directory</span>
         <span>&rarr;</span>

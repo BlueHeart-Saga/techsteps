@@ -150,7 +150,7 @@ const esgPillars = [
             <div class="flex items-baseline gap-1 text-[#0F623A]">
               <span class="text-2xl sm:text-3xl font-extrabold">{stat.prefix}</span>
               <span class="text-4xl sm:text-5xl font-black font-display tracking-tight text-slate-900">{stat.value}</span>
-              <span class="text-2xl sm:text-3xl font-extrabold text-[#009b3a]">{stat.suffix}</span>
+              <span class="text-2xl sm:text-3xl font-extrabold text-[#0F623A]">{stat.suffix}</span>
             </div>
             <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">{stat.title}</h3>
             <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">{stat.desc}</p>
@@ -166,26 +166,18 @@ const esgPillars = [
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
         <!-- Left: Narrative -->
         <div class="lg:col-span-6 space-y-6">
-          <div class="space-y-3">
-            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-[#0F623A] border border-emerald-200/80 text-xs sm:text-sm font-bold uppercase tracking-wider">
-              <span class="w-2 h-2 rounded-full bg-[#2EC458]"></span>
+          <div class="space-y-4">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-[#0F623A] border border-emerald-200/80 text-xs sm:text-sm font-medium uppercase tracking-wider">
+              <span class="w-2 h-2 rounded-full bg-[#0F623A]"></span>
               About Us
             </span>
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-950 tracking-tight leading-[1.12] uppercase">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-normal font-sans text-slate-900 tracking-normal leading-snug">
               We provide secure and sustainable business services for data, information, communications and assets.
             </h2>
           </div>
 
-          <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-medium">
-            Techsteps plc leads the markets it serves. Supporting public and private sectors with critical services, income is highly predictable, recurring in nature and generates strong cashflows.
-          </p>
-
-          <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-            While we hold strong market positions and face consistent demand, our success relies on efficient execution, attentiveness to market dynamics and a culture focused on excellent customer service.
-          </p>
-
           <!-- Core Highlights Checkmarks -->
-          <div class="space-y-3 pt-2 text-sm sm:text-base font-semibold text-slate-800">
+          <div class="space-y-3 pt-2 text-sm sm:text-base font-normal text-slate-800">
             <div class="flex items-center gap-3">
               <span class="w-6 h-6 rounded-full bg-emerald-100 text-[#0F623A] flex items-center justify-center shrink-0">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -215,7 +207,7 @@ const esgPillars = [
           <div class="pt-4 flex flex-wrap items-center gap-4">
             <a
               href="/contact"
-              class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-[#009b3a] hover:bg-[#146B5C] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+              class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
             >
               <span>Get In Touch</span>
               <span class="ml-2">&rarr;</span>
@@ -229,17 +221,19 @@ const esgPillars = [
           </div>
         </div>
 
-        <!-- Right: Business Collage with Ambient Green Glow -->
+        <!-- Right: Operations Facility Image with Subtle Elevation -->
         <div class="lg:col-span-6 relative flex justify-center items-center">
-          <div class="relative w-full max-w-[620px]">
-            <div class="absolute -inset-4 bg-emerald-500/10 rounded-3xl blur-2xl pointer-events-none" aria-hidden="true"></div>
-            <img
-              src="/images/brand/about-company-collage.png"
-              alt="Techsteps plc operations, sustainable technology asset recycling and accredited facilities"
-              class="relative w-full h-auto object-contain drop-shadow-2xl"
-              loading="lazy"
-              decoding="async"
-            />
+          <div class="relative w-full max-w-[600px] group">
+            <div class="absolute -inset-3 bg-gradient-to-tr from-[#0F623A]/15 to-emerald-400/10 rounded-3xl blur-2xl pointer-events-none" aria-hidden="true"></div>
+            <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 bg-white">
+              <img
+                src="/images/brand/investors-operations-technician.jpg"
+                alt="Techsteps certified technician managing enterprise IT lifecycle assets and hardware auditing"
+                class="w-full h-full object-cover aspect-[4/3] sm:aspect-[1.15/1] transition-transform duration-500 group-hover:scale-[1.03]"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -250,16 +244,13 @@ const esgPillars = [
   <section class="py-16 sm:py-20 lg:py-24 bg-[#f8faf7] border-y border-slate-200/80">
     <Container className="max-w-7xl">
       <div class="text-center max-w-4xl mx-auto space-y-4 mb-14 sm:mb-18">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 text-[#0F623A] border border-emerald-300/60 text-xs sm:text-sm font-bold uppercase tracking-wider">
-          <span class="w-2 h-2 rounded-full bg-[#009b3a]"></span>
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 text-[#0F623A] border border-emerald-300/60 text-xs sm:text-sm font-medium uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-[#0F623A]"></span>
           Investment Foundations
         </span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-950 tracking-tight leading-[1.15] uppercase">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-normal font-sans text-slate-900 tracking-normal leading-snug">
           Techsteps plc has four businesses providing leading services in the management of data, information, communications and assets.
         </h2>
-        <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-          While we hold strong market positions and face consistent demand, our success relies on efficient execution, attentiveness to market dynamics and a culture focused on excellent customer service.
-        </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
@@ -270,7 +261,7 @@ const esgPillars = [
                 <span class="w-12 h-12 rounded-2xl bg-emerald-50 text-[#0F623A] flex items-center justify-center font-mono font-bold text-base border border-emerald-200/70 shadow-xs">
                   {pillar.number}
                 </span>
-                <span class="w-10 h-10 rounded-full bg-slate-50 text-[#0F623A] group-hover:bg-[#009b3a] group-hover:text-white flex items-center justify-center transition-colors duration-200">
+                <span class="w-10 h-10 rounded-full bg-slate-50 text-[#0F623A] group-hover:bg-[#0F623A] group-hover:text-white flex items-center justify-center transition-colors duration-200">
                   <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" set:html={pillar.iconSvg} />
                 </span>
               </div>
@@ -302,10 +293,10 @@ const esgPillars = [
           <span class="text-sm sm:text-base font-bold uppercase tracking-[0.2em] text-[#146B5C]">
             ABOUT OUR BUSINESSES
           </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-950 tracking-tight leading-[1.12] uppercase">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-slate-950 tracking-tight leading-[1.15]">
             Four Businesses, One Techsteps plc
           </h2>
-          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
             Techsteps plc has four businesses, who work together to offer organisations a holistic approach to the management of their data, information, communications and assets.
           </p>
         </div>
@@ -313,7 +304,7 @@ const esgPillars = [
         <div class="shrink-0">
           <a
             href="/contact"
-            class="inline-flex items-center justify-center px-7 py-3 rounded-full bg-[#009b3a] hover:bg-[#146B5C] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200"
+            class="inline-flex items-center justify-center px-7 py-3 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200"
           >
             <span>Get In Touch</span>
             <span class="ml-2">&rarr;</span>
@@ -359,7 +350,7 @@ const esgPillars = [
                 {biz.description}
               </p>
               <div class="pt-3 flex items-center justify-between">
-                <span class="inline-flex items-center gap-2 bg-white group-hover:bg-slate-100 text-slate-900 font-bold text-xs px-3.5 py-1.5 rounded-full shadow-sm transition-colors">
+                <span class="inline-flex items-center gap-2 bg-[#0F623A] group-hover:bg-[#0c4e2e] text-white font-bold text-xs px-3.5 py-1.5 rounded-full shadow-sm transition-colors">
                   <span>Explore Division</span>
                   <span>&rarr;</span>
                 </span>
@@ -382,15 +373,15 @@ const esgPillars = [
         <div class="lg:col-span-6 space-y-6">
           <div class="space-y-3">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white text-[#0F623A] border border-slate-200 text-xs sm:text-sm font-bold uppercase tracking-wider shadow-xs">
-              <span class="w-2 h-2 rounded-full bg-[#009b3a]"></span>
+              <span class="w-2 h-2 rounded-full bg-[#0F623A]"></span>
               Now It's Your Turn
             </span>
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-950 tracking-tight leading-[1.12] uppercase">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-slate-950 tracking-tight leading-[1.15]">
               Restoring our World – Our ESG strategy
             </h2>
           </div>
 
-          <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-medium">
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
             Techsteps plc recognises the impact of its operations on the environment, its responsibility to the communities it operates within and its obligations to its people, its suppliers and other invested stakeholders.
           </p>
 
@@ -413,7 +404,7 @@ const esgPillars = [
           <div class="pt-2 flex flex-wrap items-center gap-4">
             <a
               href="/sustainability"
-              class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-[#009b3a] hover:bg-[#146B5C] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200"
+              class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200"
             >
               <span>Explore ESG &amp; Sustainability</span>
               <span class="ml-2">&rarr;</span>
@@ -441,7 +432,7 @@ const esgPillars = [
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
               <div class="absolute bottom-6 left-6 right-6 text-white z-10">
-                <span class="text-xs font-mono font-bold tracking-widest uppercase text-[#2EC458]">ESG ROADMAP // CIRCULAR IMPACT</span>
+                <span class="text-xs font-mono font-bold tracking-widest uppercase text-[#0F623A]">ESG ROADMAP // CIRCULAR IMPACT</span>
                 <h4 class="text-lg sm:text-xl font-bold font-display mt-1">Driving Verifiable Decarbonisation &amp; Corporate Responsibility</h4>
               </div>
             </div>
@@ -457,7 +448,7 @@ const esgPillars = [
       <div class="p-8 sm:p-12 lg:p-14 rounded-3xl bg-slate-950 text-white relative overflow-hidden shadow-2xl">
         <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
         <div class="relative z-10 max-w-4xl space-y-6">
-          <span class="text-xs font-mono font-bold uppercase tracking-widest text-[#2EC458]">
+          <span class="text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A]">
             CORPORATE GOVERNANCE &amp; DISCLOSURE
           </span>
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display tracking-tight text-white uppercase">
@@ -489,7 +480,7 @@ const esgPillars = [
           <div class="pt-6 flex flex-wrap gap-4">
             <a
               href="/contact"
-              class="px-8 py-3.5 rounded-full bg-[#009b3a] hover:bg-[#146B5C] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
+              class="px-8 py-3.5 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
             >
               Contact Investor Relations &rarr;
             </a>
