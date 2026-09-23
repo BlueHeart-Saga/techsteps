@@ -103,17 +103,6 @@ const currentPath = Astro.url.pathname;
           </div>
 
           <a
-            href="/sustainability"
-            class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
-              currentPath === '/sustainability'
-                ? 'border-slate-900 text-slate-950 font-bold'
-                : 'border-transparent text-slate-600 hover:text-slate-950 hover:border-slate-800 font-medium'
-            }`}
-          >
-            Sustainability
-          </a>
-
-          <a
             href="/insights"
             class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
               currentPath === '/insights' || currentPath.startsWith('/insights/')
