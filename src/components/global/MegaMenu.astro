@@ -32,7 +32,7 @@ const { id = 'services-megamenu' } = Astro.props;
 
       <div class="grid grid-cols-1 gap-10 py-10 lg:grid-cols-12 lg:gap-12">
         <div class="lg:col-span-4">
-          <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-brand-accent">Navigate Techsteps</p>
+          <p class="font-display text-[11px] uppercase tracking-[0.14em] text-brand-accent">Navigate Techsteps</p>
           <h2 class="mt-3 max-w-sm text-4xl leading-[.95] text-brand-navy sm:text-5xl">Every asset. Every record. Every outcome.</h2>
           <div class="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
             <a href="/request-a-quote" class="text-brand-accent hover:text-brand-accent-hover">Request a Collection &rarr;</a>
@@ -42,7 +42,7 @@ const { id = 'services-megamenu' } = Astro.props;
 
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3">
           <div>
-            <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-brand-muted">Company</p>
+            <p class="font-display text-[11px] uppercase tracking-[0.14em] text-brand-muted">Company</p>
             <div class="mt-4 flex flex-col gap-3 text-lg">
               <a href="/" class="text-brand-navy hover:text-brand-accent">Home</a>
               <a href="/about-us" class="text-brand-navy hover:text-brand-accent">About us</a>
@@ -52,7 +52,7 @@ const { id = 'services-megamenu' } = Astro.props;
             </div>
           </div>
           <div>
-            <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-brand-muted">Our divisions</p>
+            <p class="font-display text-[11px] uppercase tracking-[0.14em] text-brand-muted">Our divisions</p>
             <div class="mt-4 flex flex-col gap-3">
               {divisions.map((div) => (
                 <a href={`/${div.slug}`} class="text-lg leading-tight text-brand-navy hover:text-brand-accent">{div.title}</a>
@@ -60,7 +60,7 @@ const { id = 'services-megamenu' } = Astro.props;
             </div>
           </div>
           <div>
-            <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-brand-muted">Sectors</p>
+            <p class="font-display text-[11px] uppercase tracking-[0.14em] text-brand-muted">Sectors</p>
             <div class="mt-4 flex flex-col gap-3">
               {sectors.map((sector) => (
                 <a href={`/sectors/${sector.slug}`} class="text-lg text-brand-navy hover:text-brand-accent">{sector.title}</a>

@@ -52,14 +52,14 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <!-- Navigation Links & Responsive Typography -->
-    <div class="px-4 sm:px-6 py-6 space-y-2 flex-1 font-sans">
+    <div class="px-4 sm:px-6 py-6 space-y-2 flex-1 font-display">
       <!-- Home -->
       <a
         href="/"
-        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] transition-all ${
+        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
           currentPath === '/'
             ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
-            : 'text-slate-700 hover:text-black hover:bg-slate-100/80 font-medium'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
         }`}
       >
         Home
@@ -69,7 +69,7 @@ const currentPath = Astro.url.pathname;
       <div class="rounded-xl border border-slate-100 overflow-hidden">
         <button
           type="button"
-          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-base sm:text-[17px] font-medium text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
+          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-lg font-bold capitalize tracking-wide text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
           aria-expanded="false"
         >
           <span class="flex items-center gap-2">
@@ -110,7 +110,7 @@ const currentPath = Astro.url.pathname;
       <div class="rounded-xl border border-slate-100 overflow-hidden">
         <button
           type="button"
-          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-base sm:text-[17px] font-medium text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
+          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-lg font-bold capitalize tracking-wide text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
           aria-expanded="false"
         >
           <span>Sectors</span>
@@ -130,10 +130,10 @@ const currentPath = Astro.url.pathname;
       <!-- Sustainability -->
       <a
         href="/sustainability"
-        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] transition-all ${
+        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
           currentPath === '/sustainability'
             ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
-            : 'text-slate-700 hover:text-black hover:bg-slate-100/80 font-medium'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
         }`}
       >
         Sustainability
@@ -142,10 +142,10 @@ const currentPath = Astro.url.pathname;
       <!-- Investors -->
       <a
         href="/investors"
-        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] transition-all ${
+        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
           currentPath === '/investors'
             ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
-            : 'text-slate-700 hover:text-black hover:bg-slate-100/80 font-medium'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
         }`}
       >
         Investors
@@ -154,10 +154,10 @@ const currentPath = Astro.url.pathname;
       <!-- About Us -->
       <a
         href="/about-us"
-        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] transition-all ${
+        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
           currentPath === '/about-us'
             ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
-            : 'text-slate-700 hover:text-black hover:bg-slate-100/80 font-medium'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
         }`}
       >
         About Us
@@ -167,7 +167,7 @@ const currentPath = Astro.url.pathname;
       <div class="rounded-xl border border-slate-100 overflow-hidden">
         <button
           type="button"
-          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-base sm:text-[17px] font-medium text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
+          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-lg capitalize tracking-wide font-bold text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
           aria-expanded={currentPath.startsWith('/insights') ? 'true' : 'false'}
         >
           <span class="flex items-center gap-2">
@@ -178,14 +178,14 @@ const currentPath = Astro.url.pathname;
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
-        <div class={`mobile-subnav-content ${currentPath.startsWith('/insights') ? '' : 'hidden'} px-4 pt-2 pb-4 space-y-4 bg-slate-50/50 border-t border-slate-100`}>
+        <div class="mobile-subnav-content hidden px-4 pt-2 pb-4 space-y-4 bg-slate-50/50 border-t border-slate-100">
           <a
             href="/insights"
             class="block py-2 px-2.5 rounded-lg text-sm font-bold text-[#146B5C] bg-[#146B5C]/10 hover:bg-[#146B5C]/20 transition-colors"
           >
             Explore All Insights &amp; Publications &rarr;
           </a>
-          <div class="space-y-1 pt-1">
+          <div class="space-y-1 pt-1 font-sans">
             <a
               href="/insights/blogs"
               class="block py-2 px-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[#146B5C] hover:bg-white transition-colors"
@@ -211,10 +211,10 @@ const currentPath = Astro.url.pathname;
       <!-- Contact Us -->
       <a
         href="/contact"
-        class={`block px-4 py-3 rounded-xl text-base sm:text-[17px] transition-all ${
+        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
           currentPath === '/contact'
             ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
-            : 'text-slate-700 hover:text-black hover:bg-slate-100/80 font-medium'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
         }`}
       >
         Contact Us

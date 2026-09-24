@@ -147,17 +147,17 @@ const detailDrivenSteps = [
         </div>
 
         <!-- Description Paragraph (with Dark Green highlighted keywords) -->
-        <p class="text-xl sm:text-2xl text-slate-700 leading-relaxed font-medium">
-          TechSteps provides a fully accredited IT disposal company framework designed for modern UK enterprises. We simplify the ITAD process by combining logistics with maximum security, helping you retire hardware without risk. From single-site pickups to complex <span class="text-[#0F623A] font-bold">IT asset disposal</span> projects, our team ensures your redundant equipment is handled according to the highest environmental standards. By choosing our <span class="text-[#0F623A] font-bold">secure IT asset disposition services</span>, you gain a partner dedicated to protecting your brand and achieving full <span class="text-[#0F623A] font-bold">GDPR compliance</span> throughout the hardware lifecycle.
+        <p class="text-xl sm:text-2xl text-slate-700 leading-relaxed font-normal">
+          TechSteps provides a fully accredited IT disposal company framework designed for modern UK enterprises. We simplify the ITAD process by combining logistics with maximum security, helping you retire hardware without risk. From single-site pickups to complex <span class="text-[#0F623A]">IT asset disposal</span> projects, our team ensures your redundant equipment is handled according to the highest environmental standards. By choosing our <span class="text-[#0F623A]">secure IT asset disposition services</span>, you gain a partner dedicated to protecting your brand and achieving full <span class="text-[#0F623A]">GDPR compliance</span> throughout the hardware lifecycle.
         </p>
       </div>
 
       <!-- 4 Stats Columns Spread Out With Large Spacing -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-14 lg:gap-20 xl:gap-28 mt-16 sm:mt-20 text-center max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6">
+      <div id="stats-counter-section" class="grid grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-14 lg:gap-20 xl:gap-28 mt-16 sm:mt-20 text-center max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6">
         <!-- Stat 1: 100% -->
         <div class="space-y-2.5">
-          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-black tracking-tight leading-none font-display">
-            100%
+          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-[#0F623A] tracking-tight leading-none font-display stat-counter-item" data-target="100" data-suffix="%">
+            <span class="stat-count-num">100</span><span class="stat-count-suffix">%</span>
           </div>
           <p class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 leading-snug">
             Secure Disposal
@@ -166,8 +166,8 @@ const detailDrivenSteps = [
 
         <!-- Stat 2: 100M+ -->
         <div class="space-y-2.5">
-          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-black tracking-tight leading-none font-display">
-            100M+
+          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-[#0F623A] tracking-tight leading-none font-display stat-counter-item" data-target="100" data-suffix="M+">
+            <span class="stat-count-num">100</span><span class="stat-count-suffix">M+</span>
           </div>
           <p class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 leading-snug">
             Recycle Products
@@ -176,8 +176,8 @@ const detailDrivenSteps = [
 
         <!-- Stat 3: 1000+ -->
         <div class="space-y-2.5">
-          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-black tracking-tight leading-none font-display">
-            1000+
+          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-[#0F623A] tracking-tight leading-none font-display stat-counter-item" data-target="1000" data-suffix="+">
+            <span class="stat-count-num">1000</span><span class="stat-count-suffix">+</span>
           </div>
           <p class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 leading-snug">
             Clients Served
@@ -186,8 +186,8 @@ const detailDrivenSteps = [
 
         <!-- Stat 4: 15+ -->
         <div class="space-y-2.5">
-          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-black tracking-tight leading-none font-display">
-            15+
+          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-[#0F623A] tracking-tight leading-none font-display stat-counter-item" data-target="15" data-suffix="+">
+            <span class="stat-count-num">15</span><span class="stat-count-suffix">+</span>
           </div>
           <p class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 leading-snug">
             Years Experience
@@ -707,11 +707,97 @@ const detailDrivenSteps = [
         deactivateAll();
       };
 
+      // Running stats counter animation on scroll into viewport (re-triggers each time user scrolls to it)
+      const initStatsCounter = () => {
+        const statsContainer = document.getElementById('stats-counter-section');
+        if (!statsContainer) return;
+
+        const counterItems = statsContainer.querySelectorAll('.stat-counter-item');
+        if (counterItems.length === 0) return;
+
+        let animFrameId = null;
+
+        const resetNumbers = () => {
+          if (animFrameId) {
+            cancelAnimationFrame(animFrameId);
+            animFrameId = null;
+          }
+          counterItems.forEach((item) => {
+            const numSpan = item.querySelector('.stat-count-num');
+            if (numSpan) {
+              numSpan.textContent = '0';
+            }
+          });
+        };
+
+        const runAnimation = () => {
+          if (animFrameId) {
+            cancelAnimationFrame(animFrameId);
+            animFrameId = null;
+          }
+
+          const duration = 1800; // 1.8 seconds running animation
+          const startTime = performance.now();
+
+          const update = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Cubic ease-out curve for smooth deceleration
+            const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+            counterItems.forEach((item) => {
+              const target = parseInt(item.getAttribute('data-target') || '0', 10);
+              const currentVal = Math.floor(easeProgress * target);
+              const numSpan = item.querySelector('.stat-count-num');
+              if (numSpan) {
+                numSpan.textContent = progress >= 1 ? target.toString() : currentVal.toString();
+              }
+            });
+
+            if (progress < 1) {
+              animFrameId = requestAnimationFrame(update);
+            } else {
+              animFrameId = null;
+            }
+          };
+
+          animFrameId = requestAnimationFrame(update);
+        };
+
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  runAnimation();
+                } else {
+                  resetNumbers();
+                }
+              });
+            },
+            { threshold: 0.15 }
+          );
+          observer.observe(statsContainer);
+        } else {
+          runAnimation();
+        }
+      };
+
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initStoryHover);
+        document.addEventListener('DOMContentLoaded', () => {
+          initStoryHover();
+          initStatsCounter();
+        });
       } else {
         initStoryHover();
+        initStatsCounter();
       }
+
+      document.addEventListener('astro:page-load', () => {
+        initStoryHover();
+        initStatsCounter();
+      });
     })();
   </script>
 </BaseLayout>
