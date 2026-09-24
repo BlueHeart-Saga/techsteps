@@ -10,6 +10,7 @@ import StatCounter from '../components/content/StatCounter.astro';
 import TrustBadges from '../components/content/TrustBadges.astro';
 import Testimonials from '../components/content/Testimonials.astro';
 import {
+  getHomePage,
   getDivisions,
   getServices,
   getSectors,
@@ -18,7 +19,16 @@ import {
   getArticles,
 } from '../lib/sanity/client';
 
-const [divisions, services, sectors, statistics, caseStudies, articles] = await Promise.all([
+const [
+  homePage,
+  divisions,
+  services,
+  sectors,
+  statistics,
+  caseStudies,
+  articles,
+] = await Promise.all([
+  getHomePage(),
   getDivisions(),
   getServices(),
   getSectors(),
@@ -137,9 +147,9 @@ const detailDrivenSteps = [
       <!-- Text Narrative Wrapper -->
       <div class="max-w-4xl xl:max-w-5xl mx-auto text-center">
         <!-- Main Headline (Dark Green #0F623A) -->
-        <h2 class="text-4xl sm:text-5xl lg:text-6xl xl:text-[64px] font-extrabold tracking-tight leading-[1.18] font-display text-[#0F623A]">
-          Secure ITAD Services in the UK
-        </h2>
+<h2 class="text-4xl sm:text-5xl lg:text-6xl xl:text-[64px] font-extrabold tracking-tight leading-[1.18] font-display text-[#0F623A]">
+  {homePage?.intro?.heading}
+</h2>
 
         <!-- Decorative underline bar (Dark Green #0F623A) -->
         <div class="flex items-center justify-center mt-4 sm:mt-5 mb-7 sm:mb-9" aria-hidden="true">
@@ -147,52 +157,35 @@ const detailDrivenSteps = [
         </div>
 
         <!-- Description Paragraph (with Dark Green highlighted keywords) -->
-        <p class="text-xl sm:text-2xl text-slate-700 leading-relaxed font-normal">
-          TechSteps provides a fully accredited IT disposal company framework designed for modern UK enterprises. We simplify the ITAD process by combining logistics with maximum security, helping you retire hardware without risk. From single-site pickups to complex <span class="text-[#0F623A]">IT asset disposal</span> projects, our team ensures your redundant equipment is handled according to the highest environmental standards. By choosing our <span class="text-[#0F623A]">secure IT asset disposition services</span>, you gain a partner dedicated to protecting your brand and achieving full <span class="text-[#0F623A]">GDPR compliance</span> throughout the hardware lifecycle.
-        </p>
+<p class="text-xl sm:text-2xl text-slate-700 leading-relaxed font-normal">
+  {homePage?.intro?.description}
+</p>
       </div>
 
       <!-- 4 Stats Columns Spread Out With Large Spacing -->
       <div id="stats-counter-section" class="grid grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-14 lg:gap-20 xl:gap-28 mt-16 sm:mt-20 text-center max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6">
-        <!-- Stat 1: 100% -->
-        <div class="space-y-2.5">
-          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-[#0F623A] tracking-tight leading-none font-display stat-counter-item" data-target="100" data-suffix="%">
-            <span class="stat-count-num">100</span><span class="stat-count-suffix">%</span>
-          </div>
-          <p class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 leading-snug">
-            Secure Disposal
-          </p>
-        </div>
+{
+  homePage?.statistics?.map((stat) => (
+    <div class="space-y-2.5">
+      <div
+        class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-[#0F623A] tracking-tight leading-none font-display stat-counter-item"
+        data-target={stat.number || '0'}
+        data-suffix={stat.suffix || ''}
+      >
+        <span class="stat-count-num">
+          {stat.number}
+        </span>
+        <span class="stat-count-suffix">
+          {stat.suffix}
+        </span>
+      </div>
 
-        <!-- Stat 2: 100M+ -->
-        <div class="space-y-2.5">
-          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-[#0F623A] tracking-tight leading-none font-display stat-counter-item" data-target="100" data-suffix="M+">
-            <span class="stat-count-num">100</span><span class="stat-count-suffix">M+</span>
-          </div>
-          <p class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 leading-snug">
-            Recycle Products
-          </p>
-        </div>
-
-        <!-- Stat 3: 1000+ -->
-        <div class="space-y-2.5">
-          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-[#0F623A] tracking-tight leading-none font-display stat-counter-item" data-target="1000" data-suffix="+">
-            <span class="stat-count-num">1000</span><span class="stat-count-suffix">+</span>
-          </div>
-          <p class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 leading-snug">
-            Clients Served
-          </p>
-        </div>
-
-        <!-- Stat 4: 15+ -->
-        <div class="space-y-2.5">
-          <div class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-[#0F623A] tracking-tight leading-none font-display stat-counter-item" data-target="15" data-suffix="+">
-            <span class="stat-count-num">15</span><span class="stat-count-suffix">+</span>
-          </div>
-          <p class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 leading-snug">
-            Years Experience
-          </p>
-        </div>
+      <p class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 leading-snug">
+        {stat.label}
+      </p>
+    </div>
+  ))
+}
       </div>
     </Container>
   </Section>
@@ -328,210 +321,105 @@ const detailDrivenSteps = [
     <Container className="relative z-10 max-w-7xl">
       <!-- Section Header -->
       <div class="text-center max-w-4xl mx-auto space-y-3 mb-10 sm:mb-14">
-        <span class="text-sm sm:text-base font-bold uppercase tracking-[0.2em] text-[#146B5C]">
-          OUR SERVICES
-        </span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[44px] font-extrabold font-display text-brand-navy tracking-tight leading-[1.12] uppercase">
-          SOLUTIONS FOR THE COMPLETE BUSINESS LIFECYCLE
-        </h2>
+<span class="text-sm sm:text-base font-bold uppercase tracking-[0.2em] text-[#146B5C]">
+  {homePage?.services?.eyebrow}
+</span>
+<h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[44px] font-extrabold font-display text-brand-navy tracking-tight leading-[1.12] uppercase">
+  {homePage?.services?.heading}
+</h2>
       </div>
 
       <!-- 4 Division Cards Grid matching reference -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-        <!-- Division 01 -->
-        <a
-          href="/information-management"
-          class="group relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[460px] sm:min-h-[490px] p-6 sm:p-7 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1.5 border border-slate-900/10 bg-slate-900"
-        >
-          <!-- Background Image & Gradient -->
-          <img
-            src="/images/services/image1.png"
-            alt="Information Management"
-            class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30"></div>
+{
+  homePage?.services?.cards?.map((card) => (
+    <a
+      href={card.link || '#'}
+      class="group relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[460px] sm:min-h-[490px] p-6 sm:p-7 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1.5 border border-slate-900/10 bg-slate-900"
+    >
+{card.image?.asset?.url && (
+  <img
+    src={card.image.asset.url}
+    alt={card.imageAlt || card.title || ''}
+    class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+    loading="lazy"
+    decoding="async"
+  />
+)}
 
-          <!-- Top Row (Badge + Icon) -->
-          <div class="relative z-10 flex items-center justify-between w-full">
-            <span class="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-[11px] font-mono font-bold tracking-widest uppercase shadow-sm">
-              DIVISION 01
-            </span>
-            <span class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-sm">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </span>
-          </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30"></div>
 
-          <!-- Bottom Content Area -->
-          <div class="relative z-10 flex flex-col justify-end mt-auto pt-16">
-            <h3 class="text-xl sm:text-2xl font-bold font-display text-white tracking-tight leading-snug group-hover:text-emerald-400 transition-colors">
-              Information Management
-            </h3>
-            <p class="mt-2.5 text-sm sm:text-[15px] text-slate-200/90 leading-relaxed font-normal">
-              Secure, compliant storage, scanning and management of physical and digital...
-            </p>
-            <div class="mt-5">
-              <span class="inline-flex items-center gap-2.5 bg-white group-hover:bg-slate-100 text-slate-900 font-semibold text-xs sm:text-sm pl-4 pr-1.5 py-1.5 rounded-full shadow-md transition-all duration-300">
-                <span>Explore</span>
-                <span class="w-6 h-6 rounded-full bg-[#111827] text-white flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                </span>
-              </span>
-            </div>
-          </div>
-        </a>
+      <div class="relative z-10 flex items-center justify-between w-full">
+        <span class="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-[11px] font-mono font-bold tracking-widest uppercase shadow-sm">
+          {card.divisionNumber}
+        </span>
 
-        <!-- Division 02 -->
-        <a
-          href="/it-lifecycle-services-destruction"
-          class="group relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[460px] sm:min-h-[490px] p-6 sm:p-7 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1.5 border border-slate-900/10 bg-slate-900"
-        >
-          <!-- Background Image & Gradient -->
-          <img
-            src="/images/services/image2.jpg"
-            alt="IT Lifecycle Services & Destruction"
-            class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30"></div>
-
-          <!-- Top Row (Badge + Icon) -->
-          <div class="relative z-10 flex items-center justify-between w-full">
-            <span class="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-[11px] font-mono font-bold tracking-widest uppercase shadow-sm">
-              DIVISION 02
-            </span>
-            <span class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-sm">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </span>
-          </div>
-
-          <!-- Bottom Content Area -->
-          <div class="relative z-10 flex flex-col justify-end mt-auto pt-16">
-            <h3 class="text-xl sm:text-2xl font-bold font-display text-white tracking-tight leading-snug group-hover:text-emerald-400 transition-colors">
-              IT Lifecycle Services &amp; Destruction
-            </h3>
-            <p class="mt-2.5 text-sm sm:text-[15px] text-slate-200/90 leading-relaxed font-normal">
-              End-to-end IT asset disposition, secure collection, data sanitisation...
-            </p>
-            <div class="mt-5">
-              <span class="inline-flex items-center gap-2.5 bg-white group-hover:bg-slate-100 text-slate-900 font-semibold text-xs sm:text-sm pl-4 pr-1.5 py-1.5 rounded-full shadow-md transition-all duration-300">
-                <span>Explore</span>
-                <span class="w-6 h-6 rounded-full bg-[#111827] text-white flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                </span>
-              </span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Division 03 -->
-        <a
-          href="/secure-shredding-document-integrity"
-          class="group relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[460px] sm:min-h-[490px] p-6 sm:p-7 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1.5 border border-slate-900/10 bg-slate-900"
-        >
-          <!-- Background Image & Gradient -->
-          <img
-            src="/images/services/image3_web.jpg"
-            alt="Secure Shredding & Document Integrity"
-            class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30"></div>
-
-          <!-- Top Row (Badge + Icon) -->
-          <div class="relative z-10 flex items-center justify-between w-full">
-            <span class="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-[11px] font-mono font-bold tracking-widest uppercase shadow-sm">
-              DIVISION 03
-            </span>
-            <span class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-sm">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-              </svg>
-            </span>
-          </div>
-
-          <!-- Bottom Content Area -->
-          <div class="relative z-10 flex flex-col justify-end mt-auto pt-16">
-            <h3 class="text-xl sm:text-2xl font-bold font-display text-white tracking-tight leading-snug group-hover:text-emerald-400 transition-colors">
-              Secure Shredding &amp; Document Integrity
-            </h3>
-            <p class="mt-2.5 text-sm sm:text-[15px] text-slate-200/90 leading-relaxed font-normal">
-              Secure destruction of confidential documents, media and products throug...
-            </p>
-            <div class="mt-5">
-              <span class="inline-flex items-center gap-2.5 bg-white group-hover:bg-slate-100 text-slate-900 font-semibold text-xs sm:text-sm pl-4 pr-1.5 py-1.5 rounded-full shadow-md transition-all duration-300">
-                <span>Explore</span>
-                <span class="w-6 h-6 rounded-full bg-[#111827] text-white flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                </span>
-              </span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Division 04 -->
-        <a
-          href="/moving-relocation-services"
-          class="group relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[460px] sm:min-h-[490px] p-6 sm:p-7 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1.5 border border-slate-900/10 bg-slate-900"
-        >
-          <!-- Background Image & Gradient -->
-          <img
-            src="/images/services/image4.jpg"
-            alt="Moving & Relocation Services"
-            class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30"></div>
-
-          <!-- Top Row (Badge + Icon) -->
-          <div class="relative z-10 flex items-center justify-between w-full">
-            <span class="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-[11px] font-mono font-bold tracking-widest uppercase shadow-sm">
-              DIVISION 04
-            </span>
-            <span class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-sm">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8 17a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM3 5h11v10H3V5zm11 3h4l3 4v3h-7V8z" />
-              </svg>
-            </span>
-          </div>
-
-          <!-- Bottom Content Area -->
-          <div class="relative z-10 flex flex-col justify-end mt-auto pt-16">
-            <h3 class="text-xl sm:text-2xl font-bold font-display text-white tracking-tight leading-snug group-hover:text-emerald-400 transition-colors">
-              Moving &amp; Relocation Services
-            </h3>
-            <p class="mt-2.5 text-sm sm:text-[15px] text-slate-200/90 leading-relaxed font-normal">
-              Specialist IT relocation, laboratory moves, museum and archive transportation,...
-            </p>
-            <div class="mt-5">
-              <span class="inline-flex items-center gap-2.5 bg-white group-hover:bg-slate-100 text-slate-900 font-semibold text-xs sm:text-sm pl-4 pr-1.5 py-1.5 rounded-full shadow-md transition-all duration-300">
-                <span>Explore</span>
-                <span class="w-6 h-6 rounded-full bg-[#111827] text-white flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                </span>
-              </span>
-            </div>
-          </div>
-        </a>
+        <span class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-sm">
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            />
+          </svg>
+        </span>
       </div>
 
-      <!-- Action Button: Explore All 27 Certified Services (Green) -->
-      <div class="pt-10 sm:pt-14 text-center">
-        <a
-          href="/services"
-          class="inline-flex items-center justify-center gap-2 px-9 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
-        >
-          <span>Explore All 27 Certified Services &rarr;</span>
-        </a>
+      <div class="relative z-10 flex flex-col justify-end mt-auto pt-16">
+        <h3 class="text-xl sm:text-2xl font-bold font-display text-white tracking-tight leading-snug group-hover:text-emerald-400 transition-colors">
+          {card.title}
+        </h3>
+
+        <p class="mt-2.5 text-sm sm:text-[15px] text-slate-200/90 leading-relaxed font-normal">
+          {card.description}
+        </p>
+
+        <div class="mt-5">
+          <span class="inline-flex items-center gap-2.5 bg-white group-hover:bg-slate-100 text-slate-900 font-semibold text-xs sm:text-sm pl-4 pr-1.5 py-1.5 rounded-full shadow-md transition-all duration-300">
+            <span>{card.buttonText || 'Explore'}</span>
+
+            <span class="w-6 h-6 rounded-full bg-[#111827] text-white flex items-center justify-center">
+              <svg
+                class="w-3.5 h-3.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M7 17L17 7M17 7H7M17 7V17"
+                />
+              </svg>
+            </span>
+          </span>
+        </div>
       </div>
+    </a>
+  ))
+}
+
+<!-- CLOSE THE SERVICES GRID -->
+</div>
+
+<!-- Action Button -->
+<div class="pt-10 sm:pt-14 text-center">
+  <a
+    href={homePage?.services?.viewAllLink || '/services'}
+    class="inline-flex items-center justify-center gap-2 px-9 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+  >
+    <span>
+      {homePage?.services?.viewAllText || 'Explore All Services →'}
+    </span>
+  </a>
+</div>
     </Container>
   </section>
 
@@ -570,7 +458,7 @@ const detailDrivenSteps = [
   <!-- Section 12 — Process: Visual Lifecycle -->
   <Section theme="slate" padding="py-8 md:py-12">
     <Container>
-      <ProcessSteps />
+      <ProcessSteps lifecycle={homePage?.lifecycle} />
     </Container>
   </Section>
 
@@ -595,25 +483,25 @@ const detailDrivenSteps = [
   <!-- Section 15 — Homepage Final CTA -->
   <Section theme="slate" padding="py-10 md:py-14" className="relative overflow-hidden border-t border-slate-200/80">
     <Container className="relative z-10 text-center max-w-4xl mx-auto space-y-8">
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
-        Ready to manage your technology lifecycle more responsibly?
-      </h2>
-      <p class="text-base sm:text-lg text-slate-800 max-w-2xl mx-auto leading-relaxed font-medium">
-        Speak with our UK logistics directors to arrange a secure collection, schedule an on-site audit, or obtain a certified quote.
-      </p>
+<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
+  {homePage?.cta?.heading}
+</h2>
+<p class="text-base sm:text-lg text-slate-800 max-w-2xl mx-auto leading-relaxed font-medium">
+  {homePage?.cta?.description}
+</p>
       <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-        <a
-          href="/request-a-quote"
-          class="px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
-        >
-          Request a Collection
-        </a>
-        <a
-          href="/contact"
-          class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 text-brand-navy text-base font-bold border border-slate-300 shadow-xs hover:shadow-sm transition-all duration-200"
-        >
-          Contact Us
-        </a>
+<a
+  href={homePage?.cta?.primaryButtonLink || '/request-a-quote'}
+  class="px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+>
+  {homePage?.cta?.primaryButtonText}
+</a>
+<a
+  href={homePage?.cta?.secondaryButtonLink || '/contact'}
+  class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 text-brand-navy text-base font-bold border border-slate-300 shadow-xs hover:shadow-sm transition-all duration-200"
+>
+  {homePage?.cta?.secondaryButtonText}
+</a>
       </div>
     </Container>
   </Section>

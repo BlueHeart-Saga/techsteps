@@ -18,6 +18,7 @@ import type {
   CaseStudy,
   Article,
   AboutPageData,
+  HomePageData,
 } from './types';
 
 const projectId =
@@ -37,11 +38,11 @@ const useCdn = false;
 
 export const sanityClient = projectId
   ? createClient({
-      projectId,
-      dataset,
-      apiVersion,
-      useCdn,
-    })
+    projectId,
+    dataset,
+    apiVersion,
+    useCdn,
+  })
   : null;
 
 function normalizeSlug(slug: any): string {
@@ -49,6 +50,59 @@ function normalizeSlug(slug: any): string {
   if (typeof slug === 'string') return slug;
   if (typeof slug === 'object' && slug.current) return slug.current;
   return String(slug);
+}
+
+export async function getHomePage(): Promise<HomePageData | undefined> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`
+        *[_type == "homePage"][0]{
+          ...,
+
+          hero{
+            ...,
+            "imageUrl": image.asset->url
+          },
+
+          intro{
+            ...
+          },
+
+          statistics[]{
+            ...
+          },
+
+          services{
+            ...,
+            cards[]{
+              ...,
+              "imageUrl": image.asset->url
+            }
+          },
+
+          lifecycle{
+            ...,
+            "imageUrl": image.asset->url,
+            steps[]{
+              ...
+            }
+          },
+
+          cta{
+            ...
+          }
+        }
+      `);
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error('Failed to fetch Home Page from Sanity:', error);
+    }
+  }
+
+  return undefined;
 }
 
 // Unified data access functions with graceful fallback to local data repository
@@ -191,10 +245,10 @@ export async function getArticles(): Promise<Article[]> {
             Array.isArray(a.content) && a.content.length > 0
               ? a.content
               : Array.isArray(a.body)
-              ? a.body
+                ? a.body
                   .map((b: any) => (b.children ? b.children.map((c: any) => c.text).join('') : ''))
                   .filter(Boolean)
-              : [],
+                : [],
         }));
       }
     } catch {

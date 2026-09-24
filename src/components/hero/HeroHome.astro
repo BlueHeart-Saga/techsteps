@@ -1,17 +1,22 @@
 ---
 import BrandLogo from '../global/BrandLogo.astro';
 import TornPaperDivider from '../layout/TornPaperDivider.astro';
+import { getHomePage } from '../../lib/sanity/client';
+
+const homePage = await getHomePage();
+const hero = homePage?.hero;
+
 ---
 
 <section class="relative w-full overflow-hidden bg-slate-950 min-h-[640px] sm:min-h-[700px] lg:min-h-[760px] flex flex-col justify-between select-none">
   <!-- Background Image: Hardware Recycling Technician (Panoramic Full-Bleed with Built-in Left Gradient) -->
-  <img
-    src="/images/brand/hero-technician-hardware.png?v=5"
-    alt="IT recycling technician inspecting motherboards and electronic components"
-    class="absolute inset-0 w-full h-full object-cover object-[75%_center] lg:object-right select-none pointer-events-none"
-    loading="eager"
-    decoding="async"
-  />
+<img
+  src={hero?.imageUrl || '/images/brand/hero-technician-hardware.png?v=5'}
+  alt={hero?.imageAlt || 'IT recycling technician inspecting motherboards and electronic components'}
+  class="absolute inset-0 w-full h-full object-cover object-[75%_center] lg:object-right select-none pointer-events-none"
+  loading="eager"
+  decoding="async"
+/>
 
   <!-- Left-side High-Contrast Overlay — Rich deep contrast behind text, smoothly fading out right at the straight line of About Us in the navbar -->
   <div class="absolute inset-y-0 left-0 w-full sm:w-[58%] md:w-[50%] lg:w-[44%] xl:w-[40%] 2xl:w-[36%] bg-gradient-to-r from-black/92 via-black/75 via-[55%] via-black/35 via-[82%] to-transparent pointer-events-none z-[1]"></div>
@@ -133,17 +138,17 @@ import TornPaperDivider from '../layout/TornPaperDivider.astro';
   <!-- 2. Hero Content (Left Narrative aligned straight to the logo) -->
   <div class="relative z-10 w-full px-6 sm:px-10 lg:px-12 py-14 sm:py-20 lg:py-28 my-auto">
     <div class="max-w-2xl lg:max-w-3xl">
-      <span class="inline-block text-sm sm:text-base font-sans font-bold uppercase tracking-wider text-[#0F623A] mb-4">
-        SUSTAINABLE IT RECYCLING
-      </span>
+<span class="inline-block text-sm sm:text-base font-sans font-bold uppercase tracking-wider text-[#0F623A] mb-4">
+  {hero?.eyebrow}
+</span>
 
-      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white tracking-tight uppercase leading-[1.12] drop-shadow-2xl">
-        GIVING TECHNOLOGY A SECOND LIFE
-      </h1>
+<h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white tracking-tight uppercase leading-[1.12] drop-shadow-2xl">
+  {hero?.heading}
+</h1>
 
-      <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-200 max-w-xl leading-relaxed font-sans font-normal font-[400]">
-        We responsibly recycle and remarket retired IT equipment, ensuring zero landfill and maximum value recovery.
-      </p>
+<p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-200 max-w-xl leading-relaxed font-sans font-normal font-[400]">
+  {hero?.description}
+</p>
     </div>
   </div>
 

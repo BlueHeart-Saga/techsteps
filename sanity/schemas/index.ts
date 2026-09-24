@@ -6,6 +6,7 @@ import stat from './stat';
 import caseStudy from './caseStudy';
 import article from './article';
 import aboutPage from './aboutPage';
+import homePage from './homePage';
 
 export const schemaTypes = [
   siteSettings,
@@ -16,4 +17,5 @@ export const schemaTypes = [
   caseStudy,
   article,
   aboutPage,
+  homePage,
 ];

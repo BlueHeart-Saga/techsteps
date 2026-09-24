@@ -15,7 +15,10 @@ export const deskStructure: StructureResolver = (S) =>
             .title('Global Company & Contact Settings')
         ),
 
-      // 2. Singleton: About Page
+      // 2. Singleton: Home Page
+      S.documentTypeListItem('homePage').title('Home Page'),
+
+      // 3. Singleton: About Page
       S.listItem()
         .title('About Us Page')
         .id('aboutPage')
@@ -28,23 +31,23 @@ export const deskStructure: StructureResolver = (S) =>
 
       S.divider(),
 
-      // 3. Operational Divisions
+      // 4. Operational Divisions
       S.documentTypeListItem('division').title('Operational Divisions (4)'),
 
-      // 4. Certified Services
+      // 5. Certified Services
       S.documentTypeListItem('service').title('Certified Services (27)'),
 
-      // 5. Industry Sectors
+      // 6. Industry Sectors
       S.documentTypeListItem('sector').title('Industry Sectors (4)'),
 
-      // 6. Metrics & Statistics
+      // 7. Metrics & Statistics
       S.documentTypeListItem('stat').title('Accreditation Badges & Stats'),
 
       S.divider(),
 
-      // 7. Articles & News
+      // 8. Articles & News
       S.documentTypeListItem('article').title('Articles & Insights'),
 
-      // 8. Case Studies
+      // 9. Case Studies
       S.documentTypeListItem('caseStudy').title('Enterprise Case Studies'),
     ]);

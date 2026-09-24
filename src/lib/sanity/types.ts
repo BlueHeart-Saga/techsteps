@@ -195,3 +195,82 @@ export interface AboutPageData {
   ctaSecondaryButtonLabel?: string;
   ctaSecondaryButtonUrl?: string;
 }
+
+export interface HomePageHero {
+  eyebrow?: string;
+  heading?: string;
+  description?: string;
+  image?: any;
+  imageUrl?: string;
+  imageAlt?: string;
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+export interface HomePageIntro {
+  heading?: string;
+  description?: string;
+  highlightOne?: string;
+  highlightTwo?: string;
+  highlightThree?: string;
+}
+
+export interface HomePageStatistic {
+  number?: string;
+  suffix?: string;
+  label?: string;
+}
+
+export interface HomePageServiceCard {
+  divisionNumber?: string;
+  title?: string;
+  description?: string;
+  image?: any;
+  imageUrl?: string;
+  imageAlt?: string;
+  buttonText?: string;
+  link?: string;
+}
+
+export interface HomePageServices {
+  eyebrow?: string;
+  heading?: string;
+  cards?: HomePageServiceCard[];
+  viewAllText?: string;
+  viewAllLink?: string;
+}
+
+export interface HomePageLifecycleStep {
+  number?: string;
+  title?: string;
+  description?: string;
+  badge?: string;
+}
+
+export interface HomePageLifecycle {
+  eyebrow?: string;
+  heading?: string;
+  description?: string;
+  image?: any;
+  imageUrl?: string;
+  imageAlt?: string;
+  steps?: HomePageLifecycleStep[];
+}
+
+export interface HomePageCTA {
+  heading?: string;
+  description?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+}
+
+export interface HomePageData {
+  hero?: HomePageHero;
+  intro?: HomePageIntro;
+  statistics?: HomePageStatistic[];
+  services?: HomePageServices;
+  lifecycle?: HomePageLifecycle;
+  cta?: HomePageCTA;
+}
