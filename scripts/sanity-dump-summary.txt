@@ -1,0 +1,291 @@
+
+=== TYPE: system.group (11 docs) ===
+ID: _.groups.access-manager
+  fields: [grants, members]
+ID: _.groups.administrator
+  fields: [grants, members]
+ID: _.groups.blueprints-deployer
+  fields: [grants, members]
+ID: _.groups.create-session
+  fields: [grants, members]
+ID: _.groups.public
+  fields: [grants, members]
+ID: _.groups.read
+  fields: [grants, members]
+ID: _.groups.sanity.contributor
+  fields: [grants, members]
+ID: _.groups.sanity.developer
+  fields: [grants, members]
+ID: _.groups.sanity.editor
+  fields: [grants, members]
+ID: _.groups.sanity.viewer
+  fields: [grants, members]
+ID: _.groups.write
+  fields: [grants, members]
+
+=== TYPE: system.retention (1 docs) ===
+ID: _.retention._maximum_project
+  fields: [days, maximum, preferShorter]
+
+=== TYPE: system.schema (1 docs) ===
+ID: _.schemas.default
+  fields: [schema, version, workspace]
+
+=== TYPE: aboutPage (1 docs) ===
+ID: aboutPage
+  hero: {
+  "badge": "CHAIN OF CUSTODY",
+  "description": "We protect your business's critical assets — data, records, and hardware — handled securely and returned to value.",
+  "eyebrow": "About Techsteps",
+  "headline": "Managing What Matters. Protecting What Comes Next.",
+  "imageAlt": "Techsteps technic...
+  fields: [approach, capabilities, cta, hero, metaDescription, metaTitle, statistics, whatWeDo, whoWeAre]
+
+=== TYPE: article (2 docs) ===
+ID: art-adisa-data-security
+  title: "The Hidden Liabilities in Retiring SSDs: Why Standard Wiping Is Not Enough"
+  fields: [author, authorRole, body, category, metaDescription, metaTitle, publishedDate, readTime, slug, summary, title]
+ID: art-simpler-recycling-2025
+  title: "UK Simpler Recycling Mandate: What Commercial Landlords and Businesses Must Do"
+  fields: [author, authorRole, body, category, metaDescription, metaTitle, publishedDate, readTime, slug, summary, title]
+
+=== TYPE: contactPage (1 docs) ===
+ID: contactPage
+  hero: {
+  "bgImage": "/images/brand/contact-hero-bg.jpg",
+  "eyebrow": "CONTACT US",
+  "subheading": "Techsteps is ready to provide the right solution according to your needs",
+  "title": "Contact us"
+}...
+  fields: [directLines, formSection, hero, metaDescription, metaTitle]
+
+=== TYPE: caseStudy (2 docs) ===
+ID: cs-nhs-trust
+  title: "NHS Foundation Trust: Digitizing 450,000 Patient Records to BS 10008"
+  fields: [challenge, clientIndustry, metaDescription, metaTitle, publishedAt, results, servicesUsed, slug, solution, title]
+ID: cs-tier1-bank
+  title: "Tier 1 Investment Bank: 12,000 Asset ITAD & Data Center Relocation"
+  fields: [challenge, clientIndustry, metaDescription, metaTitle, publishedAt, results, servicesUsed, slug, solution, title]
+
+=== TYPE: division (4 docs) ===
+ID: div-im
+  title: "Information Management"
+  fields: [headline, icon, order, slug, summary, title]
+ID: div-it
+  title: "IT Lifecycle Services & Destruction"
+  fields: [headline, icon, order, slug, summary, title]
+ID: div-mv
+  title: "Moving & Relocation Services"
+  fields: [headline, icon, order, slug, summary, title]
+ID: div-sh
+  title: "Secure Shredding & Document Integrity"
+  fields: [headline, icon, order, slug, summary, title]
+
+=== TYPE: faqPage (1 docs) ===
+ID: faqPage
+  hero: {
+  "bgImage": "/images/brand/about-hero-bg.jpg",
+  "eyebrow": "KNOWLEDGE CENTER // FAQS",
+  "subheading": "Explore our comprehensive knowledge base covering secure IT asset disposition, confidential shredding, records management, relocations, and regulatory compliance.",
+  "title": "FREQUENTLY ASKE...
+  fields: [categories, contactCard, hero, items, metaDescription, metaTitle]
+
+=== TYPE: homePage (1 docs) ===
+ID: homePage
+  hero: {
+  "description": "We responsibly recycle and remarket retired IT equipment, ensuring zero landfill and maximum value recovery.",
+  "eyebrow": "SUSTAINABLE IT RECYCLING",
+  "heading": "GIVING TECHNOLOGY A SECOND LIFE",
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-02bc42d51...
+  fields: [cta, hero, intro, lifecycle, services, statistics]
+
+=== TYPE: sanity.imageAsset (11 docs) ===
+ID: image-02bc42d51db33f6c971f5be49fc16e5a433c614b-1722x793-png
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-233407f895ccd8d6e5b24ac1c3684f6dd6f97aea-600x600-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-46aa8411ca99d4d064dad043d87927434575f224-600x600-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-47d07ef4679e48fae8117e18d10af8a1a0c8191a-600x400-png
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-5278f958e5072edd20fc556d0ea7e3300d8d9414-1024x1024-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-909ea175949a97cdbe8053063eb688cb5d10c59d-7135x4762-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-c846e1ab844ffcfaeef2e1694009c65e673a06e3-650x366-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-d98b22f90ef600c4310224b446b2747baedfaa0a-600x600-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-e4f9326200ce1a96078242737a5734eb32b5ab61-700x467-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-ec378b71ba16812b6fcb4a8ff4ecbb337a932934-6818x2566-webp
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-f0906de83f0ef0cc842f7c995c6001ac5adef8ec-863x887-png
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+
+=== TYPE: investorsPage (1 docs) ===
+ID: investorsPage
+  hero: {
+  "bgImage": "/images/brand/about-hero-bg.jpg",
+  "eyebrow": "INVESTOR RELATIONS",
+  "subheading": "Techsteps delivers vital business lifecycle services across document management, IT asset disposition, secure destruction, and commercial relocation.",
+  "title": "Market leadership in essential lif...
+  fields: [hero, investmentCase, irContact, metaDescription, metaTitle, stats, strategicPillars]
+
+=== TYPE: requestCollectionPage (1 docs) ===
+ID: requestCollectionPage
+  hero: {
+  "description": "Takes about two minutes. You'll get a reference number as soon as you submit, and we'll come back with a collection window within two working days.",
+  "title": "Book your collection"
+}...
+  fields: [hero, metaDescription, metaTitle, slaGuarantees]
+
+=== TYPE: sector (8 docs) ===
+ID: sec-central-government
+  title: "Central Government & Public Sector"
+  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+ID: sec-defence
+  title: "Defence & Aerospace"
+  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+ID: sec-education
+  title: "Education & Universities"
+  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+ID: sec-finance
+  title: "Financial & Banking Institutions"
+  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+ID: sec-legal
+  title: "Legal & Professional Services"
+  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+ID: sec-manufacturing
+  title: "Manufacturing & Engineering"
+  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+ID: sec-nhs
+  title: "NHS & Healthcare Trusts"
+  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+ID: sec-technology
+  title: "IT & Technology"
+  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+
+=== TYPE: siteSettings (1 docs) ===
+ID: siteSettings
+  fields: [address, companyName, defaultMetaDescription, defaultMetaTitle, email, footerCompany, footerCopyright, footerLegal, footerSectors, footerServices, legalName, mainNav, operatingHours, phone, registrationNumber, socialLinks, vatNumber]
+
+=== TYPE: service (27 docs) ===
+ID: srv-business-relocations
+  title: "Business Relocations"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-cardboard-recycling
+  title: "Cardboard Recycling"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-digital-mailroom
+  title: "Digital Mailroom"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-disposal-services
+  title: "Disposal Services"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-document-management
+  title: "Document Management"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-document-scanning
+  title: "Document Scanning"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-document-storage
+  title: "Document Storage"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-dry-mixed-recycling
+  title: "Dry Mixed Recycling (DMR)"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-europe-international-domestic-moves
+  title: "Europe & International Domestic Moves"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-heritage-relocations-storage
+  title: "Heritage Relocations & Storage"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-heritage-storage
+  title: "Heritage Storage"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-home-shredding
+  title: "Home Shredding"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-it-asset-disposition-services
+  title: "IT Asset Disposition Services (ITAD)"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-it-asset-management-services
+  title: "IT Asset Management Services (ITAM)"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-it-relocations-specialist
+  title: "IT Relocations Specialist"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-laboratory-relocations-storage
+  title: "Laboratory Relocations & Storage"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-off-site-shredding
+  title: "Off-Site Shredding"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-on-site-shredding
+  title: "On-Site Shredding"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-product-shredding
+  title: "Product Shredding"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-project-management
+  title: "Project Management"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-remarketing-recycling
+  title: "Remarketing & Recycling"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-secure-collection-services
+  title: "Secure Collection Services"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-secure-it-disposal
+  title: "Secure IT Disposal"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-simpler-recycling-services
+  title: "Simpler Recycling Services"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-tape-media-storage
+  title: "Tape & Media Storage"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-ultra-secure-hard-drive-destruction
+  title: "Ultra Secure Hard Drive Destruction"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+ID: srv-vault-storage
+  title: "Vault Storage"
+  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+
+=== TYPE: stat (4 docs) ===
+ID: stat-audit
+  fields: [contextNote, displayOrder, isVisible, label, prefix, suffix, value]
+ID: stat-landfill
+  fields: [contextNote, displayOrder, isVisible, label, prefix, suffix, value]
+ID: stat-monitoring
+  fields: [contextNote, displayOrder, isVisible, label, prefix, suffix, value]
+ID: stat-service-units
+  fields: [contextNote, displayOrder, isVisible, label, prefix, suffix, value]
+
+=== TYPE: sustainabilityPage (1 docs) ===
+ID: sustainabilityPage
+  hero: {
+  "buttonLink": "#our-approach",
+  "buttonText": "Explore Our Approach",
+  "eyebrow": "SUSTAINABILITY",
+  "subheading": "We help organisations extend the life of technology, recover value from IT assets and responsibly manage equipment that reaches the end of its useful life.",
+  "title": "A Smart...
+  fields: [approach, bottomCta, esgPillars, hero, lifecycleSection, metaDescription, metaTitle, metrics]
+
+=== TYPE: testimonial (6 docs) ===
+ID: testimonial-t1
+  fields: [author, company, industry, order, quote, rating, role]
+ID: testimonial-t2
+  fields: [author, company, industry, order, quote, rating, role]
+ID: testimonial-t3
+  fields: [author, company, industry, order, quote, rating, role]
+ID: testimonial-t4
+  fields: [author, company, industry, order, quote, rating, role]
+ID: testimonial-t5
+  fields: [author, company, industry, order, quote, rating, role]
+ID: testimonial-t6
+  fields: [author, company, industry, order, quote, rating, role]

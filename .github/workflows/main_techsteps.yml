@@ -4,12 +4,7 @@ on:
   push:
     branches:
       - main
-
   workflow_dispatch:
-
-  repository_dispatch:
-    types:
-      - sanity-publish
 
 permissions:
   contents: read
@@ -17,7 +12,6 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

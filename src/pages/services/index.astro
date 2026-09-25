@@ -2,11 +2,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import PageHero from '../../components/hero/PageHero.astro';
-import { divisions, services } from '../../lib/sanity/data';
+import { getDivisions, getServices } from '../../lib/sanity/client';
 
 const breadcrumbs = [
   { name: 'Services', url: '/services' },
 ];
+
+const [divisions, services] = await Promise.all([
+  getDivisions(),
+  getServices(),
+]);
 
 // Ordered divisions for display
 const orderedDivisions = [...divisions].sort((a, b) => a.order - b.order);

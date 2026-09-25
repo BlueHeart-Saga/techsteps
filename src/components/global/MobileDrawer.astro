@@ -98,9 +98,12 @@ const currentPath = Astro.url.pathname;
               </div>
             );
           })}
-          <div class="pt-2">
+          <div class="pt-2 flex items-center justify-between border-t border-slate-200">
             <a href="/services" class="text-xs font-bold text-[#146B5C] hover:underline flex items-center gap-1">
-              <span>View All 27 Services Directory &rarr;</span>
+              <span>All Services Directory &rarr;</span>
+            </a>
+            <a href="/investors" class="text-xs font-bold text-slate-600 hover:text-[#146B5C] flex items-center gap-1">
+              <span>Investors &rarr;</span>
             </a>
           </div>
         </div>
@@ -124,6 +127,14 @@ const currentPath = Astro.url.pathname;
               {sec.title}
             </a>
           ))}
+          <div class="pt-2 flex items-center justify-between border-t border-slate-200">
+            <a href="/sectors" class="text-xs font-bold text-[#146B5C] hover:underline flex items-center gap-1">
+              <span>All Sectors &rarr;</span>
+            </a>
+            <a href="/sustainability" class="text-xs font-bold text-slate-600 hover:text-[#146B5C] flex items-center gap-1">
+              <span>Sustainability &rarr;</span>
+            </a>
+          </div>
         </div>
       </div>
 

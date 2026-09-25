@@ -1,5 +1,10 @@
 ---
-import { services, sectors } from '../../lib/sanity/data';
+import { getServices, getSectors } from '../../lib/sanity/client';
+
+const [services, sectors] = await Promise.all([
+  getServices(),
+  getSectors(),
+]);
 
 interface Props {
   preselectedService?: string;

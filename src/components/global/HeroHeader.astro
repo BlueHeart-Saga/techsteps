@@ -1,0 +1,137 @@
+---
+import BrandLogo from './BrandLogo.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<!-- Integrated Navbar at Top of Hero (Full width, \ curve leading edge) -->
+<header id="hero-header" class="relative z-50 w-full flex items-center justify-between h-20 sm:h-22">
+  <!-- Left: Transparent Brand Area (Cavern Vista visible behind logo, enlarged logo size) -->
+  <div class="flex items-center h-full pl-6 sm:pl-10 lg:pl-12 pr-2 sm:pr-4 bg-transparent shrink-0">
+    <a
+      href="/"
+      class="flex items-center focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-lg py-1.5"
+      aria-label="TechSteps UK Home"
+    >
+      <BrandLogo size="xl" variant="light" showTagline={false} />
+    </a>
+  </div>
+
+  <!-- Right / Other Area: White Bar with \ Smooth Curved Leading Edge -->
+  <div class="h-full flex-1 flex items-center justify-end min-w-0">
+    <!-- SVG Curved Leading Edge (\ slope with G1 smooth bezier rounding) -->
+    <svg
+      viewBox="0 0 64 88"
+      preserveAspectRatio="none"
+      class="h-full w-10 sm:w-14 lg:w-16 shrink-0 -mr-[1px] pointer-events-none select-none drop-shadow-xs"
+      aria-hidden="true"
+    >
+      <!-- White Filled Wedge with \ slope -->
+      <path
+        d="M 0,0 Q 14,0 24,20 L 44,66 Q 52,88 64,88 L 64,0 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+
+    <!-- Solid White Navigation Container (No Bottom Border) -->
+    <div class="h-full flex-1 flex items-center justify-end bg-white shadow-md pl-2 sm:pl-4 pr-6 sm:pr-10 lg:pr-12">
+      <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-[19px] xl:text-[21px] font-display capitalize tracking-wide" aria-label="Main Navigation">
+        <!-- Services Mega Menu Link (Direct Click to /services, Hover Opens Mega Menu) -->
+        <div class="relative flex items-center group">
+          <a
+            href="/services"
+            class={`services-megamenu-toggle inline-flex items-center gap-1.5 py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 cursor-pointer focus:outline-none ${
+              currentPath.startsWith('/services') || currentPath === '/information-management' || currentPath === '/it-lifecycle-services-destruction' || currentPath === '/secure-shredding-document-integrity' || currentPath === '/moving-relocation-services'
+                ? 'border-slate-900 text-slate-950 font-bold'
+                : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
+            }`}
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-controls="services-megamenu-panel"
+            data-is-active-route={currentPath.startsWith('/services') ? 'true' : 'false'}
+          >
+            <span>Services</span>
+            <svg class="h-3.5 w-3.5 text-slate-500 group-hover:text-slate-800 transition-transform duration-200 caret-icon shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Sectors Dropdown Link (Direct Click to /sectors, Hover Opens Dropdown) -->
+        <div class="relative sectors-trigger-wrap flex items-center group">
+          <a
+            href="/sectors"
+            class={`sectors-dropdown-toggle inline-flex items-center gap-1.5 py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 cursor-pointer focus:outline-none ${
+              currentPath.startsWith('/sectors')
+                ? 'border-slate-900 text-slate-950 font-bold'
+                : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
+            }`}
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-controls="sectors-dropdown-panel"
+            data-is-active-route={currentPath.startsWith('/sectors') ? 'true' : 'false'}
+          >
+            <span>Sectors</span>
+            <svg class="h-3.5 w-3.5 text-slate-500 group-hover:text-slate-800 transition-transform duration-200 caret-icon shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+        </div>
+
+        <a
+          href="/insights"
+          class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
+            currentPath.startsWith('/insights')
+              ? 'border-slate-900 text-slate-950 font-bold'
+              : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
+          }`}
+        >
+          Insights
+        </a>
+
+        <a
+          href="/about-us"
+          class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
+            currentPath === '/about-us'
+              ? 'border-slate-900 text-slate-950 font-bold'
+              : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
+          }`}
+        >
+          About Us
+        </a>
+
+        <a
+          href="/contact"
+          class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
+            currentPath === '/contact'
+              ? 'border-slate-900 text-slate-950 font-bold'
+              : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
+          }`}
+        >
+          Contact
+        </a>
+      </nav>
+
+      <!-- CTA Pill Button & Mobile Trigger in White Area -->
+      <div class="flex items-center gap-3 ml-6 sm:ml-8">
+        <a
+          href="/request-a-quote"
+          class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#E58A3C] hover:bg-[#d97d2e] text-white text-[17px] font-display font-bold capitalize tracking-wider shadow-md transition-all duration-150 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#E58A3C]"
+        >
+          Request A Collection
+        </a>
+
+        <!-- Mobile Hamburger Button -->
+        <button
+          type="button"
+          class="open-mobile-menu-btn lg:hidden p-2 rounded-lg text-slate-700 hover:text-black hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+          aria-label="Open mobile navigation menu"
+        >
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

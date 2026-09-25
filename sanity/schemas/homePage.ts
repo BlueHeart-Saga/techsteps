@@ -6,6 +6,20 @@ export default defineType({
     type: 'document',
 
     fields: [
+        defineField({
+            name: 'metaTitle',
+            title: 'SEO Meta Title',
+            type: 'string',
+            description: 'Browser tab and search engine title',
+        }),
+        defineField({
+            name: 'metaDescription',
+            title: 'SEO Meta Description',
+            type: 'text',
+            rows: 3,
+            description: 'Search engine description snippet',
+        }),
+
         // =========================================================
         // HERO SECTION
         // =========================================================

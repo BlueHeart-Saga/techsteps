@@ -3,14 +3,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import PageHero from '../../components/hero/PageHero.astro';
 import AccordionFaq from '../../components/content/AccordionFaq.astro';
-import { services } from '../../lib/sanity/data';
+import { getServices, getDivisions } from '../../lib/sanity/client';
 
 const breadcrumbs = [
   { name: 'Services', url: '/services' },
   { name: 'Moving & Relocation', url: '/services/relocation' },
 ];
 
+const [divisions, services] = await Promise.all([
+  getDivisions(),
+  getServices(),
+]);
 const divSlug = 'moving-relocation-services';
+const division = divisions.find(d => d.slug === divSlug);
 const divServices = services.filter(s => s.divisionSlug === divSlug);
 
 const clr = { accent: '#0F623A', dark: '#0A331E', light: '#F2F8F5' };
@@ -22,12 +27,13 @@ const sectorLinks = [
   { title: 'Central Government', slug: 'central-government' },
 ];
 
-const faqs = [
+const defaultFaqs = [
   { question: 'What types of technology can you relocate?', answer: 'We relocate all types of IT equipment including servers, storage arrays, networking infrastructure, workstations, specialist laboratory equipment, heritage and museum archives, and complete data centre environments.' },
   { question: 'How do you minimise disruption during a move?', answer: 'Careful planning is central to minimising disruption. We work with your team to schedule moves at appropriate times, plan in stages where required, and maintain clear communication throughout to keep downtime to a minimum.' },
   { question: 'Do you provide an inventory of moved assets?', answer: 'Yes. A full asset inventory is produced as part of the relocation process — recording each item before, during and after the move, with condition notes and destination confirmation.' },
   { question: 'Do you work outside normal office hours?', answer: 'Yes. Many technology relocations take place at weekends or out of hours to minimise operational disruption. We can accommodate requirements outside standard business hours with appropriate planning.' },
 ];
+const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defaultFaqs;
 
 const mainServices = [
   {
@@ -66,8 +72,8 @@ const mainServices = [
 ---
 
 <BaseLayout
-  title="Moving & Relocation Services | Specialist IT & Business Logistics | Techsteps"
-  description="Mission-critical IT moves, data centre migrations, laboratory relocations, and specialist commercial moves across the UK with zero downtime."
+  title={division?.metaTitle || "Moving & Relocation Services | Specialist IT & Business Logistics | Techsteps"}
+  description={division?.metaDescription || "Mission-critical IT moves, data centre migrations, laboratory relocations, and specialist commercial moves across the UK with zero downtime."}
   hasHeroHeader={true}
 >
   <!-- ===== 1. HERO ===== -->
@@ -80,20 +86,20 @@ const mainServices = [
   >
     <div class="max-w-4xl mx-auto text-center space-y-6">
       <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.08] drop-shadow-2xl">
-        Specialist Moving & Relocation Services UK
+        {division?.heroTitle || 'Specialist Moving & Relocation Services UK'}
       </h1>
 
       <p class="text-base sm:text-lg lg:text-xl text-slate-200/90 leading-relaxed max-w-2xl mx-auto font-medium">
-        Turnkey logistics, mission-critical IT infrastructure relocations, delicate laboratory migrations, and corporate office moves executed with zero operational downtime.
+        {division?.heroDescription || 'Turnkey logistics, mission-critical IT infrastructure relocations, delicate laboratory migrations, and corporate office moves executed with zero operational downtime.'}
       </p>
 
       <!-- CTA Buttons (TechSteps Logo Theme Color) -->
       <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
         <a
-          href="/contact?service=relocation"
+          href={division?.heroCtaLink || "/contact?service=relocation"}
           class="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 border border-emerald-400/30"
         >
-          Talk to a Relocation Specialist
+          {division?.heroCtaText || 'Talk to a Relocation Specialist'}
         </a>
         <a
           href="#relocation-services"
@@ -116,20 +122,26 @@ const mainServices = [
         <div class="lg:col-span-7 space-y-6">
           <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
             <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-            About Our Service
+            {division?.aboutBadge || 'About Our Service'}
           </div>
 
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-[1.12]">
-            Precision Relocation Engineered for Critical Infrastructure
+            {division?.aboutTitle || 'Precision Relocation Engineered for Critical Infrastructure'}
           </h2>
 
           <div class="space-y-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-            <p>
-              Relocating complex enterprise technology, specialized scientific laboratories, or historic cultural collections requires far more than conventional removals. It demands meticulous engineering, specialized protective packaging, air-ride suspension logistics, and seasoned project managers who understand the absolute value of uninterrupted business continuity.
-            </p>
-            <p>
-              Techsteps delivers complete end-to-end relocation solutions across the UK and internationally. From de-racking, cable-mapping, and re-commissioning high-density server racks to transporting temperature-sensitive laboratory reagents and priceless heritage archives, we execute every phase with pinpoint precision and full transit insurance.
-            </p>
+            {(division?.aboutParagraphs && division.aboutParagraphs.length > 0) ? (
+              division.aboutParagraphs.map(p => <p>{p}</p>)
+            ) : (
+              <>
+                <p>
+                  Relocating complex enterprise technology, specialized scientific laboratories, or historic cultural collections requires far more than conventional removals. It demands meticulous engineering, specialized protective packaging, air-ride suspension logistics, and seasoned project managers who understand the absolute value of uninterrupted business continuity.
+                </p>
+                <p>
+                  Techsteps delivers complete end-to-end relocation solutions across the UK and internationally. From de-racking, cable-mapping, and re-commissioning high-density server racks to transporting temperature-sensitive laboratory reagents and priceless heritage archives, we execute every phase with pinpoint precision and full transit insurance.
+                </p>
+              </>
+            )}
           </div>
 
           <div class="pt-2">

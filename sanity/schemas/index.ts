@@ -15,6 +15,7 @@ import investorsPage from './investorsPage';
 import contactPage from './contactPage';
 import requestCollectionPage from './requestCollectionPage';
 import testimonial from './testimonial';
+import legalPage from './legalPage';
 
 export const schemaTypes = [
   // Objects
@@ -41,4 +42,5 @@ export const schemaTypes = [
   caseStudy,
   article,
   testimonial,
+  legalPage,
 ];

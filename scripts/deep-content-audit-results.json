@@ -1,0 +1,424 @@
+{
+  "Home": {
+    "docId": "homePage",
+    "fieldsChecked": {
+      "hero.heading": "GIVING TECHNOLOGY A SECOND LIFE",
+      "hero.eyebrow": "SUSTAINABLE IT RECYCLING",
+      "hero.description": "We responsibly recycle and remarket retired IT equipment, ensuring zero landfill and maximum value recovery.",
+      "intro.heading": "Secure ITAD Services in the UK",
+      "intro.description": "TechSteps provides a fully accredited IT disposal company framework designed for modern UK enterprises. We simplify the ITAD process by combining logistics with maximum security, helping you retire hardware without risk. From single-site pickups to complex IT asset disposal projects, our team ensures your redundant equipment is handled according to the highest environmental standards. By choosing our secure IT asset disposition services, you gain a partner dedicated to protecting your brand and achieving full GDPR compliance throughout the hardware lifecycle.",
+      "services.heading": "SOLUTIONS FOR THE COMPLETE BUSINESS LIFECYCLE",
+      "services.cards_count": 4,
+      "lifecycle.steps_count": 5,
+      "cta.heading": "Ready to manage your technology lifecycle more responsibly?"
+    }
+  },
+  "About Us": {
+    "docId": "aboutPage",
+    "fieldsChecked": {
+      "hero.eyebrow": "About Techsteps",
+      "whatWeDo.items_count": 3,
+      "approach.steps_count": 4,
+      "capabilities.items_count": 4,
+      "statistics_count": 4,
+      "metaTitle": "About Techsteps — Managing What Matters",
+      "metaDescription": "We look after the assets that carry the most risk when a business changes — data, records, equipment and premises. Handled securely, recorded end to end, and returned to value wherever it can be."
+    }
+  },
+  "Divisions": [
+    {
+      "id": "div-im",
+      "title": "Information Management",
+      "slug": "information-management",
+      "summary": "Climate-controlled physical document storage, accredited high-speed scanning, digital mailrooms, and secure media vaulting tailored for strict regulatory compliance.",
+      "headline": "Preserving, Digitising & Governing Corporate Information Lifecycles"
+    },
+    {
+      "id": "div-it",
+      "title": "IT Lifecycle Services & Destruction",
+      "slug": "it-lifecycle-services-destruction",
+      "summary": "End-to-end ITAD, tracked GPS logistics, verified data sanitisation (ADISA compliant), hardware refurbishment, and zero-landfill electronic recycling.",
+      "headline": "Secure IT Asset Disposition, Remarketing & High-Torque Destruction"
+    },
+    {
+      "id": "div-mv",
+      "title": "Moving & Relocation Services",
+      "slug": "moving-relocation-services",
+      "summary": "Specialist IT relocation, laboratory migration, delicate museum archives, commercial office moves, and turnkey logistics project management.",
+      "headline": "Mission-Critical Business, Data Centre & Heritage Relocations"
+    },
+    {
+      "id": "div-sh",
+      "title": "Secure Shredding & Document Integrity",
+      "slug": "secure-shredding-document-integrity",
+      "summary": "BS EN 15713 accredited mobile cross-cut shredding, secure consoles, product and prototype destruction, and commercial recycling streams.",
+      "headline": "Certified On-Site & Off-Site Destruction for Data Protection Compliance"
+    }
+  ],
+  "Services": {
+    "total": 27,
+    "list": [
+      {
+        "id": "srv-business-relocations",
+        "title": "Business Relocations",
+        "slug": "business-relocations",
+        "summary": "Turnkey commercial office relocations, crate hire, weekend t",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-cardboard-recycling",
+        "title": "Cardboard Recycling",
+        "slug": "cardboard-recycling",
+        "summary": "Commercial baling, scheduled collections, and closed-loop pa",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-digital-mailroom",
+        "title": "Digital Mailroom",
+        "slug": "digital-mailroom",
+        "summary": "Inbound post intake, same-day scanning, intelligent classifi",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-disposal-services",
+        "title": "Disposal Services",
+        "slug": "disposal-services",
+        "summary": "Safe, ethical clearances of non-hazardous and specialized co",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-document-management",
+        "title": "Document Management",
+        "slug": "document-management",
+        "summary": "Enterprise document lifecycle strategies, retention scheduli",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-document-scanning",
+        "title": "Document Scanning",
+        "slug": "document-scanning",
+        "summary": "High-volume production optical digitization, automated OCR i",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-document-storage",
+        "title": "Document Storage",
+        "slug": "document-storage",
+        "summary": "Barcoded, climate-controlled off-site archive storage ensuri",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-dry-mixed-recycling",
+        "title": "Dry Mixed Recycling (DMR)",
+        "slug": "dry-mixed-recycling",
+        "summary": "Single-stream workplace recycling for clean paper, cardboard",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-europe-international-domestic-moves",
+        "title": "Europe & International Domestic Moves",
+        "slug": "europe-international-domestic-moves",
+        "summary": "Cross-border enterprise logistics, customs clearance documen",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-heritage-relocations-storage",
+        "title": "Heritage Relocations & Storage",
+        "slug": "heritage-relocations-storage",
+        "summary": "White-glove museum, gallery, and historic artifact transport",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-heritage-storage",
+        "title": "Heritage Storage",
+        "slug": "heritage-storage",
+        "summary": "Conservation-grade archival storage engineered for national ",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-home-shredding",
+        "title": "Home Shredding",
+        "slug": "home-shredding",
+        "summary": "Tamper-evident confidential waste postal sacks and doorstep ",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-it-asset-disposition-services",
+        "title": "IT Asset Disposition Services (ITAD)",
+        "slug": "it-asset-disposition-services",
+        "summary": "Comprehensive enterprise ITAD programs combining risk mitiga",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-it-asset-management-services",
+        "title": "IT Asset Management Services (ITAM)",
+        "slug": "it-asset-management-services",
+        "summary": "End-to-end hardware tracking, inventory reconciliation, buff",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-it-relocations-specialist",
+        "title": "IT Relocations Specialist",
+        "slug": "it-relocations-specialist",
+        "summary": "Data centre migrations, server rack de-installation, SAN sto",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-laboratory-relocations-storage",
+        "title": "Laboratory Relocations & Storage",
+        "slug": "laboratory-relocations-storage",
+        "summary": "Temperature-controlled specimen transit (-80°C to +4°C), act",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-off-site-shredding",
+        "title": "Off-Site Shredding",
+        "slug": "off-site-shredding",
+        "summary": "High-volume, cost-effective destruction at our secure high-c",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-on-site-shredding",
+        "title": "On-Site Shredding",
+        "slug": "on-site-shredding",
+        "summary": "Mobile industrial cross-cut shredding trucks destroying conf",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-product-shredding",
+        "title": "Product Shredding",
+        "slug": "product-shredding",
+        "summary": "Destruction of counterfeit goods, obsolete uniforms, branded",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-project-management",
+        "title": "Project Management",
+        "slug": "project-management",
+        "summary": "Dedicated PRINCE2 and PMP logistics directors overseeing com",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-remarketing-recycling",
+        "title": "Remarketing & Recycling",
+        "slug": "remarketing-recycling",
+        "summary": "Hardware refurbishment, component harvesting, certified prec",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-secure-collection-services",
+        "title": "Secure Collection Services",
+        "slug": "secure-collection-services",
+        "summary": "GPS-monitored secure transit vehicles, BS 7858 security-clea",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-secure-it-disposal",
+        "title": "Secure IT Disposal",
+        "slug": "secure-it-disposal",
+        "summary": "Certified IT asset disposal, full WEEE compliance, serialize",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-simpler-recycling-services",
+        "title": "Simpler Recycling Services",
+        "slug": "simpler-recycling-services",
+        "summary": "Turnkey workplace waste segregation solutions aligning with ",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-tape-media-storage",
+        "title": "Tape & Media Storage",
+        "slug": "tape-media-storage",
+        "summary": "Specialist vaulting and scheduled rotational transit for mag",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-ultra-secure-hard-drive-destruction",
+        "title": "Ultra Secure Hard Drive Destruction",
+        "slug": "ultra-secure-hard-drive-destruction",
+        "summary": "On-site mobile high-torque shredding down to 6mm particles, ",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      },
+      {
+        "id": "srv-vault-storage",
+        "title": "Vault Storage",
+        "slug": "vault-storage",
+        "summary": "Maximum-security biometric vaults designed for high-value in",
+        "hasBenefits": true,
+        "hasProcess": true,
+        "hasFaqs": true
+      }
+    ]
+  },
+  "Sectors": {
+    "total": 8,
+    "list": [
+      {
+        "id": "sec-central-government",
+        "title": "Central Government & Public Sector",
+        "slug": "central-government",
+        "tagline": "Crown Commercial Service Frameworks, Greening Government Commitments & National Archives",
+        "challenges_count": 3,
+        "solutions_count": 3
+      },
+      {
+        "id": "sec-defence",
+        "title": "Defence & Aerospace",
+        "slug": "defence",
+        "tagline": "JSP 440 Aligned Security, Vetted Logistics & On-Site Data Destruction",
+        "challenges_count": 3,
+        "solutions_count": 3
+      },
+      {
+        "id": "sec-education",
+        "title": "Education & Universities",
+        "slug": "education-universities",
+        "tagline": "Campus-Wide IT Refresh, Secure Student Data Purging & Research Archive Digitization",
+        "challenges_count": 3,
+        "solutions_count": 3
+      },
+      {
+        "id": "sec-finance",
+        "title": "Financial & Banking Institutions",
+        "slug": "finance",
+        "tagline": "FCA & PRA Aligned Governance, PCI-DSS Data Sanitisation & Trading Floor Relocations",
+        "challenges_count": 3,
+        "solutions_count": 3
+      },
+      {
+        "id": "sec-legal",
+        "title": "Legal & Professional Services",
+        "slug": "legal-professional-services",
+        "tagline": "SRA Aligned Confidentiality, BS 10008 Legal Scanning & Ultra-Secure Partner Hard Drive Destruction",
+        "challenges_count": 3,
+        "solutions_count": 3
+      },
+      {
+        "id": "sec-manufacturing",
+        "title": "Manufacturing & Engineering",
+        "slug": "manufacturing-engineering",
+        "tagline": "Protecting Proprietary CAD/CAM IP, Industrial Control ITAD & Clean Production Relocations",
+        "challenges_count": 3,
+        "solutions_count": 3
+      },
+      {
+        "id": "sec-nhs",
+        "title": "NHS & Healthcare Trusts",
+        "slug": "nhs",
+        "tagline": "Caldicott Aligned, BS 10008 Legal Scanning & Confidential Patient Record Protection",
+        "challenges_count": 3,
+        "solutions_count": 3
+      },
+      {
+        "id": "sec-technology",
+        "title": "IT & Technology",
+        "slug": "it-technology",
+        "tagline": "Hyperscale Data Centre Decommissioning, Zero-Landfill ITAD & Enterprise Server Remarketing",
+        "challenges_count": 3,
+        "solutions_count": 3
+      }
+    ]
+  },
+  "Investors": {
+    "docId": "investorsPage",
+    "fieldsChecked": {
+      "hero.title": "Market leadership in essential lifecycle services.",
+      "hero.subheading": "Techsteps delivers vital business lifecycle services across document management, IT asset disposition, secure destruction, and commercial relocation.",
+      "stats_count": 4,
+      "strategicPillars_count": 3,
+      "irContact.name": "Investor Relations Desk"
+    }
+  },
+  "Sustainability": {
+    "docId": "sustainabilityPage",
+    "fieldsChecked": {
+      "hero.title": "A Smarter Lifecycle for Every Asset.",
+      "hero.subheading": "We help organisations extend the life of technology, recover value from IT assets and responsibly manage equipment that reaches the end of its useful life.",
+      "metrics_count": 4,
+      "approach.steps_count": 6,
+      "esgPillars_count": 2
+    }
+  },
+  "Contact": {
+    "docId": "contactPage",
+    "fieldsChecked": {
+      "hero.title": "Contact us",
+      "hero.subheading": "Techsteps is ready to provide the right solution according to your needs",
+      "formSection.heading": "Send us a message",
+      "directLines_count": 2
+    }
+  },
+  "FAQ": {
+    "docId": "faqPage",
+    "fieldsChecked": {
+      "hero.title": "FREQUENTLY ASKED QUESTIONS",
+      "categories_count": 7,
+      "items_count": 25
+    }
+  },
+  "SiteSettings": {
+    "docId": "siteSettings",
+    "fieldsChecked": {
+      "companyName": "Techsteps",
+      "phone": "+44 (0) 20 7946 0888",
+      "email": "enquiries@techsteps.co.uk",
+      "mainNav_count": 5,
+      "footerServices_count": 5,
+      "footerSectors_count": 5,
+      "footerLegal_count": 7
+    }
+  }
+}

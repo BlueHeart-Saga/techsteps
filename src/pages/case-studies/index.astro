@@ -3,11 +3,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import Section from '../../components/layout/Section.astro';
 import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
-import { caseStudies } from '../../lib/sanity/data';
+import { getCaseStudies } from '../../lib/sanity/client';
 
 const breadcrumbs = [
   { name: 'Case Studies', url: '/case-studies' },
 ];
+
+const caseStudies = await getCaseStudies();
 ---
 
 <BaseLayout

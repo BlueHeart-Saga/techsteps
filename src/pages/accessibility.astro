@@ -1,6 +1,8 @@
 ---
 import LegalPageLayout from '../components/legal/LegalPageLayout.astro';
-import { siteSettings } from '../lib/sanity/data';
+import { getSiteSettings } from '../lib/sanity/client';
+
+const siteSettings = await getSiteSettings();
 ---
 
 <LegalPageLayout

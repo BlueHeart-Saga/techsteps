@@ -3,7 +3,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../layout/Container.astro';
 import Section from '../layout/Section.astro';
 import PageHero from '../hero/PageHero.astro';
-import { siteSettings } from '../../lib/sanity/data';
+import { getSiteSettings, getLegalPage } from '../../lib/sanity/client';
+
+const siteSettings = await getSiteSettings();
 
 interface Props {
   title: string;
@@ -24,15 +26,26 @@ interface Props {
 }
 
 const {
-  title,
-  eyebrow = 'GOVERNANCE & COMPLIANCE',
-  subheading,
-  metaTitle,
-  metaDescription,
-  lastUpdated = 'February 2026',
-  complianceBadge = 'UK Statutory & Regulatory Framework',
+  title: propTitle,
+  eyebrow: propEyebrow = 'GOVERNANCE & COMPLIANCE',
+  subheading: propSubheading,
+  metaTitle: propMetaTitle,
+  metaDescription: propMetaDescription,
+  lastUpdated: propLastUpdated = 'February 2026',
+  complianceBadge: propComplianceBadge = 'UK Statutory & Regulatory Framework',
   activeSlug,
 } = Astro.props;
+
+const sanityLegalPage = await getLegalPage(activeSlug);
+
+const title = sanityLegalPage?.title || propTitle;
+const eyebrow = sanityLegalPage?.eyebrow || propEyebrow;
+const subheading = sanityLegalPage?.subheading || propSubheading;
+const metaTitle = sanityLegalPage?.metaTitle || propMetaTitle;
+const metaDescription = sanityLegalPage?.metaDescription || propMetaDescription;
+const lastUpdated = sanityLegalPage?.lastUpdated || propLastUpdated;
+const complianceBadge = sanityLegalPage?.complianceBadge || propComplianceBadge;
+const sections = sanityLegalPage?.sections;
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
@@ -161,7 +174,47 @@ const policyNav = [
         <!-- Right Main Content -->
         <div class="lg:col-span-8 bg-white p-6 sm:p-10 rounded-2xl border border-slate-200/90 shadow-sm">
           <div class="prose prose-slate max-w-none text-slate-700 space-y-8 text-sm sm:text-base leading-relaxed">
-            <slot />
+            {sections && sections.length > 0 ? (
+              sections.map((sec) => (
+                <section class="space-y-4">
+                  <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+                    {sec.heading}
+                  </h2>
+                  {sec.body && (
+                    <p class="whitespace-pre-line">{sec.body}</p>
+                  )}
+                  {sec.callout && sec.callout.length > 0 && (
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
+                      {sec.callout.map((item) => (
+                        <div>
+                          {item.label && <strong>{item.label}: </strong>}
+                          <span>{item.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {sec.cards && sec.cards.length > 0 && (
+                    <div class="space-y-3">
+                      {sec.cards.map((c) => (
+                        <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+                          <h3 class="font-bold text-slate-900 text-base">{c.title}</h3>
+                          <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">{c.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {sec.listItems && sec.listItems.length > 0 && (
+                    <ul class="list-disc pl-5 space-y-2 text-slate-600">
+                      {sec.listItems.map((li) => (
+                        <li>{li}</li>
+                      ))}
+                    </ul>
+                  )}
+                </section>
+              ))
+            ) : (
+              <slot />
+            )}
           </div>
         </div>
       </div>

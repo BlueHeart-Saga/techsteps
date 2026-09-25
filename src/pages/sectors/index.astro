@@ -2,11 +2,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import PageHero from '../../components/hero/PageHero.astro';
-import { sectors, divisions } from '../../lib/sanity/data';
+import { getSectors, getDivisions } from '../../lib/sanity/client';
 
 const breadcrumbs = [
   { name: 'Sectors', url: '/sectors' },
 ];
+
+const [sectors, divisions] = await Promise.all([
+  getSectors(),
+  getDivisions(),
+]);
 
 // Verified four core sectors in preferred display order with background photography
 const coreSectors = [

@@ -31,6 +31,7 @@ import type {
   ContactPageData,
   RequestCollectionPageData,
   TestimonialItem,
+  LegalPageData,
 } from './types';
 
 const projectId =
@@ -48,12 +49,28 @@ const apiVersion =
 // In static Astro generation, useCdn: false ensures the current published content is fetched
 const useCdn = false;
 
+// Ensure IPv4 first on Node environments to prevent dual-stack DNS lag
+if (typeof process !== 'undefined' && typeof process.versions?.node !== 'undefined') {
+  try {
+    const dns = await import('node:dns');
+    dns.setDefaultResultOrder?.('ipv4first');
+  } catch {
+    // browser or edge environment
+  }
+}
+
+const token =
+  import.meta.env.SANITY_API_TOKEN ||
+  import.meta.env.SANITY_TOKEN ||
+  (typeof process !== 'undefined' ? (process.env.SANITY_API_TOKEN || process.env.SANITY_TOKEN) : undefined);
+
 export const sanityClient = projectId
   ? createClient({
     projectId,
     dataset,
     apiVersion,
     useCdn,
+    token: token || undefined,
   })
   : null;
 
@@ -68,7 +85,9 @@ export async function getHomePage(): Promise<HomePageData | null> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "homePage"][0]{
+        *[_type == "homePage" && !(_id in path("drafts.**"))][0]{
+          metaTitle,
+          metaDescription,
           hero{
             eyebrow,
             heading,
@@ -180,7 +199,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       `;
 
       const data = await sanityClient.fetch(`
-        *[_type == "siteSettings"][0]{
+        *[_type == "siteSettings" && !(_id in path("drafts.**"))][0]{
           ...,
           "mainNav": mainNav[]{ ${linkProjection} },
           "footerServices": footerServices[]{ ${linkProjection} },
@@ -211,7 +230,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 export async function getDivisions(): Promise<Division[]> {
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "division"] | order(order asc)`);
+      const data = await sanityClient.fetch(`*[_type == "division" && !(_id in path("drafts.**"))] | order(order asc)`);
       if (data && data.length > 0) {
         return data.map((d: any) => ({
           ...d,
@@ -233,7 +252,7 @@ export async function getDivisionBySlug(slug: string): Promise<Division | undefi
 export async function getServices(): Promise<Service[]> {
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "service"]{
+      const data = await sanityClient.fetch(`*[_type == "service" && !(_id in path("drafts.**"))]{
         ...,
         "divisionSlug": coalesce(division->slug.current, divisionSlug),
         "divisionTitle": coalesce(division->title, divisionTitle)
@@ -265,7 +284,7 @@ export async function getSectors(): Promise<Sector[]> {
   let sanitySectors: Sector[] = [];
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "sector"]`);
+      const data = await sanityClient.fetch(`*[_type == "sector" && !(_id in path("drafts.**"))]`);
       if (data && data.length > 0) {
         sanitySectors = data.map((sec: any) => ({
           ...sec,
@@ -292,7 +311,7 @@ export async function getSectorBySlug(slug: string): Promise<Sector | undefined>
 export async function getStatistics(): Promise<StatItem[]> {
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "stat" && isVisible == true] | order(displayOrder asc)`);
+      const data = await sanityClient.fetch(`*[_type == "stat" && isVisible == true && !(_id in path("drafts.**"))] | order(displayOrder asc)`);
       if (data && data.length > 0) return data;
     } catch {
       // Fallback
@@ -304,7 +323,7 @@ export async function getStatistics(): Promise<StatItem[]> {
 export async function getCaseStudies(): Promise<CaseStudy[]> {
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "caseStudy"] | order(publishedAt desc)`);
+      const data = await sanityClient.fetch(`*[_type == "caseStudy" && !(_id in path("drafts.**"))] | order(publishedAt desc)`);
       if (data && data.length > 0) {
         return data.map((cs: any) => ({
           ...cs,
@@ -326,7 +345,7 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | unde
 export async function getArticles(): Promise<Article[]> {
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "article"] | order(publishedDate desc)`);
+      const data = await sanityClient.fetch(`*[_type == "article" && !(_id in path("drafts.**"))] | order(publishedDate desc)`);
       if (data && data.length > 0) {
         return data.map((a: any) => ({
           ...a,
@@ -360,7 +379,7 @@ export async function getAboutPage(): Promise<any> {
 
   try {
     const data = await sanityClient.fetch(`
-      *[_type == "aboutPage"][0]{
+      *[_type == "aboutPage" && !(_id in path("drafts.**"))][0]{
         metaTitle,
         metaDescription,
 
@@ -465,16 +484,24 @@ export async function getAboutPage(): Promise<any> {
       hero: data.hero
         ? {
           ...data.hero,
-          title: 'Managing What Matters.',
-          highlightedTitle: 'Protecting What Comes Next.',
+          title: data.hero.headline
+            ? (data.hero.headline.includes('.') ? data.hero.headline.split('.')[0] + '.' : data.hero.headline)
+            : 'Managing What Matters.',
+          highlightedTitle: data.hero.headline && data.hero.headline.includes('.')
+            ? ' ' + data.hero.headline.split('.').slice(1).join('.').trim()
+            : 'Protecting What Comes Next.',
         }
         : null,
 
       whoWeAre: data.whoWeAre
         ? {
           ...data.whoWeAre,
-          title: 'Technology',
-          highlightedTitle: ' With Purpose',
+          title: data.whoWeAre.headline
+            ? (data.whoWeAre.headline.includes('With') ? data.whoWeAre.headline.split('With')[0].trim() : data.whoWeAre.headline)
+            : 'Technology',
+          highlightedTitle: data.whoWeAre.headline && data.whoWeAre.headline.includes('With')
+            ? ' With ' + data.whoWeAre.headline.split('With').slice(1).join('With').trim()
+            : ' With Purpose',
         }
         : null,
 
@@ -534,7 +561,7 @@ export async function getFaqPage(): Promise<FaqPageData> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "faqPage"][0]{
+        *[_type == "faqPage" && !(_id in path("drafts.**"))][0]{
           metaTitle,
           metaDescription,
           hero{
@@ -583,7 +610,7 @@ export async function getSustainabilityPage(): Promise<SustainabilityPageData> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "sustainabilityPage"][0]{
+        *[_type == "sustainabilityPage" && !(_id in path("drafts.**"))][0]{
           metaTitle,
           metaDescription,
           hero{
@@ -662,7 +689,7 @@ export async function getInvestorsPage(): Promise<InvestorsPageData> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "investorsPage"][0]{
+        *[_type == "investorsPage" && !(_id in path("drafts.**"))][0]{
           metaTitle,
           metaDescription,
           hero{
@@ -699,6 +726,20 @@ export async function getInvestorsPage(): Promise<InvestorsPageData> {
             role,
             email,
             phone
+          },
+          businesses[]{
+            division,
+            name,
+            tagline,
+            description,
+            link,
+            image,
+            accreditations
+          },
+          esgPillars[]{
+            title,
+            badge,
+            desc
           }
         }
       `);
@@ -709,6 +750,8 @@ export async function getInvestorsPage(): Promise<InvestorsPageData> {
           hero: { ...defaultInvestorsPage.hero, ...data.hero },
           stats: (Array.isArray(data.stats) && data.stats.length > 0) ? data.stats : defaultInvestorsPage.stats,
           strategicPillars: (Array.isArray(data.strategicPillars) && data.strategicPillars.length > 0) ? data.strategicPillars : defaultInvestorsPage.strategicPillars,
+          businesses: Array.isArray(data.businesses) && data.businesses.length > 0 ? data.businesses : defaultInvestorsPage.businesses,
+          esgPillars: Array.isArray(data.esgPillars) && data.esgPillars.length > 0 ? data.esgPillars : defaultInvestorsPage.esgPillars,
           investmentCase: { ...defaultInvestorsPage.investmentCase, ...data.investmentCase },
           irContact: { ...defaultInvestorsPage.irContact, ...data.irContact },
         };
@@ -724,7 +767,7 @@ export async function getContactPage(): Promise<ContactPageData> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "contactPage"][0]{
+        *[_type == "contactPage" && !(_id in path("drafts.**"))][0]{
           metaTitle,
           metaDescription,
           hero{
@@ -765,7 +808,7 @@ export async function getRequestCollectionPage(): Promise<RequestCollectionPageD
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "requestCollectionPage"][0]{
+        *[_type == "requestCollectionPage" && !(_id in path("drafts.**"))][0]{
           metaTitle,
           metaDescription,
           hero{
@@ -798,7 +841,7 @@ export async function getTestimonials(): Promise<TestimonialItem[]> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "testimonial"] | order(order asc){
+        *[_type == "testimonial" && !(_id in path("drafts.**"))] | order(order asc){
           "id": coalesce(_id, id),
           quote,
           author,
@@ -818,4 +861,71 @@ export async function getTestimonials(): Promise<TestimonialItem[]> {
     }
   }
   return testimonials;
+}
+
+export async function getLegalPages(): Promise<LegalPageData[]> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`*[_type == "legalPage" && !(_id in path("drafts.**"))]{
+        title,
+        "slug": slug.current,
+        eyebrow,
+        subheading,
+        metaTitle,
+        metaDescription,
+        complianceBadge,
+        lastUpdated,
+        sections[]{
+          heading,
+          body,
+          callout{
+            title,
+            items[]{ label, value }
+          },
+          cards[]{ title, description },
+          listItems[]{ label, text }
+        }
+      }`);
+      if (data && data.length > 0) {
+        return data;
+      }
+    } catch (err) {
+      console.error('Failed to fetch Legal pages from Sanity:', err);
+    }
+  }
+  return [];
+}
+
+export async function getLegalPage(slug: string): Promise<LegalPageData | null> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(
+        `*[_type == "legalPage" && slug.current == $slug && !(_id in path("drafts.**"))][0]{
+          title,
+          "slug": slug.current,
+          eyebrow,
+          subheading,
+          metaTitle,
+          metaDescription,
+          complianceBadge,
+          lastUpdated,
+          sections[]{
+            heading,
+            body,
+            callout{
+              title,
+              items[]{ label, value }
+            },
+            cards[]{ title, description },
+            listItems[]{ label, text }
+          }
+        }`,
+        { slug }
+      );
+      if (data) return data;
+    } catch (err) {
+      console.error(`Failed to fetch Legal page for slug ${slug}:`, err);
+    }
+  }
+  return null;
 }

@@ -53,10 +53,24 @@ const defaultLifecycleSteps: Step[] = [
 ];
 
 const {
-  steps = defaultLifecycleSteps,
-  title = 'Our Certified Lifecycle Process',
-  subtitle = 'A secure, auditable, and environmentally responsible end-to-end chain of custody.',
+  lifecycle,
+  steps: propSteps,
+  title: propTitle,
+  subtitle: propSubtitle,
 } = Astro.props;
+
+const title = lifecycle?.heading || propTitle || 'Our Certified Lifecycle Process';
+const subtitle = lifecycle?.description || propSubtitle || 'A secure, auditable, and environmentally responsible end-to-end chain of custody.';
+
+const steps: Step[] = (lifecycle?.steps && lifecycle.steps.length > 0)
+  ? lifecycle.steps.map((s: any, idx: number) => ({
+      stepNumber: parseInt(s.number, 10) || idx + 1,
+      title: s.title,
+      shortDesc: s.badge ? s.badge.replace(/^PHASE \d+\s*[•\/\/]\s*/i, '') : (defaultLifecycleSteps[idx]?.shortDesc || s.title),
+      description: s.description,
+      image: defaultLifecycleSteps[idx]?.image || '',
+    }))
+  : (propSteps || defaultLifecycleSteps);
 
 // Precise coordinates calibrated to the graphic layout:
 // textX, textY: Coordinates of the live text block

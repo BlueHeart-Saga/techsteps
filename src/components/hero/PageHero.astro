@@ -82,17 +82,6 @@ const currentPath = Astro.url.pathname;
       <!-- Solid White Navigation Container (No Bottom Border) -->
       <div class="h-full flex-1 flex items-center justify-end bg-white shadow-md pl-2 sm:pl-4 pr-6 sm:pr-10 lg:pr-12">
         <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-[19px] xl:text-[21px] font-display capitalize tracking-wide" aria-label="Main Navigation">
-          <a
-            href="/about-us"
-            class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
-              currentPath === '/about-us'
-                ? 'border-slate-900 text-slate-950 font-bold'
-                : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
-            }`}
-          >
-            About Us
-          </a>
-
           <!-- Services Mega Menu Link (Direct Click to /services, Hover Opens Mega Menu) -->
           <div class="relative flex items-center group">
             <a
@@ -144,6 +133,17 @@ const currentPath = Astro.url.pathname;
             }`}
           >
             Insights
+          </a>
+
+          <a
+            href="/about-us"
+            class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
+              currentPath === '/about-us'
+                ? 'border-slate-900 text-slate-950 font-bold'
+                : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
+            }`}
+          >
+            About Us
           </a>
 
           <a

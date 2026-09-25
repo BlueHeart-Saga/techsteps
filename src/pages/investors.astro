@@ -53,7 +53,7 @@ const strategicPillars = (investorsData.strategicPillars && investorsData.strate
       },
     ];
 
-const businesses = [
+const defaultBusinesses = [
   {
     division: 'DIVISION 01',
     name: 'Information Management',
@@ -92,7 +92,11 @@ const businesses = [
   },
 ];
 
-const esgPillars = [
+const businesses = (investorsData.businesses && investorsData.businesses.length > 0)
+  ? investorsData.businesses
+  : defaultBusinesses;
+
+const defaultEsgPillars = [
   {
     title: 'Environmental Stewardship',
     badge: 'NET ZERO ALIGNED',
@@ -109,6 +113,10 @@ const esgPillars = [
     desc: 'The Board maintains independent surveillance audits, stringent anti-bribery governance, robust cybersecurity frameworks, and rigorous statutory reporting in full compliance with the UK Companies Act and UK GDPR standards.',
   },
 ];
+
+const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length > 0)
+  ? investorsData.esgPillars
+  : defaultEsgPillars;
 ---
 
 <BaseLayout

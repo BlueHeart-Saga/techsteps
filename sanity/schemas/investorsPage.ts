@@ -80,6 +80,40 @@ export default defineType({
         defineField({ name: 'address', title: 'Corporate Registrar Address', type: 'text', rows: 2 }),
       ],
     }),
+    defineField({
+      name: 'businesses',
+      title: 'Division Businesses Overview',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'division', title: 'Division Badge (e.g. DIVISION 01)', type: 'string' }),
+            defineField({ name: 'name', title: 'Division Name', type: 'string' }),
+            defineField({ name: 'tagline', title: 'Tagline', type: 'string' }),
+            defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+            defineField({ name: 'link', title: 'Link URL', type: 'string' }),
+            defineField({ name: 'image', title: 'Image URL or Asset', type: 'string' }),
+            defineField({ name: 'accreditations', title: 'Accreditations', type: 'string' }),
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'esgPillars',
+      title: 'ESG Pillars',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'title', title: 'Pillar Title', type: 'string' }),
+            defineField({ name: 'badge', title: 'Badge Text', type: 'string' }),
+            defineField({ name: 'desc', title: 'Description', type: 'text', rows: 4 }),
+          ],
+        },
+      ],
+    }),
   ],
   preview: {
     select: {

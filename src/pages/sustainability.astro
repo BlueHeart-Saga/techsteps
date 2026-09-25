@@ -153,123 +153,41 @@ const serviceCards = [
             />
           </div>
 
-          <!-- RIGHT STACK OF 6 CARDS: Sticky Scroll One-by-One Stacking -->
+          <!-- RIGHT STACK OF 6 CARDS: Dynamic CMS-driven Sticky Scroll Stacking -->
           <div class="lg:col-span-7 flex flex-col gap-5">
-            
-            <!-- STAGE 1: COLLECT -->
-            <div class="lg:sticky lg:top-24 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition-all flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7 z-10">
-              <!-- Huge Number 1 -->
-              <span class="text-5xl sm:text-6xl font-extrabold font-display text-[#146B5C] shrink-0 leading-none">
-                1
-              </span>
-              <div class="space-y-1.5 flex-1">
-                <div class="flex items-center justify-between gap-2 flex-wrap">
-                  <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900">
-                    COLLECT
-                  </h3>
-                  <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C] bg-[#146B5C]/10 px-3.5 py-1 rounded-full">Chain-of-Custody</span>
+            {approachSteps.map((s, idx) => {
+              const stickyClasses = [
+                'lg:sticky lg:top-24 z-10',
+                'lg:sticky lg:top-28 z-20',
+                'lg:sticky lg:top-32 z-30',
+                'lg:sticky lg:top-36 z-40',
+                'lg:sticky lg:top-40 z-50',
+                'lg:sticky lg:top-44 z-[60]',
+              ];
+              const isLast = idx === approachSteps.length - 1;
+              return (
+                <div class={`${stickyClasses[idx] || 'lg:sticky lg:top-24 z-10'} bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition-all flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7`}>
+                  <span class={`text-5xl sm:text-6xl font-extrabold font-display ${isLast ? 'text-slate-700' : 'text-[#146B5C]'} shrink-0 leading-none`}>
+                    {s.step || idx + 1}
+                  </span>
+                  <div class="space-y-1.5 flex-1">
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                      <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900">
+                        {s.title}
+                      </h3>
+                      {s.badge && (
+                        <span class={`text-xs sm:text-sm font-bold uppercase tracking-wider ${isLast ? 'text-slate-700 bg-slate-100' : 'text-[#146B5C] bg-[#146B5C]/10'} px-3.5 py-1 rounded-full`}>
+                          {s.badge}
+                        </span>
+                      )}
+                    </div>
+                    <p class="text-sm sm:text-base text-slate-700 font-semibold leading-relaxed">
+                      {s.desc}
+                    </p>
+                  </div>
                 </div>
-                <p class="text-sm sm:text-base text-slate-700 font-semibold leading-relaxed">
-                  Secure GPS-tracked transport, tamper-evident containers, and strict chain-of-custody handling directly from enterprise sites.
-                </p>
-              </div>
-            </div>
-
-            <!-- STAGE 2: AUDIT & ASSESS -->
-            <div class="lg:sticky lg:top-28 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition-all flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7 z-20">
-              <!-- Huge Number 2 -->
-              <span class="text-5xl sm:text-6xl font-extrabold font-display text-[#146B5C] shrink-0 leading-none">
-                2
-              </span>
-              <div class="space-y-1.5 flex-1">
-                <div class="flex items-center justify-between gap-2 flex-wrap">
-                  <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900">
-                    AUDIT &amp; ASSESS
-                  </h3>
-                  <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C] bg-[#146B5C]/10 px-3.5 py-1 rounded-full">Triage &amp; Verification</span>
-                </div>
-                <p class="text-sm sm:text-base text-slate-700 font-semibold leading-relaxed">
-                  Granular asset logging, serial number scanning, hardware functional diagnostics, and secondary lifecycle viability assessment.
-                </p>
-              </div>
-            </div>
-
-            <!-- STAGE 3: SANITISE -->
-            <div class="lg:sticky lg:top-32 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition-all flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7 z-30">
-              <!-- Huge Number 3 -->
-              <span class="text-5xl sm:text-6xl font-extrabold font-display text-[#146B5C] shrink-0 leading-none">
-                3
-              </span>
-              <div class="space-y-1.5 flex-1">
-                <div class="flex items-center justify-between gap-2 flex-wrap">
-                  <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900">
-                    SANITISE
-                  </h3>
-                  <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C] bg-[#146B5C]/10 px-3.5 py-1 rounded-full">Cryptographic Erasure</span>
-                </div>
-                <p class="text-sm sm:text-base text-slate-700 font-semibold leading-relaxed">
-                  Certified ADISA and NIST 800-88 compliant data wiping or physical degaussing to ensure zero data residual liability.
-                </p>
-              </div>
-            </div>
-
-            <!-- STAGE 4: REUSE -->
-            <div class="lg:sticky lg:top-36 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition-all flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7 z-40">
-              <!-- Huge Number 4 -->
-              <span class="text-5xl sm:text-6xl font-extrabold font-display text-[#146B5C] shrink-0 leading-none">
-                4
-              </span>
-              <div class="space-y-1.5 flex-1">
-                <div class="flex items-center justify-between gap-2 flex-wrap">
-                  <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900">
-                    REUSE
-                  </h3>
-                  <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C] bg-[#146B5C]/10 px-3.5 py-1 rounded-full">Redeployment &amp; Extension</span>
-                </div>
-                <p class="text-sm sm:text-base text-slate-700 font-semibold leading-relaxed">
-                  Extending useful hardware life through internal redeployment, component harvesting, and secondary hardware assignment.
-                </p>
-              </div>
-            </div>
-
-            <!-- STAGE 5: REMARKET -->
-            <div class="lg:sticky lg:top-40 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition-all flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7 z-50">
-              <!-- Huge Number 5 -->
-              <span class="text-5xl sm:text-6xl font-extrabold font-display text-[#146B5C] shrink-0 leading-none">
-                5
-              </span>
-              <div class="space-y-1.5 flex-1">
-                <div class="flex items-center justify-between gap-2 flex-wrap">
-                  <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900">
-                    REMARKET
-                  </h3>
-                  <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C] bg-[#146B5C]/10 px-3.5 py-1 rounded-full">Value Recovery</span>
-                </div>
-                <p class="text-sm sm:text-base text-slate-700 font-semibold leading-relaxed">
-                  Refurbishing and remarketing high-value IT equipment into global secondary B2B channels to return maximum ROI.
-                </p>
-              </div>
-            </div>
-
-            <!-- STAGE 6: RECYCLE & RECOVER -->
-            <div class="lg:sticky lg:top-44 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition-all flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7 z-[60]">
-              <!-- Huge Number 6 -->
-              <span class="text-5xl sm:text-6xl font-extrabold font-display text-slate-700 shrink-0 leading-none">
-                6
-              </span>
-              <div class="space-y-1.5 flex-1">
-                <div class="flex items-center justify-between gap-2 flex-wrap">
-                  <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900">
-                    RECYCLE &amp; RECOVER
-                  </h3>
-                  <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-3.5 py-1 rounded-full">Zero-Landfill Guarantee</span>
-                </div>
-                <p class="text-sm sm:text-base text-slate-700 font-semibold leading-relaxed">
-                  Eco-certified material separation, WEEE-compliant shredding, and RDF energy recovery ensuring 100% zero-to-landfill diversion.
-                </p>
-              </div>
-            </div>
-
+              );
+            })}
           </div>
         </div>
 

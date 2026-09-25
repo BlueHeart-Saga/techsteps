@@ -2,7 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
 import Section from '../components/layout/Section.astro';
-import { divisions } from '../lib/sanity/data';
+import { getDivisions } from '../lib/sanity/client';
+
+const divisions = await getDivisions();
 ---
 
 <BaseLayout

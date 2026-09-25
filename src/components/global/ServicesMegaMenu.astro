@@ -13,6 +13,7 @@ const tabs = [
     slug: 'it-lifecycle-services-destruction',
     title: 'IT Lifecycle & ITAD',
     iconType: 'chip',
+    image: '/images/services/image2.jpg',
     subServices: [
       {
         title: 'IT Asset Disposition (ITAD)',
@@ -52,6 +53,7 @@ const tabs = [
     slug: 'information-management',
     title: 'Information Management',
     iconType: 'database',
+    image: '/images/services/document-storage-warehouse.jpg',
     subServices: [
       {
         title: 'Document Storage',
@@ -95,6 +97,7 @@ const tabs = [
     slug: 'secure-shredding-document-integrity',
     title: 'Secure Shredding',
     iconType: 'shield',
+    image: '/images/services/image3_web.jpg',
     subServices: [
       {
         title: 'On-Site Mobile Shredding',
@@ -142,6 +145,7 @@ const tabs = [
     slug: 'moving-relocation-services',
     title: 'Moving & Relocation',
     iconType: 'truck',
+    image: '/images/services/image4.jpg',
     subServices: [
       {
         title: 'Specialist IT Relocations',
@@ -182,15 +186,15 @@ const tabs = [
 <!-- Services Mega Menu Floating Card (Sharp Box Edges, Clean Sub-Services Grid) -->
 <div
   id="services-megamenu-panel"
-  class="hidden fixed inset-x-0 z-50 transition-all duration-200 transform opacity-0 -translate-y-2 pointer-events-none px-4 sm:px-6 lg:px-8 max-h-[calc(100vh-90px)] overflow-y-auto"
+  class="hidden fixed inset-x-0 z-50 transition-all duration-200 transform opacity-0 -translate-y-2 pointer-events-none px-4 sm:px-6 lg:px-8 max-h-[calc(100vh-90px)] overflow-y-auto pt-2 before:absolute before:-top-4 before:inset-x-0 before:h-4 before:content-['']"
   role="region"
   aria-label="Services Mega Navigation"
 >
   <div class="relative max-w-7xl mx-auto bg-white rounded-none shadow-[0_25px_60px_-15px_rgba(15,23,42,0.18)] border border-slate-200/90 overflow-hidden font-sans">
-    <div class="flex flex-col lg:flex-row min-h-[440px]">
+    <div class="flex flex-col lg:flex-row min-h-[480px]">
       
       <!-- 1. LEFT SIDEBAR (Category Items with High-Level Icons & NO Background) -->
-      <div class="w-full lg:w-72 bg-[#F8FAF9] p-4 sm:p-5 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-200/80 shrink-0">
+      <div class="w-full lg:w-72 bg-[#F8FAF9] p-4 sm:p-5 flex flex-col border-b lg:border-b-0 lg:border-r border-slate-200/80 shrink-0">
         <div class="space-y-1.5">
           <div class="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
             Divisions
@@ -203,10 +207,11 @@ const tabs = [
                 type="button"
                 class={`services-tab-btn group w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-left text-sm transition-all duration-150 cursor-pointer border ${
                   isFirst
-                    ? 'bg-[#EFF8F3] text-[#0F623A] font-bold shadow-xs active border-[#ACDEAB]/60'
-                    : 'text-slate-700 hover:text-[#0F623A] hover:bg-[#EFF8F3]/60 font-medium border-transparent'
+                    ? 'bg-emerald-500/10 backdrop-blur-sm text-[#0F623A] font-bold shadow-sm active border-emerald-400/40 ring-1 ring-emerald-400/20'
+                    : 'text-slate-700 hover:text-[#0F623A] hover:bg-emerald-500/10 font-medium border-transparent'
                 }`}
                 data-target-tab={`services-tab-${tab.id}`}
+                data-slug={tab.slug}
               >
                 <!-- High-Level Icon WITHOUT Background -->
                 <span class={`tab-icon shrink-0 transition-colors ${
@@ -246,16 +251,6 @@ const tabs = [
             );
           })}
         </div>
-
-        <!-- Sidebar Bottom Link (No Arrow) -->
-        <div class="pt-4 mt-4 border-t border-slate-200/80 px-2">
-          <a
-            href="/services"
-            class="text-xs font-bold text-[#0F623A] hover:text-black flex items-center justify-between group transition-colors"
-          >
-            <span>All 27 Services Directory</span>
-          </a>
-        </div>
       </div>
 
       <!-- 2. RIGHT MAIN CONTENT AREA: CENTER SUB-SERVICES + RIGHT SPOTLIGHT CARD -->
@@ -267,10 +262,10 @@ const tabs = [
               id={`services-tab-${tab.id}`}
               class={`services-tab-panel ${isFirst ? 'block' : 'hidden'} animate-in fade-in duration-150`}
             >
-              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
                 
                 <!-- CENTER AREA: Links related to the selected service's sub-services (No secondary heading, No Arrows) -->
-                <div class="lg:col-span-2 space-y-4">
+                <div class="lg:col-span-7 space-y-4">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                     <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">
                       {tab.title}
@@ -288,7 +283,7 @@ const tabs = [
                     {tab.subServices.map((sub) => (
                       <a
                         href={`/services/${sub.slug}`}
-                        class="group flex items-center justify-between py-2 px-3 rounded-lg hover:bg-[#EFF8F3] border border-transparent hover:border-[#ACDEAB]/40 transition-all duration-150"
+                        class="group flex items-center justify-between py-2 px-3 rounded-lg hover:bg-emerald-500/10 border border-transparent hover:border-emerald-400/30 transition-all duration-150"
                       >
                         <span class="text-base sm:text-[17px] font-normal text-slate-700 group-hover:text-[#0F623A] transition-colors leading-snug">
                           {sub.title}
@@ -298,40 +293,37 @@ const tabs = [
                   </div>
                 </div>
 
-                <!-- RIGHT COLUMN: Integrations & Accreditations Card (Matching Freshworks Blue Card) -->
-                <div class="space-y-4 lg:border-l lg:border-slate-100 lg:pl-8">
-                  <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 block pb-2 border-b border-slate-100">
-                    Integrations &amp; Trust
-                  </span>
-
-                  <!-- Vibrant Blue Card with Badges matching reference -->
-                  <div class="w-full h-34 rounded-2xl bg-[#0070F3] p-4 flex items-center justify-center gap-2.5 shadow-md relative overflow-hidden group/card hover:shadow-lg transition-all duration-300">
-                    <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
-
-                    {tab.badges.map((b) => (
-                      <div class="w-11 h-11 rounded-xl bg-white shadow-sm flex flex-col items-center justify-center text-center p-1 transform transition-transform group-hover/card:scale-105">
-                        <span class="text-[9px] font-black tracking-tight leading-none" style={`color: ${b.color};`}>
-                          {b.label}
-                        </span>
-                        <span class="text-[8px] font-bold text-slate-700 leading-tight mt-0.5">
-                          {b.text}
-                        </span>
-                      </div>
-                    ))}
+                <!-- RIGHT COLUMN: Featured Real Image & Directory Link (Enlarged) -->
+                <div class="lg:col-span-5 space-y-3 lg:border-l lg:border-slate-100 lg:pl-8 flex flex-col justify-start">
+                  <div class="w-full h-56 sm:h-64 lg:h-72 rounded-2xl overflow-hidden shadow-md border border-slate-200/90 bg-slate-100 relative group/img">
+                    <img
+                      src={tab.image}
+                      alt={tab.title}
+                      class="w-full h-full object-cover transition-transform duration-300 group-hover/img:scale-105"
+                      loading="lazy"
+                    />
                   </div>
 
-                  <!-- Link underneath with diagonal arrow -->
-                  <div class="pt-1 space-y-2">
+                  <!-- Links placed below the image -->
+                  <div class="pt-3 flex items-center justify-between gap-3 border-t border-slate-100">
                     <a
-                      href={tab.bottomCardLink.href}
-                      class="inline-flex items-center gap-1 text-xs font-bold text-slate-900 hover:text-[#0F623A] transition-colors group/link"
+                      href="/services"
+                      class="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold text-[#0F623A] hover:text-black transition-colors group/link"
                     >
-                      <span>{tab.bottomCardLink.title}</span>
+                      <span>All 27 Services Directory</span>
+                      <svg class="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
                     </a>
-
-                    <p class="text-[11px] text-slate-500 leading-relaxed">
-                      UK GDPR &bull; ADISA 8.0 certified chain of custody with zero-landfill electronic recycling.
-                    </p>
+                    <a
+                      href="/investors"
+                      class="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold text-[#0F623A] hover:text-black transition-colors group/link"
+                    >
+                      <span>Investors</span>
+                      <svg class="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </a>
                   </div>
                 </div>
 
@@ -345,10 +337,10 @@ const tabs = [
   </div>
 </div>
 
-<!-- Dimmed Backdrop Overlay -->
+<!-- Transparent Click-Outside Backdrop (No visual dimming to eliminate site blinking) -->
 <div
   id="services-megamenu-backdrop"
-  class="hidden fixed inset-0 z-40 bg-black/40 backdrop-blur-xs transition-opacity duration-200 opacity-0 pointer-events-none"
+  class="hidden fixed inset-0 z-40 bg-transparent transition-opacity duration-200 opacity-0 pointer-events-none"
   aria-hidden="true"
 ></div>
 
@@ -381,7 +373,7 @@ const tabs = [
       } else if (stickyHeader) {
         topOffset = stickyHeader.getBoundingClientRect().bottom;
       }
-      const topPx = `${Math.max(topOffset + 8, 80)}px`;
+      const topPx = `${Math.max(topOffset, 72)}px`;
       if (servicesPanel) servicesPanel.style.top = topPx;
       if (sectorsPanel) sectorsPanel.style.top = topPx;
       if (insightsPanel) insightsPanel.style.top = topPx;
@@ -696,8 +688,15 @@ const tabs = [
       });
     }
 
-    backdrop.addEventListener('mouseenter', () => {
+    backdrop.addEventListener('click', () => {
       closeAll(true);
+    });
+
+    backdrop.addEventListener('mouseenter', () => {
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => {
+        closeAll();
+      }, GRACE_DELAY);
     });
 
     document.addEventListener('keydown', (e) => {
@@ -718,8 +717,25 @@ const tabs = [
       const activate = () => {
         const targetId = btn.getAttribute('data-target-tab');
         tabBtns.forEach((b) => {
-          b.classList.remove('bg-[#EFF8F3]', 'text-[#0F623A]', 'font-bold', 'shadow-xs', 'active', 'border-[#ACDEAB]/60');
-          b.classList.add('text-slate-700', 'hover:text-[#0F623A]', 'hover:bg-[#EFF8F3]/60', 'font-medium', 'border-transparent');
+          b.classList.remove(
+            'bg-emerald-500/10',
+            'backdrop-blur-sm',
+            'text-[#0F623A]',
+            'font-bold',
+            'shadow-xs',
+            'shadow-sm',
+            'active',
+            'border-emerald-400/40',
+            'ring-1',
+            'ring-emerald-400/20'
+          );
+          b.classList.add(
+            'text-slate-700',
+            'hover:text-[#0F623A]',
+            'hover:bg-emerald-500/10',
+            'font-medium',
+            'border-transparent'
+          );
           const icon = b.querySelector('.tab-icon');
           if (icon) {
             icon.classList.remove('text-[#0F623A]');
@@ -727,8 +743,18 @@ const tabs = [
           }
         });
 
-        btn.classList.add('bg-[#EFF8F3]', 'text-[#0F623A]', 'font-bold', 'shadow-xs', 'active', 'border-[#ACDEAB]/60');
-        btn.classList.remove('text-slate-700', 'hover:bg-[#EFF8F3]/60', 'font-medium', 'border-transparent');
+        btn.classList.add(
+          'bg-emerald-500/10',
+          'backdrop-blur-sm',
+          'text-[#0F623A]',
+          'font-bold',
+          'shadow-sm',
+          'active',
+          'border-emerald-400/40',
+          'ring-1',
+          'ring-emerald-400/20'
+        );
+        btn.classList.remove('text-slate-700', 'border-transparent');
         const activeIcon = btn.querySelector('.tab-icon');
         if (activeIcon) {
           activeIcon.classList.add('text-[#0F623A]');
@@ -747,7 +773,14 @@ const tabs = [
       };
 
       btn.addEventListener('mouseenter', activate);
-      btn.addEventListener('click', activate);
+      btn.addEventListener('click', () => {
+        const slug = btn.getAttribute('data-slug');
+        if (btn.classList.contains('active') && slug) {
+          window.location.href = `/${slug}`;
+        } else {
+          activate();
+        }
+      });
     });
   }
 
@@ -763,3 +796,5 @@ const tabs = [
   }
   document.addEventListener('astro:page-load', init);
 </script>
+
+

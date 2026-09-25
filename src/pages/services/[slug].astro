@@ -59,8 +59,33 @@ const clr = divisionAccent[service.divisionSlug] ?? {
 // Division label for breadcrumb/link
 const divisionPageSlug = service.divisionSlug;
 
-// Tailored service detail content
-const detail = getServiceDetailContent(service.slug, service);
+// Tailored service detail content with direct Sanity CMS precedence
+const fallbackDetail = getServiceDetailContent(service.slug, service);
+const detail = {
+  heroTag: service.heroTag || fallbackDetail.heroTag,
+  heroTitle: service.heroTitle || fallbackDetail.heroTitle,
+  heroDescription: service.heroDescription || fallbackDetail.heroDescription,
+  aboutBadge: service.aboutBadge || fallbackDetail.aboutBadge,
+  aboutTitle: service.aboutTitle || fallbackDetail.aboutTitle,
+  aboutImage: service.aboutImage || fallbackDetail.aboutImage,
+  aboutImageAlt: service.aboutImageAlt || fallbackDetail.aboutImageAlt,
+  aboutParagraphs: (service.aboutParagraphs && service.aboutParagraphs.length > 0) ? service.aboutParagraphs : fallbackDetail.aboutParagraphs,
+  aboutBullets: (service.aboutBullets && service.aboutBullets.length > 0) ? service.aboutBullets : fallbackDetail.aboutBullets,
+  whyTitle: service.whyTitle || fallbackDetail.whyTitle,
+  whySubtitle: service.whySubtitle || fallbackDetail.whySubtitle,
+  whyPoints: (service.whyPoints && service.whyPoints.length > 0) ? service.whyPoints : fallbackDetail.whyPoints,
+  processBadge: service.processBadge || fallbackDetail.processBadge,
+  processTitle: service.processTitle || fallbackDetail.processTitle,
+  processSubtitle: service.processSubtitle || fallbackDetail.processSubtitle,
+  processSteps: (service.processSteps && service.processSteps.length > 0) ? service.processSteps : fallbackDetail.processSteps,
+  businessNeedsTitle: service.businessNeedsTitle || fallbackDetail.businessNeedsTitle,
+  businessNeedsSubtitle: service.businessNeedsSubtitle || fallbackDetail.businessNeedsSubtitle,
+  businessNeedsCards: (service.businessNeedsCards && service.businessNeedsCards.length > 0) ? service.businessNeedsCards : fallbackDetail.businessNeedsCards,
+  faqBadge: service.faqBadge || fallbackDetail.faqBadge,
+  faqTitle: service.faqTitle || fallbackDetail.faqTitle,
+  faqSubtitle: service.faqSubtitle || fallbackDetail.faqSubtitle,
+  faqs: (service.faqs && service.faqs.length > 0) ? service.faqs : fallbackDetail.faqs,
+};
 
 // JSON-LD
 const serviceSchema = generateServiceSchema(service, siteSettings, Astro.site?.origin || 'https://techsteps.co.uk');

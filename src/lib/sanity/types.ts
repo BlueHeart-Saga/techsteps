@@ -45,6 +45,17 @@ export interface Division {
   icon: string;
   order: number;
   featuredServices?: string[]; // service slugs
+  heroTitle?: string;
+  heroDescription?: string;
+  heroCtaText?: string;
+  heroCtaLink?: string;
+  aboutBadge?: string;
+  aboutTitle?: string;
+  aboutParagraphs?: string[];
+  lifecycleStages?: { id: string; number: string; label: string; desc: string }[];
+  faqs?: FAQItem[];
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export interface ServiceProcessStep {
@@ -56,6 +67,7 @@ export interface ServiceProcessStep {
 export interface FAQItem {
   question: string;
   answer: string;
+  tag?: string;
 }
 
 export interface Service {
@@ -78,6 +90,30 @@ export interface Service {
   metaTitle: string;
   metaDescription: string;
   noIndex?: boolean;
+
+  // Rich Service Detail Fields
+  heroTag?: string;
+  heroTitle?: string;
+  heroDescription?: string;
+  aboutBadge?: string;
+  aboutTitle?: string;
+  aboutParagraphs?: string[];
+  aboutBullets?: string[];
+  aboutImage?: string;
+  aboutImageAlt?: string;
+  whyTitle?: string;
+  whySubtitle?: string;
+  whyPoints?: { number: string; title: string; description: string }[];
+  processBadge?: string;
+  processTitle?: string;
+  processSubtitle?: string;
+  processSteps?: { stepNumber: string; title: string; description: string }[];
+  businessNeedsTitle?: string;
+  businessNeedsSubtitle?: string;
+  businessNeedsCards?: { title: string; description: string; icon: string }[];
+  faqBadge?: string;
+  faqTitle?: string;
+  faqSubtitle?: string;
 }
 
 export interface SectorChallenge {
@@ -352,6 +388,8 @@ export interface HomePageCTA {
 }
 
 export interface HomePageData {
+  metaTitle?: string;
+  metaDescription?: string;
   hero?: HomePageHero;
   intro?: HomePageIntro;
   statistics?: HomePageStatistic[];
@@ -482,6 +520,43 @@ export interface InvestorsPageData {
     email?: string;
     phone?: string;
   };
+  businesses?: {
+    division: string;
+    name: string;
+    tagline: string;
+    description: string;
+    link: string;
+    image: string;
+    accreditations: string;
+  }[];
+  esgPillars?: {
+    title: string;
+    badge: string;
+    desc: string;
+  }[];
+}
+
+export interface LegalPageSection {
+  heading: string;
+  body?: string;
+  callout?: {
+    title?: string;
+    items?: { label: string; value: string }[];
+  };
+  cards?: { title: string; description: string }[];
+  listItems?: { label: string; text: string }[];
+}
+
+export interface LegalPageData {
+  title: string;
+  slug: string;
+  eyebrow?: string;
+  subheading?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  complianceBadge?: string;
+  lastUpdated?: string;
+  sections?: LegalPageSection[];
 }
 
 export interface ContactPageData {

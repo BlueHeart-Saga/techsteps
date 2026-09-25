@@ -28,12 +28,13 @@ const sectorLinks = [
   { title: 'Central Government', slug: 'central-government' },
 ];
 
-const faqs = [
+const defaultFaqs = [
   { question: 'What is IT asset lifecycle management?', answer: 'IT asset lifecycle management covers the full journey of a technology asset — from collection through data sanitisation, reuse or remarketing, recycling and final disposal — with the aim of maximising value recovery, protecting data and achieving responsible environmental outcomes.' },
   { question: 'What happens to our IT equipment after collection?', answer: 'Following secure collection, each asset is audited, data-sanitised and assessed. Equipment suitable for continued use is refurbished or remarketed. Assets at end of life are responsibly recycled through WEEE-compliant streams. You receive a full report for every asset.' },
   { question: 'Can data be securely removed before equipment is recycled?', answer: 'Yes. We use ADISA-certified data erasure, degaussing and physical hard drive destruction depending on the security requirement of the asset. Every data sanitisation event is certificated.' },
   { question: 'What happens to equipment that cannot be reused?', answer: 'Assets that cannot be reused are processed through WEEE-compliant zero-landfill recycling channels. No equipment is sent to landfill.' },
 ];
+const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defaultFaqs;
 
 const mainServices = [
   {
@@ -72,8 +73,8 @@ const mainServices = [
 ---
 
 <BaseLayout
-  title="IT Lifecycle Services & Destruction | Secure ITAD & Certified Recycling | Techsteps"
-  description="ADISA-certified IT asset disposition, secure collection, data sanitisation, remarketing, and zero-landfill electronic recycling. UK-wide from Techsteps."
+  title={division?.metaTitle || "IT Lifecycle Services & Destruction | Secure ITAD & Certified Recycling | Techsteps"}
+  description={division?.metaDescription || "ADISA-certified IT asset disposition, secure collection, data sanitisation, remarketing, and zero-landfill electronic recycling. UK-wide from Techsteps."}
   hasHeroHeader={true}
 >
   <!-- ===== 1. HERO ===== -->
@@ -87,20 +88,20 @@ const mainServices = [
   >
     <div class="max-w-4xl mx-auto text-center space-y-6">
       <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.08] drop-shadow-2xl">
-        IT Lifecycle & Destruction Services UK
+        {division?.heroTitle || 'IT Lifecycle & Destruction Services UK'}
       </h1>
 
       <p class="text-base sm:text-lg lg:text-xl text-slate-200/90 leading-relaxed max-w-2xl mx-auto font-medium">
-        Secure, accredited IT asset disposition (ITAD), verified data erasure, hardware remarketing, and circular zero-landfill electronic recycling for UK enterprise.
+        {division?.heroDescription || 'Secure, accredited IT asset disposition (ITAD), verified data erasure, hardware remarketing, and circular zero-landfill electronic recycling for UK enterprise.'}
       </p>
 
       <!-- CTA Buttons (TechSteps Logo Theme Color) -->
       <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
         <a
-          href="/contact?service=it-lifecycle"
+          href={division?.heroCtaLink || '/contact?service=it-lifecycle'}
           class="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 border border-emerald-400/30"
         >
-          Talk to an IT Lifecycle Specialist
+          {division?.heroCtaText || 'Talk to an IT Lifecycle Specialist'}
         </a>
         <a
           href="#it-services"
@@ -123,20 +124,28 @@ const mainServices = [
         <div class="lg:col-span-7 space-y-6">
           <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
             <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-            About Our Service
+            {division?.aboutBadge || 'About Our Service'}
           </div>
 
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-[1.12]">
-            Sustainable, Secure IT Asset Management for Modern Enterprise
+            {division?.aboutTitle || 'Sustainable, Secure IT Asset Management for Modern Enterprise'}
           </h2>
 
           <div class="space-y-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-            <p>
-              As enterprise technology rapidly evolves, organisations accumulate redundant workstations, servers, mobile devices, and data storage arrays. IT lifecycle management ensures every retired asset is handled with absolute security, audited transparency, and environmental accountability — protecting your sensitive data while driving sustainable circular economy outcomes.
-            </p>
-            <p>
-              From BS 7858 vetted collection in GPS-tracked vehicles to ADISA-certified data sanitisation and certified WEEE recycling, Techsteps provides an unbroken chain of custody. We maximise residual asset value through expert refurbishment and remarketing, while guaranteeing zero electronic waste reaches landfill.
-            </p>
+            {(division?.aboutParagraphs && division.aboutParagraphs.length > 0) ? (
+              division.aboutParagraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))
+            ) : (
+              <>
+                <p>
+                  As enterprise technology rapidly evolves, organisations accumulate redundant workstations, servers, mobile devices, and data storage arrays. IT lifecycle management ensures every retired asset is handled with absolute security, audited transparency, and environmental accountability — protecting your sensitive data while driving sustainable circular economy outcomes.
+                </p>
+                <p>
+                  From BS 7858 vetted collection in GPS-tracked vehicles to ADISA-certified data sanitisation and certified WEEE recycling, Techsteps provides an unbroken chain of custody. We maximise residual asset value through expert refurbishment and remarketing, while guaranteeing zero electronic waste reaches landfill.
+                </p>
+              </>
+            )}
           </div>
 
           <div class="pt-2">

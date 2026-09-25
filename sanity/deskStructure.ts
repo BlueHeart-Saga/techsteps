@@ -95,7 +95,7 @@ export const deskStructure: StructureResolver = (S) =>
       S.documentTypeListItem('service').title('Certified Services (27)'),
 
       // 4. Industry Sectors
-      S.documentTypeListItem('sector').title('Industry Sectors (4)'),
+      S.documentTypeListItem('sector').title('Industry Sectors (8)'),
 
       S.divider(),
 
@@ -104,4 +104,9 @@ export const deskStructure: StructureResolver = (S) =>
       S.documentTypeListItem('caseStudy').title('Enterprise Case Studies'),
       S.documentTypeListItem('testimonial').title('Client Testimonials'),
       S.documentTypeListItem('stat').title('Accreditation Badges & Stats'),
+
+      S.divider(),
+
+      // 6. Legal & Governance Pages
+      S.documentTypeListItem('legalPage').title('Legal & Governance Policies (7)'),
     ]);
