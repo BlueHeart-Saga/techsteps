@@ -1,3 +1,11 @@
+export interface CustomLink {
+  label: string;
+  url?: string;
+  linkType?: 'internal' | 'external';
+  externalUrl?: string;
+  openInNewTab?: boolean;
+}
+
 export interface SiteSettings {
   companyName: string;
   legalName: string;
@@ -20,6 +28,12 @@ export interface SiteSettings {
   };
   defaultMetaTitle: string;
   defaultMetaDescription: string;
+  mainNav?: CustomLink[];
+  footerServices?: CustomLink[];
+  footerSectors?: CustomLink[];
+  footerCompany?: CustomLink[];
+  footerLegal?: CustomLink[];
+  footerCopyright?: string;
 }
 
 export interface Division {
@@ -162,38 +176,109 @@ export interface VerifiedCertification {
   link?: string;
 }
 
+export interface AboutHighlight {
+  title: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface AboutHero {
+  eyebrow?: string;
+  headline?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  badge?: string;
+}
+
+export interface AboutWhoWeAre {
+  eyebrow?: string;
+  headline?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  highlights?: AboutHighlight[];
+}
+
+export interface AboutWhatWeDoItem {
+  number?: string;
+  title: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  badge?: string;
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+export interface AboutWhatWeDo {
+  eyebrow?: string;
+  items?: AboutWhatWeDoItem[];
+}
+
+export interface AboutApproachStep {
+  number?: string;
+  title: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface AboutApproach {
+  eyebrow?: string;
+  headline?: string;
+  description?: string;
+  steps?: AboutApproachStep[];
+}
+
+export interface AboutCapability {
+  title: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface AboutCapabilities {
+  eyebrow?: string;
+  items?: AboutCapability[];
+}
+
+export interface AboutStatistic {
+  number: string;
+  suffix?: string;
+  label?: string;
+}
+
+export interface AboutCTA {
+  eyebrow?: string;
+  headline?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+  phone?: string;
+  email?: string;
+  hours?: string;
+}
+
 export interface AboutPageData {
-  metaTitle: string;
-  metaDescription: string;
-  heroEyebrow?: string;
-  heroHeadline: string;
-  heroSubheading?: string;
-  heroImage?: string;
-  whoWeAreEyebrow?: string;
-  whoWeAreHeadline?: string;
-  whoWeAreBody?: string;
-  whoWeAreImage?: string;
-  purposeEyebrow?: string;
-  purposeHeadline?: string;
-  purposeSubheading?: string;
-  purposeBody?: string;
-  purposePrinciples: PurposePrinciple[];
-  values: ValueItem[];
-  approachEyebrow?: string;
-  approachHeadline?: string;
-  approachBody?: string;
-  approachSteps: ApproachStep[];
-  complianceEyebrow?: string;
-  complianceHeadline?: string;
-  complianceBody?: string;
-  certifications: VerifiedCertification[];
-  ctaEyebrow?: string;
-  ctaHeadline?: string;
-  ctaBody?: string;
-  ctaButtonLabel?: string;
-  ctaButtonUrl?: string;
-  ctaSecondaryButtonLabel?: string;
-  ctaSecondaryButtonUrl?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+
+  hero?: AboutHero;
+
+  whoWeAre?: AboutWhoWeAre;
+
+  whatWeDo?: AboutWhatWeDo;
+
+  approach?: AboutApproach;
+
+  capabilities?: AboutCapabilities;
+
+  statistics?: AboutStatistic[];
+
+  cta?: AboutCTA;
 }
 
 export interface HomePageHero {
@@ -273,4 +358,175 @@ export interface HomePageData {
   services?: HomePageServices;
   lifecycle?: HomePageLifecycle;
   cta?: HomePageCTA;
+}
+
+export interface FaqCategoryItem {
+  id: string;
+  name: string;
+  icon?: string;
+}
+
+export interface FaqItemWithCategory {
+  id: string;
+  category: string;
+  question: string;
+  answer: string;
+}
+
+export interface FaqPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  hero?: {
+    eyebrow?: string;
+    title?: string;
+    subheading?: string;
+    bgImage?: string;
+  };
+  categories?: FaqCategoryItem[];
+  items?: FaqItemWithCategory[];
+  contactCard?: {
+    heading?: string;
+    description?: string;
+    buttonText?: string;
+    buttonLink?: string;
+  };
+}
+
+export interface SustainabilityPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  hero?: {
+    eyebrow?: string;
+    title?: string;
+    subheading?: string;
+    bgImage?: string;
+    buttonText?: string;
+    buttonLink?: string;
+  };
+  metrics?: {
+    number: string;
+    suffix?: string;
+    label: string;
+    note?: string;
+  }[];
+  approach?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+    image?: string;
+    steps?: {
+      step: string;
+      title: string;
+      badge?: string;
+      desc: string;
+    }[];
+  };
+  lifecycleSection?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+  };
+  esgPillars?: {
+    title: string;
+    badge?: string;
+    items?: {
+      title: string;
+      desc: string;
+    }[];
+  }[];
+  bottomCta?: {
+    heading?: string;
+    description?: string;
+    primaryButtonText?: string;
+    primaryButtonLink?: string;
+    secondaryButtonText?: string;
+    secondaryButtonLink?: string;
+  };
+}
+
+export interface InvestorsPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  hero?: {
+    eyebrow?: string;
+    title?: string;
+    subheading?: string;
+    bgImage?: string;
+  };
+  stats?: {
+    prefix?: string;
+    value: string;
+    suffix?: string;
+    title: string;
+    desc: string;
+  }[];
+  strategicPillars?: {
+    number: string;
+    title: string;
+    headline: string;
+    desc: string;
+    detail: string;
+    iconSvg?: string;
+  }[];
+  investmentCase?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+    bulletPoints?: string[];
+  };
+  irContact?: {
+    heading?: string;
+    description?: string;
+    name?: string;
+    role?: string;
+    email?: string;
+    phone?: string;
+  };
+}
+
+export interface ContactPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  hero?: {
+    eyebrow?: string;
+    title?: string;
+    subheading?: string;
+    bgImage?: string;
+  };
+  formSection?: {
+    heading?: string;
+    image?: string;
+  };
+  directLines?: {
+    title: string;
+    description: string;
+    phone: string;
+    email: string;
+  }[];
+}
+
+export interface RequestCollectionPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  hero?: {
+    title?: string;
+    description?: string;
+  };
+  slaGuarantees?: {
+    title: string;
+    description: string;
+    icon?: string;
+  }[];
+}
+
+export interface TestimonialItem {
+  id: string;
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+  industry?: string;
+  rating?: number;
+  avatar: string;
+  order?: number;
 }

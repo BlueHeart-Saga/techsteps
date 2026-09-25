@@ -2,11 +2,39 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
 import PageHero from '../components/hero/PageHero.astro';
-import { statistics } from '../lib/sanity/data';
+import { getSustainabilityPage } from '../lib/sanity/client';
+
+const pageData = await getSustainabilityPage();
 
 const breadcrumbs = [
   { name: 'Sustainability', url: '/sustainability' },
 ];
+
+const approachSteps = (pageData.approach?.steps && pageData.approach.steps.length > 0)
+  ? pageData.approach.steps
+  : [
+      { step: '1', title: 'COLLECT', badge: 'Chain-of-Custody', desc: 'Secure GPS-tracked transport, tamper-evident containers, and strict chain-of-custody handling directly from enterprise sites.' },
+      { step: '2', title: 'AUDIT & ASSESS', badge: 'Triage & Verification', desc: 'Granular asset logging, serial number scanning, hardware functional diagnostics, and secondary lifecycle viability assessment.' },
+      { step: '3', title: 'SANITISE', badge: 'Cryptographic Erasure', desc: 'Certified ADISA and NIST 800-88 compliant data wiping or physical degaussing to ensure zero data residual liability.' },
+      { step: '4', title: 'REUSE', badge: 'Redeployment & Extension', desc: 'Extending useful hardware life through internal redeployment, component harvesting, and secondary hardware assignment.' },
+      { step: '5', title: 'REMARKET', badge: 'Value Recovery', desc: 'Refurbishing and remarketing high-value IT equipment into global secondary B2B channels to return maximum ROI.' },
+      { step: '6', title: 'RECYCLE & RECOVER', badge: 'Zero-Landfill Guarantee', desc: 'Eco-certified material separation, WEEE-compliant shredding, and RDF energy recovery ensuring 100% zero-to-landfill diversion.' },
+    ];
+
+const displayStats = (pageData.metrics && pageData.metrics.length > 0)
+  ? pageData.metrics.map(m => ({
+      prefix: '',
+      value: m.number,
+      suffix: m.suffix || '',
+      label: m.label,
+      contextNote: m.note,
+    }))
+  : [
+      { prefix: '', value: '100', suffix: '%', label: 'Landfill Diversion Rate', contextNote: 'Verified zero-to-landfill e-waste processing across all domestic UK treatment partners' },
+      { prefix: '', value: '99.99', suffix: '%', label: 'Chain-of-Custody Accuracy', contextNote: 'Serialized barcode asset verification tracked from initial collection to final certificate' },
+      { prefix: '', value: '24/7', suffix: '', label: 'Vault Security Monitoring', contextNote: 'Continuous Grade 4 telemetry, biometric access controls, and VESDA fire monitoring' },
+      { prefix: '', value: '4', suffix: '', label: 'Operational Divisions', contextNote: 'Information Management, IT Lifecycle, Secure Shredding, and Moving & Relocation' },
+    ];
 
 const lifecycleSteps = [
   {
@@ -66,25 +94,25 @@ const serviceCards = [
 ---
 
 <BaseLayout
-  title="Sustainability & IT Lifecycle Management | Techsteps UK"
-  description="Extending technology lifecycles, recovering value, and responsibly managing end-of-life IT assets across the UK."
+  title={pageData.metaTitle || "Sustainability & IT Lifecycle Management | Techsteps UK"}
+  description={pageData.metaDescription || "Extending technology lifecycles, recovering value, and responsibly managing end-of-life IT assets across the UK."}
   hasHeroHeader={true}
 >
   <!-- 1. SUSTAINABILITY HERO -->
   <PageHero
-    eyebrow="SUSTAINABILITY"
-    title="A Smarter Lifecycle for Every Asset."
-    subheading="We help organisations extend the life of technology, recover value from IT assets and responsibly manage equipment that reaches the end of its useful life."
-    bgImage="/images/services/remarketing.jpg"
+    eyebrow={pageData.hero?.eyebrow || "SUSTAINABILITY"}
+    title={pageData.hero?.title || "A Smarter Lifecycle for Every Asset."}
+    subheading={pageData.hero?.subheading || "We help organisations extend the life of technology, recover value from IT assets and responsibly manage equipment that reaches the end of its useful life."}
+    bgImage={pageData.hero?.bgImage || "/images/services/remarketing.jpg"}
     breadcrumbs={breadcrumbs}
     dividerColor="#f1f4ef"
   >
     <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
       <a
-        href="#our-approach"
+        href={pageData.hero?.buttonLink || "#our-approach"}
         class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-lg transition-all duration-200"
       >
-        Explore Our Approach
+        {pageData.hero?.buttonText || "Explore Our Approach"}
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
@@ -102,13 +130,13 @@ const serviceCards = [
         <!-- Section Top Center Heading -->
         <div class="text-center max-w-3xl mx-auto space-y-4">
           <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#146B5C]">
-            OUR APPROACH
+            {pageData.approach?.eyebrow || "OUR APPROACH"}
           </span>
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight">
-            Technology Has More Than One Ending.
+            {pageData.approach?.heading || "Technology Has More Than One Ending."}
           </h2>
           <p class="text-lg sm:text-xl text-slate-700 leading-relaxed font-medium pt-1">
-            Not every device needs to become waste. Where appropriate, assets can be securely prepared for reuse, remarketing or recovery before responsible recycling is considered.
+            {pageData.approach?.description || "Not every device needs to become waste. Where appropriate, assets can be securely prepared for reuse, remarketing or recovery before responsible recycling is considered."}
           </p>
         </div>
 
@@ -117,7 +145,7 @@ const serviceCards = [
           <!-- LEFT FEATURE IMAGE CARD (Sticky Pin on Desktop) -->
           <div class="lg:col-span-5 lg:sticky lg:top-28 rounded-none overflow-hidden relative shadow-xl min-h-[420px] lg:h-[calc(100vh-140px)] border border-slate-200/90 group">
             <img
-              src="/images/sustainability/sustainability-approach.jpg?v=2"
+              src={pageData.approach?.image || "/images/sustainability/sustainability-approach.jpg?v=2"}
               alt="TechSteps certified technician securely auditing, inspecting and processing hardware assets for sustainable disposition"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               loading="lazy"
@@ -543,7 +571,7 @@ const serviceCards = [
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {statistics.map((st) => (
+          {displayStats.map((st) => (
             <div class="bg-white/90 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md text-center space-y-2.5">
               <div class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-[#146B5C] tracking-tight">
                 {st.prefix}{st.value}{st.suffix}
@@ -754,29 +782,29 @@ const serviceCards = [
         </div>
 
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display tracking-tight text-slate-900 leading-tight">
-          Ready to Build a More Responsible IT Lifecycle?
+          {pageData.bottomCta?.heading || "Ready to Build a More Responsible IT Lifecycle?"}
         </h2>
 
         <p class="text-lg sm:text-xl text-slate-700 max-w-2xl mx-auto font-medium leading-relaxed">
-          Talk to Techsteps about your next IT asset disposal, recycling or lifecycle project.
+          {pageData.bottomCta?.description || "Talk to Techsteps about your next IT asset disposal, recycling or lifecycle project."}
         </p>
 
         <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
           <a
-            href="/contact"
+            href={pageData.bottomCta?.primaryButtonLink || "/contact"}
             class="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-base font-bold shadow-lg hover:shadow-xl transition-all duration-200"
           >
-            Get In Touch
+            {pageData.bottomCta?.primaryButtonText || "Get In Touch"}
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </a>
 
           <a
-            href="/it-lifecycle-services-destruction"
+            href={pageData.bottomCta?.secondaryButtonLink || "/it-lifecycle-services-destruction"}
             class="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-800 text-base font-bold border border-slate-300 shadow-xs transition-all duration-200"
           >
-            Explore IT Lifecycle Services
+            {pageData.bottomCta?.secondaryButtonText || "Explore IT Lifecycle Services"}
           </a>
         </div>
       </div>

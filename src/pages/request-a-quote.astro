@@ -2,7 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
 import PageHero from '../components/hero/PageHero.astro';
-import { siteSettings } from '../lib/sanity/data';
+import { getRequestCollectionPage, getSiteSettings } from '../lib/sanity/client';
+
+const [pageData, siteSettings] = await Promise.all([
+  getRequestCollectionPage(),
+  getSiteSettings(),
+]);
 
 const currentPath = Astro.url.pathname;
 const isQuoteRoute = currentPath === '/request-a-quote';
@@ -12,8 +17,8 @@ const breadcrumbs = [
   { name: heroTitle, url: isQuoteRoute ? '/request-a-quote' : '/request-a-collection' },
 ];
 
-const title = "Book your collection | Techsteps UK";
-const description = "Book an IT equipment collection. Takes about two minutes. You'll get a reference number immediately, and we'll confirm your collection window within two working days.";
+const title = pageData.metaTitle || "Book your collection | Techsteps UK";
+const description = pageData.metaDescription || "Book an IT equipment collection. Takes about two minutes. You'll get a reference number immediately, and we'll confirm your collection window within two working days.";
 ---
 
 <BaseLayout
@@ -32,10 +37,10 @@ const description = "Book an IT equipment collection. Takes about two minutes. Y
       <!-- Page Header matching reference image -->
       <div class="max-w-4xl mx-auto mb-8 sm:mb-10">
         <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-950 tracking-tight leading-[1.08] mb-4">
-          Book your collection
+          {pageData.hero?.title || "Book your collection"}
         </h2>
         <p class="font-sans text-base sm:text-lg lg:text-[19px] text-slate-600 leading-relaxed max-w-2xl font-normal">
-          Takes about two minutes. You'll get a reference number as soon as you submit, and we'll come back with a collection window within two working days.
+          {pageData.hero?.description || "Takes about two minutes. You'll get a reference number as soon as you submit, and we'll come back with a collection window within two working days."}
         </p>
       </div>
 

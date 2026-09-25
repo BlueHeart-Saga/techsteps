@@ -1,4 +1,19 @@
-import type { SiteSettings, Division, Service, Sector, StatItem, CaseStudy, Article, AboutPageData } from './types';
+import type {
+  SiteSettings,
+  Division,
+  Service,
+  Sector,
+  StatItem,
+  CaseStudy,
+  Article,
+  AboutPageData,
+  FaqPageData,
+  SustainabilityPageData,
+  InvestorsPageData,
+  ContactPageData,
+  RequestCollectionPageData,
+  TestimonialItem,
+} from './types';
 
 export const siteSettings: SiteSettings = {
   companyName: 'Techsteps',
@@ -21,6 +36,45 @@ export const siteSettings: SiteSettings = {
   },
   defaultMetaTitle: 'Techsteps UK | Secure IT Recycling, Information Management & Specialist Relocations',
   defaultMetaDescription: 'Techsteps delivers certified IT asset disposition, secure document integrity, ultra-secure shredding, and specialist relocation services across the UK.',
+  mainNav: [
+    { label: 'Services', url: '/services', linkType: 'internal' },
+    { label: 'Sectors', url: '/sectors', linkType: 'internal' },
+    { label: 'Insights', url: '/insights', linkType: 'internal' },
+    { label: 'About Us', url: '/about-us', linkType: 'internal' },
+    { label: 'Contact', url: '/contact', linkType: 'internal' },
+  ],
+  footerServices: [
+    { label: 'Information Management', url: '/information-management', linkType: 'internal' },
+    { label: 'IT Lifecycle Services & Destruction', url: '/it-lifecycle-services-destruction', linkType: 'internal' },
+    { label: 'Secure Shredding & Document Integrity', url: '/secure-shredding-document-integrity', linkType: 'internal' },
+    { label: 'Moving & Relocation Services', url: '/moving-relocation-services', linkType: 'internal' },
+    { label: 'All Services', url: '/services', linkType: 'internal' },
+  ],
+  footerSectors: [
+    { label: 'Defence', url: '/sectors/defence', linkType: 'internal' },
+    { label: 'NHS & Healthcare', url: '/sectors/nhs', linkType: 'internal' },
+    { label: 'Financial Services', url: '/sectors/finance', linkType: 'internal' },
+    { label: 'Central Government', url: '/sectors/central-government', linkType: 'internal' },
+    { label: 'All Sectors', url: '/sectors', linkType: 'internal' },
+  ],
+  footerCompany: [
+    { label: 'About Us', url: '/about-us', linkType: 'internal' },
+    { label: 'Sustainability & ESG', url: '/sustainability', linkType: 'internal' },
+    { label: 'Insights & News', url: '/insights', linkType: 'internal' },
+    { label: 'Request Collection', url: '/request-a-quote', linkType: 'internal' },
+    { label: 'Contact Us', url: '/contact', linkType: 'internal' },
+    { label: 'FAQ', url: '/faq', linkType: 'internal' },
+  ],
+  footerLegal: [
+    { label: 'Privacy Policy', url: '/privacy-policy', linkType: 'internal' },
+    { label: 'Cookie Policy', url: '/cookie-policy', linkType: 'internal' },
+    { label: 'Terms & Conditions', url: '/terms-and-conditions', linkType: 'internal' },
+    { label: 'Accessibility', url: '/accessibility', linkType: 'internal' },
+    { label: 'Modern Slavery', url: '/modern-slavery-statement', linkType: 'internal' },
+    { label: 'Environmental Policy', url: '/environmental-policy', linkType: 'internal' },
+    { label: 'Information Security', url: '/information-security-policy', linkType: 'internal' },
+  ],
+  footerCopyright: 'Techsteps UK Limited. All rights reserved.',
 };
 
 export const divisions: Division[] = [
@@ -1511,150 +1565,598 @@ export const articles: Article[] = [
 ];
 
 export const defaultAboutPage: AboutPageData = {
-  metaTitle: 'About Techsteps | UK Information & Technology Lifecycle Services',
-  metaDescription: 'Techsteps is a UK-based information management and technology lifecycle services company delivering secure information management, IT lifecycle, destruction, recycling, and relocation.',
-  heroEyebrow: 'ABOUT TECHSTEPS',
-  heroHeadline: 'We Make Every Step Matter.',
-  heroSubheading: 'A dedicated UK partner delivering secure information governance, compliant IT lifecycle management, and specialist logistical execution.',
-  heroImage: '/images/brand/about-hero-bg.jpg',
-  whoWeAreEyebrow: 'WHO WE ARE',
-  whoWeAreHeadline: 'Technology.\nInformation.\nResponsibility.',
-  whoWeAreBody: 'Techsteps is a UK-based information management and technology lifecycle services company. We partner with organisations to provide secure information management, end-to-end IT lifecycle services, verified data destruction, responsible electronic recycling, and specialized technology relocation. Our mission is to protect what matters and ensure every asset is handled with total accountability and environmental care.',
-  whoWeAreImage: '/images/brand/story-origin.jpg',
-  purposeEyebrow: 'OUR PURPOSE',
-  purposeHeadline: 'We Create Meaningful Impact.',
-  purposeSubheading: 'Every Solution Builds a Better Future.',
-  purposeBody: 'We operate at the critical intersection of digital security and environmental stewardship. By embedding rigorous compliance and circular lifecycle practices into every workflow, we empower organisations to safeguard sensitive assets while building a cleaner, more sustainable future.',
-  purposePrinciples: [
+  metaTitle: 'About Techsteps — Managing What Matters',
+  metaDescription:
+    'We look after the assets that carry the most risk when a business changes — data, records, equipment and premises. Handled securely, recorded end to end, and returned to value wherever it can be.',
+
+  hero: {
+    eyebrow: 'About Techsteps',
+    headline: 'Managing What Matters. Protecting What Comes Next.',
+    description:
+      "We protect your business's critical assets — data, records, and hardware — handled securely and returned to value.",
+    image: '/images/hero/about-hero-technicians.jpg',
+    imageAlt: 'Techsteps technicians in secure facility',
+    badge: 'CHAIN OF CUSTODY',
+  },
+
+  whoWeAre: {
+    eyebrow: 'WHO WE ARE',
+    headline: 'Technology With Purpose',
+    description:
+      'Techsteps helps businesses manage the complete lifecycle of their IT and information assets — from secure collection and data destruction to remarketing, recycling and responsible recovery.\n\nOur approach combines security, sustainability and value recovery to help organisations handle retired assets with confidence.',
+    image: '/images/about/who-we-are-technician.png',
+    imageAlt:
+      'Techsteps certified technician inspecting refurbished hardware',
+
+    highlights: [
+      {
+        title: 'Secure Asset Handling',
+        description: 'Protecting your data and your business.',
+        icon: 'shield',
+      },
+      {
+        title: 'Responsible Recovery',
+        description: 'Reducing e-waste, protecting the planet.',
+        icon: 'leaf',
+      },
+      {
+        title: 'Value From Retirements',
+        description: 'Giving IT assets a second life.',
+        icon: 'recycle',
+      },
+    ],
+  },
+
+  whatWeDo: {
+    eyebrow: 'What we do',
+
+    items: [
+      {
+        number: '01',
+        title: 'IT Lifecycle Services',
+        description:
+          'Secure IT disposal, collection, ITAD, asset management, remarketing and recycling — with certified erasure and a full audit trail.',
+        image: '/images/services/process-step-2-secure.jpg',
+        imageAlt: 'IT Lifecycle asset processing',
+        badge: 'Asset processing line',
+        buttonText: 'Explore services →',
+        buttonLink: '/it-lifecycle-services-destruction',
+      },
+      {
+        number: '02',
+        title: 'Information Management',
+        description:
+          'Document storage, scanning, digital mailroom, document management and media storage for organisations that must keep the record.',
+        image: '/images/services/process-step-3-sanitise.jpg',
+        imageAlt: 'Records storage and scanning',
+        badge: 'Records storage and scanning',
+        buttonText: 'Explore services →',
+        buttonLink: '/information-management',
+      },
+      {
+        number: '03',
+        title: 'Moving & Relocation',
+        description:
+          'Business relocation, IT relocation, heritage relocation and specialist storage, planned and crewed to keep you operating.',
+        image: '/images/services/process-step-1-collect.jpg',
+        imageAlt: 'Relocation crew on site',
+        badge: 'Relocation crew on site',
+        buttonText: 'Explore services →',
+        buttonLink: '/moving-relocation-services',
+      },
+    ],
+  },
+
+  approach: {
+    eyebrow: 'Our approach',
+    headline: 'Every job runs the same four ways.',
+    description:
+      'Different services, one method. It is what lets us give you a single line of accountability from the first survey to the final certificate.',
+
+    steps: [
+      {
+        number: '01',
+        title: 'Secure',
+        description:
+          'Vetted crews, tracked vehicles, controlled facilities. Custody recorded at every handover.',
+        icon: 'shield',
+      },
+      {
+        number: '02',
+        title: 'Smart',
+        description:
+          'We survey before we lift. The plan is built around your operation, not our schedule.',
+        icon: 'lightbulb',
+      },
+      {
+        number: '03',
+        title: 'Responsible',
+        description:
+          'Reuse before recycling, zero to landfill, data destroyed to standard with evidence to match.',
+        icon: 'recycle',
+      },
+      {
+        number: '04',
+        title: 'Value-focused',
+        description:
+          'Working assets are refurbished and remarketed, and the recovered value comes back to you.',
+        icon: 'chart',
+      },
+    ],
+  },
+
+  capabilities: {
+    eyebrow: 'Our capabilities',
+
+    items: [
+      {
+        title: 'Specialist people',
+        description:
+          'Vetted, trained crews who handle complex projects — live data centres, occupied buildings, fragile heritage collections.',
+        icon: 'people',
+      },
+      {
+        title: 'Secure facilities',
+        description:
+          'Alarmed, access-controlled and CCTV-monitored premises with segregated areas for data-bearing media.',
+        icon: 'shield',
+      },
+      {
+        title: 'End-to-end service',
+        description:
+          'Collection, processing, erasure, reporting, resale and recycling — handled in house, not passed down a chain.',
+        icon: 'truck',
+      },
+      {
+        title: 'Business coverage',
+        description:
+          'UK-wide collections and relocations, with regional teams for multi-site programmes and rolling refresh cycles.',
+        icon: 'globe',
+      },
+    ],
+  },
+
+  statistics: [
     {
-      title: 'PROTECT',
-      description: 'Information and assets with uncompromising standards of custody, data protection, and governance.',
-      icon: 'shield',
+      number: '20',
+      suffix: '+',
+      label: 'Years handling secure disposal and relocation',
     },
     {
-      title: 'RESPONSIBLY MANAGE',
-      description: 'Every stage of the lifecycle from active deployment to certified retirement and remarketing.',
-      icon: 'cycle',
+      number: '500k',
+      suffix: '+',
+      label: 'Assets processed and reported on',
     },
     {
-      title: 'CREATE IMPACT',
-      description: 'For organisations and the environment through sustainable, circular, zero-landfill solutions.',
-      icon: 'sparkles',
+      number: '98',
+      suffix: '%',
+      label: 'Diverted from landfill through reuse and recycling',
+    },
+    {
+      number: 'UK',
+      suffix: '',
+      label: 'Nationwide collection and service coverage',
     },
   ],
-  values: [
+
+  cta: {
+    eyebrow: 'Get in touch with Techsteps',
+    headline: "Let's Talk About What Comes Next.",
+    description:
+      'Whether you need secure IT disposal, information management or relocation support, speak with the Techsteps team. We will survey, scope and quote before anything moves.',
+    image: '/images/services/process-step-1-collect.jpg',
+    imageAlt: 'Techsteps fleet and collection team on site',
+    primaryButtonText: 'Talk to Techsteps',
+    primaryButtonLink: '/contact',
+    secondaryButtonText: 'Request a Collection',
+    secondaryButtonLink: '/request-a-collection',
+    phone: '+44 (0) 20 7946 0888',
+    email: 'hello@techsteps.co.uk',
+    hours: 'Mon–Fri, 8am–6pm',
+  },
+};
+
+export const defaultFaqPage: FaqPageData = {
+  metaTitle: 'Frequently Asked Questions (FAQ) | Techsteps UK',
+  metaDescription: 'Comprehensive knowledge base answering questions about Techsteps IT lifecycle services, confidential shredding, document storage, relocation, and ESG compliance.',
+  hero: {
+    eyebrow: 'KNOWLEDGE CENTER // FAQS',
+    title: 'FREQUENTLY ASKED QUESTIONS',
+    subheading: 'Explore our comprehensive knowledge base covering secure IT asset disposition, confidential shredding, records management, relocations, and regulatory compliance.',
+    bgImage: '/images/brand/about-hero-bg.jpg',
+  },
+  categories: [
+    { id: 'all', name: 'All Categories', icon: 'M4 6h16M4 12h16M4 18h16' },
+    { id: 'general', name: 'General & Overview', icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
+    { id: 'itad', name: 'IT Lifecycle & Disposal', icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
+    { id: 'records', name: 'Document Storage & Scanning', icon: 'M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2' },
+    { id: 'shredding', name: 'Secure Shredding', icon: 'M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16' },
+    { id: 'relocation', name: 'Moving & Relocation', icon: 'M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0' },
+    { id: 'compliance', name: 'Compliance & ESG', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
+  ],
+  items: [
     {
-      title: 'SECURITY',
-      description: 'Protecting what matters. Rigorous chain of custody, verified destruction, and dependable asset protection.',
-      icon: 'lock',
+      id: 'gen-1',
+      category: 'general',
+      question: 'What is Techsteps and what services do you provide?',
+      answer: 'Techsteps is a leading UK provider of secure business lifecycle services. We specialize in four core disciplines: IT Lifecycle Services & IT Asset Disposition (ITAD), Document & Information Management, Secure Shredding & Destruction, and Workplace & Data Centre Relocations. Every job is underpinned by an unbroken chain of custody, security-vetted personnel, and full regulatory compliance.',
     },
     {
-      title: 'SUSTAINABILITY',
-      description: 'Making responsible choices throughout the technology lifecycle with circular recovery and responsible recycling.',
-      icon: 'leaf',
+      id: 'gen-2',
+      category: 'general',
+      question: 'Where does Techsteps operate across the United Kingdom?',
+      answer: 'We provide comprehensive nationwide coverage across England, Scotland, Wales, and Northern Ireland. With strategically located regional operations centres and a dedicated fleet of tracked vehicles, we service metropolitan centres, public sector offices, regional facilities, and remote campus locations.',
     },
     {
-      title: 'RELIABILITY',
-      description: 'Delivering with consistency and accountability. Prompt collection, transparent tracking, and dependable execution.',
-      icon: 'check',
+      id: 'gen-3',
+      category: 'general',
+      question: 'How do I request a collection or site survey?',
+      answer: 'You can submit a request through our online quote form, call our customer operations team directly, or email your project scope to our dispatch desk. We provide formal scoping assessments and transparent fixed quotations within 24 hours of enquiry.',
+    },
+    {
+      id: 'gen-4',
+      category: 'general',
+      question: 'What sectors and organisations does Techsteps typically support?',
+      answer: 'We work with regulated public and private enterprises that cannot afford a gap in the security record: NHS trusts and healthcare providers, central and local government authorities, defence contractors, legal and financial firms, universities, museums, and enterprise corporate IT departments.',
+    },
+    {
+      id: 'itad-1',
+      category: 'itad',
+      question: 'How do you guarantee that data on disposed IT assets cannot be recovered?',
+      answer: 'We deploy ADISA-certified, NIST 800-88 Rev. 1, and HMG IS5 compliant software sanitisation (Blancco / Certus) for multi-pass cryptographic data overwriting. For non-functional drives or solid-state media that fail verification, we perform high-flux degaussing followed by mechanical cross-cut shearing down to sub-6mm particles. Every drive receives an individual serialized Certificate of Data Destruction.',
+    },
+    {
+      id: 'itad-2',
+      category: 'itad',
+      question: 'Can our organisation recover financial value from retired IT equipment?',
+      answer: 'Yes. Through our cascading asset remarketing program, functional hardware (servers, laptops, workstations, network switches, and SAN storage) is tested, upgraded, sanitized, and resold via vetted secondary enterprise markets. We provide transparent resale revenue-sharing credits that can be paid directly to your organisation or applied against project logistics costs.',
+    },
+    {
+      id: 'itad-3',
+      category: 'itad',
+      question: 'What types of IT hardware and digital equipment do you collect and process?',
+      answer: 'We collect all workplace, server room, and data centre hardware: rackmount and blade servers, SAN/NAS disk enclosures, desktop PCs, laptops, mobile phones, tablets, enterprise monitors, networking switches, firewalls, routers, UPS battery banks, cabling, and telecom infrastructure. Both functional and obsolete or damaged equipment are accepted.',
+    },
+    {
+      id: 'itad-4',
+      category: 'itad',
+      question: 'How is the chain of custody maintained during hardware transit?',
+      answer: 'Every transit collection is executed exclusively by permanent, BS 7858 security-vetted Techsteps personnel in GPS-tracked, solid-bulkhead vehicles with deadlocks and geo-fenced route monitoring. Barcoded transit cages and tamper-evident container seals are inventoried on-site and signed off before vehicles depart your loading bay, with real-time audit manifests accessible through our client portal.',
+    },
+    {
+      id: 'itad-5',
+      category: 'itad',
+      question: 'What happens to end-of-life equipment that has no commercial resale value?',
+      answer: 'Equipment with no viable reuse potential is stripped down to base commodity fractions (ferrous/non-ferrous metals, precious circuit board components, plastics, and glass) at certified UK WEEE treatment facilities. We guarantee 0% waste to landfill and provide WEEE waste transfer documentation for your audit trail.',
+    },
+    {
+      id: 'rec-1',
+      category: 'records',
+      question: 'How quickly can we retrieve archived physical documents when needed?',
+      answer: 'We provide structured retrieval SLAs to match your business urgency: Emergency 2-hour physical dispatch in metropolitan regions, same-day delivery, scheduled next-day courier delivery, or 1-hour Scan-on-Demand where our records team retrieves the physical barcode, scans the file at high resolution with OCR indexing, and uploads it securely to your encrypted portal.',
+    },
+    {
+      id: 'rec-2',
+      category: 'records',
+      question: 'What environmental and fire protection standards do your document vaults meet?',
+      answer: 'Our dedicated archive vaults are built to BS 4971 (Conservation and Care of Archive Collections) standards. They feature precision climate-controlled ambient temperature and relative humidity monitoring, multi-sensor aspirating smoke detection (VESDA), and clean-agent gaseous fire suppression systems that extinguish fire without water or chemical residue.',
+    },
+    {
+      id: 'rec-3',
+      category: 'records',
+      question: 'Can you digitise legacy paper archives and manage inbound daily post?',
+      answer: 'Yes. We operate high-speed IBML and Kodak digitisation suites that process millions of pages each month with optical character recognition (OCR), metadata indexing, and automated redacting of sensitive personal information. We also provide Digital Mailroom operations where daily incoming correspondence is opened, scanned, and routed to remote teams within two hours of arrival.',
+    },
+    {
+      id: 'rec-4',
+      category: 'records',
+      question: 'How do you handle statutory retention periods and automated destruction schedules?',
+      answer: 'Our records management software tracks statutory retention dates for legal, medical, HR, and tax files. When an archive reaches its retention milestone, automated notifications are triggered to your compliance officers, allowing you to authorise destruction, renew storage, or retrieve items with full regulatory audit logs.',
+    },
+    {
+      id: 'shred-1',
+      category: 'shredding',
+      question: 'What is the difference between on-site and off-site confidential shredding?',
+      answer: 'On-site shredding occurs at your facility inside our dedicated high-torque mobile shredding vehicles, allowing your compliance personnel to witness the destruction before the vehicle leaves. Off-site shredding uses secure locked consoles collected in sealed GPS-tracked vehicles and shredded under continuous CCTV surveillance at our BS EN 15713 accredited regional facility.',
+    },
+    {
+      id: 'shred-2',
+      category: 'shredding',
+      question: 'What proof and compliance documentation is provided after shredding?',
+      answer: 'Immediately upon job completion, you receive a legally defensible Certificate of Destruction detailing the date, collection location, destruction standard (DIN 66399 Level P-4/P-5 for documents, H-5 for hard drives), batch weights, and signatory names. This documentation satisfies UK GDPR, Data Protection Act 2018, and external audit requirements.',
+    },
+    {
+      id: 'shred-3',
+      category: 'shredding',
+      question: 'What happens to the shredded paper and destroyed materials after processing?',
+      answer: '100% of destroyed paper is baled and dispatched directly to approved UK paper reprocessing mills, where it is recycled into new paper, packaging, and tissue products. Zero confidential paper goes to landfill, and we supply an Environmental Certificate confirming your landfill diversion and saved tree equivalents.',
+    },
+    {
+      id: 'shred-4',
+      category: 'shredding',
+      question: 'Can you destroy uniform apparel, branded merchandise, and counterfeit products?',
+      answer: 'Yes. We provide specialist product and apparel destruction for staff uniforms, high-security badges, prototypes, decommissioned ID cards, and counterfeit goods. All materials are shredded into unrecognisable fragments with video-recorded destruction options available on request.',
+    },
+    {
+      id: 'relo-1',
+      category: 'relocation',
+      question: 'How do you manage complex data centre and server room relocations?',
+      answer: 'Our dedicated IT migration engineering team conducts pre-move cabling audits, port-to-port mapping, and server decommissioning. Hardware is secured inside anti-static, shock-absorbing flight cases and moved in dedicated air-ride suspension, climate-controlled vehicles. At the destination, our engineers re-rack, recable, and verify power-on continuity according to strict critical path scheduling.',
+    },
+    {
+      id: 'relo-2',
+      category: 'relocation',
+      question: 'Do you offer weekend and out-of-hours office moves to prevent downtime?',
+      answer: 'Yes. More than 80% of our workplace moves take place over weekends, bank holidays, or evening shifts. We disconnect and pack IT workstations on Friday evening, manage the physical transition over Saturday, and recommission, cable-manage, and test hardware on Sunday so your staff can sit down and work productively on Monday morning.',
+    },
+    {
+      id: 'relo-3',
+      category: 'relocation',
+      question: 'Can you handle fragile heritage archives, museum collections, and laboratories?',
+      answer: 'Yes. We provide specialised white-glove logistics for rare manuscripts, archive collections, and analytical laboratories. For laboratories, we comply with ADR hazardous transit standards, employing temperature-monitored secondary containment and backup generators for cold-chain biological samples and sensitive instrumentation.',
+    },
+    {
+      id: 'relo-4',
+      category: 'relocation',
+      question: 'Do you supply crates, anti-static packing materials, and handling equipment?',
+      answer: 'Yes. We supply heavy-duty polypropylene lidded hire crates, anti-static bubble wrap, computer transit bags, keyboard/mouse bags, roll cages, stair climbers, and specialist hoisting equipment tailored to your exact building access parameters.',
+    },
+    {
+      id: 'comp-1',
+      category: 'compliance',
+      question: 'What certifications and industry standards does Techsteps hold?',
+      answer: 'Techsteps operates under comprehensive UKAS-accredited management frameworks: ISO 27001 (Information Security Management), ISO 9001 (Quality Management), ISO 14001 (Environmental Management), ISO 45001 (Occupational Health & Safety), ADISA accreditation for IT asset disposal, BS EN 15713 (Secure Destruction of Confidential Material), and Cyber Essentials Plus.',
+    },
+    {
+      id: 'comp-2',
+      category: 'compliance',
+      question: 'Are all Techsteps drivers and warehouse operatives security vetted?',
+      answer: 'Yes. Every staff member undergoes rigorous BS 7858 security screening prior to site deployment. This includes 5-year verifiable employment background checks, Disclosure and Barring Service (DBS) criminal record checks, credit history validation, and mandatory annual security training.',
+    },
+    {
+      id: 'comp-3',
+      category: 'compliance',
+      question: 'How does partnering with Techsteps support our ESG and Net Zero reporting?',
+      answer: 'We supply quantified Environmental Impact Reports detailing Scope 3 carbon emissions avoided through hardware reuse, component refurbishment, and zero-landfill WEEE recycling. These verified environmental metrics can be directly integrated into your corporate SECR, ESG, and sustainability filings.',
+    },
+    {
+      id: 'comp-4',
+      category: 'compliance',
+      question: 'What are standard collection lead times across the UK mainland?',
+      answer: 'Standard collections are scheduled within 3 to 5 working days nationwide. For time-critical data centre clearances, urgent compliance audits, or sudden office departures, emergency same-day and 24-hour rapid deployment is available through our dedicated client dispatch desk.',
     },
   ],
-  approachEyebrow: 'OUR APPROACH',
-  approachHeadline: 'Every Asset. A Smarter Journey.',
-  approachBody: 'Our industry-specific IT asset lifecycle methodology delivers end-to-end security, regulatory compliance, and maximum value recovery.',
-  approachSteps: [
+  contactCard: {
+    heading: 'Still have questions?',
+    description: 'Our compliance and client services teams are here to assist with specific scoping queries, tender requests, or custom SLA frameworks.',
+    buttonText: 'Contact Our Team',
+    buttonLink: '/contact',
+  },
+};
+
+export const defaultSustainabilityPage: SustainabilityPageData = {
+  metaTitle: 'Sustainability & IT Lifecycle Management | Techsteps UK',
+  metaDescription: 'Extending technology lifecycles, recovering value, and responsibly managing end-of-life IT assets across the UK.',
+  hero: {
+    eyebrow: 'SUSTAINABILITY',
+    title: 'A Smarter Lifecycle for Every Asset.',
+    subheading: 'We help organisations extend the life of technology, recover value from IT assets and responsibly manage equipment that reaches the end of its useful life.',
+    bgImage: '/images/services/remarketing.jpg',
+    buttonText: 'Explore Our Approach',
+    buttonLink: '#our-approach',
+  },
+  metrics: [
+    { number: '98', suffix: '%', label: 'Landfill Diversion Rate', note: 'Through certified reuse, refurbishment and clean materials recovery' },
+    { number: '0', suffix: '%', label: 'Direct to Landfill', note: 'Strict zero-landfill policy across all processed hardware' },
+    { number: '100', suffix: '%', label: 'UK WEEE Compliant', note: 'Fully documented audit trails and waste transfer notes' },
+    { number: 'Scope 3', suffix: '', label: 'Carbon Reporting', note: 'Quantified avoided emissions reporting for corporate ESG disclosures' },
+  ],
+  approach: {
+    eyebrow: 'OUR APPROACH',
+    heading: 'Technology Has More Than One Ending.',
+    description: 'Not every device needs to become waste. Where appropriate, assets can be securely prepared for reuse, remarketing or recovery before responsible recycling is considered.',
+    image: '/images/sustainability/sustainability-approach.jpg?v=2',
+    steps: [
+      { step: '1', title: 'COLLECT', badge: 'Chain-of-Custody', desc: 'Secure GPS-tracked transport, tamper-evident containers, and strict chain-of-custody handling directly from enterprise sites.' },
+      { step: '2', title: 'AUDIT & ASSESS', badge: 'Triage & Verification', desc: 'Granular asset logging, serial number scanning, hardware functional diagnostics, and secondary lifecycle viability assessment.' },
+      { step: '3', title: 'SANITISE', badge: 'Cryptographic Erasure', desc: 'Certified ADISA and NIST 800-88 compliant data wiping or physical degaussing to ensure zero data residual liability.' },
+      { step: '4', title: 'REUSE', badge: 'Redeployment & Extension', desc: 'Extending useful hardware life through internal redeployment, component harvesting, and secondary hardware assignment.' },
+      { step: '5', title: 'REMARKET', badge: 'Value Recovery', desc: 'Refurbishing and remarketing high-value IT equipment into global secondary B2B channels to return maximum ROI.' },
+      { step: '6', title: 'RECYCLE & RECOVER', badge: 'Zero-Landfill Guarantee', desc: 'Eco-certified material separation, WEEE-compliant shredding, and RDF energy recovery ensuring 100% zero-to-landfill diversion.' },
+    ],
+  },
+  lifecycleSection: {
+    eyebrow: 'CIRCULAR ECONOMY',
+    heading: 'Closing the Loop on Enterprise Technology',
+    description: 'Our circular model prioritises lifetime extension and resale over shredding, minimising Scope 3 emissions while maximising commercial recovery value.',
+  },
+  esgPillars: [
+    {
+      title: 'Environmental Responsibility',
+      badge: 'Planet',
+      items: [
+        { title: 'Zero Landfill Mandate', desc: 'Every component is tested for reuse, harvested for parts, or separated into certified UK recycling streams.' },
+        { title: 'Carbon Avoidance Audits', desc: 'We generate granular Scope 3 carbon offset figures to support your corporate ESG disclosures.' },
+      ],
+    },
+    {
+      title: 'Governance & Security',
+      badge: 'Trust',
+      items: [
+        { title: 'ADISA & ISO 27001 Accredited', desc: 'Unbroken chains of custody backed by tamper-evident seals, GPS tracking, and serialized certificates.' },
+        { title: 'Full Regulatory Compliance', desc: 'Guaranteed compliance with UK GDPR, WEEE regulations, and HMG Infosec Standard 5.' },
+      ],
+    },
+  ],
+  bottomCta: {
+    heading: 'Ready to build a more sustainable IT lifecycle?',
+    description: 'Speak with our circular technology specialists to design a secure, compliant, and carbon-efficient disposition program.',
+    primaryButtonText: 'Request a Collection',
+    primaryButtonLink: '/request-a-collection',
+    secondaryButtonText: 'Contact Our ESG Team',
+    secondaryButtonLink: '/contact',
+  },
+};
+
+export const defaultInvestorsPage: InvestorsPageData = {
+  metaTitle: 'Investor Relations | Techsteps UK',
+  metaDescription: 'Techsteps investor information, strategic operational pillars, ESG credentials, and commercial governance across the UK lifecycle economy.',
+  hero: {
+    eyebrow: 'INVESTOR RELATIONS',
+    title: 'Market leadership in essential lifecycle services.',
+    subheading: 'Techsteps delivers vital business lifecycle services across document management, IT asset disposition, secure destruction, and commercial relocation.',
+    bgImage: '/images/brand/about-hero-bg.jpg',
+  },
+  stats: [
+    { prefix: '+', value: '25', suffix: 'M', title: 'Items in Storage', desc: 'Secure barcoded documents and magnetic media under active vault management' },
+    { prefix: '+', value: '238', suffix: 'M', title: 'Images Scanned', desc: 'High-speed OCR-indexed digital records produced for UK public and private enterprises' },
+    { prefix: '+', value: '500', suffix: 'K', title: 'Desktops Moved', desc: 'Complex workplace hardware relocations and mission-critical data centre migrations' },
+    { prefix: '+', value: '52', suffix: 'K', title: 'Tonnes Shredded', desc: 'Confidential paper and electronic media securely destroyed with zero landfill waste' },
+  ],
+  strategicPillars: [
     {
       number: '01',
-      title: 'COLLECT',
-      description: 'Secure collection of IT equipment with vetted logistics and GPS tracking.',
+      title: 'Market Leader',
+      headline: 'Defensible Market Moats & Trusted Brand Positioning',
+      desc: 'Techsteps plc leads its markets, serving public & private sectors with essential services.',
+      detail: 'From high-density document archival to ADISA-accredited IT asset disposition, our compliance credentials (ISO 27001, BS EN 15713, DIN 66399) create deep operational barriers against low-end freight commoditisation.',
     },
     {
       number: '02',
-      title: 'SECURE',
-      description: 'Controlled handling, high-security facilities, and rigorous chain of custody.',
+      title: 'Predictable Income',
+      headline: 'Contracted Recurring Revenues & Robust Free Cash Flow',
+      desc: 'Our income is predictable, recurring, and generates strong cashflows.',
+      detail: 'Long-term enterprise contracts spanning scheduled office shredding consoles, rotational archive vaults, and continuous IT hardware refresh programs deliver high client retention rates and resilient operating cash generation.',
     },
     {
       number: '03',
-      title: 'SANITISE',
-      description: 'ADISA-certified data erasure, degaussing, or physical shredding.',
-    },
-    {
-      number: '04',
-      title: 'RECOVER',
-      description: 'Identify reuse, remarketing, and residual value to maximise commercial return.',
-    },
-    {
-      number: '05',
-      title: 'RECYCLE',
-      description: 'Zero-to-landfill, WEEE-compliant responsible recycling of end-of-life equipment.',
-    },
-    {
-      number: '06',
-      title: 'REPORT',
-      description: 'Complete audit trails, serialized destruction certificates, and lifecycle reporting.',
+      title: 'Sustainable Growth',
+      headline: 'Margin Enhancement, Circular Economics & ESG Leadership',
+      desc: 'Our strategy focuses on margin enhancement, organic growth, and sustainability.',
+      detail: 'Disciplined organic scaling paired with secondary hardware remarketing delivers high-margin value recovery. Decommissioned assets are restored to productive enterprise cycles or refined into certified clean raw materials.',
     },
   ],
-  complianceEyebrow: 'STANDARDS & GOVERNANCE',
-  complianceHeadline: 'Built on Trust. Backed by Standards.',
-  complianceBody: 'Our processes are designed around security, accountability and responsible operations. Every workflow is architected to protect your brand reputation, meet statutory data obligations, and champion environmental sustainability.',
-  certifications: [
-    {
-      name: 'ADISA Standard 8.0',
-      shortDescription: 'IT Asset Disposal Certification (Pass with Distinction)',
-      link: 'https://adisa.global',
-    },
-    {
-      name: 'ISO 27001',
-      shortDescription: 'Information Security Management System',
-      link: 'https://www.iso.org/iso-iec-27001-information-security.html',
-    },
-    {
-      name: 'ISO 14001',
-      shortDescription: 'Environmental Management & Zero-Landfill',
-      link: 'https://www.iso.org/iso-14001-environmental-management.html',
-    },
-    {
-      name: 'ISO 9001',
-      shortDescription: 'Quality Management & Governance System',
-      link: 'https://www.iso.org/iso-9001-quality-management.html',
-    },
-    {
-      name: 'Cyber Essentials Plus',
-      shortDescription: 'National Cyber Security Centre (NCSC) Certified',
-      link: 'https://www.ncsc.gov.uk/cyberessentials/overview',
-    },
-    {
-      name: 'BS EN 15713',
-      shortDescription: 'Secure Destruction of Confidential Material',
-      link: 'https://www.bsigroup.com',
-    },
-    {
-      name: 'Environment Agency AATF',
-      shortDescription: 'Licensed Waste Partner & Carrier',
-      link: 'https://www.gov.uk/government/organisations/environment-agency',
-    },
-    {
-      name: 'BS 7858 Vetted',
-      shortDescription: 'Security Vetting of Personnel in Security Operations',
-      link: 'https://www.bsigroup.com',
-    },
-    {
-      name: 'UK GDPR Compliant',
-      shortDescription: 'Full Compliance with UK Data Protection Rules',
-      link: 'https://ico.org.uk',
-    },
-    {
-      name: 'NIST 800-88 Rev 1',
-      shortDescription: 'Guidelines for Media Sanitization & Overwriting',
-      link: 'https://csrc.nist.gov',
-    },
-  ],
-  ctaEyebrow: "LET'S WORK TOGETHER",
-  ctaHeadline: 'Ready to Take the Next Step?',
-  ctaBody: "Let's build a more secure, responsible and sustainable technology lifecycle for your organisation.",
-  ctaButtonLabel: 'Get In Touch →',
-  ctaButtonUrl: '/contact',
-  ctaSecondaryButtonLabel: 'Request a Collection →',
-  ctaSecondaryButtonUrl: '/request-a-quote',
+  investmentCase: {
+    eyebrow: 'INVESTMENT THESIS',
+    heading: 'Compelling Fundamentals in Mission-Critical Infrastructure',
+    description: 'Techsteps operates in structurally growing, non-discretionary sectors driven by increasing regulatory compliance, cybersecurity vigilance, and corporate Net Zero commitments.',
+    bulletPoints: [
+      'High contracted recurring revenue base with low customer churn',
+      'Strong barriers to entry: UKAS accreditations, vetted staff, and sovereign vault facilities',
+      'Circular economy growth driver with high-margin IT hardware remarketing',
+      'Disciplined capital allocation with continuous operational reinvestment',
+    ],
+  },
+  irContact: {
+    heading: 'Investor Relations Contact',
+    description: 'For shareholder enquiries, financial reporting, and governance information, please contact our investor relations team.',
+    name: 'Investor Relations Desk',
+    role: 'Corporate Communications & Governance',
+    email: 'investors@techsteps.co.uk',
+    phone: '+44 (0) 20 7946 0888',
+  },
 };
+
+export const defaultContactPage: ContactPageData = {
+  metaTitle: 'Contact Techsteps UK | UK Head Office & Sovereign Hub',
+  metaDescription: 'Contact Techsteps UK. Reach our UK headquarters in Dartford, Kent, or speak directly with our logistics dispatch and customer compliance teams.',
+  hero: {
+    eyebrow: 'CONTACT US',
+    title: 'Contact us',
+    subheading: 'Techsteps is ready to provide the right solution according to your needs',
+    bgImage: '/images/brand/contact-hero-bg.jpg',
+  },
+  formSection: {
+    heading: 'Send us a message',
+    image: '/images/contact/contact-consultation.jpg',
+  },
+  directLines: [
+    { title: 'Head Office', description: 'Techsteps House, Logistics Park, Crossways Boulevard, Dartford, Kent DA2 6QJ', phone: '+44 (0) 20 7946 0888', email: 'enquiries@techsteps.co.uk' },
+    { title: 'Logistics Dispatch', description: 'Immediate operational collection booking and chain-of-custody tracking desk.', phone: '0800 083 4700', email: 'dispatch@techsteps.co.uk' },
+  ],
+};
+
+export const defaultRequestCollectionPage: RequestCollectionPageData = {
+  metaTitle: 'Book your collection | Techsteps UK',
+  metaDescription: "Book an IT equipment collection. Takes about two minutes. You'll get a reference number immediately, and we'll confirm your collection window within two working days.",
+  hero: {
+    title: 'Book your collection',
+    description: "Takes about two minutes. You'll get a reference number as soon as you submit, and we'll come back with a collection window within two working days.",
+  },
+  slaGuarantees: [
+    { title: '24-48h Confirmation', description: 'Rapid booking review and time-window allocation by our UK dispatch desk.' },
+    { title: 'Vetted Collection Crew', description: 'BS 7858 screened personnel operating GPS-tracked, solid-bulkhead vehicles.' },
+    { title: 'Certified Paperwork', description: 'Electronic Waste Transfer Notes and serialized Duty of Care manifests issued upon collection.' },
+  ],
+};
+
+export const testimonials: TestimonialItem[] = [
+  {
+    id: 't1',
+    quote: 'Impressed by the security rigor, speed, and attention to detail from day one. TechSteps transformed our lifecycle compliance.',
+    author: 'David Miller',
+    role: 'Head of Infrastructure Security',
+    company: 'Defence Prime Contractor',
+    industry: 'Defence',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-1.jpg',
+    order: 1,
+  },
+  {
+    id: 't2',
+    quote: 'A seamless experience from start to finish. Freed 4,000 sq ft of hospital ward space with zero data risk!',
+    author: 'Sarah Jenkins',
+    role: 'Director of Health Records',
+    company: 'NHS Foundation Trust',
+    industry: 'Healthcare',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-2.jpg',
+    order: 2,
+  },
+  {
+    id: 't3',
+    quote: 'Reliable and trustworthy. Handled our weekend trading floor migration with complete security and zero downtime!',
+    author: 'James Roberts',
+    role: 'Chief Technology Officer',
+    company: 'Tier 1 Investment Bank',
+    industry: 'Financial Services',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-3.jpg',
+    order: 3,
+  },
+  {
+    id: 't4',
+    quote: 'Exceeded all GGC zero-landfill mandates while delivering defensible Scope 3 carbon compliance reporting.',
+    author: 'Eleanor Vance',
+    role: 'Governance & Information Director',
+    company: 'Central Government Agency',
+    industry: 'Central Government',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-4.jpg',
+    order: 4,
+  },
+  {
+    id: 't5',
+    quote: 'Digitized 80 years of irreplaceable historical research archives with 100% precision and legal compliance.',
+    author: 'Prof. Marcus Thorne',
+    role: 'Dean of Research Operations',
+    company: 'Russell Group University',
+    industry: 'Education & Research',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-5.jpg',
+    order: 5,
+  },
+  {
+    id: 't6',
+    quote: 'Unlocked substantial rebate value from our retired enterprise server fleet with certified NIST 800-88 erasure.',
+    author: 'Rachel Adams',
+    role: 'Global Head of ESG & Sustainability',
+    company: 'Enterprise Technology Corp',
+    industry: 'Technology',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-6.jpg',
+    order: 6,
+  },
+];
+
 

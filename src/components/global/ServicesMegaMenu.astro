@@ -6,107 +6,341 @@ const [divisions, services] = await Promise.all([
   getServices(),
 ]);
 
-// Map each division to its services
-const div1 = divisions.find(d => d.slug === 'information-management') || divisions[0];
-const div2 = divisions.find(d => d.slug === 'it-lifecycle-services-destruction') || divisions[1];
-const div3 = divisions.find(d => d.slug === 'secure-shredding-document-integrity') || divisions[2];
-const div4 = divisions.find(d => d.slug === 'moving-relocation-services') || divisions[3];
-
-const div1Services = services.filter(s => s.divisionSlug === div1.slug);
-const div2Services = services.filter(s => s.divisionSlug === div2.slug);
-const div3Services = services.filter(s => s.divisionSlug === div3.slug);
-const div4Services = services.filter(s => s.divisionSlug === div4.slug);
+// 4 Core Divisions with high-level icon definitions
+const tabs = [
+  {
+    id: 'it-lifecycle',
+    slug: 'it-lifecycle-services-destruction',
+    title: 'IT Lifecycle & ITAD',
+    iconType: 'chip',
+    subServices: [
+      {
+        title: 'IT Asset Disposition (ITAD)',
+        slug: 'it-asset-disposition-services',
+      },
+      {
+        title: 'Secure IT Disposal',
+        slug: 'secure-it-disposal',
+      },
+      {
+        title: 'Hard Drive Destruction',
+        slug: 'ultra-secure-hard-drive-destruction',
+      },
+      {
+        title: 'IT Asset Management',
+        slug: 'it-asset-management-services',
+      },
+      {
+        title: 'Remarketing & Value Recovery',
+        slug: 'remarketing-recycling',
+      },
+      {
+        title: 'Cardboard & Packaging Recycling',
+        slug: 'cardboard-recycling',
+      },
+    ],
+    badges: [
+      { label: 'ADISA', color: '#0F623A', text: '8.0' },
+      { label: 'ISO', color: '#2563EB', text: '27001' },
+      { label: 'NIST', color: '#059669', text: '800-88' },
+      { label: 'DIPCOG', color: '#D97706', text: 'MOD' },
+    ],
+    bottomCardLink: { title: 'Accreditations & standards', href: '/about-us' },
+  },
+  {
+    id: 'information-mgmt',
+    slug: 'information-management',
+    title: 'Information Management',
+    iconType: 'database',
+    subServices: [
+      {
+        title: 'Document Storage',
+        slug: 'document-storage',
+      },
+      {
+        title: 'Document Scanning',
+        slug: 'document-scanning',
+      },
+      {
+        title: 'Digital Mailroom',
+        slug: 'digital-mailroom',
+      },
+      {
+        title: 'Document Management',
+        slug: 'document-management',
+      },
+      {
+        title: 'Tape & Media Storage',
+        slug: 'tape-media-storage',
+      },
+      {
+        title: 'Vault Storage',
+        slug: 'vault-storage',
+      },
+      {
+        title: 'Heritage & Archival Storage',
+        slug: 'heritage-storage',
+      },
+    ],
+    badges: [
+      { label: 'BS', color: '#0F623A', text: '10008' },
+      { label: 'ISO', color: '#2563EB', text: '9001' },
+      { label: 'UK', color: '#059669', text: 'GDPR' },
+      { label: 'BS', color: '#D97706', text: '4971' },
+    ],
+    bottomCardLink: { title: 'Information governance', href: '/information-management' },
+  },
+  {
+    id: 'secure-shredding',
+    slug: 'secure-shredding-document-integrity',
+    title: 'Secure Shredding',
+    iconType: 'shield',
+    subServices: [
+      {
+        title: 'On-Site Mobile Shredding',
+        slug: 'on-site-shredding',
+      },
+      {
+        title: 'Off-Site Secure Shredding',
+        slug: 'off-site-shredding',
+      },
+      {
+        title: 'Product & Prototype Destruction',
+        slug: 'product-shredding',
+      },
+      {
+        title: 'Home & Residential Shredding',
+        slug: 'home-shredding',
+      },
+      {
+        title: 'Certified Disposal Services',
+        slug: 'disposal-services',
+      },
+      {
+        title: 'Simpler Recycling Compliance',
+        slug: 'simpler-recycling-services',
+      },
+      {
+        title: 'Dry Mixed Recycling',
+        slug: 'dry-mixed-recycling',
+      },
+      {
+        title: 'Secure Collection Services',
+        slug: 'secure-collection-services',
+      },
+    ],
+    badges: [
+      { label: 'BS EN', color: '#0F623A', text: '15713' },
+      { label: 'DIN', color: '#2563EB', text: '66399' },
+      { label: 'ISO', color: '#059669', text: '14001' },
+      { label: 'SAFE', color: '#D97706', text: 'Contractor' },
+    ],
+    bottomCardLink: { title: 'Destruction accreditations', href: '/secure-shredding-document-integrity' },
+  },
+  {
+    id: 'moving-relocation',
+    slug: 'moving-relocation-services',
+    title: 'Moving & Relocation',
+    iconType: 'truck',
+    subServices: [
+      {
+        title: 'Specialist IT Relocations',
+        slug: 'it-relocations-specialist',
+      },
+      {
+        title: 'Commercial Business Relocations',
+        slug: 'business-relocations',
+      },
+      {
+        title: 'Laboratory Relocations & Storage',
+        slug: 'laboratory-relocations-storage',
+      },
+      {
+        title: 'Heritage Relocations & Storage',
+        slug: 'heritage-relocations-storage',
+      },
+      {
+        title: 'European & International Moves',
+        slug: 'europe-international-domestic-moves',
+      },
+      {
+        title: 'Relocation Project Management',
+        slug: 'project-management',
+      },
+    ],
+    badges: [
+      { label: 'BAR', color: '#0F623A', text: 'Standard' },
+      { label: 'BS', color: '#2563EB', text: '7858' },
+      { label: 'ISO', color: '#059669', text: '9001' },
+      { label: 'SAFE', color: '#D97706', text: 'Contractor' },
+    ],
+    bottomCardLink: { title: 'Fleet & logistics standards', href: '/moving-relocation-services' },
+  },
+];
 ---
 
-<!-- Services Mega Menu Floating Card (Full-Width 4-Division Layout, No Right Images) -->
+<!-- Services Mega Menu Floating Card (Sharp Box Edges, Clean Sub-Services Grid) -->
 <div
   id="services-megamenu-panel"
   class="hidden fixed inset-x-0 z-50 transition-all duration-200 transform opacity-0 -translate-y-2 pointer-events-none px-4 sm:px-6 lg:px-8 max-h-[calc(100vh-90px)] overflow-y-auto"
   role="region"
   aria-label="Services Mega Navigation"
 >
-  <div class="relative max-w-[1540px] mx-auto bg-white rounded-none shadow-2xl border border-slate-200/90 py-8 sm:py-10 lg:py-12 px-8 sm:px-12 lg:px-16 flex flex-col justify-between overflow-hidden font-sans">
-    <!-- 4 Division Service Columns (All 27 Services Across Full Width) -->
-    <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 w-full flex-1">
-      <!-- Division 1: Information Management (7 Services) -->
-      <div class="space-y-4">
-        <a href={`/${div1.slug}`} class="block text-[15px] sm:text-base font-bold text-[#0F623A] hover:text-black uppercase tracking-wider transition-colors pb-2.5 border-b border-slate-200">
-          {div1.title}
-        </a>
-        <ul class="space-y-3">
-          {div1Services.map((s) => (
-            <li>
-              <a href={`/services/${s.slug}`} class="block text-base sm:text-[17px] lg:text-[18px] font-normal text-slate-600 hover:text-[#0F623A] hover:translate-x-1 transition-all leading-snug py-0.5">
-                {s.title}
-              </a>
-            </li>
-          ))}
-        </ul>
+  <div class="relative max-w-7xl mx-auto bg-white rounded-none shadow-[0_25px_60px_-15px_rgba(15,23,42,0.18)] border border-slate-200/90 overflow-hidden font-sans">
+    <div class="flex flex-col lg:flex-row min-h-[440px]">
+      
+      <!-- 1. LEFT SIDEBAR (Category Items with High-Level Icons & NO Background) -->
+      <div class="w-full lg:w-72 bg-[#F8FAF9] p-4 sm:p-5 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-200/80 shrink-0">
+        <div class="space-y-1.5">
+          <div class="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            Divisions
+          </div>
+
+          {tabs.map((tab, idx) => {
+            const isFirst = idx === 0;
+            return (
+              <button
+                type="button"
+                class={`services-tab-btn group w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-left text-sm transition-all duration-150 cursor-pointer border ${
+                  isFirst
+                    ? 'bg-[#EFF8F3] text-[#0F623A] font-bold shadow-xs active border-[#ACDEAB]/60'
+                    : 'text-slate-700 hover:text-[#0F623A] hover:bg-[#EFF8F3]/60 font-medium border-transparent'
+                }`}
+                data-target-tab={`services-tab-${tab.id}`}
+              >
+                <!-- High-Level Icon WITHOUT Background -->
+                <span class={`tab-icon shrink-0 transition-colors ${
+                  isFirst ? 'text-[#0F623A]' : 'text-slate-600 group-hover:text-[#0F623A]'
+                }`}>
+                  {tab.iconType === 'chip' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <rect x="4" y="4" width="16" height="16" rx="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <rect x="9" y="9" width="6" height="6" stroke-linecap="round" stroke-linejoin="round" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3" />
+                    </svg>
+                  )}
+                  {tab.iconType === 'database' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <ellipse cx="12" cy="5" rx="9" ry="3" stroke-linecap="round" stroke-linejoin="round" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                    </svg>
+                  )}
+                  {tab.iconType === 'shield' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
+                    </svg>
+                  )}
+                  {tab.iconType === 'truck' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <rect x="1" y="3" width="15" height="13" rx="1" stroke-linecap="round" stroke-linejoin="round" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M16 8h4l3 3v5h-7V8z" />
+                      <circle cx="5.5" cy="18.5" r="2.5" />
+                      <circle cx="18.5" cy="18.5" r="2.5" />
+                    </svg>
+                  )}
+                </span>
+                <span class="truncate">{tab.title}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <!-- Sidebar Bottom Link (No Arrow) -->
+        <div class="pt-4 mt-4 border-t border-slate-200/80 px-2">
+          <a
+            href="/services"
+            class="text-xs font-bold text-[#0F623A] hover:text-black flex items-center justify-between group transition-colors"
+          >
+            <span>All 27 Services Directory</span>
+          </a>
+        </div>
       </div>
 
-      <!-- Division 2: IT Lifecycle Services & Destruction (6 Services) -->
-      <div class="space-y-4">
-        <a href={`/${div2.slug}`} class="block text-[15px] sm:text-base font-bold text-[#0F623A] hover:text-black uppercase tracking-wider transition-colors pb-2.5 border-b border-slate-200">
-          {div2.title}
-        </a>
-        <ul class="space-y-3">
-          {div2Services.map((s) => (
-            <li>
-              <a href={`/services/${s.slug}`} class="block text-base sm:text-[17px] lg:text-[18px] font-normal text-slate-600 hover:text-[#0F623A] hover:translate-x-1 transition-all leading-snug py-0.5">
-                {s.title}
-              </a>
-            </li>
-          ))}
-        </ul>
+      <!-- 2. RIGHT MAIN CONTENT AREA: CENTER SUB-SERVICES + RIGHT SPOTLIGHT CARD -->
+      <div class="flex-1 bg-white p-6 sm:p-8 lg:p-9 relative">
+        {tabs.map((tab, idx) => {
+          const isFirst = idx === 0;
+          return (
+            <div
+              id={`services-tab-${tab.id}`}
+              class={`services-tab-panel ${isFirst ? 'block' : 'hidden'} animate-in fade-in duration-150`}
+            >
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                
+                <!-- CENTER AREA: Links related to the selected service's sub-services (No secondary heading, No Arrows) -->
+                <div class="lg:col-span-2 space-y-4">
+                  <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                      {tab.title}
+                    </span>
+                    <a
+                      href={`/${tab.slug}`}
+                      class="text-xs font-bold text-[#0F623A] hover:text-black flex items-center gap-1 transition-colors group/link"
+                    >
+                      <span>Division Overview</span>
+                    </a>
+                  </div>
+
+                  <!-- 2-Column Responsive Grid of Sub-Services (Font Normal, Larger Size, No Arrows, Light Green Hover) -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 pt-1">
+                    {tab.subServices.map((sub) => (
+                      <a
+                        href={`/services/${sub.slug}`}
+                        class="group flex items-center justify-between py-2 px-3 rounded-lg hover:bg-[#EFF8F3] border border-transparent hover:border-[#ACDEAB]/40 transition-all duration-150"
+                      >
+                        <span class="text-base sm:text-[17px] font-normal text-slate-700 group-hover:text-[#0F623A] transition-colors leading-snug">
+                          {sub.title}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- RIGHT COLUMN: Integrations & Accreditations Card (Matching Freshworks Blue Card) -->
+                <div class="space-y-4 lg:border-l lg:border-slate-100 lg:pl-8">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 block pb-2 border-b border-slate-100">
+                    Integrations &amp; Trust
+                  </span>
+
+                  <!-- Vibrant Blue Card with Badges matching reference -->
+                  <div class="w-full h-34 rounded-2xl bg-[#0070F3] p-4 flex items-center justify-center gap-2.5 shadow-md relative overflow-hidden group/card hover:shadow-lg transition-all duration-300">
+                    <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+
+                    {tab.badges.map((b) => (
+                      <div class="w-11 h-11 rounded-xl bg-white shadow-sm flex flex-col items-center justify-center text-center p-1 transform transition-transform group-hover/card:scale-105">
+                        <span class="text-[9px] font-black tracking-tight leading-none" style={`color: ${b.color};`}>
+                          {b.label}
+                        </span>
+                        <span class="text-[8px] font-bold text-slate-700 leading-tight mt-0.5">
+                          {b.text}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <!-- Link underneath with diagonal arrow -->
+                  <div class="pt-1 space-y-2">
+                    <a
+                      href={tab.bottomCardLink.href}
+                      class="inline-flex items-center gap-1 text-xs font-bold text-slate-900 hover:text-[#0F623A] transition-colors group/link"
+                    >
+                      <span>{tab.bottomCardLink.title}</span>
+                    </a>
+
+                    <p class="text-[11px] text-slate-500 leading-relaxed">
+                      UK GDPR &bull; ADISA 8.0 certified chain of custody with zero-landfill electronic recycling.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          );
+        })}
       </div>
 
-      <!-- Division 3: Secure Shredding & Document Integrity (8 Services) -->
-      <div class="space-y-4">
-        <a href={`/${div3.slug}`} class="block text-[15px] sm:text-base font-bold text-[#0F623A] hover:text-black uppercase tracking-wider transition-colors pb-2.5 border-b border-slate-200">
-          {div3.title}
-        </a>
-        <ul class="space-y-3">
-          {div3Services.map((s) => (
-            <li>
-              <a href={`/services/${s.slug}`} class="block text-base sm:text-[17px] lg:text-[18px] font-normal text-slate-600 hover:text-[#0F623A] hover:translate-x-1 transition-all leading-snug py-0.5">
-                {s.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- Division 4: Moving & Relocation Services (6 Services) -->
-      <div class="space-y-4">
-        <a href={`/${div4.slug}`} class="block text-[15px] sm:text-base font-bold text-[#0F623A] hover:text-black uppercase tracking-wider transition-colors pb-2.5 border-b border-slate-200">
-          {div4.title}
-        </a>
-        <ul class="space-y-3">
-          {div4Services.map((s) => (
-            <li>
-              <a href={`/services/${s.slug}`} class="block text-base sm:text-[17px] lg:text-[18px] font-normal text-slate-600 hover:text-[#0F623A] hover:translate-x-1 transition-all leading-snug py-0.5">
-                {s.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-
-    <!-- Bottom Utility Footer -->
-    <div class="relative z-10 mt-6 sm:mt-8 pt-4 sm:pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-sm sm:text-base">
-      <a
-        href="/investors"
-        class="text-lg sm:text-xl font-bold text-[#0F623A] hover:text-black flex items-center gap-2 transition-colors group py-1"
-      >
-        <span>Investors</span>
-        <span class="transition-transform duration-150 group-hover:translate-x-1">&rarr;</span>
-      </a>
-
-      <a href="/services" class="font-bold text-sm sm:text-base text-white bg-[#0F623A] hover:bg-[#0c4e2e] flex items-center gap-2 px-6 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all">
-        <span>View Full Service Directory</span>
-        <span>&rarr;</span>
-      </a>
     </div>
   </div>
 </div>
@@ -132,7 +366,7 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
 
     let openMenu = null; // null | 'services' | 'sectors' | 'insights'
     let closeTimer = null;
-    const GRACE_DELAY = 180; // ms buffer to traverse between triggers and panels
+    const GRACE_DELAY = 180;
 
     function updateDropdownPositions() {
       const stickyHeader = document.getElementById('site-header');
@@ -383,7 +617,6 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
       });
     });
 
-    // Hover inside Services MegaMenu Panel
     servicesPanel.addEventListener('mouseenter', () => {
       clearTimeout(closeTimer);
     });
@@ -416,7 +649,6 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
       });
     });
 
-    // Hover inside Sectors Dropdown Panel
     if (sectorsPanel) {
       sectorsPanel.addEventListener('mouseenter', () => {
         clearTimeout(closeTimer);
@@ -451,7 +683,6 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
       });
     });
 
-    // Hover inside Insights MegaMenu Panel
     if (insightsPanel) {
       insightsPanel.addEventListener('mouseenter', () => {
         clearTimeout(closeTimer);
@@ -465,60 +696,70 @@ const div4Services = services.filter(s => s.divisionSlug === div4.slug);
       });
     }
 
-    // Dismiss when hovering over non-dropdown top navigation links
-    document.querySelectorAll('nav a').forEach((link) => {
-      if (link.classList.contains('services-megamenu-toggle') || link.classList.contains('sectors-dropdown-toggle') || link.classList.contains('insights-megamenu-toggle')) return;
-      if (link.closest('#services-megamenu-panel') || link.closest('#sectors-dropdown-panel') || link.closest('#insights-megamenu-panel')) return;
-      
-      link.addEventListener('mouseenter', () => {
-        if (openMenu !== null) {
-          closeAll(true);
-        }
-      });
+    backdrop.addEventListener('mouseenter', () => {
+      closeAll(true);
     });
 
-    // Outside click dismisses both
-    backdrop.addEventListener('click', () => closeAll());
-
-    document.addEventListener('click', (e) => {
-      if (!openMenu) return;
-      const target = e.target;
-      const insideServices = servicesPanel.contains(target) || Array.from(servicesToggles).some(b => b.contains(target));
-      const insideSectors = (sectorsPanel && sectorsPanel.contains(target)) || Array.from(sectorsToggles).some(b => b.contains(target));
-
-      if (!insideServices && !insideSectors) {
-        closeAll();
-      }
-    });
-
-    // Keyboard accessibility: Escape closes both
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && openMenu) {
-        closeAll();
-      }
+      if (e.key === 'Escape') closeAll(true);
     });
 
-    // Close when clicking any link inside either dropdown menu
-    servicesPanel.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => closeAll(true));
-    });
-
-    if (sectorsPanel) {
-      sectorsPanel.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => closeAll(true));
-      });
-    }
-
-    // Reposition Dropdown Menus on scroll & resize
-    window.addEventListener('scroll', () => {
-      if (openMenu) updateDropdownPositions();
-    }, { passive: true });
-
-    window.addEventListener('resize', () => {
-      if (openMenu) updateDropdownPositions();
-    }, { passive: true });
+    window.addEventListener('resize', updateDropdownPositions);
+    window.addEventListener('scroll', updateDropdownPositions, { passive: true });
   }
 
-  setupNavDropdowns();
-  document.addEventListener('astro:page-load', setupNavDropdowns);
+  // Interactive Tab Switcher for Services Mega Menu
+  function setupServicesTabs() {
+    const tabBtns = document.querySelectorAll('.services-tab-btn');
+    const tabPanels = document.querySelectorAll('.services-tab-panel');
+    if (!tabBtns.length) return;
+
+    tabBtns.forEach((btn) => {
+      const activate = () => {
+        const targetId = btn.getAttribute('data-target-tab');
+        tabBtns.forEach((b) => {
+          b.classList.remove('bg-[#EFF8F3]', 'text-[#0F623A]', 'font-bold', 'shadow-xs', 'active', 'border-[#ACDEAB]/60');
+          b.classList.add('text-slate-700', 'hover:text-[#0F623A]', 'hover:bg-[#EFF8F3]/60', 'font-medium', 'border-transparent');
+          const icon = b.querySelector('.tab-icon');
+          if (icon) {
+            icon.classList.remove('text-[#0F623A]');
+            icon.classList.add('text-slate-600');
+          }
+        });
+
+        btn.classList.add('bg-[#EFF8F3]', 'text-[#0F623A]', 'font-bold', 'shadow-xs', 'active', 'border-[#ACDEAB]/60');
+        btn.classList.remove('text-slate-700', 'hover:bg-[#EFF8F3]/60', 'font-medium', 'border-transparent');
+        const activeIcon = btn.querySelector('.tab-icon');
+        if (activeIcon) {
+          activeIcon.classList.add('text-[#0F623A]');
+          activeIcon.classList.remove('text-slate-600');
+        }
+
+        tabPanels.forEach((panel) => {
+          if (panel.id === targetId) {
+            panel.classList.remove('hidden');
+            panel.classList.add('block');
+          } else {
+            panel.classList.add('hidden');
+            panel.classList.remove('block');
+          }
+        });
+      };
+
+      btn.addEventListener('mouseenter', activate);
+      btn.addEventListener('click', activate);
+    });
+  }
+
+  function init() {
+    setupNavDropdowns();
+    setupServicesTabs();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  document.addEventListener('astro:page-load', init);
 </script>

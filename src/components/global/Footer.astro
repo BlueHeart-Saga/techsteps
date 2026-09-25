@@ -89,24 +89,21 @@ const currentYear = new Date().getFullYear();
             Services
           </h3>
           <ul class="space-y-2.5 text-xs sm:text-[13px] text-slate-300">
-            <li>
-              <a href="/information-management" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">Information Management</a>
-            </li>
-            <li>
-              <a href="/it-lifecycle-services-destruction" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">IT Lifecycle Services &amp; Destruction</a>
-            </li>
-            <li>
-              <a href="/secure-shredding-document-integrity" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">Secure Shredding &amp; Document Integrity</a>
-            </li>
-            <li>
-              <a href="/moving-relocation-services" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">Moving &amp; Relocation Services</a>
-            </li>
-            <li class="pt-1.5">
-              <a href="/services" class="text-[#0F623A] font-bold hover:underline transition-colors inline-flex items-center gap-1">
-                <span>All Services</span>
-                <span>&rarr;</span>
-              </a>
-            </li>
+            {(siteSettings.footerServices || []).map((link, idx) => (
+              <li class={idx === (siteSettings.footerServices?.length || 0) - 1 ? 'pt-1.5' : ''}>
+                <a
+                  href={link.url}
+                  target={link.openInNewTab ? '_blank' : undefined}
+                  rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
+                  class={idx === (siteSettings.footerServices?.length || 0) - 1
+                    ? 'text-[#0F623A] font-bold hover:underline transition-colors inline-flex items-center gap-1'
+                    : 'hover:text-[#0F623A] hover:underline transition-colors block leading-tight'}
+                >
+                  <span>{link.label}</span>
+                  {idx === (siteSettings.footerServices?.length || 0) - 1 && <span>&rarr;</span>}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -116,24 +113,21 @@ const currentYear = new Date().getFullYear();
             Industries
           </h3>
           <ul class="space-y-2.5 text-xs sm:text-[13px] text-slate-300">
-            <li>
-              <a href="/sectors/defence" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">Defence</a>
-            </li>
-            <li>
-              <a href="/sectors/nhs" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">NHS &amp; Healthcare</a>
-            </li>
-            <li>
-              <a href="/sectors/finance" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">Financial Services</a>
-            </li>
-            <li>
-              <a href="/sectors/central-government" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">Central Government</a>
-            </li>
-            <li class="pt-1.5">
-              <a href="/sectors" class="text-[#0F623A] font-bold hover:underline transition-colors inline-flex items-center gap-1">
-                <span>All Sectors</span>
-                <span>&rarr;</span>
-              </a>
-            </li>
+            {(siteSettings.footerSectors || []).map((link, idx) => (
+              <li class={idx === (siteSettings.footerSectors?.length || 0) - 1 ? 'pt-1.5' : ''}>
+                <a
+                  href={link.url}
+                  target={link.openInNewTab ? '_blank' : undefined}
+                  rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
+                  class={idx === (siteSettings.footerSectors?.length || 0) - 1
+                    ? 'text-[#0F623A] font-bold hover:underline transition-colors inline-flex items-center gap-1'
+                    : 'hover:text-[#0F623A] hover:underline transition-colors block leading-tight'}
+                >
+                  <span>{link.label}</span>
+                  {idx === (siteSettings.footerSectors?.length || 0) - 1 && <span>&rarr;</span>}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -143,24 +137,18 @@ const currentYear = new Date().getFullYear();
             Company
           </h3>
           <ul class="space-y-2 text-xs sm:text-[13px] text-slate-300">
-            <li>
-              <a href="/about-us" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">About Us</a>
-            </li>
-            <li>
-              <a href="/sustainability" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">Sustainability &amp; ESG</a>
-            </li>
-            <li>
-              <a href="/insights" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">Insights &amp; News</a>
-            </li>
-            <li>
-              <a href="/request-a-quote" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">Request Collection</a>
-            </li>
-            <li>
-              <a href="/contact" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">Contact Us</a>
-            </li>
-            <li>
-              <a href="/faq" class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight">FAQ</a>
-            </li>
+            {(siteSettings.footerCompany || []).map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  target={link.openInNewTab ? '_blank' : undefined}
+                  rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
+                  class="hover:text-[#0F623A] hover:underline transition-colors block leading-tight"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -171,15 +159,18 @@ const currentYear = new Date().getFullYear();
   <!-- Bottom Legal Strip -->
   <div class="w-full bg-[#060907] py-4 px-4 sm:px-6 lg:px-12 border-t border-white/10 relative z-30">
     <div class="max-w-[1480px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white font-sans">
-      <p class="text-white">&copy; {currentYear} {siteSettings.legalName}. All rights reserved.</p>
+      <p class="text-white">&copy; {currentYear} {siteSettings.footerCopyright || `${siteSettings.legalName}. All rights reserved.`}</p>
       <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-white font-sans">
-        <a href="/privacy-policy" class="text-white hover:underline transition-colors">Privacy Policy</a>
-        <a href="/cookie-policy" class="text-white hover:underline transition-colors">Cookie Policy</a>
-        <a href="/terms-and-conditions" class="text-white hover:underline transition-colors">Terms &amp; Conditions</a>
-        <a href="/accessibility" class="text-white hover:underline transition-colors">Accessibility</a>
-        <a href="/modern-slavery-statement" class="text-white hover:underline transition-colors">Modern Slavery</a>
-        <a href="/environmental-policy" class="text-white hover:underline transition-colors">Environmental Policy</a>
-        <a href="/information-security-policy" class="text-white hover:underline transition-colors">Information Security</a>
+        {(siteSettings.footerLegal || []).map((link) => (
+          <a
+            href={link.url}
+            target={link.openInNewTab ? '_blank' : undefined}
+            rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
+            class="text-white hover:underline transition-colors"
+          >
+            {link.label}
+          </a>
+        ))}
       </div>
     </div>
   </div>

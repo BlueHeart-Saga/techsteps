@@ -151,18 +151,6 @@ const currentPath = Astro.url.pathname;
         Investors
       </a>
 
-      <!-- About Us -->
-      <a
-        href="/about-us"
-        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
-          currentPath === '/about-us'
-            ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
-            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
-        }`}
-      >
-        About Us
-      </a>
-
       <!-- Insights Accordion -->
       <div class="rounded-xl border border-slate-100 overflow-hidden">
         <button
@@ -207,6 +195,18 @@ const currentPath = Astro.url.pathname;
           </div>
         </div>
       </div>
+
+      <!-- About Us -->
+      <a
+        href="/about-us"
+        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
+          currentPath === '/about-us'
+            ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
+            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
+        }`}
+      >
+        About Us
+      </a>
 
       <!-- Contact Us -->
       <a

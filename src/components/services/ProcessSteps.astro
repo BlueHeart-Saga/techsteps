@@ -11,70 +11,41 @@ interface Props {
   steps?: Step[];
   title?: string;
   subtitle?: string;
-}
-
-const vbWidth = 1200;
-const vbHeight = 460;
-
-// Upward Bezier curve control points
-const p0 = { x: 0, y: 395 };
-const p1 = { x: 300, y: 375 };
-const p2 = { x: 700, y: 245 };
-const p3 = { x: 1200, y: 95 };
-
-const pathD = `M ${p0.x} ${p0.y} C ${p1.x} ${p1.y}, ${p2.x} ${p2.y}, ${p3.x} ${p3.y}`;
-
-function bezier(t: number, c0: number, c1: number, c2: number, c3: number) {
-  const mt = 1 - t;
-  return mt * mt * mt * c0 + 3 * mt * mt * t * c1 + 3 * mt * t * t * c2 + t * t * t * c3;
-}
-
-function getYAtXPct(xPct: number) {
-  const targetX = (xPct / 100) * vbWidth;
-  let low = 0, high = 1;
-  for (let i = 0; i < 40; i++) {
-    const mid = (low + high) / 2;
-    const x = bezier(mid, p0.x, p1.x, p2.x, p3.x);
-    if (x < targetX) low = mid;
-    else high = mid;
-  }
-  const t = (low + high) / 2;
-  const y = bezier(t, p0.y, p1.y, p2.y, p3.y);
-  return (y / vbHeight) * 100;
+  lifecycle?: any;
 }
 
 const defaultLifecycleSteps: Step[] = [
   {
     stepNumber: 1,
-    title: 'Collect',
+    title: 'COLLECT',
     shortDesc: 'GPS-Tracked Transit',
     description: 'Point-to-point transit in GPS-monitored vehicles with BS 7858 security-vetted drivers.',
     image: '/images/process/new/step-1-collect.png',
   },
   {
     stepNumber: 2,
-    title: 'Secure',
+    title: 'SECURE',
     shortDesc: 'Chain of Custody',
     description: 'Ingestion into biometric-monitored facilities with tamper-evident serialized containment.',
     image: '/images/process/new/step-2-secure.png',
   },
   {
     stepNumber: 3,
-    title: 'Process',
+    title: 'PROCESS',
     shortDesc: 'Data Sanitisation',
     description: 'Certified sanitisation to NIST 800-88 or on-site mobile DIN 66399 mechanical granulation.',
     image: '/images/process/new/step-3-sanitise.png',
   },
   {
     stepNumber: 4,
-    title: 'Recover',
+    title: 'RECOVER',
     shortDesc: 'Value Recovery',
     description: 'Refurbishment and testing to extract maximum economic residual value for your budget.',
     image: '/images/process/new/step-4-recover.png',
   },
   {
     stepNumber: 5,
-    title: 'Reuse / Recycle',
+    title: 'REUSE / RECYCLE',
     shortDesc: 'Zero Landfill',
     description: 'Ethical B2B remarketing or domestic closed-loop raw material separation (0% landfill).',
     image: '/images/process/new/step-5-recycle.png',
@@ -87,13 +58,51 @@ const {
   subtitle = 'A secure, auditable, and environmentally responsible end-to-end chain of custody.',
 } = Astro.props;
 
-// 5 evenly spaced steps along the curve (10%, 30%, 50%, 70%, 90%)
-const curvePositions = [
-  { x: 10, y: getYAtXPct(10) },
-  { x: 30, y: getYAtXPct(30) },
-  { x: 50, y: getYAtXPct(50) },
-  { x: 70, y: getYAtXPct(70) },
-  { x: 90, y: getYAtXPct(90) },
+// Precise coordinates calibrated to the graphic layout:
+// textX, textY: Coordinates of the live text block
+// objX, objY: Center of the 3D element
+// nodeX, nodeY: Position of the circular node along the ascending curve
+const stepPositions = [
+  {
+    textX: 14.9,
+    textY: 48.0,
+    objX: 14.9,
+    objY: 72.0,
+    nodeX: 16.6,
+    nodeY: 78.3,
+  },
+  {
+    textX: 31.0,
+    textY: 25.3,
+    objX: 31.5,
+    objY: 62.0,
+    nodeX: 32.3,
+    nodeY: 75.7,
+  },
+  {
+    textX: 48.4,
+    textY: 25.3,
+    objX: 49.0,
+    objY: 52.0,
+    nodeX: 50.9,
+    nodeY: 58.4,
+  },
+  {
+    textX: 65.5,
+    textY: 16.2,
+    objX: 66.5,
+    objY: 34.0,
+    nodeX: 67.6,
+    nodeY: 39.1,
+  },
+  {
+    textX: 84.0,
+    textY: 5.8,
+    objX: 85.5,
+    objY: 24.0,
+    nodeX: 86.7,
+    nodeY: 30.9,
+  },
 ];
 ---
 
@@ -108,123 +117,78 @@ const curvePositions = [
     </p>
   </div>
 
-  <!-- DESKTOP ASCENDING WORKFLOW PATH (Big floating 3D images touching the line, NO box shape) -->
-  <div class="hidden lg:block relative w-full max-w-7xl mx-auto min-h-[500px] xl:min-h-[540px] select-none pt-4 pb-2">
-    <!-- Ambient glowing path background -->
-    <div class="absolute inset-x-0 bottom-6 h-48 bg-gradient-to-t from-emerald-500/10 via-emerald-500/5 to-transparent pointer-events-none blur-3xl"></div>
-
-    <!-- Ascending SVG Track Curve -->
-    <svg
-      class="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
-      viewBox={`0 0 ${vbWidth} ${vbHeight}`}
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <defs>
-        <!-- Linear gradient along path from emerald to dark green -->
-        <linearGradient id="processCurveGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#0F623A" stop-opacity="0.3" />
-          <stop offset="25%" stop-color="#0F623A" stop-opacity="0.8" />
-          <stop offset="65%" stop-color="#0F623A" stop-opacity="1" />
-          <stop offset="100%" stop-color="#146B5C" stop-opacity="0.9" />
-        </linearGradient>
-
-        <!-- Soft diffuse glow filter -->
-        <filter id="processGlow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="6" result="blur" />
-        </filter>
-      </defs>
-
-      <!-- Diffuse Glow under curve -->
-      <path
-        d={pathD}
-        fill="none"
-        stroke="#0F623A"
-        stroke-width="12"
-        stroke-opacity="0.35"
-        filter="url(#processGlow)"
+  <!-- DESKTOP WORKFLOW: Clean Graphic with Live Semantic HTML Text Overlays -->
+  <div class="hidden md:block relative w-full max-w-6xl mx-auto select-none pt-4 pb-2">
+    <!-- Aspect-ratio container exactly matching the 2560x963 image canvas -->
+    <div class="relative w-full aspect-[2560/963] overflow-visible">
+      <!-- High-resolution clean visual graphic (curved path, 3D elements, glowing aura, nodes) -->
+      <img
+        src="/images/process/process-graphic-clean-opt.webp"
+        alt="Techsteps 5-step lifecycle process flow from collection to certified recycling"
+        class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none drop-shadow-sm"
+        loading="eager"
+        decoding="async"
       />
 
-      <!-- Solid Primary Track Line -->
-      <path
-        d={pathD}
-        fill="none"
-        stroke="url(#processCurveGrad)"
-        stroke-width="3"
-        stroke-linecap="round"
-      />
+      <!-- Interactive Step Groups (Text Overlays + Hotspots) -->
+      {steps.map((step, idx) => {
+        const pos = stepPositions[idx] || { textX: (idx + 1) * 18, textY: 30, nodeX: (idx + 1) * 18, nodeY: 50 };
+        const isFirst = idx === 0;
 
-      <!-- Animated Pulse Dash Line -->
-      <path
-        d={pathD}
-        fill="none"
-        stroke="#FFFFFF"
-        stroke-width="2.2"
-        stroke-dasharray="6 14"
-        stroke-linecap="round"
-        stroke-opacity="0.8"
-        class="animate-pulse"
-      />
-    </svg>
-
-    <!-- Step Items situated along the Ascending Curve (Touching the line) -->
-    {steps.map((step, idx) => {
-      const pos = curvePositions[idx] || { x: (idx + 1) * 18, y: 50 };
-      const isFirst = idx === 0;
-
-      return (
-        <div
-          class={`curve-step-node group absolute cursor-pointer z-10 ${isFirst ? 'active' : ''}`}
-          style={`left: ${pos.x}%; top: ${pos.y}%; transform: translate(-50%, calc(-100% + 4px));`}
-          data-step={idx}
-          data-number={step.stepNumber}
-          data-title={step.title}
-          data-short={step.shortDesc || ''}
-          data-desc={step.description}
-          role="button"
-          tabindex="0"
-          aria-label={`Step ${step.stepNumber}: ${step.title}`}
-        >
-          <div class="flex flex-col items-center text-center">
-            <!-- 1. Text Header above Image (Number, Title & Short Desc) -->
-            <div class="mb-2 text-center transition-transform duration-300 group-hover:-translate-y-1.5">
-              <div class="flex items-center justify-center gap-1.5 text-sm sm:text-[15px] font-extrabold uppercase tracking-wider text-brand-navy group-hover:text-[#0F623A] group-[.active]:text-[#0F623A] transition-colors whitespace-nowrap">
-                <span class="text-[#0F623A] group-hover:text-[#0F623A] group-[.active]:text-[#0F623A] font-black">{step.stepNumber}.</span>
+        return (
+          <div
+            class={`process-step-group group cursor-pointer ${isFirst ? 'active' : ''}`}
+            data-process-step={idx}
+            role="button"
+            tabindex="0"
+            aria-label={`Step ${step.stepNumber}: ${step.title} - ${step.shortDesc}`}
+          >
+            <!-- 1. Live Semantic Text Overlay (Positioned exactly above each 3D object) -->
+            <div
+              class="process-text-overlay absolute flex flex-col items-center text-center transition-all duration-300 pointer-events-auto"
+              style={`left: ${pos.textX}%; top: ${pos.textY}%; transform: translate(-50%, -50%);`}
+              data-process-step={idx}
+              data-number={step.stepNumber}
+              data-title={step.title}
+              data-short={step.shortDesc || ''}
+              data-desc={step.description}
+            >
+              <!-- Number & Title -->
+              <div class="flex items-center justify-center gap-1.5 font-display font-extrabold uppercase tracking-[0.14em] text-slate-900 group-hover:text-[#0F623A] group-[.active]:text-[#0F623A] group-hover:scale-105 group-[.active]:scale-105 transition-all whitespace-nowrap text-[clamp(11px,1.22vw,16px)] leading-tight">
+                <span class="text-[#0F623A] font-black">{step.stepNumber}.</span>
                 <span>{step.title}</span>
               </div>
-              <p class="text-xs sm:text-[13px] text-slate-600 font-semibold tracking-normal mt-0.5 whitespace-nowrap group-hover:text-slate-950 group-[.active]:text-slate-950 transition-colors">
+
+              <!-- Subtitle / Short Description -->
+              <p class="font-sans font-medium text-slate-600 group-hover:text-slate-900 group-[.active]:text-slate-950 group-hover:font-semibold group-[.active]:font-semibold transition-all mt-0.5 whitespace-nowrap text-[clamp(9px,0.98vw,13px)] leading-tight">
                 {step.shortDesc || step.title}
               </p>
             </div>
 
-            <!-- 2. Pure 3D Illustration Image touching the line -->
-            <div class="relative group/pedestal flex flex-col items-center justify-end">
-              <!-- Soft Aura Glow behind 3D image -->
-              <div class="absolute inset-0 bg-emerald-400/25 rounded-full blur-xl opacity-0 group-hover:opacity-100 group-[.active]:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-
-              <!-- Contact Shadow right on the line -->
-              <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-24 sm:w-28 h-3 bg-emerald-950/25 rounded-full blur-[3px] pointer-events-none transition-all group-hover:w-32"></div>
-
-              <!-- Large Prominent 3D Step Image (Bottom touches the line) -->
-              <img
-                src={step.image}
-                alt={`${step.title} process step`}
-                class="relative z-10 h-28 sm:h-32 lg:h-36 xl:h-40 w-auto max-w-[150px] sm:max-w-[170px] lg:max-w-[190px] object-contain object-bottom block drop-shadow-xl transition-all duration-300 group-hover:scale-110 group-[.active]:scale-110 group-hover:-translate-y-2 group-[.active]:-translate-y-2 select-none"
-                loading="eager"
-                decoding="async"
-              />
-
-              <!-- Alignment Dot Anchoring Directly on SVG Curve Track -->
-              <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-[#0F623A] border-2 border-white shadow-md z-20 group-hover:scale-125 group-hover:bg-[#0F623A] group-[.active]:bg-[#0F623A] group-[.active]:scale-125 transition-all"></div>
+            <!-- 2. Interactive Object Hotspot (Enables clicking/hovering directly over the 3D element) -->
+            <div
+              class="absolute -translate-x-1/2 -translate-y-1/2 w-[14%] h-[34%] rounded-2xl transition-all duration-300 pointer-events-auto z-10"
+              style={`left: ${pos.objX}%; top: ${pos.objY}%;`}
+              data-process-step={idx}
+              title={`Click to view Phase 0${step.stepNumber}: ${step.title}`}
+            >
+              <!-- Subtle Aura Glow on Hover/Active -->
+              <div class="w-full h-full rounded-2xl bg-emerald-400/0 group-hover:bg-emerald-400/10 group-[.active]:bg-emerald-400/15 group-hover:backdrop-blur-[1px] transition-all duration-300"></div>
             </div>
+
+            <!-- 3. Pulsing Luminous Halo around the Line Node when Hovered/Active -->
+            <div
+              class="absolute -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-2 border-emerald-500 bg-emerald-400/30 opacity-0 group-hover:opacity-100 group-[.active]:opacity-100 group-hover:scale-125 group-[.active]:scale-125 transition-all duration-300 pointer-events-none shadow-[0_0_12px_rgba(16,185,129,0.8)] z-20"
+              style={`left: ${pos.nodeX}%; top: ${pos.nodeY}%;`}
+            ></div>
           </div>
-        </div>
-      );
-    })}
+        );
+      })}
+    </div>
   </div>
 
   <!-- INTERACTIVE DETAIL CARD (Highlights the selected phase with compliance context) -->
-  <div class="hidden lg:block max-w-2xl mx-auto text-center p-4 sm:p-5 rounded-2xl bg-white/90 border border-slate-200/80 shadow-xs backdrop-blur-sm transition-all duration-300 mt-2" id="step-detail-card">
+  <div class="hidden md:block max-w-2xl mx-auto text-center p-4 sm:p-5 rounded-2xl bg-white/95 border border-slate-200/90 shadow-sm backdrop-blur-sm transition-all duration-300 mt-2" id="step-detail-card">
     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-[#0F623A] text-xs font-bold uppercase tracking-wider mb-2">
       <span id="detail-card-badge">Phase 01</span>
       <span class="text-emerald-300">&bull;</span>
@@ -235,8 +199,8 @@ const curvePositions = [
     </p>
   </div>
 
-  <!-- MOBILE / TABLET RESPONSIVE WORKFLOW (Vertical timeline with prominent images, NO box) -->
-  <div class="lg:hidden relative pl-6 sm:pl-8 space-y-6 sm:space-y-8">
+  <!-- MOBILE / TABLET RESPONSIVE WORKFLOW (Vertical timeline with prominent 3D images) -->
+  <div class="md:hidden relative pl-6 sm:pl-8 space-y-6 sm:space-y-8 pt-4">
     <!-- Vertical Connecting Glowing Guideline -->
     <div class="absolute left-10 sm:left-12 top-6 bottom-6 w-0.5 bg-gradient-to-b from-[#0F623A] via-[#0F623A] to-[#146B5C] rounded-full" aria-hidden="true"></div>
 
@@ -278,32 +242,41 @@ const curvePositions = [
 <script is:inline>
   (() => {
     const initWorkflowCurve = () => {
-      const nodes = document.querySelectorAll('.curve-step-node');
+      const groups = document.querySelectorAll('.process-step-group');
       const badgeEl = document.getElementById('detail-card-badge');
       const titleEl = document.getElementById('detail-card-title');
       const descEl = document.getElementById('detail-card-desc');
-      if (!nodes.length) return;
+      if (!groups.length) return;
 
-      const activateStep = (node) => {
-        nodes.forEach((n) => n.classList.remove('active'));
-        node.classList.add('active');
+      const activateStep = (stepIdx) => {
+        groups.forEach((g) => {
+          if (g.getAttribute('data-process-step') === stepIdx) {
+            g.classList.add('active');
+          } else {
+            g.classList.remove('active');
+          }
+        });
 
-        const number = node.getAttribute('data-number') || '1';
-        const title = node.getAttribute('data-title') || '';
-        const desc = node.getAttribute('data-desc') || '';
+        const activeOverlay = document.querySelector(`.process-text-overlay[data-process-step="${stepIdx}"]`);
+        if (!activeOverlay) return;
+
+        const number = activeOverlay.getAttribute('data-number') || '1';
+        const title = activeOverlay.getAttribute('data-title') || '';
+        const desc = activeOverlay.getAttribute('data-desc') || '';
 
         if (badgeEl) badgeEl.textContent = `Phase 0${number}`;
         if (titleEl) titleEl.textContent = title;
         if (descEl) descEl.textContent = desc;
       };
 
-      nodes.forEach((node) => {
-        node.addEventListener('mouseenter', () => activateStep(node));
-        node.addEventListener('click', () => activateStep(node));
-        node.addEventListener('keydown', (e) => {
+      groups.forEach((group) => {
+        const stepIdx = group.getAttribute('data-process-step');
+        group.addEventListener('mouseenter', () => activateStep(stepIdx));
+        group.addEventListener('click', () => activateStep(stepIdx));
+        group.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            activateStep(node);
+            activateStep(stepIdx);
           }
         });
       });

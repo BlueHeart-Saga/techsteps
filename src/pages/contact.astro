@@ -2,9 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
 import PageHero from '../components/hero/PageHero.astro';
-import { getSiteSettings } from '../lib/sanity/client';
+import { getContactPage, getSiteSettings } from '../lib/sanity/client';
 
-const siteSettings = await getSiteSettings();
+const [contactPage, siteSettings] = await Promise.all([
+  getContactPage(),
+  getSiteSettings(),
+]);
 import { Map, MapGeoJSON, CustomStyleExample } from '@/components/ui/map';
 import { WORLD_GEOJSON } from '@/lib/use-world-data';
 
@@ -14,16 +17,16 @@ const breadcrumbs = [
 ---
 
 <BaseLayout
-  title="Contact Techsteps UK | UK Head Office & Sovereign Hub"
-  description="Contact Techsteps UK. Reach our UK headquarters in Dartford, Kent, or speak directly with our logistics dispatch and customer compliance teams."
+  title={contactPage.metaTitle || "Contact Techsteps UK | UK Head Office & Sovereign Hub"}
+  description={contactPage.metaDescription || "Contact Techsteps UK. Reach our UK headquarters in Dartford, Kent, or speak directly with our logistics dispatch and customer compliance teams."}
   hasHeroHeader={true}
 >
   <!-- 1. HERO SECTION (Matching about-us page hero structure) -->
   <PageHero
-    eyebrow="CONTACT US"
-    title="Contact us"
-    subheading="Techsteps is ready to provide the right solution according to your needs"
-    bgImage="/images/brand/contact-hero-bg.jpg"
+    eyebrow={contactPage.hero?.eyebrow || "CONTACT US"}
+    title={contactPage.hero?.title || "Contact us"}
+    subheading={contactPage.hero?.subheading || "Techsteps is ready to provide the right solution according to your needs"}
+    bgImage={contactPage.hero?.bgImage || "/images/brand/contact-hero-bg.jpg"}
     breadcrumbs={breadcrumbs}
     dividerColor="#f1f4ef"
   />
@@ -39,7 +42,7 @@ const breadcrumbs = [
           <div class="lg:col-span-5 relative">
             <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-300/80 bg-slate-100 group aspect-[4/5] sm:aspect-[4/4.5] lg:aspect-[4/5.2]">
               <img
-                src="/images/contact/contact-consultation.jpg"
+                src={contactPage.formSection?.image || "/images/contact/contact-consultation.jpg"}
                 alt="Techsteps UK client consultation and support"
                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="eager"
@@ -51,7 +54,7 @@ const breadcrumbs = [
           <div class="lg:col-span-7 space-y-6">
             <div class="space-y-2">
               <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-slate-900 tracking-tight">
-                Send us a message
+                {contactPage.formSection?.heading || "Send us a message"}
               </h2>
             </div>
 

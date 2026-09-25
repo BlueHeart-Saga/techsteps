@@ -2,7 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
 import PageHero from '../components/hero/PageHero.astro';
-import { siteSettings } from '../lib/sanity/data';
+import { getFaqPage, getSiteSettings } from '../lib/sanity/client';
+
+const [faqPage, siteSettings] = await Promise.all([
+  getFaqPage(),
+  getSiteSettings(),
+]);
 
 const breadcrumbs = [
   { name: 'FAQ', url: '/faq' },
@@ -21,235 +26,38 @@ interface FAQItem {
   answer: string;
 }
 
-const categories: FAQCategory[] = [
-  {
-    id: 'all',
-    name: 'All Categories',
-    icon: 'M4 6h16M4 12h16M4 18h16',
-  },
-  {
-    id: 'general',
-    name: 'General & Overview',
-    icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-  },
-  {
-    id: 'itad',
-    name: 'IT Lifecycle & Disposal',
-    icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
-  },
-  {
-    id: 'records',
-    name: 'Document Storage & Scanning',
-    icon: 'M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2',
-  },
-  {
-    id: 'shredding',
-    name: 'Secure Shredding',
-    icon: 'M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16',
-  },
-  {
-    id: 'relocation',
-    name: 'Moving & Relocation',
-    icon: 'M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0',
-  },
-  {
-    id: 'compliance',
-    name: 'Compliance & ESG',
-    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-  },
-];
-
-const faqsByCategory: Record<string, { title: string; icon: string; items: FAQItem[] }> = {
-  general: {
-    title: 'General & Overview',
-    icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-    items: [
-      {
-        id: 'gen-1',
-        category: 'general',
-        question: 'What is Techsteps and what services do you provide?',
-        answer: 'Techsteps is a leading UK provider of secure business lifecycle services. We specialize in four core disciplines: IT Lifecycle Services & IT Asset Disposition (ITAD), Document & Information Management, Secure Shredding & Destruction, and Workplace & Data Centre Relocations. Every job is underpinned by an unbroken chain of custody, security-vetted personnel, and full regulatory compliance.',
-      },
-      {
-        id: 'gen-2',
-        category: 'general',
-        question: 'Where does Techsteps operate across the United Kingdom?',
-        answer: 'We provide comprehensive nationwide coverage across England, Scotland, Wales, and Northern Ireland. With strategically located regional operations centres and a dedicated fleet of tracked vehicles, we service metropolitan centres, public sector offices, regional facilities, and remote campus locations.',
-      },
-      {
-        id: 'gen-3',
-        category: 'general',
-        question: 'How do I request a collection or site survey?',
-        answer: 'You can submit a request through our online quote form, call our customer operations team directly, or email your project scope to our dispatch desk. We provide formal scoping assessments and transparent fixed quotations within 24 hours of enquiry.',
-      },
-      {
-        id: 'gen-4',
-        category: 'general',
-        question: 'What sectors and organisations does Techsteps typically support?',
-        answer: 'We work with regulated public and private enterprises that cannot afford a gap in the security record: NHS trusts and healthcare providers, central and local government authorities, defence contractors, legal and financial firms, universities, museums, and enterprise corporate IT departments.',
-      },
-    ],
-  },
-  itad: {
-    title: 'IT Lifecycle & Disposal (ITAD)',
-    icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
-    items: [
-      {
-        id: 'itad-1',
-        category: 'itad',
-        question: 'How do you guarantee that data on disposed IT assets cannot be recovered?',
-        answer: 'We deploy ADISA-certified, NIST 800-88 Rev. 1, and HMG IS5 compliant software sanitisation (Blancco / Certus) for multi-pass cryptographic data overwriting. For non-functional drives or solid-state media that fail verification, we perform high-flux degaussing followed by mechanical cross-cut shearing down to sub-6mm particles. Every drive receives an individual serialized Certificate of Data Destruction.',
-      },
-      {
-        id: 'itad-2',
-        category: 'itad',
-        question: 'Can our organisation recover financial value from retired IT equipment?',
-        answer: 'Yes. Through our cascading asset remarketing program, functional hardware (servers, laptops, workstations, network switches, and SAN storage) is tested, upgraded, sanitized, and resold via vetted secondary enterprise markets. We provide transparent resale revenue-sharing credits that can be paid directly to your organisation or applied against project logistics costs.',
-      },
-      {
-        id: 'itad-3',
-        category: 'itad',
-        question: 'What types of IT hardware and digital equipment do you collect and process?',
-        answer: 'We collect all workplace, server room, and data centre hardware: rackmount and blade servers, SAN/NAS disk enclosures, desktop PCs, laptops, mobile phones, tablets, enterprise monitors, networking switches, firewalls, routers, UPS battery banks, cabling, and telecom infrastructure. Both functional and obsolete or damaged equipment are accepted.',
-      },
-      {
-        id: 'itad-4',
-        category: 'itad',
-        question: 'How is the chain of custody maintained during hardware transit?',
-        answer: 'Every transit collection is executed exclusively by permanent, BS 7858 security-vetted Techsteps personnel in GPS-tracked, solid-bulkhead vehicles with deadlocks and geo-fenced route monitoring. Barcoded transit cages and tamper-evident container seals are inventoried on-site and signed off before vehicles depart your loading bay, with real-time audit manifests accessible through our client portal.',
-      },
-      {
-        id: 'itad-5',
-        category: 'itad',
-        question: 'What happens to end-of-life equipment that has no commercial resale value?',
-        answer: 'Equipment with no viable reuse potential is stripped down to base commodity fractions (ferrous/non-ferrous metals, precious circuit board components, plastics, and glass) at certified UK WEEE treatment facilities. We guarantee 0% waste to landfill and provide WEEE waste transfer documentation for your audit trail.',
-      },
-    ],
-  },
-  records: {
-    title: 'Document Storage & Scanning',
-    icon: 'M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2',
-    items: [
-      {
-        id: 'rec-1',
-        category: 'records',
-        question: 'How quickly can we retrieve archived physical documents when needed?',
-        answer: 'We provide structured retrieval SLAs to match your business urgency: Emergency 2-hour physical dispatch in metropolitan regions, same-day delivery, scheduled next-day courier delivery, or 1-hour Scan-on-Demand where our records team retrieves the physical barcode, scans the file at high resolution with OCR indexing, and uploads it securely to your encrypted portal.',
-      },
-      {
-        id: 'rec-2',
-        category: 'records',
-        question: 'What environmental and fire protection standards do your document vaults meet?',
-        answer: 'Our dedicated archive vaults are built to BS 4971 (Conservation and Care of Archive Collections) standards. They feature precision climate-controlled ambient temperature and relative humidity monitoring, multi-sensor aspirating smoke detection (VESDA), and clean-agent gaseous fire suppression systems that extinguish fire without water or chemical residue.',
-      },
-      {
-        id: 'rec-3',
-        category: 'records',
-        question: 'Can you digitise legacy paper archives and manage inbound daily post?',
-        answer: 'Yes. We operate high-speed IBML and Kodak digitisation suites that process millions of pages each month with optical character recognition (OCR), metadata indexing, and automated redacting of sensitive personal information. We also provide Digital Mailroom operations where daily incoming correspondence is opened, scanned, and routed to remote teams within two hours of arrival.',
-      },
-      {
-        id: 'rec-4',
-        category: 'records',
-        question: 'How do you handle statutory retention periods and automated destruction schedules?',
-        answer: 'Our records management software tracks statutory retention dates for legal, medical, HR, and tax files. When an archive reaches its retention milestone, automated notifications are triggered to your compliance officers, allowing you to authorise destruction, renew storage, or retrieve items with full regulatory audit logs.',
-      },
-    ],
-  },
-  shredding: {
-    title: 'Secure Shredding & Destruction',
-    icon: 'M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16',
-    items: [
-      {
-        id: 'shred-1',
-        category: 'shredding',
-        question: 'What is the difference between on-site and off-site confidential shredding?',
-        answer: 'On-site shredding occurs at your facility inside our dedicated high-torque mobile shredding vehicles, allowing your compliance personnel to witness the destruction before the vehicle leaves. Off-site shredding uses secure locked consoles collected in sealed GPS-tracked vehicles and shredded under continuous CCTV surveillance at our BS EN 15713 accredited regional facility.',
-      },
-      {
-        id: 'shred-2',
-        category: 'shredding',
-        question: 'What proof and compliance documentation is provided after shredding?',
-        answer: 'Immediately upon job completion, you receive a legally defensible Certificate of Destruction detailing the date, collection location, destruction standard (DIN 66399 Level P-4/P-5 for documents, H-5 for hard drives), batch weights, and signatory names. This documentation satisfies UK GDPR, Data Protection Act 2018, and external audit requirements.',
-      },
-      {
-        id: 'shred-3',
-        category: 'shredding',
-        question: 'What happens to the shredded paper and destroyed materials after processing?',
-        answer: '100% of destroyed paper is baled and dispatched directly to approved UK paper reprocessing mills, where it is recycled into new paper, packaging, and tissue products. Zero confidential paper goes to landfill, and we supply an Environmental Certificate confirming your landfill diversion and saved tree equivalents.',
-      },
-      {
-        id: 'shred-4',
-        category: 'shredding',
-        question: 'Can you destroy uniform apparel, branded merchandise, and counterfeit products?',
-        answer: 'Yes. We provide specialist product and apparel destruction for staff uniforms, high-security badges, prototypes, decommissioned ID cards, and counterfeit goods. All materials are shredded into unrecognisable fragments with video-recorded destruction options available on request.',
-      },
-    ],
-  },
-  relocation: {
-    title: 'Moving & Workplace Relocation',
-    icon: 'M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0',
-    items: [
-      {
-        id: 'relo-1',
-        category: 'relocation',
-        question: 'How do you manage complex data centre and server room relocations?',
-        answer: 'Our dedicated IT migration engineering team conducts pre-move cabling audits, port-to-port mapping, and server decommissioning. Hardware is secured inside anti-static, shock-absorbing flight cases and moved in dedicated air-ride suspension, climate-controlled vehicles. At the destination, our engineers re-rack, recable, and verify power-on continuity according to strict critical path scheduling.',
-      },
-      {
-        id: 'relo-2',
-        category: 'relocation',
-        question: 'Do you offer weekend and out-of-hours office moves to prevent downtime?',
-        answer: 'Yes. More than 80% of our workplace moves take place over weekends, bank holidays, or evening shifts. We disconnect and pack IT workstations on Friday evening, manage the physical transition over Saturday, and recommission, cable-manage, and test hardware on Sunday so your staff can sit down and work productively on Monday morning.',
-      },
-      {
-        id: 'relo-3',
-        category: 'relocation',
-        question: 'Can you handle fragile heritage archives, museum collections, and laboratories?',
-        answer: 'Yes. We provide specialised white-glove logistics for rare manuscripts, archive collections, and analytical laboratories. For laboratories, we comply with ADR hazardous transit standards, employing temperature-monitored secondary containment and backup generators for cold-chain biological samples and sensitive instrumentation.',
-      },
-      {
-        id: 'relo-4',
-        category: 'relocation',
-        question: 'Do you supply crates, anti-static packing materials, and handling equipment?',
-        answer: 'Yes. We supply heavy-duty polypropylene lidded hire crates, anti-static bubble wrap, computer transit bags, keyboard/mouse bags, roll cages, stair climbers, and specialist hoisting equipment tailored to your exact building access parameters.',
-      },
-    ],
-  },
-  compliance: {
-    title: 'Compliance, Security & ESG Standards',
-    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-    items: [
-      {
-        id: 'comp-1',
-        category: 'compliance',
-        question: 'What certifications and industry standards does Techsteps hold?',
-        answer: 'Techsteps operates under comprehensive UKAS-accredited management frameworks: ISO 27001 (Information Security Management), ISO 9001 (Quality Management), ISO 14001 (Environmental Management), ISO 45001 (Occupational Health & Safety), ADISA accreditation for IT asset disposal, BS EN 15713 (Secure Destruction of Confidential Material), and Cyber Essentials Plus.',
-      },
-      {
-        id: 'comp-2',
-        category: 'compliance',
-        question: 'Are all Techsteps drivers and warehouse operatives security vetted?',
-        answer: 'Yes. Every staff member undergoes rigorous BS 7858 security screening prior to site deployment. This includes 5-year verifiable employment background checks, Disclosure and Barring Service (DBS) criminal record checks, credit history validation, and mandatory annual security training.',
-      },
-      {
-        id: 'comp-3',
-        category: 'compliance',
-        question: 'How does partnering with Techsteps support our ESG and Net Zero reporting?',
-        answer: 'We supply quantified Environmental Impact Reports detailing Scope 3 carbon emissions avoided through hardware reuse, component refurbishment, and zero-landfill WEEE recycling. These verified environmental metrics can be directly integrated into your corporate SECR, ESG, and sustainability filings.',
-      },
-      {
-        id: 'comp-4',
-        category: 'compliance',
-        question: 'What are standard collection lead times across the UK mainland?',
-        answer: 'Standard collections are scheduled within 3 to 5 working days nationwide. For time-critical data centre clearances, urgent compliance audits, or sudden office departures, emergency same-day and 24-hour rapid deployment is available through our dedicated client dispatch desk.',
-      },
-    ],
-  },
+const defaultIcons: Record<string, string> = {
+  all: 'M4 6h16M4 12h16M4 18h16',
+  general: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  itad: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+  records: 'M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2',
+  shredding: 'M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16',
+  relocation: 'M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0',
+  compliance: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
 };
 
+const rawCategories = faqPage.categories || [];
+const categories: FAQCategory[] = rawCategories.map((c) => ({
+  id: c.id,
+  name: c.name,
+  icon: c.icon || defaultIcons[c.id] || defaultIcons.general,
+}));
+
+const rawItems = (faqPage.items || []) as FAQItem[];
+
+const faqsByCategory: Record<string, { title: string; icon: string; items: FAQItem[] }> = {};
+categories.forEach((cat) => {
+  if (cat.id !== 'all') {
+    faqsByCategory[cat.id] = {
+      title: cat.name,
+      icon: cat.icon,
+      items: rawItems.filter((i) => i.category === cat.id),
+    };
+  }
+});
+
 // Flatten for Schema.org and total count
-const allFaqItems = Object.values(faqsByCategory).flatMap((cat) => cat.items);
+const allFaqItems = rawItems;
 
 const faqPageSchema = {
   '@context': 'https://schema.org',
@@ -266,19 +74,19 @@ const faqPageSchema = {
 ---
 
 <BaseLayout
-  title="Frequently Asked Questions (FAQ) | Techsteps UK"
-  description="Comprehensive knowledge base answering questions about Techsteps IT lifecycle services, confidential shredding, document storage, relocation, and ESG compliance."
+  title={faqPage.metaTitle || "Frequently Asked Questions (FAQ) | Techsteps UK"}
+  description={faqPage.metaDescription || "Comprehensive knowledge base answering questions about Techsteps IT lifecycle services, confidential shredding, document storage, relocation, and ESG compliance."}
   canonicalUrl="https://techsteps.co.uk/faq"
   jsonLd={faqPageSchema}
   hasHeroHeader={true}
 >
   <!-- 1. Hero Section with Signature Integrated Header & Landscape -->
   <PageHero
-    title="FREQUENTLY ASKED QUESTIONS"
-    eyebrow="KNOWLEDGE CENTER // FAQS"
-    subheading="Explore our comprehensive knowledge base covering secure IT asset disposition, confidential shredding, records management, relocations, and regulatory compliance."
+    title={faqPage.hero?.title || "FREQUENTLY ASKED QUESTIONS"}
+    eyebrow={faqPage.hero?.eyebrow || "KNOWLEDGE CENTER // FAQS"}
+    subheading={faqPage.hero?.subheading || "Explore our comprehensive knowledge base covering secure IT asset disposition, confidential shredding, records management, relocations, and regulatory compliance."}
     breadcrumbs={breadcrumbs}
-    bgImage="/images/brand/about-hero-bg.jpg"
+    bgImage={faqPage.hero?.bgImage || "/images/brand/about-hero-bg.jpg"}
     minHeight="min-h-[500px] sm:min-h-[540px] lg:min-h-[580px]"
     dividerColor="#F8FAF9"
   />
@@ -441,18 +249,18 @@ const faqPageSchema = {
           <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
             <div class="space-y-1.5 text-center sm:text-left">
               <h3 class="text-lg sm:text-xl font-bold text-slate-900">
-                Still can't find what you're looking for?
+                {faqPage.contactCard?.heading || "Still can't find what you're looking for?"}
               </h3>
               <p class="text-sm text-slate-600">
-                Our compliance team is ready to answer specific technical, audit, or logistics questions.
+                {faqPage.contactCard?.description || "Our compliance team is ready to answer specific technical, audit, or logistics questions."}
               </p>
             </div>
             <div class="flex items-center gap-3 shrink-0">
               <a
-                href="/contact"
+                href={faqPage.contactCard?.buttonLink || "/contact"}
                 class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#0F623A] hover:bg-[#0A331E] text-white text-sm font-bold shadow-md transition-all"
               >
-                Contact Us
+                {faqPage.contactCard?.buttonText || "Contact Us"}
               </a>
             </div>
           </div>

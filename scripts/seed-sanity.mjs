@@ -12,35 +12,57 @@ const {
   caseStudies,
   articles,
   defaultAboutPage,
+  defaultFaqPage,
+  defaultSustainabilityPage,
+  defaultInvestorsPage,
+  defaultContactPage,
+  defaultRequestCollectionPage,
+  testimonials,
 } = dataModule;
 
 const docs = [];
 
-// 1. Site Settings
-docs.push({
-  _id: 'siteSettings',
-  _type: 'siteSettings',
-  companyName: siteSettings.companyName,
-  legalName: siteSettings.legalName,
-  registrationNumber: siteSettings.registrationNumber,
-  vatNumber: siteSettings.vatNumber,
-  address: {
-    street: siteSettings.address.street,
-    city: siteSettings.address.city,
-    county: siteSettings.address.county,
-    postcode: siteSettings.address.postcode,
-    country: siteSettings.address.country,
-  },
-  phone: siteSettings.phone,
-  email: siteSettings.email,
-  operatingHours: siteSettings.operatingHours,
-  socialLinks: {
-    linkedin: siteSettings.socialLinks.linkedin,
-    twitter: siteSettings.socialLinks.twitter,
-  },
-  defaultMetaTitle: siteSettings.defaultMetaTitle,
-  defaultMetaDescription: siteSettings.defaultMetaDescription,
-});
+// Helper to convert CustomLink to Sanity object
+const formatCustomLink = (link, idx, serviceSlugMap, sectorSlugMap, divisionSlugMap) => {
+  const item = {
+    _key: `link_${idx + 1}`,
+    _type: 'customLink',
+    label: link.label,
+    linkType: link.linkType || 'external',
+    openInNewTab: Boolean(link.openInNewTab),
+  };
+
+  if (link.url && link.url.startsWith('/services/') && serviceSlugMap) {
+    const slug = link.url.replace('/services/', '');
+    if (serviceSlugMap[slug]) {
+      item.linkType = 'internal';
+      item.internalRef = { _type: 'reference', _ref: serviceSlugMap[slug] };
+      return item;
+    }
+  }
+
+  if (link.url && link.url.startsWith('/sectors/') && sectorSlugMap) {
+    const slug = link.url.replace('/sectors/', '');
+    if (sectorSlugMap[slug]) {
+      item.linkType = 'internal';
+      item.internalRef = { _type: 'reference', _ref: sectorSlugMap[slug] };
+      return item;
+    }
+  }
+
+  if (link.url && link.url.startsWith('/') && divisionSlugMap) {
+    const slug = link.url.replace('/', '');
+    if (divisionSlugMap[slug]) {
+      item.linkType = 'internal';
+      item.internalRef = { _type: 'reference', _ref: divisionSlugMap[slug] };
+      return item;
+    }
+  }
+
+  item.linkType = 'external';
+  item.externalUrl = link.url || '#';
+  return item;
+};
 
 // Map helper to find division by slug
 const divisionSlugToId = {};
@@ -69,6 +91,48 @@ const sectorSlugToId = {};
 for (const sec of sectors) {
   sectorSlugToId[sec.slug] = sec.id;
 }
+
+// 1. Site Settings with Navigation & Footer
+docs.push({
+  _id: 'siteSettings',
+  _type: 'siteSettings',
+  companyName: siteSettings.companyName,
+  legalName: siteSettings.legalName,
+  registrationNumber: siteSettings.registrationNumber,
+  vatNumber: siteSettings.vatNumber,
+  address: {
+    street: siteSettings.address.street,
+    city: siteSettings.address.city,
+    county: siteSettings.address.county,
+    postcode: siteSettings.address.postcode,
+    country: siteSettings.address.country,
+  },
+  phone: siteSettings.phone,
+  email: siteSettings.email,
+  operatingHours: siteSettings.operatingHours,
+  socialLinks: {
+    linkedin: siteSettings.socialLinks.linkedin,
+    twitter: siteSettings.socialLinks.twitter,
+  },
+  defaultMetaTitle: siteSettings.defaultMetaTitle,
+  defaultMetaDescription: siteSettings.defaultMetaDescription,
+  mainNav: (siteSettings.mainNav || []).map((l, i) =>
+    formatCustomLink(l, i, serviceSlugToId, sectorSlugToId, divisionSlugToId)
+  ),
+  footerServices: (siteSettings.footerServices || []).map((l, i) =>
+    formatCustomLink(l, i, serviceSlugToId, sectorSlugToId, divisionSlugToId)
+  ),
+  footerSectors: (siteSettings.footerSectors || []).map((l, i) =>
+    formatCustomLink(l, i, serviceSlugToId, sectorSlugToId, divisionSlugToId)
+  ),
+  footerCompany: (siteSettings.footerCompany || []).map((l, i) =>
+    formatCustomLink(l, i, serviceSlugToId, sectorSlugToId, divisionSlugToId)
+  ),
+  footerLegal: (siteSettings.footerLegal || []).map((l, i) =>
+    formatCustomLink(l, i, serviceSlugToId, sectorSlugToId, divisionSlugToId)
+  ),
+  footerCopyright: siteSettings.footerCopyright || 'Techsteps UK Limited. All rights reserved.',
+});
 
 // 2. Services
 for (const s of services) {
@@ -314,6 +378,151 @@ docs.push({
   ctaSecondaryButtonLabel: defaultAboutPage.ctaSecondaryButtonLabel,
   ctaSecondaryButtonUrl: defaultAboutPage.ctaSecondaryButtonUrl,
 });
+
+// 8. FAQ Page
+docs.push({
+  _id: 'faqPage',
+  _type: 'faqPage',
+  metaTitle: defaultFaqPage.metaTitle,
+  metaDescription: defaultFaqPage.metaDescription,
+  hero: defaultFaqPage.hero,
+  categories: (defaultFaqPage.categories || []).map((cat, idx) => ({
+    _key: `cat_${idx + 1}`,
+    id: cat.id,
+    name: cat.name,
+    icon: cat.icon || '',
+  })),
+  items: (defaultFaqPage.items || []).map((item, idx) => ({
+    _key: `faq_item_${idx + 1}`,
+    id: item.id,
+    category: item.category,
+    question: item.question,
+    answer: item.answer,
+  })),
+  contactCard: defaultFaqPage.contactCard,
+});
+
+// 9. Sustainability Page
+docs.push({
+  _id: 'sustainabilityPage',
+  _type: 'sustainabilityPage',
+  metaTitle: defaultSustainabilityPage.metaTitle,
+  metaDescription: defaultSustainabilityPage.metaDescription,
+  hero: {
+    eyebrow: defaultSustainabilityPage.hero?.eyebrow,
+    title: defaultSustainabilityPage.hero?.title,
+    subheading: defaultSustainabilityPage.hero?.subheading,
+    buttonText: defaultSustainabilityPage.hero?.buttonText,
+    buttonLink: defaultSustainabilityPage.hero?.buttonLink,
+  },
+  metrics: (defaultSustainabilityPage.metrics || []).map((m, idx) => ({
+    _key: `metric_${idx + 1}`,
+    number: m.number,
+    suffix: m.suffix || '',
+    label: m.label,
+    note: m.note || '',
+  })),
+  approach: {
+    eyebrow: defaultSustainabilityPage.approach?.eyebrow,
+    heading: defaultSustainabilityPage.approach?.heading,
+    description: defaultSustainabilityPage.approach?.description,
+    steps: (defaultSustainabilityPage.approach?.steps || []).map((step, idx) => ({
+      _key: `step_${idx + 1}`,
+      step: step.step,
+      title: step.title,
+      badge: step.badge || '',
+      desc: step.desc,
+    })),
+  },
+  lifecycleSection: defaultSustainabilityPage.lifecycleSection,
+  esgPillars: (defaultSustainabilityPage.esgPillars || []).map((pillar, idx) => ({
+    _key: `pillar_${idx + 1}`,
+    title: pillar.title,
+    badge: pillar.badge || '',
+    items: (pillar.items || []).map((it, i) => ({
+      _key: `item_${i + 1}`,
+      title: it.title,
+      desc: it.desc,
+    })),
+  })),
+  bottomCta: defaultSustainabilityPage.bottomCta,
+});
+
+// 10. Investors Page
+docs.push({
+  _id: 'investorsPage',
+  _type: 'investorsPage',
+  metaTitle: defaultInvestorsPage.metaTitle,
+  metaDescription: defaultInvestorsPage.metaDescription,
+  hero: defaultInvestorsPage.hero,
+  stats: (defaultInvestorsPage.stats || []).map((st, idx) => ({
+    _key: `inv_stat_${idx + 1}`,
+    prefix: st.prefix || '',
+    value: st.value,
+    suffix: st.suffix || '',
+    title: st.title,
+    desc: st.desc,
+  })),
+  strategicPillars: (defaultInvestorsPage.strategicPillars || []).map((sp, idx) => ({
+    _key: `strat_pillar_${idx + 1}`,
+    number: sp.number,
+    title: sp.title,
+    headline: sp.headline,
+    desc: sp.desc,
+    detail: sp.detail,
+    iconSvg: sp.iconSvg || '',
+  })),
+  investmentCase: defaultInvestorsPage.investmentCase,
+  irContact: defaultInvestorsPage.irContact,
+});
+
+// 11. Contact Page
+docs.push({
+  _id: 'contactPage',
+  _type: 'contactPage',
+  metaTitle: defaultContactPage.metaTitle,
+  metaDescription: defaultContactPage.metaDescription,
+  hero: defaultContactPage.hero,
+  formSection: {
+    heading: defaultContactPage.formSection?.heading,
+  },
+  directLines: (defaultContactPage.directLines || []).map((dl, idx) => ({
+    _key: `dl_${idx + 1}`,
+    title: dl.title,
+    description: dl.description,
+    phone: dl.phone,
+    email: dl.email,
+  })),
+});
+
+// 12. Request Collection Page
+docs.push({
+  _id: 'requestCollectionPage',
+  _type: 'requestCollectionPage',
+  metaTitle: defaultRequestCollectionPage.metaTitle,
+  metaDescription: defaultRequestCollectionPage.metaDescription,
+  hero: defaultRequestCollectionPage.hero,
+  slaGuarantees: (defaultRequestCollectionPage.slaGuarantees || []).map((sla, idx) => ({
+    _key: `sla_${idx + 1}`,
+    title: sla.title,
+    description: sla.description,
+  })),
+});
+
+// 13. Testimonials
+for (const tm of testimonials) {
+  docs.push({
+    _id: `testimonial-${tm.id}`,
+    _type: 'testimonial',
+    quote: tm.quote,
+    author: tm.author,
+    role: tm.role,
+    company: tm.company,
+    industry: tm.industry || '',
+    rating: tm.rating || 5,
+    order: tm.order || 1,
+  });
+}
 
 const outputPath = resolve('sanity-seed.ndjson');
 const ndjsonContent = docs.map((doc) => JSON.stringify(doc)).join('\n') + '\n';

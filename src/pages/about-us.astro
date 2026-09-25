@@ -2,18 +2,31 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getAboutPage } from '../lib/sanity/client';
 
-const about = await getAboutPage().catch(() => ({}));
+const about = await getAboutPage();
 
 const canonicalUrl = 'https://techsteps.co.uk/about-us';
-const currentPath = Astro.url.pathname;
+
+const hero = about?.hero;
+const whoWeAre = about?.whoWeAre;
+const highlights = whoWeAre?.highlights || [];
+const whatWeDo = about?.whatWeDo?.items || [];
+const approach = about?.approach;
+const approachSteps = approach?.steps || [];
+const capabilities = about?.capabilities?.items || [];
+const statistics = about?.statistics || [];
+const cta = about?.cta;
 
 const aboutPageSchema = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
   '@id': 'https://techsteps.co.uk/about-us#webpage',
   url: canonicalUrl,
-  name: about?.metaTitle || 'About Techsteps — Managing What Matters',
-  description: about?.metaDescription || 'We look after the assets that carry the most risk when a business changes — data, records, equipment and premises. Handled securely, recorded end to end, and returned to value wherever it can be.',
+  name:
+    about?.metaTitle ||
+    'About Techsteps — Managing What Matters',
+  description:
+    about?.metaDescription ||
+    '',
   mainEntity: {
     '@id': 'https://techsteps.co.uk/#organization',
   },
@@ -21,14 +34,25 @@ const aboutPageSchema = {
 ---
 
 <BaseLayout
-  title={about?.metaTitle || 'About Techsteps — Managing What Matters'}
-  description={about?.metaDescription || 'We look after the assets that carry the most risk when a business changes — data, records, equipment and premises. Handled securely, recorded end to end, and returned to value wherever it can be.'}
+  title={about?.metaTitle || ''}
+  description={about?.metaDescription || ''}
   canonicalUrl={canonicalUrl}
   jsonLd={aboutPageSchema}
 >
-  <!-- Google Fonts for Archivo and IBM Plex Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
+  <!-- Google Fonts -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+    slot="head"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+    slot="head"
+  />
+
   <link
     href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
@@ -36,229 +60,423 @@ const aboutPageSchema = {
   />
 
   <div class="about-page-wrapper">
-    <!-- 1 · HERO WITH CLEAR, VIBRANT BACKGROUND IMAGE AS IT IS -->
-    <section id="top" class="hero on-dark pt-28 sm:pt-32 lg:pt-36">
-      <!-- Background Image Layer: Visible As It Is -->
-      <div class="hero-bg-media absolute inset-0 select-none pointer-events-none overflow-hidden z-0" aria-hidden="true">
-        <img
-          src="/images/hero/about-hero-technicians.jpg"
-          alt="Techsteps technicians in secure facility"
-          class="w-full h-full object-cover object-center brightness-[0.92] contrast-[1.03] scale-100"
-          loading="eager"
-        />
-        <!-- Subtle Natural Scrim for Text Readability without Obscuring Photo -->
+
+    <!-- =====================================================
+         1. HERO
+    ====================================================== -->
+
+    <section
+      id="top"
+      class="hero on-dark pt-28 sm:pt-32 lg:pt-36"
+    >
+      <div
+        class="hero-bg-media absolute inset-0 select-none pointer-events-none overflow-hidden z-0"
+        aria-hidden="true"
+      >
+<img
+  src={hero?.image || "/images/hero/about-hero-technicians.jpg"}
+  alt={hero?.imageAlt || 'Techsteps technicians in secure facility'}
+  class="w-full h-full object-cover object-center brightness-[0.92] contrast-[1.03] scale-100"
+  loading="eager"
+/>
+
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/20"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25"></div>
       </div>
 
       <div class="shell relative z-10">
-        <!-- Breadcrumbs -->
-        <nav class="flex items-center text-xs sm:text-sm font-sans font-medium text-slate-300/90 pb-4 sm:pb-6" aria-label="Breadcrumb">
-          <a href="/" class="hover:text-white transition-colors duration-150">Home</a>
+
+        <!-- Breadcrumb -->
+        <nav
+          class="flex items-center text-xs sm:text-sm font-sans font-medium text-slate-300/90 pb-4 sm:pb-6"
+          aria-label="Breadcrumb"
+        >
+          <a
+            href="/"
+            class="hover:text-white transition-colors duration-150"
+          >
+            Home
+          </a>
+
           <span class="inline-flex items-center">
             <span class="mx-2 text-slate-400/80">/</span>
-            <span class="text-white font-semibold">About Us</span>
+
+            <span class="text-white font-semibold">
+              About Us
+            </span>
           </span>
         </nav>
+
         <div class="grid">
+
           <div>
-            <p class="eyebrow lift">About Techsteps</p>
-            <h1 class="lift">Managing What Matters.<span class="l2 text-[#0F623A]">Protecting What Comes Next.</span></h1>
-            <p class="lede lift text-white">We protect your business's critical assets — data, records, and hardware — handled securely and returned to value.</p>
+
+            {hero?.eyebrow && (
+              <p class="eyebrow lift">
+                {hero.eyebrow}
+              </p>
+            )}
+
+            <h1 class="lift">
+              {hero?.title}
+
+              {hero?.highlightedTitle && (
+                <span class="l2">
+                  {hero.highlightedTitle}
+                </span>
+              )}
+            </h1>
+
+            {hero?.description && (
+              <p class="lede lift">
+                {hero.description}
+              </p>
+            )}
+
           </div>
+
           <figure class="hero-figure lift">
-            <div class="photo border-2 border-white/20 shadow-2xl" data-caption="Techsteps secure processing facility">
-              <img
-                src="/images/hero/about-hero-technicians.jpg"
-                alt="Techsteps secure processing facility"
-                class="w-full h-full object-cover object-center"
-                loading="eager"
-              />
+
+            <div
+              class="photo border-2 border-white/20 shadow-2xl"
+              data-caption="Techsteps secure processing facility"
+            >
+<img
+  src={hero?.image || "/images/hero/about-hero-technicians.jpg"}
+  alt={hero?.imageAlt || 'Techsteps secure processing facility'}
+  class="w-full h-full object-cover object-center"
+  loading="eager"
+/>
             </div>
-            <div class="ring" aria-hidden="true"></div>
-            <div class="seal" aria-hidden="true">Chain of<br>custody</div>
+
+            <div
+              class="ring"
+              aria-hidden="true"
+            ></div>
+
+            <div
+              class="seal"
+              aria-hidden="true"
+            >
+              Chain of<br />
+              custody
+            </div>
+
           </figure>
+
         </div>
       </div>
     </section>
 
-    <!-- 2 · WHO WE ARE (EXACT REFERENCE DESIGN WITH SITE FONTS) -->
-    <section id="who" class="band bg-white py-12 sm:py-16 lg:py-20">
+
+    <!-- =====================================================
+         2. WHO WE ARE
+    ====================================================== -->
+
+    <section
+      id="who"
+      class="band bg-white py-12 sm:py-16 lg:py-20"
+    >
       <div class="shell">
+
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          <!-- Left Column: Content, Headline & 3 Icon Pillars -->
+
+          <!-- Content -->
+
           <div class="lg:col-span-7 flex flex-col">
-            <!-- Eyebrow with green line -->
+
             <div class="flex items-center gap-3 mb-4 sm:mb-5">
+
               <span class="text-xs sm:text-sm font-bold tracking-widest text-[#0F623A] uppercase font-sans">
-                WHO WE ARE
+                {whoWeAre?.eyebrow || 'WHO WE ARE'}
               </span>
+
               <span class="w-8 h-[2.5px] bg-[#0F623A] rounded-full inline-block"></span>
+
             </div>
 
-            <!-- Main Heading -->
             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-950 tracking-tight leading-[1.12] mt-5 mb-8 sm:mb-10 lg:mb-12">
-              Technology With <span class="text-[#0F623A]">Purpose</span>
+
+              {whoWeAre?.title}
+
+              {whoWeAre?.highlightedTitle && (
+                <span class="text-[#0F623A]">
+                  {whoWeAre.highlightedTitle}
+                </span>
+              )}
+
             </h2>
 
-            <!-- Narrative Paragraphs -->
             <div class="space-y-5 text-base sm:text-lg text-slate-700 leading-relaxed font-normal mb-3 sm:mb-4 pt-6">
-              <p>
-                Techsteps helps businesses manage the complete lifecycle of their IT and information assets &mdash; from secure collection and data destruction to remarketing, recycling and responsible recovery.
-              </p>
-              <p>
-                Our approach combines security, sustainability and value recovery to help organisations handle retired assets with confidence.
-              </p>
+
+              {whoWeAre?.paragraphs?.map((paragraph) => (
+                <p>
+                  {paragraph}
+                </p>
+              ))}
+
+              {!whoWeAre?.paragraphs &&
+                whoWeAre?.description && (
+                  <p>
+                    {whoWeAre.description}
+                  </p>
+                )}
+
             </div>
 
-            <!-- 3 Feature Pillars Row -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-0">
-              <!-- Feature 1: Secure Asset Handling -->
-              <div class="space-y-3">
-                <div class="w-12 h-12 rounded-full bg-[#EBF5EF] text-[#0F623A] flex items-center justify-center">
-                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                <div class="space-y-6">
-                  <h3 class="text-base sm:text-[17px] font-bold text-slate-900 leading-snug">
-                    Secure Asset<br class="hidden sm:inline" /> Handling
-                  </h3>
-                  <p class="text-xs sm:text-[13.5px] text-slate-500 leading-relaxed font-normal">
-                    Protecting your data and your business.
-                  </p>
-                </div>
-              </div>
 
-              <!-- Feature 2: Responsible Recovery -->
-              <div class="space-y-3">
-                <div class="w-12 h-12 rounded-full bg-[#EBF5EF] text-[#0F623A] flex items-center justify-center">
-                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
-                    <line x1="16" y1="8" x2="2" y2="22" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                </div>
-                <div class="space-y-6">
-                  <h3 class="text-base sm:text-[17px] font-bold text-slate-900 leading-snug">
-                    Responsible<br class="hidden sm:inline" /> Recovery
-                  </h3>
-                  <p class="text-xs sm:text-[13.5px] text-slate-500 leading-relaxed font-normal">
-                    Reducing e-waste, protecting the planet.
-                  </p>
-                </div>
-              </div>
+            <!-- Feature Pillars -->
 
-              <!-- Feature 3: Value From Retirements -->
-              <div class="space-y-3">
-                <div class="w-12 h-12 rounded-full bg-[#EBF5EF] text-[#0F623A] flex items-center justify-center">
-                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                </div>
-                <div class="space-y-6">
-                  <h3 class="text-base sm:text-[17px] font-bold text-slate-900 leading-snug">
-                    Value From<br class="hidden sm:inline" /> Retirements
-                  </h3>
-                  <p class="text-xs sm:text-[13.5px] text-slate-500 leading-relaxed font-normal">
-                    Giving IT assets a second life.
-                  </p>
-                </div>
+            {highlights.length > 0 && (
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-0">
+
+                {highlights.slice(0, 3).map(
+                  (highlight, index) => (
+
+                    <div class="space-y-3">
+
+                      <div class="w-12 h-12 rounded-full bg-[#EBF5EF] text-[#0F623A] flex items-center justify-center">
+
+                        {index === 0 && (
+                          <svg
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 00-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                            />
+                          </svg>
+                        )}
+
+                        {index === 1 && (
+                          <svg
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"
+                            />
+                            <line
+                              x1="16"
+                              y1="8"
+                              x2="2"
+                              y2="22"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        )}
+
+                        {index === 2 && (
+                          <svg
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                            />
+                          </svg>
+                        )}
+
+                      </div>
+
+                      <div class="space-y-6">
+
+                        <h3 class="text-base sm:text-[17px] font-bold text-slate-900 leading-snug">
+                          {highlight.title}
+                        </h3>
+
+                        <p class="text-xs sm:text-[13.5px] text-slate-500 leading-relaxed font-normal">
+                          {highlight.description}
+                        </p>
+
+                      </div>
+
+                    </div>
+
+                  )
+                )}
+
               </div>
-            </div>
+            )}
+
           </div>
 
-          <!-- Right Column: Image -->
+
+          <!-- Right Image -->
+
           <div class="lg:col-span-5 flex items-center justify-center lg:justify-end">
+
             <div class="relative w-full max-w-[520px]">
+
               <img
-                src="/images/about/who-we-are-technician.png"
-                alt="Techsteps certified technician inspecting refurbished hardware"
+                src={whoWeAre?.image || "/images/about/who-we-are-technician.png"}
+                alt={
+                  whoWeAre?.imageAlt ||
+                  'Techsteps certified technician inspecting refurbished hardware'
+                }
                 class="w-full h-auto object-contain max-h-[560px] drop-shadow-md mx-auto lg:ml-auto"
                 loading="lazy"
                 decoding="async"
               />
+
             </div>
+
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- 3 · WHAT WE DO (WHITE SURFACE WITH #3FB33D & #0F623A) -->
-    <section id="do" class="band bg-white" style="padding-top:0">
+
+    <!-- =====================================================
+         3. WHAT WE DO
+    ====================================================== -->
+
+    <section
+      id="do"
+      class="band bg-white"
+      style="padding-top:0"
+    >
       <div class="shell">
+
         <div class="head-rule">
+
           <span class="dot"></span>
-          <p class="eyebrow">What we do</p>
+
+          <p class="eyebrow">
+            {about?.whatWeDo?.eyebrow || 'What we do'}
+          </p>
+
           <span class="line"></span>
+
         </div>
+
         <div class="divisions">
-          <article class="division">
-            <div class="shot">
-              <div class="photo" data-caption="Asset processing line">
-                <img
-                  src="/images/services/process-step-2-secure.jpg"
-                  alt="IT Lifecycle asset processing"
-                  class="w-full h-full object-cover"
-                  loading="lazy"
-                  onerror="this.style.display='none'"
-                />
+
+          {whatWeDo.map((item, index) => (
+
+            <article class="division">
+
+              <div class="shot">
+
+                <div
+                  class="photo"
+                  data-caption={item.title || ''}
+                >
+
+                  <img
+                    src={
+                      index === 0
+                        ? '/images/services/process-step-2-secure.jpg'
+                        : index === 1
+                          ? '/images/services/process-step-3-sanitise.jpg'
+                          : '/images/services/process-step-1-collect.jpg'
+                    }
+                    alt={
+                      item.imageAlt ||
+                      item.title ||
+                      ''
+                    }
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+
+                </div>
+
+                <span class="no">
+                  {item.number ||
+                    String(index + 1).padStart(2, '0')}
+                </span>
+
               </div>
-              <span class="no">01</span>
-            </div>
-            <h3>IT Lifecycle Services</h3>
-            <p>Secure IT disposal, collection, ITAD, asset management, remarketing and recycling — with certified erasure and a full audit trail.</p>
-            <a class="go" href="/it-lifecycle-services-destruction">Explore services <em aria-hidden="true">&rarr;</em></a>
-          </article>
-          <article class="division">
-            <div class="shot">
-              <div class="photo" data-caption="Records storage and scanning">
-                <img
-                  src="/images/services/process-step-3-sanitise.jpg"
-                  alt="Records storage and scanning"
-                  class="w-full h-full object-cover"
-                  loading="lazy"
-                  onerror="this.style.display='none'"
-                />
-              </div>
-              <span class="no">02</span>
-            </div>
-            <h3>Information Management</h3>
-            <p>Document storage, scanning, digital mailroom, document management and media storage for organisations that must keep the record.</p>
-            <a class="go" href="/information-management">Explore services <em aria-hidden="true">&rarr;</em></a>
-          </article>
-          <article class="division">
-            <div class="shot">
-              <div class="photo" data-caption="Relocation crew on site">
-                <img
-                  src="/images/services/process-step-1-collect.jpg"
-                  alt="Relocation crew on site"
-                  class="w-full h-full object-cover"
-                  loading="lazy"
-                  onerror="this.style.display='none'"
-                />
-              </div>
-              <span class="no">03</span>
-            </div>
-            <h3>Moving &amp; Relocation</h3>
-            <p>Business relocation, IT relocation, heritage relocation and specialist storage, planned and crewed to keep you operating.</p>
-            <a class="go" href="/moving-relocation-services">Explore services <em aria-hidden="true">&rarr;</em></a>
-          </article>
+
+              <h3>
+                {item.title}
+              </h3>
+
+              <p>
+                {item.description}
+              </p>
+
+              {item.link && (
+                <a
+                  class="go"
+                  href={item.link}
+                >
+                  Explore services
+
+                  <em aria-hidden="true">
+                    &rarr;
+                  </em>
+                </a>
+              )}
+
+            </article>
+
+          ))}
+
         </div>
+
       </div>
     </section>
 
-    <!-- 4 · APPROACH (CLEAN LIGHT SURFACE WITH ICONS) -->
-    <section id="approach" class="approach">
+
+    <!-- =====================================================
+         4. APPROACH
+    ====================================================== -->
+
+    <section
+      id="approach"
+      class="approach"
+    >
       <div class="shell">
+
         <div class="head-rule">
+
           <span class="dot"></span>
-          <p class="eyebrow">Our approach</p>
+
+          <p class="eyebrow">
+            {approach?.eyebrow || 'Our approach'}
+          </p>
+
           <span class="line"></span>
+
         </div>
-        <h2>Every job runs the same four ways.</h2>
-        <p class="intro">Different services, one method. It is what lets us give you a single line of accountability from the first survey to the final certificate.</p>
+
+        <h2>
+          {approach?.title}
+        </h2>
+
+        {approach?.description && (
+          <p class="intro">
+            {approach.description}
+          </p>
+        )}
+
         <div class="flow">
-          <svg viewBox="0 0 1000 80" preserveAspectRatio="none" aria-hidden="true">
+
+          <svg
+            viewBox="0 0 1000 80"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
             <path
               d="M120 12 C 250 12, 250 60, 375 60 S 500 12, 625 12 S 750 60, 875 60"
               fill="none"
@@ -268,293 +486,450 @@ const aboutPageSchema = {
               opacity=".4"
             />
           </svg>
+
           <div class="steps">
-            <div class="step">
-              <div class="hex" aria-label="Step 1: Secure">
-                <svg class="hex-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  <path d="m9 12 2 2 4-4"/>
-                </svg>
+
+            {approachSteps.map((step, index) => (
+
+              <div class="step">
+
+                <div
+                  class="hex"
+                  aria-label={`Step ${index + 1}: ${step.title || ''}`}
+                >
+
+                  {index === 0 && (
+                    <svg
+                      class="hex-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      <path d="m9 12 2 2 4-4" />
+                    </svg>
+                  )}
+
+                  {index === 1 && (
+                    <svg
+                      class="hex-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+                      <path d="M9 18h6" />
+                      <path d="M10 22h4" />
+                    </svg>
+                  )}
+
+                  {index === 2 && (
+                    <svg
+                      class="hex-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5" />
+                      <path d="M11 19h8.2a1.8 1.8 0 0 0 1.565-.89 1.78 1.78 0 0 0 .004-1.78l-3.955-6.83" />
+                      <path d="M8.2 5.8 12 2l3.8 3.8" />
+                      <path d="M12 2v10" />
+                    </svg>
+                  )}
+
+                  {index === 3 && (
+                    <svg
+                      class="hex-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                      <polyline points="16 7 22 7 22 13" />
+                    </svg>
+                  )}
+
+                </div>
+
+                <div>
+
+                  <h3>
+                    {step.title}
+                  </h3>
+
+                  <p>
+                    {step.description}
+                  </p>
+
+                </div>
+
               </div>
-              <h3>Secure</h3>
-              <p>Vetted crews, tracked vehicles, controlled facilities. Custody recorded at every handover.</p>
-            </div>
-            <div class="step">
-              <div class="hex" aria-label="Step 2: Smart">
-                <svg class="hex-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
-                  <path d="M9 18h6"/>
-                  <path d="M10 22h4"/>
-                </svg>
-              </div>
-              <h3>Smart</h3>
-              <p>We survey before we lift. The plan is built around your operation, not our schedule.</p>
-            </div>
-            <div class="step">
-              <div class="hex" aria-label="Step 3: Responsible">
-                <svg class="hex-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>
-                  <path d="M11 19h8.2a1.8 1.8 0 0 0 1.565-.89 1.78 1.78 0 0 0 .004-1.78l-3.955-6.83"/>
-                  <path d="M8.2 5.8 12 2l3.8 3.8"/>
-                  <path d="M12 2v10"/>
-                </svg>
-              </div>
-              <h3>Responsible</h3>
-              <p>Reuse before recycling, zero to landfill, data destroyed to standard with evidence to match.</p>
-            </div>
-            <div class="step">
-              <div class="hex" aria-label="Step 4: Value-focused">
-                <svg class="hex-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
-                  <polyline points="16 7 22 7 22 13"/>
-                </svg>
-              </div>
-              <h3>Value-focused</h3>
-              <p>Working assets are refurbished and remarketed, and the recovered value comes back to you.</p>
-            </div>
+
+            ))}
+
           </div>
+
         </div>
+
       </div>
     </section>
 
-    <!-- 5 · CAPABILITIES (WHITE SURFACE WITH #3FB33D MEDALLIONS & SKEWED STATS) -->
-    <section id="caps" class="band bg-white">
+
+    <!-- =====================================================
+         5. CAPABILITIES
+    ====================================================== -->
+
+    <section
+      id="caps"
+      class="band bg-white"
+    >
       <div class="shell">
+
         <div class="head-rule">
+
           <span class="dot"></span>
-          <p class="eyebrow">Our capabilities</p>
+
+          <p class="eyebrow">
+            {about?.capabilities?.eyebrow ||
+              'Our capabilities'}
+          </p>
+
           <span class="line"></span>
+
         </div>
+
         <div class="caps">
-          <div class="cap">
-            <div class="medal">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <circle cx="9" cy="8" r="3.2"/>
-                <path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/>
-                <path d="M16 5.5a3 3 0 0 1 0 5.6M18 20c0-2.3-.8-3.9-2.2-5"/>
-              </svg>
+
+          {capabilities.map((capability, index) => (
+
+            <div class="cap">
+
+              <div class="medal">
+
+                {index === 0 && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  >
+                    <circle cx="9" cy="8" r="3.2" />
+                    <path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5" />
+                    <path d="M16 5.5a3 3 0 0 1 0 5.6M18 20c0-2.3-.8-3.9-2.2-5" />
+                  </svg>
+                )}
+
+                {index === 1 && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  >
+                    <path d="M12 2.5 20 6v6.2c0 4.6-3.3 8-8 9.3-4.7-1.3-8-4.7-8-9.3V6z" />
+                    <path d="m8.8 12.2 2.2 2.2 4.3-4.6" />
+                  </svg>
+                )}
+
+                {index === 2 && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  >
+                    <path d="M3 7.5h11v9H3zM14 10.5h4l3 3v3h-7z" />
+                    <circle cx="7" cy="18" r="1.9" />
+                    <circle cx="17" cy="18" r="1.9" />
+                  </svg>
+                )}
+
+                {index === 3 && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  >
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M3 12h18M12 3c2.6 2.6 2.6 15 0 18-2.6-3-2.6-15.4 0-18z" />
+                  </svg>
+                )}
+
+              </div>
+
+              <div>
+
+                <h3>
+                  {capability.title}
+                </h3>
+
+                <p>
+                  {capability.description}
+                </p>
+
+              </div>
+
             </div>
-            <div>
-              <h3>Specialist people</h3>
-              <p>Vetted, trained crews who handle complex projects — live data centres, occupied buildings, fragile heritage collections.</p>
-            </div>
-          </div>
-          <div class="cap">
-            <div class="medal">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="M12 2.5 20 6v6.2c0 4.6-3.3 8-8 9.3-4.7-1.3-8-4.7-8-9.3V6z"/>
-                <path d="m8.8 12.2 2.2 2.2 4.3-4.6"/>
-              </svg>
-            </div>
-            <div>
-              <h3>Secure facilities</h3>
-              <p>Alarmed, access-controlled and CCTV-monitored premises with segregated areas for data-bearing media.</p>
-            </div>
-          </div>
-          <div class="cap">
-            <div class="medal">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="M3 7.5h11v9H3zM14 10.5h4l3 3v3h-7z"/>
-                <circle cx="7" cy="18" r="1.9"/>
-                <circle cx="17" cy="18" r="1.9"/>
-              </svg>
-            </div>
-            <div>
-              <h3>End-to-end service</h3>
-              <p>Collection, processing, erasure, reporting, resale and recycling — handled in house, not passed down a chain.</p>
-            </div>
-          </div>
-          <div class="cap">
-            <div class="medal">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="M3 12h18M12 3c2.6 2.6 2.6 15 0 18-2.6-3-2.6-15.4 0-18z"/>
-              </svg>
-            </div>
-            <div>
-              <h3>Business coverage</h3>
-              <p>UK-wide collections and relocations, with regional teams for multi-site programmes and rolling refresh cycles.</p>
-            </div>
-          </div>
+
+          ))}
+
         </div>
 
-        <div class="stats">
-          <div class="stat">
-            <div>
-              <b>20<em>+</em></b>
-              <span>Years handling secure disposal and relocation</span>
-            </div>
+
+        <!-- Statistics -->
+
+        {statistics.length > 0 && (
+          <div class="stats">
+
+            {statistics.map((stat, index) => (
+
+              <div
+                class:list={[
+                  'stat',
+                  {
+                    'highlight-stat': index === 2
+                  }
+                ]}
+              >
+
+                <div>
+
+                  <b>
+                    {stat.value}
+
+                    {stat.suffix && (
+                      <em>
+                        {stat.suffix}
+                      </em>
+                    )}
+                  </b>
+
+                  <span>
+                    {stat.label}
+                  </span>
+
+                </div>
+
+              </div>
+
+            ))}
+
           </div>
-          <div class="stat">
-            <div>
-              <b>500k<em>+</em></b>
-              <span>Assets processed and reported on</span>
-            </div>
-          </div>
-          <div class="stat highlight-stat">
-            <div>
-              <b>98<em>%</em></b>
-              <span>Diverted from landfill through reuse and recycling</span>
-            </div>
-          </div>
-          <div class="stat">
-            <div>
-              <b>UK</b>
-              <span>Nationwide collection and service coverage</span>
-            </div>
-          </div>
-        </div>
+        )}
+
       </div>
     </section>
 
-    <!-- 6 · TRUST & ACCREDITATIONS (COMMENTED OUT)
-    <section id="trust" class="trust bg-white">
-      <div class="shell">
-        <div class="head-rule">
-          <span class="dot"></span>
-          <p class="eyebrow">Accreditations</p>
-          <span class="line"></span>
-        </div>
-        <h2>Trust built into every process.</h2>
-        <p class="sub">Certifications are only useful if you know what they prove. Here is what each one means for the work we do for you.</p>
-        <div class="comb">
-          <div class="badge">
-            <div class="stamp stamp-green">ISO<br>27001</div>
-            <h3>Information security</h3>
-            <p>Independently audited controls over how your data is handled, stored and destroyed.</p>
-          </div>
-          <div class="badge">
-            <div class="stamp stamp-forest">ISO<br>9001</div>
-            <h3>Quality management</h3>
-            <p>Documented procedures, so the job runs the same way every time and can be checked.</p>
-          </div>
-          <div class="badge">
-            <div class="stamp stamp-green">ISO<br>14001</div>
-            <h3>Environmental</h3>
-            <p>Measured impact, reuse before recycling and zero to landfill.</p>
-          </div>
-          <div class="badge">
-            <div class="stamp stamp-forest">ISO<br>45001</div>
-            <h3>Health &amp; safety</h3>
-            <p>Safe working on your site, from occupied offices to live data halls.</p>
-          </div>
-          <div class="badge">
-            <div class="stamp stamp-green">ADISA</div>
-            <h3>Asset disposal standard</h3>
-            <p>Sector auditing of our ITAD process, including unannounced inspections.</p>
-          </div>
-          <div class="badge">
-            <div class="stamp stamp-forest">CE<br>PLUS</div>
-            <h3>Cyber Essentials Plus</h3>
-            <p>Our own systems tested against the government-backed cyber standard.</p>
-          </div>
-          <div class="badge">
-            <div class="stamp stamp-green">BAR</div>
-            <h3>British Association of Removers</h3>
-            <p>Commercial moving carried out to a recognised code of practice.</p>
-          </div>
-          <div class="badge">
-            <div class="stamp stamp-forest">EA</div>
-            <h3>Registered waste carrier</h3>
-            <p>Licensed to transport and process waste electricals, with duty-of-care paperwork.</p>
-          </div>
-        </div>
-        <p class="note">Certificates, licence numbers and insurance details are available on request, and supplied as standard with every tender response.</p>
-      </div>
-    </section>
-    -->
 
-    <!-- 7 · LET'S TALK ABOUT SECTION (WHITE BACKGROUND, SPLIT LAYOUT WITH IMAGE ON LEFT & CONTENT ON RIGHT) -->
-    <section id="talk" class="talk-white-section py-10 sm:py-12 lg:py-16 bg-white relative overflow-hidden border-t border-slate-200">
+    <!-- =====================================================
+         6. LET'S TALK
+    ====================================================== -->
+
+    <section
+      id="talk"
+      class="talk-white-section py-10 sm:py-12 lg:py-16 bg-white relative overflow-hidden border-t border-slate-200"
+    >
       <div class="shell relative z-10">
+
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          
-          <!-- Left Column: Visual Image Card with Services Green Badge -->
+
+          <!-- Left Image -->
+
           <div class="lg:col-span-5 relative">
+
             <div class="relative photo-split-frame rounded-2xl overflow-hidden shadow-xl border border-slate-200 group">
+
               <img
-                src="/images/services/process-step-1-collect.jpg"
-                alt="Techsteps fleet and collection team on site"
+                src={cta?.image || "/images/services/process-step-1-collect.jpg"}
+                alt={
+                  cta?.imageAlt ||
+                  'Techsteps fleet and collection team on site'
+                }
                 class="w-full h-[360px] sm:h-[420px] lg:h-[460px] object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
                 onerror="this.src='/images/brand/about-hero-bg.jpg'"
               />
+
               <div class="absolute inset-0 bg-gradient-to-t from-[#0A331E]/80 via-transparent to-transparent"></div>
-              
-              <!-- Bottom Badge on Image -->
+
               <div class="absolute bottom-5 left-5 right-5 flex items-center justify-between text-white text-xs font-mono tracking-wider">
-                <span class="bg-[#0F623A] px-3.5 py-1.5 rounded-full font-medium shadow-md flex items-center gap-1.5 text-white">
-                  <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-                  UK-WIDE LOGISTICS
-                </span>
-                <span class="text-white text-[11px] bg-[#0A331E]/85 px-2.5 py-1 rounded-md backdrop-blur-xs border border-emerald-500/20">
-                  Vetted Crews
-                </span>
+
+                {cta?.badge && (
+                  <span class="bg-[#0F623A] px-3.5 py-1.5 rounded-full font-medium shadow-md flex items-center gap-1.5 text-white">
+
+                    <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+
+                    {cta.badge}
+
+                  </span>
+                )}
+
+                {cta?.secondaryBadge && (
+                  <span class="text-white text-[11px] bg-[#0A331E]/85 px-2.5 py-1 rounded-md backdrop-blur-xs border border-emerald-500/20">
+                    {cta.secondaryBadge}
+                  </span>
+                )}
+
               </div>
+
             </div>
 
-            <!-- Ambient Background Accent Behind Image -->
             <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-[#0F623A]/10 rounded-full filter blur-2xl -z-10"></div>
+
           </div>
 
-          <!-- Right Column: Content, Headings, Buttons & Contact Details -->
+
+          <!-- Right Content -->
+
           <div class="lg:col-span-7">
+
             <div class="head-rule mb-5">
+
               <span class="dot"></span>
-              <p class="eyebrow">Get in touch with Techsteps</p>
+
+              <p class="eyebrow">
+                {cta?.eyebrow}
+              </p>
+
               <span class="line"></span>
+
             </div>
 
             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight leading-[1.08]">
-              Let's Talk About <span class="text-[#0F623A] block mt-1">What Comes Next.</span>
+
+              {cta?.title}
+
+              {cta?.highlightedTitle && (
+                <span class="text-[#0F623A] block mt-1">
+                  {cta.highlightedTitle}
+                </span>
+              )}
+
             </h2>
 
-            <p class="text-base sm:text-lg text-slate-600 max-w-2xl mt-5 leading-relaxed font-normal">
-              Whether you need secure IT disposal, information management or relocation support, speak with the Techsteps team. We will survey, scope and quote before anything moves.
-            </p>
+            {cta?.description && (
+              <p class="text-base sm:text-lg text-slate-600 max-w-2xl mt-5 leading-relaxed font-normal">
+                {cta.description}
+              </p>
+            )}
 
-            <!-- Action Buttons -->
             <div class="flex flex-wrap items-center gap-4 mt-8">
-              <a class="btn btn-primary text-white font-bold" href="/contact">
-                <span class="text-white">Talk to Techsteps</span>
-                <span aria-hidden="true" class="text-white">&rarr;</span>
-              </a>
-              <a class="btn btn-secondary" href="/request-a-collection">
-                <span>Request a Collection</span>
-              </a>
+
+              {cta?.buttonLink && (
+                <a
+                  class="btn btn-primary text-white font-bold"
+                  href={cta.buttonLink}
+                >
+                  <span class="text-white">
+                    {cta.buttonText}
+                  </span>
+
+                  <span
+                    aria-hidden="true"
+                    class="text-white"
+                  >
+                    &rarr;
+                  </span>
+                </a>
+              )}
+
+              {cta?.secondaryButtonLink && (
+                <a
+                  class="btn btn-secondary"
+                  href={cta.secondaryButtonLink}
+                >
+                  <span>
+                    {cta.secondaryButtonText}
+                  </span>
+                </a>
+              )}
+
             </div>
 
-            <!-- Direct Contact Line -->
             <div class="talk-contactline mt-10 pt-6 border-t border-slate-200 flex flex-wrap gap-y-3 gap-x-8 text-sm text-slate-600">
-              <span><span class="text-slate-900 font-medium">Call:</span> <a href="tel:+442079460888" class="hover:text-[#0F623A] font-medium transition-colors">+44 (0) 20 7946 0888</a></span>
-              <span><span class="text-slate-900 font-medium">Email:</span> <a href="mailto:hello@techsteps.co.uk" class="hover:text-[#0F623A] font-medium transition-colors">hello@techsteps.co.uk</a></span>
-              <span><span class="text-slate-900 font-medium">Hours:</span> Mon–Fri, 8am–6pm</span>
+
+              {cta?.phone && (
+                <span>
+                  <span class="text-slate-900 font-medium">
+                    Call:
+                  </span>
+
+                  <a
+                    href={`tel:${cta.phone.replace(/\s/g, '')}`}
+                    class="hover:text-[#0F623A] font-medium transition-colors"
+                  >
+                    {cta.phone}
+                  </a>
+                </span>
+              )}
+
+              {cta?.email && (
+                <span>
+                  <span class="text-slate-900 font-medium">
+                    Email:
+                  </span>
+
+                  <a
+                    href={`mailto:${cta.email}`}
+                    class="hover:text-[#0F623A] font-medium transition-colors"
+                  >
+                    {cta.email}
+                  </a>
+                </span>
+              )}
+
+              {cta?.hours && (
+                <span>
+                  <span class="text-slate-900 font-medium">
+                    Hours:
+                  </span>
+
+                  {cta.hours}
+                </span>
+              )}
+
             </div>
+
           </div>
 
         </div>
+
       </div>
     </section>
+
   </div>
 </BaseLayout>
 
+
 <style>
 .about-page-wrapper {
-  /* Techsteps Services Page Signature Color System (#0F623A + #0F623A + White) */
   --green-primary: #0F623A;
   --green-forest: #0F623A;
   --green-darkest: #0A331E;
   --green-hover: #124d2b;
   --green-light: #F2F8F5;
   --green-surface: #EFF8F3;
-  
+
   --surface: #FFFFFF;
   --paper: #F8FAF9;
   --on-surface: #0F172A;
   --on-surface-dim: #475569;
   --hairline: #E2E8F0;
   --panel: #FFFFFF;
-  
+
   --shell: 1320px;
   --gutter: clamp(20px, 5vw, 72px);
   --display: "Archivo", system-ui, sans-serif;
@@ -626,12 +1001,24 @@ const aboutPageSchema = {
   color: #0F623A;
 }
 
-/* Photo slots — chamfered "seal cut", never a plain rectangle */
+
+/* =========================================================
+   PHOTO
+========================================================= */
+
 .photo {
   position: relative;
   overflow: hidden;
   background: #0A331E;
-  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut))
+  );
 }
 
 .photo img {
@@ -648,56 +1035,87 @@ const aboutPageSchema = {
 
 .photo::after {
   content: attr(data-caption);
+
   position: absolute;
   left: 18px;
   bottom: 14px;
+
   font-size: 10px;
   letter-spacing: .16em;
   text-transform: uppercase;
   font-weight: 500;
+
   color: #FFFFFF;
   background: rgba(15, 98, 58, 0.88);
+
   padding: 3px 9px;
   border-radius: 4px;
+
   backdrop-filter: blur(4px);
+
   border: 1px solid rgba(255,255,255,0.2);
+
   z-index: 3;
 }
 
-/* 1 · HERO — diagonal bottom edge on services dark forest green */
+
+/* =========================================================
+   HERO
+========================================================= */
+
 .hero {
   background: var(--green-darkest);
   color: #fff;
   position: relative;
+
   padding-bottom: clamp(36px, 5vw, 64px);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - clamp(28px, 3.5vw, 48px)));
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 calc(100% - clamp(28px, 3.5vw, 48px))
+  );
 }
 
 .hero::after {
   content: "";
+
   position: absolute;
   right: -14%;
   top: -24%;
+
   width: 60%;
   aspect-ratio: 1;
+
   border-radius: 50%;
+
   border: 1.5px solid rgba(24, 98, 55, 0.3);
+
   pointer-events: none;
   z-index: 1;
 }
 
 .hero .grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, .86fr);
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, .86fr);
+
   gap: clamp(28px, 4vw, 66px);
+
   align-items: center;
 }
 
 .hero h1 {
   font-size: clamp(40px, 6.1vw, 82px);
   line-height: .96;
+
   margin: 22px 0 26px;
+
   color: #fff;
+
   letter-spacing: -.033em;
 }
 
@@ -709,8 +1127,11 @@ const aboutPageSchema = {
 
 .hero .lede {
   font-size: clamp(16.5px, 1.32vw, 19.5px);
+
   color: #FFFFFF;
+
   max-width: 48ch;
+
   line-height: 1.55;
 }
 
@@ -721,111 +1142,74 @@ const aboutPageSchema = {
 
 .hero-figure .photo {
   --cut: 74px;
-  aspect-ratio: 4/3.4;
+  aspect-ratio: 4 / 3.4;
 }
 
 .hero-figure .ring {
   position: absolute;
+
   left: -44px;
   bottom: -40px;
+
   width: 132px;
   height: 132px;
+
   border-radius: 50%;
+
   border: 1.5px dashed rgba(63, 179, 61, 0.7);
+
   pointer-events: none;
 }
 
 .seal {
   position: absolute;
+
   right: -16px;
   top: -26px;
+
   width: 92px;
   height: 104px;
+
   background: var(--green-primary);
   color: #FFFFFF;
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+
+  clip-path: polygon(
+    50% 0,
+    100% 25%,
+    100% 75%,
+    50% 100%,
+    0 75%,
+    0 25%
+  );
+
   display: grid;
   place-content: center;
+
   text-align: center;
+
   font-family: var(--display);
   font-weight: 600;
+
   font-size: 11px;
+
   letter-spacing: .06em;
+
   line-height: 1.3;
+
   text-transform: uppercase;
+
   z-index: 4;
-  box-shadow: 0 8px 24px rgba(15,98,58,0.35);
+
+  box-shadow:
+    0 8px 24px rgba(15,98,58,0.35);
+
   border: 1px solid rgba(255,255,255,0.25);
 }
 
-/* Manifest — chamfered tiles riding the diagonal */
-.manifest {
-  position: relative;
-  z-index: 5;
-  margin-top: clamp(-70px, -7vw, -46px);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(12px, 1.6vw, 22px);
-}
 
-.manifest div {
-  --cut: 24px;
-  background: var(--panel);
-  padding: 24px 26px 26px;
-  border: 1px solid var(--hairline);
-  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
-  box-shadow: 0 10px 30px rgba(15,98,58,0.07);
-}
-
-.manifest div.active-manifest {
-  background: var(--green-primary);
-  border-color: var(--green-primary);
-  color: #FFFFFF;
-  box-shadow: 0 12px 35px rgba(63,179,61,0.35);
-}
-
-.manifest dt {
-  font-size: 11px;
-  letter-spacing: .17em;
-  text-transform: uppercase;
-  color: var(--green-forest);
-  font-weight: 500;
-  margin-bottom: 7px;
-}
-
-.manifest div.active-manifest dt {
-  color: #FFFFFF;
-}
-
-.manifest dd {
-  margin: 0;
-  font-size: 14px;
-  color: var(--on-surface-dim);
-  line-height: 1.5;
-}
-
-.manifest div.active-manifest dd {
-  color: #F2F8F5;
-}
-
-@media (max-width: 900px) {
-  .hero .grid {
-    grid-template-columns: 1fr;
-  }
-  .hero-figure {
-    order: -1;
-  }
-  .seal {
-    right: 6px;
-    top: -18px;
-    width: 76px;
-    height: 86px;
-  }
-  .manifest {
-    grid-template-columns: 1fr;
-    margin-top: -40px;
-  }
-}
+/* =========================================================
+   GENERAL BANDS
+========================================================= */
 
 .band {
   padding-block: clamp(32px, 4.2vw, 56px);
@@ -834,36 +1218,66 @@ const aboutPageSchema = {
 .head-rule {
   display: flex;
   align-items: center;
+
   gap: 16px;
-  margin-bottom: clamp(18px, 2.4vw, 32px);
+
+  margin-bottom: clamp(
+    18px,
+    2.4vw,
+    32px
+  );
 }
 
 .head-rule .dot {
   width: 10px;
   height: 11px;
+
   background: var(--green-primary);
+
   flex: none;
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+
+  clip-path: polygon(
+    50% 0,
+    100% 25%,
+    100% 75%,
+    50% 100%,
+    0 75%,
+    0 25%
+  );
 }
 
 .head-rule .line {
   flex: 1;
+
   height: 1px;
+
   background: var(--hairline);
 }
 
-/* 2 · WHO WE ARE */
+
+/* =========================================================
+   WHO WE ARE
+========================================================= */
+
 .who {
   display: grid;
-  grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+
+  grid-template-columns:
+    minmax(0, 58fr)
+    minmax(0, 42fr);
+
   gap: clamp(34px, 5vw, 80px);
+
   align-items: center;
 }
 
 .who h2 {
   font-size: clamp(30px, 3.5vw, 48px);
+
   margin-bottom: 24px;
+
   max-width: 16ch;
+
   color: #0F172A;
 }
 
@@ -878,80 +1292,134 @@ const aboutPageSchema = {
 
 .who .body p.first {
   color: #0F172A;
-  font-size: clamp(17px, 1.3vw, 20px);
+
+  font-size: clamp(
+    17px,
+    1.3vw,
+    20px
+  );
+
   line-height: 1.55;
+
   padding-left: 20px;
-  border-left: 4px solid var(--green-primary);
+
+  border-left:
+    4px solid var(--green-primary);
 }
 
 .sectors {
   margin: 30px 0 0;
+
   padding: 22px 0 0;
-  border-top: 1px solid var(--hairline);
+
+  border-top:
+    1px solid var(--hairline);
+
   display: flex;
+
   flex-wrap: wrap;
+
   gap: 8px;
 }
 
 .sectors li {
   list-style: none;
+
   font-size: 12.5px;
+
   font-weight: 400;
+
   padding: 6px 14px;
-  border: 1px solid #E2E8F0;
+
+  border:
+    1px solid #E2E8F0;
+
   border-radius: 999px;
+
   color: var(--green-forest);
+
   background: var(--green-surface);
-  transition: all .2s ease;
+
+  transition:
+    all .2s ease;
 }
 
 .sectors li:hover {
   background: var(--green-primary);
+
   color: #FFFFFF;
-  border-color: var(--green-primary);
-  transform: translateY(-1px);
+
+  border-color:
+    var(--green-primary);
+
+  transform:
+    translateY(-1px);
 }
 
 .who-image-wrap {
   position: relative;
+
   width: 100%;
 }
 
 .who-image-wrap img {
   transform-origin: center;
-  transition: transform 0.4s ease;
+
+  transition:
+    transform 0.4s ease;
 }
 
 .who-image-wrap:hover img {
-  transform: scale(1.02);
+  transform:
+    scale(1.02);
 }
 
-@media (max-width: 900px) {
-  .who {
-    grid-template-columns: 1fr;
-  }
-}
 
-/* 3 · DIVISIONS — sheared panels */
+/* =========================================================
+   WHAT WE DO
+========================================================= */
+
 .divisions {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(16px, 2.2vw, 30px);
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: clamp(
+    16px,
+    2.2vw,
+    30px
+  );
+
   align-items: start;
 }
 
 .division:nth-child(2) {
-  margin-top: clamp(0px, 2vw, 24px);
+  margin-top:
+    clamp(0px, 2vw, 24px);
 }
 
 .division:nth-child(3) {
-  margin-top: clamp(0px, 4vw, 48px);
+  margin-top:
+    clamp(0px, 4vw, 48px);
 }
 
 .division .shot {
   position: relative;
-  height: clamp(210px, 21vw, 300px);
-  clip-path: polygon(0 34px, 100% 0, 100% calc(100% - 34px), 0 100%);
+
+  height:
+    clamp(
+      210px,
+      21vw,
+      300px
+    );
+
+  clip-path: polygon(
+    0 34px,
+    100% 0,
+    100% calc(100% - 34px),
+    0 100%
+  );
 }
 
 .division .shot .photo {
@@ -961,158 +1429,284 @@ const aboutPageSchema = {
 
 .division .no {
   position: absolute;
+
   left: 0;
   top: 44px;
+
   z-index: 3;
-  background: var(--green-primary);
+
+  background:
+    var(--green-primary);
+
   color: #FFFFFF;
-  font-family: var(--display);
+
+  font-family:
+    var(--display);
+
   font-weight: 600;
+
   font-size: 12px;
+
   letter-spacing: .1em;
-  padding: 6px 14px 6px 10px;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+
+  padding:
+    6px 14px 6px 10px;
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    calc(100% - 10px) 100%,
+    0 100%
+  );
 }
 
 .division h3 {
-  font-size: clamp(19px, 1.6vw, 23px);
-  margin: 22px 0 10px;
+  font-size:
+    clamp(
+      19px,
+      1.6vw,
+      23px
+    );
+
+  margin:
+    22px 0 10px;
+
   text-transform: uppercase;
+
   color: #0F172A;
+
   font-weight: 600;
 }
 
 .division p {
   font-size: 14.6px;
-  color: var(--on-surface-dim);
+
+  color:
+    var(--on-surface-dim);
+
   max-width: 34ch;
 }
 
 .division .go {
   display: inline-flex;
+
   align-items: center;
+
   gap: 9px;
+
   margin-top: 16px;
+
   font-size: 13.5px;
+
   font-weight: 500;
+
   text-decoration: none;
+
   color: #FFFFFF;
-  background: var(--green-primary);
-  padding: 11px 20px;
+
+  background:
+    var(--green-primary);
+
+  padding:
+    11px 20px;
+
   border-radius: 999px;
-  transition: all .2s ease;
+
+  transition:
+    all .2s ease;
 }
 
 .division .go:hover {
-  background: var(--green-hover);
+  background:
+    var(--green-hover);
+
   color: #FFFFFF;
-  box-shadow: 0 6px 18px rgba(63,179,61,0.35);
-  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 18px
+    rgba(63,179,61,0.35);
+
+  transform:
+    translateY(-1px);
 }
 
 .division .go em {
   font-style: normal;
-  transition: transform .18s ease;
+
+  transition:
+    transform .18s ease;
 }
 
 .division:hover .go em {
-  transform: translateX(4px);
+  transform:
+    translateX(4px);
 }
 
-@media (max-width: 860px) {
-  .divisions {
-    grid-template-columns: 1fr;
-    gap: 46px;
-  }
-  .division:nth-child(2),
-  .division:nth-child(3) {
-    margin-top: 0;
-  }
-}
 
-/* 4 · APPROACH — clean surface with hex icons and connecting trajectory */
+/* =========================================================
+   APPROACH
+========================================================= */
+
 .approach {
-  background: var(--surface);
-  color: var(--on-surface);
+  background:
+    var(--surface);
+
+  color:
+    var(--on-surface);
+
   position: relative;
-  padding-block: clamp(32px, 4.2vw, 56px);
+
+  padding-block:
+    clamp(
+      32px,
+      4.2vw,
+      56px
+    );
 }
 
 .approach .head-rule .line {
-  background: var(--hairline);
+  background:
+    var(--hairline);
 }
 
 .approach h2 {
-  font-size: clamp(30px, 3.5vw, 48px);
+  font-size:
+    clamp(
+      30px,
+      3.5vw,
+      48px
+    );
+
   color: #0F172A;
+
   max-width: 18ch;
 }
 
 .approach .intro {
-  color: var(--on-surface-dim);
+  color:
+    var(--on-surface-dim);
+
   max-width: 54ch;
+
   margin-top: 18px;
 }
 
 .flow {
   position: relative;
-  margin-top: clamp(24px, 3.2vw, 40px);
+
+  margin-top:
+    clamp(
+      24px,
+      3.2vw,
+      40px
+    );
 }
 
 .flow > svg {
   position: absolute;
+
   left: 0;
   right: 0;
+
   top: 34px;
+
   width: 100%;
+
   height: 70px;
+
   overflow: visible;
 }
 
 .steps {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(14px, 2vw, 28px);
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap:
+    clamp(
+      14px,
+      2vw,
+      28px
+    );
+
   position: relative;
+
   z-index: 2;
 }
 
 .step {
   text-align: center;
+
   padding-top: 0;
 }
 
 .step:nth-child(odd) {
-  transform: translateY(0);
+  transform:
+    translateY(0);
 }
 
 .step:nth-child(even) {
-  transform: translateY(28px);
+  transform:
+    translateY(28px);
 }
 
 .hex {
   width: 76px;
   height: 86px;
-  margin: 0 auto 18px;
-  background: var(--green-forest);
+
+  margin:
+    0 auto 18px;
+
+  background:
+    var(--green-forest);
+
   color: #FFFFFF;
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+
+  clip-path: polygon(
+    50% 0,
+    100% 25%,
+    100% 75%,
+    50% 100%,
+    0 75%,
+    0 25%
+  );
+
   display: grid;
+
   place-content: center;
-  box-shadow: 0 6px 18px rgba(15, 98, 58, 0.16);
-  border: 1px solid rgba(255,255,255,0.2);
-  transition: all .25s ease;
+
+  box-shadow:
+    0 6px 18px
+    rgba(15, 98, 58, 0.16);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.2);
+
+  transition:
+    all .25s ease;
 }
 
 .step:nth-child(even) .hex {
-  background: var(--green-primary);
+  background:
+    var(--green-primary);
+
   color: #FFFFFF;
-  box-shadow: 0 6px 18px rgba(63, 179, 61, 0.24);
+
+  box-shadow:
+    0 6px 18px
+    rgba(63, 179, 61, 0.24);
 }
 
 .step:hover .hex {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 10px 24px rgba(15, 98, 58, 0.25);
+  transform:
+    translateY(-4px)
+    scale(1.05);
+
+  box-shadow:
+    0 10px 24px
+    rgba(15, 98, 58, 0.25);
 }
 
 .hex-icon {
@@ -1121,81 +1715,100 @@ const aboutPageSchema = {
 }
 
 .step h3 {
-  font-size: clamp(15px, 1.24vw, 18px);
+  font-size:
+    clamp(
+      15px,
+      1.24vw,
+      18px
+    );
+
   text-transform: uppercase;
+
   letter-spacing: .05em;
+
   color: #0F172A;
+
   margin-bottom: 9px;
+
   font-weight: 600;
 }
 
 .step p {
   font-size: 14.2px;
-  color: var(--on-surface-dim);
+
+  color:
+    var(--on-surface-dim);
+
   max-width: 26ch;
+
   margin-inline: auto;
 }
 
-@media (max-width: 860px) {
-  .steps {
-    grid-template-columns: 1fr;
-    gap: 34px;
-  }
-  .flow > svg {
-    display: none;
-  }
-  .step,
-  .step:nth-child(even) {
-    transform: none;
-    text-align: left;
-    display: grid;
-    grid-template-columns: 74px 1fr;
-    gap: 20px;
-    align-items: start;
-  }
-  .hex {
-    margin: 0;
-  }
-  .step p {
-    margin-inline: 0;
-  }
-  .step h3 {
-    margin-top: 6px;
-  }
-}
 
-/* 5 · CAPABILITIES — medallions + green stats */
+/* =========================================================
+   CAPABILITIES
+========================================================= */
+
 .caps {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(26px, 3.4vw, 52px);
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap:
+    clamp(
+      26px,
+      3.4vw,
+      52px
+    );
 }
 
 .cap {
   display: grid;
-  grid-template-columns: 78px 1fr;
+
+  grid-template-columns:
+    78px 1fr;
+
   gap: 22px;
+
   align-items: start;
 }
 
 .medal {
   width: 78px;
   height: 78px;
+
   border-radius: 50%;
+
   display: grid;
+
   place-content: center;
-  color: var(--green-forest);
-  border: 1.5px solid var(--hairline);
+
+  color:
+    var(--green-forest);
+
+  border:
+    1.5px solid
+    var(--hairline);
+
   position: relative;
-  background: var(--green-surface);
+
+  background:
+    var(--green-surface);
 }
 
 .medal::after {
   content: "";
+
   position: absolute;
+
   inset: -7px;
+
   border-radius: 50%;
-  border: 1.5px dashed rgba(63,179,61,.45);
+
+  border:
+    1.5px dashed
+    rgba(63,179,61,.45);
 }
 
 .medal svg {
@@ -1204,58 +1817,127 @@ const aboutPageSchema = {
 }
 
 .cap h3 {
-  font-size: clamp(17px, 1.4vw, 20px);
+  font-size:
+    clamp(
+      17px,
+      1.4vw,
+      20px
+    );
+
   text-transform: uppercase;
+
   letter-spacing: .04em;
-  margin: 8px 0 9px;
+
+  margin:
+    8px 0 9px;
+
   color: #0F172A;
+
   font-weight: 600;
 }
 
 .cap p {
   font-size: 14.6px;
-  color: var(--on-surface-dim);
+
+  color:
+    var(--on-surface-dim);
+
   max-width: 40ch;
 }
 
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
 .stats {
-  margin-top: clamp(24px, 3.2vw, 40px);
+  margin-top:
+    clamp(
+      24px,
+      3.2vw,
+      40px
+    );
+
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(10px, 1.4vw, 18px);
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap:
+    clamp(
+      10px,
+      1.4vw,
+      18px
+    );
 }
 
 .stat {
-  transform: skewX(-9deg);
-  background: var(--green-darkest);
+  transform:
+    skewX(-9deg);
+
+  background:
+    var(--green-darkest);
+
   color: #fff;
-  padding: clamp(22px, 2.6vw, 34px) clamp(18px, 2.2vw, 30px);
+
+  padding:
+    clamp(
+      22px,
+      2.6vw,
+      34px
+    )
+    clamp(
+      18px,
+      2.2vw,
+      30px
+    );
+
   overflow: hidden;
+
   border-radius: 4px;
 }
 
 .stat.highlight-stat {
-  background: var(--green-primary);
+  background:
+    var(--green-primary);
+
   color: #FFFFFF;
-  box-shadow: 0 10px 30px rgba(63,179,61,0.35);
+
+  box-shadow:
+    0 10px 30px
+    rgba(63,179,61,0.35);
 }
 
 .stat > div {
-  transform: skewX(9deg);
+  transform:
+    skewX(9deg);
 }
 
 .stat b {
   display: block;
-  font-family: var(--display);
+
+  font-family:
+    var(--display);
+
   font-weight: 600;
-  font-size: clamp(32px, 4vw, 54px);
+
+  font-size:
+    clamp(
+      32px,
+      4vw,
+      54px
+    );
+
   letter-spacing: -.04em;
+
   line-height: 1;
 }
 
 .stat em {
   font-style: normal;
-  color: #0F623A;
+
+  color:
+    #0F623A;
 }
 
 .stat.highlight-stat em {
@@ -1265,9 +1947,13 @@ const aboutPageSchema = {
 
 .stat span {
   display: block;
+
   margin-top: 10px;
+
   font-size: 12.5px;
+
   color: #D1EFE2;
+
   line-height: 1.45;
 }
 
@@ -1275,207 +1961,328 @@ const aboutPageSchema = {
   color: #FFFFFF;
 }
 
-@media (max-width: 860px) {
-  .caps {
-    grid-template-columns: 1fr;
-  }
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 
-/* 6 · TRUST — honeycomb with Green stamps */
-.trust {
-  background: var(--panel);
+/* =========================================================
+   CTA
+========================================================= */
+
+.talk-white-section {
   position: relative;
-  clip-path: polygon(0 clamp(30px, 4vw, 70px), 100% 0, 100% 100%, 0 100%);
-  padding-block: clamp(90px, 11vw, 150px) clamp(64px, 8vw, 110px);
 }
 
-.trust h2 {
-  font-size: clamp(28px, 3.4vw, 46px);
-  max-width: 16ch;
-  color: #0F172A;
+.photo-split-frame {
+  background:
+    var(--green-darkest);
 }
 
-.trust .sub {
-  color: var(--on-surface-dim);
-  max-width: 52ch;
-  margin-top: 16px;
+.talk-contactline a {
+  text-decoration: none;
 }
 
-.comb {
-  margin-top: clamp(40px, 5vw, 66px);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: clamp(18px, 2.6vw, 38px);
-  row-gap: clamp(26px, 3vw, 44px);
-}
 
-.badge {
-  text-align: center;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  padding: 8px 4px;
-}
+/* =========================================================
+   BUTTONS
+========================================================= */
 
-.badge:hover {
-  transform: translateY(-4px);
-}
-
-.comb .badge:nth-child(even) {
-  transform: translateY(34px);
-}
-
-.comb .badge:nth-child(even):hover {
-  transform: translateY(30px);
-}
-
-.stamp {
-  width: 112px;
-  height: 126px;
-  margin: 0 auto 18px;
-  display: grid;
-  place-content: center;
-  text-align: center;
-  color: #FFFFFF;
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: 13.5px;
-  line-height: 1.2;
-  letter-spacing: .03em;
-  position: relative;
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-  filter: drop-shadow(0 8px 18px rgba(15, 98, 58, 0.22));
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
-  cursor: default;
-}
-
-.badge:hover .stamp {
-  transform: scale(1.08);
-  filter: drop-shadow(0 14px 26px rgba(24, 98, 55, 0.42));
-}
-
-.stamp::after {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-  border: 1.5px solid rgba(255, 255, 255, 0.42);
-  pointer-events: none;
-}
-
-.stamp.stamp-green {
-  background: linear-gradient(145deg, #2A7E4F 0%, #0F623A 50%, #104627 100%);
-  color: #FFFFFF;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
-}
-
-.stamp.stamp-forest {
-  background: linear-gradient(145deg, #108A4E 0%, #0F623A 55%, #073B20 100%);
-  color: #FFFFFF;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
-}
-
-.badge h3 {
-  font-size: 15.5px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #0F172A;
-  transition: color 0.2s ease;
-}
-
-.badge:hover h3 {
-  color: #0F623A;
-}
-
-.badge p {
-  font-size: 13px;
-  color: var(--on-surface-dim);
-  line-height: 1.5;
-  max-width: 26ch;
-  margin-inline: auto;
-}
-
-.trust .note {
-  margin-top: clamp(52px, 5vw, 74px);
-  padding-top: 20px;
-  border-top: 1px solid var(--hairline);
-  font-size: 13px;
-  color: var(--on-surface-dim);
-  max-width: 70ch;
-}
-
-@media (max-width: 1000px) {
-  .comb {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .comb {
-    grid-template-columns: 1fr;
-  }
-  .comb .badge:nth-child(even) {
-    transform: none;
-  }
-}
-
-/* 7 · BUTTONS */
 .btn {
   display: inline-flex;
+
   align-items: center;
+
   gap: 10px;
+
   text-decoration: none;
+
   font-weight: 500;
+
   font-size: 15px;
-  padding: 14px 28px;
+
+  padding:
+    14px 28px;
+
   border-radius: 999px;
-  transition: all .2s ease;
+
+  transition:
+    all .2s ease;
 }
 
 .btn-primary {
-  background: var(--green-primary);
+  background:
+    var(--green-primary);
+
   color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(15, 98, 58, 0.35);
+
+  box-shadow:
+    0 4px 14px
+    rgba(15, 98, 58, 0.35);
 }
 
 .btn-primary:hover {
-  background: var(--green-hover);
+  background:
+    var(--green-hover);
+
   color: #FFFFFF !important;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(15, 98, 58, 0.45);
+
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 6px 20px
+    rgba(15, 98, 58, 0.45);
 }
 
 .btn-secondary {
-  border: 1.5px solid var(--green-primary);
-  color: var(--green-forest);
-  background: var(--green-surface);
+  border:
+    1.5px solid
+    var(--green-primary);
+
+  color:
+    var(--green-forest);
+
+  background:
+    var(--green-surface);
 }
 
 .btn-secondary:hover {
-  border-color: var(--green-hover);
-  background: var(--green-primary);
+  border-color:
+    var(--green-hover);
+
+  background:
+    var(--green-primary);
+
   color: #FFFFFF;
-  transform: translateY(-1px);
+
+  transform:
+    translateY(-1px);
 }
 
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .hero .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-figure {
+    order: -1;
+  }
+
+  .seal {
+    right: 6px;
+    top: -18px;
+
+    width: 76px;
+    height: 86px;
+  }
+
+  .who {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 860px) {
+
+  .divisions {
+    grid-template-columns: 1fr;
+
+    gap: 46px;
+  }
+
+  .division:nth-child(2),
+  .division:nth-child(3) {
+    margin-top: 0;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+
+    gap: 34px;
+  }
+
+  .flow > svg {
+    display: none;
+  }
+
+  .step,
+  .step:nth-child(even) {
+    transform: none;
+
+    text-align: left;
+
+    display: grid;
+
+    grid-template-columns:
+      74px 1fr;
+
+    gap: 20px;
+
+    align-items: start;
+  }
+
+  .hex {
+    margin: 0;
+  }
+
+  .step p {
+    margin-inline: 0;
+  }
+
+  .step h3 {
+    margin-top: 6px;
+  }
+
+  .caps {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  .hero {
+    padding-top: 110px;
+  }
+
+  .hero h1 {
+    font-size: clamp(
+      42px,
+      12vw,
+      64px
+    );
+  }
+
+  .hero-figure .photo {
+    --cut: 42px;
+  }
+
+  .head-rule {
+    gap: 10px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .cap {
+    grid-template-columns:
+      64px 1fr;
+
+    gap: 18px;
+  }
+
+  .medal {
+    width: 64px;
+    height: 64px;
+  }
+
+  .medal svg {
+    width: 27px;
+    height: 27px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .hero {
+    padding-bottom: 50px;
+  }
+
+  .hero-figure {
+    margin-top: 10px;
+  }
+
+  .seal {
+    width: 68px;
+    height: 78px;
+
+    font-size: 9px;
+  }
+
+  .hero-figure .ring {
+    left: -20px;
+    bottom: -25px;
+
+    width: 90px;
+    height: 90px;
+  }
+
+  .btn {
+    width: 100%;
+
+    justify-content: center;
+  }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY / MOTION
+========================================================= */
+
 @media (prefers-reduced-motion: no-preference) {
+
   .lift {
     opacity: 0;
-    transform: translateY(14px);
-    animation: lift .7s cubic-bezier(.22, .8, .3, 1) forwards;
+
+    transform:
+      translateY(14px);
+
+    animation:
+      lift .7s
+      cubic-bezier(.22, .8, .3, 1)
+      forwards;
   }
-  .hero .eyebrow { animation-delay: .05s; }
-  .hero h1 { animation-delay: .14s; }
-  .hero .lede { animation-delay: .26s; }
-  .hero-figure { animation-delay: .2s; }
-  .manifest { animation-delay: .38s; }
+
+  .hero .eyebrow {
+    animation-delay: .05s;
+  }
+
+  .hero h1 {
+    animation-delay: .14s;
+  }
+
+  .hero .lede {
+    animation-delay: .26s;
+  }
+
+  .hero-figure {
+    animation-delay: .2s;
+  }
+
 }
+
 
 @keyframes lift {
   to {
     opacity: 1;
     transform: none;
   }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
 }
 </style>

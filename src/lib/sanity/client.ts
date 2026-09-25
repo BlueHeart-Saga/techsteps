@@ -8,6 +8,12 @@ import {
   caseStudies,
   articles,
   defaultAboutPage,
+  defaultFaqPage,
+  defaultSustainabilityPage,
+  defaultInvestorsPage,
+  defaultContactPage,
+  defaultRequestCollectionPage,
+  testimonials,
 } from './data';
 import type {
   SiteSettings,
@@ -19,6 +25,12 @@ import type {
   Article,
   AboutPageData,
   HomePageData,
+  FaqPageData,
+  SustainabilityPageData,
+  InvestorsPageData,
+  ContactPageData,
+  RequestCollectionPageData,
+  TestimonialItem,
 } from './types';
 
 const projectId =
@@ -52,65 +64,143 @@ function normalizeSlug(slug: any): string {
   return String(slug);
 }
 
-export async function getHomePage(): Promise<HomePageData | undefined> {
+export async function getHomePage(): Promise<HomePageData | null> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
         *[_type == "homePage"][0]{
-          ...,
-
           hero{
-            ...,
-            "imageUrl": image.asset->url
+            eyebrow,
+            heading,
+            description,
+            image{
+              asset->{
+                _id,
+                url
+              }
+            },
+            imageAlt,
+            buttonText,
+            buttonLink
           },
 
           intro{
-            ...
+            heading,
+            description,
+            highlightOne,
+            highlightTwo,
+            highlightThree
           },
 
           statistics[]{
-            ...
+            number,
+            suffix,
+            label
           },
 
           services{
-            ...,
+            eyebrow,
+            heading,
             cards[]{
-              ...,
-              "imageUrl": image.asset->url
-            }
+              divisionNumber,
+              title,
+              description,
+              image{
+                asset->{
+                  _id,
+                  url
+                }
+              },
+              imageAlt,
+              buttonText,
+              link
+            },
+            viewAllText,
+            viewAllLink
           },
 
           lifecycle{
-            ...,
-            "imageUrl": image.asset->url,
+            eyebrow,
+            heading,
+            description,
+            image{
+              asset->{
+                _id,
+                url
+              }
+            },
+            imageAlt,
             steps[]{
-              ...
+              number,
+              title,
+              description,
+              badge
             }
           },
 
           cta{
-            ...
+            heading,
+            description,
+            primaryButtonText,
+            primaryButtonLink,
+            secondaryButtonText,
+            secondaryButtonLink
           }
         }
       `);
 
-      if (data) {
-        return data;
-      }
+      return data || null;
     } catch (error) {
       console.error('Failed to fetch Home Page from Sanity:', error);
     }
   }
 
-  return undefined;
+  return null;
 }
 
-// Unified data access functions with graceful fallback to local data repository
 export async function getSiteSettings(): Promise<SiteSettings> {
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "siteSettings"][0]`);
-      if (data) return data;
+      const linkProjection = `
+        label,
+        linkType,
+        openInNewTab,
+        externalUrl,
+        "url": select(
+          linkType == "internal" => select(
+            internalRef->_type == "service" => "/services/" + internalRef->slug.current,
+            internalRef->_type == "sector" => "/sectors/" + internalRef->slug.current,
+            internalRef->_type == "division" => "/" + internalRef->slug.current,
+            internalRef->_type == "article" => "/insights/" + internalRef->slug.current,
+            internalRef->_type == "caseStudy" => "/case-studies/" + internalRef->slug.current,
+            "/"
+          ),
+          externalUrl
+        )
+      `;
+
+      const data = await sanityClient.fetch(`
+        *[_type == "siteSettings"][0]{
+          ...,
+          "mainNav": mainNav[]{ ${linkProjection} },
+          "footerServices": footerServices[]{ ${linkProjection} },
+          "footerSectors": footerSectors[]{ ${linkProjection} },
+          "footerCompany": footerCompany[]{ ${linkProjection} },
+          "footerLegal": footerLegal[]{ ${linkProjection} }
+        }
+      `);
+
+      if (data) {
+        return {
+          ...siteSettings,
+          ...data,
+          mainNav: (Array.isArray(data.mainNav) && data.mainNav.length > 0) ? data.mainNav : siteSettings.mainNav,
+          footerServices: (Array.isArray(data.footerServices) && data.footerServices.length > 0) ? data.footerServices : siteSettings.footerServices,
+          footerSectors: (Array.isArray(data.footerSectors) && data.footerSectors.length > 0) ? data.footerSectors : siteSettings.footerSectors,
+          footerCompany: (Array.isArray(data.footerCompany) && data.footerCompany.length > 0) ? data.footerCompany : siteSettings.footerCompany,
+          footerLegal: (Array.isArray(data.footerLegal) && data.footerLegal.length > 0) ? data.footerLegal : siteSettings.footerLegal,
+        };
+      }
     } catch {
       // Fallback
     }
@@ -263,23 +353,469 @@ export async function getArticleBySlug(slug: string): Promise<Article | undefine
   return all.find((a) => a.slug === slug);
 }
 
-export async function getAboutPage(): Promise<AboutPageData> {
+export async function getAboutPage(): Promise<any> {
+  if (!sanityClient) {
+    return defaultAboutPage || {};
+  }
+
+  try {
+    const data = await sanityClient.fetch(`
+      *[_type == "aboutPage"][0]{
+        metaTitle,
+        metaDescription,
+
+        hero{
+          eyebrow,
+          headline,
+          description,
+          "image": image.asset->url,
+          imageAlt,
+          badge
+        },
+
+        whoWeAre{
+          eyebrow,
+          headline,
+          description,
+          "image": image.asset->url,
+          imageAlt,
+
+          highlights[]{
+            title,
+            description,
+            icon
+          }
+        },
+
+        whatWeDo{
+          eyebrow,
+
+          items[]{
+            number,
+            title,
+            description,
+            "image": image.asset->url,
+            imageAlt,
+            badge,
+            buttonText,
+            buttonLink
+          }
+        },
+
+        approach{
+          eyebrow,
+          headline,
+          description,
+
+          steps[]{
+            number,
+            title,
+            description,
+            icon
+          }
+        },
+
+        capabilities{
+          eyebrow,
+
+          items[]{
+            title,
+            description,
+            icon
+          }
+        },
+
+        statistics[]{
+          number,
+          suffix,
+          label
+        },
+
+        cta{
+          eyebrow,
+          headline,
+          description,
+          "image": image.asset->url,
+          imageAlt,
+
+          primaryButtonText,
+          primaryButtonLink,
+
+          secondaryButtonText,
+          secondaryButtonLink,
+
+          phone,
+          email,
+          hours
+        }
+      }
+    `);
+
+    if (!data) {
+      return defaultAboutPage || {};
+    }
+
+    /*
+     * Map Sanity field names to the names used
+     * by the About Us Astro page.
+     */
+    return {
+      ...data,
+
+      hero: data.hero
+        ? {
+          ...data.hero,
+          title: 'Managing What Matters.',
+          highlightedTitle: 'Protecting What Comes Next.',
+        }
+        : null,
+
+      whoWeAre: data.whoWeAre
+        ? {
+          ...data.whoWeAre,
+          title: 'Technology',
+          highlightedTitle: ' With Purpose',
+        }
+        : null,
+
+      approach: data.approach
+        ? {
+          ...data.approach,
+          title: data.approach.headline,
+        }
+        : null,
+
+      cta: data.cta
+        ? {
+          ...data.cta,
+          title: "Let's Talk About",
+          highlightedTitle: 'What Comes Next.',
+          buttonText: data.cta.primaryButtonText,
+          buttonLink: data.cta.primaryButtonLink,
+          secondaryButtonText: data.cta.secondaryButtonText,
+          secondaryButtonLink: data.cta.secondaryButtonLink,
+        }
+        : null,
+
+      statistics: Array.isArray(data.statistics)
+        ? data.statistics.map((stat: any) => ({
+          value: stat.number,
+          suffix: stat.suffix,
+          label: stat.label,
+        }))
+        : [],
+
+      whatWeDo: data.whatWeDo
+        ? {
+          ...data.whatWeDo,
+          items: Array.isArray(data.whatWeDo.items)
+            ? data.whatWeDo.items.map((item: any) => ({
+              ...item,
+              link: item.buttonLink,
+            }))
+            : [],
+        }
+        : null,
+
+      capabilities: data.capabilities
+        ? {
+          ...data.capabilities,
+          items: data.capabilities.items || [],
+        }
+        : null,
+    };
+  } catch (error) {
+    console.error('Failed to fetch About Page from Sanity:', error);
+    return defaultAboutPage || {};
+  }
+}
+
+export async function getFaqPage(): Promise<FaqPageData> {
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "aboutPage"][0]`);
+      const data = await sanityClient.fetch(`
+        *[_type == "faqPage"][0]{
+          metaTitle,
+          metaDescription,
+          hero{
+            eyebrow,
+            title,
+            subheading,
+            "bgImage": coalesce(bgImage.asset->url, "/images/brand/about-hero-bg.jpg")
+          },
+          categories[]{
+            id,
+            name,
+            icon
+          },
+          items[]{
+            id,
+            category,
+            question,
+            answer
+          },
+          contactCard{
+            heading,
+            description,
+            buttonText,
+            buttonLink
+          }
+        }
+      `);
       if (data) {
         return {
-          ...defaultAboutPage,
+          ...defaultFaqPage,
           ...data,
-          purposePrinciples: (data.purposePrinciples && data.purposePrinciples.length > 0) ? data.purposePrinciples : defaultAboutPage.purposePrinciples,
-          values: (data.values && data.values.length > 0) ? data.values : defaultAboutPage.values,
-          approachSteps: (data.approachSteps && data.approachSteps.length > 0) ? data.approachSteps : defaultAboutPage.approachSteps,
-          certifications: (data.certifications && data.certifications.length > 0) ? data.certifications : defaultAboutPage.certifications,
+          hero: { ...defaultFaqPage.hero, ...data.hero },
+          categories: (Array.isArray(data.categories) && data.categories.length > 0) ? data.categories : defaultFaqPage.categories,
+          items: (Array.isArray(data.items) && data.items.length > 0) ? data.items : defaultFaqPage.items,
+          contactCard: { ...defaultFaqPage.contactCard, ...data.contactCard },
         };
       }
-    } catch {
-      // Fallback to default
+    } catch (err) {
+      console.error('Failed to fetch FAQ page from Sanity:', err);
     }
   }
-  return defaultAboutPage;
+  return defaultFaqPage;
 }
+
+export async function getSustainabilityPage(): Promise<SustainabilityPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`
+        *[_type == "sustainabilityPage"][0]{
+          metaTitle,
+          metaDescription,
+          hero{
+            eyebrow,
+            title,
+            subheading,
+            "bgImage": coalesce(bgImage.asset->url, "/images/services/remarketing.jpg"),
+            buttonText,
+            buttonLink
+          },
+          metrics[]{
+            number,
+            suffix,
+            label,
+            note
+          },
+          approach{
+            eyebrow,
+            heading,
+            description,
+            "image": coalesce(image.asset->url, "/images/sustainability/sustainability-approach.jpg?v=2"),
+            steps[]{
+              step,
+              title,
+              badge,
+              desc
+            }
+          },
+          lifecycleSection{
+            eyebrow,
+            heading,
+            description
+          },
+          esgPillars[]{
+            title,
+            badge,
+            items[]{
+              title,
+              desc
+            }
+          },
+          bottomCta{
+            heading,
+            description,
+            primaryButtonText,
+            primaryButtonLink,
+            secondaryButtonText,
+            secondaryButtonLink
+          }
+        }
+      `);
+      if (data) {
+        return {
+          ...defaultSustainabilityPage,
+          ...data,
+          hero: { ...defaultSustainabilityPage.hero, ...data.hero },
+          metrics: (Array.isArray(data.metrics) && data.metrics.length > 0) ? data.metrics : defaultSustainabilityPage.metrics,
+          approach: {
+            ...defaultSustainabilityPage.approach,
+            ...data.approach,
+            steps: (data.approach?.steps && data.approach.steps.length > 0) ? data.approach.steps : defaultSustainabilityPage.approach?.steps,
+          },
+          lifecycleSection: { ...defaultSustainabilityPage.lifecycleSection, ...data.lifecycleSection },
+          esgPillars: (Array.isArray(data.esgPillars) && data.esgPillars.length > 0) ? data.esgPillars : defaultSustainabilityPage.esgPillars,
+          bottomCta: { ...defaultSustainabilityPage.bottomCta, ...data.bottomCta },
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Sustainability page from Sanity:', err);
+    }
+  }
+  return defaultSustainabilityPage;
+}
+
+export async function getInvestorsPage(): Promise<InvestorsPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`
+        *[_type == "investorsPage"][0]{
+          metaTitle,
+          metaDescription,
+          hero{
+            eyebrow,
+            title,
+            subheading,
+            "bgImage": coalesce(bgImage.asset->url, "/images/brand/about-hero-bg.jpg")
+          },
+          stats[]{
+            prefix,
+            value,
+            suffix,
+            title,
+            desc
+          },
+          strategicPillars[]{
+            number,
+            title,
+            headline,
+            desc,
+            detail,
+            iconSvg
+          },
+          investmentCase{
+            eyebrow,
+            heading,
+            description,
+            bulletPoints
+          },
+          irContact{
+            heading,
+            description,
+            name,
+            role,
+            email,
+            phone
+          }
+        }
+      `);
+      if (data) {
+        return {
+          ...defaultInvestorsPage,
+          ...data,
+          hero: { ...defaultInvestorsPage.hero, ...data.hero },
+          stats: (Array.isArray(data.stats) && data.stats.length > 0) ? data.stats : defaultInvestorsPage.stats,
+          strategicPillars: (Array.isArray(data.strategicPillars) && data.strategicPillars.length > 0) ? data.strategicPillars : defaultInvestorsPage.strategicPillars,
+          investmentCase: { ...defaultInvestorsPage.investmentCase, ...data.investmentCase },
+          irContact: { ...defaultInvestorsPage.irContact, ...data.irContact },
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Investors page from Sanity:', err);
+    }
+  }
+  return defaultInvestorsPage;
+}
+
+export async function getContactPage(): Promise<ContactPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`
+        *[_type == "contactPage"][0]{
+          metaTitle,
+          metaDescription,
+          hero{
+            eyebrow,
+            title,
+            subheading,
+            "bgImage": coalesce(bgImage.asset->url, "/images/brand/contact-hero-bg.jpg")
+          },
+          formSection{
+            heading,
+            "image": coalesce(image.asset->url, "/images/contact/contact-consultation.jpg")
+          },
+          directLines[]{
+            title,
+            description,
+            phone,
+            email
+          }
+        }
+      `);
+      if (data) {
+        return {
+          ...defaultContactPage,
+          ...data,
+          hero: { ...defaultContactPage.hero, ...data.hero },
+          formSection: { ...defaultContactPage.formSection, ...data.formSection },
+          directLines: (Array.isArray(data.directLines) && data.directLines.length > 0) ? data.directLines : defaultContactPage.directLines,
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Contact page from Sanity:', err);
+    }
+  }
+  return defaultContactPage;
+}
+
+export async function getRequestCollectionPage(): Promise<RequestCollectionPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`
+        *[_type == "requestCollectionPage"][0]{
+          metaTitle,
+          metaDescription,
+          hero{
+            title,
+            description
+          },
+          slaGuarantees[]{
+            title,
+            description,
+            icon
+          }
+        }
+      `);
+      if (data) {
+        return {
+          ...defaultRequestCollectionPage,
+          ...data,
+          hero: { ...defaultRequestCollectionPage.hero, ...data.hero },
+          slaGuarantees: (Array.isArray(data.slaGuarantees) && data.slaGuarantees.length > 0) ? data.slaGuarantees : defaultRequestCollectionPage.slaGuarantees,
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Request Collection page from Sanity:', err);
+    }
+  }
+  return defaultRequestCollectionPage;
+}
+
+export async function getTestimonials(): Promise<TestimonialItem[]> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`
+        *[_type == "testimonial"] | order(order asc){
+          "id": coalesce(_id, id),
+          quote,
+          author,
+          role,
+          company,
+          industry,
+          rating,
+          "avatar": coalesce(avatar.asset->url, avatar, "/images/testimonials/avatar-1.jpg"),
+          order
+        }
+      `);
+      if (data && data.length > 0) {
+        return data;
+      }
+    } catch (err) {
+      console.error('Failed to fetch Testimonials from Sanity:', err);
+    }
+  }
+  return testimonials;
+}
