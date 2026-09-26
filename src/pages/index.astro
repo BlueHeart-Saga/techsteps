@@ -72,52 +72,73 @@ const divisionMetadata: Record<
   },
 };
 
-const detailDrivenSteps = [
-  {
-    stepNumber: '01',
-    title: 'Discovery & Concept',
-    headline: 'Full Audit of Hardware, Data Sensitivities & Compliance Mandates',
-    lead: 'Our specialists audit asset inventories, data classification risks, and legal custody frameworks.',
-    description: 'Before a single device leaves your premises, our security-cleared personnel catalogue every serial number, barcode, and data sensitivity mandate on-site to establish an immutable audit baseline.',
-    image: '/images/brand/story-origin.jpg',
-    imageAlt: 'Specialist inspecting retired computing technology with precision and care',
-    badge: 'PHASE 01 // AUDIT',
-    tag: 'ISO 27001 & NIST 800-88 Auditing',
-  },
-  {
-    stepNumber: '02',
-    title: 'Design & Planning',
-    headline: 'Bespoke Chain of Custody & Dedicated GPS Transit Protocols',
-    lead: 'Our team transforms lifecycle requirements into accredited, fail-safe logistics and security solutions.',
-    description: 'We engineer point-to-point transit workflows utilizing BS 7858 security-vetted drivers, solid-sided GPS-tracked vehicles, and tamper-evident serialized lockboxes under dual signature sign-off.',
-    image: '/images/brand/milestone-team.jpg',
-    imageAlt: 'Vetted UK specialist logistics and engineering personnel',
-    badge: 'PHASE 02 // LOGISTICS',
-    tag: 'BS 7858 Vetted Drivers â€¢ Live GPS Telematics',
-  },
-  {
-    stepNumber: '03',
-    title: 'Planning & Approval',
-    headline: 'Certified Data Sanitisation & Physical Destruction Verification',
-    lead: 'Cryptographic data erasure or physical micro-granulation with documented compliance sign-off.',
-    description: 'Storage media undergoes certified multi-pass Blancco wiping or high-torque DIN 66399 shredding. Every hard drive, SSD, and tape is destroyed with zero possibility of forensic data recovery.',
-    image: '/images/services/hard-drive-destruction.jpg',
-    imageAlt: 'High-torque hydraulic shredder destroying hard drives and media',
-    badge: 'PHASE 03 // DESTRUCTION',
-    tag: 'ADISA 8.0 Level 3 â€¢ DIN 66399 Level P-4/P-7',
-  },
-  {
-    stepNumber: '04',
-    title: 'Construction & Closeout',
-    headline: '100% Zero-Landfill Recycling, Rebates & Defensible ESG Reports',
-    lead: 'Extracting circular commercial value while guaranteeing complete compliance closeout.',
-    description: 'Functional devices are refurbished for corporate resale rebates, while non-working units are separated into clean raw materials with certified zero-landfill documentation and Scope 3 ESG carbon reports.',
-    image: '/images/brand/story-sustainability.jpg',
-    imageAlt: 'Renewable circular IT lifecycle and green sustainable tech',
-    badge: 'PHASE 04 // REPORTING',
-    tag: '100% Zero-Landfill â€¢ Defensible ESG Certificates',
-  },
-];
+const rawSanitySteps = homePage?.lifecycle?.steps || [];
+
+const detailDrivenSteps = rawSanitySteps.length > 0
+  ? rawSanitySteps.map((s, idx) => ({
+      stepNumber: s.stepNumber || s.number || `0${idx + 1}`,
+      title: s.title || '',
+      headline: s.headline || s.description || '',
+      lead: s.lead || s.description || '',
+      description: s.description || '',
+      image: s.imageUrl || (s.image?.asset?.url) || [
+        '/images/brand/story-origin.jpg',
+        '/images/brand/milestone-team.jpg',
+        '/images/services/hard-drive-destruction.jpg',
+        '/images/brand/story-sustainability.jpg',
+        '/images/services/data-centre-hardware.jpg',
+        '/images/services/process-step-6-report.jpg'
+      ][idx % 6],
+      imageAlt: s.imageAlt || s.title || 'Process phase image',
+      badge: s.badge || `PHASE 0${idx + 1}`,
+      tag: s.tag || '',
+    }))
+  : [
+      {
+        stepNumber: '01',
+        title: 'Discovery & Concept',
+        headline: 'Full Audit of Hardware, Data Sensitivities & Compliance Mandates',
+        lead: 'Our specialists audit asset inventories, data classification risks, and legal custody frameworks.',
+        description: 'Before a single device leaves your premises, our security-cleared personnel catalogue every serial number, barcode, and data sensitivity mandate on-site to establish an immutable audit baseline.',
+        image: '/images/brand/story-origin.jpg',
+        imageAlt: 'Specialist inspecting retired computing technology with precision and care',
+        badge: 'PHASE 01 // AUDIT',
+        tag: 'ISO 27001 & NIST 800-88 Auditing',
+      },
+      {
+        stepNumber: '02',
+        title: 'Design & Planning',
+        headline: 'Bespoke Chain of Custody & Dedicated GPS Transit Protocols',
+        lead: 'Our team transforms lifecycle requirements into accredited, fail-safe logistics and security solutions.',
+        description: 'We engineer point-to-point transit workflows utilizing BS 7858 security-vetted drivers, solid-sided GPS-tracked vehicles, and tamper-evident serialized lockboxes under dual signature sign-off.',
+        image: '/images/brand/milestone-team.jpg',
+        imageAlt: 'Vetted UK specialist logistics and engineering personnel',
+        badge: 'PHASE 02 // LOGISTICS',
+        tag: 'BS 7858 Vetted Drivers • Live GPS Telematics',
+      },
+      {
+        stepNumber: '03',
+        title: 'Planning & Approval',
+        headline: 'Certified Data Sanitisation & Physical Destruction Verification',
+        lead: 'Cryptographic data erasure or physical micro-granulation with documented compliance sign-off.',
+        description: 'Storage media undergoes certified multi-pass Blancco wiping or high-torque DIN 66399 shredding. Every hard drive, SSD, and tape is destroyed with zero possibility of forensic data recovery.',
+        image: '/images/services/hard-drive-destruction.jpg',
+        imageAlt: 'High-torque hydraulic shredder destroying hard drives and media',
+        badge: 'PHASE 03 // DESTRUCTION',
+        tag: 'ADISA 8.0 Level 3 • DIN 66399 Level P-4/P-7',
+      },
+      {
+        stepNumber: '04',
+        title: 'Construction & Closeout',
+        headline: '100% Zero-Landfill Recycling, Rebates & Defensible ESG Reports',
+        lead: 'Extracting circular commercial value while guaranteeing complete compliance closeout.',
+        description: 'Functional devices are refurbished for corporate resale rebates, while non-working units are separated into clean raw materials with certified zero-landfill documentation and Scope 3 ESG carbon reports.',
+        image: '/images/brand/story-sustainability.jpg',
+        imageAlt: 'Renewable circular IT lifecycle and green sustainable tech',
+        badge: 'PHASE 04 // REPORTING',
+        tag: '100% Zero-Landfill • Defensible ESG Certificates',
+      },
+    ];
 ---
 
 <BaseLayout

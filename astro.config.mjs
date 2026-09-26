@@ -14,12 +14,17 @@ const sanityDataset =
   process.env.SANITY_DATASET ||
   'techsteps';
 
+const productionSite =
+  process.env.PUBLIC_SITE_URL ||
+  process.env.SITE_URL ||
+  'https://techsteps-azhjfdhnacfqaeh3.southindia-01.azurewebsites.net';
+
 // https://astro.build/config
 export default defineConfig({
   server: {
     port: 3000
   },
-  site: 'https://techsteps.co.uk',
+  site: productionSite,
   trailingSlash: 'never',
   integrations: [
     react(),
@@ -28,16 +33,17 @@ export default defineConfig({
       dataset: sanityDataset,
       apiVersion: '2026-03-01',
       useCdn: false,
+      studioBasePath: '/admin',
     }),
     sitemap({
       filter: (page) => {
-        const path = page.replace('https://techsteps.co.uk', '');
-        // Exclude 404 error page and legacy /terms alias (canonical is /terms-and-conditions)
-        if (path === '/404' || path === '/terms') return false;
+        const path = page.replace(productionSite, '').replace('https://techsteps.co.uk', '');
+        // Exclude 404 error page, admin studio, and legacy /terms alias
+        if (path === '/404' || path === '/terms' || path.startsWith('/admin')) return false;
         return true;
       },
       serialize(item) {
-        const path = item.url.replace('https://techsteps.co.uk', '');
+        const path = item.url.replace(productionSite, '').replace('https://techsteps.co.uk', '');
         if (path === '' || path === '/') {
           item.changefreq = 'daily';
           item.priority = 1.0;

@@ -1,20 +1,53 @@
 ---
 import LegalPageLayout from '../components/legal/LegalPageLayout.astro';
-import { getSiteSettings } from '../lib/sanity/client';
+import { getSiteSettings, getLegalPage } from '../lib/sanity/client';
 
-const siteSettings = await getSiteSettings();
+const [siteSettings, legalData] = await Promise.all([
+  getSiteSettings(),
+  getLegalPage('information-security-policy'),
+]);
 ---
 
 <LegalPageLayout
-  title="Information Security Policy"
-  eyebrow="CYBER RESILIENCE & ISO 27001"
-  subheading="High-level corporate information security framework outlining the organizational, physical, and technical safeguards employed by Techsteps UK Limited to secure client data assets."
-  metaTitle="Information Security Policy | ISO 27001 & Cyber Essentials | Techsteps UK"
-  metaDescription="Techsteps UK Information Security Policy. Learn about our ISO 27001 accredited controls, ADISA 8.0 data sanitisation, Cyber Essentials Plus, and physical vault protections."
-  complianceBadge="ISO 27001 & ADISA 8.0 Certified"
+  title={legalData?.title || "Information Security Policy"}
+  eyebrow={legalData?.eyebrow || "CYBER RESILIENCE & ISO 27001"}
+  subheading={legalData?.subheading || "High-level corporate information security framework outlining the organizational, physical, and technical safeguards employed by Techsteps UK Limited to secure client data assets."}
+  metaTitle={legalData?.metaTitle || "Information Security Policy | ISO 27001 & Cyber Essentials | Techsteps UK"}
+  metaDescription={legalData?.metaDescription || "Techsteps UK Information Security Policy. Learn about our ISO 27001 accredited controls, ADISA 8.0 data sanitisation, Cyber Essentials Plus, and physical vault protections."}
+  complianceBadge={legalData?.complianceBadge || "ISO 27001 & ADISA 8.0 Certified"}
   activeSlug="information-security-policy"
-  lastUpdated="February 2026"
+  lastUpdated={legalData?.lastUpdated || "February 2026"}
 >
+  {legalData?.sections && legalData.sections.length > 0 ? (
+    legalData.sections.map((sec) => (
+      <section class="space-y-4 mb-8">
+        {sec.heading && (
+          <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+            {sec.heading}
+          </h2>
+        )}
+        {sec.body && <p class="text-slate-700 leading-relaxed">{sec.body}</p>}
+        {sec.callout && (
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
+            {sec.callout.title && <div class="font-bold text-slate-900 mb-1">{sec.callout.title}</div>}
+            {sec.callout.items?.map((item) => (
+              <div><strong>{item.label}:</strong> {item.value}</div>
+            ))}
+          </div>
+        )}
+        {sec.cards && sec.cards.length > 0 && (
+          <div class="space-y-3">
+            {sec.cards.map((c) => (
+              <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+                <h3 class="font-bold text-slate-900 text-base">{c.title}</h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">{c.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+    ))
+  ) : (
   <section class="space-y-4">
     <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       1. Policy Objectives &amp; Executive Mandate
@@ -143,4 +176,5 @@ const siteSettings = await getSiteSettings();
       <div><strong>Postal:</strong> {siteSettings.legalName}, {siteSettings.address.street}, {siteSettings.address.city}, {siteSettings.address.postcode}</div>
     </div>
   </section>
+  )}
 </LegalPageLayout>

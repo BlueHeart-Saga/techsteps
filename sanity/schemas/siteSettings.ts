@@ -80,6 +80,21 @@ export default defineType({
       type: 'string',
       description: 'e.g. All rights reserved.',
     }),
+    defineField({
+      name: 'accreditationBadges',
+      title: 'Global Trust & Accreditation Badges',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'name', title: 'Badge / Standard Name', type: 'string' }),
+            defineField({ name: 'label', title: 'Full Title / Description', type: 'string' }),
+            defineField({ name: 'tag', title: 'Tag / Code', type: 'string' }),
+          ],
+        },
+      ],
+    }),
   ],
   preview: {
     select: {

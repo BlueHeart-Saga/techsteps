@@ -1,803 +1,261 @@
 ---
-import { getDivisions, getServices } from '../../lib/sanity/client';
-
-const [divisions, services] = await Promise.all([
-  getDivisions(),
-  getServices(),
-]);
-
-// 4 Core Divisions with high-level icon definitions
-const tabs = [
+const servicePillars = [
   {
     id: 'it-lifecycle',
+    title: 'IT Lifecycle & Disposal',
     slug: 'it-lifecycle-services-destruction',
-    title: 'IT Lifecycle & ITAD',
-    iconType: 'chip',
-    image: '/images/services/image2.jpg',
-    subServices: [
-      {
-        title: 'IT Asset Disposition (ITAD)',
-        slug: 'it-asset-disposition-services',
-      },
-      {
-        title: 'Secure IT Disposal',
-        slug: 'secure-it-disposal',
-      },
-      {
-        title: 'Hard Drive Destruction',
-        slug: 'ultra-secure-hard-drive-destruction',
-      },
-      {
-        title: 'IT Asset Management',
-        slug: 'it-asset-management-services',
-      },
-      {
-        title: 'Remarketing & Value Recovery',
-        slug: 'remarketing-recycling',
-      },
-      {
-        title: 'Cardboard & Packaging Recycling',
-        slug: 'cardboard-recycling',
-      },
+    subLinks: [
+      { name: 'ITAD Asset Disposition', slug: 'it-asset-disposition-services' },
+      { name: 'IT Asset Management', slug: 'it-asset-management-services' },
+      { name: 'Ultra HDD Destruction', slug: 'ultra-secure-hard-drive-destruction' },
+      { name: 'Data Centre De-racking', slug: 'secure-it-disposal' },
+      { name: 'Value Recovery & Buyback', slug: 'remarketing-recycling' },
+      { name: 'Secure GPS Logistics', slug: 'secure-collection-services' },
     ],
-    badges: [
-      { label: 'ADISA', color: '#0F623A', text: '8.0' },
-      { label: 'ISO', color: '#2563EB', text: '27001' },
-      { label: 'NIST', color: '#059669', text: '800-88' },
-      { label: 'DIPCOG', color: '#D97706', text: 'MOD' },
-    ],
-    bottomCardLink: { title: 'Accreditations & standards', href: '/about-us' },
   },
   {
-    id: 'information-mgmt',
-    slug: 'information-management',
+    id: 'information-management',
     title: 'Information Management',
-    iconType: 'database',
-    image: '/images/services/document-storage-warehouse.jpg',
-    subServices: [
-      {
-        title: 'Document Storage',
-        slug: 'document-storage',
-      },
-      {
-        title: 'Document Scanning',
-        slug: 'document-scanning',
-      },
-      {
-        title: 'Digital Mailroom',
-        slug: 'digital-mailroom',
-      },
-      {
-        title: 'Document Management',
-        slug: 'document-management',
-      },
-      {
-        title: 'Tape & Media Storage',
-        slug: 'tape-media-storage',
-      },
-      {
-        title: 'Vault Storage',
-        slug: 'vault-storage',
-      },
-      {
-        title: 'Heritage & Archival Storage',
-        slug: 'heritage-storage',
-      },
+    slug: 'information-management',
+    subLinks: [
+      { name: 'Digital Mailroom', slug: 'digital-mailroom' },
+      { name: 'Document Scanning', slug: 'document-scanning' },
+      { name: 'Secure Vault Storage', slug: 'vault-storage' },
+      { name: 'Records Lifecycle Governance', slug: 'document-management' },
+      { name: 'Off-site Archive Vaulting', slug: 'document-storage' },
+      { name: 'Tape & Media Recovery', slug: 'tape-media-storage' },
     ],
-    badges: [
-      { label: 'BS', color: '#0F623A', text: '10008' },
-      { label: 'ISO', color: '#2563EB', text: '9001' },
-      { label: 'UK', color: '#059669', text: 'GDPR' },
-      { label: 'BS', color: '#D97706', text: '4971' },
-    ],
-    bottomCardLink: { title: 'Information governance', href: '/information-management' },
   },
   {
     id: 'secure-shredding',
+    title: 'Secure Destruction',
     slug: 'secure-shredding-document-integrity',
-    title: 'Secure Shredding',
-    iconType: 'shield',
-    image: '/images/services/image3_web.jpg',
-    subServices: [
-      {
-        title: 'On-Site Mobile Shredding',
-        slug: 'on-site-shredding',
-      },
-      {
-        title: 'Off-Site Secure Shredding',
-        slug: 'off-site-shredding',
-      },
-      {
-        title: 'Product & Prototype Destruction',
-        slug: 'product-shredding',
-      },
-      {
-        title: 'Home & Residential Shredding',
-        slug: 'home-shredding',
-      },
-      {
-        title: 'Certified Disposal Services',
-        slug: 'disposal-services',
-      },
-      {
-        title: 'Simpler Recycling Compliance',
-        slug: 'simpler-recycling-services',
-      },
-      {
-        title: 'Dry Mixed Recycling',
-        slug: 'dry-mixed-recycling',
-      },
-      {
-        title: 'Secure Collection Services',
-        slug: 'secure-collection-services',
-      },
+    subLinks: [
+      { name: 'On-site Mobile Shredding', slug: 'on-site-shredding' },
+      { name: 'Off-site Shredding Plant', slug: 'off-site-shredding' },
+      { name: 'Product & Uniform Shred', slug: 'product-shredding' },
+      { name: 'Home Worker Shred Bins', slug: 'home-shredding' },
+      { name: 'Simpler Recycling Mandate', slug: 'simpler-recycling-services' },
+      { name: 'Dry Mixed Recycling Audit', slug: 'dry-mixed-recycling' },
     ],
-    badges: [
-      { label: 'BS EN', color: '#0F623A', text: '15713' },
-      { label: 'DIN', color: '#2563EB', text: '66399' },
-      { label: 'ISO', color: '#059669', text: '14001' },
-      { label: 'SAFE', color: '#D97706', text: 'Contractor' },
-    ],
-    bottomCardLink: { title: 'Destruction accreditations', href: '/secure-shredding-document-integrity' },
   },
   {
     id: 'moving-relocation',
-    slug: 'moving-relocation-services',
     title: 'Moving & Relocation',
-    iconType: 'truck',
-    image: '/images/services/image4.jpg',
-    subServices: [
-      {
-        title: 'Specialist IT Relocations',
-        slug: 'it-relocations-specialist',
-      },
-      {
-        title: 'Commercial Business Relocations',
-        slug: 'business-relocations',
-      },
-      {
-        title: 'Laboratory Relocations & Storage',
-        slug: 'laboratory-relocations-storage',
-      },
-      {
-        title: 'Heritage Relocations & Storage',
-        slug: 'heritage-relocations-storage',
-      },
-      {
-        title: 'European & International Moves',
-        slug: 'europe-international-domestic-moves',
-      },
-      {
-        title: 'Relocation Project Management',
-        slug: 'project-management',
-      },
+    slug: 'moving-relocation-services',
+    subLinks: [
+      { name: 'Business Relocation', slug: 'business-relocations' },
+      { name: 'Specialist IT Move', slug: 'it-relocations-specialist' },
+      { name: 'Laboratory Relocation', slug: 'laboratory-relocations-storage' },
+      { name: 'Zero-Downtime Server Move', slug: 'it-relocations-specialist' },
+      { name: 'Heritage Archive Transport', slug: 'heritage-relocations-storage' },
+      { name: 'Pan-European Logistics', slug: 'europe-international-domestic-moves' },
     ],
-    badges: [
-      { label: 'BAR', color: '#0F623A', text: 'Standard' },
-      { label: 'BS', color: '#2563EB', text: '7858' },
-      { label: 'ISO', color: '#059669', text: '9001' },
-      { label: 'SAFE', color: '#D97706', text: 'Contractor' },
-    ],
-    bottomCardLink: { title: 'Fleet & logistics standards', href: '/moving-relocation-services' },
   },
 ];
 ---
 
-<!-- Services Mega Menu Floating Card (Sharp Box Edges, Clean Sub-Services Grid) -->
+<!-- Services Mega Menu Panel -->
 <div
   id="services-megamenu-panel"
-  class="hidden fixed inset-x-0 z-50 transition-all duration-200 transform opacity-0 -translate-y-2 pointer-events-none px-4 sm:px-6 lg:px-8 max-h-[calc(100vh-90px)] overflow-y-auto pt-2 before:absolute before:-top-4 before:inset-x-0 before:h-4 before:content-['']"
+  class="fixed top-[88px] sm:top-[96px] inset-x-0 z-[998] hidden opacity-0 -translate-y-2 transition-all duration-200 pointer-events-none before:absolute before:-top-6 before:inset-x-0 before:h-6 before:content-['']"
   role="region"
-  aria-label="Services Mega Navigation"
+  aria-label="Services Mega Menu"
 >
-  <div class="relative max-w-7xl mx-auto bg-white rounded-none shadow-[0_25px_60px_-15px_rgba(15,23,42,0.18)] border border-slate-200/90 overflow-hidden font-sans">
-    <div class="flex flex-col lg:flex-row">
-      
-      <!-- 1. LEFT SIDEBAR (Category Items with High-Level Icons & NO Background) -->
-      <div class="w-full lg:w-72 bg-[#F8FAF9] p-4 sm:p-5 flex flex-col border-b lg:border-b-0 lg:border-r border-slate-200/80 shrink-0">
-        <div class="space-y-1.5">
-          <div class="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-            Divisions
-          </div>
+  <div class="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white/90 backdrop-blur-2xl rounded-2xl border border-slate-200/70 shadow-[0_28px_72px_-12px_rgba(15,23,42,0.16)] pointer-events-auto overflow-hidden">
 
-          {tabs.map((tab, idx) => {
-            const isFirst = idx === 0;
-            return (
-              <button
-                type="button"
-                class={`services-tab-btn group w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-left text-sm transition-all duration-150 cursor-pointer ${
-                  isFirst
-                    ? 'bg-emerald-500/10 backdrop-blur-sm text-[#0F623A] font-bold shadow-sm active'
-                    : 'text-slate-700 hover:text-[#0F623A] hover:bg-emerald-500/10 font-medium'
-                }`}
-                data-target-tab={`services-tab-${tab.id}`}
-                data-slug={tab.slug}
-              >
-                <!-- High-Level Icon WITHOUT Background -->
-                <span class={`tab-icon shrink-0 transition-colors ${
-                  isFirst ? 'text-[#0F623A]' : 'text-slate-600 group-hover:text-[#0F623A]'
-                }`}>
-                  {tab.iconType === 'chip' && (
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                      <rect x="4" y="4" width="16" height="16" rx="2" stroke-linecap="round" stroke-linejoin="round" />
-                      <rect x="9" y="9" width="6" height="6" stroke-linecap="round" stroke-linejoin="round" />
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3" />
-                    </svg>
-                  )}
-                  {tab.iconType === 'database' && (
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                      <ellipse cx="12" cy="5" rx="9" ry="3" stroke-linecap="round" stroke-linejoin="round" />
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-                    </svg>
-                  )}
-                  {tab.iconType === 'shield' && (
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
-                    </svg>
-                  )}
-                  {tab.iconType === 'truck' && (
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                      <rect x="1" y="3" width="15" height="13" rx="1" stroke-linecap="round" stroke-linejoin="round" />
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M16 8h4l3 3v5h-7V8z" />
-                      <circle cx="5.5" cy="18.5" r="2.5" />
-                      <circle cx="18.5" cy="18.5" r="2.5" />
-                    </svg>
-                  )}
-                </span>
-                <span class="truncate">{tab.title}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      <div class="flex min-h-[340px] sm:min-h-[360px]">
 
-      <!-- 2. RIGHT MAIN CONTENT AREA: CENTER SUB-SERVICES + RIGHT SPOTLIGHT CARD -->
-      <div class="flex-1 bg-white p-6 sm:p-8 lg:px-9 lg:pt-8 lg:pb-6 relative">
-        {tabs.map((tab, idx) => {
-          const isFirst = idx === 0;
-          return (
-            <div
-              id={`services-tab-${tab.id}`}
-              class={`services-tab-panel ${isFirst ? 'block' : 'hidden'} animate-in fade-in duration-150`}
+        <!-- LEFT: Service tab buttons (Spacious, bare icons, enlarged text) -->
+        <div class="w-[310px] shrink-0 border-r border-slate-100 py-6 px-5 flex flex-col gap-2">
+          {servicePillars.map((pillar, idx) => (
+            <button
+              type="button"
+              data-service-tab={pillar.id}
+              class={`service-tab-btn group w-full text-left flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-150 ${
+                idx === 0
+                  ? 'active-tab bg-slate-100/90 text-slate-950 font-bold'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-50'
+              }`}
             >
-              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-                
-                <!-- CENTER AREA: Links related to the selected service's sub-services (Matching left sidebar font style) -->
-                <div class="lg:col-span-7 space-y-4">
-                  <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-sans">
-                      {tab.title}
-                    </span>
-                    <a
-                      href={`/${tab.slug}`}
-                      class="text-xs font-bold text-[#0F623A] hover:text-black flex items-center gap-1 transition-colors group/link font-sans"
-                    >
-                      <span>Division Overview</span>
-                    </a>
-                  </div>
+              <!-- Bare icon: enlarged to w-6 h-6, stroke-width 1.8 -->
+              <span class={`shrink-0 transition-colors ${idx === 0 ? 'text-[#0F623A]' : 'text-slate-400 group-hover:text-[#0F623A]'}`}>
+                {pillar.id === 'it-lifecycle' && (
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                  </svg>
+                )}
+                {pillar.id === 'information-management' && (
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                )}
+                {pillar.id === 'secure-shredding' && (
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v3m3-3v3m3-3v3" />
+                  </svg>
+                )}
+                {pillar.id === 'moving-relocation' && (
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                  </svg>
+                )}
+              </span>
+              <!-- Pillar Name -->
+              <span class="font-display text-[20px] sm:text-[21px] font-bold leading-tight tracking-tight">{pillar.title}</span>
+            </button>
+          ))}
+          <div class="mt-auto pt-4 px-4">
+            <a href="/services" class="text-[16px] font-bold font-display tracking-wide text-[#0F623A] hover:underline underline-offset-4">
+              All services overview →
+            </a>
+          </div>
+        </div>
 
-                  <!-- 2-Column Responsive Grid of Sub-Services (Font style matched to left sidebar: text-sm font-medium) -->
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 pt-1">
-                    {tab.subServices.map((sub) => (
+        <!-- RIGHT: Sub-links per tab aligned to top without empty top gaps -->
+        <div class="flex-1 relative">
+          {servicePillars.map((pillar, idx) => (
+            <div
+              id={`tab-panel-${pillar.id}`}
+              class={`service-tab-panel absolute inset-0 transition-all duration-200 ${
+                idx === 0 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+              }`}
+            >
+              <div class="flex h-full">
+                <!-- Sub-links area: starts cleanly at the top -->
+                <div class="flex-1 pt-6 pb-6 px-8 sm:px-10 flex flex-col justify-start">
+                  <p class="text-[12px] font-mono tracking-widest uppercase text-slate-400 mb-3">{pillar.title}</p>
+                  <div class="grid grid-cols-2 gap-x-10 lg:gap-x-14 gap-y-2.5 sm:gap-y-3">
+                    {pillar.subLinks.map((link) => (
                       <a
-                        href={`/services/${sub.slug}`}
-                        class="group flex items-center justify-between py-2 px-3 rounded-lg hover:bg-emerald-500/10 transition-all duration-150"
+                        href={`/services/${link.slug}`}
+                        class="group flex items-center justify-between py-2 px-3 rounded-xl hover:bg-slate-50/90 font-display text-[20px] sm:text-[21px] font-bold text-slate-800 hover:text-[#0F623A] tracking-wide leading-snug transition-all duration-150"
                       >
-                        <span class="text-sm font-medium text-slate-700 group-hover:text-[#0F623A] transition-colors leading-snug font-sans">
-                          {sub.title}
-                        </span>
+                        <span>{link.name}</span>
+                        <span class="opacity-0 group-hover:opacity-80 group-hover:translate-x-1 transition-all text-slate-400 group-hover:text-[#0F623A] text-sm font-semibold">→</span>
                       </a>
                     ))}
                   </div>
                 </div>
 
-                <!-- RIGHT COLUMN: Featured Real Image & Directory Link (Enlarged) -->
-                <div class="lg:col-span-5 space-y-3 lg:border-l lg:border-slate-100 lg:pl-8 flex flex-col justify-start">
-                  <div class="w-full h-56 sm:h-64 lg:h-72 rounded-2xl overflow-hidden shadow-md border border-slate-200/90 bg-slate-100 relative group/img">
-                    <img
-                      src={tab.image}
-                      alt={tab.title}
-                      class="w-full h-full object-cover transition-transform duration-300 group-hover/img:scale-105"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  <!-- Links placed below the image -->
-                  <div class="pt-3 flex items-center justify-between gap-3 border-t border-slate-100">
-                    <a
-                      href="/services"
-                      class="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold text-[#0F623A] hover:text-black transition-colors group/link"
-                    >
-                      <span>All 27 Services Directory</span>
-                      <svg class="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                      </svg>
-                    </a>
-                    <a
-                      href="/investors"
-                      class="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold text-[#0F623A] hover:text-black transition-colors group/link"
-                    >
-                      <span>Investors</span>
-                      <svg class="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                      </svg>
-                    </a>
-                  </div>
+                <!-- Right accent strip -->
+                <div class="w-[220px] shrink-0 hidden lg:flex flex-col justify-end rounded-r-2xl bg-gradient-to-br from-slate-50 to-slate-100/70 p-7 border-l border-slate-100/80">
+                  <p class="font-display text-[20px] font-bold text-slate-800 leading-snug">{pillar.title}</p>
+                  <p class="font-sans text-[13px] text-slate-500 mt-1.5">{pillar.subLinks.length} tailored UK solutions</p>
                 </div>
-
               </div>
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
 
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Transparent Click-Outside Backdrop (No visual dimming to eliminate site blinking) -->
-<div
-  id="services-megamenu-backdrop"
-  class="hidden fixed inset-0 z-40 bg-transparent transition-opacity duration-200 opacity-0 pointer-events-none"
-  aria-hidden="true"
-></div>
-
 <script>
-  function setupNavDropdowns() {
-    const servicesPanel = document.getElementById('services-megamenu-panel');
-    const sectorsPanel = document.getElementById('sectors-dropdown-panel');
-    const insightsPanel = document.getElementById('insights-megamenu-panel');
-    const backdrop = document.getElementById('services-megamenu-backdrop');
-    const servicesToggles = document.querySelectorAll('.services-megamenu-toggle');
-    const sectorsToggles = document.querySelectorAll('.sectors-dropdown-toggle');
-    const insightsToggles = document.querySelectorAll('.insights-megamenu-toggle');
+  function setupServicesMegaMenu() {
+    const triggers = document.querySelectorAll('#services-menu-trigger, .services-megamenu-toggle');
+    const panel = document.getElementById('services-megamenu-panel');
+    if (!panel || triggers.length === 0) return;
 
-    if (!servicesPanel || !backdrop) return;
+    let timeoutId: any = null;
 
-    let openMenu = null; // null | 'services' | 'sectors' | 'insights'
-    let closeTimer = null;
-    const GRACE_DELAY = 180;
+    const tabBtns = panel.querySelectorAll<HTMLButtonElement>('.service-tab-btn');
+    const tabPanels = panel.querySelectorAll<HTMLElement>('.service-tab-panel');
 
-    function updateDropdownPositions() {
-      const stickyHeader = document.getElementById('site-header');
-      const heroHeader = document.getElementById('hero-header');
-      const isStickyVisible = stickyHeader && !stickyHeader.classList.contains('-translate-y-full') && stickyHeader.getBoundingClientRect().height > 0 && stickyHeader.getBoundingClientRect().top >= 0;
-      
-      let topOffset = 80;
-      if (isStickyVisible) {
-        topOffset = stickyHeader.getBoundingClientRect().bottom;
-      } else if (heroHeader) {
-        topOffset = heroHeader.getBoundingClientRect().bottom;
-      } else if (stickyHeader) {
-        topOffset = stickyHeader.getBoundingClientRect().bottom;
-      }
-      const topPx = `${Math.max(topOffset, 72)}px`;
-      if (servicesPanel) servicesPanel.style.top = topPx;
-      if (sectorsPanel) sectorsPanel.style.top = topPx;
-      if (insightsPanel) insightsPanel.style.top = topPx;
-    }
-
-    function openServices() {
-      if (openMenu === 'sectors') closeSectors(true);
-      if (openMenu === 'insights') closeInsights(true);
-      clearTimeout(closeTimer);
-      openMenu = 'services';
-      updateDropdownPositions();
-
-      servicesPanel.classList.remove('hidden');
-      backdrop.classList.remove('hidden');
-
-      requestAnimationFrame(() => {
-        servicesPanel.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
-        servicesPanel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-        backdrop.classList.remove('opacity-0', 'pointer-events-none');
-        backdrop.classList.add('opacity-100', 'pointer-events-auto');
-      });
-
-      servicesToggles.forEach((btn) => {
-        btn.setAttribute('aria-expanded', 'true');
-        btn.classList.add('border-slate-900', 'text-black');
-        btn.classList.remove('border-transparent');
-        const caret = btn.querySelector('.caret-icon');
-        if (caret) {
-          caret.classList.add('rotate-180', 'text-black');
-          caret.classList.remove('text-slate-500');
+    const switchTab = (tabId: string) => {
+      tabBtns.forEach((btn) => {
+        const iconSpan = btn.querySelector<HTMLElement>('span:first-child');
+        const isTarget = btn.getAttribute('data-service-tab') === tabId;
+        if (isTarget) {
+          btn.classList.add('active-tab', 'bg-slate-100/90', 'text-slate-950', 'font-bold');
+          btn.classList.remove('text-slate-600', 'hover:text-slate-950', 'hover:bg-slate-50');
+          if (iconSpan) { iconSpan.classList.add('text-[#0F623A]'); iconSpan.classList.remove('text-slate-400'); }
+        } else {
+          btn.classList.remove('active-tab', 'bg-slate-100/90', 'text-slate-950', 'font-bold');
+          btn.classList.add('text-slate-600', 'hover:text-slate-950', 'hover:bg-slate-50');
+          if (iconSpan) { iconSpan.classList.remove('text-[#0F623A]'); iconSpan.classList.add('text-slate-400'); }
         }
       });
-    }
-
-    function closeServices(immediate = false) {
-      if (openMenu === 'services') openMenu = null;
-
-      servicesPanel.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
-      servicesPanel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-
-      if (openMenu !== 'sectors' && openMenu !== 'insights') {
-        backdrop.classList.add('opacity-0', 'pointer-events-none');
-        backdrop.classList.remove('opacity-100', 'pointer-events-auto');
-      }
-
-      servicesToggles.forEach((btn) => {
-        btn.setAttribute('aria-expanded', 'false');
-        if (btn.dataset.isActiveRoute !== 'true') {
-          btn.classList.remove('border-slate-900', 'text-black');
-          btn.classList.add('border-transparent');
-        }
-        const caret = btn.querySelector('.caret-icon');
-        if (caret) {
-          caret.classList.remove('rotate-180', 'text-black');
-          caret.classList.add('text-slate-500');
+      tabPanels.forEach((p) => {
+        if (p.id === `tab-panel-${tabId}`) {
+          p.classList.remove('opacity-0', 'pointer-events-none');
+          p.classList.add('opacity-100', 'pointer-events-auto');
+        } else {
+          p.classList.add('opacity-0', 'pointer-events-none');
+          p.classList.remove('opacity-100', 'pointer-events-auto');
         }
       });
-
-      if (immediate) {
-        servicesPanel.classList.add('hidden');
-        if (openMenu !== 'sectors' && openMenu !== 'insights') backdrop.classList.add('hidden');
-      } else {
-        setTimeout(() => {
-          if (openMenu !== 'services') {
-            servicesPanel.classList.add('hidden');
-            if (openMenu !== 'sectors' && openMenu !== 'insights') backdrop.classList.add('hidden');
-          }
-        }, 200);
-      }
-    }
-
-    function openSectors() {
-      if (!sectorsPanel) return;
-      if (openMenu === 'services') closeServices(true);
-      if (openMenu === 'insights') closeInsights(true);
-      clearTimeout(closeTimer);
-      openMenu = 'sectors';
-      updateDropdownPositions();
-
-      sectorsPanel.classList.remove('hidden');
-      backdrop.classList.remove('hidden');
-
-      requestAnimationFrame(() => {
-        sectorsPanel.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
-        sectorsPanel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-        backdrop.classList.remove('opacity-0', 'pointer-events-none');
-        backdrop.classList.add('opacity-100', 'pointer-events-auto');
-      });
-
-      sectorsToggles.forEach((btn) => {
-        btn.setAttribute('aria-expanded', 'true');
-        btn.classList.add('border-slate-900', 'text-black');
-        btn.classList.remove('border-transparent');
-        const caret = btn.querySelector('.caret-icon');
-        if (caret) {
-          caret.classList.add('rotate-180', 'text-black');
-          caret.classList.remove('text-slate-500');
-        }
-      });
-    }
-
-    function closeSectors(immediate = false) {
-      if (!sectorsPanel) return;
-      if (openMenu === 'sectors') openMenu = null;
-
-      sectorsPanel.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
-      sectorsPanel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-
-      if (openMenu !== 'services' && openMenu !== 'insights') {
-        backdrop.classList.add('opacity-0', 'pointer-events-none');
-        backdrop.classList.remove('opacity-100', 'pointer-events-auto');
-      }
-
-      sectorsToggles.forEach((btn) => {
-        btn.setAttribute('aria-expanded', 'false');
-        if (btn.dataset.isActiveRoute !== 'true') {
-          btn.classList.remove('border-slate-900', 'text-black');
-          btn.classList.add('border-transparent');
-        }
-        const caret = btn.querySelector('.caret-icon');
-        if (caret) {
-          caret.classList.remove('rotate-180', 'text-black');
-          caret.classList.add('text-slate-500');
-        }
-      });
-
-      if (immediate) {
-        sectorsPanel.classList.add('hidden');
-        if (openMenu !== 'services' && openMenu !== 'insights') backdrop.classList.add('hidden');
-      } else {
-        setTimeout(() => {
-          if (openMenu !== 'sectors') {
-            sectorsPanel.classList.add('hidden');
-            if (openMenu !== 'services' && openMenu !== 'insights') backdrop.classList.add('hidden');
-          }
-        }, 200);
-      }
-    }
-
-    function openInsights() {
-      if (!insightsPanel) return;
-      if (openMenu === 'services') closeServices(true);
-      if (openMenu === 'sectors') closeSectors(true);
-      clearTimeout(closeTimer);
-      openMenu = 'insights';
-      updateDropdownPositions();
-
-      insightsPanel.classList.remove('hidden');
-      backdrop.classList.remove('hidden');
-
-      requestAnimationFrame(() => {
-        insightsPanel.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
-        insightsPanel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-        backdrop.classList.remove('opacity-0', 'pointer-events-none');
-        backdrop.classList.add('opacity-100', 'pointer-events-auto');
-      });
-
-      insightsToggles.forEach((btn) => {
-        btn.setAttribute('aria-expanded', 'true');
-        btn.classList.add('border-slate-900', 'text-black');
-        btn.classList.remove('border-transparent');
-        const caret = btn.querySelector('.caret-icon');
-        if (caret) {
-          caret.classList.add('rotate-180', 'text-black');
-          caret.classList.remove('text-slate-500');
-        }
-      });
-    }
-
-    function closeInsights(immediate = false) {
-      if (!insightsPanel) return;
-      if (openMenu === 'insights') openMenu = null;
-
-      insightsPanel.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
-      insightsPanel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-
-      if (openMenu !== 'services' && openMenu !== 'sectors') {
-        backdrop.classList.add('opacity-0', 'pointer-events-none');
-        backdrop.classList.remove('opacity-100', 'pointer-events-auto');
-      }
-
-      insightsToggles.forEach((btn) => {
-        btn.setAttribute('aria-expanded', 'false');
-        if (btn.dataset.isActiveRoute !== 'true') {
-          btn.classList.remove('border-slate-900', 'text-black');
-          btn.classList.add('border-transparent');
-        }
-        const caret = btn.querySelector('.caret-icon');
-        if (caret) {
-          caret.classList.remove('rotate-180', 'text-black');
-          caret.classList.add('text-slate-500');
-        }
-      });
-
-      if (immediate) {
-        insightsPanel.classList.add('hidden');
-        if (openMenu !== 'services' && openMenu !== 'sectors') backdrop.classList.add('hidden');
-      } else {
-        setTimeout(() => {
-          if (openMenu !== 'insights') {
-            insightsPanel.classList.add('hidden');
-            if (openMenu !== 'services' && openMenu !== 'sectors') backdrop.classList.add('hidden');
-          }
-        }, 200);
-      }
-    }
-
-    function closeAll(immediate = false) {
-      clearTimeout(closeTimer);
-      closeServices(immediate);
-      closeSectors(immediate);
-      closeInsights(immediate);
-    }
-
-    // Services trigger listeners
-    servicesToggles.forEach((btn) => {
-      btn.addEventListener('mouseenter', () => {
-        clearTimeout(closeTimer);
-        if (openMenu !== 'services') {
-          openServices();
-        }
-      });
-
-      btn.addEventListener('mouseleave', () => {
-        clearTimeout(closeTimer);
-        closeTimer = setTimeout(() => {
-          if (openMenu === 'services') closeServices();
-        }, GRACE_DELAY);
-      });
-
-      btn.addEventListener('click', () => {
-        closeAll(true);
-      });
-    });
-
-    servicesPanel.addEventListener('mouseenter', () => {
-      clearTimeout(closeTimer);
-    });
-
-    servicesPanel.addEventListener('mouseleave', () => {
-      clearTimeout(closeTimer);
-      closeTimer = setTimeout(() => {
-        if (openMenu === 'services') closeServices();
-      }, GRACE_DELAY);
-    });
-
-    // Sectors trigger listeners
-    sectorsToggles.forEach((btn) => {
-      btn.addEventListener('mouseenter', () => {
-        clearTimeout(closeTimer);
-        if (openMenu !== 'sectors') {
-          openSectors();
-        }
-      });
-
-      btn.addEventListener('mouseleave', () => {
-        clearTimeout(closeTimer);
-        closeTimer = setTimeout(() => {
-          if (openMenu === 'sectors') closeSectors();
-        }, GRACE_DELAY);
-      });
-
-      btn.addEventListener('click', () => {
-        closeAll(true);
-      });
-    });
-
-    if (sectorsPanel) {
-      sectorsPanel.addEventListener('mouseenter', () => {
-        clearTimeout(closeTimer);
-      });
-
-      sectorsPanel.addEventListener('mouseleave', () => {
-        clearTimeout(closeTimer);
-        closeTimer = setTimeout(() => {
-          if (openMenu === 'sectors') closeSectors();
-        }, GRACE_DELAY);
-      });
-    }
-
-    // Insights trigger listeners
-    insightsToggles.forEach((btn) => {
-      btn.addEventListener('mouseenter', () => {
-        clearTimeout(closeTimer);
-        if (openMenu !== 'insights') {
-          openInsights();
-        }
-      });
-
-      btn.addEventListener('mouseleave', () => {
-        clearTimeout(closeTimer);
-        closeTimer = setTimeout(() => {
-          if (openMenu === 'insights') closeInsights();
-        }, GRACE_DELAY);
-      });
-
-      btn.addEventListener('click', () => {
-        closeAll(true);
-      });
-    });
-
-    if (insightsPanel) {
-      insightsPanel.addEventListener('mouseenter', () => {
-        clearTimeout(closeTimer);
-      });
-
-      insightsPanel.addEventListener('mouseleave', () => {
-        clearTimeout(closeTimer);
-        closeTimer = setTimeout(() => {
-          if (openMenu === 'insights') closeInsights();
-        }, GRACE_DELAY);
-      });
-    }
-
-    backdrop.addEventListener('click', () => {
-      closeAll(true);
-    });
-
-    backdrop.addEventListener('mouseenter', () => {
-      clearTimeout(closeTimer);
-      closeTimer = setTimeout(() => {
-        closeAll();
-      }, GRACE_DELAY);
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeAll(true);
-    });
-
-    window.addEventListener('resize', updateDropdownPositions);
-    window.addEventListener('scroll', updateDropdownPositions, { passive: true });
-  }
-
-  // Interactive Tab Switcher for Services Mega Menu
-  function setupServicesTabs() {
-    const tabBtns = document.querySelectorAll('.services-tab-btn');
-    const tabPanels = document.querySelectorAll('.services-tab-panel');
-    if (!tabBtns.length) return;
+    };
 
     tabBtns.forEach((btn) => {
-      const activate = () => {
-        const targetId = btn.getAttribute('data-target-tab');
-        tabBtns.forEach((b) => {
-          b.classList.remove(
-            'bg-emerald-500/10',
-            'backdrop-blur-sm',
-            'text-[#0F623A]',
-            'font-bold',
-            'shadow-xs',
-            'shadow-sm',
-            'active',
-            'border-emerald-400/40',
-            'ring-1',
-            'ring-emerald-400/20'
-          );
-          b.classList.add(
-            'text-slate-700',
-            'hover:text-[#0F623A]',
-            'hover:bg-emerald-500/10',
-            'font-medium'
-          );
-          const icon = b.querySelector('.tab-icon');
-          if (icon) {
-            icon.classList.remove('text-[#0F623A]');
-            icon.classList.add('text-slate-600');
-          }
-        });
+      const tabId = btn.getAttribute('data-service-tab');
+      if (!tabId) return;
+      btn.addEventListener('mouseenter', () => switchTab(tabId));
+      btn.addEventListener('click', (e) => { e.preventDefault(); switchTab(tabId); });
+    });
 
-        btn.classList.add(
-          'bg-emerald-500/10',
-          'backdrop-blur-sm',
-          'text-[#0F623A]',
-          'font-bold',
-          'shadow-sm',
-          'active'
-        );
-        btn.classList.remove('text-slate-700');
-        const activeIcon = btn.querySelector('.tab-icon');
-        if (activeIcon) {
-          activeIcon.classList.add('text-[#0F623A]');
-          activeIcon.classList.remove('text-slate-600');
-        }
-
-        tabPanels.forEach((panel) => {
-          if (panel.id === targetId) {
-            panel.classList.remove('hidden');
-            panel.classList.add('block');
-          } else {
-            panel.classList.add('hidden');
-            panel.classList.remove('block');
-          }
-        });
-      };
-
-      btn.addEventListener('mouseenter', activate);
-      btn.addEventListener('click', () => {
-        const slug = btn.getAttribute('data-slug');
-        if (btn.classList.contains('active') && slug) {
-          window.location.href = `/${slug}`;
-        } else {
-          activate();
-        }
+    const openMenu = () => {
+      clearTimeout(timeoutId);
+      const sectorsPanel = document.getElementById('sectors-dropdown-panel');
+      const sectorsTriggers = document.querySelectorAll('#sectors-menu-trigger, .sectors-dropdown-toggle');
+      if (sectorsPanel) {
+        sectorsPanel.classList.add('hidden', 'opacity-0', '-translate-y-2', 'pointer-events-none');
+        sectorsPanel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      }
+      sectorsTriggers.forEach((t) => {
+        t.setAttribute('aria-expanded', 'false');
+        const caret = t.querySelector('.caret-icon');
+        if (caret) caret.classList.remove('rotate-180');
       });
+      panel.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        panel.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
+        panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        triggers.forEach((t) => {
+          t.setAttribute('aria-expanded', 'true');
+          const caret = t.querySelector('.caret-icon');
+          if (caret) caret.classList.add('rotate-180');
+        });
+      });
+    };
+
+    const closeMenu = () => {
+      timeoutId = setTimeout(() => {
+        panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        panel.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
+        triggers.forEach((t) => {
+          t.setAttribute('aria-expanded', 'false');
+          const caret = t.querySelector('.caret-icon');
+          if (caret) caret.classList.remove('rotate-180');
+        });
+        setTimeout(() => { if (panel.classList.contains('opacity-0')) panel.classList.add('hidden'); }, 200);
+      }, 200);
+    };
+
+    triggers.forEach((t) => {
+      t.addEventListener('click', (e) => {
+        e.stopPropagation(); e.preventDefault();
+        const isExpanded = t.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) closeMenu(); else openMenu();
+      });
+      t.addEventListener('mouseenter', openMenu);
+      t.addEventListener('mouseleave', closeMenu);
+    });
+
+    panel.addEventListener('mouseenter', () => clearTimeout(timeoutId));
+    panel.addEventListener('mouseleave', closeMenu);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+    document.addEventListener('click', (e) => {
+      let inside = false;
+      triggers.forEach((t) => { if (t.contains(e.target as Node)) inside = true; });
+      if (!panel.contains(e.target as Node) && !inside) closeMenu();
     });
   }
 
-  function init() {
-    setupNavDropdowns();
-    setupServicesTabs();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-  document.addEventListener('astro:page-load', init);
+  setupServicesMegaMenu();
+  document.addEventListener('astro:page-load', setupServicesMegaMenu);
 </script>
-
-<style>
-  #services-megamenu-panel,
-  #services-megamenu-panel * {
-    font-family: var(--font-sans) !important;
-  }
-</style>
-
-

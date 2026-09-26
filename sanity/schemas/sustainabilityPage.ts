@@ -39,7 +39,7 @@ export default defineType({
     }),
     defineField({
       name: 'lifecycleSteps',
-      title: 'Circular Lifecycle Process Steps (6 Steps)',
+      title: 'Circular Lifecycle Process Steps (7 Steps)',
       type: 'array',
       of: [
         {
@@ -47,8 +47,26 @@ export default defineType({
           fields: [
             defineField({ name: 'step', title: 'Step Number', type: 'string' }),
             defineField({ name: 'title', title: 'Step Title', type: 'string' }),
+            defineField({ name: 'badge', title: 'Badge Label', type: 'string' }),
             defineField({ name: 'desc', title: 'Short Description', type: 'text', rows: 2 }),
+            defineField({ name: 'features', title: 'Feature Bullet Points', type: 'array', of: [{ type: 'string' }] }),
+            defineField({ name: 'image', title: 'Step Image', type: 'image', options: { hotspot: true } }),
+            defineField({ name: 'imageAlt', title: 'Image Alt Text', type: 'string' }),
+            defineField({
+              name: 'details',
+              title: 'Extended Step Details',
+              type: 'object',
+              fields: [
+                defineField({ name: 'headline', title: 'Headline', type: 'string' }),
+                defineField({ name: 'bulletPoints', title: 'Bullet Points', type: 'array', of: [{ type: 'string' }] }),
+                defineField({ name: 'metric', title: 'Key Metric', type: 'string' }),
+                defineField({ name: 'metricLabel', title: 'Metric Label', type: 'string' }),
+              ],
+            }),
           ],
+          preview: {
+            select: { title: 'title', subtitle: 'badge' },
+          },
         },
       ],
     }),

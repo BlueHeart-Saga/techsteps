@@ -5,7 +5,7 @@ import Section from '../components/layout/Section.astro';
 import PageHero from '../components/hero/PageHero.astro';
 import { getInvestorsPage, getDivisions, getSiteSettings } from '../lib/sanity/client';
 
-const [investorsData, divisionsList, siteSettings] = await Promise.all([
+const [investorsData, divisions, siteSettings] = await Promise.all([
   getInvestorsPage(),
   getDivisions(),
   getSiteSettings(),
@@ -92,7 +92,22 @@ const defaultBusinesses = [
   },
 ];
 
-const businesses = (investorsData.businesses && investorsData.businesses.length > 0)
+const businesses = (divisions && divisions.length > 0)
+  ? divisions.map((d, idx) => ({
+      division: `DIVISION 0${d.order || idx + 1}`,
+      name: d.title,
+      tagline: d.headline || d.summary,
+      description: d.summary,
+      link: `/${d.slug}`,
+      image: d.cardImage || [
+        '/images/services/document-storage.jpg',
+        '/images/services/itad.jpg',
+        '/images/services/hard-drive-destruction.jpg',
+        '/images/services/it-relocations.jpg'
+      ][idx % 4],
+      accreditations: d.accreditation || 'ISO 27001 • BS EN 15713',
+    }))
+  : (investorsData.businesses && investorsData.businesses.length > 0)
   ? investorsData.businesses
   : defaultBusinesses;
 

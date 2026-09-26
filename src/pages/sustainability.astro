@@ -36,38 +36,22 @@ const displayStats = (pageData.metrics && pageData.metrics.length > 0)
       { prefix: '', value: '4', suffix: '', label: 'Operational Divisions', contextNote: 'Information Management, IT Lifecycle, Secure Shredding, and Moving & Relocation' },
     ];
 
-const lifecycleSteps = [
-  {
-    step: '01',
-    title: 'COLLECT',
-    desc: 'Securely collect technology from your organisation.',
-  },
-  {
-    step: '02',
-    title: 'SECURE',
-    desc: 'Maintain controlled handling throughout the process.',
-  },
-  {
-    step: '03',
-    title: 'SANITISE',
-    desc: 'Remove or destroy data according to the required process.',
-  },
-  {
-    step: '04',
-    title: 'REUSE',
-    desc: 'Identify equipment suitable for continued use or remarketing.',
-  },
-  {
-    step: '05',
-    title: 'RECYCLE',
-    desc: 'Responsibly process equipment that has reached end of life.',
-  },
-  {
-    step: '06',
-    title: 'REPORT',
-    desc: 'Provide appropriate asset and lifecycle documentation.',
-  },
-];
+const rawSusSteps = pageData.lifecycleSteps || [];
+
+const lifecycleSteps = rawSusSteps.length > 0
+  ? rawSusSteps.map((s, idx) => ({
+      step: s.step || `0${idx + 1}`,
+      title: s.title || '',
+      desc: s.desc || '',
+    }))
+  : [
+      { step: '01', title: 'COLLECT', desc: 'Securely collect technology from your organisation.' },
+      { step: '02', title: 'SECURE', desc: 'Maintain controlled handling throughout the process.' },
+      { step: '03', title: 'SANITISE', desc: 'Remove or destroy data according to the required process.' },
+      { step: '04', title: 'REUSE', desc: 'Identify equipment suitable for continued use or remarketing.' },
+      { step: '05', title: 'RECYCLE', desc: 'Responsibly process equipment that has reached end of life.' },
+      { step: '06', title: 'REPORT', desc: 'Provide appropriate asset and lifecycle documentation.' },
+    ];
 
 const serviceCards = [
   {

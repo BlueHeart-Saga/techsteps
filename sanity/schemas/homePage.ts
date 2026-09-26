@@ -337,22 +337,49 @@ export default defineType({
                             type: 'object',
                             fields: [
                                 defineField({
-                                    name: 'number',
+                                    name: 'stepNumber',
                                     title: 'Step Number',
                                     type: 'string',
-                                    description: 'Example: 1',
+                                    description: 'Example: 01',
                                 }),
 
                                 defineField({
                                     name: 'title',
                                     title: 'Step Title',
                                     type: 'string',
-                                    description: 'Example: COLLECT',
+                                    description: 'Example: Discovery & Concept',
+                                }),
+
+                                defineField({
+                                    name: 'headline',
+                                    title: 'Headline',
+                                    type: 'string',
+                                }),
+
+                                defineField({
+                                    name: 'lead',
+                                    title: 'Lead Summary',
+                                    type: 'text',
+                                    rows: 2,
                                 }),
 
                                 defineField({
                                     name: 'description',
-                                    title: 'Step Description',
+                                    title: 'Full Description',
+                                    type: 'text',
+                                    rows: 3,
+                                }),
+
+                                defineField({
+                                    name: 'image',
+                                    title: 'Step Image',
+                                    type: 'image',
+                                    options: { hotspot: true },
+                                }),
+
+                                defineField({
+                                    name: 'imageAlt',
+                                    title: 'Image Alt Text',
                                     type: 'string',
                                 }),
 
@@ -360,15 +387,22 @@ export default defineType({
                                     name: 'badge',
                                     title: 'Phase Badge',
                                     type: 'string',
-                                    description: 'Example: PHASE 01 • COLLECT',
+                                    description: 'Example: PHASE 01 // AUDIT',
+                                }),
+
+                                defineField({
+                                    name: 'tag',
+                                    title: 'Compliance Tag',
+                                    type: 'string',
+                                    description: 'Example: ISO 27001 & NIST 800-88 Auditing',
                                 }),
                             ],
 
                             preview: {
                                 select: {
-                                    number: 'number',
+                                    number: 'stepNumber',
                                     title: 'title',
-                                    description: 'description',
+                                    description: 'headline',
                                 },
                                 prepare({ number, title, description }) {
                                     return {

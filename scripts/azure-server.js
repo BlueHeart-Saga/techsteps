@@ -72,6 +72,21 @@ function resolveFilePath(reqUrl) {
     if (fs.existsSync(nestedIndexPath) && fs.statSync(nestedIndexPath).isFile()) {
       return nestedIndexPath;
     }
+
+    // 4. SPA Fallback for Sanity Studio (/admin or /studio)
+    if (
+      pathname === '/admin' || pathname.startsWith('/admin/') ||
+      pathname === '/studio' || pathname.startsWith('/studio/')
+    ) {
+      const adminIndexPath = path.join(DIST_DIR, 'admin', 'index.html');
+      if (fs.existsSync(adminIndexPath)) {
+        return adminIndexPath;
+      }
+      const adminHtmlPath = path.join(DIST_DIR, 'admin.html');
+      if (fs.existsSync(adminHtmlPath)) {
+        return adminHtmlPath;
+      }
+    }
   } catch (err) {
     console.error('Error resolving file path:', err);
   }

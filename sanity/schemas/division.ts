@@ -9,6 +9,9 @@ export default {
     { name: 'summary', title: 'Summary', type: 'text', rows: 3 },
     { name: 'icon', title: 'Icon Identifier', type: 'string' },
     { name: 'order', title: 'Display Order', type: 'number', initialValue: 1 },
+    { name: 'accreditation', title: 'Accreditation Badges Text', type: 'string', description: 'e.g. ISO 27001 • BS 4971 • UK GDPR' },
+    { name: 'cardImage', title: 'Card / Feature Image', type: 'image', options: { hotspot: true } },
+    { name: 'cardImageAlt', title: 'Card Image Alt Text', type: 'string' },
 
     // Page Specific Content
     { name: 'heroTitle', title: 'Hero Heading', type: 'string' },

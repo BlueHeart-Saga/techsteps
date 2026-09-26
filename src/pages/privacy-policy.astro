@@ -1,20 +1,53 @@
 ---
 import LegalPageLayout from '../components/legal/LegalPageLayout.astro';
-import { getSiteSettings } from '../lib/sanity/client';
+import { getSiteSettings, getLegalPage } from '../lib/sanity/client';
 
-const siteSettings = await getSiteSettings();
+const [siteSettings, legalData] = await Promise.all([
+  getSiteSettings(),
+  getLegalPage('privacy-policy'),
+]);
 ---
 
 <LegalPageLayout
-  title="Privacy Policy"
-  eyebrow="DATA PROTECTION & PRIVACY"
-  subheading="UK GDPR and Data Protection Act 2018 compliance framework governing how Techsteps UK Limited collects, protects, and handles personal and corporate client data."
-  metaTitle="Privacy Policy | UK GDPR Data Protection | Techsteps UK"
-  metaDescription="Techsteps UK Privacy Policy. Comprehensive data protection information detailing personal data handling, legal processing bases, retention, and your statutory rights under UK GDPR."
-  complianceBadge="UK GDPR & Data Protection Act 2018"
+  title={legalData?.title || "Privacy Policy"}
+  eyebrow={legalData?.eyebrow || "DATA PROTECTION & PRIVACY"}
+  subheading={legalData?.subheading || "UK GDPR and Data Protection Act 2018 compliance framework governing how Techsteps UK Limited collects, protects, and handles personal and corporate client data."}
+  metaTitle={legalData?.metaTitle || "Privacy Policy | UK GDPR Data Protection | Techsteps UK"}
+  metaDescription={legalData?.metaDescription || "Techsteps UK Privacy Policy. Comprehensive data protection information detailing personal data handling, legal processing bases, retention, and your statutory rights under UK GDPR."}
+  complianceBadge={legalData?.complianceBadge || "UK GDPR & Data Protection Act 2018"}
   activeSlug="privacy-policy"
-  lastUpdated="February 2026"
+  lastUpdated={legalData?.lastUpdated || "February 2026"}
 >
+  {legalData?.sections && legalData.sections.length > 0 ? (
+    legalData.sections.map((sec) => (
+      <section class="space-y-4 mb-8">
+        {sec.heading && (
+          <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+            {sec.heading}
+          </h2>
+        )}
+        {sec.body && <p class="text-slate-700 leading-relaxed">{sec.body}</p>}
+        {sec.callout && (
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
+            {sec.callout.title && <div class="font-bold text-slate-900 mb-1">{sec.callout.title}</div>}
+            {sec.callout.items?.map((item) => (
+              <div><strong>{item.label}:</strong> {item.value}</div>
+            ))}
+          </div>
+        )}
+        {sec.cards && sec.cards.length > 0 && (
+          <div class="space-y-3">
+            {sec.cards.map((c) => (
+              <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+                <h3 class="font-bold text-slate-900 text-base">{c.title}</h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">{c.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+    ))
+  ) : (
   <section class="space-y-4">
     <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       1. Introduction &amp; Data Controller
@@ -199,4 +232,5 @@ const siteSettings = await getSiteSettings();
       If you remain dissatisfied with our response, you maintain the right to lodge a formal complaint with the UK supervisory authority: Information Commissioner's Office (ICO), Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF (<a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer" class="text-emerald-700 underline">ico.org.uk</a>).
     </p>
   </section>
+  )}
 </LegalPageLayout>

@@ -1,20 +1,53 @@
 ---
 import LegalPageLayout from '../components/legal/LegalPageLayout.astro';
-import { getSiteSettings } from '../lib/sanity/client';
+import { getSiteSettings, getLegalPage } from '../lib/sanity/client';
 
-const siteSettings = await getSiteSettings();
+const [siteSettings, legalData] = await Promise.all([
+  getSiteSettings(),
+  getLegalPage('modern-slavery-statement'),
+]);
 ---
 
 <LegalPageLayout
-  title="Modern Slavery Statement"
-  eyebrow="SUPPLY CHAIN DUE DILIGENCE & ETHICS"
-  subheading="Modern Slavery Act 2015 Section 54 compliance statement detailing Techsteps UK Limited's zero-tolerance approach to modern slavery, forced labour, and human trafficking."
-  metaTitle="Modern Slavery Statement | Section 54 Compliance | Techsteps UK"
-  metaDescription="Techsteps UK Modern Slavery Statement. Read our formal commitments under the UK Modern Slavery Act 2015, supplier audit procedures, employee vetting, and reporting."
-  complianceBadge="Modern Slavery Act 2015 Compliant"
+  title={legalData?.title || "Modern Slavery Statement"}
+  eyebrow={legalData?.eyebrow || "SUPPLY CHAIN DUE DILIGENCE & ETHICS"}
+  subheading={legalData?.subheading || "Modern Slavery Act 2015 Section 54 compliance statement detailing Techsteps UK Limited's zero-tolerance approach to modern slavery, forced labour, and human trafficking."}
+  metaTitle={legalData?.metaTitle || "Modern Slavery Statement | Section 54 Compliance | Techsteps UK"}
+  metaDescription={legalData?.metaDescription || "Techsteps UK Modern Slavery Statement. Read our formal commitments under the UK Modern Slavery Act 2015, supplier audit procedures, employee vetting, and reporting."}
+  complianceBadge={legalData?.complianceBadge || "Modern Slavery Act 2015 Compliant"}
   activeSlug="modern-slavery-statement"
-  lastUpdated="February 2026"
+  lastUpdated={legalData?.lastUpdated || "February 2026"}
 >
+  {legalData?.sections && legalData.sections.length > 0 ? (
+    legalData.sections.map((sec) => (
+      <section class="space-y-4 mb-8">
+        {sec.heading && (
+          <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+            {sec.heading}
+          </h2>
+        )}
+        {sec.body && <p class="text-slate-700 leading-relaxed">{sec.body}</p>}
+        {sec.callout && (
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
+            {sec.callout.title && <div class="font-bold text-slate-900 mb-1">{sec.callout.title}</div>}
+            {sec.callout.items?.map((item) => (
+              <div><strong>{item.label}:</strong> {item.value}</div>
+            ))}
+          </div>
+        )}
+        {sec.cards && sec.cards.length > 0 && (
+          <div class="space-y-3">
+            {sec.cards.map((c) => (
+              <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+                <h3 class="font-bold text-slate-900 text-base">{c.title}</h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">{c.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+    ))
+  ) : (
   <section class="space-y-4">
     <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       1. Organizational Stance &amp; Policy Scope
@@ -119,4 +152,5 @@ const siteSettings = await getSiteSettings();
       <div><strong>Registered Office:</strong> {siteSettings.address.street}, {siteSettings.address.city}, {siteSettings.address.postcode}</div>
     </div>
   </section>
+  )}
 </LegalPageLayout>

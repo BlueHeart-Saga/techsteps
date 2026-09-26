@@ -81,6 +81,17 @@ const coreSectors = [
   },
 ];
 
+const allSectors = (sectors && sectors.length > 0)
+  ? sectors.map((s, idx) => ({
+      slug: s.slug,
+      title: s.title,
+      tagline: s.summary || s.headline || 'Specialist sector compliance and lifecycle solutions',
+      accent: ['#0F623A', '#005EB8', '#D97706', '#1D4ED8', '#991B1B', '#0F766E', '#065F46'][idx % 7],
+      icon: s.icon || 'shield-check',
+      image: s.heroImage || `/images/sectors/${s.slug}.jpg`,
+    }))
+  : coreSectors;
+
 // Lifecycle steps
 const lifecycleSteps = [
   { step: 'Collect', desc: 'Secure, GPS-tracked collection by BS 7858 vetted personnel.' },
@@ -316,7 +327,7 @@ const accreditations = [
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-        {coreSectors.map((sector) => (
+        {allSectors.map((sector) => (
           <a
             href={`/sectors/${sector.slug}`}
             class="group relative rounded-none overflow-hidden border border-slate-300/80 hover:border-[#0F623A] shadow-md hover:shadow-2xl transition-all duration-500 bg-[#0B0F0D] min-h-[320px] sm:min-h-[340px] flex flex-col justify-end p-8 lg:p-10"

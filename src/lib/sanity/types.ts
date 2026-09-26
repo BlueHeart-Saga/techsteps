@@ -363,9 +363,16 @@ export interface HomePageServices {
 
 export interface HomePageLifecycleStep {
   number?: string;
+  stepNumber?: string;
   title?: string;
+  headline?: string;
+  lead?: string;
   description?: string;
   badge?: string;
+  tag?: string;
+  image?: any;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 export interface HomePageLifecycle {

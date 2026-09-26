@@ -151,9 +151,21 @@ export async function getHomePage(): Promise<HomePageData | null> {
             imageAlt,
             steps[]{
               number,
+              stepNumber,
               title,
+              headline,
+              lead,
               description,
-              badge
+              badge,
+              tag,
+              image{
+                asset->{
+                  _id,
+                  url
+                }
+              },
+              "imageUrl": image.asset->url,
+              imageAlt
             }
           },
 

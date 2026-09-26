@@ -1,48 +1,32 @@
 ---
-import { getDivisions, getServices, getSectors, getSiteSettings } from '../../lib/sanity/client';
-import { insightsApi } from '../../lib/insightsApi';
 import BrandLogo from './BrandLogo.astro';
-
-let siteStructure: any[] = [];
-try {
-  siteStructure = (await insightsApi.getFullSiteStructure()) || [];
-} catch (e) {
-  console.error('Failed to load insights structure for mobile drawer:', e);
-}
-
-const [divisions, services, sectors, siteSettings] = await Promise.all([
-  getDivisions(),
-  getServices(),
-  getSectors(),
-  getSiteSettings(),
-]);
 
 const currentPath = Astro.url.pathname;
 ---
 
 <div
   id="mobile-menu-drawer"
-  class="fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden"
+  class="fixed inset-0 z-[9999] transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden"
   aria-hidden="true"
   role="dialog"
   aria-modal="true"
   aria-label="Mobile Navigation Menu"
 >
   <!-- Glass Backdrop -->
-  <div id="mobile-menu-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md opacity-0 transition-opacity duration-300"></div>
+  <div id="mobile-menu-backdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-md opacity-0 transition-opacity duration-300"></div>
 
-  <!-- Responsive Drawer Panel -->
-  <div class="fixed inset-y-0 right-0 w-full max-w-sm sm:max-w-md bg-white shadow-2xl flex flex-col justify-between overflow-y-auto rounded-l-3xl border-l border-slate-100">
+  <!-- Drawer Panel -->
+  <div class="fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-2xl flex flex-col justify-between overflow-y-auto border-l border-slate-200">
     
     <!-- Drawer Header -->
-    <div class="p-5 sm:p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-      <a href="/" class="flex items-center focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded-lg" aria-label="TechSteps UK Home">
-        <BrandLogo size="sm" variant="dark" showTagline={true} />
+    <div class="p-5 border-b border-slate-200/80 flex items-center justify-between bg-slate-50">
+      <a href="/" class="flex items-center" aria-label="TechSteps UK Home">
+        <BrandLogo size="sm" variant="dark" showTagline={false} />
       </a>
       <button
         type="button"
         id="close-mobile-menu"
-        class="p-2.5 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-200/70 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-colors"
+        class="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-200/70 focus:outline-none transition-colors"
         aria-label="Close navigation menu"
       >
         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -51,199 +35,97 @@ const currentPath = Astro.url.pathname;
       </button>
     </div>
 
-    <!-- Navigation Links & Responsive Typography -->
-    <div class="px-4 sm:px-6 py-6 space-y-2 flex-1 font-display">
-      <!-- Home -->
-      <a
-        href="/"
-        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
-          currentPath === '/'
-            ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
-            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
-        }`}
-      >
-        Home
-      </a>
-
-      <!-- Services Accordion with all 27 services -->
-      <div class="rounded-xl border border-slate-100 overflow-hidden">
+    <!-- Accordion Navigation Body -->
+    <div class="p-5 space-y-3 flex-1 overflow-y-auto">
+      
+      <!-- 1. Services Accordion -->
+      <div class="border-b border-slate-200/80 pb-3">
         <button
           type="button"
-          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-lg font-bold capitalize tracking-wide text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
+          class="mobile-accordion-btn w-full flex items-center justify-between py-2.5 text-base font-bold text-slate-900 hover:text-[#0F623A] transition-colors"
           aria-expanded="false"
         >
-          <span class="flex items-center gap-2">
-            <span>Services</span>
-            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#146B5C]/10 text-[#146B5C]">27</span>
-          </span>
-          <svg class="h-4 w-4 text-slate-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <span>Services</span>
+          <svg class="w-4 h-4 text-slate-400 transition-transform duration-200 accordion-caret" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
-        <div class="mobile-subnav-content hidden px-4 pt-2 pb-4 space-y-4 bg-slate-50/50 border-t border-slate-100">
-          {divisions.map((div) => {
-            const divServices = services.filter((s) => s.divisionSlug === div.slug);
-            return (
-              <div class="space-y-1.5">
-                <a href={`/${div.slug}`} class="block text-xs font-bold uppercase tracking-wider text-[#E58A3C] hover:text-[#d97d2e] pt-1">
-                  {div.title} ({divServices.length})
-                </a>
-                <div class="pl-2 space-y-1 border-l-2 border-slate-200">
-                  {divServices.map((s) => (
-                    <a href={`/services/${s.slug}`} class="block py-1.5 px-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[#146B5C] hover:bg-white transition-colors">
-                      {s.title}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-          <div class="pt-2 flex items-center justify-between border-t border-slate-200">
-            <a href="/services" class="text-xs font-bold text-[#146B5C] hover:underline flex items-center gap-1">
-              <span>All Services Directory &rarr;</span>
-            </a>
-            <a href="/investors" class="text-xs font-bold text-slate-600 hover:text-[#146B5C] flex items-center gap-1">
-              <span>Investors &rarr;</span>
-            </a>
-          </div>
+        <div class="mobile-accordion-content hidden space-y-2.5 pl-3 pt-2 text-sm">
+          <a href="/information-management" class="block font-semibold text-slate-800 hover:text-[#0F623A]">
+            Information Management
+          </a>
+          <a href="/it-lifecycle-services-destruction" class="block font-semibold text-slate-800 hover:text-[#0F623A]">
+            IT Lifecycle & Destruction
+          </a>
+          <a href="/secure-shredding-document-integrity" class="block font-semibold text-slate-800 hover:text-[#0F623A]">
+            Secure Shredding
+          </a>
+          <a href="/moving-relocation-services" class="block font-semibold text-slate-800 hover:text-[#0F623A]">
+            Moving & Relocation
+          </a>
+          <a href="/services" class="block pt-1.5 font-bold text-[#0F623A] hover:underline">
+            View all 27 certified services &rarr;
+          </a>
         </div>
       </div>
 
-      <!-- Sectors Accordion -->
-      <div class="rounded-xl border border-slate-100 overflow-hidden">
+      <!-- 2. Sectors Accordion -->
+      <div class="border-b border-slate-200/80 pb-3">
         <button
           type="button"
-          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-lg font-bold capitalize tracking-wide text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
+          class="mobile-accordion-btn w-full flex items-center justify-between py-2.5 text-base font-bold text-slate-900 hover:text-[#0F623A] transition-colors"
           aria-expanded="false"
         >
           <span>Sectors</span>
-          <svg class="h-4 w-4 text-slate-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg class="w-4 h-4 text-slate-400 transition-transform duration-200 accordion-caret" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
-        <div class="mobile-subnav-content hidden px-4 pt-2 pb-3 space-y-1 bg-slate-50/50 border-t border-slate-100">
-          {sectors.map((sec) => (
-            <a href={`/sectors/${sec.slug}`} class="block py-2 px-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[#146B5C] hover:bg-white transition-colors">
-              {sec.title}
-            </a>
-          ))}
-          <div class="pt-2 flex items-center justify-between border-t border-slate-200">
-            <a href="/sectors" class="text-xs font-bold text-[#146B5C] hover:underline flex items-center gap-1">
-              <span>All Sectors &rarr;</span>
-            </a>
-            <a href="/sustainability" class="text-xs font-bold text-slate-600 hover:text-[#146B5C] flex items-center gap-1">
-              <span>Sustainability &rarr;</span>
-            </a>
-          </div>
+        <div class="mobile-accordion-content hidden space-y-2 pl-3 pt-2 text-xs sm:text-sm">
+          <a href="/sectors/nhs" class="block font-medium text-slate-700 hover:text-[#0F623A]">NHS & Healthcare</a>
+          <a href="/sectors/finance" class="block font-medium text-slate-700 hover:text-[#0F623A]">Financial Services</a>
+          <a href="/sectors/central-government" class="block font-medium text-slate-700 hover:text-[#0F623A]">Central Government</a>
+          <a href="/sectors/defence" class="block font-medium text-slate-700 hover:text-[#0F623A]">Defence & Aerospace</a>
+          <a href="/sectors/legal-professional-services" class="block font-medium text-slate-700 hover:text-[#0F623A]">Corporate & Legal</a>
+          <a href="/sectors/education-universities" class="block font-medium text-slate-700 hover:text-[#0F623A]">Education & Universities</a>
+          <a href="/sectors/manufacturing-engineering" class="block font-medium text-slate-700 hover:text-[#0F623A]">Manufacturing & Engineering</a>
+          <a href="/sectors/it-technology" class="block font-medium text-slate-700 hover:text-[#0F623A]">IT & Technology</a>
+          <a href="/sectors" class="block pt-1.5 font-bold text-[#0F623A] hover:underline">Explore all sectors &rarr;</a>
         </div>
       </div>
 
-      <!-- Sustainability -->
-      <a
-        href="/sustainability"
-        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
-          currentPath === '/sustainability'
-            ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
-            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
-        }`}
-      >
+      <!-- 3. Sustainability Link -->
+      <a href="/sustainability" class="block py-2.5 text-base font-bold text-slate-900 hover:text-[#0F623A] border-b border-slate-200/80">
         Sustainability
       </a>
 
-      <!-- Investors -->
-      <a
-        href="/investors"
-        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
-          currentPath === '/investors'
-            ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
-            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
-        }`}
-      >
-        Investors
+      <!-- 4. Insights Link -->
+      <a href="/insights" class="block py-2.5 text-base font-bold text-slate-900 hover:text-[#0F623A] border-b border-slate-200/80">
+        Insights
       </a>
 
-      <!-- Insights Accordion -->
-      <div class="rounded-xl border border-slate-100 overflow-hidden">
-        <button
-          type="button"
-          class="mobile-subnav-toggle w-full flex items-center justify-between px-4 py-3 text-lg capitalize tracking-wide font-bold text-slate-800 hover:text-black hover:bg-slate-50/80 transition-colors"
-          aria-expanded={currentPath.startsWith('/insights') ? 'true' : 'false'}
-        >
-          <span class="flex items-center gap-2">
-            <span>Insights</span>
-            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#146B5C]/10 text-[#146B5C]">Hub</span>
-          </span>
-          <svg class={`h-4 w-4 text-slate-400 transition-transform duration-200 ${currentPath.startsWith('/insights') ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-        <div class="mobile-subnav-content hidden px-4 pt-2 pb-4 space-y-4 bg-slate-50/50 border-t border-slate-100">
-          <a
-            href="/insights"
-            class="block py-2 px-2.5 rounded-lg text-sm font-bold text-[#146B5C] bg-[#146B5C]/10 hover:bg-[#146B5C]/20 transition-colors"
-          >
-            Explore All Insights &amp; Publications &rarr;
-          </a>
-          <div class="space-y-1 pt-1 font-sans">
-            <a
-              href="/insights/blogs"
-              class="block py-2 px-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[#146B5C] hover:bg-white transition-colors"
-            >
-              Blogs
-            </a>
-            <a
-              href="/insights/testimonials"
-              class="block py-2 px-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[#146B5C] hover:bg-white transition-colors"
-            >
-              Testimonials
-            </a>
-            <a
-              href="/insights/impact-metrics"
-              class="block py-2 px-2.5 rounded-lg text-sm font-medium text-slate-700 hover:text-[#146B5C] hover:bg-white transition-colors"
-            >
-              Impact Content
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- About Us -->
-      <a
-        href="/about-us"
-        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
-          currentPath === '/about-us'
-            ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
-            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
-        }`}
-      >
-        About Us
-      </a>
-
-      <!-- Contact Us -->
-      <a
-        href="/contact"
-        class={`block px-4 py-3 rounded-xl text-lg capitalize tracking-wide transition-all ${
-          currentPath === '/contact'
-            ? 'bg-[#146B5C]/10 text-[#146B5C] font-bold'
-            : 'text-slate-800 hover:text-black hover:bg-slate-100/80 font-bold'
-        }`}
-      >
-        Contact Us
+      <!-- 5. About Link -->
+      <a href="/about-us" class="block py-2.5 text-base font-bold text-slate-900 hover:text-[#0F623A]">
+        About
       </a>
     </div>
 
-    <!-- Drawer Footer Quick Action -->
-    <div class="p-5 sm:p-6 border-t border-slate-100 bg-slate-50/80 space-y-3">
+    <!-- Commercial Action Footer -->
+    <div class="p-5 border-t border-slate-200 space-y-3 bg-slate-50">
       <a
-        href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`}
-        class="flex items-center justify-center gap-2.5 w-full py-3.5 px-4 rounded-xl bg-[#146B5C] hover:bg-[#0D5549] text-white text-base font-sans font-bold shadow-md transition-all active:scale-[0.98]"
+        href="/request-a-collection"
+        class="block w-full py-3 text-center rounded-xl border border-slate-300 text-slate-800 text-sm font-bold hover:bg-slate-200/60 transition-colors"
       >
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-        </svg>
-        <span>Call Us: {siteSettings.phone}</span>
+        Request a Collection
+      </a>
+      <a
+        href="/request-a-quote"
+        class="block w-full py-3 text-center rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-md transition-colors"
+      >
+        Get a Quote
       </a>
     </div>
+
   </div>
 </div>
 
@@ -251,50 +133,48 @@ const currentPath = Astro.url.pathname;
   function setupMobileDrawer() {
     const drawer = document.getElementById('mobile-menu-drawer');
     const backdrop = document.getElementById('mobile-menu-backdrop');
-    const openBtn = document.getElementById('open-mobile-menu');
-    const allOpenBtns = document.querySelectorAll('#open-mobile-menu, .open-mobile-menu-btn');
+    const openBtns = document.querySelectorAll('.open-mobile-menu-btn');
     const closeBtn = document.getElementById('close-mobile-menu');
 
-    function openDrawer() {
-      if (!drawer || !backdrop) return;
-      drawer.classList.remove('translate-x-full');
-      drawer.setAttribute('aria-hidden', 'false');
-      backdrop.classList.remove('opacity-0');
-      document.body.style.overflow = 'hidden';
-      closeBtn?.focus();
-    }
+    if (!drawer || !backdrop) return;
 
-    function closeDrawer() {
-      if (!drawer || !backdrop) return;
+    const openDrawer = () => {
+      drawer.classList.remove('translate-x-full');
+      drawer.classList.add('translate-x-0');
+      backdrop.classList.remove('opacity-0');
+      backdrop.classList.add('opacity-100');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeDrawer = () => {
+      drawer.classList.remove('translate-x-0');
       drawer.classList.add('translate-x-full');
-      drawer.setAttribute('aria-hidden', 'true');
+      backdrop.classList.remove('opacity-100');
       backdrop.classList.add('opacity-0');
       document.body.style.overflow = '';
-      openBtn?.focus();
-      if (allOpenBtns.length > 0) (allOpenBtns[0] as HTMLElement)?.focus();
-    }
+    };
 
-    openBtn?.addEventListener('click', openDrawer);
-    allOpenBtns.forEach((btn) => btn.addEventListener('click', openDrawer));
-    closeBtn?.addEventListener('click', closeDrawer);
-    backdrop?.addEventListener('click', closeDrawer);
+    openBtns.forEach((btn) => btn.addEventListener('click', openDrawer));
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && drawer && !drawer.classList.contains('translate-x-full')) {
-        closeDrawer();
-      }
-    });
+    // Accordions
+    const accordionBtns = drawer.querySelectorAll('.mobile-accordion-btn');
+    accordionBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const content = btn.nextElementSibling;
+        const caret = btn.querySelector('.accordion-caret');
+        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
 
-    const subnavToggles = drawer?.querySelectorAll('.mobile-subnav-toggle');
-    subnavToggles?.forEach((toggle) => {
-      toggle.addEventListener('click', () => {
-        const content = toggle.nextElementSibling;
-        const icon = toggle.querySelector('svg');
-        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-
-        toggle.setAttribute('aria-expanded', (!isExpanded).toString());
-        content?.classList.toggle('hidden');
-        icon?.classList.toggle('rotate-180');
+        if (isExpanded) {
+          btn.setAttribute('aria-expanded', 'false');
+          content?.classList.add('hidden');
+          caret?.classList.remove('rotate-180');
+        } else {
+          btn.setAttribute('aria-expanded', 'true');
+          content?.classList.remove('hidden');
+          caret?.classList.add('rotate-180');
+        }
       });
     });
   }
