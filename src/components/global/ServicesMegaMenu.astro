@@ -191,7 +191,7 @@ const tabs = [
   aria-label="Services Mega Navigation"
 >
   <div class="relative max-w-7xl mx-auto bg-white rounded-none shadow-[0_25px_60px_-15px_rgba(15,23,42,0.18)] border border-slate-200/90 overflow-hidden font-sans">
-    <div class="flex flex-col lg:flex-row min-h-[480px]">
+    <div class="flex flex-col lg:flex-row">
       
       <!-- 1. LEFT SIDEBAR (Category Items with High-Level Icons & NO Background) -->
       <div class="w-full lg:w-72 bg-[#F8FAF9] p-4 sm:p-5 flex flex-col border-b lg:border-b-0 lg:border-r border-slate-200/80 shrink-0">
@@ -205,10 +205,10 @@ const tabs = [
             return (
               <button
                 type="button"
-                class={`services-tab-btn group w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-left text-sm transition-all duration-150 cursor-pointer border ${
+                class={`services-tab-btn group w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-left text-sm transition-all duration-150 cursor-pointer ${
                   isFirst
-                    ? 'bg-emerald-500/10 backdrop-blur-sm text-[#0F623A] font-bold shadow-sm active border-emerald-400/40 ring-1 ring-emerald-400/20'
-                    : 'text-slate-700 hover:text-[#0F623A] hover:bg-emerald-500/10 font-medium border-transparent'
+                    ? 'bg-emerald-500/10 backdrop-blur-sm text-[#0F623A] font-bold shadow-sm active'
+                    : 'text-slate-700 hover:text-[#0F623A] hover:bg-emerald-500/10 font-medium'
                 }`}
                 data-target-tab={`services-tab-${tab.id}`}
                 data-slug={tab.slug}
@@ -254,7 +254,7 @@ const tabs = [
       </div>
 
       <!-- 2. RIGHT MAIN CONTENT AREA: CENTER SUB-SERVICES + RIGHT SPOTLIGHT CARD -->
-      <div class="flex-1 bg-white p-6 sm:p-8 lg:p-9 relative">
+      <div class="flex-1 bg-white p-6 sm:p-8 lg:px-9 lg:pt-8 lg:pb-6 relative">
         {tabs.map((tab, idx) => {
           const isFirst = idx === 0;
           return (
@@ -264,28 +264,28 @@ const tabs = [
             >
               <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
                 
-                <!-- CENTER AREA: Links related to the selected service's sub-services (No secondary heading, No Arrows) -->
+                <!-- CENTER AREA: Links related to the selected service's sub-services (Matching left sidebar font style) -->
                 <div class="lg:col-span-7 space-y-4">
                   <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-sans">
                       {tab.title}
                     </span>
                     <a
                       href={`/${tab.slug}`}
-                      class="text-xs font-bold text-[#0F623A] hover:text-black flex items-center gap-1 transition-colors group/link"
+                      class="text-xs font-bold text-[#0F623A] hover:text-black flex items-center gap-1 transition-colors group/link font-sans"
                     >
                       <span>Division Overview</span>
                     </a>
                   </div>
 
-                  <!-- 2-Column Responsive Grid of Sub-Services (Font Normal, Larger Size, No Arrows, Light Green Hover) -->
+                  <!-- 2-Column Responsive Grid of Sub-Services (Font style matched to left sidebar: text-sm font-medium) -->
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 pt-1">
                     {tab.subServices.map((sub) => (
                       <a
                         href={`/services/${sub.slug}`}
-                        class="group flex items-center justify-between py-2 px-3 rounded-lg hover:bg-emerald-500/10 border border-transparent hover:border-emerald-400/30 transition-all duration-150"
+                        class="group flex items-center justify-between py-2 px-3 rounded-lg hover:bg-emerald-500/10 transition-all duration-150"
                       >
-                        <span class="text-base sm:text-[17px] font-normal text-slate-700 group-hover:text-[#0F623A] transition-colors leading-snug">
+                        <span class="text-sm font-medium text-slate-700 group-hover:text-[#0F623A] transition-colors leading-snug font-sans">
                           {sub.title}
                         </span>
                       </a>
@@ -733,8 +733,7 @@ const tabs = [
             'text-slate-700',
             'hover:text-[#0F623A]',
             'hover:bg-emerald-500/10',
-            'font-medium',
-            'border-transparent'
+            'font-medium'
           );
           const icon = b.querySelector('.tab-icon');
           if (icon) {
@@ -749,12 +748,9 @@ const tabs = [
           'text-[#0F623A]',
           'font-bold',
           'shadow-sm',
-          'active',
-          'border-emerald-400/40',
-          'ring-1',
-          'ring-emerald-400/20'
+          'active'
         );
-        btn.classList.remove('text-slate-700', 'border-transparent');
+        btn.classList.remove('text-slate-700');
         const activeIcon = btn.querySelector('.tab-icon');
         if (activeIcon) {
           activeIcon.classList.add('text-[#0F623A]');
@@ -796,5 +792,12 @@ const tabs = [
   }
   document.addEventListener('astro:page-load', init);
 </script>
+
+<style>
+  #services-megamenu-panel,
+  #services-megamenu-panel * {
+    font-family: var(--font-sans) !important;
+  }
+</style>
 
 
