@@ -169,7 +169,7 @@ const detailDrivenSteps = rawSanitySteps.length > 0
       <div class="max-w-4xl xl:max-w-5xl mx-auto text-center">
         <!-- Main Headline (Dark Green #0F623A) -->
 <h2 class="text-4xl sm:text-5xl lg:text-6xl xl:text-[64px] font-extrabold tracking-tight leading-[1.18] font-display text-[#0F623A]">
-  {homePage?.intro?.heading}
+  {homePage?.intro?.heading || 'Secure ITAD Services in the UK'}
 </h2>
 
         <!-- Decorative underline bar (Dark Green #0F623A) -->
@@ -179,7 +179,7 @@ const detailDrivenSteps = rawSanitySteps.length > 0
 
         <!-- Description Paragraph (with Dark Green highlighted keywords) -->
 <p class="text-xl sm:text-2xl text-slate-700 leading-relaxed font-normal">
-  {homePage?.intro?.description}
+  {homePage?.intro?.description || "Techsteps is the UK's trusted partner for enterprise IT asset disposition, secure data sanitisation, and compliant hardware recycling. We safeguard your corporate reputation, protect data privacy, and deliver zero-landfill environmental excellence across every engagement."}
 </p>
       </div>
 
@@ -343,10 +343,10 @@ const detailDrivenSteps = rawSanitySteps.length > 0
       <!-- Section Header -->
       <div class="text-center max-w-4xl mx-auto space-y-3 mb-10 sm:mb-14">
 <span class="text-sm sm:text-base font-bold uppercase tracking-[0.2em] text-[#146B5C]">
-  {homePage?.services?.eyebrow}
+  {homePage?.services?.eyebrow || 'OUR SERVICES'}
 </span>
 <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[44px] font-extrabold font-display text-brand-navy tracking-tight leading-[1.12] uppercase">
-  {homePage?.services?.heading}
+  {homePage?.services?.heading || 'SOLUTIONS FOR THE COMPLETE BUSINESS LIFECYCLE'}
 </h2>
       </div>
 
@@ -505,23 +505,23 @@ const detailDrivenSteps = rawSanitySteps.length > 0
   <Section theme="slate" padding="py-10 md:py-14" className="relative overflow-hidden border-t border-slate-200/80">
     <Container className="relative z-10 text-center max-w-4xl mx-auto space-y-8">
 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
-  {homePage?.cta?.heading}
+  {homePage?.cta?.heading || 'Ready to Elevate Your IT Asset Strategy?'}
 </h2>
 <p class="text-base sm:text-lg text-slate-800 max-w-2xl mx-auto leading-relaxed font-medium">
-  {homePage?.cta?.description}
+  {homePage?.cta?.description || 'Speak with our certified compliance specialists today to request an asset collection, schedule a facility audit, or discuss custom ITAD frameworks for your enterprise.'}
 </p>
       <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
 <a
   href={homePage?.cta?.primaryButtonLink || '/request-a-quote'}
   class="px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
 >
-  {homePage?.cta?.primaryButtonText}
+  {homePage?.cta?.primaryButtonText || 'Request a Collection'}
 </a>
 <a
   href={homePage?.cta?.secondaryButtonLink || '/contact'}
   class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 text-brand-navy text-base font-bold border border-slate-300 shadow-xs hover:shadow-sm transition-all duration-200"
 >
-  {homePage?.cta?.secondaryButtonText}
+  {homePage?.cta?.secondaryButtonText || 'Contact Specialist'}
 </a>
       </div>
     </Container>

@@ -13,6 +13,7 @@ import {
   defaultInvestorsPage,
   defaultContactPage,
   defaultRequestCollectionPage,
+  defaultHomePageData,
   testimonials,
 } from './data';
 import type {
@@ -180,13 +181,48 @@ export async function getHomePage(): Promise<HomePageData | null> {
         }
       `);
 
-      return data || null;
+      if (data) {
+        return {
+          ...defaultHomePageData,
+          ...data,
+          hero: {
+            ...defaultHomePageData.hero,
+            ...(data.hero || {}),
+            imageUrl: data.hero?.image?.asset?.url || data.hero?.imageUrl || defaultHomePageData.hero?.imageUrl,
+          },
+          intro: {
+            ...defaultHomePageData.intro,
+            ...(data.intro || {}),
+          },
+          services: {
+            ...defaultHomePageData.services,
+            ...(data.services || {}),
+            cards: (Array.isArray(data.services?.cards) && data.services.cards.length > 0)
+              ? data.services.cards
+              : defaultHomePageData.services?.cards,
+          },
+          lifecycle: {
+            ...defaultHomePageData.lifecycle,
+            ...(data.lifecycle || {}),
+            steps: (Array.isArray(data.lifecycle?.steps) && data.lifecycle.steps.length > 0)
+              ? data.lifecycle.steps
+              : defaultHomePageData.lifecycle?.steps,
+          },
+          cta: {
+            ...defaultHomePageData.cta,
+            ...(data.cta || {}),
+          },
+          statistics: (Array.isArray(data.statistics) && data.statistics.length > 0)
+            ? data.statistics
+            : defaultHomePageData.statistics,
+        };
+      }
     } catch (error) {
       console.error('Failed to fetch Home Page from Sanity:', error);
     }
   }
 
-  return null;
+  return defaultHomePageData;
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
