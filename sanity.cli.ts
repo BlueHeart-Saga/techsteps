@@ -6,6 +6,7 @@ export default defineCliConfig({
     dataset: process.env.PUBLIC_SANITY_DATASET || process.env.SANITY_DATASET || 'techsteps',
   },
   deployment: {
-    appId: 'kw2na72rck80iapsar6uh9af',
+    appId: 'qya3cdy9r610mfdi1uqyvz4h',
+    autoUpdates: true,
   },
 });
