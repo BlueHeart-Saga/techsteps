@@ -86,7 +86,7 @@ export async function getHomePage(): Promise<HomePageData | null> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "homePage" && !(_id in path("drafts.**"))][0]{
+        *[_type == "homePage" && (_id == "homePage" || !(_id in path("drafts.**")))] | order((_id == "homePage") desc, _updatedAt desc)[0]{
           metaTitle,
           metaDescription,
           hero{
@@ -247,7 +247,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       `;
 
       const data = await sanityClient.fetch(`
-        *[_type == "siteSettings" && !(_id in path("drafts.**"))][0]{
+        *[_type == "siteSettings" && (_id == "siteSettings" || !(_id in path("drafts.**")))] | order((_id == "siteSettings") desc, _updatedAt desc)[0]{
           ...,
           "mainNav": mainNav[]{ ${linkProjection} },
           "footerServices": footerServices[]{ ${linkProjection} },
@@ -427,7 +427,7 @@ export async function getAboutPage(): Promise<any> {
 
   try {
     const data = await sanityClient.fetch(`
-      *[_type == "aboutPage" && !(_id in path("drafts.**"))][0]{
+      *[_type == "aboutPage" && (_id == "aboutPage" || !(_id in path("drafts.**")))] | order((_id == "aboutPage") desc, _updatedAt desc)[0]{
         metaTitle,
         metaDescription,
 
@@ -609,7 +609,7 @@ export async function getFaqPage(): Promise<FaqPageData> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "faqPage" && !(_id in path("drafts.**"))][0]{
+        *[_type == "faqPage" && (_id == "faqPage" || !(_id in path("drafts.**")))] | order((_id == "faqPage") desc, _updatedAt desc)[0]{
           metaTitle,
           metaDescription,
           hero{
@@ -658,7 +658,7 @@ export async function getSustainabilityPage(): Promise<SustainabilityPageData> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "sustainabilityPage" && !(_id in path("drafts.**"))][0]{
+        *[_type == "sustainabilityPage" && (_id == "sustainabilityPage" || !(_id in path("drafts.**")))] | order((_id == "sustainabilityPage") desc, _updatedAt desc)[0]{
           metaTitle,
           metaDescription,
           hero{
@@ -737,7 +737,7 @@ export async function getInvestorsPage(): Promise<InvestorsPageData> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "investorsPage" && !(_id in path("drafts.**"))][0]{
+        *[_type == "investorsPage" && (_id == "investorsPage" || !(_id in path("drafts.**")))] | order((_id == "investorsPage") desc, _updatedAt desc)[0]{
           metaTitle,
           metaDescription,
           hero{
@@ -815,7 +815,7 @@ export async function getContactPage(): Promise<ContactPageData> {
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "contactPage" && !(_id in path("drafts.**"))][0]{
+        *[_type == "contactPage" && (_id == "contactPage" || !(_id in path("drafts.**")))] | order((_id == "contactPage") desc, _updatedAt desc)[0]{
           metaTitle,
           metaDescription,
           hero{
@@ -856,7 +856,7 @@ export async function getRequestCollectionPage(): Promise<RequestCollectionPageD
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`
-        *[_type == "requestCollectionPage" && !(_id in path("drafts.**"))][0]{
+        *[_type == "requestCollectionPage" && (_id == "requestCollectionPage" || !(_id in path("drafts.**")))] | order((_id == "requestCollectionPage") desc, _updatedAt desc)[0]{
           metaTitle,
           metaDescription,
           hero{
