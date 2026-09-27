@@ -287,5 +287,6 @@ const stepPositions = [
     } else {
       initWorkflowCurve();
     }
+    document.addEventListener('astro:page-load', initWorkflowCurve);
   })();
 </script>

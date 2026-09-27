@@ -217,5 +217,6 @@ const testimonials = await getTestimonials();
     } else {
       initTestimonialShowcase();
     }
+    document.addEventListener('astro:page-load', initTestimonialShowcase);
   })();
 </script>

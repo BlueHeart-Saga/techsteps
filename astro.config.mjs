@@ -26,6 +26,10 @@ export default defineConfig({
   },
   site: productionSite,
   trailingSlash: 'never',
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover',
+  },
   integrations: [
     react(),
     sanity({

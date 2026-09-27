@@ -65,7 +65,7 @@ const token =
   import.meta.env.SANITY_TOKEN ||
   (typeof process !== 'undefined' ? (process.env.SANITY_API_TOKEN || process.env.SANITY_TOKEN) : undefined);
 
-export const sanityClient = projectId
+const rawSanityClient = projectId
   ? createClient({
     projectId,
     dataset,
@@ -73,6 +73,44 @@ export const sanityClient = projectId
     useCdn,
     token: token || undefined,
   })
+  : null;
+
+// High-performance in-memory cache & request deduplication to make page navigation instant
+const sanityCache = new Map<string, { data: any; expiry: number }>();
+const inFlightRequests = new Map<string, Promise<any>>();
+const SANITY_CACHE_TTL = 60 * 1000; // 60s cache in memory
+
+export const sanityClient = rawSanityClient
+  ? new Proxy(rawSanityClient, {
+      get(target: any, prop: string | symbol, receiver: any) {
+        if (prop === 'fetch') {
+          return async function (query: string, params?: any, options?: any) {
+            const key = typeof query === 'string' ? (query.trim() + (params ? JSON.stringify(params) : '')) : String(query);
+            const now = Date.now();
+            const cached = sanityCache.get(key);
+            if (cached && cached.expiry > now) {
+              return cached.data;
+            }
+            if (inFlightRequests.has(key)) {
+              return inFlightRequests.get(key);
+            }
+            const promise = (target.fetch as Function).call(target, query, params, options)
+              .then((result: any) => {
+                sanityCache.set(key, { data: result, expiry: Date.now() + SANITY_CACHE_TTL });
+                inFlightRequests.delete(key);
+                return result;
+              })
+              .catch((err: any) => {
+                inFlightRequests.delete(key);
+                throw err;
+              });
+            inFlightRequests.set(key, promise);
+            return promise;
+          };
+        }
+        return Reflect.get(target, prop, receiver);
+      }
+    })
   : null;
 
 function normalizeSlug(slug: any): string {

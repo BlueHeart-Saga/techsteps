@@ -394,3 +394,10 @@ address {
 .marquee-container:hover .animate-marquee-reverse {
   animation-play-state: paused;
 }
+
+/* Snappy instant page transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 120ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}

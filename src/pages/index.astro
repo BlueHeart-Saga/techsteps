@@ -98,22 +98,42 @@ const divisionMetadata: Record<
     <div class="absolute top-16 -left-20 w-80 h-80 rounded-full bg-emerald-100/30 blur-3xl pointer-events-none" aria-hidden="true"></div>
 
     <Container className="relative z-10 max-w-7xl">
-      <!-- Text Narrative Wrapper -->
-      <div class="max-w-4xl xl:max-w-5xl mx-auto text-center">
-        <!-- Main Headline (Dark Green #0F623A) -->
-<h2 class="text-4xl sm:text-5xl lg:text-6xl xl:text-[64px] font-extrabold tracking-tight leading-[1.18] font-display text-[#0F623A]">
-  {homePage?.intro?.heading || 'Secure ITAD Services in the UK'}
-</h2>
-
-        <!-- Decorative underline bar (Dark Green #0F623A) -->
-        <div class="flex items-center justify-center mt-4 sm:mt-5 mb-7 sm:mb-9" aria-hidden="true">
-          <span class="w-20 sm:w-28 h-1.5 bg-[#0F623A] rounded-full"></span>
+      <!-- Two-Column Narrative: Left Image with Backing Design, Right Content -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
+        <!-- Left: Transparent Graphic with Shaded Green Backing Accents -->
+        <div class="lg:col-span-5 xl:col-span-5 flex justify-center">
+          <div class="relative w-full max-w-[460px]">
+            <img
+              src="/images/brand/itad-intro-green.png"
+              alt="TechSteps certified IT recycling and hardware disposition technician"
+              class="relative z-10 w-full h-auto object-contain drop-shadow-md select-none"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         </div>
 
-        <!-- Description Paragraph (with Dark Green highlighted keywords) -->
-<p class="text-xl sm:text-2xl text-slate-700 leading-relaxed font-normal">
-  {homePage?.intro?.description || "Techsteps is the UK's trusted partner for enterprise IT asset disposition, secure data sanitisation, and compliant hardware recycling. We safeguard your corporate reputation, protect data privacy, and deliver zero-landfill environmental excellence across every engagement."}
-</p>
+        <!-- Right: Heading and Concise Narrative Content -->
+        <div class="lg:col-span-7 xl:col-span-7 space-y-4 lg:space-y-5 text-left">
+          <!-- Main Headline (Dark Green #0F623A) -->
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] font-extrabold tracking-tight leading-[1.14] font-display text-[#0F623A]">
+            {homePage?.intro?.heading || 'Secure ITAD Services in the UK'}
+          </h2>
+
+          <!-- Decorative underline bar (Dark Green #0F623A) -->
+          <div class="flex items-center" aria-hidden="true">
+            <span class="w-16 sm:w-24 h-1.5 bg-[#0F623A] rounded-full"></span>
+          </div>
+
+          <!-- Description Paragraph (Increased to 3 sentences for ideal visual balance) -->
+          <p class="text-base sm:text-lg lg:text-[19px] text-slate-700 leading-relaxed font-normal">
+            {(() => {
+              const fullDesc = homePage?.intro?.description || "TechSteps provides a fully accredited IT disposal company framework designed for modern UK enterprises. We simplify the ITAD process by combining logistics with maximum security, helping you retire hardware without risk. From single-site pickups to complex IT asset disposal projects, our team ensures your redundant equipment is handled according to the highest environmental standards.";
+              const sentences = fullDesc.match(/[^.!?]+[.!?]+/g);
+              return (sentences && sentences.length > 3) ? sentences.slice(0, 3).join(' ').trim() : fullDesc;
+            })()}
+          </p>
+        </div>
       </div>
 
       <!-- 4 Stats Columns Spread Out With Large Spacing -->

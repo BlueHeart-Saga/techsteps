@@ -35,23 +35,14 @@ const navItems = [
       style="background-color: rgba(250, 246, 238, 0.60); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);"
     >
       
-      <!-- Left: Logo inside dark sharp badge -->
+      <!-- Left: Brand Logo (matching top header) -->
       <div class="flex items-center">
         <a
           href="/"
-          class="h-11 sm:h-12 flex items-center gap-3 bg-[#12181A] hover:bg-black text-white px-4 sm:px-5 rounded-none shadow-xs transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          class="flex items-center focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg py-1"
           aria-label="TechSteps UK Home"
         >
-          <img
-            src="/images/brand/logo.png"
-            alt="TechSteps Logo"
-            class="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0"
-            width="36"
-            height="36"
-            loading="eager"
-            decoding="async"
-          />
-          <span class="font-display font-bold text-xl sm:text-[22px] tracking-wider text-white leading-none">TECHSTEPS</span>
+          <BrandLogo size="md" variant="dark" showTagline={false} />
         </a>
       </div>
 

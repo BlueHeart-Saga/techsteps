@@ -396,94 +396,63 @@ const divisionCards = [
   };
 
 
-  const tabs = document.querySelectorAll(".division-tab");
+  function setupDivisionTabs() {
+    const tabs = document.querySelectorAll(".division-tab");
+    const image = document.getElementById("division-image");
+    const label = document.getElementById("division-label");
+    const heading = document.getElementById("division-heading");
+    const description = document.getElementById("division-description");
+    const link = document.getElementById("division-link");
+    const button = document.getElementById("division-button");
 
-  const image = document.getElementById("division-image");
-  const label = document.getElementById("division-label");
-  const heading = document.getElementById("division-heading");
-  const description = document.getElementById("division-description");
-  const link = document.getElementById("division-link");
-  const button = document.getElementById("division-button");
+    if (!tabs.length) return;
 
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const key = tab.getAttribute("data-division");
+        if (!key || !divisionData[key]) return;
+        const data = divisionData[key];
 
-  tabs.forEach((tab) => {
+        // Reset all tabs
+        tabs.forEach((item) => {
+          const title = item.querySelector(".division-title");
+          const arrow = item.querySelector(".division-arrow");
+          title?.classList.remove("text-[#0F623A]");
+          title?.classList.add("text-slate-500");
+          arrow?.classList.remove("text-[#0F623A]");
+          arrow?.classList.add("text-slate-300");
+        });
 
-    tab.addEventListener("click", () => {
+        // Activate selected tab
+        const activeTitle = tab.querySelector(".division-title");
+        const activeArrow = tab.querySelector(".division-arrow");
+        activeTitle?.classList.remove("text-slate-500");
+        activeTitle?.classList.add("text-[#0F623A]");
+        activeArrow?.classList.remove("text-slate-300");
+        activeArrow?.classList.add("text-[#0F623A]");
 
-      const key = tab.getAttribute("data-division");
+        // Small fade effect for image
+        if (image) {
+          image.style.opacity = "0";
+          setTimeout(() => {
+            image.setAttribute("src", data.image);
+            image.setAttribute("alt", data.title);
+            image.style.opacity = "1";
+          }, 180);
+        }
 
-      if (!key || !divisionData[key]) return;
-
-      const data = divisionData[key];
-
-
-      // Reset all tabs
-      tabs.forEach((item) => {
-
-        const title = item.querySelector(".division-title");
-        const arrow = item.querySelector(".division-arrow");
-
-        title?.classList.remove("text-[#0F623A]");
-        title?.classList.add("text-slate-500");
-
-        arrow?.classList.remove("text-[#0F623A]");
-        arrow?.classList.add("text-slate-300");
-
+        // Update content
+        if (label) label.textContent = data.label;
+        if (heading) heading.textContent = data.title;
+        if (description) description.textContent = data.description;
+        if (link) link.setAttribute("href", data.link);
+        if (button) button.textContent = data.button;
       });
-
-
-      // Activate selected tab
-      const activeTitle = tab.querySelector(".division-title");
-      const activeArrow = tab.querySelector(".division-arrow");
-
-      activeTitle?.classList.remove("text-slate-500");
-      activeTitle?.classList.add("text-[#0F623A]");
-
-      activeArrow?.classList.remove("text-slate-300");
-      activeArrow?.classList.add("text-[#0F623A]");
-
-
-      // Small fade effect for image
-      if (image) {
-
-        image.style.opacity = "0";
-
-        setTimeout(() => {
-
-          image.setAttribute("src", data.image);
-          image.setAttribute("alt", data.title);
-
-          image.style.opacity = "1";
-
-        }, 180);
-
-      }
-
-
-      // Update content
-      if (label) {
-        label.textContent = data.label;
-      }
-
-      if (heading) {
-        heading.textContent = data.title;
-      }
-
-      if (description) {
-        description.textContent = data.description;
-      }
-
-      if (link) {
-        link.setAttribute("href", data.link);
-      }
-
-      if (button) {
-        button.textContent = data.button;
-      }
-
     });
+  }
 
-  });
+  setupDivisionTabs();
+  document.addEventListener("astro:page-load", setupDivisionTabs);
 </script>
 
   <!-- ===== 2. IT ASSET LIFECYCLE VISUAL ===== -->

@@ -329,66 +329,74 @@ const description = pageData.metaDescription || "Book an IT equipment collection
 </BaseLayout>
 
 <script>
-  const form = document.getElementById("collection-booking-form") as HTMLFormElement | null;
-  const successBox = document.getElementById("booking-success-message");
-  const refDisplay = document.getElementById("booking-ref-number");
+  function setupCollectionForm() {
+    const form = document.getElementById("collection-booking-form") as HTMLFormElement | null;
+    const successBox = document.getElementById("booking-success-message");
+    const refDisplay = document.getElementById("booking-ref-number");
 
-  form?.addEventListener("submit", (e) => {
-    e.preventDefault();
+    if (!form || form.dataset.hasListener) return;
+    form.dataset.hasListener = "true";
 
-    const formData = new FormData(form);
-    const fullName = formData.get("fullName") || "";
-    const company = formData.get("company") || "";
-    const email = formData.get("email") || "";
-    const phone = formData.get("phone") || "";
-    const address = formData.get("address") || "";
-    const outcome = formData.get("outcome") || "";
-    const collectionDate = formData.get("collectionDate") || "";
-    const laptops = formData.get("device_laptops") || "0";
-    const chromebooks = formData.get("device_chromebooks") || "0";
-    const tablets = formData.get("device_tablets") || "0";
-    const itAssets = formData.get("device_it_assets") || "0";
-    const accessories = formData.get("device_accessories") || "0";
-    const otherText = formData.get("device_other_text") || "";
-    const notes = formData.get("notes") || "";
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-    const ref = `TS-COL-${Math.floor(1000 + Math.random() * 9000)}`;
+      const formData = new FormData(form);
+      const fullName = formData.get("fullName") || "";
+      const company = formData.get("company") || "";
+      const email = formData.get("email") || "";
+      const phone = formData.get("phone") || "";
+      const address = formData.get("address") || "";
+      const outcome = formData.get("outcome") || "";
+      const collectionDate = formData.get("collectionDate") || "";
+      const laptops = formData.get("device_laptops") || "0";
+      const chromebooks = formData.get("device_chromebooks") || "0";
+      const tablets = formData.get("device_tablets") || "0";
+      const itAssets = formData.get("device_it_assets") || "0";
+      const accessories = formData.get("device_accessories") || "0";
+      const otherText = formData.get("device_other_text") || "";
+      const notes = formData.get("notes") || "";
 
-    if (refDisplay) {
-      refDisplay.textContent = ref;
-    }
+      const ref = `TS-COL-${Math.floor(1000 + Math.random() * 9000)}`;
 
-    if (successBox) {
-      successBox.classList.remove("hidden");
-      successBox.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+      if (refDisplay) {
+        refDisplay.textContent = ref;
+      }
 
-    // Build prefilled email body
-    const subject = encodeURIComponent(`Collection Booking Request - Ref ${ref}`);
-    const body = encodeURIComponent(
-      `TechSteps Collection Booking Request\n` +
-      `Reference Number: ${ref}\n\n` +
-      `Contact Details:\n` +
-      `- Full Name: ${fullName}\n` +
-      `- Company: ${company || "N/A"}\n` +
-      `- Email: ${email}\n` +
-      `- Phone: ${phone}\n\n` +
-      `Collection Details:\n` +
-      `- Collection Address: ${address}\n` +
-      `- Preferred Outcome: ${outcome}\n` +
-      `- Preferred Collection Date: ${collectionDate || "Flexible"}\n\n` +
-      `Devices & IT Assets:\n` +
-      `- Laptops: ${laptops}\n` +
-      `- Chromebooks: ${chromebooks}\n` +
-      `- Tablets: ${tablets}\n` +
-      `- IT Assets (Desktops / Servers / Networking): ${itAssets}\n` +
-      `- Chargers & Accessories: ${accessories}\n` +
-      `- Other: ${otherText || "None specified"}\n\n` +
-      `Notes / Instructions:\n${notes || "None provided"}\n`
-    );
+      if (successBox) {
+        successBox.classList.remove("hidden");
+        successBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
 
-    setTimeout(() => {
-      window.location.href = `mailto:collections@techsteps.co.uk?subject=${subject}&body=${body}`;
-    }, 500);
-  });
+      // Build prefilled email body
+      const subject = encodeURIComponent(`Collection Booking Request - Ref ${ref}`);
+      const body = encodeURIComponent(
+        `TechSteps Collection Booking Request\n` +
+        `Reference Number: ${ref}\n\n` +
+        `Contact Details:\n` +
+        `- Full Name: ${fullName}\n` +
+        `- Company: ${company || "N/A"}\n` +
+        `- Email: ${email}\n` +
+        `- Phone: ${phone}\n\n` +
+        `Collection Details:\n` +
+        `- Collection Address: ${address}\n` +
+        `- Preferred Outcome: ${outcome}\n` +
+        `- Preferred Collection Date: ${collectionDate || "Flexible"}\n\n` +
+        `Devices & IT Assets:\n` +
+        `- Laptops: ${laptops}\n` +
+        `- Chromebooks: ${chromebooks}\n` +
+        `- Tablets: ${tablets}\n` +
+        `- IT Assets (Desktops / Servers / Networking): ${itAssets}\n` +
+        `- Chargers & Accessories: ${accessories}\n` +
+        `- Other: ${otherText || "None specified"}\n\n` +
+        `Notes / Instructions:\n${notes || "None provided"}\n`
+      );
+
+      setTimeout(() => {
+        window.location.href = `mailto:collections@techsteps.co.uk?subject=${subject}&body=${body}`;
+      }, 500);
+    });
+  }
+
+  setupCollectionForm();
+  document.addEventListener("astro:page-load", setupCollectionForm);
 </script>

@@ -8,6 +8,7 @@ import Footer from '../components/global/Footer.astro';
 import CookieConsent from '../components/global/CookieConsent.astro';
 import SeoHead from '../components/seo/SeoHead.astro';
 import { getSiteSettings } from '../lib/sanity/client';
+import { ClientRouter } from 'astro:transitions';
 
 const siteSettings = await getSiteSettings();
 import { generateOrganizationSchema } from '../lib/seo/jsonld';
@@ -65,6 +66,7 @@ const heroActive = isHome || hasHeroHeader;
       noIndex={noIndex}
       jsonLd={combinedSchemas}
     />
+    <ClientRouter />
   </head>
   <body class="flex min-h-full flex-col bg-brand-slate text-brand-charcoal antialiased selection:bg-brand-accent selection:text-white">
     <!-- Skip to main content for screen readers and keyboard users (WCAG 2.2 AA) -->
