@@ -2,20 +2,37 @@
 export const WORLD_GEOJSON: any = {
   type: "FeatureCollection",
   features: [
-    // UK Sovereign Operations Hub (Techsteps House, Dartford, Kent DA2 6QJ)
+    // Address 1: Unit B, Roebuck Road, Hainault Business Park, IG6 3UF
     {
       type: "Feature",
       geometry: {
         type: "Point",
-        coordinates: [0.2642, 51.4552] // Techsteps House, Crossways Boulevard, Dartford DA2 6QJ
+        coordinates: [0.1218, 51.6064]
       },
       properties: {
-        name: "Techsteps House (UK Headquarters)",
-        type: "headquarters",
-        address: "Logistics Park, Crossways Blvd",
-        city: "Dartford, Kent DA2 6QJ",
+        name: "Address 1: Hainault Facility",
+        type: "facility",
+        address: "Unit B, Roebuck road, Hainault business park",
+        city: "Ilford, London IG6 3UF",
         country: "United Kingdom",
-        status: "UK Sovereign Hub & ADISA 8.0 Facility"
+        status: "Sovereign Operations & Recycling Hub"
+      }
+    },
+
+    // Address 2: Rickerscote Hall Ln, Stafford ST17 4HF
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [-2.1044, 52.7809]
+      },
+      properties: {
+        name: "Address 2: Stafford Facility",
+        type: "facility",
+        address: "Rickerscote Hall Ln",
+        city: "Stafford ST17 4HF",
+        country: "United Kingdom",
+        status: "Regional Operations & Logistics Centre"
       }
     },
 
