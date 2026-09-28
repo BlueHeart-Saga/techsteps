@@ -154,31 +154,28 @@ const stepPositions = [
               data-desc={step.description}
             >
               <!-- Number & Title -->
-              <div class="flex items-center justify-center gap-1.5 font-display font-extrabold uppercase tracking-[0.14em] text-slate-900 group-hover:text-[#0F623A] group-[.active]:text-[#0F623A] group-hover:scale-105 group-[.active]:scale-105 transition-all whitespace-nowrap text-[clamp(11px,1.22vw,16px)] leading-tight">
+              <div class="flex items-center justify-center gap-1.5 font-display font-extrabold uppercase tracking-[0.14em] text-slate-900 group-[.active]:text-[#0F623A] transition-colors whitespace-nowrap text-[clamp(11px,1.22vw,16px)] leading-tight">
                 <span class="text-[#0F623A] font-black">{step.stepNumber}.</span>
                 <span>{step.title}</span>
               </div>
 
               <!-- Subtitle / Short Description -->
-              <p class="font-sans font-medium text-slate-600 group-hover:text-slate-900 group-[.active]:text-slate-950 group-hover:font-semibold group-[.active]:font-semibold transition-all mt-0.5 whitespace-nowrap text-[clamp(9px,0.98vw,13px)] leading-tight">
+              <p class="font-sans font-medium text-slate-600 group-[.active]:text-slate-950 group-[.active]:font-semibold transition-all mt-0.5 whitespace-nowrap text-[clamp(9px,0.98vw,13px)] leading-tight">
                 {step.shortDesc || step.title}
               </p>
             </div>
 
             <!-- 2. Interactive Object Hotspot (Enables clicking/hovering directly over the 3D element) -->
             <div
-              class="absolute -translate-x-1/2 -translate-y-1/2 w-[14%] h-[34%] rounded-2xl transition-all duration-300 pointer-events-auto z-10"
+              class="absolute -translate-x-1/2 -translate-y-1/2 w-[14%] h-[34%] rounded-2xl pointer-events-auto z-10"
               style={`left: ${pos.objX}%; top: ${pos.objY}%;`}
               data-process-step={idx}
               title={`Click to view Phase 0${step.stepNumber}: ${step.title}`}
-            >
-              <!-- Subtle Aura Glow on Hover/Active -->
-              <div class="w-full h-full rounded-2xl bg-emerald-400/0 group-hover:bg-emerald-400/10 group-[.active]:bg-emerald-400/15 group-hover:backdrop-blur-[1px] transition-all duration-300"></div>
-            </div>
+            ></div>
 
-            <!-- 3. Pulsing Luminous Halo around the Line Node when Hovered/Active -->
+            <!-- 3. Node dot (no hover glow) -->
             <div
-              class="absolute -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full border-2 border-emerald-500 bg-emerald-400/30 opacity-0 group-hover:opacity-100 group-[.active]:opacity-100 group-hover:scale-125 group-[.active]:scale-125 transition-all duration-300 pointer-events-none shadow-[0_0_12px_rgba(16,185,129,0.8)] z-20"
+              class="absolute -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-[#0F623A] bg-white pointer-events-none z-20 opacity-0 group-[.active]:opacity-100 transition-opacity duration-300"
               style={`left: ${pos.nodeX}%; top: ${pos.nodeY}%;`}
             ></div>
           </div>
@@ -271,7 +268,11 @@ const stepPositions = [
 
       groups.forEach((group) => {
         const stepIdx = group.getAttribute('data-process-step');
-        group.addEventListener('mouseenter', () => activateStep(stepIdx));
+
+        group.addEventListener('mouseenter', () => {
+          activateStep(stepIdx);
+        });
+
         group.addEventListener('click', () => activateStep(stepIdx));
         group.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
