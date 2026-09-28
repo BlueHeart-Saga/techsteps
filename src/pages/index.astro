@@ -116,7 +116,7 @@ const divisionMetadata: Record<
         <!-- Right: Heading and Concise Narrative Content -->
         <div class="lg:col-span-7 xl:col-span-7 space-y-4 lg:space-y-5 text-left">
           <!-- Main Headline (Dark Green #0F623A) -->
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] font-extrabold tracking-tight leading-[1.14] font-display text-[#0F623A]">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] font-extrabold tracking-tight leading-[1.14] font-display text-[#0F623A] min-h-[2lh] min-h-[2.28em]">
             {homePage?.intro?.heading || 'Secure ITAD Services in the UK'}
           </h2>
 
@@ -126,12 +126,8 @@ const divisionMetadata: Record<
           </div>
 
           <!-- Description Paragraph (Increased to 3 sentences for ideal visual balance) -->
-          <p class="text-base sm:text-lg lg:text-[19px] text-slate-700 leading-relaxed font-normal">
-            {(() => {
-              const fullDesc = homePage?.intro?.description || "TechSteps provides a fully accredited IT disposal company framework designed for modern UK enterprises. We simplify the ITAD process by combining logistics with maximum security, helping you retire hardware without risk. From single-site pickups to complex IT asset disposal projects, our team ensures your redundant equipment is handled according to the highest environmental standards.";
-              const sentences = fullDesc.match(/[^.!?]+[.!?]+/g);
-              return (sentences && sentences.length > 3) ? sentences.slice(0, 3).join(' ').trim() : fullDesc;
-            })()}
+          <p class="text-base sm:text-lg lg:text-[19px] text-slate-700 leading-relaxed font-normal min-h-[3lh] min-h-[4.8em]">
+            {homePage?.intro?.description || "TechSteps provides a fully accredited IT disposal company framework designed for modern UK enterprises. We simplify the ITAD process by combining logistics with maximum security, helping you retire hardware without risk. From single-site pickups to complex IT asset disposal projects, our team ensures your redundant equipment is handled according to the highest environmental standards."}
           </p>
         </div>
       </div>
@@ -154,7 +150,7 @@ const divisionMetadata: Record<
         </span>
       </div>
 
-      <p class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 leading-snug">
+      <p class="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 leading-snug min-h-[2lh] min-h-[2.75rem] sm:min-h-[3.25rem] flex items-center justify-center">
         {stat.label}
       </p>
     </div>
@@ -346,11 +342,11 @@ const divisionMetadata: Record<
       </div>
 
       <div class="relative z-10 flex flex-col justify-end mt-auto pt-16">
-        <h3 class="text-xl sm:text-2xl font-bold font-display text-white tracking-tight leading-snug group-hover:text-emerald-400 transition-colors">
+        <h3 class="text-xl sm:text-2xl font-bold font-display text-white tracking-tight leading-snug group-hover:text-emerald-400 transition-colors min-h-[2lh] min-h-[3.5rem] sm:min-h-[4rem] flex items-end">
           {card.title}
         </h3>
 
-        <p class="mt-2.5 text-sm sm:text-[15px] text-slate-200/90 leading-relaxed font-normal">
+        <p class="mt-2.5 text-sm sm:text-[15px] text-slate-200/90 leading-relaxed font-normal min-h-[3lh] min-h-[4rem] sm:min-h-[4.5rem] line-clamp-3">
           {card.description}
         </p>
 
@@ -432,7 +428,17 @@ const divisionMetadata: Record<
   <!-- Section 12 — Process: Visual Lifecycle -->
   <Section theme="slate" padding="py-8 md:py-12">
     <Container>
-      <ProcessSteps />
+      <ProcessSteps
+        title={homePage?.lifecycle?.heading}
+        subtitle={homePage?.lifecycle?.description}
+        steps={homePage?.lifecycle?.steps?.length ? homePage.lifecycle.steps.map((s, idx) => ({
+          stepNumber: s.stepNumber || idx + 1,
+          title: s.title || '',
+          shortDesc: s.badge || s.headline || '',
+          description: s.description || s.lead || '',
+          image: s.imageUrl || `/images/process/new/step-${idx + 1}-collect.png`,
+        })) : undefined}
+      />
     </Container>
   </Section>
 
@@ -457,10 +463,10 @@ const divisionMetadata: Record<
   <!-- Section 15 — Homepage Final CTA -->
   <Section theme="slate" padding="py-10 md:py-14" className="relative overflow-hidden border-t border-slate-200/80">
     <Container className="relative z-10 text-center max-w-4xl mx-auto space-y-8">
-<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
+<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight min-h-[2lh] min-h-[2.2em] flex items-center justify-center">
   {homePage?.cta?.heading || 'Ready to Elevate Your IT Asset Strategy?'}
 </h2>
-<p class="text-base sm:text-lg text-slate-800 max-w-2xl mx-auto leading-relaxed font-medium">
+<p class="text-base sm:text-lg text-slate-800 max-w-2xl mx-auto leading-relaxed font-medium min-h-[2lh] min-h-[3.5em]">
   {homePage?.cta?.description || 'Speak with our certified compliance specialists today to request an asset collection, schedule a facility audit, or discuss custom ITAD frameworks for your enterprise.'}
 </p>
       <div class="flex flex-wrap items-center justify-center gap-4 pt-4">

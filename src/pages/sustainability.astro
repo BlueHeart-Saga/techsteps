@@ -116,10 +116,10 @@ const serviceCards = [
           <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#146B5C]">
             {pageData.approach?.eyebrow || "OUR APPROACH"}
           </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight min-h-[2lh] min-h-[2.2em] flex items-center justify-center">
             {pageData.approach?.heading || "Technology Has More Than One Ending."}
           </h2>
-          <p class="text-lg sm:text-xl text-slate-700 leading-relaxed font-medium pt-1">
+          <p class="text-lg sm:text-xl text-slate-700 leading-relaxed font-medium pt-1 min-h-[2.5lh]">
             {pageData.approach?.description || "Not every device needs to become waste. Where appropriate, assets can be securely prepared for reuse, remarketing or recovery before responsible recycling is considered."}
           </p>
         </div>
@@ -191,17 +191,19 @@ const serviceCards = [
         <!-- 6 Steps Grid / Flow -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {lifecycleSteps.map((s) => (
-            <div class="bg-white/90 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4 hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
-              <div class="flex items-center justify-between">
-                <span class="text-3xl sm:text-4xl font-extrabold font-display text-[#146B5C]/30 group-hover:text-[#146B5C] transition-colors">
-                  {s.step}
-                </span>
-                <span class="w-3 h-3 rounded-full bg-[#146B5C]"></span>
+            <div class="bg-white/90 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4 hover:shadow-xl transition-all duration-300 relative overflow-hidden group min-h-[220px] flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-3xl sm:text-4xl font-extrabold font-display text-[#146B5C]/30 group-hover:text-[#146B5C] transition-colors">
+                    {s.step}
+                  </span>
+                  <span class="w-3 h-3 rounded-full bg-[#146B5C]"></span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 tracking-tight min-h-[2lh] min-h-[3.5rem] flex items-start">
+                  {s.title}
+                </h3>
               </div>
-              <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 tracking-tight">
-                {s.title}
-              </h3>
-              <p class="text-base text-slate-700 leading-relaxed font-semibold">
+              <p class="text-base text-slate-700 leading-relaxed font-semibold min-h-[3lh] min-h-[4.5rem]">
                 {s.desc}
               </p>
             </div>

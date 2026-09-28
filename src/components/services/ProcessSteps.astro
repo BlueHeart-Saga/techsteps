@@ -188,13 +188,13 @@ const stepPositions = [
   </div>
 
   <!-- INTERACTIVE DETAIL CARD (Highlights the selected phase with compliance context) -->
-  <div class="hidden md:block max-w-2xl mx-auto text-center p-4 sm:p-5 rounded-2xl bg-white/95 border border-slate-200/90 shadow-sm backdrop-blur-sm transition-all duration-300 mt-2" id="step-detail-card">
+  <div class="hidden md:block max-w-2xl mx-auto text-center p-4 sm:p-5 rounded-2xl bg-white/95 border border-slate-200/90 shadow-sm backdrop-blur-sm transition-all duration-300 mt-2 min-h-[115px] flex flex-col justify-center items-center" id="step-detail-card">
     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-[#0F623A] text-xs font-bold uppercase tracking-wider mb-2">
       <span id="detail-card-badge">Phase 01</span>
       <span class="text-emerald-300">&bull;</span>
       <span id="detail-card-title">{steps[0].title}</span>
     </div>
-    <p id="detail-card-desc" class="text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
+    <p id="detail-card-desc" class="text-sm sm:text-base text-slate-700 leading-relaxed font-medium min-h-[2.5lh]">
       {steps[0].description}
     </p>
   </div>

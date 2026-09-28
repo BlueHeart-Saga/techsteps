@@ -124,7 +124,7 @@ const aboutPageSchema = {
               </p>
             )}
 
-            <h1 class="lift">
+            <h1 class="lift min-h-[2lh]">
               {hero?.title}
 
               {hero?.highlightedTitle && (
@@ -135,7 +135,7 @@ const aboutPageSchema = {
             </h1>
 
             {hero?.description && (
-              <p class="lede lift">
+              <p class="lede lift min-h-[3lh]">
                 {hero.description}
               </p>
             )}
@@ -202,7 +202,7 @@ const aboutPageSchema = {
 
             </div>
 
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-950 tracking-tight leading-[1.12] mt-5 mb-8 sm:mb-10 lg:mb-12">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-950 tracking-tight leading-[1.12] mt-5 mb-8 sm:mb-10 lg:mb-12 min-h-[2lh]">
 
               {whoWeAre?.title}
 
@@ -414,11 +414,11 @@ const aboutPageSchema = {
 
               </div>
 
-              <h3>
+              <h3 class="min-h-[2lh] flex items-end">
                 {item.title}
               </h3>
 
-              <p>
+              <p class="min-h-[4lh]">
                 {item.description}
               </p>
 

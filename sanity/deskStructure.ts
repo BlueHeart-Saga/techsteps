@@ -79,7 +79,7 @@ export const deskStructure: StructureResolver = (S) =>
         ),
 
       S.listItem()
-        .title('Request Collection / Quote Page')
+        .title('Request Collection Page')
         .id('requestCollectionPage')
         .child(
           S.document()

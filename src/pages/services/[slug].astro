@@ -9,10 +9,36 @@ import type { Service } from '../../lib/sanity/types';
 
 export async function getStaticPaths() {
   const allServices = await getServices();
-  return allServices.map((service) => ({
-    params: { slug: service.slug },
-    props: { service },
-  }));
+  const paths: { params: { slug: string }; props: { service: Service } }[] = [];
+  const registeredSlugs = new Set<string>();
+
+  for (const service of allServices) {
+    if (!service.slug) continue;
+
+    // Primary route
+    if (!registeredSlugs.has(service.slug)) {
+      paths.push({
+        params: { slug: service.slug },
+        props: { service },
+      });
+      registeredSlugs.add(service.slug);
+    }
+
+    // Support -uk suffix alias (e.g. document-storage <-> document-storage-uk)
+    const altSlug = service.slug.endsWith('-uk')
+      ? service.slug.replace(/-uk$/, '')
+      : `${service.slug}-uk`;
+
+    if (!registeredSlugs.has(altSlug)) {
+      paths.push({
+        params: { slug: altSlug },
+        props: { service },
+      });
+      registeredSlugs.add(altSlug);
+    }
+  }
+
+  return paths;
 }
 
 interface Props {
@@ -121,11 +147,11 @@ const breadcrumbSchema = generateBreadcrumbSchema([
         <span class="text-white font-semibold">{service.title}</span>
       </nav>
 
-      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.08] drop-shadow-2xl">
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.08] drop-shadow-2xl min-h-[2lh] min-h-[2.16em]">
         {detail.heroTitle}
       </h1>
 
-      <p class="text-base sm:text-lg lg:text-xl text-slate-200/90 leading-relaxed max-w-2xl font-normal drop-shadow-sm">
+      <p class="text-base sm:text-lg lg:text-xl text-slate-200/90 leading-relaxed max-w-2xl font-normal drop-shadow-sm min-h-[2lh] min-h-[3.25em]">
         {detail.heroDescription}
       </p>
 
@@ -134,7 +160,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
           href={`/request-a-collection?service=${encodeURIComponent(service.slug)}`}
           class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 border border-emerald-400/30"
         >
-          Request a Collection / Quote
+          Request a Collection
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
@@ -174,7 +200,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
             {detail.aboutBadge}
           </div>
 
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-[1.12]">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-[1.12] min-h-[2lh] min-h-[2.24em]">
             {detail.aboutTitle}
           </h2>
 
@@ -271,9 +297,9 @@ const breadcrumbSchema = generateBreadcrumbSchema([
                 <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2 font-display">{detail.processSteps[0]?.title}</h3>
+            <h3 class="text-xl font-bold text-slate-900 mb-2 font-display min-h-[2lh] min-h-[3.25rem] flex items-end">{detail.processSteps[0]?.title}</h3>
           </div>
-          <p class="text-sm text-slate-600 leading-relaxed font-sans">
+          <p class="text-sm text-slate-600 leading-relaxed font-sans min-h-[2.5lh] min-h-[3.5rem]">
             {detail.processSteps[0]?.description}
           </p>
         </div>
@@ -286,9 +312,9 @@ const breadcrumbSchema = generateBreadcrumbSchema([
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2 font-display">{detail.processSteps[1]?.title}</h3>
+            <h3 class="text-xl font-bold text-slate-900 mb-2 font-display min-h-[2lh] min-h-[3.25rem] flex items-end">{detail.processSteps[1]?.title}</h3>
           </div>
-          <p class="text-sm text-slate-600 leading-relaxed font-sans">
+          <p class="text-sm text-slate-600 leading-relaxed font-sans min-h-[2.5lh] min-h-[3.5rem]">
             {detail.processSteps[1]?.description}
           </p>
         </div>
@@ -301,9 +327,9 @@ const breadcrumbSchema = generateBreadcrumbSchema([
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2 font-display">{detail.processSteps[2]?.title}</h3>
+            <h3 class="text-xl font-bold text-slate-900 mb-2 font-display min-h-[2lh] min-h-[3.25rem] flex items-end">{detail.processSteps[2]?.title}</h3>
           </div>
-          <p class="text-sm text-slate-600 leading-relaxed font-sans">
+          <p class="text-sm text-slate-600 leading-relaxed font-sans min-h-[2.5lh] min-h-[3.5rem]">
             {detail.processSteps[2]?.description}
           </p>
         </div>
@@ -316,9 +342,9 @@ const breadcrumbSchema = generateBreadcrumbSchema([
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2 font-display">{detail.processSteps[3]?.title}</h3>
+            <h3 class="text-xl font-bold text-slate-900 mb-2 font-display min-h-[2lh] min-h-[3.25rem] flex items-end">{detail.processSteps[3]?.title}</h3>
           </div>
-          <p class="text-sm text-slate-600 leading-relaxed font-sans">
+          <p class="text-sm text-slate-600 leading-relaxed font-sans min-h-[2.5lh] min-h-[3.5rem]">
             {detail.processSteps[3]?.description}
           </p>
         </div>
@@ -392,11 +418,11 @@ const breadcrumbSchema = generateBreadcrumbSchema([
                     </svg>
                   )}
                 </div>
-                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 font-display tracking-tight group-hover:text-[#0F623A] transition-colors">
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 font-display tracking-tight group-hover:text-[#0F623A] transition-colors min-h-[2lh] min-h-[3.5rem] flex items-start">
                   {card.title}
                 </h3>
               </div>
-              <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans font-normal">
+              <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans font-normal min-h-[3lh] min-h-[4.5rem]">
                 {card.description}
               </p>
             </div>
@@ -414,7 +440,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
           <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
           {detail.faqBadge}
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-[1.12]">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-display leading-[1.12] min-h-[2lh] min-h-[2.24em] flex items-center justify-center">
           {detail.faqTitle}
         </h2>
         <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans max-w-2xl mx-auto">
@@ -456,11 +482,11 @@ const breadcrumbSchema = generateBreadcrumbSchema([
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href={`/request-a-quote?service=${encodeURIComponent(service.slug)}`}
+            href={`/request-a-collection?service=${encodeURIComponent(service.slug)}`}
             class="px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider text-white shadow-lg hover:shadow-xl transition-all duration-200 hover:brightness-110 transform hover:-translate-y-0.5"
             style={`background: ${clr.accent};`}
           >
-            Request a Collection / Quote →
+            Request a Collection →
           </a>
           <a
             href="/contact"

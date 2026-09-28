@@ -2,7 +2,7 @@ import { defineType, defineField } from 'sanity';
 
 export default defineType({
   name: 'requestCollectionPage',
-  title: 'Request a Collection / Quote Page',
+  title: 'Request a Collection Page',
   type: 'document',
   fields: [
     defineField({

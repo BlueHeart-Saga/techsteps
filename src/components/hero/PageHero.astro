@@ -186,12 +186,12 @@ const currentPath = Astro.url.pathname;
           </span>
         )}
 
-        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight uppercase leading-[1.05] drop-shadow-2xl">
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight uppercase leading-[1.05] drop-shadow-2xl min-h-[2lh] min-h-[2.1em]">
           {title}
         </h1>
 
         {subheading && (
-          <p class="mt-5 text-base sm:text-lg text-slate-200/90 max-w-xl leading-relaxed">
+          <p class="mt-5 text-base sm:text-lg text-slate-200/90 max-w-xl leading-relaxed min-h-[2lh] min-h-[3.25em]">
             {subheading}
           </p>
         )}
@@ -280,13 +280,13 @@ const currentPath = Astro.url.pathname;
     )}
 
     {title && (
-      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight uppercase leading-[1.05] drop-shadow-2xl select-none max-w-4xl">
+      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight uppercase leading-[1.05] drop-shadow-2xl select-none max-w-4xl min-h-[2lh] min-h-[2.1em]">
         {title}
       </h1>
     )}
 
     {subheading && (
-      <p class="mt-3 text-sm sm:text-base lg:text-lg text-slate-200/90 max-w-2xl leading-relaxed font-normal drop-shadow-sm">
+      <p class="mt-3 text-sm sm:text-base lg:text-lg text-slate-200/90 max-w-2xl leading-relaxed font-normal drop-shadow-sm min-h-[2lh] min-h-[3.25em]">
         {subheading}
       </p>
     )}
