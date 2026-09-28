@@ -428,17 +428,7 @@ const divisionMetadata: Record<
   <!-- Section 12 — Process: Visual Lifecycle -->
   <Section theme="slate" padding="py-8 md:py-12">
     <Container>
-      <ProcessSteps
-        title={homePage?.lifecycle?.heading}
-        subtitle={homePage?.lifecycle?.description}
-        steps={homePage?.lifecycle?.steps?.length ? homePage.lifecycle.steps.map((s, idx) => ({
-          stepNumber: s.stepNumber || idx + 1,
-          title: s.title || '',
-          shortDesc: s.badge || s.headline || '',
-          description: s.description || s.lead || '',
-          image: s.imageUrl || `/images/process/new/step-${idx + 1}-collect.png`,
-        })) : undefined}
-      />
+      <ProcessSteps />
     </Container>
   </Section>
 
