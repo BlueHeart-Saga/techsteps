@@ -358,7 +358,15 @@ export async function getServices(): Promise<Service[]> {
 
 export async function getServiceBySlug(slug: string): Promise<Service | undefined> {
   const all = await getServices();
-  return all.find((s) => s.slug === slug);
+  const cleanTarget = slug.trim().toLowerCase();
+  const targetBase = cleanTarget.replace(/-services|-uk/g, '');
+
+  return all.find((s) => {
+    const cleanS = s.slug?.trim().toLowerCase();
+    if (cleanS === cleanTarget) return true;
+    const sBase = cleanS?.replace(/-services|-uk/g, '');
+    return sBase === targetBase;
+  });
 }
 
 export async function getServicesByDivision(divisionSlug: string): Promise<Service[]> {

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import PageHero from '../../components/hero/PageHero.astro';
 import { getServices, getSectors, getSiteSettings } from '../../lib/sanity/client';
+import { services as fallbackServices } from '../../lib/sanity/data';
 import { generateServiceSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 import { getServiceDetailContent } from '../../data/serviceDetails';
 import type { Service } from '../../lib/sanity/types';
@@ -12,29 +13,55 @@ export async function getStaticPaths() {
   const paths: { params: { slug: string }; props: { service: Service } }[] = [];
   const registeredSlugs = new Set<string>();
 
+  const register = (slug: string | undefined, service: Service) => {
+    if (!slug) return;
+    const cleanSlug = slug.trim().toLowerCase();
+    if (!cleanSlug || registeredSlugs.has(cleanSlug)) return;
+    registeredSlugs.add(cleanSlug);
+    paths.push({
+      params: { slug: cleanSlug },
+      props: { service },
+    });
+  };
+
   for (const service of allServices) {
     if (!service.slug) continue;
 
     // Primary route
-    if (!registeredSlugs.has(service.slug)) {
-      paths.push({
-        params: { slug: service.slug },
-        props: { service },
-      });
-      registeredSlugs.add(service.slug);
+    register(service.slug, service);
+
+    // Variations: -uk, -services, -services-uk
+    const withoutUk = service.slug.endsWith('-uk') ? service.slug.replace(/-uk$/, '') : service.slug;
+    const withoutServices = withoutUk.replace(/-services$/, '');
+
+    register(withoutUk, service);
+    register(`${withoutUk}-uk`, service);
+    register(withoutServices, service);
+    register(`${withoutServices}-services`, service);
+    register(`${withoutServices}-services-uk`, service);
+    register(`${withoutServices}-uk`, service);
+
+    // Match against fallback services to ensure menu slugs (e.g. digital-mailroom, document-management, secure-it-disposal) resolve
+    const fallbackMatch = fallbackServices.find(
+      (f) =>
+        f.id === service.id ||
+        f.id === (service as any)._id ||
+        (f.title && service.title && f.title.toLowerCase() === service.title.toLowerCase())
+    );
+    if (fallbackMatch?.slug) {
+      register(fallbackMatch.slug, service);
+      register(fallbackMatch.slug.replace(/-uk$/, ''), service);
+      register(`${fallbackMatch.slug}-uk`, service);
+      register(`${fallbackMatch.slug}-services`, service);
     }
+  }
 
-    // Support -uk suffix alias (e.g. document-storage <-> document-storage-uk)
-    const altSlug = service.slug.endsWith('-uk')
-      ? service.slug.replace(/-uk$/, '')
-      : `${service.slug}-uk`;
-
-    if (!registeredSlugs.has(altSlug)) {
-      paths.push({
-        params: { slug: altSlug },
-        props: { service },
-      });
-      registeredSlugs.add(altSlug);
+  // Ensure any fallback service not present in Sanity is also reachable
+  for (const fallback of fallbackServices) {
+    if (fallback.slug) {
+      register(fallback.slug, fallback);
+      register(fallback.slug.replace(/-uk$/, ''), fallback);
+      register(`${fallback.slug}-uk`, fallback);
     }
   }
 
