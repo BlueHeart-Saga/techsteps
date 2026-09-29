@@ -451,8 +451,99 @@ const divisionCards = [
     });
   }
 
-  setupDivisionTabs();
-  document.addEventListener("astro:page-load", setupDivisionTabs);
+  function setupServicesStatsCounter() {
+    const statsContainer = document.getElementById("services-stats-card");
+    if (!statsContainer) return;
+
+    const numSpans = statsContainer.querySelectorAll(".service-stat-num");
+    if (numSpans.length === 0) return;
+
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      numSpans.forEach((span) => {
+        span.textContent = span.getAttribute("data-target") || "0";
+      });
+      return;
+    }
+
+    if (statsContainer._statsObserver) {
+      statsContainer._statsObserver.disconnect();
+      statsContainer._statsObserver = null;
+    }
+
+    let animFrameId = null;
+
+    const resetNumbers = () => {
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
+      }
+      numSpans.forEach((span) => {
+        span.textContent = "0";
+      });
+    };
+
+    const runAnimation = () => {
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
+      }
+
+      const duration = 1800; // 1.8s smooth running animation
+      const startTime = performance.now();
+
+      const update = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = 1 - Math.pow(1 - progress, 3); // cubic ease-out
+
+        numSpans.forEach((span) => {
+          const target = parseInt(span.getAttribute("data-target") || "0", 10);
+          const currentVal = Math.floor(easeProgress * target);
+          span.textContent = progress >= 1 ? target.toString() : currentVal.toString();
+        });
+
+        if (progress < 1) {
+          animFrameId = requestAnimationFrame(update);
+        } else {
+          animFrameId = null;
+        }
+      };
+
+      animFrameId = requestAnimationFrame(update);
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              runAnimation();
+            } else {
+              resetNumbers();
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(statsContainer);
+      statsContainer._statsObserver = observer;
+    } else {
+      runAnimation();
+    }
+  }
+
+  function initServicesPage() {
+    setupDivisionTabs();
+    setupServicesStatsCounter();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initServicesPage);
+  } else {
+    initServicesPage();
+  }
+
+  document.addEventListener("astro:page-load", initServicesPage);
 </script>
 
   <!-- ===== 2. IT ASSET LIFECYCLE VISUAL ===== -->
@@ -638,36 +729,36 @@ const divisionCards = [
     </div>
 
     <!-- Floating White Stats Card Set Below Banner -->
-    <div class="relative z-20 max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 -mt-16 sm:-mt-20 lg:-mt-24">
+    <div id="services-stats-card" class="relative z-20 max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 -mt-16 sm:-mt-20 lg:-mt-24">
       <div class="bg-white rounded-3xl sm:rounded-[36px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100/90 py-8 sm:py-10 lg:py-12 px-6 sm:px-8 lg:px-10">
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 xl:gap-10 text-center">
           <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display">
-              +25M
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display tabular-nums">
+              +<span class="service-stat-num" data-target="25">25</span>M
             </div>
             <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
               Items In Storage
             </p>
           </div>
           <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display">
-              +238M
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display tabular-nums">
+              +<span class="service-stat-num" data-target="238">238</span>M
             </div>
             <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
               Images Scanned
             </p>
           </div>
           <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display">
-              +500K
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display tabular-nums">
+              +<span class="service-stat-num" data-target="500">500</span>K
             </div>
             <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
               Desktops Moved
             </p>
           </div>
           <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display">
-              +52K
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display tabular-nums">
+              +<span class="service-stat-num" data-target="52">52</span>K
             </div>
             <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
               Tonnes Shredded

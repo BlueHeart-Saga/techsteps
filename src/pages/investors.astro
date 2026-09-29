@@ -152,13 +152,13 @@ const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length 
 
   <!-- 2. High-Impact Stats Bar (From techsteps.co.uk/investors) -->
   <section class="relative -mt-10 sm:-mt-14 z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl border border-slate-200/90">
+    <div id="investor-stats-card" class="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl border border-slate-200/90">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
         {investorStats.map((stat, idx) => (
           <div class={`space-y-2 ${idx !== 0 ? 'pt-6 sm:pt-0 sm:pl-6 lg:pl-8' : ''}`}>
             <div class="flex items-baseline gap-1 text-[#0F623A]">
               <span class="text-2xl sm:text-3xl font-extrabold">{stat.prefix}</span>
-              <span class="text-4xl sm:text-5xl font-black font-display tracking-tight text-slate-900">{stat.value}</span>
+              <span class="text-4xl sm:text-5xl font-black font-display tracking-tight text-slate-900 tabular-nums investor-stat-num" data-target={stat.value}>{stat.value}</span>
               <span class="text-2xl sm:text-3xl font-extrabold text-[#0F623A]">{stat.suffix}</span>
             </div>
             <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">{stat.title}</h3>
@@ -504,4 +504,95 @@ const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length 
       </div>
     </Container>
   </section>
+
+  <script>
+    function setupInvestorStatsCounter() {
+      const statsContainer = document.getElementById("investor-stats-card");
+      if (!statsContainer) return;
+
+      const numSpans = statsContainer.querySelectorAll(".investor-stat-num");
+      if (numSpans.length === 0) return;
+
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        numSpans.forEach((span) => {
+          span.textContent = span.getAttribute("data-target") || "0";
+        });
+        return;
+      }
+
+      if (statsContainer._statsObserver) {
+        statsContainer._statsObserver.disconnect();
+        statsContainer._statsObserver = null;
+      }
+
+      let animFrameId = null;
+
+      const resetNumbers = () => {
+        if (animFrameId) {
+          cancelAnimationFrame(animFrameId);
+          animFrameId = null;
+        }
+        numSpans.forEach((span) => {
+          span.textContent = "0";
+        });
+      };
+
+      const runAnimation = () => {
+        if (animFrameId) {
+          cancelAnimationFrame(animFrameId);
+          animFrameId = null;
+        }
+
+        const duration = 1800;
+        const startTime = performance.now();
+
+        const update = (currentTime) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+          numSpans.forEach((span) => {
+            const target = parseInt(span.getAttribute("data-target") || "0", 10);
+            const currentVal = Math.floor(easeProgress * target);
+            span.textContent = progress >= 1 ? target.toString() : currentVal.toString();
+          });
+
+          if (progress < 1) {
+            animFrameId = requestAnimationFrame(update);
+          } else {
+            animFrameId = null;
+          }
+        };
+
+        animFrameId = requestAnimationFrame(update);
+      };
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                runAnimation();
+              } else {
+                resetNumbers();
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+        observer.observe(statsContainer);
+        statsContainer._statsObserver = observer;
+      } else {
+        runAnimation();
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupInvestorStatsCounter);
+    } else {
+      setupInvestorStatsCounter();
+    }
+
+    document.addEventListener("astro:page-load", setupInvestorStatsCounter);
+  </script>
 </BaseLayout>

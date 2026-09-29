@@ -70,8 +70,8 @@ const servicePillars = [
 
       <div class="flex h-[360px] sm:h-[370px]">
 
-        <!-- LEFT: Service tab buttons (Compact width, clean icons, bold text, clickable links) -->
-        <div class="w-[260px] shrink-0 border-r border-slate-100 py-5 px-3.5 flex flex-col gap-1.5">
+        <!-- LEFT: Service tab buttons (Clean width, clean icons, bold text, clickable links) -->
+        <div class="w-[340px] shrink-0 border-r border-slate-100 py-5 px-3.5 flex flex-col gap-1.5">
           {servicePillars.map((pillar, idx) => (
             <a
               href={`/${pillar.slug}`}
@@ -108,13 +108,13 @@ const servicePillars = [
                   )}
                 </span>
                 <!-- Pillar Name -->
-                <span class="font-display text-[15.5px] sm:text-[16.5px] font-bold leading-snug tracking-tight">{pillar.title}</span>
+                <span class="font-display text-[18px] sm:text-[19px] font-bold leading-snug tracking-tight">{pillar.title}</span>
               </div>
               <span class="text-slate-400 group-hover:text-[#0F623A] transition-all text-sm font-semibold opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5">→</span>
             </a>
           ))}
           <div class="mt-auto pt-3 px-3">
-            <a href="/services" class="text-[15px] font-bold font-display tracking-wide text-[#0F623A] hover:underline underline-offset-4">
+            <a href="/services" class="text-[16px] sm:text-[17px] font-bold font-display tracking-wide text-[#0F623A] hover:underline underline-offset-4">
               All services overview →
             </a>
           </div>

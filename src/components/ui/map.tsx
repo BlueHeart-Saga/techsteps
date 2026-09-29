@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import * as maplibregl from 'maplibre-gl';
+import { setWorkerUrl } from 'maplibre-gl';
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import 'maplibre-gl/dist/maplibre-gl.css';
+
+setWorkerUrl(workerUrl);
 import { WORLD_GEOJSON } from '@/lib/use-world-data';
 
 export type MapRef = maplibregl.Map;
@@ -352,7 +356,7 @@ export function CustomStyleExample() {
           pitch: targetConfig.pitch,
           duration: 300,
         });
-      } catch (e) {}
+      } catch (e) { }
     };
 
     mapRef.current.on('style.load', onStyleLoad);
