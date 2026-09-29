@@ -18,12 +18,10 @@ const hero = homePage?.hero;
   decoding="async"
 />
 
-  <!-- Left-side High-Contrast Overlay — Rich deep contrast behind text, smoothly fading out right at the straight line of About Us in the navbar -->
-  <div class="absolute inset-y-0 left-0 w-full sm:w-[58%] md:w-[50%] lg:w-[44%] xl:w-[40%] 2xl:w-[36%] bg-gradient-to-r from-black/92 via-black/75 via-[55%] via-black/35 via-[82%] to-transparent pointer-events-none z-[1]"></div>
-  <!-- Mobile-only soft vignette for stacked full-width text -->
-  <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent sm:hidden pointer-events-none z-[1]"></div>
-
-  <!-- 1. Integrated Navbar at Top of Hero (Full width white bar) -->
+  <!-- Partial Soft Overlay in the text space (smooth gradient fading out before the hardware subject) -->
+  <div class="absolute inset-y-0 left-0 w-full sm:w-[65%] md:w-[56%] lg:w-[48%] xl:w-[44%] bg-gradient-to-r from-black/65 via-black/40 via-[60%] via-black/15 via-[85%] to-transparent pointer-events-none z-[1]"></div>
+  <!-- Mobile ambient gradient to keep text readable on small screens -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent sm:hidden pointer-events-none z-[1]"></div>
   <header id="hero-header" class="relative z-50 w-full flex items-center justify-between h-20 sm:h-22 bg-white shadow-md px-6 sm:px-10 lg:px-12">
     <!-- Left: Brand Logo -->
     <div class="flex items-center h-full shrink-0">
@@ -119,19 +117,39 @@ const hero = homePage?.hero;
   </header>
 
   <!-- 2. Hero Content (Left Narrative aligned straight to the logo) -->
-  <div class="relative z-10 w-full px-6 sm:px-10 lg:px-12 py-14 sm:py-20 lg:py-28 my-auto">
+  <div class="relative z-10 w-full px-6 sm:px-10 lg:px-12 py-8 sm:py-12 lg:py-16 my-auto">
     <div class="max-w-2xl lg:max-w-3xl">
-<span class="inline-block text-sm sm:text-base font-sans font-bold uppercase tracking-wider text-[#0F623A] mb-4">
-  {hero?.eyebrow || 'SUSTAINABLE IT RECYCLING'}
-</span>
+      <span class="inline-block text-sm sm:text-base font-sans font-bold uppercase tracking-wider text-[#0F623A] mb-3 sm:mb-4">
+        {hero?.eyebrow || 'SUSTAINABLE IT RECYCLING'}
+      </span>
 
-<h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white tracking-tight uppercase leading-[1.12] drop-shadow-2xl min-h-[2lh] min-h-[2.24em]">
-  {hero?.heading || 'GIVING TECHNOLOGY A SECOND LIFE'}
-</h1>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white tracking-tight uppercase leading-[1.12] drop-shadow-2xl">
+        {hero?.heading || 'GIVING TECHNOLOGY A SECOND LIFE'}
+      </h1>
 
-<p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-200 max-w-xl leading-relaxed font-sans font-normal font-[400] min-h-[3lh] min-h-[4.8em]">
-  {hero?.description || 'Audited IT lifecycle solutions from accredited facilities across the UK. Zero-landfill guaranteed e-waste recycling, secure ADISA-certified data destruction, and compliant asset disposition.'}
-</p>
+      <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-200 max-w-xl leading-relaxed font-sans font-normal font-[400]">
+        {hero?.description || 'Audited IT lifecycle solutions from accredited facilities across the UK. Zero-landfill guaranteed e-waste recycling, secure ADISA-certified data destruction, and compliant asset disposition.'}
+      </p>
+
+      <!-- Hero CTA Buttons: Service & Contact -->
+      <div class="mt-6 sm:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
+        <a
+          href="/services"
+          class="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-md bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-lg transition-all duration-200 hover:scale-[1.02]"
+        >
+          Explore Services
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5 rounded-md bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/40 text-white text-sm sm:text-base font-bold transition-all duration-200 hover:scale-[1.02] shadow-sm"
+        >
+          Contact Us
+        </a>
+      </div>
     </div>
   </div>
 

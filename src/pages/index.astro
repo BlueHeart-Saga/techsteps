@@ -42,6 +42,35 @@ const featuredServices = services.filter((s) =>
   ['secure-it-disposal', 'it-asset-disposition-services', 'ultra-secure-hard-drive-destruction', 'document-storage', 'document-scanning', 'on-site-shredding', 'it-relocations-specialist', 'simpler-recycling-services'].includes(s.slug)
 );
 
+const serviceCards = homePage?.services?.cards || [];
+
+const serviceImages = [
+  '/images/services/1.webp',
+  '/images/services/2.webp',
+  '/images/services/3.webp',
+  '/images/services/4.webp',
+];
+
+const formatServiceNumber = (numStr?: string, fallback = '01') => {
+  if (!numStr) return fallback;
+  const digits = numStr.replace(/[^0-9]/g, '');
+  return digits ? digits.padStart(2, '0') : fallback;
+};
+
+const allServiceCards = serviceCards.slice(0, 4).map((card, idx) => ({
+  id: idx,
+  number: formatServiceNumber(card.divisionNumber, String(idx + 1).padStart(2, '0')),
+  title: card.title || '',
+  description: card.description || '',
+  image: serviceImages[idx] || `/images/services/${idx + 1}.webp`,
+  imageAlt: card.imageAlt || card.title || '',
+  link: card.link || '#',
+  buttonText: card.buttonText || 'Explore',
+}));
+
+const firstServiceCard = allServiceCards[0];
+const remainingServiceCards = allServiceCards.slice(1, 4);
+
 const divisionMetadata: Record<
   string,
   {
@@ -287,109 +316,117 @@ const divisionMetadata: Record<
   </Section> -->
 
   <!-- Section 4 — Our Services: Solutions for the Complete Business Lifecycle -->
-  <section id="divisions" class="relative py-14 sm:py-18 lg:py-22 bg-white border-t border-slate-200/80 overflow-hidden">
+  <section id="divisions" class="relative py-14 sm:py-18 lg:py-22 bg-[#F1F4EE] border-t border-slate-200/60 overflow-hidden">
     <Container className="relative z-10 max-w-7xl">
       <!-- Section Header -->
-      <div class="text-center max-w-4xl mx-auto space-y-3 mb-10 sm:mb-14">
-<span class="text-sm sm:text-base font-bold uppercase tracking-[0.2em] text-[#146B5C]">
-  {homePage?.services?.eyebrow || 'OUR SERVICES'}
-</span>
-<h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[44px] font-extrabold font-display text-brand-navy tracking-tight leading-[1.12] uppercase">
-  {homePage?.services?.heading || 'SOLUTIONS FOR THE COMPLETE BUSINESS LIFECYCLE'}
-</h2>
+      <div class="text-center max-w-4xl mx-auto space-y-2.5 mb-10 sm:mb-12">
+        <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#0F623A]">
+          {homePage?.services?.eyebrow || 'OUR SERVICES'}
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-[1.08] uppercase">
+          {homePage?.services?.heading || 'SOLUTIONS FOR THE COMPLETE BUSINESS LIFECYCLE'}
+        </h2>
       </div>
 
-      <!-- 4 Division Cards Grid matching reference -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-{
-  homePage?.services?.cards?.map((card) => (
-    <a
-      href={card.link || '#'}
-      class="group relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[460px] sm:min-h-[490px] p-6 sm:p-7 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1.5 border border-slate-900/10 bg-slate-900"
-    >
-{card.image?.asset?.url && (
-  <img
-    src={card.image.asset.url}
-    alt={card.imageAlt || card.title || ''}
-    class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-    loading="lazy"
-    decoding="async"
-  />
-)}
+      <!-- Featured Bento Services Grid matching reference with Click-to-Swap -->
+      {firstServiceCard && (
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
+          <!-- Left Column: Tall Featured Card (7 cols out of 12 for the exact width proportion) -->
+          <div class="lg:col-span-7 xl:col-span-7 flex flex-col">
+            <a
+              id="featured-service-card"
+              href={firstServiceCard.link || '#'}
+              class="group relative flex-1 h-full flex flex-col justify-end rounded-[16px] overflow-hidden min-h-[480px] sm:min-h-[520px] lg:min-h-[580px] p-6 sm:p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 border border-black/10 bg-slate-950"
+            >
+              <img
+                id="featured-service-img"
+                src={firstServiceCard.image}
+                alt={firstServiceCard.imageAlt || firstServiceCard.title || 'Information Management'}
+                class="absolute inset-0 w-full h-full object-cover object-right group-hover:scale-105 transition-transform duration-700 ease-out"
+                loading="lazy"
+                decoding="async"
+              />
 
-      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30"></div>
+              <!-- Reduced, gentle overlay matching reference image: keeps warehouse details visible while ensuring crisp text contrast -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 via-35% to-transparent pointer-events-none"></div>
+              <div class="absolute inset-0 bg-gradient-to-r from-black/65 via-black/20 via-45% to-transparent pointer-events-none"></div>
 
-      <div class="relative z-10 flex items-center justify-between w-full">
-        <span class="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-[11px] font-mono font-bold tracking-widest uppercase shadow-sm">
-          {card.divisionNumber}
-        </span>
+              <!-- Content on Left Card -->
+              <div class="relative z-10 flex flex-col justify-end">
+                <span id="featured-service-num" class="text-3xl sm:text-4xl font-display font-light text-white/90 block mb-1.5 sm:mb-2 leading-none">
+                  {firstServiceCard.number}
+                </span>
 
-        <span class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-sm">
-          <svg
-            class="w-4 h-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="1.8"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-            />
-          </svg>
-        </span>
-      </div>
+                <h3 id="featured-service-title" class="text-2xl sm:text-3xl lg:text-[40px] xl:text-[44px] font-extrabold font-display text-white tracking-tight leading-[1.06] mb-2.5 sm:mb-3">
+                  {firstServiceCard.title}
+                </h3>
 
-      <div class="relative z-10 flex flex-col justify-end mt-auto pt-16">
-        <h3 class="text-xl sm:text-2xl font-bold font-display text-white tracking-tight leading-snug group-hover:text-emerald-400 transition-colors min-h-[2lh] min-h-[3.5rem] sm:min-h-[4rem] flex items-end">
-          {card.title}
-        </h3>
+                <p id="featured-service-desc" class="text-sm sm:text-base text-slate-200/90 leading-relaxed font-normal line-clamp-3 mb-5 sm:mb-6 max-w-md sm:max-w-lg">
+                  {firstServiceCard.description}
+                </p>
 
-        <p class="mt-2.5 text-sm sm:text-[15px] text-slate-200/90 leading-relaxed font-normal min-h-[3lh] min-h-[4rem] sm:min-h-[4.5rem] line-clamp-3">
-          {card.description}
-        </p>
+                <!-- Pill Action Button with Arrow -->
+                <div>
+                  <span class="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#061810]/75 group-hover:bg-[#0F623A] border border-emerald-500/50 group-hover:border-[#0F623A] text-white text-xs sm:text-[13px] font-bold uppercase tracking-widest shadow-md transition-all duration-300">
+                    <span id="featured-service-btn-text">{firstServiceCard.buttonText || 'Explore'}</span>
+                    <svg class="w-4 h-4 text-emerald-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          </div>
 
-        <div class="mt-5">
-          <span class="inline-flex items-center gap-2.5 bg-white group-hover:bg-slate-100 text-slate-900 font-semibold text-xs sm:text-sm pl-4 pr-1.5 py-1.5 rounded-full shadow-md transition-all duration-300">
-            <span>{card.buttonText || 'Explore'}</span>
-
-            <span class="w-6 h-6 rounded-full bg-[#111827] text-white flex items-center justify-center">
-              <svg
-                class="w-3.5 h-3.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2.5"
+          <!-- Right Column: 3 Stacked Horizontal Cards (5 cols out of 12) -->
+          <div class="lg:col-span-5 xl:col-span-5 flex flex-col gap-3.5 sm:gap-4 lg:gap-4 justify-between">
+            {remainingServiceCards.map((card, idx) => (
+              <a
+                href={card.link || '#'}
+                data-slot-index={idx}
+                class="service-right-card group relative flex-1 flex items-center justify-between rounded-[16px] overflow-hidden p-5 sm:p-6 lg:p-7 shadow-md hover:shadow-2xl transition-all duration-300 border-[1.5px] border-white/10 border-l-[5px] border-l-white/15 hover:border-[#00DF81] hover:border-l-[5px] hover:border-l-[#00DF81] bg-slate-950 min-h-[160px] sm:min-h-[175px] cursor-pointer"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M7 17L17 7M17 7H7M17 7V17"
+                <img
+                  src={card.image}
+                  alt={card.imageAlt || card.title || ''}
+                  class="right-card-img absolute inset-0 w-full h-full object-cover object-right group-hover:scale-105 transition-transform duration-700 ease-out"
+                  loading="lazy"
+                  decoding="async"
                 />
-              </svg>
-            </span>
-          </span>
+
+                <!-- Default dark gradient from left for high text contrast -->
+                <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 via-48% to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-30"></div>
+
+                <!-- Green hover gradient overlay matching reference image -->
+                <div class="absolute inset-0 bg-gradient-to-r from-[#032E1D]/95 via-[#022215]/85 via-50% to-[#01140B]/30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="absolute inset-0 bg-[#00DF81]/[0.05] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                <div class="relative z-10 flex-1 pr-3 sm:pr-4 max-w-xs sm:max-w-sm lg:max-w-md">
+                  <span class="right-card-num text-2xl sm:text-3xl font-display font-light text-white/90 group-hover:text-[#00DF81] transition-colors duration-300 block mb-1 leading-none">
+                    {card.number}
+                  </span>
+                  <h3 class="right-card-title text-xl sm:text-2xl lg:text-[26px] font-extrabold font-display text-white tracking-tight leading-[1.08] mb-1.5">
+                    {card.title}
+                  </h3>
+                  <p class="right-card-desc text-xs sm:text-sm text-slate-300/90 leading-relaxed font-normal line-clamp-2">
+                    {card.description}
+                  </p>
+                </div>
+
+                <!-- Bottom/Right Circular Arrow Button with green border on hover -->
+                <div class="relative z-10 self-end shrink-0 ml-2 sm:ml-3">
+                  <span class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/50 border border-white/20 group-hover:border-[#00DF81] group-hover:border-[2px] group-hover:shadow-[0_0_14px_rgba(0,223,129,0.4)] flex items-center justify-center text-white/70 group-hover:text-white transition-all duration-300 shadow-sm">
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-    </a>
-  ))
-}
-
-<!-- CLOSE THE SERVICES GRID -->
-</div>
-
-<!-- Action Button -->
-<div class="pt-10 sm:pt-14 text-center">
-  <a
-    href={homePage?.services?.viewAllLink || '/services'}
-    class="inline-flex items-center justify-center gap-2 px-9 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
-  >
-    <span>
-      {homePage?.services?.viewAllText || 'Explore All Services →'}
-    </span>
-  </a>
-</div>
+      )}
+      <script id="services-cards-data" type="application/json" set:html={JSON.stringify(allServiceCards)}></script>
     </Container>
   </section>
 
@@ -642,19 +679,130 @@ const divisionMetadata: Record<
         }
       };
 
+      // Interactive card swap for Section 4 (Our Services)
+      const initServicesCardSwap = () => {
+        const dataScript = document.getElementById('services-cards-data');
+        const leftCard = document.getElementById('featured-service-card');
+        const rightCards = document.querySelectorAll('.service-right-card');
+        if (!dataScript || !leftCard || rightCards.length === 0) return;
+
+        // Prevent duplicate initialization on view transitions
+        if (leftCard.dataset.swapInitialized === 'true') return;
+        leftCard.dataset.swapInitialized = 'true';
+
+        let cardsData = [];
+        try {
+          cardsData = JSON.parse(dataScript.textContent || '[]');
+        } catch {
+          return;
+        }
+        if (cardsData.length < 2) return;
+
+        let currentLeftIdx = 0;
+        let currentRightIndices = [1, 2, 3];
+        let isSwapping = false;
+
+        rightCards.forEach((cardEl) => {
+          const slotIdxStr = cardEl.getAttribute('data-slot-index');
+          if (slotIdxStr === null) return;
+          const slotIdx = parseInt(slotIdxStr, 10);
+
+          const handleSwap = (e) => {
+            e.preventDefault();
+            if (isSwapping) return;
+            isSwapping = true;
+
+            const targetRightCard = cardEl;
+            const clickedIdx = currentRightIndices[slotIdx];
+            const prevLeftIdx = currentLeftIdx;
+
+            // Smooth cross-fade transition
+            leftCard.style.transition = 'opacity 180ms ease, transform 180ms ease';
+            targetRightCard.style.transition = 'opacity 180ms ease, transform 180ms ease';
+            leftCard.style.opacity = '0';
+            leftCard.style.transform = 'scale(0.98)';
+            targetRightCard.style.opacity = '0';
+            targetRightCard.style.transform = 'scale(0.98)';
+
+            setTimeout(() => {
+              // Update state indices
+              currentLeftIdx = clickedIdx;
+              currentRightIndices[slotIdx] = prevLeftIdx;
+
+              const newLeft = cardsData[currentLeftIdx];
+              const newRight = cardsData[prevLeftIdx];
+
+              if (newLeft) {
+                leftCard.setAttribute('href', newLeft.link || '#');
+                const leftImg = leftCard.querySelector('#featured-service-img');
+                const leftNum = leftCard.querySelector('#featured-service-num');
+                const leftTitle = leftCard.querySelector('#featured-service-title');
+                const leftDesc = leftCard.querySelector('#featured-service-desc');
+                const leftBtnText = leftCard.querySelector('#featured-service-btn-text');
+
+                if (leftImg) {
+                  leftImg.src = newLeft.image;
+                  leftImg.alt = newLeft.imageAlt || newLeft.title;
+                }
+                if (leftNum) leftNum.textContent = newLeft.number;
+                if (leftTitle) leftTitle.textContent = newLeft.title;
+                if (leftDesc) leftDesc.textContent = newLeft.description;
+                if (leftBtnText) leftBtnText.textContent = newLeft.buttonText || 'Explore';
+              }
+
+              if (newRight) {
+                targetRightCard.setAttribute('href', newRight.link || '#');
+                const rightImg = targetRightCard.querySelector('.right-card-img');
+                const rightNum = targetRightCard.querySelector('.right-card-num');
+                const rightTitle = targetRightCard.querySelector('.right-card-title');
+                const rightDesc = targetRightCard.querySelector('.right-card-desc');
+
+                if (rightImg) {
+                  rightImg.src = newRight.image;
+                  rightImg.alt = newRight.imageAlt || newRight.title;
+                }
+                if (rightNum) rightNum.textContent = newRight.number;
+                if (rightTitle) rightTitle.textContent = newRight.title;
+                if (rightDesc) rightDesc.textContent = newRight.description;
+              }
+
+              // Restore visual state
+              leftCard.style.opacity = '1';
+              leftCard.style.transform = 'scale(1)';
+              targetRightCard.style.opacity = '1';
+              targetRightCard.style.transform = 'scale(1)';
+
+              setTimeout(() => {
+                isSwapping = false;
+              }, 180);
+            }, 180);
+          };
+
+          cardEl.addEventListener('click', handleSwap);
+          cardEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleSwap(e);
+            }
+          });
+        });
+      };
+
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
           initStoryHover();
           initStatsCounter();
+          initServicesCardSwap();
         });
       } else {
         initStoryHover();
         initStatsCounter();
+        initServicesCardSwap();
       }
 
       document.addEventListener('astro:page-load', () => {
         initStoryHover();
         initStatsCounter();
+        initServicesCardSwap();
       });
     })();
   </script>
