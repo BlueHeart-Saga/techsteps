@@ -134,14 +134,60 @@ export interface Sector {
   summary: string;
   heroImage: string;
   heroAlt: string;
-  complianceStandards: string[];
+
+  challengesSection?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+  };
+
   challenges: SectorChallenge[];
+
+  solutionsSection?: {
+    eyebrow?: string;
+    heading?: string;
+  };
+
   solutions: SectorSolution[];
+
+  securitySection?: {
+    heading?: string;
+    standardsLabel?: string;
+  };
+
   securityConsiderations: string[];
+  complianceStandards: string[];
   howTechstepsHelps: string;
+
+  benefitsSection?: {
+    title?: string;
+  };
+
   keyBenefits: string[];
-  relevantServices: string[]; // service slugs
+
+  caseStudySection?: {
+    eyebrow?: string;
+    linkText?: string;
+  };
+
+  relevantServices: string[];
+
+  faqSection?: {
+    heading?: string;
+    description?: string;
+  };
+
   faqs: FAQItem[];
+
+  cta?: {
+    heading?: string;
+    description?: string;
+    primaryButtonText?: string;
+    primaryButtonLink?: string;
+    secondaryButtonText?: string;
+    secondaryButtonLink?: string;
+  };
+
   metaTitle: string;
   metaDescription: string;
 }

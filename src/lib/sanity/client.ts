@@ -86,35 +86,35 @@ const SANITY_CACHE_TTL = 60 * 1000; // 60s cache in memory
 
 export const sanityClient = rawSanityClient
   ? new Proxy(rawSanityClient, {
-      get(target: any, prop: string | symbol, receiver: any) {
-        if (prop === 'fetch') {
-          return async function (query: string, params?: any, options?: any) {
-            const key = typeof query === 'string' ? (query.trim() + (params ? JSON.stringify(params) : '')) : String(query);
-            const now = Date.now();
-            const cached = sanityCache.get(key);
-            if (cached && cached.expiry > now) {
-              return cached.data;
-            }
-            if (inFlightRequests.has(key)) {
-              return inFlightRequests.get(key);
-            }
-            const promise = (target.fetch as Function).call(target, query, params, options)
-              .then((result: any) => {
-                sanityCache.set(key, { data: result, expiry: Date.now() + SANITY_CACHE_TTL });
-                inFlightRequests.delete(key);
-                return result;
-              })
-              .catch((err: any) => {
-                inFlightRequests.delete(key);
-                throw err;
-              });
-            inFlightRequests.set(key, promise);
-            return promise;
-          };
-        }
-        return Reflect.get(target, prop, receiver);
+    get(target: any, prop: string | symbol, receiver: any) {
+      if (prop === 'fetch') {
+        return async function (query: string, params?: any, options?: any) {
+          const key = typeof query === 'string' ? (query.trim() + (params ? JSON.stringify(params) : '')) : String(query);
+          const now = Date.now();
+          const cached = sanityCache.get(key);
+          if (cached && cached.expiry > now) {
+            return cached.data;
+          }
+          if (inFlightRequests.has(key)) {
+            return inFlightRequests.get(key);
+          }
+          const promise = (target.fetch as Function).call(target, query, params, options)
+            .then((result: any) => {
+              sanityCache.set(key, { data: result, expiry: Date.now() + SANITY_CACHE_TTL });
+              inFlightRequests.delete(key);
+              return result;
+            })
+            .catch((err: any) => {
+              inFlightRequests.delete(key);
+              throw err;
+            });
+          inFlightRequests.set(key, promise);
+          return promise;
+        };
       }
-    })
+      return Reflect.get(target, prop, receiver);
+    }
+  })
   : null;
 
 function normalizeSlug(slug: any): string {
@@ -380,59 +380,155 @@ export async function getServicesByDivision(divisionSlug: string): Promise<Servi
 
 export async function getSectors(): Promise<Sector[]> {
   let sanitySectors: Sector[] = [];
+
   if (sanityClient) {
     try {
       const data = await sanityClient.fetch(`*[_type == "sector" && !(_id in path("drafts.**"))]{
         _id,
         "id": _id,
+
         title,
-        slug,
+        "slug": slug.current,
         tagline,
         summary,
+
         "heroImage": coalesce(heroImage.asset->url, heroImage),
         heroAlt,
-        complianceStandards,
+
+        challengesSection{
+          eyebrow,
+          heading,
+          description
+        },
+
         challenges[]{
           title,
           description
         },
+
+        solutionsSection{
+          eyebrow,
+          heading
+        },
+
         solutions[]{
           title,
           description
         },
+
+        securitySection{
+          heading,
+          standardsLabel
+        },
+
         securityConsiderations,
+
+        complianceStandards,
+
         howTechstepsHelps,
+
+        benefitsSection{
+          title
+        },
+
         keyBenefits,
-        "relevantServices": coalesce(relevantServices[]->slug.current, relevantServices),
+
+        caseStudySection{
+          eyebrow,
+          linkText
+        },
+
+        "relevantServices": coalesce(
+          relevantServices[]->slug.current,
+          relevantServices
+        ),
+
+        faqSection{
+          heading,
+          description
+        },
+
         faqs[]{
           question,
           answer
         },
+
+        cta{
+          heading,
+          description,
+          primaryButtonText,
+          primaryButtonLink,
+          secondaryButtonText,
+          secondaryButtonLink
+        },
+
         metaTitle,
         metaDescription
       }`);
+
       if (data && data.length > 0) {
         sanitySectors = data.map((sec: any) => ({
           ...sec,
+
           slug: normalizeSlug(sec.slug),
-          challenges: Array.isArray(sec.challenges) ? sec.challenges : [],
-          solutions: Array.isArray(sec.solutions) ? sec.solutions : [],
-          securityConsiderations: Array.isArray(sec.securityConsiderations) ? sec.securityConsiderations : [],
-          complianceStandards: Array.isArray(sec.complianceStandards) ? sec.complianceStandards : [],
-          keyBenefits: Array.isArray(sec.keyBenefits) ? sec.keyBenefits : [],
-          relevantServices: Array.isArray(sec.relevantServices) ? sec.relevantServices.filter(Boolean) : [],
-          faqs: Array.isArray(sec.faqs) ? sec.faqs : [],
+
+          challengesSection: sec.challengesSection || {},
+
+          challenges: Array.isArray(sec.challenges)
+            ? sec.challenges
+            : [],
+
+          solutionsSection: sec.solutionsSection || {},
+
+          solutions: Array.isArray(sec.solutions)
+            ? sec.solutions
+            : [],
+
+          securitySection: sec.securitySection || {},
+
+          securityConsiderations: Array.isArray(sec.securityConsiderations)
+            ? sec.securityConsiderations
+            : [],
+
+          complianceStandards: Array.isArray(sec.complianceStandards)
+            ? sec.complianceStandards
+            : [],
+
+          keyBenefits: Array.isArray(sec.keyBenefits)
+            ? sec.keyBenefits
+            : [],
+
+          benefitsSection: sec.benefitsSection || {},
+
+          caseStudySection: sec.caseStudySection || {},
+
+          relevantServices: Array.isArray(sec.relevantServices)
+            ? sec.relevantServices.filter(Boolean)
+            : [],
+
+          faqSection: sec.faqSection || {},
+
+          faqs: Array.isArray(sec.faqs)
+            ? sec.faqs
+            : [],
+
+          cta: sec.cta || {},
         }));
       }
-    } catch {
-      // Fallback
+    } catch (error) {
+      console.error('Failed to fetch Sectors from Sanity:', error);
     }
   }
-  const knownSlugs = new Set(sanitySectors.map((s) => s.slug));
+
+  const knownSlugs = new Set(
+    sanitySectors.map((s) => s.slug)
+  );
+
   const merged = [
     ...sanitySectors,
     ...sectors.filter((s) => !knownSlugs.has(s.slug)),
   ];
+
   return merged.length > 0 ? merged : sectors;
 }
 
@@ -1213,4 +1309,4 @@ export async function getLegalPage(slug: string): Promise<LegalPageData | null> 
     }
   }
   return null;
-}
+}
