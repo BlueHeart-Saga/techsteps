@@ -42,7 +42,7 @@ const currentPath = Astro.url.pathname;
       <div class="border-b border-slate-200/80 pb-3">
         <button
           type="button"
-          class="mobile-accordion-btn w-full flex items-center justify-between py-2.5 text-base font-bold text-slate-900 hover:text-[#0F623A] transition-colors"
+          class="mobile-accordion-btn w-full flex items-center justify-between py-2.5 text-[15px] font-medium text-slate-900 hover:text-[#0F623A] transition-colors"
           aria-expanded="false"
         >
           <span>Services</span>
@@ -50,20 +50,20 @@ const currentPath = Astro.url.pathname;
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
-        <div class="mobile-accordion-content hidden space-y-2.5 pl-3 pt-2 text-sm">
-          <a href="/information-management" class="block font-semibold text-slate-800 hover:text-[#0F623A]">
+        <div class="mobile-accordion-content hidden space-y-2.5 pl-3 pt-2 text-[14px]">
+          <a href="/information-management" class="block font-medium text-slate-800 hover:text-[#0F623A]">
             Information Management
           </a>
-          <a href="/it-lifecycle-services-destruction" class="block font-semibold text-slate-800 hover:text-[#0F623A]">
+          <a href="/it-lifecycle-services-destruction" class="block font-medium text-slate-800 hover:text-[#0F623A]">
             IT Lifecycle & Destruction
           </a>
-          <a href="/secure-shredding-document-integrity" class="block font-semibold text-slate-800 hover:text-[#0F623A]">
+          <a href="/secure-shredding-document-integrity" class="block font-medium text-slate-800 hover:text-[#0F623A]">
             Secure Shredding
           </a>
-          <a href="/moving-relocation-services" class="block font-semibold text-slate-800 hover:text-[#0F623A]">
+          <a href="/moving-relocation-services" class="block font-medium text-slate-800 hover:text-[#0F623A]">
             Moving & Relocation
           </a>
-          <a href="/services" class="block pt-1.5 font-bold text-[#0F623A] hover:underline">
+          <a href="/services" class="block pt-1.5 font-medium text-[#0F623A] hover:underline">
             View all 27 certified services &rarr;
           </a>
         </div>
@@ -73,7 +73,7 @@ const currentPath = Astro.url.pathname;
       <div class="border-b border-slate-200/80 pb-3">
         <button
           type="button"
-          class="mobile-accordion-btn w-full flex items-center justify-between py-2.5 text-base font-bold text-slate-900 hover:text-[#0F623A] transition-colors"
+          class="mobile-accordion-btn w-full flex items-center justify-between py-2.5 text-[15px] font-medium text-slate-900 hover:text-[#0F623A] transition-colors"
           aria-expanded="false"
         >
           <span>Sectors</span>
@@ -81,7 +81,7 @@ const currentPath = Astro.url.pathname;
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
-        <div class="mobile-accordion-content hidden space-y-2 pl-3 pt-2 text-xs sm:text-sm">
+        <div class="mobile-accordion-content hidden space-y-2 pl-3 pt-2 text-[14px]">
           <a href="/sectors/nhs" class="block font-medium text-slate-700 hover:text-[#0F623A]">NHS & Healthcare</a>
           <a href="/sectors/finance" class="block font-medium text-slate-700 hover:text-[#0F623A]">Financial Services</a>
           <a href="/sectors/central-government" class="block font-medium text-slate-700 hover:text-[#0F623A]">Central Government</a>
@@ -90,22 +90,22 @@ const currentPath = Astro.url.pathname;
           <a href="/sectors/education-universities" class="block font-medium text-slate-700 hover:text-[#0F623A]">Education & Universities</a>
           <a href="/sectors/manufacturing-engineering" class="block font-medium text-slate-700 hover:text-[#0F623A]">Manufacturing & Engineering</a>
           <a href="/sectors/it-technology" class="block font-medium text-slate-700 hover:text-[#0F623A]">IT & Technology</a>
-          <a href="/sectors" class="block pt-1.5 font-bold text-[#0F623A] hover:underline">Explore all sectors &rarr;</a>
+          <a href="/sectors" class="block pt-1.5 font-medium text-[#0F623A] hover:underline">Explore all sectors &rarr;</a>
         </div>
       </div>
 
       <!-- 3. Sustainability Link -->
-      <a href="/sustainability" class="block py-2.5 text-base font-bold text-slate-900 hover:text-[#0F623A] border-b border-slate-200/80">
+      <a href="/sustainability" class="block py-2.5 text-[15px] font-medium text-slate-900 hover:text-[#0F623A] border-b border-slate-200/80">
         Sustainability
       </a>
 
       <!-- 4. Insights Link -->
-      <a href="/insights" class="block py-2.5 text-base font-bold text-slate-900 hover:text-[#0F623A] border-b border-slate-200/80">
+      <a href="/insights" class="block py-2.5 text-[15px] font-medium text-slate-900 hover:text-[#0F623A] border-b border-slate-200/80">
         Insights
       </a>
 
       <!-- 5. About Link -->
-      <a href="/about-us" class="block py-2.5 text-base font-bold text-slate-900 hover:text-[#0F623A]">
+      <a href="/about-us" class="block py-2.5 text-[15px] font-medium text-slate-900 hover:text-[#0F623A]">
         About
       </a>
     </div>
@@ -114,13 +114,13 @@ const currentPath = Astro.url.pathname;
     <div class="p-5 border-t border-slate-200 space-y-3 bg-slate-50">
       <a
         href="/request-a-collection"
-        class="block w-full py-3 text-center rounded-xl border border-slate-300 text-slate-800 text-sm font-bold hover:bg-slate-200/60 transition-colors"
+        class="block w-full py-3 text-center rounded-xl border border-slate-300 text-slate-800 text-[14px] font-medium hover:bg-slate-200/60 transition-colors"
       >
         Request a Collection
       </a>
       <a
         href="/request-a-quote"
-        class="block w-full py-3 text-center rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-md transition-colors"
+        class="block w-full py-3 text-center rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-[14px] font-medium shadow-md transition-colors"
       >
         Get a Quote
       </a>

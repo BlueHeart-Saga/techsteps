@@ -39,6 +39,26 @@ export const deskStructure: StructureResolver = (S) =>
         ),
 
       S.listItem()
+        .title('Services Main Page')
+        .id('servicesPage')
+        .child(
+          S.document()
+            .schemaType('servicesPage')
+            .documentId('servicesPage')
+            .title('Services Main Page & Hero')
+        ),
+
+      S.listItem()
+        .title('Industry Sectors Main Page')
+        .id('sectorsPage')
+        .child(
+          S.document()
+            .schemaType('sectorsPage')
+            .documentId('sectorsPage')
+            .title('Industry Sectors Main Page & Hero')
+        ),
+
+      S.listItem()
         .title('FAQ Page')
         .id('faqPage')
         .child(
@@ -91,10 +111,30 @@ export const deskStructure: StructureResolver = (S) =>
       S.divider(),
 
       // 3. Operational Divisions & Services
+      S.listItem()
+        .title('Services Overview (Main Page)')
+        .id('servicesPageQuick')
+        .child(
+          S.document()
+            .schemaType('servicesPage')
+            .documentId('servicesPage')
+            .title('Services Main Page')
+        ),
       S.documentTypeListItem('division').title('Operational Divisions (4)'),
       S.documentTypeListItem('service').title('Certified Services (27)'),
 
+      S.divider(),
+
       // 4. Industry Sectors
+      S.listItem()
+        .title('Sectors Overview (Main Page)')
+        .id('sectorsPageQuick')
+        .child(
+          S.document()
+            .schemaType('sectorsPage')
+            .documentId('sectorsPage')
+            .title('Industry Sectors Main Page')
+        ),
       S.documentTypeListItem('sector').title('Industry Sectors (8)'),
 
       S.divider(),

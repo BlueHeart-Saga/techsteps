@@ -14,6 +14,8 @@ import type {
   RequestCollectionPageData,
   TestimonialItem,
   HomePageData,
+  ServicesPageData,
+  SectorsPageData,
 } from './types';
 
 export const siteSettings: SiteSettings = {
@@ -2287,6 +2289,127 @@ export const defaultHomePageData: HomePageData = {
     primaryButtonLink: '/request-a-quote',
     secondaryButtonText: 'Contact Specialist',
     secondaryButtonLink: '/contact',
+  },
+};
+
+export const defaultServicesPageData: ServicesPageData = {
+  metaTitle: 'Our Services | IT Lifecycle, Information Management & Secure Destruction | Techsteps',
+  metaDescription: 'Techsteps delivers certified IT asset disposition, secure document and media destruction, information management and specialist relocation services across the UK.',
+  hero: {
+    eyebrow: 'OUR SERVICES',
+    title: 'Solutions Across the Technology Lifecycle',
+    subheading: 'Specialist IT asset disposition, secure destruction, information management and technology relocation services for organisations across the UK.',
+    bgImage: '/images/services/data-centre-hardware.jpg',
+  },
+  divisionsShowcase: {
+    eyebrow: 'Service Divisions',
+    heading: 'One Partner. Multiple Solutions.',
+  },
+  lifecycle: {
+    eyebrow: 'Our Process',
+    heading: 'From First Collection to Final Outcome.',
+    description: 'Whatever the sector, our approach connects security, asset management and responsible lifecycle decisions.',
+    steps: [
+      { step: 'Collect', number: '01', desc: 'Secure GPS-tracked collection by BS 7858 vetted personnel.', image: '/images/services/process-step-1-collect.jpg' },
+      { step: 'Secure', number: '02', desc: 'Controlled handling, high-security chain of custody.', image: '/images/services/process-step-2-secure.jpg' },
+      { step: 'Sanitise', number: '03', desc: 'ADISA-certified erasure, degaussing or shredding.', image: '/images/services/process-step-3-sanitise.jpg' },
+      { step: 'Reuse', number: '04', desc: 'Refurbishment and remarketing to maximise residual value.', image: '/images/services/process-step-4-reuse.jpg' },
+      { step: 'Recycle', number: '05', desc: 'Zero-landfill, WEEE-compliant responsible recycling.', image: '/images/services/process-step-5-recycle.jpg' },
+      { step: 'Report', number: '06', desc: 'Certificates, audit trails and ESG reporting.', image: '/images/services/process-step-6-report.jpg' },
+    ],
+  },
+  pillars: {
+    eyebrow: 'Our Philosophy',
+    heading: 'Why Organisations Choose Techsteps',
+    items: [
+      {
+        title: 'Security',
+        desc: 'Protecting information and assets with uncompromising standards throughout the lifecycle.',
+        icon: 'lock',
+      },
+      {
+        title: 'Expertise',
+        desc: 'Specialist lifecycle and operational knowledge across every service discipline.',
+        icon: 'star',
+      },
+      {
+        title: 'Responsibility',
+        desc: 'Making better choices for technology and the environment at every stage.',
+        icon: 'leaf',
+      },
+      {
+        title: 'Accountability',
+        desc: 'Clear processes, serialised tracking and complete visibility throughout the lifecycle.',
+        icon: 'check',
+      },
+    ],
+  },
+  bottomCta: {
+    eyebrow: 'Get Started',
+    heading: "Let's Find the Right Solution for Your Organisation.",
+    description: "Tell us what you're trying to achieve and our team can help identify the right combination of services.",
+    primaryButtonText: 'Get In Touch →',
+    primaryButtonLink: '/contact',
+    secondaryButtonText: 'Request a Collection',
+    secondaryButtonLink: '/request-a-quote',
+  },
+};
+
+export const defaultSectorsPageData: SectorsPageData = {
+  metaTitle: 'Sector Expertise | IT Lifecycle Solutions for Defence, NHS, Finance & Government | Techsteps',
+  metaDescription: 'Specialist information management, IT lifecycle, secure destruction and relocation solutions tailored for the requirements of Defence, NHS, Financial Services and Central Government.',
+  hero: {
+    eyebrow: 'SECTOR EXPERTISE',
+    title: 'Sectors',
+    subheading: 'Specialist information, IT lifecycle, destruction and relocation solutions designed around the requirements of your organisation.',
+    bgImage: '/images/brand/sectors-hero-bg.jpg',
+    primaryButtonText: 'Request Sector Consultation',
+    primaryButtonLink: '/request-a-quote',
+    secondaryButtonText: 'Explore Sectors',
+    secondaryButtonLink: '#sector-intro',
+  },
+  intro: {
+    badge: 'Our Approach & Framework',
+    heading: 'Solutions Built Around Your Organisation',
+    description: 'Every sector has different requirements for security, compliance, information management and technology. Techsteps brings together the expertise and certified services needed to manage those requirements throughout the asset lifecycle.',
+    buttonText: 'Speak with Sector Lead',
+    buttonLink: '/contact',
+  },
+  sectorsSection: {
+    eyebrow: 'Industries',
+    heading: 'Sectors We Serve',
+    description: 'Built around the specific security, compliance and operational requirements of regulated industries.',
+  },
+  philosophy: {
+    eyebrow: 'Our Philosophy',
+    heading: 'Security Is Part of Every Lifecycle',
+    description: 'Whatever your sector, our approach is built around three consistent principles.',
+    principles: [
+      {
+        label: 'Protect',
+        number: '01',
+        desc: 'Safeguard information and technology throughout the entire process — from first collection through to final certificate.',
+      },
+      {
+        label: 'Control',
+        number: '02',
+        desc: 'Maintain appropriate visibility and accountability at every stage. Serialised tracking, chain-of-custody documentation and real-time reporting.',
+      },
+      {
+        label: 'Responsibly Manage',
+        number: '03',
+        desc: 'Choose the right outcome for every asset — reuse, remarketing, destruction or recycling — with zero-landfill commitment and ESG reporting.',
+      },
+    ],
+  },
+  bottomCta: {
+    eyebrow: 'Work With Techsteps',
+    heading: "Let's Build the Right Solution for Your Sector.",
+    description: "Talk to our team about your organisation's technology and information lifecycle requirements.",
+    primaryButtonText: 'Get In Touch →',
+    primaryButtonLink: '/contact',
+    secondaryButtonText: 'Explore Our Services',
+    secondaryButtonLink: '/services',
   },
 };
 

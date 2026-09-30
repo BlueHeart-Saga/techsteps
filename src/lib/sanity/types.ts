@@ -612,3 +612,93 @@ export interface TestimonialItem {
   avatar: string;
   order?: number;
 }
+
+export interface ServicesPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  hero?: {
+    eyebrow?: string;
+    title?: string;
+    subheading?: string;
+    bgImage?: string;
+  };
+  divisionsShowcase?: {
+    eyebrow?: string;
+    heading?: string;
+  };
+  lifecycle?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+    steps?: {
+      step: string;
+      number: string;
+      desc: string;
+      image?: string;
+    }[];
+  };
+  pillars?: {
+    eyebrow?: string;
+    heading?: string;
+    items?: {
+      title: string;
+      desc: string;
+      icon: string;
+    }[];
+  };
+  bottomCta?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+    primaryButtonText?: string;
+    primaryButtonLink?: string;
+    secondaryButtonText?: string;
+    secondaryButtonLink?: string;
+  };
+}
+
+export interface SectorsPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  hero?: {
+    eyebrow?: string;
+    title?: string;
+    subheading?: string;
+    bgImage?: string;
+    primaryButtonText?: string;
+    primaryButtonLink?: string;
+    secondaryButtonText?: string;
+    secondaryButtonLink?: string;
+  };
+  intro?: {
+    badge?: string;
+    heading?: string;
+    description?: string;
+    buttonText?: string;
+    buttonLink?: string;
+  };
+  sectorsSection?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+  };
+  philosophy?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+    principles?: {
+      label: string;
+      number: string;
+      desc: string;
+    }[];
+  };
+  bottomCta?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+    primaryButtonText?: string;
+    primaryButtonLink?: string;
+    secondaryButtonText?: string;
+    secondaryButtonLink?: string;
+  };
+}

@@ -41,26 +41,6 @@ const aboutPageSchema = {
   jsonLd={aboutPageSchema}
   hasHeroHeader={true}
 >
-  <!-- Google Fonts -->
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-    slot="head"
-  />
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-    slot="head"
-  />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-    slot="head"
-  />
-
   <div class="about-page-wrapper">
 
     <!-- =====================================================
@@ -124,7 +104,7 @@ const aboutPageSchema = {
               </p>
             )}
 
-            <h1 class="lift min-h-[2lh]">
+            <h1 class="lift min-h-[2lh] !text-white text-white">
               {hero?.title}
 
               {hero?.highlightedTitle && (
@@ -202,7 +182,7 @@ const aboutPageSchema = {
 
             </div>
 
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-950 tracking-tight leading-[1.12] mt-5 mb-8 sm:mb-10 lg:mb-12 min-h-[2lh]">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-950 tracking-tight leading-[1.12] mt-3 sm:mt-4 mb-3 sm:mb-4">
 
               {whoWeAre?.title}
 
@@ -214,7 +194,7 @@ const aboutPageSchema = {
 
             </h2>
 
-            <div class="space-y-5 text-base sm:text-lg text-slate-700 leading-relaxed font-normal mb-3 sm:mb-4 pt-6">
+            <div class="space-y-4 text-base sm:text-lg text-slate-700 leading-relaxed font-normal mb-4 sm:mb-6">
 
               {whoWeAre?.paragraphs?.map((paragraph) => (
                 <p>
@@ -939,8 +919,9 @@ const aboutPageSchema = {
 
   --shell: 1320px;
   --gutter: clamp(20px, 5vw, 72px);
-  --display: "Archivo", system-ui, sans-serif;
-  --text: "IBM Plex Sans", system-ui, sans-serif;
+  --display: 'Lora', Georgia, 'Times New Roman', serif;
+  --text: 'Montserrat', system-ui, sans-serif;
+  --sans: 'Montserrat', system-ui, sans-serif;
   --cut: 46px;
 
   background: var(--surface);
@@ -968,21 +949,25 @@ const aboutPageSchema = {
   color: inherit;
 }
 
-.about-page-wrapper h1,
-.about-page-wrapper h2,
-.about-page-wrapper h3 {
+.about-page-wrapper h1:not(.num):not(.idx),
+.about-page-wrapper h2:not(.num):not(.idx),
+.about-page-wrapper h3:not(.num):not(.idx) {
   font-family: var(--display);
   margin: 0;
   letter-spacing: -.026em;
   line-height: 1.03;
-  font-weight: 600;
+  font-weight: 100 !important;
   color: #0F172A;
 }
 
 .on-dark h1,
 .on-dark h2,
-.on-dark h3 {
-  color: #FFFFFF;
+.on-dark h3,
+.about-page-wrapper .on-dark h1,
+.about-page-wrapper .on-dark h2,
+.about-page-wrapper .on-dark h3,
+.about-page-wrapper .hero h1 {
+  color: #FFFFFF !important;
 }
 
 .about-page-wrapper p {
@@ -1115,13 +1100,15 @@ const aboutPageSchema = {
   align-items: center;
 }
 
-.hero h1 {
+.hero h1,
+.about-page-wrapper .hero h1,
+.about-page-wrapper .hero h1:not(.num):not(.idx) {
   font-size: clamp(40px, 6.1vw, 82px);
   line-height: .96;
 
   margin: 22px 0 26px;
 
-  color: #fff;
+  color: #FFFFFF !important;
 
   letter-spacing: -.033em;
 }
@@ -1194,7 +1181,7 @@ const aboutPageSchema = {
 
   text-align: center;
 
-  font-family: var(--display);
+  font-family: var(--text);
   font-weight: 600;
 
   font-size: 11px;
@@ -1448,7 +1435,7 @@ const aboutPageSchema = {
   color: #FFFFFF;
 
   font-family:
-    var(--display);
+    var(--text);
 
   font-weight: 600;
 
@@ -1924,9 +1911,9 @@ const aboutPageSchema = {
   display: block;
 
   font-family:
-    var(--display);
+    var(--sans);
 
-  font-weight: 600;
+  font-weight: 700;
 
   font-size:
     clamp(

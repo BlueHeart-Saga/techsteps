@@ -29,10 +29,10 @@
   --color-brand-border: #D3DCD0;
   --color-brand-border-dark: #47564D;
 
-  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Big Shoulders Display', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-poppins: 'Poppins', system-ui, sans-serif;
+  --font-sans: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Montserrat', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-poppins: 'Montserrat', system-ui, sans-serif;
 
   /* Editorial & Manifest Letter Spacing System */
   --tracking-tight: 0.01em;
@@ -129,15 +129,15 @@
     outline-offset: 2px;
   }
 
-  /* Typography defaults — reduced boldness across all headings */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  /* Typography defaults — thin headings site-wide */
+  h1:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+  h2:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+  h3:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+  h4:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+  h5:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+  h6:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]) {
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 100 !important;
     line-height: 1.18;
     letter-spacing: 0.01em;
     text-wrap: balance;
@@ -195,12 +195,12 @@
 }
 
 .font-poppins {
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* Eyebrows, kickers & telemetry */
 .eyebrow {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 12.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -208,33 +208,167 @@
   font-weight: 500;
 }
 
-/* Kicker tags across existing components: apply IBM Plex Mono & 0.14em tracking */
+/* Kicker tags across existing components: apply Montserrat & 0.14em tracking */
 [class*="tracking-wider"][class*="uppercase"] {
   letter-spacing: 0.14em;
 }
 
 span[class*="uppercase"][class*="text-xs"],
 div[class*="uppercase"][class*="text-xs"] {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
 }
 
-/* Display numbers & big counters */
+/* Display numbers, running numbers & big counters — match button font (Inter sans-serif, bold) */
 .num,
-.idx {
-  font-family: var(--font-display);
-  letter-spacing: 0.01em;
+.idx,
+.stat-counter-item,
+.stat-count-num,
+.stat-count-suffix,
+.service-stat-num,
+.investor-stat-num,
+[class*="stat-counter"],
+[class*="stat-num"],
+[class*="counter-item"],
+.stat b {
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
   line-height: 1;
+}
+
+/* Header, navbar & brand logo — Freshworks-inspired typography */
+#site-header,
+#site-header nav,
+#hero-header,
+#hero-header nav {
+  font-family: var(--font-sans) !important;
+}
+
+#site-header nav a,
+#site-header nav button,
+#hero-header nav a,
+#hero-header nav button {
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.5 !important;
+}
+
+#site-header nav a span,
+#site-header nav button span,
+#hero-header nav a span,
+#hero-header nav button span {
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Header Action / CTA Button */
+#hero-header a[href*="quote"],
+#site-header a[href*="quote"],
+#hero-header a[href*="collection"],
+#site-header a[href*="collection"] {
+  font-family: var(--font-sans) !important;
+  font-size: 15.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.brand-logo-text,
+.brand-logo-text .brand-logo-title,
+.brand-logo-text .brand-logo-title span {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.025em !important;
+}
+
+/* Navbar dropdowns & mobile drawer — Freshworks-inspired typography */
+#services-megamenu-panel,
+#sectors-dropdown-panel,
+#mobile-menu-drawer,
+#mobile-drawer {
+  font-family: var(--font-sans) !important;
+}
+
+#services-megamenu-panel a,
+#services-megamenu-panel button,
+#services-megamenu-panel .service-tab-btn,
+#sectors-dropdown-panel a,
+#sectors-dropdown-panel button,
+#mobile-menu-drawer a,
+#mobile-menu-drawer button,
+#mobile-drawer a,
+#mobile-drawer button {
+  font-family: var(--font-sans) !important;
+  font-size: 15.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.45 !important;
+}
+
+#services-megamenu-panel h2,
+#services-megamenu-panel h3,
+#services-megamenu-panel h4,
+#sectors-dropdown-panel h2,
+#sectors-dropdown-panel h3,
+#sectors-dropdown-panel h4,
+#mobile-menu-drawer h2,
+#mobile-menu-drawer h3 {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.015em !important;
+}
+
+#services-megamenu-panel p,
+#sectors-dropdown-panel p,
+#mobile-menu-drawer p,
+#mobile-drawer p {
+  font-family: var(--font-sans) !important;
+  font-size: 13.5px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
 }
 
 /* Tags & micro labels */
 .tagline,
 .tag,
 .out {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-weight: 500;
+}
+
+/* All buttons, form controls, and UI supporting text */
+button,
+input,
+select,
+textarea,
+label {
+  font-family: var(--font-sans);
+}
+
+/* Breadcrumbs navigation */
+[aria-label="Breadcrumb"],
+[aria-label="Breadcrumb"] * {
+  font-family: var(--font-sans) !important;
+}
+
+/* Footer elements */
+footer,
+footer * {
+  font-family: var(--font-sans);
+}
+
+/* Code, pre and kbd retain genuine monospace */
+code,
+pre,
+kbd,
+samp {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
 }
 
 /* Editorial finishing: one quiet line, one restrained shadow, no inflated corners. */
@@ -287,6 +421,7 @@ p,
 [class*="lead-"],
 .prose p,
 .post-excerpt {
+  font-family: var(--font-sans);
   font-weight: 400;
   line-height: 1.7;
 }

@@ -22,10 +22,10 @@ const imageSizeMap = {
 };
 
 const brandTextMap = {
-  sm: 'text-xl',
-  md: 'text-2xl',
-  lg: 'text-3xl',
-  xl: 'text-2xl sm:text-3xl lg:text-4xl',
+  sm: 'text-lg sm:text-xl',
+  md: 'text-xl sm:text-2xl',
+  lg: 'text-2xl',
+  xl: 'text-2xl sm:text-3xl',
 };
 
 const taglineMap = {
@@ -36,7 +36,7 @@ const taglineMap = {
 };
 ---
 
-<div class:list={['inline-flex items-center gap-2.5 sm:gap-3 select-none font-display', className]} style="font-family: var(--font-display);">
+<div class:list={['inline-flex items-center gap-2.5 sm:gap-3 select-none font-sans brand-logo-text', className]}>
   <img
     src="/images/brand/logo.png"
     alt="TechSteps Logo"
@@ -50,17 +50,16 @@ const taglineMap = {
     decoding="async"
   />
   <div class="flex flex-col justify-center">
-    <div class:list={[brandTextMap[size], 'font-extrabold font-display leading-none tracking-tight']} style="font-family: var(--font-display);">
+    <div class:list={[brandTextMap[size], 'brand-logo-title font-semibold font-sans leading-none tracking-[-0.025em]']}>
       <span class={variant === 'light' ? 'text-white' : 'text-[#0F623A]'}>TECH</span><span class={variant === 'light' ? 'text-white' : 'text-[#212121]'}>STEPS</span>
     </div>
     {showTagline && (
       <span
         class:list={[
           taglineMap[size],
-          'font-medium uppercase font-mono mt-1 leading-none',
+          'font-medium uppercase font-sans mt-1 leading-none',
           variant === 'light' ? 'text-white/90' : 'text-slate-500',
         ]}
-        style="font-family: var(--font-mono);"
       >
         Secure Lifecycle Solutions
       </span>

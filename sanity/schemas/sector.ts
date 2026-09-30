@@ -22,10 +22,17 @@ export default {
       of: [
         {
           type: 'object',
+          title: 'Challenge',
           fields: [
-            { name: 'title', title: 'Challenge Title', type: 'string' },
-            { name: 'description', title: 'Challenge Description', type: 'text', rows: 2 },
+            { name: 'title', title: 'Challenge Title', type: 'string', validation: (Rule: any) => Rule.required() },
+            { name: 'description', title: 'Challenge Description', type: 'text', rows: 2, validation: (Rule: any) => Rule.required() },
           ],
+          preview: {
+            select: {
+              title: 'title',
+              subtitle: 'description',
+            },
+          },
         },
       ],
     },
@@ -36,10 +43,17 @@ export default {
       of: [
         {
           type: 'object',
+          title: 'Solution',
           fields: [
-            { name: 'title', title: 'Solution Title', type: 'string' },
-            { name: 'description', title: 'Solution Description', type: 'text', rows: 2 },
+            { name: 'title', title: 'Solution Title', type: 'string', validation: (Rule: any) => Rule.required() },
+            { name: 'description', title: 'Solution Description', type: 'text', rows: 2, validation: (Rule: any) => Rule.required() },
           ],
+          preview: {
+            select: {
+              title: 'title',
+              subtitle: 'description',
+            },
+          },
         },
       ],
     },
@@ -69,15 +83,22 @@ export default {
       of: [
         {
           type: 'object',
+          title: 'FAQ',
           fields: [
-            { name: 'question', title: 'Question', type: 'string' },
-            { name: 'answer', title: 'Answer', type: 'text', rows: 3 },
+            { name: 'question', title: 'Question', type: 'string', validation: (Rule: any) => Rule.required() },
+            { name: 'answer', title: 'Answer', type: 'text', rows: 3, validation: (Rule: any) => Rule.required() },
           ],
+          preview: {
+            select: {
+              title: 'question',
+              subtitle: 'answer',
+            },
+          },
         },
       ],
     },
-    { name: 'metaTitle', title: 'SEO Meta Title', type: 'string' },
-    { name: 'metaDescription', title: 'SEO Meta Description', type: 'text', rows: 3 },
+    { name: 'metaTitle', title: 'SEO Meta Title', type: 'string', validation: (Rule: any) => Rule.max(70) },
+    { name: 'metaDescription', title: 'SEO Meta Description', type: 'text', rows: 3, validation: (Rule: any) => Rule.max(160) },
   ],
   preview: {
     select: {

@@ -14,6 +14,8 @@ import {
   defaultContactPage,
   defaultRequestCollectionPage,
   defaultHomePageData,
+  defaultServicesPageData,
+  defaultSectorsPageData,
   testimonials,
 } from './data';
 import type {
@@ -31,6 +33,8 @@ import type {
   InvestorsPageData,
   ContactPageData,
   RequestCollectionPageData,
+  ServicesPageData,
+  SectorsPageData,
   TestimonialItem,
   LegalPageData,
 } from './types';
@@ -378,11 +382,46 @@ export async function getSectors(): Promise<Sector[]> {
   let sanitySectors: Sector[] = [];
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "sector" && !(_id in path("drafts.**"))]`);
+      const data = await sanityClient.fetch(`*[_type == "sector" && !(_id in path("drafts.**"))]{
+        _id,
+        "id": _id,
+        title,
+        slug,
+        tagline,
+        summary,
+        "heroImage": coalesce(heroImage.asset->url, heroImage),
+        heroAlt,
+        complianceStandards,
+        challenges[]{
+          title,
+          description
+        },
+        solutions[]{
+          title,
+          description
+        },
+        securityConsiderations,
+        howTechstepsHelps,
+        keyBenefits,
+        "relevantServices": coalesce(relevantServices[]->slug.current, relevantServices),
+        faqs[]{
+          question,
+          answer
+        },
+        metaTitle,
+        metaDescription
+      }`);
       if (data && data.length > 0) {
         sanitySectors = data.map((sec: any) => ({
           ...sec,
           slug: normalizeSlug(sec.slug),
+          challenges: Array.isArray(sec.challenges) ? sec.challenges : [],
+          solutions: Array.isArray(sec.solutions) ? sec.solutions : [],
+          securityConsiderations: Array.isArray(sec.securityConsiderations) ? sec.securityConsiderations : [],
+          complianceStandards: Array.isArray(sec.complianceStandards) ? sec.complianceStandards : [],
+          keyBenefits: Array.isArray(sec.keyBenefits) ? sec.keyBenefits : [],
+          relevantServices: Array.isArray(sec.relevantServices) ? sec.relevantServices.filter(Boolean) : [],
+          faqs: Array.isArray(sec.faqs) ? sec.faqs : [],
         }));
       }
     } catch {
@@ -955,6 +994,158 @@ export async function getTestimonials(): Promise<TestimonialItem[]> {
     }
   }
   return testimonials;
+}
+
+export async function getServicesPage(): Promise<ServicesPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`
+        *[_type == "servicesPage" && (_id == "servicesPage" || !(_id in path("drafts.**")))] | order((_id == "servicesPage") desc, _updatedAt desc)[0]{
+          "metaTitle": coalesce(seo.metaTitle, metaTitle),
+          "metaDescription": coalesce(seo.metaDescription, metaDescription),
+          hero{
+            eyebrow,
+            title,
+            subheading,
+            "bgImage": coalesce(bgImage.asset->url, "/images/services/data-centre-hardware.jpg")
+          },
+          divisionsShowcase{
+            eyebrow,
+            heading
+          },
+          lifecycle{
+            eyebrow,
+            heading,
+            description,
+            steps[]{
+              step,
+              number,
+              desc,
+              "image": coalesce(image.asset->url, "/images/services/process-step-1-collect.jpg")
+            }
+          },
+          pillars{
+            eyebrow,
+            heading,
+            items[]{
+              title,
+              desc,
+              icon
+            }
+          },
+          bottomCta{
+            eyebrow,
+            heading,
+            description,
+            primaryButtonText,
+            primaryButtonLink,
+            secondaryButtonText,
+            secondaryButtonLink
+          }
+        }
+      `);
+      if (data) {
+        return {
+          ...defaultServicesPageData,
+          ...data,
+          hero: { ...defaultServicesPageData.hero, ...data.hero },
+          divisionsShowcase: { ...defaultServicesPageData.divisionsShowcase, ...data.divisionsShowcase },
+          lifecycle: {
+            ...defaultServicesPageData.lifecycle,
+            ...data.lifecycle,
+            steps: (Array.isArray(data.lifecycle?.steps) && data.lifecycle.steps.length > 0)
+              ? data.lifecycle.steps
+              : defaultServicesPageData.lifecycle?.steps,
+          },
+          pillars: {
+            ...defaultServicesPageData.pillars,
+            ...data.pillars,
+            items: (Array.isArray(data.pillars?.items) && data.pillars.items.length > 0)
+              ? data.pillars.items
+              : defaultServicesPageData.pillars?.items,
+          },
+          bottomCta: { ...defaultServicesPageData.bottomCta, ...data.bottomCta },
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Services Page from Sanity:', err);
+    }
+  }
+  return defaultServicesPageData;
+}
+
+export async function getSectorsPage(): Promise<SectorsPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`
+        *[_type == "sectorsPage" && (_id == "sectorsPage" || !(_id in path("drafts.**")))] | order((_id == "sectorsPage") desc, _updatedAt desc)[0]{
+          "metaTitle": coalesce(seo.metaTitle, metaTitle),
+          "metaDescription": coalesce(seo.metaDescription, metaDescription),
+          hero{
+            eyebrow,
+            title,
+            subheading,
+            "bgImage": coalesce(bgImage.asset->url, "/images/brand/sectors-hero-bg.jpg"),
+            primaryButtonText,
+            primaryButtonLink,
+            secondaryButtonText,
+            secondaryButtonLink
+          },
+          intro{
+            badge,
+            heading,
+            description,
+            buttonText,
+            buttonLink
+          },
+          sectorsSection{
+            eyebrow,
+            heading,
+            description
+          },
+          philosophy{
+            eyebrow,
+            heading,
+            description,
+            principles[]{
+              label,
+              number,
+              desc
+            }
+          },
+          bottomCta{
+            eyebrow,
+            heading,
+            description,
+            primaryButtonText,
+            primaryButtonLink,
+            secondaryButtonText,
+            secondaryButtonLink
+          }
+        }
+      `);
+      if (data) {
+        return {
+          ...defaultSectorsPageData,
+          ...data,
+          hero: { ...defaultSectorsPageData.hero, ...data.hero },
+          intro: { ...defaultSectorsPageData.intro, ...data.intro },
+          sectorsSection: { ...defaultSectorsPageData.sectorsSection, ...data.sectorsSection },
+          philosophy: {
+            ...defaultSectorsPageData.philosophy,
+            ...data.philosophy,
+            principles: (Array.isArray(data.philosophy?.principles) && data.philosophy.principles.length > 0)
+              ? data.philosophy.principles
+              : defaultSectorsPageData.philosophy?.principles,
+          },
+          bottomCta: { ...defaultSectorsPageData.bottomCta, ...data.bottomCta },
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Sectors Page from Sanity:', err);
+    }
+  }
+  return defaultSectorsPageData;
 }
 
 export async function getLegalPages(): Promise<LegalPageData[]> {

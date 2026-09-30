@@ -65,15 +65,15 @@ const currentPath = Astro.url.pathname;
 
     <!-- Right: Navigation Container -->
     <div class="h-full flex items-center justify-end">
-      <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-[19px] xl:text-[21px] font-display capitalize tracking-wide" aria-label="Main Navigation">
+      <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-[16px] xl:text-[17px] font-sans font-medium tracking-[-0.01em]" aria-label="Main Navigation">
         <!-- Services Mega Menu Link (Direct Click to /services, Hover Opens Mega Menu) -->
         <div class="relative flex items-center group">
             <a
               href="/services"
               class={`services-megamenu-toggle inline-flex items-center gap-1.5 py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 cursor-pointer focus:outline-none ${
                 currentPath.startsWith('/services') || currentPath === '/information-management' || currentPath === '/it-lifecycle-services-destruction' || currentPath === '/secure-shredding-document-integrity' || currentPath === '/moving-relocation-services'
-                  ? 'border-slate-900 text-slate-950 font-bold'
-                  : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
+                  ? 'border-slate-900 text-slate-950 font-medium'
+                  : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-medium'
               }`}
               aria-expanded="false"
               aria-haspopup="true"
@@ -93,8 +93,8 @@ const currentPath = Astro.url.pathname;
               href="/sectors"
               class={`sectors-dropdown-toggle inline-flex items-center gap-1.5 py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 cursor-pointer focus:outline-none ${
                 currentPath.startsWith('/sectors')
-                  ? 'border-slate-900 text-slate-950 font-bold'
-                  : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
+                  ? 'border-slate-900 text-slate-950 font-medium'
+                  : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-medium'
               }`}
               aria-expanded="false"
               aria-haspopup="true"
@@ -112,8 +112,8 @@ const currentPath = Astro.url.pathname;
             href="/insights"
             class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
               currentPath.startsWith('/insights')
-                ? 'border-slate-900 text-slate-950 font-bold'
-                : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
+                ? 'border-slate-900 text-slate-950 font-medium'
+                : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-medium'
             }`}
           >
             Insights
@@ -123,8 +123,8 @@ const currentPath = Astro.url.pathname;
             href="/about-us"
             class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
               currentPath === '/about-us'
-                ? 'border-slate-900 text-slate-950 font-bold'
-                : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
+                ? 'border-slate-900 text-slate-950 font-medium'
+                : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-medium'
             }`}
           >
             About Us
@@ -134,8 +134,8 @@ const currentPath = Astro.url.pathname;
             href="/contact"
             class={`py-1.5 px-1 border-b-2 bg-transparent transition-all duration-150 ${
               currentPath === '/contact'
-                ? 'border-slate-900 text-slate-950 font-bold'
-                : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-bold'
+                ? 'border-slate-900 text-slate-950 font-medium'
+                : 'border-transparent text-slate-700 hover:text-slate-950 hover:border-slate-800 font-medium'
             }`}
           >
             Contact
@@ -146,7 +146,7 @@ const currentPath = Astro.url.pathname;
         <div class="flex items-center gap-3 ml-6 sm:ml-8">
           <a
             href="/request-a-quote"
-            class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#E58A3C] hover:bg-[#d97d2e] text-white text-[17px] font-display font-bold capitalize tracking-wider shadow-md transition-all duration-150 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#E58A3C]"
+            class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#E58A3C] hover:bg-[#d97d2e] text-white text-[15.5px] sm:text-[16px] font-sans font-medium tracking-tight shadow-md transition-all duration-150 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#E58A3C]"
           >
             Request a Collection
           </a>
@@ -181,7 +181,7 @@ const currentPath = Astro.url.pathname;
       <div class="max-w-2xl">
 
         {eyebrow && (
-          <span class="inline-block text-xs sm:text-sm font-mono font-bold uppercase tracking-[0.2em] text-[#0F623A] mb-4">
+          <span class="inline-block text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.2em] text-[#0F623A] mb-4">
             {eyebrow}
           </span>
         )}
@@ -274,7 +274,7 @@ const currentPath = Astro.url.pathname;
   <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 text-center flex flex-col items-center justify-center my-auto">
 
     {eyebrow && (
-      <span class="inline-block text-xs sm:text-sm font-mono font-bold uppercase tracking-widest text-emerald-400 mb-3 drop-shadow-sm">
+      <span class="inline-block text-xs sm:text-sm font-sans font-bold uppercase tracking-widest text-emerald-400 mb-3 drop-shadow-sm">
         {eyebrow}
       </span>
     )}

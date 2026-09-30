@@ -151,7 +151,7 @@ const serviceCards = [
               const isLast = idx === approachSteps.length - 1;
               return (
                 <div class={`${stickyClasses[idx] || 'lg:sticky lg:top-24 z-10'} bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition-all flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7`}>
-                  <span class={`text-5xl sm:text-6xl font-extrabold font-display ${isLast ? 'text-slate-700' : 'text-[#146B5C]'} shrink-0 leading-none`}>
+                  <span class={`text-5xl sm:text-6xl font-extrabold font-sans ${isLast ? 'text-slate-700' : 'text-[#146B5C]'} shrink-0 leading-none`}>
                     {s.step || idx + 1}
                   </span>
                   <div class="space-y-1.5 flex-1">
@@ -194,7 +194,7 @@ const serviceCards = [
             <div class="bg-white/90 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4 hover:shadow-xl transition-all duration-300 relative overflow-hidden group min-h-[220px] flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between mb-3">
-                  <span class="text-3xl sm:text-4xl font-extrabold font-display text-[#146B5C]/30 group-hover:text-[#146B5C] transition-colors">
+                  <span class="text-3xl sm:text-4xl font-extrabold font-sans text-[#146B5C]/30 group-hover:text-[#146B5C] transition-colors">
                     {s.step}
                   </span>
                   <span class="w-3 h-3 rounded-full bg-[#146B5C]"></span>
@@ -477,7 +477,7 @@ const serviceCards = [
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {displayStats.map((st) => (
             <div class="bg-white/90 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md text-center space-y-2.5">
-              <div class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-[#146B5C] tracking-tight">
+              <div class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-sans text-[#146B5C] tracking-tight">
                 {st.prefix}{st.value}{st.suffix}
               </div>
               <h3 class="text-base font-extrabold font-display text-slate-900 uppercase tracking-wider">

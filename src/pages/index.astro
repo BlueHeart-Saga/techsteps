@@ -167,7 +167,7 @@ const divisionMetadata: Record<
   homePage?.statistics?.map((stat) => (
     <div class="space-y-2.5">
       <div
-        class="text-5xl sm:text-6xl lg:text-[70px] font-[900] text-[#0F623A] tracking-tight leading-none font-display stat-counter-item"
+        class="text-5xl sm:text-6xl lg:text-[70px] font-bold text-[#0F623A] tracking-tight leading-none font-sans stat-counter-item"
         data-target={stat.number || '0'}
         data-suffix={stat.suffix || ''}
       >
@@ -333,9 +333,8 @@ const divisionMetadata: Record<
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
           <!-- Left Column: Tall Featured Card (7 cols out of 12 for the exact width proportion) -->
           <div class="lg:col-span-7 xl:col-span-7 flex flex-col">
-            <a
+            <div
               id="featured-service-card"
-              href={firstServiceCard.link || '#'}
               class="group relative flex-1 h-full flex flex-col justify-end rounded-[16px] overflow-hidden min-h-[480px] sm:min-h-[520px] lg:min-h-[580px] p-6 sm:p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 border border-black/10 bg-slate-950"
             >
               <img
@@ -365,26 +364,32 @@ const divisionMetadata: Record<
                   {firstServiceCard.description}
                 </p>
 
-                <!-- Pill Action Button with Arrow -->
+                <!-- Pill Action Button with Arrow (Navigates to relevant service page) -->
                 <div>
-                  <span class="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#061810]/75 group-hover:bg-[#0F623A] border border-emerald-500/50 group-hover:border-[#0F623A] text-white text-xs sm:text-[13px] font-bold uppercase tracking-widest shadow-md transition-all duration-300">
+                  <a
+                    id="featured-service-link"
+                    href={firstServiceCard.link || '#'}
+                    class="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#061810]/75 hover:bg-[#0F623A] border border-emerald-500/50 hover:border-[#0F623A] text-white text-xs sm:text-[13px] font-bold uppercase tracking-widest shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                  >
                     <span id="featured-service-btn-text">{firstServiceCard.buttonText || 'Explore'}</span>
                     <svg class="w-4 h-4 text-emerald-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
-                  </span>
+                  </a>
                 </div>
               </div>
-            </a>
+            </div>
           </div>
 
           <!-- Right Column: 3 Stacked Horizontal Cards (5 cols out of 12) -->
           <div class="lg:col-span-5 xl:col-span-5 flex flex-col gap-3.5 sm:gap-4 lg:gap-4 justify-between">
             {remainingServiceCards.map((card, idx) => (
-              <a
-                href={card.link || '#'}
+              <div
                 data-slot-index={idx}
                 class="service-right-card group relative flex-1 flex items-center justify-between rounded-[16px] overflow-hidden p-5 sm:p-6 lg:p-7 shadow-md hover:shadow-2xl transition-all duration-300 border-[1.5px] border-white/10 border-l-[5px] border-l-white/15 hover:border-[#00DF81] hover:border-l-[5px] hover:border-l-[#00DF81] bg-slate-950 min-h-[160px] sm:min-h-[175px] cursor-pointer"
+                role="button"
+                tabindex="0"
+                aria-label={`View ${card.title} details`}
               >
                 <img
                   src={card.image}
@@ -401,7 +406,7 @@ const divisionMetadata: Record<
                 <div class="absolute inset-0 bg-gradient-to-r from-[#032E1D]/95 via-[#022215]/85 via-50% to-[#01140B]/30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div class="absolute inset-0 bg-[#00DF81]/[0.05] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                <div class="relative z-10 flex-1 pr-3 sm:pr-4 max-w-xs sm:max-w-sm lg:max-w-md">
+                <div class="relative z-10 flex-1 pr-3 sm:pr-4 max-w-xs sm:max-w-sm lg:max-w-md pointer-events-none">
                   <span class="right-card-num text-2xl sm:text-3xl font-display font-light text-white/90 group-hover:text-[#00DF81] transition-colors duration-300 block mb-1 leading-none">
                     {card.number}
                   </span>
@@ -413,15 +418,19 @@ const divisionMetadata: Record<
                   </p>
                 </div>
 
-                <!-- Bottom/Right Circular Arrow Button with green border on hover -->
-                <div class="relative z-10 self-end shrink-0 ml-2 sm:ml-3">
-                  <span class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/50 border border-white/20 group-hover:border-[#00DF81] group-hover:border-[2px] group-hover:shadow-[0_0_14px_rgba(0,223,129,0.4)] flex items-center justify-center text-white/70 group-hover:text-white transition-all duration-300 shadow-sm">
+                <!-- Bottom/Right Circular Arrow Button with green border on hover (Navigates directly to page) -->
+                <div class="relative z-20 self-end shrink-0 ml-2 sm:ml-3">
+                  <a
+                    href={card.link || '#'}
+                    class="right-card-arrow-link w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/50 border border-white/20 group-hover:border-[#00DF81] group-hover:border-[2px] group-hover:shadow-[0_0_14px_rgba(0,223,129,0.4)] flex items-center justify-center text-white/70 group-hover:text-white transition-all duration-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#00DF81]"
+                    aria-label={`Go to ${card.title} page`}
+                  >
                     <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
-                  </span>
+                  </a>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </div>
@@ -444,17 +453,17 @@ const divisionMetadata: Record<
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 max-w-5xl mx-auto text-center">
         <div class="space-y-3">
-          <div class="text-4xl sm:text-5xl lg:text-6xl font-black font-display text-[#146B5C] leading-none">01</div>
+          <div class="text-4xl sm:text-5xl lg:text-6xl font-black font-sans text-[#146B5C] leading-none">01</div>
           <h3 class="text-xl sm:text-2xl font-bold font-display text-brand-navy tracking-tight">Security</h3>
           <p class="text-xl sm:text-2xl text-slate-700 leading-relaxed max-w-xs mx-auto font-semibold">We protect your information, IT assets and sensitive materials through secure, controlled processes.</p>
         </div>
         <div class="space-y-3">
-          <div class="text-4xl sm:text-5xl lg:text-6xl font-black font-display text-[#146B5C] leading-none">02</div>
+          <div class="text-4xl sm:text-5xl lg:text-6xl font-black font-sans text-[#146B5C] leading-none">02</div>
           <h3 class="text-xl sm:text-2xl font-bold font-display text-brand-navy tracking-tight">Sustainability</h3>
           <p class="text-xl sm:text-2xl text-slate-700 leading-relaxed max-w-xs mx-auto font-semibold">We promote responsible reuse, recovery and recycling to reduce environmental impact.</p>
         </div>
         <div class="space-y-3">
-          <div class="text-4xl sm:text-5xl lg:text-6xl font-black font-display text-[#146B5C] leading-none">03</div>
+          <div class="text-4xl sm:text-5xl lg:text-6xl font-black font-sans text-[#146B5C] leading-none">03</div>
           <h3 class="text-xl sm:text-2xl font-bold font-display text-brand-navy tracking-tight">Reliability</h3>
           <p class="text-xl sm:text-2xl text-slate-700 leading-relaxed max-w-xs mx-auto font-semibold">We deliver dependable, end-to-end services with clear processes, accountability and professional support.</p>
         </div>
@@ -708,6 +717,11 @@ const divisionMetadata: Record<
           const slotIdx = parseInt(slotIdxStr, 10);
 
           const handleSwap = (e) => {
+            // If user clicked the arrow link specifically, let it navigate directly to the page!
+            if (e.target.closest('.right-card-arrow-link')) {
+              return;
+            }
+
             e.preventDefault();
             if (isSwapping) return;
             isSwapping = true;
@@ -733,7 +747,9 @@ const divisionMetadata: Record<
               const newRight = cardsData[prevLeftIdx];
 
               if (newLeft) {
-                leftCard.setAttribute('href', newLeft.link || '#');
+                const leftLink = leftCard.querySelector('#featured-service-link');
+                if (leftLink) leftLink.setAttribute('href', newLeft.link || '#');
+
                 const leftImg = leftCard.querySelector('#featured-service-img');
                 const leftNum = leftCard.querySelector('#featured-service-num');
                 const leftTitle = leftCard.querySelector('#featured-service-title');
@@ -751,7 +767,14 @@ const divisionMetadata: Record<
               }
 
               if (newRight) {
-                targetRightCard.setAttribute('href', newRight.link || '#');
+                const rightArrowLink = targetRightCard.querySelector('.right-card-arrow-link');
+                if (rightArrowLink) {
+                  rightArrowLink.setAttribute('href', newRight.link || '#');
+                  rightArrowLink.setAttribute('aria-label', `Go to ${newRight.title} page`);
+                }
+
+                targetRightCard.setAttribute('aria-label', `View ${newRight.title} details`);
+
                 const rightImg = targetRightCard.querySelector('.right-card-img');
                 const rightNum = targetRightCard.querySelector('.right-card-num');
                 const rightTitle = targetRightCard.querySelector('.right-card-title');
@@ -781,6 +804,7 @@ const divisionMetadata: Record<
           cardEl.addEventListener('click', handleSwap);
           cardEl.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
+              if (e.target.closest('.right-card-arrow-link')) return;
               handleSwap(e);
             }
           });

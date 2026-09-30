@@ -47,7 +47,7 @@ const navItems = [
       </div>
 
       <!-- Right: Main Navigation Links (Services, Sectors, Insights, About Us, Contact) -->
-      <nav class="hidden lg:flex items-center space-x-7 xl:space-x-9 text-slate-800 font-display font-semibold text-[20px] xl:text-[21px] tracking-wide" aria-label="Main Navigation">
+      <nav class="hidden lg:flex items-center space-x-7 xl:space-x-8 text-slate-800 font-sans font-medium text-[16px] xl:text-[17px] tracking-[-0.01em]" aria-label="Main Navigation">
         {navItems.map((item) => {
           if (item.type === 'services') {
             const isActive = currentPath.startsWith('/services') || currentPath === '/information-management' || currentPath === '/it-lifecycle-services-destruction' || currentPath === '/secure-shredding-document-integrity' || currentPath === '/moving-relocation-services';

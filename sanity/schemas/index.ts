@@ -14,6 +14,8 @@ import sustainabilityPage from './sustainabilityPage';
 import investorsPage from './investorsPage';
 import contactPage from './contactPage';
 import requestCollectionPage from './requestCollectionPage';
+import servicesPage from './servicesPage';
+import sectorsPage from './sectorsPage';
 import testimonial from './testimonial';
 import legalPage from './legalPage';
 
@@ -28,6 +30,8 @@ export const schemaTypes = [
   // Documents - Pages
   homePage,
   aboutPage,
+  servicesPage,
+  sectorsPage,
   faqPage,
   sustainabilityPage,
   investorsPage,

@@ -220,7 +220,7 @@ export const CategoryPreferenceModal: React.FC<CategoryPreferenceModalProps> = (
             </svg>
             <span>Preferences</span>
           </div>
-          <h3 id="modal-title" className="text-xl sm:text-2xl font-bold tracking-tight text-white font-serif">
+          <h3 id="modal-title" className="text-xl sm:text-2xl font-bold tracking-tight text-white font-display">
             Personalize Your Technical Digest
           </h3>
           <p className="text-xs sm:text-sm text-slate-300/80 mt-1.5 max-w-md mx-auto">

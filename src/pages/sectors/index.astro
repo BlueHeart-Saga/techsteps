@@ -2,15 +2,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import PageHero from '../../components/hero/PageHero.astro';
-import { getSectors, getDivisions } from '../../lib/sanity/client';
+import { getSectors, getDivisions, getSectorsPage } from '../../lib/sanity/client';
 
 const breadcrumbs = [
   { name: 'Sectors', url: '/sectors' },
 ];
 
-const [sectors, divisions] = await Promise.all([
+const [sectors, divisions, sectorsPage] = await Promise.all([
   getSectors(),
   getDivisions(),
+  getSectorsPage(),
 ]);
 
 // Verified four core sectors in preferred display order with background photography
@@ -150,34 +151,34 @@ const accreditations = [
 ---
 
 <BaseLayout
-  title="Sector Expertise | IT Lifecycle Solutions for Defence, NHS, Finance & Government | Techsteps"
-  description="Specialist information management, IT lifecycle, secure destruction and relocation solutions tailored for the requirements of Defence, NHS, Financial Services and Central Government."
+  title={sectorsPage.metaTitle || "Sector Expertise | IT Lifecycle Solutions for Defence, NHS, Finance & Government | Techsteps"}
+  description={sectorsPage.metaDescription || "Specialist information management, IT lifecycle, secure destruction and relocation solutions tailored for the requirements of Defence, NHS, Financial Services and Central Government."}
   hasHeroHeader={true}
 >
   <!-- ===== EXISTING HERO — KEPT UNCHANGED ===== -->
   <PageHero
-    title="Sectors"
-    eyebrow="SECTOR EXPERTISE"
-    subheading="Specialist information, IT lifecycle, destruction and relocation solutions designed around the requirements of your organisation."
+    title={sectorsPage.hero?.title || "Sectors"}
+    eyebrow={sectorsPage.hero?.eyebrow || "SECTOR EXPERTISE"}
+    subheading={sectorsPage.hero?.subheading || "Specialist information, IT lifecycle, destruction and relocation solutions designed around the requirements of your organisation."}
     breadcrumbs={breadcrumbs}
     dividerColor="#ffffff"
-    bgImage="/images/brand/sectors-hero-bg.jpg"
+    bgImage={sectorsPage.hero?.bgImage || "/images/brand/sectors-hero-bg.jpg"}
   >
     <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
       <a
-        href="/request-a-quote"
+        href={sectorsPage.hero?.primaryButtonLink || "/request-a-quote"}
         class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-lg transition-all duration-200"
       >
-        Request Sector Consultation
+        {sectorsPage.hero?.primaryButtonText || "Request Sector Consultation"}
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>
       </a>
       <a
-        href="#sector-intro"
+        href={sectorsPage.hero?.secondaryButtonLink || "#sector-intro"}
         class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/20 transition-all duration-200"
       >
-        Explore Sectors
+        {sectorsPage.hero?.secondaryButtonText || "Explore Sectors"}
       </a>
     </div>
   </PageHero>
@@ -193,15 +194,15 @@ const accreditations = [
         <div class="lg:col-span-5 space-y-6">
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-600/20 text-[#0F623A] text-xs font-mono font-bold uppercase tracking-widest">
             <span class="w-2 h-2 rounded-full bg-[#0F623A] animate-pulse"></span>
-            <span>Our Approach & Framework</span>
+            <span>{sectorsPage.intro?.badge || "Our Approach & Framework"}</span>
           </div>
 
           <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold text-slate-900 tracking-tight leading-[1.15] font-display">
-            Solutions Built Around <span class="text-[#0F623A]">Your Organisation</span>
+            {sectorsPage.intro?.heading || "Solutions Built Around Your Organisation"}
           </h2>
 
           <p class="text-slate-600 leading-relaxed text-base sm:text-lg">
-            Every sector has different requirements for security, compliance, information management and technology. Techsteps brings together the expertise and certified services needed to manage those requirements throughout the asset lifecycle.
+            {sectorsPage.intro?.description || "Every sector has different requirements for security, compliance, information management and technology. Techsteps brings together the expertise and certified services needed to manage those requirements throughout the asset lifecycle."}
           </p>
 
           <div class="pt-2 flex flex-wrap items-center gap-3">
@@ -294,7 +295,7 @@ const accreditations = [
                 <span class="text-xs font-mono font-bold text-slate-400 group-hover:text-[#0F623A] transition-colors">{p.num}</span>
               </div>
               <div class="space-y-1.5">
-                <h3 class="text-base sm:text-lg font-bold text-slate-900 font-sans">{p.label}</h3>
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 font-display">{p.label}</h3>
                 <p class="text-sm text-slate-600 leading-relaxed">{p.desc}</p>
               </div>
             </div>
@@ -308,10 +309,14 @@ const accreditations = [
   <section class="bg-[#F2F8F5] py-16 lg:py-24 border-t border-slate-200">
     <Container>
       <div class="text-center mb-14">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">Industries</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-display">Sectors We Serve</h2>
+        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">
+          {sectorsPage.sectorsSection?.eyebrow || "Industries"}
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-display">
+          {sectorsPage.sectorsSection?.heading || "Sectors We Serve"}
+        </h2>
         <p class="mt-4 text-base text-slate-600 max-w-xl mx-auto leading-relaxed font-sans">
-          Built around the specific security, compliance and operational requirements of regulated industries.
+          {sectorsPage.sectorsSection?.description || "Built around the specific security, compliance and operational requirements of regulated industries."}
         </p>
       </div>
 
@@ -796,25 +801,27 @@ const accreditations = [
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#0F623A]/10 blur-3xl pointer-events-none"></div>
     <Container className="relative z-10">
       <div class="max-w-3xl mx-auto text-center">
-        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4 font-mono">Work With Techsteps</span>
+        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4 font-mono">
+          {sectorsPage.bottomCta?.eyebrow || "Work With Techsteps"}
+        </span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight font-display">
-          Let's Build the Right Solution<br />for Your Sector.
+          {sectorsPage.bottomCta?.heading || "Let's Build the Right Solution for Your Sector."}
         </h2>
         <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 font-medium max-w-xl mx-auto">
-          Talk to our team about your organisation's technology and information lifecycle requirements.
+          {sectorsPage.bottomCta?.description || "Talk to our team about your organisation's technology and information lifecycle requirements."}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="/contact"
+            href={sectorsPage.bottomCta?.primaryButtonLink || "/contact"}
             class="px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
-            Get In Touch →
+            {sectorsPage.bottomCta?.primaryButtonText || "Get In Touch →"}
           </a>
           <a
-            href="/services"
+            href={sectorsPage.bottomCta?.secondaryButtonLink || "/services"}
             class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5"
           >
-            Explore Our Services
+            {sectorsPage.bottomCta?.secondaryButtonText || "Explore Our Services"}
           </a>
         </div>
       </div>

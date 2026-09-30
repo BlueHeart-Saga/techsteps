@@ -2,15 +2,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import PageHero from '../../components/hero/PageHero.astro';
-import { getDivisions, getServices } from '../../lib/sanity/client';
+import { getDivisions, getServices, getServicesPage } from '../../lib/sanity/client';
 
 const breadcrumbs = [
   { name: 'Services', url: '/services' },
 ];
 
-const [divisions, services] = await Promise.all([
+const [divisions, services, servicesPage] = await Promise.all([
   getDivisions(),
   getServices(),
+  getServicesPage(),
 ]);
 
 // Ordered divisions for display
@@ -147,17 +148,17 @@ const divisionCards = [
 ---
 
 <BaseLayout
-  title="Our Services | IT Lifecycle, Information Management & Secure Destruction | Techsteps"
-  description="Techsteps delivers certified IT asset disposition, secure document and media destruction, information management and specialist relocation services across the UK."
+  title={servicesPage.metaTitle || "Our Services | IT Lifecycle, Information Management & Secure Destruction | Techsteps"}
+  description={servicesPage.metaDescription || "Techsteps delivers certified IT asset disposition, secure document and media destruction, information management and specialist relocation services across the UK."}
   hasHeroHeader={true}
 >
   <!-- ===== 1. SERVICES HERO (Simple & Clean, ref: /sustainability) ===== -->
 <PageHero
   layout="split"
-  eyebrow="OUR SERVICES"
-  title="Solutions Across the Tecnology Lifecycle"
-  subheading="Specialist IT asset disposition, secure destruction, information management and technology relocation services for organisations across the UK."
-  bgImage="/images/services/data-centre-hardware.jpg"
+  eyebrow={servicesPage.hero?.eyebrow || "OUR SERVICES"}
+  title={servicesPage.hero?.title || "Solutions Across the Technology Lifecycle"}
+  subheading={servicesPage.hero?.subheading || "Specialist IT asset disposition, secure destruction, information management and technology relocation services for organisations across the UK."}
+  bgImage={servicesPage.hero?.bgImage || "/images/services/data-centre-hardware.jpg"}
   breadcrumbs={breadcrumbs}
   dividerColor="#ffffff"
 />
@@ -170,11 +171,11 @@ const divisionCards = [
 <!-- SECTION HEADER -->
 <div class="text-center mb-4 lg:mb-6">
   <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3">
-    Service Divisions
+    {servicesPage.divisionsShowcase?.eyebrow || "Service Divisions"}
   </span>
 
   <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
-    One Partner. Multiple Solutions.
+    {servicesPage.divisionsShowcase?.heading || "One Partner. Multiple Solutions."}
   </h2>
 </div>
 
@@ -733,7 +734,7 @@ const divisionCards = [
       <div class="bg-white rounded-3xl sm:rounded-[36px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100/90 py-8 sm:py-10 lg:py-12 px-6 sm:px-8 lg:px-10">
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 xl:gap-10 text-center">
           <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display tabular-nums">
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-sans tabular-nums">
               +<span class="service-stat-num" data-target="25">25</span>M
             </div>
             <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
@@ -741,7 +742,7 @@ const divisionCards = [
             </p>
           </div>
           <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display tabular-nums">
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-sans tabular-nums">
               +<span class="service-stat-num" data-target="238">238</span>M
             </div>
             <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
@@ -749,7 +750,7 @@ const divisionCards = [
             </p>
           </div>
           <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display tabular-nums">
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-sans tabular-nums">
               +<span class="service-stat-num" data-target="500">500</span>K
             </div>
             <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
@@ -757,7 +758,7 @@ const divisionCards = [
             </p>
           </div>
           <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-display tabular-nums">
+            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-sans tabular-nums">
               +<span class="service-stat-num" data-target="52">52</span>K
             </div>
             <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
@@ -990,25 +991,27 @@ const divisionCards = [
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#0F623A]/10 blur-3xl pointer-events-none"></div>
     <Container className="relative z-10">
       <div class="max-w-3xl mx-auto text-center">
-        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4">Get Started</span>
+        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4">
+          {servicesPage.bottomCta?.eyebrow || "Get Started"}
+        </span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">
-          Let's Find the Right Solution<br />for Your Organisation.
+          {servicesPage.bottomCta?.heading || "Let's Find the Right Solution for Your Organisation."}
         </h2>
         <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 font-medium max-w-xl mx-auto">
-          Tell us what you're trying to achieve and our team can help identify the right combination of services.
+          {servicesPage.bottomCta?.description || "Tell us what you're trying to achieve and our team can help identify the right combination of services."}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="/contact"
+            href={servicesPage.bottomCta?.primaryButtonLink || "/contact"}
             class="px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
-            Get In Touch →
+            {servicesPage.bottomCta?.primaryButtonText || "Get In Touch →"}
           </a>
           <a
-            href="/request-a-quote"
+            href={servicesPage.bottomCta?.secondaryButtonLink || "/request-a-quote"}
             class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5"
           >
-            Request a Collection
+            {servicesPage.bottomCta?.secondaryButtonText || "Request a Collection"}
           </a>
         </div>
       </div>
