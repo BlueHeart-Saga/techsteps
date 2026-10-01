@@ -238,16 +238,12 @@ div[class*="uppercase"][class*="text-xs"] {
 
 /* Header, navbar & brand logo — Freshworks-inspired typography */
 #site-header,
-#site-header nav,
-#hero-header,
-#hero-header nav {
+#site-header nav {
   font-family: var(--font-sans) !important;
 }
 
 #site-header nav a,
-#site-header nav button,
-#hero-header nav a,
-#hero-header nav button {
+#site-header nav button {
   font-family: var(--font-sans) !important;
   font-size: 16px !important;
   font-weight: 500 !important;
@@ -256,24 +252,149 @@ div[class*="uppercase"][class*="text-xs"] {
 }
 
 #site-header nav a span,
-#site-header nav button span,
-#hero-header nav a span,
-#hero-header nav button span {
+#site-header nav button span {
   font-family: var(--font-sans) !important;
   font-size: 16px !important;
   font-weight: 500 !important;
   letter-spacing: -0.01em !important;
 }
 
-/* Header Action / CTA Button */
-#hero-header a[href*="quote"],
 #site-header a[href*="quote"],
-#hero-header a[href*="collection"],
 #site-header a[href*="collection"] {
   font-family: var(--font-sans) !important;
   font-size: 15.5px !important;
   font-weight: 500 !important;
   letter-spacing: -0.01em !important;
+}
+
+/* ==========================================================================
+   NORMAL / TOP NAVBAR & SERVICES DROPDOWN - EXACT REFERENCE TYPOGRAPHY
+   ========================================================================== */
+
+/* 1. LOGO: Nunito Sans, Weight 600, Size 27.2px */
+#hero-header .hero-logo-text,
+#hero-header .hero-logo-text span {
+  font-family: 'Nunito Sans', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 27.2px !important;
+  line-height: 1 !important;
+  letter-spacing: -0.015em !important;
+}
+
+/* 2. TOP NAVBAR NAVIGATION LINKS */
+#hero-header nav a,
+#hero-header nav button,
+#hero-header nav a span,
+#hero-header nav button span,
+#hero-header a[href*="contact"] {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.4 !important;
+  color: #171717 !important;
+}
+
+#hero-header nav a:hover,
+#hero-header nav button:hover,
+#hero-header a[href*="contact"]:hover {
+  color: #07572F !important;
+}
+
+/* 3. REQUEST A COLLECTION CTA BUTTON */
+#hero-header a[href*="quote"],
+#hero-header a[href*="collection"] {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  background-color: #07572F !important;
+  color: #ffffff !important;
+}
+
+#hero-header a[href*="quote"]:hover,
+#hero-header a[href*="collection"]:hover {
+  background-color: #054424 !important;
+}
+
+/* 4. SERVICES DROPDOWN - EXACT CONTAINER DIMENSIONS */
+#services-megamenu-panel .services-dropdown-card {
+  width: 1408px !important;
+  max-width: 1408px !important;
+  height: 322px !important;
+  min-height: 322px !important;
+  max-height: 322px !important;
+  border-radius: 12px !important;
+  box-sizing: border-box !important;
+  padding: 8px !important;
+}
+
+#services-megamenu-panel .services-left-col {
+  width: 400px !important;
+  min-width: 400px !important;
+  max-width: 400px !important;
+  height: 306px !important;
+  min-height: 306px !important;
+  max-height: 306px !important;
+  border-radius: 12px !important;
+  margin-right: 64px !important;
+  box-sizing: border-box !important;
+}
+
+/* 5. SERVICES DROPDOWN - LEFT COLUMN: Lora, Weight 600, Size 16px */
+#services-megamenu-panel .services-left-col,
+#services-megamenu-panel .services-left-col *,
+#services-megamenu-panel .services-left-col h3,
+#services-megamenu-panel .services-left-col .service-tab-btn,
+#services-megamenu-panel .services-left-col .service-tab-btn span,
+#services-megamenu-panel .services-left-col .pillar-label,
+#services-megamenu-panel .services-left-col .all-services-link,
+#services-megamenu-panel .services-left-col .all-services-link span {
+  font-family: 'Lora', Georgia, serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.4 !important;
+}
+
+/* 6. SERVICES DROPDOWN - CENTER & RIGHT COLUMN HEADINGS: Lora, Weight 500, Size 16px */
+#services-megamenu-panel .services-middle-heading,
+#services-megamenu-panel .services-right-heading {
+  font-family: 'Lora', Georgia, serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.4 !important;
+}
+
+/* 7. SERVICES DROPDOWN - CENTER SERVICE ITEMS: Inter, Weight 400, Size 16px */
+#services-megamenu-panel .service-tab-panel a,
+#services-megamenu-panel .service-tab-panel span {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.5 !important;
+}
+
+/* 8. SERVICES DROPDOWN - RIGHT "VISIT": Inter, Weight 600, Size 16px */
+#services-megamenu-panel .sustainability-link,
+#services-megamenu-panel .sustainability-link span {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.5 !important;
+}
+
+/* Selected active pill styling in left column */
+#services-megamenu-panel .service-tab-btn.active-tab {
+  background-color: #BCE6CE !important;
+  color: #0F172A !important;
+}
+
+#services-megamenu-panel .service-tab-btn:not(.active-tab):hover {
+  background-color: #E0F2E7 !important;
 }
 
 .brand-logo-text,
@@ -284,21 +405,13 @@ div[class*="uppercase"][class*="text-xs"] {
   letter-spacing: -0.025em !important;
 }
 
-/* Navbar dropdowns & mobile drawer — Freshworks-inspired typography */
-#services-megamenu-panel,
-#sectors-dropdown-panel,
+/* Other dropdowns & mobile drawer typography */
 #mobile-menu-drawer,
 #mobile-drawer {
   font-family: var(--font-sans) !important;
 }
 
-#services-megamenu-panel a,
-#services-megamenu-panel button,
-#services-megamenu-panel .service-tab-btn,
-#sectors-dropdown-panel a,
-#sectors-dropdown-panel button,
 #mobile-menu-drawer a,
-#mobile-menu-drawer button,
 #mobile-drawer a,
 #mobile-drawer button {
   font-family: var(--font-sans) !important;
@@ -308,12 +421,6 @@ div[class*="uppercase"][class*="text-xs"] {
   line-height: 1.45 !important;
 }
 
-#services-megamenu-panel h2,
-#services-megamenu-panel h3,
-#services-megamenu-panel h4,
-#sectors-dropdown-panel h2,
-#sectors-dropdown-panel h3,
-#sectors-dropdown-panel h4,
 #mobile-menu-drawer h2,
 #mobile-menu-drawer h3 {
   font-family: var(--font-sans) !important;
@@ -321,8 +428,6 @@ div[class*="uppercase"][class*="text-xs"] {
   letter-spacing: -0.015em !important;
 }
 
-#services-megamenu-panel p,
-#sectors-dropdown-panel p,
 #mobile-menu-drawer p,
 #mobile-drawer p {
   font-family: var(--font-sans) !important;
@@ -436,40 +541,46 @@ p.text-xs,
 .text-xs p,
 [class*="description"].text-xs,
 .desc.text-xs {
-  font-size: 0.875rem !important; /* 14px */
+  font-size: 0.875rem !important;
+  /* 14px */
 }
 
 p.text-sm,
 .text-sm p,
 [class*="description"].text-sm,
 .desc.text-sm {
-  font-size: 1.025rem !important; /* 16.4px */
+  font-size: 1.025rem !important;
+  /* 16.4px */
 }
 
 p.text-base,
 .text-base p,
 [class*="description"].text-base,
 .desc.text-base {
-  font-size: 1.15rem !important; /* 18.4px */
+  font-size: 1.15rem !important;
+  /* 18.4px */
 }
 
 p.text-lg,
 .text-lg p,
 [class*="description"].text-lg,
 .subheading {
-  font-size: 1.3rem !important; /* 20.8px */
+  font-size: 1.3rem !important;
+  /* 20.8px */
 }
 
 p.text-xl,
 .text-xl p,
 [class*="description"].text-xl {
-  font-size: 1.45rem !important; /* 23.2px */
+  font-size: 1.45rem !important;
+  /* 23.2px */
 }
 
 p.text-2xl,
 .text-2xl p,
 [class*="description"].text-2xl {
-  font-size: 1.65rem !important; /* 26.4px */
+  font-size: 1.65rem !important;
+  /* 26.4px */
 }
 
 /* Lists, blockquotes & captions */
@@ -535,4 +646,10 @@ address {
 ::view-transition-new(root) {
   animation-duration: 120ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#services-megamenu-wrapper.scroll-dropdown-wrapper,
+#sectors-dropdown-wrapper.scroll-dropdown-wrapper {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }

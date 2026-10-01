@@ -1,126 +1,249 @@
 ---
-const sectorItems = [
-  { title: 'NHS & Healthcare', slug: 'nhs', icon: 'heart' },
-  { title: 'Financial Services', slug: 'finance', icon: 'finance' },
-  { title: 'Central Government', slug: 'central-government', icon: 'government' },
-  { title: 'Defence & Aerospace', slug: 'defence', icon: 'defence' },
-  { title: 'Corporate & Legal', slug: 'legal-professional-services', icon: 'corporate' },
-  { title: 'Education & Universities', slug: 'education-universities', icon: 'education' },
+// Sectors dropdown items matching reference image:
+// 3 columns:
+// Column 1: NHS & Healthcare, Defence & Aerospace, Manufacturing & Engineering
+// Column 2: Financial Services, Corporate & Legal, IT & Technology
+// Column 3: Central Government, Education & Universities
+const column1 = [
+  { title: 'NHS & Healthcare', slug: 'nhs', icon: 'heart', active: true },
+  { title: 'Defence & Aerospace', slug: 'defence', icon: 'shield' },
   { title: 'Manufacturing & Engineering', slug: 'manufacturing-engineering', icon: 'cog' },
-  { title: 'IT & Technology', slug: 'it-technology', icon: 'server' },
+];
+
+const column2 = [
+  { title: 'Financial Services', slug: 'finance', icon: 'bank' },
+  { title: 'Corporate & Legal', slug: 'legal-professional-services', icon: 'briefcase' },
+  { title: 'IT & Technology', slug: 'it-technology', icon: 'grid' },
+];
+
+const column3 = [
+  { title: 'Central Government', slug: 'central-government', icon: 'building' },
+  { title: 'Education & Universities', slug: 'education-universities', icon: 'academic' },
 ];
 ---
 
 <!-- Sectors Dropdown Panel -->
 <div
   id="sectors-dropdown-panel"
-  class="fixed top-[88px] sm:top-[96px] inset-x-0 z-[998] hidden opacity-0 -translate-y-2 transition-all duration-200 pointer-events-none before:absolute before:-top-6 before:inset-x-0 before:h-6 before:content-['']"
+  class="fixed top-[82px] inset-x-0 z-[998] hidden opacity-0 -translate-y-2 transition-all duration-200 pointer-events-none before:absolute before:-top-6 before:inset-x-0 before:h-6 before:content-['']"
   role="region"
   aria-label="Sectors Menu"
 >
-  <div class="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-white/90 backdrop-blur-2xl rounded-2xl border border-slate-200/70 shadow-[0_28px_72px_-12px_rgba(15,23,42,0.16)] pointer-events-auto overflow-hidden">
+  <div id="sectors-dropdown-wrapper" class="w-full flex justify-center px-4 sm:px-6">
+    <div
+      id="sectors-dropdown-card"
+      class="sectors-dropdown-card bg-white rounded-[12px] border border-slate-200/80 shadow-[0_16px_48px_rgba(0,0,0,0.08)] pointer-events-auto p-4 sm:p-5 flex items-stretch w-[1408px] max-w-[1408px] min-h-[322px] box-border"
+    >
+      <!-- LEFT: Industries We Serve Section (3 Columns) -->
+      <div class="flex-1 flex flex-col pt-6 pb-5 pl-2 sm:pl-3 pr-4 sm:pr-8">
+        <!-- Section Heading -->
+        <h3 class="sectors-heading text-[#5A6874] mb-6">
+          Industries We Serve
+        </h3>
 
-      <div class="flex h-[360px] sm:h-[370px]">
-
-        <!-- Sector links grid -->
-        <div class="flex-1 pt-6 pb-6 px-8 sm:px-10 flex flex-col justify-between">
-          <div>
-            <p class="text-[12px] font-mono tracking-widest uppercase text-slate-400 mb-3">Industries We Serve</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-12 gap-y-2.5 sm:gap-y-3">
-              {sectorItems.map((item) => (
-                <a
-                  href={`/sectors/${item.slug}`}
-                  class="group flex items-center gap-3.5 py-2 px-3 rounded-xl hover:bg-slate-50/90 font-sans text-[15.5px] font-medium text-slate-800 hover:text-[#0F623A] tracking-[-0.01em] leading-snug transition-all duration-150"
-                >
-                  <!-- Bare Icon: enlarged to w-6 h-6, stroke-width 1.8 -->
-                  <span class="shrink-0 text-slate-400 group-hover:text-[#0F623A] transition-colors">
-                    {item.icon === 'heart' && (
-                      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                      </svg>
-                    )}
-                    {item.icon === 'finance' && (
-                      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 6l9-4 9 4v2H3V6zm2 4h2v8H5v-8zm5 0h2v8h-2v-8zm5 0h2v8h-2v-8zm5 0h2v8h-2v-8zM2 20h20v2H2v-2z" />
-                      </svg>
-                    )}
-                    {item.icon === 'government' && (
-                      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                      </svg>
-                    )}
-                    {item.icon === 'defence' && (
-                      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                      </svg>
-                    )}
-                    {item.icon === 'corporate' && (
-                      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    )}
-                    {item.icon === 'education' && (
-                      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                      </svg>
-                    )}
-                    {item.icon === 'cog' && (
-                      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    )}
-                    {item.icon === 'server' && (
-                      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
-                      </svg>
-                    )}
-                  </span>
-                  <span>{item.title}</span>
-                </a>
-              ))}
-            </div>
+        <!-- 3-Column Grid matching reference image -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 xl:gap-x-12 gap-y-2.5">
+          <!-- Column 1 -->
+          <div class="flex flex-col space-y-2.5">
+            {column1.map((item) => (
+              <a
+                href={`/sectors/${item.slug}`}
+                class={`sector-link group flex items-center gap-3.5 px-3.5 py-2.5 rounded-[8px] transition-all duration-150 cursor-pointer ${
+                  item.active
+                    ? 'active-sector bg-[#BCE6CE] text-[#0F172A]'
+                    : 'text-[#1E293B] hover:bg-[#E0F2E7]'
+                }`}
+              >
+                <!-- Icon: simple black outline icon -->
+                <span class="shrink-0 text-current">
+                  {item.icon === 'heart' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  )}
+                  {item.icon === 'shield' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  )}
+                  {item.icon === 'cog' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  )}
+                </span>
+                <span class="sector-label leading-snug">{item.title}</span>
+              </a>
+            ))}
           </div>
-          <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
-            <a href="/sectors" class="inline-flex items-center gap-2 text-[15.5px] font-sans font-medium tracking-tight text-[#0F623A] hover:underline underline-offset-4">
-              Explore all industry sectors →
-            </a>
+
+          <!-- Column 2 -->
+          <div class="flex flex-col space-y-2.5">
+            {column2.map((item) => (
+              <a
+                href={`/sectors/${item.slug}`}
+                class="sector-link group flex items-center gap-3.5 px-3.5 py-2.5 rounded-[8px] transition-all duration-150 cursor-pointer text-[#1E293B] hover:bg-[#E0F2E7]"
+              >
+                <!-- Icon -->
+                <span class="shrink-0 text-current">
+                  {item.icon === 'bank' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 6l9-4 9 4v2H3V6zm2 4h2v8H5v-8zm5 0h2v8h-2v-8zm5 0h2v8h-2v-8zm5 0h2v8h-2v-8zM2 20h20v2H2v-2z" />
+                    </svg>
+                  )}
+                  {item.icon === 'briefcase' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  )}
+                  {item.icon === 'grid' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                  )}
+                </span>
+                <span class="sector-label leading-snug">{item.title}</span>
+              </a>
+            ))}
+          </div>
+
+          <!-- Column 3 -->
+          <div class="flex flex-col space-y-2.5">
+            {column3.map((item) => (
+              <a
+                href={`/sectors/${item.slug}`}
+                class="sector-link group flex items-center gap-3.5 px-3.5 py-2.5 rounded-[8px] transition-all duration-150 cursor-pointer text-[#1E293B] hover:bg-[#E0F2E7]"
+              >
+                <!-- Icon -->
+                <span class="shrink-0 text-current">
+                  {item.icon === 'building' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  )}
+                  {item.icon === 'academic' && (
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                    </svg>
+                  )}
+                </span>
+                <span class="sector-label leading-snug">{item.title}</span>
+              </a>
+            ))}
           </div>
         </div>
+      </div>
 
-        <!-- RIGHT: Third Column (Investors Card) -->
-        <div class="w-[290px] xl:w-[320px] shrink-0 hidden lg:flex flex-col p-4 border-l border-slate-100/80 bg-slate-50/50 rounded-r-2xl">
-          <a
-            href="/investors"
-            class="group flex flex-col h-full justify-between"
+      <!-- RIGHT: Investors Section matching reference image -->
+      <div class="sectors-right-col w-[250px] shrink-0 pt-6 pb-[13px] pr-2 flex flex-col ml-8 xl:ml-12">
+        <h3 class="sectors-right-heading text-[#5A6874] mb-5">Investors</h3>
+        <!-- Image link -->
+        <a href="/investors" class="group block shrink-0">
+          <div
+            class="rounded-xl overflow-hidden shadow-xs border border-slate-200/60 bg-slate-100"
+            style="width: 248px; height: 164.96px;"
           >
-            <!-- Image (wider, reduced height) -->
-            <div class="w-full flex-1 rounded-xl overflow-hidden bg-slate-100 shadow-sm border border-slate-200/60">
-              <img
-                src="/images/brand/investors-operations-technician.jpg"
-                alt="Investors"
-                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
-            </div>
-
-            <!-- Link below image (only the link) -->
-            <div class="pt-3 px-1 flex items-center justify-between">
-              <span class="font-sans text-[16px] font-medium text-slate-800 group-hover:text-[#0F623A] transition-colors tracking-tight">
-                Investors
-              </span>
-              <span class="text-slate-400 group-hover:text-[#0F623A] group-hover:translate-x-1 transition-all text-base font-normal">
-                →
-              </span>
-            </div>
-          </a>
-        </div>
-
+            <img
+              src="/images/brand/nav-sectors.webp"
+              alt="Investors"
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+              width="248"
+              height="165"
+            />
+          </div>
+        </a>
+        <!-- Visit ↗ link -->
+        <a
+          href="/investors"
+          class="investors-link mt-[36px] inline-flex items-center gap-1.5 font-['Inter',sans-serif] text-[16px] font-semibold text-[#171717] hover:text-[#07572F] transition-colors group"
+        >
+          <span>Visit</span>
+          <span class="font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+        </a>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  /* Container Dimensions & Specifications matching reference */
+  #sectors-dropdown-panel .sectors-dropdown-card {
+    width: 1408px;
+    max-width: 1408px;
+    height: 322px;
+    min-height: 322px;
+    max-height: 322px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    padding: 8px;
+  }
+
+  /* Headings typography: Lora 500, 16px */
+  #sectors-dropdown-panel .sectors-heading,
+  #sectors-dropdown-panel .sectors-right-heading {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  /* Sector items typography & layout */
+  #sectors-dropdown-panel .sector-link {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.45;
+    text-decoration: none;
+  }
+
+  /* Hover & Active States */
+  #sectors-dropdown-panel .sector-link.active-sector {
+    background-color: #BCE6CE;
+    color: #0F172A;
+  }
+
+  #sectors-dropdown-panel .sector-link:not(.active-sector):hover {
+    background-color: #E0F2E7;
+    color: #0F172A;
+  }
+
+  /* Visit link typography */
+  #sectors-dropdown-panel .investors-link {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 1440px) {
+    #sectors-dropdown-panel .sectors-dropdown-card {
+      width: calc(100vw - 32px);
+      max-width: 1408px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    #sectors-dropdown-panel .sectors-dropdown-card {
+      height: auto;
+      min-height: 0;
+      max-height: none;
+      flex-direction: column;
+    }
+
+    #sectors-dropdown-panel .sectors-right-col {
+      margin-left: 0;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #f1f5f9;
+      width: 100%;
+    }
+  }
+</style>
 
 <script>
   function setupSectorsMegaMenu() {
@@ -130,8 +253,72 @@ const sectorItems = [
 
     let timeoutId: any = null;
 
+    const sectorLinks = panel.querySelectorAll<HTMLElement>('.sector-link');
+
+    // Hover effect dynamically switches the green active background
+    sectorLinks.forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        sectorLinks.forEach((l) => {
+          l.classList.remove('active-sector', 'bg-[#BCE6CE]');
+        });
+        link.classList.add('active-sector', 'bg-[#BCE6CE]');
+      });
+    });
+
+    const updatePosition = () => {
+      const siteHeader = document.getElementById('site-header');
+      const heroHeader = document.getElementById('hero-header');
+      const card = document.getElementById('sectors-dropdown-card');
+      const wrapper = document.getElementById('sectors-dropdown-wrapper');
+
+      const isScrollNavActive =
+        siteHeader &&
+        !siteHeader.classList.contains('opacity-0') &&
+        !siteHeader.classList.contains('-translate-y-full');
+
+      if (isScrollNavActive && siteHeader) {
+        const maxWrap = siteHeader.querySelector<HTMLElement>(':scope > div');
+        const floatingBar = maxWrap?.querySelector<HTMLElement>(':scope > div');
+        const ref = floatingBar ?? siteHeader;
+        const rect = ref.getBoundingClientRect();
+
+        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
+        panel.style.left = `${Math.round(rect.left)}px`;
+        panel.style.right = 'auto';
+        panel.style.width = `${Math.round(rect.width)}px`;
+
+        if (wrapper) {
+          wrapper.classList.add('scroll-dropdown-wrapper');
+        }
+
+        if (card) {
+          card.style.width = `${Math.round(rect.width)}px`;
+          card.style.maxWidth = `${Math.round(rect.width)}px`;
+        }
+      } else if (heroHeader) {
+        const rect = heroHeader.getBoundingClientRect();
+
+        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
+        panel.style.left = '';
+        panel.style.right = '';
+        panel.style.width = '';
+
+        if (card) {
+          card.style.width = '';
+          card.style.maxWidth = '';
+        }
+
+        if (wrapper) {
+          wrapper.classList.remove('scroll-dropdown-wrapper');
+        }
+      }
+    };
+
     const openMenu = () => {
       clearTimeout(timeoutId);
+      updatePosition();
+
+      // Close Services mega menu if open
       const servicesPanel = document.getElementById('services-megamenu-panel');
       const servicesTriggers = document.querySelectorAll('#services-menu-trigger, .services-megamenu-toggle');
       if (servicesPanel) {
@@ -143,8 +330,10 @@ const sectorItems = [
         const caret = t.querySelector('.caret-icon');
         if (caret) caret.classList.remove('rotate-180');
       });
+
       panel.classList.remove('hidden');
       requestAnimationFrame(() => {
+        updatePosition();
         panel.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
         panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
         triggers.forEach((t) => {
@@ -164,15 +353,19 @@ const sectorItems = [
           const caret = t.querySelector('.caret-icon');
           if (caret) caret.classList.remove('rotate-180');
         });
-        setTimeout(() => { if (panel.classList.contains('opacity-0')) panel.classList.add('hidden'); }, 200);
+        setTimeout(() => {
+          if (panel.classList.contains('opacity-0')) panel.classList.add('hidden');
+        }, 200);
       }, 200);
     };
 
     triggers.forEach((t) => {
       t.addEventListener('click', (e) => {
-        e.stopPropagation(); e.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
         const isExpanded = t.getAttribute('aria-expanded') === 'true';
-        if (isExpanded) closeMenu(); else openMenu();
+        if (isExpanded) closeMenu();
+        else openMenu();
       });
       t.addEventListener('mouseenter', openMenu);
       t.addEventListener('mouseleave', closeMenu);
@@ -180,12 +373,19 @@ const sectorItems = [
 
     panel.addEventListener('mouseenter', () => clearTimeout(timeoutId));
     panel.addEventListener('mouseleave', closeMenu);
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
     document.addEventListener('click', (e) => {
       let inside = false;
-      triggers.forEach((t) => { if (t.contains(e.target as Node)) inside = true; });
+      triggers.forEach((t) => {
+        if (t.contains(e.target as Node)) inside = true;
+      });
       if (!panel.contains(e.target as Node) && !inside) closeMenu();
     });
+
+    window.addEventListener('resize', updatePosition, { passive: true });
+    window.addEventListener('scroll', updatePosition, { passive: true });
   }
 
   setupSectorsMegaMenu();

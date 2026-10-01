@@ -5,7 +5,7 @@ export default {
 
   fields: [
     // =========================================================
-    // BASIC / HERO
+    // 1. BASIC / HERO
     // =========================================================
 
     {
@@ -28,16 +28,18 @@ export default {
 
     {
       name: 'tagline',
-      title: 'Tagline',
+      title: 'Hero Eyebrow / Tagline',
       type: 'string',
+      description: 'Small text displayed above the main hero heading.',
       validation: (Rule: any) => Rule.required(),
     },
 
     {
       name: 'summary',
-      title: 'Summary',
+      title: 'Hero Summary',
       type: 'text',
       rows: 3,
+      description: 'Short description displayed below the hero heading.',
       validation: (Rule: any) => Rule.required(),
     },
 
@@ -48,6 +50,7 @@ export default {
       options: {
         hotspot: true,
       },
+      validation: (Rule: any) => Rule.required(),
     },
 
     {
@@ -56,8 +59,41 @@ export default {
       type: 'string',
     },
 
+    // Hero buttons
+    {
+      name: 'heroActions',
+      title: 'Hero Buttons',
+      type: 'object',
+
+      fields: [
+        {
+          name: 'primaryText',
+          title: 'Primary Button Text',
+          type: 'string',
+        },
+
+        {
+          name: 'primaryLink',
+          title: 'Primary Button Link',
+          type: 'string',
+        },
+
+        {
+          name: 'secondaryText',
+          title: 'Secondary Button Text',
+          type: 'string',
+        },
+
+        {
+          name: 'secondaryLink',
+          title: 'Secondary Button Link',
+          type: 'string',
+        },
+      ],
+    },
+
     // =========================================================
-    // INDUSTRY CONTEXT / CHALLENGES
+    // 2. INDUSTRY CONTEXT / CHALLENGES
     // =========================================================
 
     {
@@ -76,6 +112,7 @@ export default {
           name: 'heading',
           title: 'Heading',
           type: 'string',
+          validation: (Rule: any) => Rule.required(),
         },
 
         {
@@ -91,6 +128,8 @@ export default {
       name: 'challenges',
       title: 'Industry Challenges',
       type: 'array',
+
+      validation: (Rule: any) => Rule.min(1),
 
       of: [
         {
@@ -109,7 +148,7 @@ export default {
               name: 'description',
               title: 'Challenge Description',
               type: 'text',
-              rows: 2,
+              rows: 3,
               validation: (Rule: any) => Rule.required(),
             },
           ],
@@ -125,7 +164,7 @@ export default {
     },
 
     // =========================================================
-    // SOLUTIONS / SECURITY
+    // 3. SOLUTIONS / HOW TECHSTEPS HELPS
     // =========================================================
 
     {
@@ -144,14 +183,33 @@ export default {
           name: 'heading',
           title: 'Heading',
           type: 'string',
+          validation: (Rule: any) => Rule.required(),
+        },
+
+        {
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          rows: 4,
+          description: 'Main paragraph explaining how TechSteps helps this sector.',
         },
       ],
+    },
+
+    {
+      name: 'howTechstepsHelps',
+      title: 'How TechSteps Helps',
+      type: 'text',
+      rows: 5,
+      description: 'Main supporting paragraph for the solutions section.',
     },
 
     {
       name: 'solutions',
       title: 'Tailored Solutions',
       type: 'array',
+
+      validation: (Rule: any) => Rule.min(1),
 
       of: [
         {
@@ -170,7 +228,7 @@ export default {
               name: 'description',
               title: 'Solution Description',
               type: 'text',
-              rows: 2,
+              rows: 3,
               validation: (Rule: any) => Rule.required(),
             },
           ],
@@ -185,6 +243,10 @@ export default {
       ],
     },
 
+    // =========================================================
+    // 4. SECURITY PROTOCOLS
+    // =========================================================
+
     {
       name: 'securitySection',
       title: 'Security Protocols Section',
@@ -192,52 +254,64 @@ export default {
 
       fields: [
         {
+          name: 'eyebrow',
+          title: 'Security Eyebrow',
+          type: 'string',
+        },
+
+        {
           name: 'heading',
           title: 'Security Heading',
           type: 'string',
+          validation: (Rule: any) => Rule.required(),
+        },
+
+        {
+          name: 'description',
+          title: 'Security Description',
+          type: 'text',
+          rows: 3,
         },
 
         {
           name: 'standardsLabel',
           title: 'Standards Label',
           type: 'string',
+          description: 'Example: Governing Standards',
         },
       ],
     },
 
     {
       name: 'securityConsiderations',
-      title: 'Key Security Considerations',
+      title: 'Security Considerations',
       type: 'array',
+
+      validation: (Rule: any) => Rule.min(1),
 
       of: [
         {
           type: 'string',
+          validation: (Rule: any) => Rule.required(),
         },
       ],
     },
 
     {
       name: 'complianceStandards',
-      title: 'Compliance Standards & Certifications',
+      title: 'Compliance Standards',
       type: 'array',
 
       of: [
         {
           type: 'string',
+          validation: (Rule: any) => Rule.required(),
         },
       ],
     },
 
-    {
-      name: 'howTechstepsHelps',
-      title: 'How Techsteps Helps',
-      type: 'text',
-      rows: 4,
-    },
-
     // =========================================================
-    // BENEFITS
+    // 5. BENEFITS
     // =========================================================
 
     {
@@ -247,9 +321,28 @@ export default {
 
       fields: [
         {
+          name: 'eyebrow',
+          title: 'Eyebrow',
+          type: 'string',
+        },
+
+        {
+          name: 'heading',
+          title: 'Section Heading',
+          type: 'string',
+        },
+
+        {
           name: 'title',
           title: 'Section Title',
           type: 'string',
+        },
+
+        {
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          rows: 3,
         },
       ],
     },
@@ -262,12 +355,13 @@ export default {
       of: [
         {
           type: 'string',
+          validation: (Rule: any) => Rule.required(),
         },
       ],
     },
 
     // =========================================================
-    // CASE STUDY
+    // 6. CASE STUDY
     // =========================================================
 
     {
@@ -283,6 +377,19 @@ export default {
         },
 
         {
+          name: 'heading',
+          title: 'Section Heading',
+          type: 'string',
+        },
+
+        {
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          rows: 3,
+        },
+
+        {
           name: 'linkText',
           title: 'Case Study Link Text',
           type: 'string',
@@ -290,8 +397,20 @@ export default {
       ],
     },
 
+    {
+      name: 'caseStudy',
+      title: 'Sector Case Study',
+      type: 'reference',
+      to: [
+        {
+          type: 'caseStudy',
+        },
+      ],
+      description: 'Select the case study that should appear on this sector page.',
+    },
+
     // =========================================================
-    // RELATED SERVICES
+    // 7. RELATED SERVICES
     // =========================================================
 
     {
@@ -309,10 +428,12 @@ export default {
           ],
         },
       ],
+
+      description: 'Services relevant to this particular sector.',
     },
 
     // =========================================================
-    // FAQ
+    // 8. FAQ
     // =========================================================
 
     {
@@ -321,6 +442,12 @@ export default {
       type: 'object',
 
       fields: [
+        {
+          name: 'eyebrow',
+          title: 'Eyebrow',
+          type: 'string',
+        },
+
         {
           name: 'heading',
           title: 'FAQ Heading',
@@ -358,7 +485,7 @@ export default {
               name: 'answer',
               title: 'Answer',
               type: 'text',
-              rows: 3,
+              rows: 4,
               validation: (Rule: any) => Rule.required(),
             },
           ],
@@ -374,7 +501,7 @@ export default {
     },
 
     // =========================================================
-    // FINAL CTA
+    // 9. FINAL CTA
     // =========================================================
 
     {
@@ -384,9 +511,16 @@ export default {
 
       fields: [
         {
+          name: 'eyebrow',
+          title: 'CTA Eyebrow',
+          type: 'string',
+        },
+
+        {
           name: 'heading',
           title: 'CTA Heading',
           type: 'string',
+          validation: (Rule: any) => Rule.required(),
         },
 
         {
@@ -423,14 +557,16 @@ export default {
     },
 
     // =========================================================
-    // SEO
+    // 10. SEO
     // =========================================================
 
     {
       name: 'metaTitle',
       title: 'SEO Meta Title',
       type: 'string',
-      validation: (Rule: any) => Rule.max(70),
+
+      validation: (Rule: any) =>
+        Rule.max(70).warning('Keep the SEO title under 70 characters.'),
     },
 
     {
@@ -438,7 +574,9 @@ export default {
       title: 'SEO Meta Description',
       type: 'text',
       rows: 3,
-      validation: (Rule: any) => Rule.max(160),
+
+      validation: (Rule: any) =>
+        Rule.max(160).warning('Keep the SEO description under 160 characters.'),
     },
   ],
 
