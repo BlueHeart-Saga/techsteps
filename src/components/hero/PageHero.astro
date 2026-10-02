@@ -25,10 +25,10 @@ const {
   breadcrumbs = [],
   dividerColor = '#ffffff',
   showDivider = true,
-  minHeight = 'min-h-[380px] sm:min-h-[420px] lg:min-h-[460px]',
+  minHeight = 'min-h-[440px] sm:min-h-[480px] lg:min-h-[520px]',
   eyebrow,
   subheading,
-  bgImage = '/images/brand/hero-process-lifecycle.png',
+  bgImage = '/images/brand/hero-bg.jpg',
   layout = 'default',
 } = Astro.props;
 
@@ -43,7 +43,7 @@ const currentPath = Astro.url.pathname;
   class="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
   style="
     object-position: 50% 45%;
-    transform: scale(1);
+    transform: scale(1.05);
     transform-origin: center center;
   "
   loading="eager"
