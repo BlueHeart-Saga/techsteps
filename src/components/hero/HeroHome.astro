@@ -5,6 +5,10 @@ import { getHomePage } from '../../lib/sanity/client';
 
 const homePage = await getHomePage();
 const hero = homePage?.hero;
+
+const heroHeading = (hero?.heading || 'Creating Value From Each Device')
+  .toLowerCase()
+  .replace(/\b\w/g, (char) => char.toUpperCase());
 ---
 
 <!-- =========================
@@ -55,11 +59,10 @@ const hero = homePage?.hero;
                  font-extrabold
                  text-[#171717]
                  tracking-tight
-                 uppercase
                  leading-[1.08]
                  max-w-3xl"
         >
-          {hero?.heading || 'CREATING VALUE FROM EACH DEVICE'}
+          {heroHeading}
         </h1>
 
         <!-- Description -->
@@ -153,7 +156,7 @@ const hero = homePage?.hero;
             width="1024"
             height="576"
             loading="eager"
-            decoding="async"
+            decoding="sync"
             fetchpriority="high"
           />
 
@@ -269,12 +272,23 @@ const hero = homePage?.hero;
 
 <style>
   /* ==========================================================================
+     HERO IMAGE RENDERING ENHANCEMENT
+     ========================================================================== */
+  .hero-person-img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: high-quality;
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* ==========================================================================
      HERO FLOATING INFO CARDS (Matching Reference Design)
      ========================================================================== */
   .hero-floating-card {
     background-color: #ffffff !important;
     border-radius: 9999px !important;
-    box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.08), 0 6px 14px -3px rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04) !important;
     white-space: nowrap;
     transition: box-shadow 0.25s ease;
     will-change: transform;
@@ -282,7 +296,7 @@ const hero = homePage?.hero;
   }
 
   .hero-floating-card:hover {
-    box-shadow: 0 18px 38px -4px rgba(0, 0, 0, 0.12), 0 8px 18px -3px rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 8px 24px -2px rgba(0, 0, 0, 0.12), 0 3px 8px -1px rgba(0, 0, 0, 0.05) !important;
   }
 
   /* Badge styling */
@@ -329,12 +343,12 @@ const hero = homePage?.hero;
     }
 
     .hero-floating-card-2 {
-      left: 63.5%;
+      left: 67%;
       top: 15.5%;
     }
 
     .hero-floating-card-3 {
-      left: 71%;
+      left: 74.5%;
       top: 62.5%;
     }
   }
@@ -367,12 +381,12 @@ const hero = homePage?.hero;
     }
 
     .hero-floating-card-2 {
-      left: 60%;
+      left: 63.5%;
       top: 15%;
     }
 
     .hero-floating-card-3 {
-      left: 68%;
+      left: 71.5%;
       top: 61%;
     }
   }
@@ -382,7 +396,7 @@ const hero = homePage?.hero;
     .hero-floating-card {
       padding: 6px 11px 6px 8px !important;
       gap: 7px;
-      box-shadow: 0 8px 20px -3px rgba(0, 0, 0, 0.08) !important;
+      box-shadow: 0 3px 12px -2px rgba(0, 0, 0, 0.08), 0 1px 4px -1px rgba(0, 0, 0, 0.04) !important;
     }
 
     .hero-card-num-badge {
@@ -406,12 +420,12 @@ const hero = homePage?.hero;
     }
 
     .hero-floating-card-2 {
-      left: 54%;
+      left: 57%;
       top: 12%;
     }
 
     .hero-floating-card-3 {
-      left: 61%;
+      left: 64%;
       top: 60%;
     }
   }
@@ -444,12 +458,12 @@ const hero = homePage?.hero;
     }
 
     .hero-floating-card-2 {
-      left: 48%;
+      left: 51%;
       top: 11%;
     }
 
     .hero-floating-card-3 {
-      left: 56%;
+      left: 59%;
       top: 60%;
     }
   }
