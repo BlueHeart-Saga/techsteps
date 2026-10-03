@@ -141,18 +141,117 @@ const hero = homePage?.hero;
       <!-- =========================
            HERO IMAGE (Right)
       ========================= -->
-      <div class="lg:col-span-5 xl:col-span-6 flex items-end justify-center lg:justify-end relative lg:pr-4 xl:pr-10">
-        <div class="relative flex items-end justify-end">
+      <div class="lg:col-span-5 xl:col-span-6 flex items-end justify-center lg:justify-end relative lg:pr-0 xl:pr-0">
+        <div class="relative flex items-end justify-end lg:translate-x-3 xl:translate-x-6">
           <img
             src="/images/brand/hero-man-ssd.png"
             alt={
               hero?.imageAlt ||
               'Techsteps sustainable IT lifecycle, secure erase, and certified IT recycling'
             }
-            class="w-auto h-auto max-h-[380px] sm:max-h-[440px] lg:max-h-[480px] xl:max-h-[520px] 2xl:max-h-[580px] max-w-full lg:max-w-none pointer-events-none select-none [filter:contrast(101.5%)_brightness(101%)] block"
+            class="hero-person-img w-auto h-auto max-h-[420px] sm:max-h-[490px] lg:max-h-[540px] xl:max-h-[585px] 2xl:max-h-[650px] max-w-full lg:max-w-none pointer-events-none select-none block"
+            width="1024"
+            height="576"
             loading="eager"
             decoding="async"
+            fetchpriority="high"
           />
+
+          <!-- Floating Info Cards -->
+          <!-- Card 01: Collect -->
+          <div
+            class="hero-floating-card hero-floating-card-1 absolute z-20 flex items-center bg-white rounded-full select-none"
+            aria-label="Collect"
+          >
+            <div class="hero-card-num-badge flex items-center justify-center rounded-full font-bold">
+              01
+            </div>
+            <span class="hero-card-text font-bold">
+              Collect
+            </span>
+            <div class="hero-card-icon flex items-center justify-center text-[#07572F]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-full h-full"
+              >
+                <line x1="3" y1="10" x2="8" y2="10" />
+                <line x1="1" y1="14" x2="9" y2="14" />
+                <path d="M9 6h11a1 1 0 0 1 1 1v11H9V6z" />
+                <path d="M21 10.5h3.6a1 1 0 0 1 .8.4l3.1 4.1v3H21" />
+                <path d="M22 12h2.2l2 2.5H22V12z" stroke-width="1.8" />
+                <circle cx="13" cy="20.5" r="2.2" />
+                <circle cx="24" cy="20.5" r="2.2" />
+                <line x1="15.2" y1="18" x2="21.8" y2="18" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Card 02: Secure Erase -->
+          <div
+            class="hero-floating-card hero-floating-card-2 absolute z-20 flex items-center bg-white rounded-full select-none"
+            aria-label="Secure Erase"
+          >
+            <div class="hero-card-num-badge flex items-center justify-center rounded-full font-bold">
+              02
+            </div>
+            <span class="hero-card-text font-bold">
+              Secure Erase
+            </span>
+            <div class="hero-card-icon flex items-center justify-center text-[#07572F]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-full h-full"
+              >
+                <path d="M16 28s9-4.5 9-11.5V6.5L16 3 7 6.5v10C7 23.5 16 28 16 28z" />
+                <path d="M12.5 14v-2.2a3.5 3.5 0 0 1 7 0V14" />
+                <rect x="11" y="14" width="10" height="7.5" rx="1.5" fill="#07572F" stroke="none" />
+                <circle cx="16" cy="17" r="0.9" fill="white" stroke="none" />
+                <path d="M16 17.5v2" stroke="white" stroke-width="1.2" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Card 03: Reuse & Recycle -->
+          <div
+            class="hero-floating-card hero-floating-card-3 absolute z-20 flex items-center bg-white rounded-full select-none"
+            aria-label="Reuse & Recycle"
+          >
+            <div class="hero-card-num-badge flex items-center justify-center rounded-full font-bold">
+              03
+            </div>
+            <span class="hero-card-text font-bold">
+              Reuse & Recycle
+            </span>
+            <div class="hero-card-icon flex items-center justify-center text-[#07572F]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-full h-full"
+              >
+                <path d="M7 16A9 9 0 0 1 23.5 10.5" />
+                <polyline points="21 7 24.5 11 20 13" />
+                <path d="M25 16A9 9 0 0 1 8.5 21.5" />
+                <polyline points="11 25 7.5 21 12 19" />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -167,4 +266,240 @@ const hero = homePage?.hero;
   </div>
 
 </section>
+
+<style>
+  /* ==========================================================================
+     HERO FLOATING INFO CARDS (Matching Reference Design)
+     ========================================================================== */
+  .hero-floating-card {
+    background-color: #ffffff !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.08), 0 6px 14px -3px rgba(0, 0, 0, 0.04) !important;
+    white-space: nowrap;
+    transition: box-shadow 0.25s ease;
+    will-change: transform;
+    pointer-events: auto;
+  }
+
+  .hero-floating-card:hover {
+    box-shadow: 0 18px 38px -4px rgba(0, 0, 0, 0.12), 0 8px 18px -3px rgba(0, 0, 0, 0.06) !important;
+  }
+
+  /* Badge styling */
+  .hero-card-num-badge {
+    background-color: #caeed4 !important;
+    color: #07572F !important;
+    border-radius: 9999px !important;
+    flex-shrink: 0;
+  }
+
+  /* Card text */
+  .hero-card-text {
+    color: #12181a !important;
+    font-family: var(--font-sans, system-ui, sans-serif) !important;
+    letter-spacing: -0.01em;
+  }
+
+  /* Desktop layout & sizing (>= 1024px) */
+  @media (min-width: 1024px) {
+    .hero-floating-card {
+      padding: 10px 18px 10px 12px !important;
+      gap: 12px;
+    }
+
+    .hero-card-num-badge {
+      width: 38px;
+      height: 38px;
+      font-size: 15px;
+    }
+
+    .hero-card-text {
+      font-size: 16px;
+    }
+
+    .hero-card-icon {
+      width: 26px;
+      height: 26px;
+    }
+
+    /* Positioning relative to hero image */
+    .hero-floating-card-1 {
+      left: 27.5%;
+      top: 79.5%;
+    }
+
+    .hero-floating-card-2 {
+      left: 63.5%;
+      top: 15.5%;
+    }
+
+    .hero-floating-card-3 {
+      left: 71%;
+      top: 62.5%;
+    }
+  }
+
+  /* Tablet layout & sizing (640px to 1023px) */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .hero-floating-card {
+      padding: 8px 15px 8px 10px !important;
+      gap: 10px;
+    }
+
+    .hero-card-num-badge {
+      width: 32px;
+      height: 32px;
+      font-size: 13px;
+    }
+
+    .hero-card-text {
+      font-size: 14px;
+    }
+
+    .hero-card-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .hero-floating-card-1 {
+      left: 24%;
+      top: 78%;
+    }
+
+    .hero-floating-card-2 {
+      left: 60%;
+      top: 15%;
+    }
+
+    .hero-floating-card-3 {
+      left: 68%;
+      top: 61%;
+    }
+  }
+
+  /* Mobile layout & sizing (< 640px) */
+  @media (max-width: 639px) {
+    .hero-floating-card {
+      padding: 6px 11px 6px 8px !important;
+      gap: 7px;
+      box-shadow: 0 8px 20px -3px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .hero-card-num-badge {
+      width: 26px;
+      height: 26px;
+      font-size: 11px;
+    }
+
+    .hero-card-text {
+      font-size: 11.5px;
+    }
+
+    .hero-card-icon {
+      width: 17px;
+      height: 17px;
+    }
+
+    .hero-floating-card-1 {
+      left: 14%;
+      top: 78%;
+    }
+
+    .hero-floating-card-2 {
+      left: 54%;
+      top: 12%;
+    }
+
+    .hero-floating-card-3 {
+      left: 61%;
+      top: 60%;
+    }
+  }
+
+  /* Extra small mobile (< 380px) */
+  @media (max-width: 379px) {
+    .hero-floating-card {
+      padding: 5px 9px 5px 6px !important;
+      gap: 5px;
+    }
+
+    .hero-card-num-badge {
+      width: 22px;
+      height: 22px;
+      font-size: 10px;
+    }
+
+    .hero-card-text {
+      font-size: 10px;
+    }
+
+    .hero-card-icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    .hero-floating-card-1 {
+      left: 8%;
+      top: 78%;
+    }
+
+    .hero-floating-card-2 {
+      left: 48%;
+      top: 11%;
+    }
+
+    .hero-floating-card-3 {
+      left: 56%;
+      top: 60%;
+    }
+  }
+
+  /* Floating animations */
+  @keyframes heroCardFloat1 {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  @keyframes heroCardFloat2 {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  @keyframes heroCardFloat3 {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4.5px);
+    }
+  }
+
+  .hero-floating-card-1 {
+    animation: heroCardFloat1 4.5s ease-in-out infinite;
+  }
+
+  .hero-floating-card-2 {
+    animation: heroCardFloat2 5.2s ease-in-out infinite 0.7s;
+  }
+
+  .hero-floating-card-3 {
+    animation: heroCardFloat3 4.8s ease-in-out infinite 1.4s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-floating-card-1,
+    .hero-floating-card-2,
+    .hero-floating-card-3 {
+      animation: none !important;
+    }
+  }
+</style>
 
