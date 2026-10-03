@@ -5,10 +5,10 @@ const currentPath = Astro.url.pathname;
 <!-- NORMAL / TOP HEADER ONLY -->
 <header
   id="hero-header"
-  class="relative z-50 w-full bg-white border-b border-slate-100 shadow-[0_1px_3px_rgba(0,0,0,0.03)]"
+  class="relative z-[995] w-full bg-white border-b border-slate-100 shadow-[0_1px_3px_rgba(0,0,0,0.03)]"
 >
   <div
-    class="w-full h-[74px] flex items-center justify-between px-5 sm:px-8 lg:px-10 xl:px-12"
+    class="w-full max-w-7xl mx-auto h-[74px] flex items-center justify-between px-4 sm:px-6 lg:px-8"
   >
     <!-- LEFT: LOGO + NAVIGATION -->
     <div class="flex items-center min-w-0 flex-1">
@@ -40,7 +40,7 @@ const currentPath = Astro.url.pathname;
 
       <!-- MAIN NAVIGATION -->
       <nav
-        class="hidden lg:flex items-center ml-8 xl:ml-10 gap-6 xl:gap-7 font-sans text-[16px] font-medium tracking-[-0.01em]"
+        class="hidden lg:flex items-center ml-8 xl:ml-10 gap-6 xl:gap-7 font-sans text-[18px] font-medium tracking-[-0.01em]"
         aria-label="Main Navigation"
       >
 
@@ -124,7 +124,7 @@ const currentPath = Astro.url.pathname;
       <!-- CONTACT BUTTON -->
       <a
         href="/contact"
-        class="hidden lg:inline-flex items-center justify-center h-[44px] px-5 xl:px-6 rounded-full border border-[#07572F] bg-white text-[#07572F] font-sans text-[15px] font-semibold tracking-[-0.01em] whitespace-nowrap"
+        class="hidden lg:inline-flex items-center justify-center h-[44px] px-5 xl:px-6 rounded-full border border-[#07572F] bg-white text-[#07572F] font-sans text-[16px] font-semibold tracking-[-0.01em] whitespace-nowrap"
       >
         Contact Us
       </a>
@@ -132,7 +132,7 @@ const currentPath = Astro.url.pathname;
       <!-- REQUEST A COLLECTION -->
       <a
         href="/request-a-quote"
-        class="hidden sm:inline-flex items-center justify-center h-[44px] px-6 xl:px-7 rounded-full bg-[#07572F] hover:bg-[#054324] text-white font-sans text-[15px] font-semibold tracking-[-0.01em] transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-[#07572F] focus:ring-offset-2 whitespace-nowrap"
+        class="hidden sm:inline-flex items-center justify-center h-[44px] px-6 xl:px-7 rounded-full bg-[#07572F] hover:bg-[#054324] text-white font-sans text-[16px] font-semibold tracking-[-0.01em] transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-[#07572F] focus:ring-offset-2 whitespace-nowrap"
       >
         Request a Collection
       </a>

@@ -100,11 +100,11 @@ const servicePillars = defaultPillars.map((pillar) => {
   role="region"
   aria-label="Services Mega Menu"
 >
-  <div id="services-megamenu-wrapper" class="w-full flex justify-center px-4 sm:px-6">
+  <div id="services-megamenu-wrapper" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div
-  id="services-megamenu-card"
-  class="services-dropdown-card bg-white rounded-[12px] border border-slate-200/80 shadow-[0_16px_48px_rgba(0,0,0,0.08)] pointer-events-auto p-4 sm:p-5 flex items-stretch w-[1408px] max-w-[1408px] min-h-[322px]"
->
+      id="services-megamenu-card"
+      class="services-dropdown-card bg-white rounded-[12px] border border-slate-200/80 shadow-[0_16px_48px_rgba(0,0,0,0.08)] pointer-events-auto p-4 sm:p-5 flex items-stretch w-full min-h-[322px] box-border"
+    >
 
       <!-- LEFT: Products Column (Light mint background container) -->
       <div class="services-left-col w-[350px] xl:w-[370px] mr-12 xl:mr-16 shrink-0 bg-[#EEF7F2] rounded-[12px] px-5 pb-5 pt-6 flex flex-col justify-between box-border">
@@ -194,7 +194,7 @@ const servicePillars = defaultPillars.map((pillar) => {
       </div>
 
       <!-- RIGHT: Sustainability Column matching reference image -->
-      <div class="services-right-col w-[250px] shrink-0 pt-6 pb-[13px] pr-2 flex flex-col ml-8 xl:ml-12">
+      <div class="services-right-col w-[280px] shrink-0 pt-6 pb-[13px] pr-8 flex flex-col ml-8 xl:ml-12">
         <h3 class="services-right-heading text-[#5A6874] mb-5">Sustainability</h3>
         <!-- Image link (image only, no Visit here) -->
         <a href="/sustainability" class="group block shrink-0">
@@ -286,7 +286,7 @@ const updatePosition = () => {
     panel.style.right = '';
     panel.style.width = '';
 
-    // Restore the original 1408px dropdown.
+    // Restore the dropdown matching the header content width.
     if (card) {
       card.style.width = '';
       card.style.maxWidth = '';
@@ -350,6 +350,9 @@ const updatePosition = () => {
         if (caret) caret.classList.remove('rotate-180');
       });
 
+      // Activate background blur overlay
+      document.getElementById('dropdown-backdrop')?.classList.add('active');
+
       panel.classList.remove('hidden');
       requestAnimationFrame(() => {
         updatePosition();
@@ -363,8 +366,8 @@ const updatePosition = () => {
       });
     };
 
-    const closeMenu = () => {
-      timeoutId = setTimeout(() => {
+    const closeMenu = (immediate = false) => {
+      const doClose = () => {
         panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
         panel.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
         triggers.forEach((t) => {
@@ -372,10 +375,25 @@ const updatePosition = () => {
           const caret = t.querySelector('.caret-icon');
           if (caret) caret.classList.remove('rotate-180');
         });
+
+        // Only dismiss backdrop if the sectors panel is also not open
+        const sectorsPanel = document.getElementById('sectors-dropdown-panel');
+        const isSectorsActive = sectorsPanel && !sectorsPanel.classList.contains('opacity-0') && !sectorsPanel.classList.contains('hidden');
+        if (!isSectorsActive) {
+          document.getElementById('dropdown-backdrop')?.classList.remove('active');
+        }
+
         setTimeout(() => {
           if (panel.classList.contains('opacity-0')) panel.classList.add('hidden');
         }, 200);
-      }, 200);
+      };
+
+      clearTimeout(timeoutId);
+      if (immediate) {
+        doClose();
+      } else {
+        timeoutId = setTimeout(doClose, 200);
+      }
     };
 
     triggers.forEach((t) => {
@@ -383,24 +401,31 @@ const updatePosition = () => {
         e.stopPropagation();
         e.preventDefault();
         const isExpanded = t.getAttribute('aria-expanded') === 'true';
-        if (isExpanded) closeMenu();
+        if (isExpanded) closeMenu(true);
         else openMenu();
       });
       t.addEventListener('mouseenter', openMenu);
-      t.addEventListener('mouseleave', closeMenu);
+      t.addEventListener('mouseleave', () => closeMenu(false));
     });
 
     panel.addEventListener('mouseenter', () => clearTimeout(timeoutId));
-    panel.addEventListener('mouseleave', closeMenu);
+    panel.addEventListener('mouseleave', () => closeMenu(false));
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeMenu();
+      if (e.key === 'Escape') closeMenu(true);
     });
     document.addEventListener('click', (e) => {
       let inside = false;
       triggers.forEach((t) => {
         if (t.contains(e.target as Node)) inside = true;
       });
-      if (!panel.contains(e.target as Node) && !inside) closeMenu();
+      if (!panel.contains(e.target as Node) && !inside) closeMenu(true);
+    });
+
+    const backdrop = document.getElementById('dropdown-backdrop');
+    backdrop?.addEventListener('click', () => closeMenu(true));
+
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => closeMenu(true));
     });
 
     window.addEventListener('resize', updatePosition, { passive: true });
@@ -408,5 +433,8 @@ const updatePosition = () => {
   }
 
   setupServicesMegaMenu();
-  document.addEventListener('astro:page-load', setupServicesMegaMenu);
+  document.addEventListener('astro:page-load', () => {
+    document.getElementById('dropdown-backdrop')?.classList.remove('active');
+    setupServicesMegaMenu();
+  });
 </script>

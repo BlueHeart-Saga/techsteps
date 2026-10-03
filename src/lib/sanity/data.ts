@@ -1314,9 +1314,10 @@ export const sectors: Sector[] = [
     ],
     howTechstepsHelps: 'Techsteps enables universities and education trusts to streamline end-of-term hardware refreshes, monetise retired equipment to bolster departmental budgets, and safeguard academic archives under the highest legal standards.',
     keyBenefits: [
-      'Substantial financial rebates returned to university budgets through component refurbishment and remarketing',
-      'Full protection against student data privacy breaches with serialized destruction documentation',
-      'Direct contribution to university environmental league tables and People & Planet Green League rankings',
+      'Comprehensive protection of student records, staff credentials, and academic research data with certified sanitisation meeting UK GDPR and Jisc standards.',
+      'Scheduled campus-wide IT collection campaigns during term breaks executed by enhanced DBS-vetted logistics specialists.',
+      'Secure disposal, sanitisation, and testing of retired campus computing labs, student laptops, departmental servers, and storage media.',
+      'Strict WEEE compliance and certified zero-landfill recycling with measurable carbon savings contributing to university environmental league tables.',
     ],
     relevantServices: ['it-asset-disposition-services', 'secure-it-disposal', 'document-scanning', 'laboratory-relocations-storage', 'remarketing-recycling'],
     faqs: [
@@ -1328,7 +1329,7 @@ export const sectors: Sector[] = [
   },
   {
     id: 'sec-legal',
-    title: 'Legal & Professional Services',
+    title: 'Corporate & Legal',
     slug: 'legal-professional-services',
     tagline: 'SRA Aligned Confidentiality, BS 10008 Legal Scanning & Ultra-Secure Partner Hard Drive Destruction',
     summary: 'Partnering with Magic Circle law firms, barristers chambers, accountancy practices, and management consultancies to guarantee absolute client-solicitor confidentiality, high-density case file storage, and compliant hardware retirement.',
@@ -1352,9 +1353,10 @@ export const sectors: Sector[] = [
     ],
     howTechstepsHelps: 'Techsteps acts as an impenetrable extension of your firm’s compliance infrastructure, ensuring that sensitive matter files, partner laptops, and historical case archives comply with rigorous SRA principles.',
     keyBenefits: [
-      '100% legal admissibility for digitized case files under BS 10008, unlocking prime office floor space',
-      'Immutable serialized destruction certificates providing bulletproof defense against SRA audit inquiries',
-      'Zero-loss chain of custody during law firm partner office moves and data centre consolidations',
+      'Absolute safeguarding of confidential corporate records, client files, and legal professional privilege under DIN 66399 and BS EN 15713 standards.',
+      'Certified NIST 800-88 sanitisation and high-security destruction for retired partner laptops, executive mobile devices, and storage media.',
+      'Defensible audit readiness with serialized certificates of destruction and immutable chain of custody aligned with SRA and UK GDPR regulations.',
+      'Secure off-site vault storage and BS 10008 legal digitization for high-density physical case files, conveyancing deeds, and corporate archives.',
     ],
     relevantServices: ['ultra-secure-hard-drive-destruction', 'document-scanning', 'document-storage', 'on-site-shredding', 'it-relocations-specialist'],
     faqs: [
@@ -1390,9 +1392,10 @@ export const sectors: Sector[] = [
     ],
     howTechstepsHelps: 'Techsteps protects your manufacturing enterprise against intellectual property leakage while optimizing the residual economic recovery from decommissioned industrial machinery and legacy computing assets.',
     keyBenefits: [
-      'Guaranteed elimination of proprietary blueprint and telemetry leakage through witnessed component destruction',
-      'Maximized scrap metal and component remarketing revenue returned to corporate engineering budgets',
-      'Seamless, SLA-backed plant IT migrations with specialized rigging and anti-static transport',
+      'Guaranteed protection of proprietary CAD/CAM designs, engineering blueprints, and manufacturing telemetry through certified, witnessed data destruction.',
+      'Secure decommissioning and certified disposal of retired plant-floor terminals, industrial control systems, and enterprise IT equipment.',
+      'Audited WEEE and hazardous materials compliance with certified 100% zero-landfill diversion and closed-loop raw material reclamation.',
+      'Vetted, end-to-end chain of custody for IT assets collected across distributed manufacturing sites, production plants, warehouses, and corporate offices.',
     ],
     relevantServices: ['it-lifecycle-services-destruction', 'ultra-secure-hard-drive-destruction', 'moving-relocation-services', 'laboratory-relocations-storage', 'remarketing-recycling'],
     faqs: [
@@ -1428,9 +1431,10 @@ export const sectors: Sector[] = [
     ],
     howTechstepsHelps: 'Techsteps acts as the trusted lifecycle engine for UK tech companies, providing rapid high-volume turnaround, bulletproof security certification, and market-leading residual value recovery on enterprise hardware estates.',
     keyBenefits: [
-      'Industry-leading rebate returns on retired server components, developer laptops, and high-performance networking gear',
-      'Flawless data centre cage handbacks on schedule, eliminating costly colocation penalty fees',
-      'Transparent audit documentation perfectly structured for enterprise SOC2, ISO 27001, and ESG disclosures',
+      'High-throughput NIST 800-88 certified cryptographic erasure and physical destruction for enterprise servers, NVMe storage arrays, and developer laptops.',
+      'Certified protection of sensitive proprietary source code, client databases, and customer credentials stored across decommissioned storage media.',
+      'Tamper-evident, serialized chain of custody from data centre server cages and tech facilities directly through to accredited ADISA sanitisation.',
+      'Certified 100% zero-landfill WEEE recycling with audited Scope 3 carbon reduction reporting and maximized residual hardware value recovery.',
     ],
     relevantServices: ['it-asset-disposition-services', 'ultra-secure-hard-drive-destruction', 'it-relocations-specialist', 'remarketing-recycling', 'secure-it-disposal'],
     faqs: [

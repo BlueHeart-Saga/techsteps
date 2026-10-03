@@ -288,7 +288,7 @@ div[class*="uppercase"][class*="text-xs"] {
 #hero-header nav button span,
 #hero-header a[href*="contact"] {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
-  font-size: 16px !important;
+  font-size: 18px !important;
   font-weight: 500 !important;
   letter-spacing: -0.01em !important;
   line-height: 1.4 !important;
@@ -305,7 +305,7 @@ div[class*="uppercase"][class*="text-xs"] {
 #hero-header a[href*="quote"],
 #hero-header a[href*="collection"] {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
-  font-size: 15px !important;
+  font-size: 16px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
   background-color: #07572F !important;
@@ -319,8 +319,7 @@ div[class*="uppercase"][class*="text-xs"] {
 
 /* 4. SERVICES DROPDOWN - EXACT CONTAINER DIMENSIONS */
 #services-megamenu-panel .services-dropdown-card {
-  width: 1408px !important;
-  max-width: 1408px !important;
+  width: 100% !important;
   height: 322px !important;
   min-height: 322px !important;
   max-height: 322px !important;
@@ -338,6 +337,15 @@ div[class*="uppercase"][class*="text-xs"] {
   max-height: 306px !important;
   border-radius: 12px !important;
   margin-right: 64px !important;
+  box-sizing: border-box !important;
+}
+
+#services-megamenu-panel .services-right-col,
+#sectors-dropdown-panel .sectors-right-col {
+  width: 280px !important;
+  min-width: 280px !important;
+  max-width: 280px !important;
+  padding-right: 32px !important;
   box-sizing: border-box !important;
 }
 
@@ -420,6 +428,8 @@ div[class*="uppercase"][class*="text-xs"] {
   letter-spacing: -0.01em !important;
   line-height: 1.45 !important;
 }
+
+
 
 #mobile-menu-drawer h2,
 #mobile-menu-drawer h3 {
@@ -652,4 +662,23 @@ address {
 #sectors-dropdown-wrapper.scroll-dropdown-wrapper {
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+
+/* Reusable Dropdown Background Overlay & Page Blur */
+.dropdown-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 990;
+  background: rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  will-change: opacity;
+}
+
+.dropdown-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
 }

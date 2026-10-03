@@ -1,6 +1,6 @@
 ---
 import HeroHeader from '../global/HeroHeader.astro';
-import TornPaperDivider from '../layout/TornPaperDivider.astro';
+//import TornPaperDivider from '../layout/TornPaperDivider.astro';
 import { getHomePage } from '../../lib/sanity/client';
 
 const homePage = await getHomePage();
@@ -26,17 +26,17 @@ const heroHeading = (hero?.heading || 'Creating Value From Each Device')
 
   <!-- Main Hero Grid Container -->
   <div
-    class="relative z-10 w-full max-w-[1920px] mx-auto
-           px-6 sm:px-10 lg:px-12 xl:px-16
+    class="relative z-10 w-full max-w-7xl mx-auto
+           px-4 sm:px-6 lg:px-8
            pt-4 sm:pt-6 lg:pt-6 xl:pt-8
            pb-0"
   >
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-end">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-start">
 
       <!-- =========================
            HERO CONTENT (Left)
       ========================= -->
-      <div class="lg:col-span-7 xl:col-span-6 max-w-2xl lg:max-w-3xl pt-2 sm:pt-4 lg:pt-6 pb-6 sm:pb-8 lg:pb-12 z-10">
+      <div class="lg:col-span-7 xl:col-span-7 max-w-2xl lg:max-w-none pt-2 sm:pt-4 lg:pt-6 pb-6 sm:pb-8 lg:pb-12 z-10">
 
         <!-- Eyebrow -->
         <span
@@ -65,7 +65,8 @@ const heroHeading = (hero?.heading || 'Creating Value From Each Device')
           {heroHeading}
         </h1>
 
-        <!-- Description -->
+        <!-- Description (Commented out) -->
+        {/*
         <p
           class="mt-5 sm:mt-6
                  text-base sm:text-lg
@@ -79,8 +80,9 @@ const heroHeading = (hero?.heading || 'Creating Value From Each Device')
             'Techsteps securely reuse and recycle retired IT assets, reducing waste while recovering maximum value responsibly.'
           }
         </p>
+        */}
 
-        <!-- CTA Buttons -->
+        <!-- CTA Buttons (Commented out) -->
         <div
           class="mt-7 sm:mt-8
                  flex flex-wrap
@@ -138,21 +140,20 @@ const heroHeading = (hero?.heading || 'Creating Value From Each Device')
             Contact Us
           </a>
         </div>
-
       </div>
 
       <!-- =========================
            HERO IMAGE (Right)
       ========================= -->
-      <div class="lg:col-span-5 xl:col-span-6 flex items-end justify-center lg:justify-end relative lg:pr-0 xl:pr-0">
-        <div class="relative flex items-end justify-end lg:translate-x-3 xl:translate-x-6">
+      <div class="lg:col-span-5 xl:col-span-5 flex items-end justify-center lg:justify-end relative self-end">
+        <div class="relative flex items-end justify-end">
           <img
             src="/images/brand/hero-man-ssd.png"
             alt={
               hero?.imageAlt ||
               'Techsteps sustainable IT lifecycle, secure erase, and certified IT recycling'
             }
-            class="hero-person-img w-auto h-auto max-h-[420px] sm:max-h-[490px] lg:max-h-[540px] xl:max-h-[585px] 2xl:max-h-[650px] max-w-full lg:max-w-none pointer-events-none select-none block"
+            class="hero-person-img w-auto h-auto max-h-[420px] sm:max-h-[480px] lg:max-h-[520px] xl:max-h-[550px] max-w-full lg:max-w-none pointer-events-none select-none block"
             width="1024"
             height="576"
             loading="eager"
@@ -264,9 +265,9 @@ const heroHeading = (hero?.heading || 'Creating Value From Each Device')
   <!-- =========================
        TORN PAPER DIVIDER
   ========================= -->
-  <div class="relative w-full z-20">
+  <!--div class="relative w-full z-20">
     <TornPaperDivider color="#f1f4ef" />
-  </div>
+  </div-->
 
 </section>
 
