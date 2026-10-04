@@ -1,76 +1,78 @@
 ---
 import HeroHeader from '../global/HeroHeader.astro';
-//import TornPaperDivider from '../layout/TornPaperDivider.astro';
 import { getHomePage } from '../../lib/sanity/client';
 
 const homePage = await getHomePage();
 const hero = homePage?.hero;
-
-const heroHeading = (hero?.heading || 'Creating Value From Each Device')
-  .toLowerCase()
-  .replace(/\b\w/g, (char) => char.toUpperCase());
 ---
 
 <!-- =========================
-     HERO NAVBAR
-========================= -->
-<HeroHeader />
-
-<!-- =========================
-     HERO SECTION
+     HOME HERO SECTION
 ========================= -->
 <section
-  class="relative w-full overflow-hidden bg-white select-none"
-  style="background-color: #ffffff !important;"
+  id="hero"
+  class="relative w-full overflow-hidden bg-[#07572F] select-none"
 >
+  <!-- Background Image with smooth organic white-to-green transition -->
+  <img
+    src="/images/brand/hero_banner_background.webp"
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 w-full h-full object-fill pointer-events-none select-none z-0"
+    loading="eager"
+    fetchpriority="high"
+    decoding="sync"
+  />
+
+  <!-- Top Hero Header (Transparent on home, integrated with hero background) -->
+  <HeroHeader isHome={true} />
 
   <!-- Main Hero Grid Container -->
   <div
     class="relative z-10 w-full max-w-7xl mx-auto
            px-4 sm:px-6 lg:px-8
-           pt-4 sm:pt-6 lg:pt-6 xl:pt-8
+           pt-4 sm:pt-6 lg:pt-8 xl:pt-10
            pb-0"
   >
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
 
       <!-- =========================
            HERO CONTENT (Left)
       ========================= -->
-      <div class="lg:col-span-7 xl:col-span-7 max-w-2xl lg:max-w-none pt-2 sm:pt-4 lg:pt-6 pb-6 sm:pb-8 lg:pb-12 z-10">
+      <div class="lg:col-span-7 xl:col-span-7 max-w-2xl lg:max-w-none pt-2 sm:pt-4 lg:pt-6 pb-8 sm:pb-12 lg:pb-16 z-10">
 
         <!-- Eyebrow -->
         <span
           class="inline-block
-                 text-sm sm:text-base
+                 text-xs sm:text-sm
                  font-sans font-bold
                  uppercase
-                 tracking-[0.18em]
-                 text-[#07572F]
+                 tracking-[0.2em]
+                 text-white/90
                  mb-3 sm:mb-4"
         >
           {hero?.eyebrow || 'SUSTAINABLE IT RECYCLING'}
         </span>
 
-        <!-- Heading -->
+        <!-- Heading: Serif font matching reference with 2-line break -->
         <h1
-          class="font-display
-                 text-4xl sm:text-5xl
-                 lg:text-6xl xl:text-7xl
-                 font-extrabold
-                 text-[#171717]
+          class="font-display font-serif
+                 text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[60px]
+                 font-normal
+                 text-white
                  tracking-tight
-                 leading-[1.08]
-                 max-w-3xl"
+                 leading-[1.12] sm:leading-[1.08]
+                 max-w-2xl"
+          style="font-family: 'Lora', Georgia, serif;"
         >
-          {heroHeading}
+          Creating Value<br />From Each Device
         </h1>
 
-        <!-- Description (Commented out) -->
-        {/*
+        <!-- Description -->
         <p
-          class="mt-5 sm:mt-6
-                 text-base sm:text-lg
-                 text-slate-700
+          class="mt-4 sm:mt-5
+                 text-sm sm:text-base lg:text-[17px]
+                 text-white/90
                  max-w-xl
                  leading-relaxed
                  font-sans font-normal"
@@ -80,201 +82,95 @@ const heroHeading = (hero?.heading || 'Creating Value From Each Device')
             'Techsteps securely reuse and recycle retired IT assets, reducing waste while recovering maximum value responsibly.'
           }
         </p>
-        */}
 
-        <!-- CTA Buttons (Commented out) -->
-        <div
-          class="mt-7 sm:mt-8
+        <!-- CTA Buttons -->
+        {/*<div
+          class="mt-6 sm:mt-8
                  flex flex-wrap
                  items-center
                  gap-3.5 sm:gap-4"
         >
-          <!-- Explore Services -->
+          <!-- Explore Services Button -->
           <a
             href="/services"
             class="inline-flex items-center justify-center
-                   gap-2
+                   gap-2.5
                    px-6 sm:px-7
                    py-3 sm:py-3.5
-                   rounded-md
-                   bg-[#07572F] hover:bg-[#054424]
-                   text-white
+                   rounded-full
+                   bg-white hover:bg-white/90
+                   text-[#07572F]
                    text-sm sm:text-base
-                   font-bold
+                   font-semibold
                    shadow-md
                    transition-all duration-200
-                   hover:scale-[1.02]"
+                   hover:scale-[1.02]
+                   focus:outline-none focus:ring-2 focus:ring-white"
           >
-            Explore Services
+            <span>Explore Services</span>
             <svg
-              class="w-4 h-4"
+              class="w-4 h-4 text-[#07572F]"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
+              stroke-width="2.2"
             >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2"
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
           </a>
 
-          <!-- Contact Us -->
+          <!-- Contact Us Button -->
           <a
             href="/contact"
             class="inline-flex items-center justify-center
                    px-6 sm:px-7
                    py-3 sm:py-3.5
-                   rounded-md
-                   bg-white hover:bg-slate-50
-                   border border-slate-300
-                   text-[#171717]
+                   rounded-full
+                   bg-transparent hover:bg-white/10
+                   border border-white/60 hover:border-white
+                   text-white
                    text-sm sm:text-base
-                   font-bold
+                   font-semibold
                    transition-all duration-200
                    hover:scale-[1.02]
-                   shadow-xs"
+                   shadow-xs
+                   focus:outline-none focus:ring-2 focus:ring-white"
           >
             Contact Us
           </a>
-        </div>
+        </div>*/}
       </div>
 
       <!-- =========================
            HERO IMAGE (Right)
       ========================= -->
       <div class="lg:col-span-5 xl:col-span-5 flex items-end justify-center lg:justify-end relative self-end">
-        <div class="relative flex items-end justify-end">
+        <div class="relative flex items-end justify-end w-full max-w-[480px] lg:max-w-none">
           <img
-            src="/images/brand/hero-man-ssd.png"
+            src="/images/brand/hero_person_box.webp"
             alt={
               hero?.imageAlt ||
-              'Techsteps sustainable IT lifecycle, secure erase, and certified IT recycling'
+              'Techsteps sustainable IT recycling technician holding box of electronics'
             }
-            class="hero-person-img w-auto h-auto max-h-[420px] sm:max-h-[480px] lg:max-h-[520px] xl:max-h-[550px] max-w-full lg:max-w-none pointer-events-none select-none block"
-            width="1024"
-            height="576"
+            class="hero-person-img w-full h-auto max-h-[380px] sm:max-h-[440px] lg:max-h-[500px] xl:max-h-[540px] object-contain pointer-events-none select-none block"
+            width="2738"
+            height="2654"
             loading="eager"
             decoding="sync"
             fetchpriority="high"
           />
-
-          <!-- Floating Info Cards -->
-          <!-- Card 01: Collect -->
-          <div
-            class="hero-floating-card hero-floating-card-1 absolute z-20 flex items-center bg-white rounded-full select-none"
-            aria-label="Collect"
-          >
-            <div class="hero-card-num-badge flex items-center justify-center rounded-full font-bold">
-              01
-            </div>
-            <span class="hero-card-text font-bold">
-              Collect
-            </span>
-            <div class="hero-card-icon flex items-center justify-center text-[#07572F]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32 32"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-full h-full"
-              >
-                <line x1="3" y1="10" x2="8" y2="10" />
-                <line x1="1" y1="14" x2="9" y2="14" />
-                <path d="M9 6h11a1 1 0 0 1 1 1v11H9V6z" />
-                <path d="M21 10.5h3.6a1 1 0 0 1 .8.4l3.1 4.1v3H21" />
-                <path d="M22 12h2.2l2 2.5H22V12z" stroke-width="1.8" />
-                <circle cx="13" cy="20.5" r="2.2" />
-                <circle cx="24" cy="20.5" r="2.2" />
-                <line x1="15.2" y1="18" x2="21.8" y2="18" />
-              </svg>
-            </div>
-          </div>
-
-          <!-- Card 02: Secure Erase -->
-          <div
-            class="hero-floating-card hero-floating-card-2 absolute z-20 flex items-center bg-white rounded-full select-none"
-            aria-label="Secure Erase"
-          >
-            <div class="hero-card-num-badge flex items-center justify-center rounded-full font-bold">
-              02
-            </div>
-            <span class="hero-card-text font-bold">
-              Secure Erase
-            </span>
-            <div class="hero-card-icon flex items-center justify-center text-[#07572F]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32 32"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-full h-full"
-              >
-                <path d="M16 28s9-4.5 9-11.5V6.5L16 3 7 6.5v10C7 23.5 16 28 16 28z" />
-                <path d="M12.5 14v-2.2a3.5 3.5 0 0 1 7 0V14" />
-                <rect x="11" y="14" width="10" height="7.5" rx="1.5" fill="#07572F" stroke="none" />
-                <circle cx="16" cy="17" r="0.9" fill="white" stroke="none" />
-                <path d="M16 17.5v2" stroke="white" stroke-width="1.2" />
-              </svg>
-            </div>
-          </div>
-
-          <!-- Card 03: Reuse & Recycle -->
-          <div
-            class="hero-floating-card hero-floating-card-3 absolute z-20 flex items-center bg-white rounded-full select-none"
-            aria-label="Reuse & Recycle"
-          >
-            <div class="hero-card-num-badge flex items-center justify-center rounded-full font-bold">
-              03
-            </div>
-            <span class="hero-card-text font-bold">
-              Reuse & Recycle
-            </span>
-            <div class="hero-card-icon flex items-center justify-center text-[#07572F]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32 32"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-full h-full"
-              >
-                <path d="M7 16A9 9 0 0 1 23.5 10.5" />
-                <polyline points="21 7 24.5 11 20 13" />
-                <path d="M25 16A9 9 0 0 1 8.5 21.5" />
-                <polyline points="11 25 7.5 21 12 19" />
-              </svg>
-            </div>
-          </div>
         </div>
       </div>
 
     </div>
   </div>
-
-  <!-- =========================
-       TORN PAPER DIVIDER
-  ========================= -->
-  <!--div class="relative w-full z-20">
-    <TornPaperDivider color="#f1f4ef" />
-  </div-->
-
 </section>
 
 <style>
-  /* ==========================================================================
-     HERO IMAGE RENDERING ENHANCEMENT
-     ========================================================================== */
   .hero-person-img {
     image-rendering: -webkit-optimize-contrast;
     image-rendering: high-quality;
@@ -282,239 +178,4 @@ const heroHeading = (hero?.heading || 'Creating Value From Each Device')
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
-
-  /* ==========================================================================
-     HERO FLOATING INFO CARDS (Matching Reference Design)
-     ========================================================================== */
-  .hero-floating-card {
-    background-color: #ffffff !important;
-    border-radius: 9999px !important;
-    box-shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04) !important;
-    white-space: nowrap;
-    transition: box-shadow 0.25s ease;
-    will-change: transform;
-    pointer-events: auto;
-  }
-
-  .hero-floating-card:hover {
-    box-shadow: 0 8px 24px -2px rgba(0, 0, 0, 0.12), 0 3px 8px -1px rgba(0, 0, 0, 0.05) !important;
-  }
-
-  /* Badge styling */
-  .hero-card-num-badge {
-    background-color: #caeed4 !important;
-    color: #07572F !important;
-    border-radius: 9999px !important;
-    flex-shrink: 0;
-  }
-
-  /* Card text */
-  .hero-card-text {
-    color: #12181a !important;
-    font-family: var(--font-sans, system-ui, sans-serif) !important;
-    letter-spacing: -0.01em;
-  }
-
-  /* Desktop layout & sizing (>= 1024px) */
-  @media (min-width: 1024px) {
-    .hero-floating-card {
-      padding: 10px 18px 10px 12px !important;
-      gap: 12px;
-    }
-
-    .hero-card-num-badge {
-      width: 38px;
-      height: 38px;
-      font-size: 15px;
-    }
-
-    .hero-card-text {
-      font-size: 16px;
-    }
-
-    .hero-card-icon {
-      width: 26px;
-      height: 26px;
-    }
-
-    /* Positioning relative to hero image */
-    .hero-floating-card-1 {
-      left: 27.5%;
-      top: 79.5%;
-    }
-
-    .hero-floating-card-2 {
-      left: 67%;
-      top: 15.5%;
-    }
-
-    .hero-floating-card-3 {
-      left: 74.5%;
-      top: 62.5%;
-    }
-  }
-
-  /* Tablet layout & sizing (640px to 1023px) */
-  @media (min-width: 640px) and (max-width: 1023px) {
-    .hero-floating-card {
-      padding: 8px 15px 8px 10px !important;
-      gap: 10px;
-    }
-
-    .hero-card-num-badge {
-      width: 32px;
-      height: 32px;
-      font-size: 13px;
-    }
-
-    .hero-card-text {
-      font-size: 14px;
-    }
-
-    .hero-card-icon {
-      width: 22px;
-      height: 22px;
-    }
-
-    .hero-floating-card-1 {
-      left: 24%;
-      top: 78%;
-    }
-
-    .hero-floating-card-2 {
-      left: 63.5%;
-      top: 15%;
-    }
-
-    .hero-floating-card-3 {
-      left: 71.5%;
-      top: 61%;
-    }
-  }
-
-  /* Mobile layout & sizing (< 640px) */
-  @media (max-width: 639px) {
-    .hero-floating-card {
-      padding: 6px 11px 6px 8px !important;
-      gap: 7px;
-      box-shadow: 0 3px 12px -2px rgba(0, 0, 0, 0.08), 0 1px 4px -1px rgba(0, 0, 0, 0.04) !important;
-    }
-
-    .hero-card-num-badge {
-      width: 26px;
-      height: 26px;
-      font-size: 11px;
-    }
-
-    .hero-card-text {
-      font-size: 11.5px;
-    }
-
-    .hero-card-icon {
-      width: 17px;
-      height: 17px;
-    }
-
-    .hero-floating-card-1 {
-      left: 14%;
-      top: 78%;
-    }
-
-    .hero-floating-card-2 {
-      left: 57%;
-      top: 12%;
-    }
-
-    .hero-floating-card-3 {
-      left: 64%;
-      top: 60%;
-    }
-  }
-
-  /* Extra small mobile (< 380px) */
-  @media (max-width: 379px) {
-    .hero-floating-card {
-      padding: 5px 9px 5px 6px !important;
-      gap: 5px;
-    }
-
-    .hero-card-num-badge {
-      width: 22px;
-      height: 22px;
-      font-size: 10px;
-    }
-
-    .hero-card-text {
-      font-size: 10px;
-    }
-
-    .hero-card-icon {
-      width: 15px;
-      height: 15px;
-    }
-
-    .hero-floating-card-1 {
-      left: 8%;
-      top: 78%;
-    }
-
-    .hero-floating-card-2 {
-      left: 51%;
-      top: 11%;
-    }
-
-    .hero-floating-card-3 {
-      left: 59%;
-      top: 60%;
-    }
-  }
-
-  /* Floating animations */
-  @keyframes heroCardFloat1 {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-5px);
-    }
-  }
-
-  @keyframes heroCardFloat2 {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-6px);
-    }
-  }
-
-  @keyframes heroCardFloat3 {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-4.5px);
-    }
-  }
-
-  .hero-floating-card-1 {
-    animation: heroCardFloat1 4.5s ease-in-out infinite;
-  }
-
-  .hero-floating-card-2 {
-    animation: heroCardFloat2 5.2s ease-in-out infinite 0.7s;
-  }
-
-  .hero-floating-card-3 {
-    animation: heroCardFloat3 4.8s ease-in-out infinite 1.4s;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-floating-card-1,
-    .hero-floating-card-2,
-    .hero-floating-card-3 {
-      animation: none !important;
-    }
-  }
 </style>
-

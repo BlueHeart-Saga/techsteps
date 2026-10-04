@@ -162,7 +162,7 @@ const aboutPageSchema = {
 
     <section
       id="who"
-      class="band bg-white py-12 sm:py-16 lg:py-20"
+      class="band bg-white py-8 sm:py-12 lg:py-16"
     >
       <div class="shell">
 
@@ -917,7 +917,7 @@ const aboutPageSchema = {
   --hairline: #E2E8F0;
   --panel: #FFFFFF;
 
-  --shell: 1320px;
+  --shell: 1240px;
   --gutter: clamp(20px, 5vw, 72px);
   --display: 'Lora', Georgia, 'Times New Roman', serif;
   --text: 'Montserrat', system-ui, sans-serif;
@@ -979,6 +979,10 @@ const aboutPageSchema = {
   margin-inline: auto;
   padding-inline: var(--gutter);
   position: relative;
+}
+
+.hero .shell {
+  max-width: 1320px;
 }
 
 .eyebrow {
@@ -1206,7 +1210,7 @@ const aboutPageSchema = {
 ========================================================= */
 
 .band {
-  padding-block: clamp(32px, 4.2vw, 56px);
+  padding-block: clamp(24px, 3vw, 44px);
 }
 
 .head-rule {

@@ -96,7 +96,7 @@ const servicePillars = defaultPillars.map((pillar) => {
 <!-- Services Mega Menu Panel -->
 <div
   id="services-megamenu-panel"
-  class="fixed top-[82px] inset-x-0 z-[998] hidden opacity-0 -translate-y-2 transition-all duration-200 pointer-events-none before:absolute before:-top-6 before:inset-x-0 before:h-6 before:content-['']"
+  class="fixed top-[82px] inset-x-0 z-[998] hidden opacity-0 -translate-y-1 transition-[opacity,transform] duration-150 ease-out pointer-events-none before:absolute before:-top-10 before:inset-x-0 before:h-10 before:content-[''] before:pointer-events-auto"
   role="region"
   aria-label="Services Mega Menu"
 >
@@ -162,7 +162,7 @@ const servicePillars = defaultPillars.map((pillar) => {
           return (
             <div
               id={`tab-panel-${pillar.id}`}
-              class={`service-tab-panel absolute top-[62px] inset-x-0 transition-opacity duration-200 ${
+              class={`service-tab-panel absolute top-[62px] inset-x-0 transition-opacity duration-150 ${
                 idx === 0 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
               }`}
             >
@@ -228,75 +228,89 @@ const servicePillars = defaultPillars.map((pillar) => {
 
 <script>
   function setupServicesMegaMenu() {
-    const triggers = document.querySelectorAll('#services-menu-trigger, .services-megamenu-toggle');
     const panel = document.getElementById('services-megamenu-panel');
-    if (!panel || triggers.length === 0) return;
+    if (!panel) return;
 
-    let timeoutId: any = null;
+    if (panel.dataset.navInitialized === 'true') return;
+    panel.dataset.navInitialized = 'true';
+
+    const triggers = document.querySelectorAll<HTMLElement>('#services-menu-trigger, .services-megamenu-toggle');
+    if (triggers.length === 0) return;
+
+    let closeTimeout: any = null;
+    let hideTimeout: any = null;
 
     const tabBtns = panel.querySelectorAll<HTMLElement>('.service-tab-btn');
     const tabPanels = panel.querySelectorAll<HTMLElement>('.service-tab-panel');
     const activeTitle = panel.querySelector<HTMLElement>('#active-pillar-title');
 
-    // Dynamically calculate position AND width so the dropdown aligns with whichever header is active
-const updatePosition = () => {
-  const siteHeader = document.getElementById('site-header');
-  const heroHeader = document.getElementById('hero-header');
+    const updatePosition = () => {
+      const siteHeader = document.getElementById('site-header');
+      const heroHeader = document.getElementById('hero-header');
+      const card = document.getElementById('services-megamenu-card');
+      const wrapper = document.getElementById('services-megamenu-wrapper');
 
-  const card = document.getElementById('services-megamenu-card');
-  const wrapper = document.getElementById('services-megamenu-wrapper');
+      const isScrollNavActive =
+        siteHeader &&
+        !siteHeader.classList.contains('opacity-0') &&
+        !siteHeader.classList.contains('-translate-y-full');
 
-  const isScrollNavActive =
-    siteHeader &&
-    !siteHeader.classList.contains('opacity-0') &&
-    !siteHeader.classList.contains('-translate-y-full');
+      if (isScrollNavActive && siteHeader) {
+        const maxWrap = siteHeader.querySelector<HTMLElement>(':scope > div');
+        const floatingBar = maxWrap?.querySelector<HTMLElement>(':scope > div');
+        const ref = floatingBar ?? siteHeader;
+        const rect = ref.getBoundingClientRect();
 
-  if (isScrollNavActive && siteHeader) {
-    const maxWrap = siteHeader.querySelector<HTMLElement>(':scope > div');
-    const floatingBar = maxWrap?.querySelector<HTMLElement>(':scope > div');
-    const ref = floatingBar ?? siteHeader;
+        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
+        panel.style.left = `${Math.round(rect.left)}px`;
+        panel.style.right = 'auto';
+        panel.style.width = `${Math.round(rect.width)}px`;
 
-    const rect = ref.getBoundingClientRect();
+        if (wrapper) wrapper.classList.add('scroll-dropdown-wrapper');
+        if (card) {
+          card.style.width = `${Math.round(rect.width)}px`;
+          card.style.maxWidth = `${Math.round(rect.width)}px`;
+        }
+      } else if (heroHeader) {
+        const rect = heroHeader.getBoundingClientRect();
 
-    // Match the dropdown to the scrolling navbar exactly
-    panel.style.top = `${Math.round(rect.bottom + 8)}px`;
-    panel.style.left = `${Math.round(rect.left)}px`;
-    panel.style.right = 'auto';
-    panel.style.width = `${Math.round(rect.width)}px`;
+        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
+        panel.style.left = '';
+        panel.style.right = '';
+        panel.style.width = '';
 
-    // Remove wrapper padding so the dropdown matches
-    // the scrolling navbar's left/right edges exactly.
-    if (wrapper) {
-      wrapper.classList.add('scroll-dropdown-wrapper');
-    }
+        if (card) {
+          card.style.width = '';
+          card.style.maxWidth = '';
+        }
+        if (wrapper) wrapper.classList.remove('scroll-dropdown-wrapper');
+      }
+    };
 
-    // Make the dropdown card exactly the same width
-    // as the scrolling navbar.
-    if (card) {
-      card.style.width = `${Math.round(rect.width)}px`;
-      card.style.maxWidth = `${Math.round(rect.width)}px`;
-    }
+    const updateBackdrop = () => {
+      const backdrop = document.getElementById('dropdown-backdrop');
+      if (!backdrop) return;
+      const sectorsPanel = document.getElementById('sectors-dropdown-panel');
+      const isServicesOpen = !panel.classList.contains('hidden') && !panel.classList.contains('opacity-0');
+      const isSectorsOpen = sectorsPanel && !sectorsPanel.classList.contains('hidden') && !sectorsPanel.classList.contains('opacity-0');
 
-  } else if (heroHeader) {
-    const rect = heroHeader.getBoundingClientRect();
+      if (isServicesOpen || isSectorsOpen) {
+        backdrop.classList.add('active');
+      } else {
+        backdrop.classList.remove('active');
+      }
+    };
 
-    // Restore the ORIGINAL main-header dropdown.
-    panel.style.top = `${Math.round(rect.bottom + 8)}px`;
-    panel.style.left = '';
-    panel.style.right = '';
-    panel.style.width = '';
-
-    // Restore the dropdown matching the header content width.
-    if (card) {
-      card.style.width = '';
-      card.style.maxWidth = '';
-    }
-
-    if (wrapper) {
-      wrapper.classList.remove('scroll-dropdown-wrapper');
-    }
-  }
-};
+    const cancelClose = () => {
+      if (closeTimeout) {
+        clearTimeout(closeTimeout);
+        closeTimeout = null;
+      }
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+        hideTimeout = null;
+      }
+    };
 
     const switchTab = (tabId: string, pillarTitle?: string) => {
       tabBtns.forEach((btn) => {
@@ -334,69 +348,69 @@ const updatePosition = () => {
     });
 
     const openMenu = () => {
-      clearTimeout(timeoutId);
+      cancelClose();
+
+      // Close Sectors dropdown immediately with zero waiting
+      window.dispatchEvent(new CustomEvent('techsteps:close-sectors', { detail: { immediate: true } }));
+
       updatePosition();
 
-      // Close Sectors dropdown if open
-      const sectorsPanel = document.getElementById('sectors-dropdown-panel');
-      const sectorsTriggers = document.querySelectorAll('#sectors-menu-trigger, .sectors-dropdown-toggle');
-      if (sectorsPanel) {
-        sectorsPanel.classList.add('hidden', 'opacity-0', '-translate-y-2', 'pointer-events-none');
-        sectorsPanel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-      }
-      sectorsTriggers.forEach((t) => {
-        t.setAttribute('aria-expanded', 'false');
-        const caret = t.querySelector('.caret-icon');
-        if (caret) caret.classList.remove('rotate-180');
-      });
-
-      // Activate background blur overlay
-      document.getElementById('dropdown-backdrop')?.classList.add('active');
-
       panel.classList.remove('hidden');
-      requestAnimationFrame(() => {
-        updatePosition();
-        panel.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
-        panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-        triggers.forEach((t) => {
-          t.setAttribute('aria-expanded', 'true');
-          const caret = t.querySelector('.caret-icon');
-          if (caret) caret.classList.add('rotate-180');
-        });
+      // Synchronous reflow to commit display:block before adding opacity
+      void panel.offsetHeight;
+
+      panel.classList.remove('opacity-0', '-translate-y-1', 'pointer-events-none');
+      panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+
+      triggers.forEach((t) => {
+        t.setAttribute('aria-expanded', 'true');
+        const caret = t.querySelector('.caret-icon');
+        if (caret) caret.classList.add('rotate-180');
       });
+
+      updateBackdrop();
     };
 
     const closeMenu = (immediate = false) => {
       const doClose = () => {
         panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-        panel.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
+        panel.classList.add('opacity-0', '-translate-y-1', 'pointer-events-none');
+
         triggers.forEach((t) => {
           t.setAttribute('aria-expanded', 'false');
           const caret = t.querySelector('.caret-icon');
           if (caret) caret.classList.remove('rotate-180');
         });
 
-        // Only dismiss backdrop if the sectors panel is also not open
-        const sectorsPanel = document.getElementById('sectors-dropdown-panel');
-        const isSectorsActive = sectorsPanel && !sectorsPanel.classList.contains('opacity-0') && !sectorsPanel.classList.contains('hidden');
-        if (!isSectorsActive) {
-          document.getElementById('dropdown-backdrop')?.classList.remove('active');
-        }
+        updateBackdrop();
 
-        setTimeout(() => {
+        if (hideTimeout) clearTimeout(hideTimeout);
+        if (immediate) {
           if (panel.classList.contains('opacity-0')) panel.classList.add('hidden');
-        }, 200);
+        } else {
+          hideTimeout = setTimeout(() => {
+            if (panel.classList.contains('opacity-0')) panel.classList.add('hidden');
+            hideTimeout = null;
+          }, 160);
+        }
       };
 
-      clearTimeout(timeoutId);
+      cancelClose();
       if (immediate) {
         doClose();
       } else {
-        timeoutId = setTimeout(doClose, 200);
+        closeTimeout = setTimeout(doClose, 280);
       }
     };
 
+    // Attach hover listeners to triggers and their immediate navigation wrappers
     triggers.forEach((t) => {
+      const parentWrap = t.closest('.nav-menu-trigger-wrap') as HTMLElement | null;
+      const hoverTarget = parentWrap || t;
+
+      hoverTarget.addEventListener('mouseenter', openMenu);
+      hoverTarget.addEventListener('mouseleave', () => closeMenu(false));
+
       t.addEventListener('click', (e) => {
         e.stopPropagation();
         e.preventDefault();
@@ -404,15 +418,20 @@ const updatePosition = () => {
         if (isExpanded) closeMenu(true);
         else openMenu();
       });
-      t.addEventListener('mouseenter', openMenu);
-      t.addEventListener('mouseleave', () => closeMenu(false));
+      t.addEventListener('focus', openMenu);
     });
 
-    panel.addEventListener('mouseenter', () => clearTimeout(timeoutId));
+    panel.addEventListener('mouseenter', cancelClose);
     panel.addEventListener('mouseleave', () => closeMenu(false));
+
+    window.addEventListener('techsteps:close-services', (e: any) => {
+      closeMenu(e.detail?.immediate ?? true);
+    });
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeMenu(true);
     });
+
     document.addEventListener('click', (e) => {
       let inside = false;
       triggers.forEach((t) => {

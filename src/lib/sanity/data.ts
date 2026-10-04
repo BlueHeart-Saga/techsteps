@@ -1768,7 +1768,7 @@ export const defaultFaqPage: FaqPageData = {
   metaDescription: 'Comprehensive knowledge base answering questions about Techsteps IT lifecycle services, confidential shredding, document storage, relocation, and ESG compliance.',
   hero: {
     eyebrow: 'KNOWLEDGE CENTER // FAQS',
-    title: 'FREQUENTLY ASKED QUESTIONS',
+    title: 'Frequently Asked Questions',
     subheading: 'Explore our comprehensive knowledge base covering secure IT asset disposition, confidential shredding, records management, relocations, and regulatory compliance.',
     bgImage: '/images/brand/about-hero-bg.jpg',
   },
@@ -1964,12 +1964,12 @@ export const defaultSustainabilityPage: SustainabilityPageData = {
     description: 'Not every device needs to become waste. Where appropriate, assets can be securely prepared for reuse, remarketing or recovery before responsible recycling is considered.',
     image: '/images/sustainability/sustainability-approach.jpg?v=2',
     steps: [
-      { step: '1', title: 'COLLECT', badge: 'Chain-of-Custody', desc: 'Secure GPS-tracked transport, tamper-evident containers, and strict chain-of-custody handling directly from enterprise sites.' },
-      { step: '2', title: 'AUDIT & ASSESS', badge: 'Triage & Verification', desc: 'Granular asset logging, serial number scanning, hardware functional diagnostics, and secondary lifecycle viability assessment.' },
-      { step: '3', title: 'SANITISE', badge: 'Cryptographic Erasure', desc: 'Certified ADISA and NIST 800-88 compliant data wiping or physical degaussing to ensure zero data residual liability.' },
-      { step: '4', title: 'REUSE', badge: 'Redeployment & Extension', desc: 'Extending useful hardware life through internal redeployment, component harvesting, and secondary hardware assignment.' },
-      { step: '5', title: 'REMARKET', badge: 'Value Recovery', desc: 'Refurbishing and remarketing high-value IT equipment into global secondary B2B channels to return maximum ROI.' },
-      { step: '6', title: 'RECYCLE & RECOVER', badge: 'Zero-Landfill Guarantee', desc: 'Eco-certified material separation, WEEE-compliant shredding, and RDF energy recovery ensuring 100% zero-to-landfill diversion.' },
+      { step: '1', title: 'Collect', badge: 'Chain-of-Custody', desc: 'Secure GPS-tracked transport, tamper-evident containers, and strict chain-of-custody handling directly from enterprise sites.' },
+      { step: '2', title: 'Audit & Assess', badge: 'Triage & Verification', desc: 'Granular asset logging, serial number scanning, hardware functional diagnostics, and secondary lifecycle viability assessment.' },
+      { step: '3', title: 'Sanitise', badge: 'Cryptographic Erasure', desc: 'Certified ADISA and NIST 800-88 compliant data wiping or physical degaussing to ensure zero data residual liability.' },
+      { step: '4', title: 'Reuse', badge: 'Redeployment & Extension', desc: 'Extending useful hardware life through internal redeployment, component harvesting, and secondary hardware assignment.' },
+      { step: '5', title: 'Remarket', badge: 'Value Recovery', desc: 'Refurbishing and remarketing high-value IT equipment into global secondary B2B channels to return maximum ROI.' },
+      { step: '6', title: 'Recycle & Recover', badge: 'Zero-Landfill Guarantee', desc: 'Eco-certified material separation, WEEE-compliant shredding, and RDF energy recovery ensuring 100% zero-to-landfill diversion.' },
     ],
   },
   lifecycleSection: {
@@ -2171,7 +2171,7 @@ export const defaultHomePageData: HomePageData = {
   metaDescription: 'Techsteps delivers audited technology lifecycle solutions across the UK: high-security IT asset disposition (ITAD), climate-controlled records management, DIN 66399 mobile shredding, and specialist data centre relocations.',
   hero: {
     eyebrow: 'SUSTAINABLE IT RECYCLING',
-    heading: 'GIVING TECHNOLOGY A SECOND LIFE',
+    heading: 'Giving Technology A Second Life',
     description: 'Audited IT lifecycle solutions from accredited facilities across the UK. Zero-landfill guaranteed e-waste recycling, secure ADISA-certified data destruction, and compliant asset disposition.',
     imageAlt: 'IT recycling technician inspecting motherboards and electronic components',
     buttonText: 'Request a Collection',
@@ -2192,7 +2192,7 @@ export const defaultHomePageData: HomePageData = {
   ],
   services: {
     eyebrow: 'OUR SERVICES',
-    heading: 'SOLUTIONS FOR THE COMPLETE BUSINESS LIFECYCLE',
+    heading: 'Services For The Complete Business Lifecycle',
     cards: [
       {
         divisionNumber: 'DIVISION 01',
@@ -2242,7 +2242,7 @@ export const defaultHomePageData: HomePageData = {
       {
         stepNumber: '01',
         number: '1',
-        title: 'COLLECT',
+        title: 'Collect',
         shortDesc: 'GPS-Tracked Transit',
         description: 'Point-to-point transit in GPS-monitored vehicles with BS 7858 security-vetted drivers.',
         badge: 'PHASE 01 • COLLECT',
@@ -2251,7 +2251,7 @@ export const defaultHomePageData: HomePageData = {
       {
         stepNumber: '02',
         number: '2',
-        title: 'SECURE',
+        title: 'Secure',
         shortDesc: 'Chain of Custody',
         description: 'Ingestion into biometric-monitored facilities with tamper-evident serialized containment.',
         badge: 'PHASE 02 • SECURE',
@@ -2260,7 +2260,7 @@ export const defaultHomePageData: HomePageData = {
       {
         stepNumber: '03',
         number: '3',
-        title: 'PROCESS',
+        title: 'Process',
         shortDesc: 'Data Sanitisation',
         description: 'Certified sanitisation to NIST 800-88 or on-site mobile DIN 66399 mechanical granulation.',
         badge: 'PHASE 03 • PROCESS',
@@ -2269,7 +2269,7 @@ export const defaultHomePageData: HomePageData = {
       {
         stepNumber: '04',
         number: '4',
-        title: 'RECOVER',
+        title: 'Recover',
         shortDesc: 'Value Recovery',
         description: 'Refurbishment and testing to extract maximum economic residual value for your budget.',
         badge: 'PHASE 04 • RECOVER',
@@ -2278,7 +2278,7 @@ export const defaultHomePageData: HomePageData = {
       {
         stepNumber: '05',
         number: '5',
-        title: 'REUSE / RECYCLE',
+        title: 'Reuse / Recycle',
         shortDesc: 'Zero Landfill',
         description: 'Ethical B2B remarketing or domestic closed-loop raw material separation (0% landfill).',
         badge: 'PHASE 05 • REUSE / RECYCLE',

@@ -317,6 +317,28 @@ div[class*="uppercase"][class*="text-xs"] {
   background-color: #054424 !important;
 }
 
+/* Home Page Header Buttons (Green background compatible) */
+#hero-header[data-is-home="true"] a[href*="contact"] {
+  color: #ffffff !important;
+  background-color: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+}
+#hero-header[data-is-home="true"] a[href*="contact"]:hover {
+  border-color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+#hero-header[data-is-home="true"] a[href*="quote"],
+#hero-header[data-is-home="true"] a[href*="collection"] {
+  background-color: #ffffff !important;
+  color: #07572F !important;
+}
+#hero-header[data-is-home="true"] a[href*="quote"]:hover,
+#hero-header[data-is-home="true"] a[href*="collection"]:hover {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #07572F !important;
+}
+
 /* 4. SERVICES DROPDOWN - EXACT CONTAINER DIMENSIONS */
 #services-megamenu-panel .services-dropdown-card {
   width: 100% !important;

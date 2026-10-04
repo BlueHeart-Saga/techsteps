@@ -13,12 +13,12 @@ const breadcrumbs = [
 const approachSteps = (pageData.approach?.steps && pageData.approach.steps.length > 0)
   ? pageData.approach.steps
   : [
-      { step: '1', title: 'COLLECT', badge: 'Chain-of-Custody', desc: 'Secure GPS-tracked transport, tamper-evident containers, and strict chain-of-custody handling directly from enterprise sites.' },
-      { step: '2', title: 'AUDIT & ASSESS', badge: 'Triage & Verification', desc: 'Granular asset logging, serial number scanning, hardware functional diagnostics, and secondary lifecycle viability assessment.' },
-      { step: '3', title: 'SANITISE', badge: 'Cryptographic Erasure', desc: 'Certified ADISA and NIST 800-88 compliant data wiping or physical degaussing to ensure zero data residual liability.' },
-      { step: '4', title: 'REUSE', badge: 'Redeployment & Extension', desc: 'Extending useful hardware life through internal redeployment, component harvesting, and secondary hardware assignment.' },
-      { step: '5', title: 'REMARKET', badge: 'Value Recovery', desc: 'Refurbishing and remarketing high-value IT equipment into global secondary B2B channels to return maximum ROI.' },
-      { step: '6', title: 'RECYCLE & RECOVER', badge: 'Zero-Landfill Guarantee', desc: 'Eco-certified material separation, WEEE-compliant shredding, and RDF energy recovery ensuring 100% zero-to-landfill diversion.' },
+      { step: '1', title: 'Collect', badge: 'Chain-of-Custody', desc: 'Secure GPS-tracked transport, tamper-evident containers, and strict chain-of-custody handling directly from enterprise sites.' },
+      { step: '2', title: 'Audit & Assess', badge: 'Triage & Verification', desc: 'Granular asset logging, serial number scanning, hardware functional diagnostics, and secondary lifecycle viability assessment.' },
+      { step: '3', title: 'Sanitise', badge: 'Cryptographic Erasure', desc: 'Certified ADISA and NIST 800-88 compliant data wiping or physical degaussing to ensure zero data residual liability.' },
+      { step: '4', title: 'Reuse', badge: 'Redeployment & Extension', desc: 'Extending useful hardware life through internal redeployment, component harvesting, and secondary hardware assignment.' },
+      { step: '5', title: 'Remarket', badge: 'Value Recovery', desc: 'Refurbishing and remarketing high-value IT equipment into global secondary B2B channels to return maximum ROI.' },
+      { step: '6', title: 'Recycle & Recover', badge: 'Zero-Landfill Guarantee', desc: 'Eco-certified material separation, WEEE-compliant shredding, and RDF energy recovery ensuring 100% zero-to-landfill diversion.' },
     ];
 
 const displayStats = (pageData.metrics && pageData.metrics.length > 0)
@@ -105,11 +105,11 @@ const serviceCards = [
   </PageHero>
 
   <!-- MAIN CANVAS SECTION -->
-  <section class="relative bg-[#f1f4ef] py-16 sm:py-24">
+  <section class="relative bg-[#f1f4ef] py-10 sm:py-16">
     <Container>
 
       <!-- 2. OUR APPROACH TO SUSTAINABILITY -->
-      <div id="our-approach" class="max-w-7xl mx-auto space-y-10">
+      <div id="our-approach" class="w-full mx-auto space-y-10">
         
         <!-- Section Top Center Heading -->
         <div class="text-center max-w-3xl mx-auto space-y-4">
@@ -178,7 +178,7 @@ const serviceCards = [
       </div>
 
       <!-- 3. THE IT ASSET LIFECYCLE (Hero Visual Interactive Section) -->
-      <div class="mt-24 sm:mt-32 max-w-6xl mx-auto space-y-12">
+      <div class="mt-24 sm:mt-32 w-full mx-auto space-y-12">
         <div class="text-center max-w-2xl mx-auto space-y-3">
           <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#146B5C]">
             LIFECYCLE ARCHITECTURE
@@ -212,7 +212,7 @@ const serviceCards = [
       </div>
 
       <!-- 4. REUSE BEFORE RECYCLE (Clean Editorial UI) -->
-      <div class="mt-24 sm:mt-32 max-w-7xl mx-auto relative">
+      <div class="mt-14 sm:mt-20 w-full mx-auto relative">
         <!-- Background Decorative Watermark Leaf Circle -->
         <div class="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-[#146B5C]/5 rounded-full blur-3xl pointer-events-none z-0"></div>
 
@@ -339,7 +339,7 @@ const serviceCards = [
       </div>
 
       <!-- 5. RESPONSIBLE RECYCLING -->
-      <div class="mt-24 sm:mt-32 max-w-5xl mx-auto space-y-10">
+      <div class="mt-14 sm:mt-20 max-w-5xl mx-auto space-y-10">
         <div class="text-center max-w-2xl mx-auto space-y-3">
           <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#146B5C]">
             END OF LIFE MANAGEMENT
@@ -464,7 +464,7 @@ const serviceCards = [
       </div>
 
       <!-- 6. MEASURABLE IMPACT (Real CMS Controlled Numbers) -->
-      <div class="mt-24 sm:mt-32 max-w-6xl mx-auto space-y-10">
+      <div class="mt-14 sm:mt-20 w-full mx-auto space-y-10">
         <div class="text-center max-w-2xl mx-auto space-y-3">
           <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#146B5C]">
             VERIFIED AUDIT DATA
@@ -492,7 +492,7 @@ const serviceCards = [
       </div>
 
       <!-- 7. RESPONSIBLE DATA & REPORTING (ACCOUNTABILITY & GOVERNANCE) - COMMENTED OUT
-      <div class="mt-24 sm:mt-32 max-w-6xl mx-auto space-y-10">
+      <div class="mt-14 sm:mt-20 w-full mx-auto space-y-10">
         <div class="text-center max-w-3xl mx-auto space-y-4">
           <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#146B5C]">
             ACCOUNTABILITY &amp; GOVERNANCE
@@ -615,7 +615,7 @@ const serviceCards = [
       -->
 
       <!-- 8. SUSTAINABILITY ACROSS OUR SERVICES -->
-      <div class="mt-24 sm:mt-32 max-w-6xl mx-auto space-y-10">
+      <div class="mt-14 sm:mt-20 w-full mx-auto space-y-10">
         <div class="text-center max-w-2xl mx-auto space-y-3">
           <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#146B5C]">
             INTEGRATED SERVICES
@@ -648,7 +648,7 @@ const serviceCards = [
       </div>
 
       <!-- 9. OUR COMMITMENT -->
-      <div class="mt-24 sm:mt-32 max-w-5xl mx-auto">
+      <div class="mt-14 sm:mt-20 max-w-5xl mx-auto">
         <div class="bg-white/90 backdrop-blur-xs rounded-3xl p-8 sm:p-12 border border-slate-200/80 shadow-xl space-y-8">
           <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#146B5C]">
@@ -680,7 +680,7 @@ const serviceCards = [
       </div>
 
       <!-- 10. FINAL CTA (Open Editorial Layout - No Box / No Dark Background) -->
-      <div class="mt-24 sm:mt-32 max-w-4xl mx-auto px-4 text-center space-y-6">
+      <div class="mt-14 sm:mt-20 max-w-4xl mx-auto px-4 text-center space-y-6">
         <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#146B5C]/10 text-[#146B5C] text-xs sm:text-sm font-extrabold uppercase tracking-widest">
           TAKE THE NEXT STEP
         </div>

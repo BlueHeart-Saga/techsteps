@@ -60,14 +60,14 @@ const currentPath = Astro.url.pathname;
 
   <!-- 2. Breadcrumbs: Positioned cleanly below the header -->
   {breadcrumbs && breadcrumbs.length > 0 && (
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-3 sm:pt-4">
+    <div class="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4">
       <Breadcrumbs items={breadcrumbs} theme="dark" />
     </div>
   )}
 
 <!-- 3. Hero Content -->
 {layout === 'split' && (
-  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-10 lg:py-14">
+  <div class="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
     <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
       <!-- LEFT CONTENT -->
@@ -79,7 +79,7 @@ const currentPath = Astro.url.pathname;
           </span>
         )}
 
-        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight uppercase leading-[1.05] drop-shadow-2xl min-h-[2lh] min-h-[2.1em]">
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.05] drop-shadow-2xl min-h-[2lh] min-h-[2.1em]">
           {title}
         </h1>
 
@@ -158,13 +158,13 @@ const currentPath = Astro.url.pathname;
 )}
 
 {layout === 'custom' && (
-  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-6 sm:py-10 lg:py-14 my-auto">
+  <div class="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 my-auto">
     <slot />
   </div>
 )}
 
 {layout === 'default' && (
-  <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 text-center flex flex-col items-center justify-center my-auto">
+  <div class="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 text-center flex flex-col items-center justify-center my-auto">
 
     {eyebrow && (
       <span class="inline-block text-xs sm:text-sm font-sans font-bold uppercase tracking-widest text-emerald-400 mb-3 drop-shadow-sm">
@@ -173,7 +173,7 @@ const currentPath = Astro.url.pathname;
     )}
 
     {title && (
-      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight uppercase leading-[1.05] drop-shadow-2xl select-none max-w-4xl min-h-[2lh] min-h-[2.1em]">
+      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] drop-shadow-2xl select-none w-full max-w-[1240px] min-h-[2lh] min-h-[2.1em]">
         {title}
       </h1>
     )}

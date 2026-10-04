@@ -21,7 +21,7 @@ const noteColor = theme === 'dark' ? 'text-slate-400' : 'text-slate-500';
 
 {validStats.length > 0 && (
   <section class={`py-12 md:py-16 ${bgClass}`} aria-label="Operational Metrics & Statistics">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class={`grid grid-cols-2 md:grid-cols-${Math.min(validStats.length, 4)} gap-8 text-center`}>
         {validStats.map((stat) => (
           <div class="space-y-2 p-4">
