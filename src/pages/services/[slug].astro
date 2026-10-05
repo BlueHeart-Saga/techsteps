@@ -147,6 +147,19 @@ const breadcrumbSchema = generateBreadcrumbSchema([
   { name: service.divisionTitle, url: `/${divisionPageSlug}` },
   { name: service.title, url: `/services/${service.slug}` },
 ], Astro.site?.origin || 'https://techsteps.co.uk');
+// Identify light-background hero pages (Digital Mailroom & Document Scanning)
+const cleanSlug = service.slug ? service.slug.toLowerCase().replace(/-(uk|services|services-uk)$/, '') : '';
+const isDigitalMailroom = cleanSlug === 'digital-mailroom' || service.slug?.toLowerCase().includes('digital-mailroom') || service.title?.toLowerCase().includes('mailroom');
+const isDocumentScanning = cleanSlug === 'document-scanning' || service.slug?.toLowerCase().includes('document-scanning') || service.title?.toLowerCase().includes('scanning');
+
+const isLightHero = isDigitalMailroom || isDocumentScanning ||
+  (typeof service.heroImage === 'string' && (service.heroImage.includes('digital mail room') || service.heroImage.includes('document scaning')));
+
+const heroBgImage = isDigitalMailroom
+  ? '/images/hero/digital mail room services.webp'
+  : isDocumentScanning
+  ? '/images/hero/document scaning services.webp'
+  : (service.heroImage || '/images/services/document-storage.jpg');
 ---
 
 <BaseLayout
@@ -158,51 +171,166 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 
   <!-- ===== 1. SERVICE HERO ===== -->
   <PageHero
-    bgImage={service.heroImage || '/images/services/document-storage.jpg'}
+    bgImage={heroBgImage}
     breadcrumbs={[]}
     layout="custom"
     showDivider={true}
     dividerColor="#ffffff"
     minHeight="min-h-[540px] sm:min-h-[580px] lg:min-h-[640px]"
+    noOverlay={isLightHero}
+    theme={isLightHero ? "light" : "dark"}
   >
-    <div class="max-w-4xl py-6 sm:py-10 text-left space-y-5 sm:space-y-6">
-      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-mono font-medium text-slate-300">
-        <a href={`/services/${divisionPageSlug}`} class="hover:text-white transition-colors underline-offset-4 hover:underline">
-          {service.divisionTitle} Services UK
-        </a>
-        <span class="text-emerald-400 font-bold" aria-hidden="true">›</span>
-        <span class="text-white font-semibold">{service.title}</span>
-      </nav>
+    {isLightHero ? (
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
+        <!-- =========================
+             HERO CONTENT (Left) - Exact Home Hero Sizing
+        ========================= -->
+        <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
 
-      <h1
-        class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.08] drop-shadow-2xl max-w-2xl"
-        style="min-height: calc(2 * 1.08em);"
-      >
-        {detail.heroTitle}
-      </h1>
+          <!-- Breadcrumb Navigation -->
+          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
+            <a href={`/services/${divisionPageSlug}`} class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
+              {service.divisionTitle} Services UK
+            </a>
+            <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
+            <span class="text-slate-900 font-bold">{service.title}</span>
+          </nav>
 
-      <p class="text-base sm:text-lg lg:text-xl text-slate-200/90 leading-relaxed max-w-2xl font-normal drop-shadow-sm min-h-[2lh] min-h-[3.25em]">
-        {detail.heroDescription}
-      </p>
+          <!-- Heading: Serif font matching Home page hero -->
+          <h1
+            class="font-display font-serif
+                   text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
+                   font-extrabold
+                   text-slate-900
+                   tracking-tight
+                   leading-[1.1] sm:leading-[1.08]
+                   max-w-xl"
+            style="font-family: 'Lora', Georgia, serif;"
+          >
+            {detail.heroTitle}
+          </h1>
 
-      <div class="flex flex-wrap items-center gap-3.5 pt-2">
-        <a
-          href={`/request-a-collection?service=${encodeURIComponent(service.slug)}`}
-          class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 border border-emerald-400/30"
-        >
-          Request a Collection
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </a>
-        <a
-          href={`/contact?service=${encodeURIComponent(service.slug)}`}
-          class="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm sm:text-base border border-white/25 hover:border-white transition-all duration-200 backdrop-blur-xs transform hover:-translate-y-0.5"
-        >
-          Talk to Our Team
-        </a>
+          <!-- Description: Exact Home Hero size & font -->
+          <p
+            class="mt-4 sm:mt-5
+                   text-base sm:text-lg lg:text-[17px]
+                   text-slate-600
+                   max-w-lg
+                   leading-relaxed
+                   font-sans font-normal"
+          >
+            {detail.heroDescription}
+          </p>
+
+          <!-- CTA Buttons: Exact Home Hero shape, buttons and size -->
+          <div
+            class="mt-6 sm:mt-8
+                   flex flex-wrap
+                   items-center
+                   gap-3.5 sm:gap-4"
+          >
+            <!-- Request a Collection Button -->
+            <a
+              href={`/request-a-collection?service=${encodeURIComponent(service.slug)}`}
+              class="inline-flex items-center justify-center
+                     gap-2.5
+                     px-6 sm:px-7
+                     py-3 sm:py-3.5
+                     rounded-none
+                     bg-[#0F623A] hover:bg-[#0c4e2e]
+                     text-white
+                     text-sm sm:text-base
+                     font-bold
+                     shadow-md hover:shadow-lg
+                     transition-all duration-200
+                     hover:scale-[1.02]
+                     focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+            >
+              <span>Request a Collection</span>
+              <svg
+                class="w-4 h-4 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2.2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </a>
+
+            <!-- Contact Us / Talk to Our Team Button -->
+            <a
+              href={`/contact?service=${encodeURIComponent(service.slug)}`}
+              class="inline-flex items-center justify-center
+                     px-6 sm:px-7
+                     py-3 sm:py-3.5
+                     rounded-none
+                     bg-white hover:bg-slate-50
+                     border-2 border-[#0F623A] hover:border-[#0c4e2e]
+                     text-[#0F623A] hover:text-[#0c4e2e]
+                     text-sm sm:text-base
+                     font-bold
+                     transition-all duration-200
+                     hover:scale-[1.02]
+                     shadow-xs
+                     focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+            >
+              Talk to Our Team
+            </a>
+          </div>
+
+        </div>
+
+        <!-- =========================
+             HERO SPACER (Right on Desktop)
+        ========================= -->
+        <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end min-h-[420px] lg:min-h-[480px] xl:min-h-[520px] pointer-events-none" aria-hidden="true">
+        </div>
       </div>
-    </div>
+    ) : (
+      <div class="max-w-4xl py-6 sm:py-10 text-left space-y-5 sm:space-y-6">
+        <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-mono font-medium text-slate-300">
+          <a href={`/services/${divisionPageSlug}`} class="hover:text-white transition-colors underline-offset-4 hover:underline">
+            {service.divisionTitle} Services UK
+          </a>
+          <span class="text-emerald-400 font-bold" aria-hidden="true">›</span>
+          <span class="text-white font-semibold">{service.title}</span>
+        </nav>
+
+        <h1
+          class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.08] drop-shadow-2xl max-w-2xl"
+          style="min-height: calc(2 * 1.08em);"
+        >
+          {detail.heroTitle}
+        </h1>
+
+        <p class="text-base sm:text-lg lg:text-xl text-slate-200/90 leading-relaxed max-w-2xl font-normal drop-shadow-sm min-h-[2lh] min-h-[3.25em]">
+          {detail.heroDescription}
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3.5 pt-2">
+          <a
+            href={`/request-a-collection?service=${encodeURIComponent(service.slug)}`}
+            class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 border border-emerald-400/30"
+          >
+            Request a Collection
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+          <a
+            href={`/contact?service=${encodeURIComponent(service.slug)}`}
+            class="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm sm:text-base border border-white/25 hover:border-white transition-all duration-200 backdrop-blur-xs transform hover:-translate-y-0.5"
+          >
+            Talk to Our Team
+          </a>
+        </div>
+      </div>
+    )}
   </PageHero>
 
   <!-- ===== 2. ABOUT THE SERVICE ===== -->
