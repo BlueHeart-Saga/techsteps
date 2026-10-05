@@ -303,11 +303,11 @@ const description = pageData.metaDescription || "Book an IT equipment collection
           <!-- Bottom Row: Disclaimer & Submit Button -->
           <div class="border-t border-dashed border-slate-200 pt-6 mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <p class="text-xs sm:text-[13px] text-slate-500 max-w-sm sm:max-w-md leading-relaxed font-normal font-sans">
-              Submitting opens an email to our collection desk with these details pre-filled — this is a placeholder inbox until it's replaced with your live one.
+              Your collection booking request will be securely transmitted directly to our UK operations desk for priority scheduling.
             </p>
             <button
               type="submit"
-              class="bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm sm:text-base px-8 py-3.5 rounded-lg shadow-sm hover:shadow-md transition-all shrink-0 cursor-pointer font-sans"
+              class="bg-[#0F623A] hover:bg-[#0c4e2e] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm sm:text-base px-8 py-3.5 rounded-lg shadow-sm hover:shadow-md transition-all shrink-0 cursor-pointer font-sans"
             >
               Submit request
             </button>
@@ -335,12 +335,20 @@ const description = pageData.metaDescription || "Book an IT equipment collection
     const refDisplay = document.getElementById("booking-ref-number");
 
     if (!form || form.dataset.hasListener) return;
+
     form.dataset.hasListener = "true";
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
+      const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+      }
+
       const formData = new FormData(form);
+
       const fullName = formData.get("fullName") || "";
       const company = formData.get("company") || "";
       const email = formData.get("email") || "";
@@ -358,42 +366,83 @@ const description = pageData.metaDescription || "Book an IT equipment collection
 
       const ref = `TS-COL-${Math.floor(1000 + Math.random() * 9000)}`;
 
-      if (refDisplay) {
-        refDisplay.textContent = ref;
+      const collectionData = {
+        formType: "collection",
+        reference: ref,
+        name: fullName,
+        company,
+        email,
+        phone,
+        address,
+        outcome,
+        collectionDate,
+        laptops,
+        chromebooks,
+        tablets,
+        itAssets,
+        accessories,
+        otherText,
+        notes
+      };
+
+      try {
+        const API_URL =
+          window.location.hostname === "localhost" && window.location.port !== "8080"
+            ? "http://localhost:8080/api/contact"
+            : "/api/contact";
+
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(collectionData)
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error(`Collection form submission failed (HTTP ${response.status}):`, errorText);
+          let errorJson: { message?: string } | null = null;
+          try {
+            errorJson = JSON.parse(errorText);
+          } catch {}
+          throw new Error(errorJson?.message || `Server error (${response.status}). Please try again.`);
+        }
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(
+            result.message || "Unable to submit collection request"
+          );
+        }
+
+        if (refDisplay) {
+          refDisplay.textContent = ref;
+        }
+
+        if (successBox) {
+          successBox.classList.remove("hidden");
+          successBox.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }
+
+        form.reset();
+
+      } catch (error: any) {
+        console.error("Collection form error:", error);
+
+        alert(
+          error?.message || "Unable to submit your collection request right now. Please try again or contact us directly."
+        );
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = "Submit request";
+        }
       }
-
-      if (successBox) {
-        successBox.classList.remove("hidden");
-        successBox.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-
-      // Build prefilled email body
-      const subject = encodeURIComponent(`Collection Booking Request - Ref ${ref}`);
-      const body = encodeURIComponent(
-        `TechSteps Collection Booking Request\n` +
-        `Reference Number: ${ref}\n\n` +
-        `Contact Details:\n` +
-        `- Full Name: ${fullName}\n` +
-        `- Company: ${company || "N/A"}\n` +
-        `- Email: ${email}\n` +
-        `- Phone: ${phone}\n\n` +
-        `Collection Details:\n` +
-        `- Collection Address: ${address}\n` +
-        `- Preferred Outcome: ${outcome}\n` +
-        `- Preferred Collection Date: ${collectionDate || "Flexible"}\n\n` +
-        `Devices & IT Assets:\n` +
-        `- Laptops: ${laptops}\n` +
-        `- Chromebooks: ${chromebooks}\n` +
-        `- Tablets: ${tablets}\n` +
-        `- IT Assets (Desktops / Servers / Networking): ${itAssets}\n` +
-        `- Chargers & Accessories: ${accessories}\n` +
-        `- Other: ${otherText || "None specified"}\n\n` +
-        `Notes / Instructions:\n${notes || "None provided"}\n`
-      );
-
-      setTimeout(() => {
-        window.location.href = `mailto:collections@techsteps.co.uk?subject=${subject}&body=${body}`;
-      }, 500);
     });
   }
 

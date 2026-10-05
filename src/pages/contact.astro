@@ -369,100 +369,128 @@ const breadcrumbs = [
 
 <script>
   function setupContactForm() {
-    const form = document.getElementById('techsteps-contact-form') as HTMLFormElement | null;
-    const successMsg = document.getElementById('contact-success');
+    const form = document.getElementById("techsteps-contact-form") as HTMLFormElement | null;
+    const successMsg = document.getElementById("contact-success");
 
-    if (!form || !successMsg) return;
+    if (form && !form.dataset.hasListener) {
+      form.dataset.hasListener = "true";
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-      const submitButton = form.querySelector(
-        'button[type="submit"]'
-      ) as HTMLButtonElement | null;
+        const submitButton = form.querySelector(
+          'button[type="submit"]'
+        ) as HTMLButtonElement | null;
 
-      if (submitButton) {
-        submitButton.disabled = true;
-        submitButton.textContent = 'Sending...';
-      }
-
-      const formData = new FormData(form);
-
-      const data = {
-        name: formData.get('name'),
-        company: formData.get('company'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        subject: formData.get('subject'),
-        message: formData.get('message'),
-      };
-
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-
-        const result = await response.json();
-
-        if (!response.ok || !result.success) {
-          throw new Error(result.message || 'Unable to send your enquiry.');
-        }
-
-        successMsg.textContent =
-          'Thank you for contacting Techsteps. Your enquiry has been routed to our UK support desk and a team member will reply shortly.';
-
-        successMsg.classList.remove(
-          'hidden',
-          'bg-red-50',
-          'border-red-200',
-          'text-red-800'
-        );
-
-        successMsg.classList.add(
-          'bg-emerald-50',
-          'border-emerald-200',
-          'text-emerald-800'
-        );
-
-        form.reset();
-
-        successMsg.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        });
-
-      } catch (error) {
-        console.error('Contact form error:', error);
-
-        successMsg.textContent =
-          'Unable to send your enquiry right now. Please try again or contact us directly.';
-
-        successMsg.classList.remove(
-          'hidden',
-          'bg-emerald-50',
-          'border-emerald-200',
-          'text-emerald-800'
-        );
-
-        successMsg.classList.add(
-          'bg-red-50',
-          'border-red-200',
-          'text-red-800'
-        );
-
-      } finally {
         if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.textContent = 'Send Message';
+          submitButton.disabled = true;
+          submitButton.textContent = "Sending...";
         }
-      }
-    });
+
+        const formData = new FormData(form);
+
+        const name = (formData.get("name") as string) || "";
+        const company = (formData.get("company") as string) || "";
+        const email = (formData.get("email") as string) || "";
+        const phone = (formData.get("phone") as string) || "";
+        const subject = (formData.get("subject") as string) || "";
+        const message = (formData.get("message") as string) || "";
+
+        const contactData = {
+          formType: "contact",
+          name,
+          company,
+          email,
+          phone,
+          subject,
+          message,
+        };
+
+        try {
+          const API_URL =
+            window.location.hostname === "localhost" && window.location.port !== "8080"
+              ? "http://localhost:8080/api/contact"
+              : "/api/contact";
+
+          const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(contactData),
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Contact form server error:", {
+              status: response.status,
+              body: errorText,
+            });
+            let errorJson: { message?: string } | null = null;
+            try {
+              errorJson = JSON.parse(errorText);
+            } catch {}
+            throw new Error(
+              errorJson?.message || `Contact form submission failed (${response.status})`
+            );
+          }
+
+          const result = await response.json();
+
+          if (!result.success) {
+            throw new Error(result.message || "Unable to submit contact enquiry.");
+          }
+
+          if (successMsg) {
+            successMsg.textContent =
+              "Thank you for contacting Techsteps. Your enquiry has been routed to our UK support desk and a team member will reply shortly.";
+            successMsg.classList.remove(
+              "hidden",
+              "bg-red-50",
+              "border-red-200",
+              "text-red-800"
+            );
+            successMsg.classList.add(
+              "bg-emerald-50",
+              "border-emerald-200",
+              "text-emerald-800"
+            );
+            successMsg.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }
+
+          form.reset();
+        } catch (error: any) {
+          console.error("Contact form error:", error);
+
+          if (successMsg) {
+            successMsg.textContent =
+              error?.message ||
+              "Unable to send your enquiry right now. Please try again or contact us directly.";
+            successMsg.classList.remove(
+              "hidden",
+              "bg-emerald-50",
+              "border-emerald-200",
+              "text-emerald-800"
+            );
+            successMsg.classList.add(
+              "bg-red-50",
+              "border-red-200",
+              "text-red-800"
+            );
+          }
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Send Message";
+          }
+        }
+      });
+    }
   }
 
   setupContactForm();
-  document.addEventListener('astro:page-load', setupContactForm);
+  document.addEventListener("astro:page-load", setupContactForm);
 </script>
