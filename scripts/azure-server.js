@@ -890,6 +890,12 @@ This is an automated confirmation email. Please reply to this email if you need 
 
   const html = generateCustomerContactConfirmationHtml(data);
 
+  console.log('==========================================');
+  console.log('CUSTOMER CONFIRMATION EMAIL');
+  console.log('To:', data.email);
+  console.log('From:', process.env.GMAIL_USER);
+  console.log('==========================================');
+
   await transporter.sendMail({
     from: process.env.GMAIL_USER,
     to: data.email,
@@ -898,6 +904,8 @@ This is an automated confirmation email. Please reply to this email if you need 
     text: plainText,
     html: html,
   });
+
+  console.log(`Customer confirmation email sent to ${data.email}`);
 }
 
 async function sendContactEmail(data) {
@@ -908,6 +916,12 @@ async function sendContactEmail(data) {
       pass: process.env.GMAIL_APP_PASSWORD,
     },
   });
+  try {
+    await transporter.verify();
+    console.log('Gmail transporter verification successful');
+  } catch (err) {
+    console.error('Gmail transporter verification failed:', err);
+  }
 
   const isCollection = data.formType === 'collection';
 
@@ -921,7 +935,9 @@ async function sendContactEmail(data) {
         await sendCustomerCollectionConfirmation(transporter, data);
       } catch (err) {
         console.error('Customer collection confirmation email error:', err);
-        throw new Error('Failed to send customer confirmation email.');
+        console.error('Customer email:', data.email);
+
+        // Do not fail the collection request if confirmation email fails
       }
     }
   } else {
@@ -934,7 +950,10 @@ async function sendContactEmail(data) {
         await sendCustomerContactConfirmation(transporter, data);
       } catch (err) {
         console.error('Customer contact confirmation email error:', err);
-        throw new Error('Failed to send customer confirmation email.');
+        console.error('Customer email:', data.email);
+
+        // Do not fail the form submission if only the confirmation email fails
+        console.error(`Internal contact email was sent successfully, but customer confirmation failed for: ${data.email}`);
       }
     }
   }
@@ -1099,6 +1118,8 @@ const server = http.createServer((req, res) => {
           }));
         } catch (error) {
           console.error('Contact API error:', error);
+          console.error('Error message:', error?.message);
+          console.error('Error stack:', error?.stack);
 
           res.writeHead(500, {
             ...CORS_HEADERS,
@@ -1107,7 +1128,7 @@ const server = http.createServer((req, res) => {
 
           res.end(JSON.stringify({
             success: false,
-            message: 'Unable to send your request right now. Please try again or contact us directly.',
+            message: error?.message || 'Unable to send your request right now.',
           }));
         }
       })();
