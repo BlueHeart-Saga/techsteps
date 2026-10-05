@@ -59,17 +59,9 @@ const breadcrumbs = [
             </div>
 
             <form
-              name="contact-enquiry"
-              method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
               class="space-y-6"
               id="techsteps-contact-form"
             >
-              <p class="hidden">
-                <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-              </p>
-              <input type="hidden" name="form-name" value="contact-enquiry" />
 
               <!-- Row 1: Name & Company -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -382,12 +374,91 @@ const breadcrumbs = [
 
     if (!form || !successMsg) return;
 
-    form.addEventListener('submit', (e) => {
-      if (!window.location.hostname.includes('netlify')) {
-        e.preventDefault();
-        successMsg.classList.remove('hidden');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitButton = form.querySelector(
+        'button[type="submit"]'
+      ) as HTMLButtonElement | null;
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+      }
+
+      const formData = new FormData(form);
+
+      const data = {
+        name: formData.get('name'),
+        company: formData.get('company'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || 'Unable to send your enquiry.');
+        }
+
+        successMsg.textContent =
+          'Thank you for contacting Techsteps. Your enquiry has been routed to our UK support desk and a team member will reply shortly.';
+
+        successMsg.classList.remove(
+          'hidden',
+          'bg-red-50',
+          'border-red-200',
+          'text-red-800'
+        );
+
+        successMsg.classList.add(
+          'bg-emerald-50',
+          'border-emerald-200',
+          'text-emerald-800'
+        );
+
         form.reset();
-        successMsg.scrollIntoView({ behavior: 'smooth' });
+
+        successMsg.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+
+      } catch (error) {
+        console.error('Contact form error:', error);
+
+        successMsg.textContent =
+          'Unable to send your enquiry right now. Please try again or contact us directly.';
+
+        successMsg.classList.remove(
+          'hidden',
+          'bg-emerald-50',
+          'border-emerald-200',
+          'text-emerald-800'
+        );
+
+        successMsg.classList.add(
+          'bg-red-50',
+          'border-red-200',
+          'text-red-800'
+        );
+
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Send Message';
+        }
       }
     });
   }

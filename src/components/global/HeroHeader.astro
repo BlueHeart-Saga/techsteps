@@ -136,7 +136,7 @@ const currentPath = Astro.url.pathname;
       <a
         href="/contact"
         class={isHome
-          ? "hidden lg:inline-flex items-center justify-center h-[44px] px-5 xl:px-6 rounded-full border border-white/70 hover:border-white hover:bg-white/10 bg-transparent text-white font-sans text-[16px] font-semibold tracking-[-0.01em] transition-all duration-150 whitespace-nowrap focus:outline-none"
+          ? "hidden lg:inline-flex items-center justify-center h-[44px] px-5 xl:px-6 rounded-full bg-white hover:bg-slate-50 border border-[#07572F] text-[#07572F] font-sans text-[16px] font-semibold tracking-[-0.01em] transition-all duration-150 shadow-xs whitespace-nowrap focus:outline-none"
           : "hidden lg:inline-flex items-center justify-center h-[44px] px-5 xl:px-6 rounded-full border border-[#07572F] bg-white text-[#07572F] font-sans text-[16px] font-semibold tracking-[-0.01em] whitespace-nowrap"
         }
       >
@@ -147,7 +147,7 @@ const currentPath = Astro.url.pathname;
       <a
         href="/request-a-quote"
         class={isHome
-          ? "hidden sm:inline-flex items-center justify-center h-[44px] px-6 xl:px-7 rounded-full bg-white hover:bg-white/90 text-[#07572F] font-sans text-[16px] font-semibold tracking-[-0.01em] transition-all duration-150 shadow-sm whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-white"
+          ? "hidden sm:inline-flex items-center justify-center h-[44px] px-6 xl:px-7 rounded-full bg-[#07572F] hover:bg-[#054324] text-white font-sans text-[16px] font-semibold tracking-[-0.01em] transition-all duration-150 shadow-sm whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-[#07572F] focus:ring-offset-2"
           : "hidden sm:inline-flex items-center justify-center h-[44px] px-6 xl:px-7 rounded-full bg-[#07572F] hover:bg-[#054324] text-white font-sans text-[16px] font-semibold tracking-[-0.01em] transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-[#07572F] focus:ring-offset-2 whitespace-nowrap"
         }
       >
@@ -157,12 +157,7 @@ const currentPath = Astro.url.pathname;
       <!-- MOBILE MENU -->
       <button
         type="button"
-        class:list={[
-          "open-mobile-menu-btn lg:hidden p-2 rounded-lg focus:outline-none focus:ring-2 transition-colors",
-          isHome
-            ? "text-white hover:text-white hover:bg-white/10 focus:ring-white"
-            : "text-slate-700 hover:text-black hover:bg-slate-100 focus:ring-emerald-400"
-        ]}
+        class="open-mobile-menu-btn lg:hidden p-2 rounded-lg text-slate-700 hover:text-black hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-[#07572F] transition-colors"
         aria-label="Open mobile navigation menu"
       >
         <svg

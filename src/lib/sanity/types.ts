@@ -412,12 +412,15 @@ export interface HomePageLifecycleStep {
   stepNumber?: string;
   title?: string;
   headline?: string;
+  shortDesc?: string;
   lead?: string;
   description?: string;
   badge?: string;
   tag?: string;
   image?: any;
   imageUrl?: string;
+  iconImage?: any;
+  iconImageUrl?: string;
   imageAlt?: string;
 }
 

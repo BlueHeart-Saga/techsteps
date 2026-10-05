@@ -323,9 +323,10 @@ const divisionMetadata: Record<
         <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#0F623A]">
           {homePage?.services?.eyebrow || 'OUR SERVICES'}
         </span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-[1.08]">
-          {homePage?.services?.heading || 'Services For The Complete Business Lifecycle'}
-        </h2>
+<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-[1.08]">
+  {homePage?.services?.heading?.replace(' Lifecycle', '') || 'Services For The Complete Business'}
+  <span class="block">Lifecycle</span>
+</h2>
       </div>
 
       <!-- Featured Bento Services Grid matching reference with Click-to-Swap -->
@@ -472,9 +473,9 @@ const divisionMetadata: Record<
   </section> -->
 
   <!-- Section 12 — Process: Visual Lifecycle -->
-  <Section theme="slate" padding="py-8 md:py-12">
+  <Section theme="white" padding="py-10 md:py-16 lg:py-20" className="bg-white">
     <Container>
-      <ProcessSteps />
+      <ProcessSteps lifecycle={homePage?.lifecycle} />
     </Container>
   </Section>
 
@@ -497,10 +498,12 @@ const divisionMetadata: Record<
 
 
   <!-- Section 15 — Homepage Final CTA -->
-  <Section theme="slate" padding="py-8 md:py-10" className="relative overflow-hidden border-t border-slate-200/80">
-    <Container className="relative z-10 text-center w-full max-w-[1240px] mx-auto space-y-8">
-<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight min-h-[2lh] min-h-[2.2em] flex items-center justify-center">
-  {homePage?.cta?.heading || 'Ready to Elevate Your IT Asset Strategy?'}
+<Section theme="slate" padding="py-8 md:py-10" className="relative overflow-hidden border-t border-slate-200/80">
+  <Container className="relative z-10 text-center w-full !max-w-[1408px] mx-auto space-y-8">
+
+<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight mx-auto w-full">
+  {homePage?.cta?.heading?.replace(' securely?', '') || 'Ready to manage your IT lifecycle more'}
+  <span class="block">securely?</span>
 </h2>
 <p class="text-base sm:text-lg text-slate-800 max-w-2xl mx-auto leading-relaxed font-medium min-h-[2lh] min-h-[3.5em]">
   {homePage?.cta?.description || 'Speak with our certified compliance specialists today to request an asset collection, schedule a facility audit, or discuss custom ITAD frameworks for your enterprise.'}

@@ -1,293 +1,465 @@
 ---
+import type { HomePageLifecycle, HomePageLifecycleStep } from '../../lib/sanity/types';
+
 interface Step {
-  stepNumber: number;
+  stepNumber: string;
+  number?: string | number;
   title: string;
-  description: string;
+  headline: string;
   shortDesc?: string;
+  description: string;
   image: string;
+  iconImage: string;
+  badge?: string;
+  imageAlt?: string;
 }
 
 interface Props {
-  steps?: Step[];
+  lifecycle?: HomePageLifecycle;
+  steps?: HomePageLifecycleStep[];
   title?: string;
   subtitle?: string;
-  lifecycle?: any;
 }
 
-const defaultLifecycleSteps: Step[] = [
+const fallbackDefaultSteps: Step[] = [
   {
-    stepNumber: 1,
-    title: 'Collect',
+    stepNumber: '01',
+    number: '1',
+    title: 'COLLECT',
+    headline: 'GPS-Tracked Transit',
     shortDesc: 'GPS-Tracked Transit',
-    description: 'Point-to-point transit in GPS-monitored vehicles with BS 7858 security-vetted drivers.',
-    image: '/images/process/new/step-1-collect.png',
+    description: 'We collect your IT equipment securely and transport it through a fully tracked process, ensuring complete visibility from pickup to arrival.',
+    badge: 'PHASE 01 // AUDIT & TRANSIT',
+    image: '/images/process/01. COLLECT.webp',
+    iconImage: '/images/process/01. COLLECT-1.webp',
+    imageAlt: 'Techsteps secure collection vehicle and logistics specialist',
   },
   {
-    stepNumber: 2,
-    title: 'Secure',
+    stepNumber: '02',
+    number: '2',
+    title: 'SECURE',
+    headline: 'Chain of Custody',
     shortDesc: 'Chain of Custody',
-    description: 'Ingestion into biometric-monitored facilities with tamper-evident serialized containment.',
-    image: '/images/process/new/step-2-secure.png',
+    description: 'Ingestion into biometric-monitored facilities with tamper-evident serialized containment and audited chain of custody.',
+    badge: 'PHASE 02 // CUSTODY & CONTAINMENT',
+    image: '/images/process/02. SECURE.webp',
+    iconImage: '/images/process/02. SECURE-1.webp',
+    imageAlt: 'Techsteps tamper-evident flight case tracking and digital custody verification',
   },
   {
-    stepNumber: 3,
-    title: 'Process',
+    stepNumber: '03',
+    number: '3',
+    title: 'PROCESS',
+    headline: 'Data Sanitisation',
     shortDesc: 'Data Sanitisation',
-    description: 'Certified sanitisation to NIST 800-88 or on-site mobile DIN 66399 mechanical granulation.',
-    image: '/images/process/new/step-3-sanitise.png',
+    description: 'Certified sanitisation to NIST 800-88 standards or on-site mobile DIN 66399 mechanical granulation.',
+    badge: 'PHASE 03 // DATA SANITISATION',
+    image: '/images/process/03. PROCESS.webp',
+    iconImage: '/images/process/03. PROCESS-1.webp',
+    imageAlt: 'NIST 800-88 certified hardware data sanitisation and live progress verification',
   },
   {
-    stepNumber: 4,
-    title: 'Recover',
+    stepNumber: '04',
+    number: '4',
+    title: 'RECOVER',
+    headline: 'Value Recovery',
     shortDesc: 'Value Recovery',
-    description: 'Refurbishment and testing to extract maximum economic residual value for your budget.',
-    image: '/images/process/new/step-4-recover.png',
+    description: 'Refurbishment, grading, and component testing to extract maximum economic residual value for your enterprise budget.',
+    badge: 'PHASE 04 // VALUE RECOVERY',
+    image: '/images/process/04. RECOVER.webp',
+    iconImage: '/images/process/04. RECOVER-1.webp',
+    imageAlt: 'Enterprise laptop and hard drive component testing and value recovery',
   },
   {
-    stepNumber: 5,
-    title: 'Reuse / Recycle',
+    stepNumber: '05',
+    number: '5',
+    title: 'RECYCLE',
+    headline: 'Zero Landfill',
     shortDesc: 'Zero Landfill',
-    description: 'Ethical B2B remarketing or domestic closed-loop raw material separation (0% landfill).',
-    image: '/images/process/new/step-5-recycle.png',
+    description: 'Ethical B2B remarketing or domestic closed-loop raw material separation, guaranteeing 100% landfill diversion.',
+    badge: 'PHASE 05 // ZERO LANDFILL RECYCLING',
+    image: '/images/process/RECYCLE.webp',
+    iconImage: '/images/process/RECYCLE-1.webp',
+    imageAlt: 'Zero-landfill closed-loop sorting and responsible component recycling',
   },
 ];
 
-const {
-  steps = defaultLifecycleSteps,
-  title = 'Our Certified Lifecycle Process',
-  subtitle = 'A secure, auditable, and environmentally responsible end-to-end chain of custody.',
-} = Astro.props;
+const { lifecycle, steps: customSteps, title: customTitle, subtitle: customSubtitle } = Astro.props;
 
-// Precise coordinates calibrated to the graphic layout:
-// textX, textY: Coordinates of the live text block
-// objX, objY: Center of the 3D element
-// nodeX, nodeY: Position of the circular node along the ascending curve
-const stepPositions = [
-  {
-    textX: 14.9,
-    textY: 48.0,
-    objX: 14.9,
-    objY: 72.0,
-    nodeX: 16.6,
-    nodeY: 78.3,
-  },
-  {
-    textX: 31.0,
-    textY: 25.3,
-    objX: 31.5,
-    objY: 62.0,
-    nodeX: 32.3,
-    nodeY: 75.7,
-  },
-  {
-    textX: 48.4,
-    textY: 25.3,
-    objX: 49.0,
-    objY: 52.0,
-    nodeX: 50.9,
-    nodeY: 58.4,
-  },
-  {
-    textX: 65.5,
-    textY: 16.2,
-    objX: 66.5,
-    objY: 34.0,
-    nodeX: 67.6,
-    nodeY: 39.1,
-  },
-  {
-    textX: 84.0,
-    textY: 5.8,
-    objX: 85.5,
-    objY: 24.0,
-    nodeX: 86.7,
-    nodeY: 30.9,
-  },
+const sectionTitle = customTitle || lifecycle?.heading || 'Our Certified Lifecycle Process';
+const sectionSubtitle = customSubtitle || lifecycle?.description || 'A Secure, Auditable, And Environmentally Responsible End-To-End Chain Of Custody.';
+
+const rawSteps = (customSteps && customSteps.length > 0)
+  ? customSteps
+  : (lifecycle?.steps && lifecycle.steps.length > 0)
+    ? lifecycle.steps
+    : fallbackDefaultSteps;
+
+const fallbackImages = [
+  { main: '/images/process/01. COLLECT.webp', icon: '/images/process/01. COLLECT-1.webp', badge: 'PHASE 01 // AUDIT & TRANSIT' },
+  { main: '/images/process/02. SECURE.webp', icon: '/images/process/02. SECURE-1.webp', badge: 'PHASE 02 // CUSTODY & CONTAINMENT' },
+  { main: '/images/process/03. PROCESS.webp', icon: '/images/process/03. PROCESS-1.webp', badge: 'PHASE 03 // DATA SANITISATION' },
+  { main: '/images/process/04. RECOVER.webp', icon: '/images/process/04. RECOVER-1.webp', badge: 'PHASE 04 // VALUE RECOVERY' },
+  { main: '/images/process/RECYCLE.webp', icon: '/images/process/RECYCLE-1.webp', badge: 'PHASE 05 // ZERO LANDFILL RECYCLING' },
 ];
+
+const normalizedSteps: Step[] = rawSteps.map((step: any, idx: number) => {
+  const defaultPair = fallbackImages[idx % fallbackImages.length];
+  const stepNum = step.stepNumber || step.number || String(idx + 1).padStart(2, '0');
+  const formattedNum = String(stepNum).replace(/[^0-9]/g, '').padStart(2, '0') || String(idx + 1).padStart(2, '0');
+
+  let mainImg = defaultPair.main;
+  if (typeof step.image === 'string' && step.image) {
+    mainImg = step.image;
+  } else if (step.imageUrl) {
+    mainImg = step.imageUrl;
+  } else if (step.image?.asset?.url) {
+    mainImg = step.image.asset.url;
+  }
+
+  let iconImg = defaultPair.icon;
+  if (typeof step.iconImage === 'string' && step.iconImage) {
+    iconImg = step.iconImage;
+  } else if (step.iconImageUrl) {
+    iconImg = step.iconImageUrl;
+  } else if (step.iconImage?.asset?.url) {
+    iconImg = step.iconImage.asset.url;
+  }
+
+  return {
+    stepNumber: formattedNum,
+    number: step.number || idx + 1,
+    title: (step.title || `STEP ${formattedNum}`).toUpperCase(),
+    headline: step.headline || step.shortDesc || step.title || `Phase ${formattedNum}`,
+    shortDesc: step.shortDesc || step.headline || '',
+    description: step.description || step.lead || '',
+    badge: step.badge || defaultPair.badge,
+    image: mainImg,
+    iconImage: iconImg,
+    imageAlt: step.imageAlt || `${step.title || 'Process Step'} - Techsteps Certified Lifecycle`,
+  };
+});
+
+const initialStep = normalizedSteps[0] || fallbackDefaultSteps[0];
 ---
 
-<div class="space-y-6 sm:space-y-10">
-  <!-- Section Header -->
+<section class="w-full select-none font-sans" id="hero-section-41-lifecycle">
+  <!-- Section Header (Centered) -->
   <div class="text-center w-full max-w-[1240px] mx-auto space-y-2.5">
     <h2 class="text-3xl font-extrabold font-display text-brand-navy tracking-tight sm:text-4xl lg:text-5xl">
-      {title}
+      {sectionTitle}
     </h2>
     <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl mx-auto font-medium">
-      {subtitle}
+      {sectionSubtitle}
     </p>
   </div>
 
-  <!-- DESKTOP WORKFLOW: Clean Graphic with Live Semantic HTML Text Overlays -->
-  <div class="hidden md:block relative w-full max-w-6xl mx-auto select-none pt-4 pb-2">
-    <!-- Aspect-ratio container exactly matching the 2560x963 image canvas -->
-    <div class="relative w-full aspect-[2560/963] overflow-visible">
-      <!-- High-resolution clean visual graphic (curved path, 3D elements, glowing aura, nodes) -->
-      <img
-        src="/images/process/process-graphic-clean-opt.webp"
-        alt="Techsteps 5-step lifecycle process flow from collection to certified recycling"
-        class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none drop-shadow-sm"
-        loading="eager"
-        decoding="async"
-      />
+  <!-- Single grid: Left = text + thumbnails | Right = image only -->
+  <div class="mx-auto w-full max-w-7xl">
+    <div class="grid grid-cols-1 lg:grid-cols-12 items-center gap-4 lg:gap-6">
 
-      <!-- Interactive Step Groups (Text Overlays + Hotspots) -->
-      {steps.map((step, idx) => {
-        const pos = stepPositions[idx] || { textX: (idx + 1) * 18, textY: 30, nodeX: (idx + 1) * 18, nodeY: 50 };
-        const isFirst = idx === 0;
+      <!-- ═══════════════════════════════════════════════
+           LEFT COLUMN: Step info + Pedestal thumbnails
+           ═══════════════════════════════════════════════ -->
+      <div class="flex flex-col gap-2 lg:col-span-5 max-lg:items-center max-lg:text-center">
 
-        return (
-          <div
-            class={`process-step-group group cursor-pointer ${isFirst ? 'active' : ''}`}
-            data-process-step={idx}
-            role="button"
-            tabindex="0"
-            aria-label={`Step ${step.stepNumber}: ${step.title} - ${step.shortDesc}`}
-          >
-            <!-- 1. Live Semantic Text Overlay (Positioned exactly above each 3D object) -->
-            <div
-              class="process-text-overlay absolute flex flex-col items-center text-center transition-all duration-300 pointer-events-auto"
-              style={`left: ${pos.textX}%; top: ${pos.textY}%; transform: translate(-50%, -50%);`}
-              data-process-step={idx}
-              data-number={step.stepNumber}
-              data-title={step.title}
-              data-short={step.shortDesc || ''}
-              data-desc={step.description}
-            >
-              <!-- Number & Title -->
-              <div class="flex items-center justify-center gap-1.5 font-display font-extrabold uppercase tracking-[0.14em] text-slate-900 group-[.active]:text-[#0F623A] transition-colors whitespace-nowrap text-[clamp(11px,1.22vw,16px)] leading-tight">
-                <span class="text-[#0F623A] font-black">{step.stepNumber}.</span>
-                <span>{step.title}</span>
-              </div>
-
-              <!-- Subtitle / Short Description -->
-              <p class="font-sans font-medium text-slate-600 group-[.active]:text-slate-950 group-[.active]:font-semibold transition-all mt-0.5 whitespace-nowrap text-[clamp(9px,0.98vw,13px)] leading-tight">
-                {step.shortDesc || step.title}
-              </p>
-            </div>
-
-            <!-- 2. Interactive Object Hotspot (Enables clicking/hovering directly over the 3D element) -->
-            <div
-              class="absolute -translate-x-1/2 -translate-y-1/2 w-[14%] h-[34%] rounded-2xl pointer-events-auto z-10"
-              style={`left: ${pos.objX}%; top: ${pos.objY}%;`}
-              data-process-step={idx}
-              title={`Click to view Phase 0${step.stepNumber}: ${step.title}`}
-            ></div>
-
-            <!-- 3. Node dot (no hover glow) -->
-            <div
-              class="absolute -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-[#0F623A] bg-white pointer-events-none z-20 opacity-0 group-[.active]:opacity-100 transition-opacity duration-300"
-              style={`left: ${pos.nodeX}%; top: ${pos.nodeY}%;`}
-            ></div>
-          </div>
-        );
-      })}
-    </div>
-  </div>
-
-  <!-- INTERACTIVE DETAIL CARD (Highlights the selected phase with compliance context) -->
-  <div class="hidden md:block max-w-2xl mx-auto text-center p-4 sm:p-5 rounded-2xl bg-white/95 border border-slate-200/90 shadow-sm backdrop-blur-sm transition-all duration-300 mt-2" id="step-detail-card">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-[#0F623A] text-xs font-bold uppercase tracking-wider mb-2">
-      <span id="detail-card-badge">Phase 01</span>
-      <span class="text-emerald-300">&bull;</span>
-      <span id="detail-card-title">{steps[0].title}</span>
-    </div>
-    <p id="detail-card-desc" class="text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
-      {steps[0].description}
-    </p>
-  </div>
-
-  <!-- MOBILE / TABLET RESPONSIVE WORKFLOW (Vertical timeline with prominent 3D images) -->
-  <div class="md:hidden relative pl-6 sm:pl-8 space-y-6 sm:space-y-8 pt-4">
-    <!-- Vertical Connecting Glowing Guideline -->
-    <div class="absolute left-10 sm:left-12 top-6 bottom-6 w-0.5 bg-gradient-to-b from-[#0F623A] via-[#0F623A] to-[#146B5C] rounded-full" aria-hidden="true"></div>
-
-    {steps.map((step) => (
-      <div class="relative flex items-start gap-4 sm:gap-6 group">
-        <!-- Pure Step Image (No Box) -->
-        <div class="relative z-10 shrink-0 w-20 h-20 flex items-center justify-center">
-          <img
-            src={step.image}
-            alt={`${step.title} process step`}
-            class="w-18 h-18 object-contain drop-shadow-md"
-            loading="lazy"
-            decoding="async"
-          />
-          <!-- Step Number Badge -->
-          <span class="absolute top-0 right-0 w-5 h-5 rounded-full bg-[#0F623A] text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
-            {step.stepNumber}
-          </span>
+        <!-- Step badge -->
+        <div
+          id="hero41-step-badge"
+          class="text-xs sm:text-sm font-extrabold uppercase tracking-[0.16em] text-[#146B5C] transition-opacity duration-200"
+        >
+          {initialStep.stepNumber}. {initialStep.title}
         </div>
 
-        <!-- Step Narrative -->
-        <div class="space-y-1 pt-2 min-w-0 flex-1">
-          <h3 class="text-base sm:text-lg font-bold font-display text-brand-navy tracking-tight group-hover:text-[#0F623A] transition-colors">
-            {step.stepNumber}. {step.title}
-          </h3>
-          <p class="text-xs sm:text-sm font-semibold text-[#0F623A] mb-1">
-            {step.shortDesc}
-          </p>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-            {step.description}
-          </p>
+        <!-- Headline -->
+        <h3
+          id="hero41-step-headline"
+          class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-display text-slate-900 tracking-tight leading-tight transition-opacity duration-200"
+        >
+          {initialStep.headline}
+        </h3>
+
+        <!-- Description -->
+        <p
+          id="hero41-step-desc"
+          class="text-slate-600 text-base sm:text-lg lg:text-[1.125rem] max-w-xl leading-relaxed font-normal transition-opacity duration-200"
+        >
+          {initialStep.description}
+        </p>
+
+        <!-- ─── Pedestal Thumbnail Row (inside left col) ─── -->
+        <div class="relative w-full mt-8 sm:mt-10 lg:mt-14 overflow-hidden" role="region" aria-roledescription="carousel">
+          <!-- Fade masks -->
+          <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-white to-transparent"></div>
+          <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-white to-transparent"></div>
+
+          <!-- Track viewport -->
+          <div class="overflow-hidden w-full" id="hero41-thumb-viewport">
+            <div class="flex items-end transition-transform duration-500 ease-out" id="hero41-thumb-track">
+              {normalizedSteps.map((step, idx) => {
+                const isFirst = idx === 0;
+                return (
+                  <div
+                    role="button"
+                    tabindex="0"
+                    aria-label={`Select Step ${step.stepNumber}: ${step.title}`}
+                    aria-selected={isFirst ? 'true' : 'false'}
+                    class={`hero41-thumb-item min-w-0 shrink-0 grow-0 basis-1/3 cursor-pointer px-1 flex items-end justify-center ${
+                      isFirst ? 'active' : ''
+                    }`}
+                    data-thumb-index={idx}
+                    data-number={step.stepNumber}
+                    data-title={step.title}
+                    data-headline={step.headline}
+                    data-desc={step.description}
+                    data-badge={step.badge}
+                    data-icon={step.iconImage}
+                    data-short={step.shortDesc}
+                  >
+                    <div class="relative flex h-24 items-end justify-center w-full group">
+                      <!-- SVG Pedestal -->
+                      <div
+                        class={`hero41-pedestal-svg absolute bottom-0 w-full flex justify-center transition-colors duration-300 ${
+                          isFirst ? 'text-[#146B5C]' : 'text-slate-200 group-hover:text-slate-300'
+                        }`}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="161" height="92" viewBox="0 0 161 92" fill="none" class="w-full max-w-[110px] sm:max-w-[130px] h-auto">
+                          <path
+                            d="M0.682517 80.6118L0.501193 39.6946C0.480127 34.9409 3.80852 30.8294 8.46241 29.8603L148.426 0.713985C154.636 -0.579105 160.465 4.16121 160.465 10.504V80.7397C160.465 86.2674 155.98 90.7465 150.453 90.7397L10.6701 90.5674C5.16936 90.5607 0.706893 86.1125 0.682517 80.6118Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          ></path>
+                        </svg>
+                      </div>
+                      <!-- Icon -->
+                      <img
+                        src={step.iconImage}
+                        alt={step.title}
+                        class={`hero41-thumb-img size-14 sm:size-16 object-contain transition-all duration-300 relative z-10 group-hover:scale-110 ${
+                          isFirst ? 'scale-105 opacity-100 drop-shadow-md' : 'scale-95 opacity-70'
+                        }`}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <!-- ─── End Thumbnail Row ─── -->
+
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           RIGHT COLUMN: Large lifecycle image only
+           ═══════════════════════════════════════════════ -->
+      <div
+        class="relative w-full lg:col-span-7 flex items-center justify-center"
+        role="region"
+        aria-roledescription="carousel"
+      >
+        <div class="relative w-full h-[260px] sm:h-[340px] md:h-[380px] lg:h-[420px] xl:h-[460px] flex items-center justify-center">
+          {normalizedSteps.map((step, idx) => {
+            const isFirst = idx === 0;
+            return (
+              <div
+                class={`hero41-main-slide absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-500 ease-out ${
+                  isFirst
+                    ? 'opacity-100 scale-100 translate-x-0 pointer-events-auto z-10'
+                    : 'opacity-0 scale-95 translate-x-6 pointer-events-none z-0'
+                }`}
+                data-slide-index={idx}
+              >
+                <img
+                  src={step.image}
+                  alt={step.imageAlt}
+                  class="w-full h-full object-contain drop-shadow-md select-none"
+                  loading={isFirst ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
-    ))}
-  </div>
-</div>
 
-<!-- Interactive Hover & Click Script for Ascending Workflow -->
+    </div>
+  </div>
+</section>
+
+<!-- Auto-Scroll Engine & Synchronization Script (Matching Hero Section 41 Delay: 3000ms) -->
 <script is:inline>
   (() => {
-    const initWorkflowCurve = () => {
-      const groups = document.querySelectorAll('.process-step-group');
-      const badgeEl = document.getElementById('detail-card-badge');
-      const titleEl = document.getElementById('detail-card-title');
-      const descEl = document.getElementById('detail-card-desc');
-      if (!groups.length) return;
+    const initHero41Lifecycle = () => {
+      const container = document.getElementById('hero-section-41-lifecycle');
+      if (!container) return;
 
-      const activateStep = (stepIdx) => {
-        groups.forEach((g) => {
-          if (g.getAttribute('data-process-step') === stepIdx) {
-            g.classList.add('active');
+      const mainSlides = container.querySelectorAll('.hero41-main-slide');
+      const thumbItems = container.querySelectorAll('.hero41-thumb-item');
+      const thumbTrack = document.getElementById('hero41-thumb-track');
+      const thumbViewport = document.getElementById('hero41-thumb-viewport');
+
+      const stepBadgeEl = document.getElementById('hero41-step-badge');
+      const headlineEl = document.getElementById('hero41-step-headline');
+      const descEl = document.getElementById('hero41-step-desc');
+
+      const totalItems = thumbItems.length;
+      if (totalItems === 0) return;
+
+      let currentIndex = 0;
+      let autoplayTimer = null;
+      const AUTO_SCROLL_DELAY = 3000; // Exact delay from Hero Section 41 reference
+
+      const updateThumbTrackPosition = (index) => {
+        if (!thumbTrack || !thumbViewport || !thumbItems[index]) return;
+        const targetItem = thumbItems[index];
+        const itemWidth = targetItem.offsetWidth;
+        const viewportWidth = thumbViewport.offsetWidth;
+
+        // Center the active thumbnail item in the track
+        const targetLeft = targetItem.offsetLeft;
+        const centerOffset = targetLeft - (viewportWidth / 2) + (itemWidth / 2);
+        const maxScroll = Math.max(0, thumbTrack.scrollWidth - viewportWidth);
+        const clampedOffset = Math.max(0, Math.min(centerOffset, maxScroll));
+
+        thumbTrack.style.transform = `translateX(-${clampedOffset}px)`;
+      };
+
+      const selectStep = (index, userInitiated = false) => {
+        currentIndex = (index + totalItems) % totalItems;
+        const activeItem = thumbItems[currentIndex];
+        if (!activeItem) return;
+
+        // 1. Update Main Slides
+        mainSlides.forEach((slide, idx) => {
+          if (idx === currentIndex) {
+            slide.classList.remove('opacity-0', 'scale-95', 'translate-x-8', 'pointer-events-none', 'z-0');
+            slide.classList.add('opacity-100', 'scale-100', 'translate-x-0', 'pointer-events-auto', 'z-10');
           } else {
-            g.classList.remove('active');
+            slide.classList.remove('opacity-100', 'scale-100', 'translate-x-0', 'pointer-events-auto', 'z-10');
+            slide.classList.add('opacity-0', 'scale-95', 'translate-x-8', 'pointer-events-none', 'z-0');
           }
         });
 
-        const activeOverlay = document.querySelector(`.process-text-overlay[data-process-step="${stepIdx}"]`);
-        if (!activeOverlay) return;
+        // 2. Update Left Narrative Content with subtle 120ms cross-fade
+        if (headlineEl && descEl && stepBadgeEl) {
+          headlineEl.style.opacity = '0';
+          descEl.style.opacity = '0';
+          stepBadgeEl.style.opacity = '0';
 
-        const number = activeOverlay.getAttribute('data-number') || '1';
-        const title = activeOverlay.getAttribute('data-title') || '';
-        const desc = activeOverlay.getAttribute('data-desc') || '';
+          setTimeout(() => {
+            const num = activeItem.getAttribute('data-number') || '';
+            const title = activeItem.getAttribute('data-title') || '';
+            const headline = activeItem.getAttribute('data-headline') || '';
+            const desc = activeItem.getAttribute('data-desc') || '';
 
-        if (badgeEl) badgeEl.textContent = `Phase 0${number}`;
-        if (titleEl) titleEl.textContent = title;
-        if (descEl) descEl.textContent = desc;
-      };
+            stepBadgeEl.textContent = `${num}. ${title}`;
+            headlineEl.textContent = headline;
+            descEl.textContent = desc;
 
-      groups.forEach((group) => {
-        const stepIdx = group.getAttribute('data-process-step');
+            headlineEl.style.opacity = '1';
+            descEl.style.opacity = '1';
+            stepBadgeEl.style.opacity = '1';
+          }, 120);
+        }
 
-        group.addEventListener('mouseenter', () => {
-          activateStep(stepIdx);
+        // 3. Update Pedestal Thumbnails & SVGs
+        thumbItems.forEach((item, idx) => {
+          const isActive = idx === currentIndex;
+          item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          const svgEl = item.querySelector('.hero41-pedestal-svg');
+          const imgEl = item.querySelector('.hero41-thumb-img');
+
+          if (isActive) {
+            item.classList.add('active');
+            if (svgEl) {
+              svgEl.classList.remove('text-slate-200', 'group-hover:text-slate-300');
+              svgEl.classList.add('text-[#146B5C]');
+            }
+            if (imgEl) {
+              imgEl.classList.remove('scale-95', 'opacity-80');
+              imgEl.classList.add('scale-105', 'opacity-100', 'drop-shadow-md');
+            }
+          } else {
+            item.classList.remove('active');
+            if (svgEl) {
+              svgEl.classList.remove('text-[#146B5C]');
+              svgEl.classList.add('text-slate-200', 'group-hover:text-slate-300');
+            }
+            if (imgEl) {
+              imgEl.classList.remove('scale-105', 'opacity-100', 'drop-shadow-md');
+              imgEl.classList.add('scale-95', 'opacity-80');
+            }
+          }
         });
 
-        group.addEventListener('click', () => activateStep(stepIdx));
-        group.addEventListener('keydown', (e) => {
+        // 4. Scroll Pedestal Track
+        updateThumbTrackPosition(currentIndex);
+
+        // 5. Reset Autoplay Cycle
+        resetAutoplay();
+      };
+
+      const startAutoplay = () => {
+        stopAutoplay();
+        autoplayTimer = setInterval(() => {
+          selectStep(currentIndex + 1);
+        }, AUTO_SCROLL_DELAY);
+      };
+
+      const stopAutoplay = () => {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      };
+
+      const resetAutoplay = () => {
+        stopAutoplay();
+        startAutoplay();
+      };
+
+      // Event listeners for thumbnails
+      thumbItems.forEach((item, idx) => {
+        item.addEventListener('click', () => {
+          selectStep(idx, true);
+        });
+
+        item.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            activateStep(stepIdx);
+            selectStep(idx, true);
+          } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            const next = (idx + 1) % totalItems;
+            thumbItems[next]?.focus();
+            selectStep(next, true);
+          } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            const prev = (idx - 1 + totalItems) % totalItems;
+            thumbItems[prev]?.focus();
+            selectStep(prev, true);
           }
         });
       });
+
+      // Window resize re-centering
+      window.addEventListener('resize', () => {
+        updateThumbTrackPosition(currentIndex);
+      });
+
+      // Initialize active position and start autoplay
+      updateThumbTrackPosition(0);
+      startAutoplay();
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initWorkflowCurve);
+      document.addEventListener('DOMContentLoaded', initHero41Lifecycle);
     } else {
-      initWorkflowCurve();
+      initHero41Lifecycle();
     }
-    document.addEventListener('astro:page-load', initWorkflowCurve);
+    document.addEventListener('astro:page-load', initHero41Lifecycle);
   })();
 </script>

@@ -197,6 +197,7 @@ export async function getHomePage(): Promise<HomePageData | null> {
               stepNumber,
               title,
               headline,
+              shortDesc,
               lead,
               description,
               badge,
@@ -208,6 +209,13 @@ export async function getHomePage(): Promise<HomePageData | null> {
                 }
               },
               "imageUrl": image.asset->url,
+              iconImage{
+                asset->{
+                  _id,
+                  url
+                }
+              },
+              "iconImageUrl": iconImage.asset->url,
               imageAlt
             }
           },

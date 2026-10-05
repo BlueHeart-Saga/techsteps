@@ -18,11 +18,9 @@ const client = createClient({
 
 async function main() {
   const hpById = await client.fetch('*[_id == "homePage"][0]');
-  const hpByType = await client.fetch('*[_type == "homePage" && !(_id in path("drafts.**"))]');
   console.log('Doc with _id == "homePage":', hpById ? hpById._id : 'DOES NOT EXIST');
-  console.log(`Docs with _type == "homePage": count=${hpByType.length}`);
-  for (const d of hpByType) {
-    console.log(`  _id: ${d._id}, heading: "${d.hero?.heading || ''}"`);
+  if (hpById) {
+    console.log('LIFECYCLE:', JSON.stringify(hpById.lifecycle, null, 2));
   }
 }
 

@@ -11,69 +11,61 @@ const hero = homePage?.hero;
 ========================= -->
 <section
   id="hero"
-  class="relative w-full overflow-hidden bg-[#07572F] select-none"
+  class="relative w-full overflow-hidden bg-white select-none"
 >
-  <!-- Background Image with smooth organic white-to-green transition -->
+  <!-- Background Image on Desktop (Full section composition with worker on the right) -->
   <img
-    src="/images/brand/hero_banner_background.webp"
+    src="/images/brand/Section (Techsteps UK _ Secure IT, Document & Business Services) (1).webp"
     alt=""
     aria-hidden="true"
-    class="absolute inset-0 w-full h-full object-fill pointer-events-none select-none z-0"
+    class="hidden lg:block absolute inset-0 w-full h-full object-cover object-[right_center] xl:object-right pointer-events-none select-none z-0"
     loading="eager"
     fetchpriority="high"
     decoding="sync"
   />
 
-  <!-- Top Hero Header (Transparent on home, integrated with hero background) -->
+  <!-- Top Hero Header (Integrated with light hero background) -->
   <HeroHeader isHome={true} />
 
-  <!-- Main Hero Grid Container -->
+  <!-- Main Hero Content Container -->
   <div
     class="relative z-10 w-full max-w-7xl mx-auto
            px-4 sm:px-6 lg:px-8
-           pt-4 sm:pt-6 lg:pt-8 xl:pt-10
-           pb-0"
+           pt-4 sm:pt-8 lg:pt-12 xl:pt-14
+           pb-16 sm:pb-20 lg:pb-28"
   >
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
 
       <!-- =========================
            HERO CONTENT (Left)
       ========================= -->
-      <div class="lg:col-span-7 xl:col-span-7 max-w-2xl lg:max-w-none pt-2 sm:pt-4 lg:pt-6 pb-8 sm:pb-12 lg:pb-16 z-10">
+      <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
 
-        <!-- Eyebrow -->
-        <span
-          class="inline-block
-                 text-xs sm:text-sm
-                 font-sans font-bold
-                 uppercase
-                 tracking-[0.2em]
-                 text-white/90
-                 mb-3 sm:mb-4"
-        >
-          {hero?.eyebrow || 'SUSTAINABLE IT RECYCLING'}
-        </span>
+        <!-- Eyebrow Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.18em] mb-3 sm:mb-4">
+          <span>{hero?.eyebrow || 'SUSTAINABLE IT RECYCLING'}</span>
+        </div>
 
-        <!-- Heading: Serif font matching reference with 2-line break -->
+        <!-- Heading: Serif font matching Techsteps brand -->
         <h1
           class="font-display font-serif
-                 text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[60px]
-                 font-normal
-                 text-white
+                 text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
+                 font-extrabold
+                 text-slate-900
                  tracking-tight
-                 leading-[1.12] sm:leading-[1.08]
-                 max-w-2xl"
+                 leading-[1.1] sm:leading-[1.08]
+                 max-w-xl"
           style="font-family: 'Lora', Georgia, serif;"
         >
-          Creating Value<br />From Each Device
+          Creating Value<br class="hidden sm:inline" /> From Each Device
         </h1>
 
         <!-- Description -->
         <p
           class="mt-4 sm:mt-5
-                 text-sm sm:text-base lg:text-[17px]
-                 text-white/90
-                 max-w-xl
+                 text-base sm:text-lg lg:text-[17px]
+                 text-slate-600
+                 max-w-lg
                  leading-relaxed
                  font-sans font-normal"
         >
@@ -84,7 +76,7 @@ const hero = homePage?.hero;
         </p>
 
         <!-- CTA Buttons -->
-        {/*<div
+        <div
           class="mt-6 sm:mt-8
                  flex flex-wrap
                  items-center
@@ -97,19 +89,19 @@ const hero = homePage?.hero;
                    gap-2.5
                    px-6 sm:px-7
                    py-3 sm:py-3.5
-                   rounded-full
-                   bg-white hover:bg-white/90
-                   text-[#07572F]
+                   rounded-none
+                   bg-[#0F623A] hover:bg-[#0c4e2e]
+                   text-white
                    text-sm sm:text-base
-                   font-semibold
-                   shadow-md
+                   font-bold
+                   shadow-md hover:shadow-lg
                    transition-all duration-200
                    hover:scale-[1.02]
-                   focus:outline-none focus:ring-2 focus:ring-white"
+                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
           >
             <span>Explore Services</span>
             <svg
-              class="w-4 h-4 text-[#07572F]"
+              class="w-4 h-4 text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -129,53 +121,67 @@ const hero = homePage?.hero;
             class="inline-flex items-center justify-center
                    px-6 sm:px-7
                    py-3 sm:py-3.5
-                   rounded-full
-                   bg-transparent hover:bg-white/10
-                   border border-white/60 hover:border-white
-                   text-white
+                   rounded-none
+                   bg-white hover:bg-slate-50
+                   border-2 border-[#0F623A] hover:border-[#0c4e2e]
+                   text-[#0F623A] hover:text-[#0c4e2e]
                    text-sm sm:text-base
-                   font-semibold
+                   font-bold
                    transition-all duration-200
                    hover:scale-[1.02]
                    shadow-xs
-                   focus:outline-none focus:ring-2 focus:ring-white"
+                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
           >
             Contact Us
           </a>
-        </div>*/}
+        </div>
+
+        <!-- Mobile & Tablet Visual Stack (Below Text on <lg) -->
+        <div class="lg:hidden w-full flex justify-center items-center mt-8 sm:mt-10">
+          <div class="relative w-full max-w-[460px]">
+            <img
+              src="/images/brand/hero-worker-mobile.webp"
+              alt={
+                hero?.imageAlt ||
+                'Techsteps sustainable IT recycling technician holding box of electronics'
+              }
+              class="w-full h-auto object-contain drop-shadow-md select-none mx-auto block"
+              width="600"
+              height="570"
+              loading="eager"
+              decoding="sync"
+            />
+          </div>
+        </div>
       </div>
 
       <!-- =========================
-           HERO IMAGE (Right)
+           HERO SPACER (Right on Desktop)
       ========================= -->
-      <div class="lg:col-span-5 xl:col-span-5 flex items-end justify-center lg:justify-end relative self-end">
-        <div class="relative flex items-end justify-end w-full max-w-[480px] lg:max-w-none">
-          <img
-            src="/images/brand/hero_person_box.webp"
-            alt={
-              hero?.imageAlt ||
-              'Techsteps sustainable IT recycling technician holding box of electronics'
-            }
-            class="hero-person-img w-full h-auto max-h-[380px] sm:max-h-[440px] lg:max-h-[500px] xl:max-h-[540px] object-contain pointer-events-none select-none block"
-            width="2738"
-            height="2654"
-            loading="eager"
-            decoding="sync"
-            fetchpriority="high"
-          />
-        </div>
+      <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end min-h-[420px] lg:min-h-[480px] xl:min-h-[520px] pointer-events-none" aria-hidden="true">
       </div>
 
     </div>
   </div>
+
+  <!-- =========================
+       TORN PAPER DIVIDER (Bottom)
+  ========================= -->
+  <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-20 pointer-events-none">
+    <img
+      src="/images/brand/torn-paper-edge.svg"
+      alt=""
+      aria-hidden="true"
+      class="w-full h-8 sm:h-12 md:h-16 lg:h-20 object-fill block"
+      loading="eager"
+      decoding="sync"
+    />
+  </div>
 </section>
 
 <style>
-  .hero-person-img {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: high-quality;
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+  #hero {
+    /* Fallback soft gradient matching image backdrop */
+    background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 45%, #EBF3EA 100%);
   }
 </style>

@@ -1,7 +1,9 @@
+require('dotenv').config();
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
+const nodemailer = require('nodemailer');
 
 const DIST_DIR = __dirname;
 const PORT = process.env.PORT || 8080;
@@ -94,7 +96,98 @@ function resolveFilePath(reqUrl) {
   return null;
 }
 
+function readRequestBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+
+    req.on('data', (chunk) => {
+      body += chunk.toString();
+
+      // Prevent excessively large requests
+      if (body.length > 100000) {
+        req.destroy();
+        reject(new Error('Request body too large'));
+      }
+    });
+
+    req.on('end', () => resolve(body));
+    req.on('error', reject);
+  });
+}
+
+async function sendContactEmail(data) {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_APP_PASSWORD,
+    },
+  });
+
+  await transporter.sendMail({
+    from: process.env.GMAIL_USER,
+    to: process.env.FORM_RECEIVER_EMAIL,
+    replyTo: data.email,
+    subject: `Techsteps Contact Enquiry - ${data.subject || 'General Enquiry'}`,
+    text: `
+New Contact Enquiry
+
+Name: ${data.name || ''}
+Email: ${data.email || ''}
+Telephone: ${data.phone || ''}
+Service Required: ${data.subject || ''}
+
+Message:
+${data.message || ''}
+    `.trim(),
+  });
+}
+
 const server = http.createServer((req, res) => {
+  // Contact form API
+  if (req.method === 'POST' && req.url === '/api/contact') {
+    (async () => {
+      try {
+        const body = await readRequestBody(req);
+        const data = JSON.parse(body);
+
+        if (!data.name || !data.email || !data.phone || !data.subject || !data.message) {
+          res.writeHead(400, {
+            'Content-Type': 'application/json; charset=utf-8',
+          });
+          res.end(JSON.stringify({
+            success: false,
+            message: 'Please complete all required fields.',
+          }));
+          return;
+        }
+
+        await sendContactEmail(data);
+
+        res.writeHead(200, {
+          'Content-Type': 'application/json; charset=utf-8',
+        });
+
+        res.end(JSON.stringify({
+          success: true,
+          message: 'Your enquiry has been sent successfully.',
+        }));
+      } catch (error) {
+        console.error('Contact form error:', error);
+
+        res.writeHead(500, {
+          'Content-Type': 'application/json; charset=utf-8',
+        });
+
+        res.end(JSON.stringify({
+          success: false,
+          message: 'Unable to send your enquiry right now.',
+        }));
+      }
+    })();
+
+    return;
+  }
   // Only allow GET and HEAD
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.writeHead(405, { 'Content-Type': 'text/plain' });

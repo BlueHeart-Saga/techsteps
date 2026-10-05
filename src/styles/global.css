@@ -285,8 +285,7 @@ div[class*="uppercase"][class*="text-xs"] {
 #hero-header nav a,
 #hero-header nav button,
 #hero-header nav a span,
-#hero-header nav button span,
-#hero-header a[href*="contact"] {
+#hero-header nav button span {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
   font-size: 18px !important;
   font-weight: 500 !important;
@@ -296,47 +295,52 @@ div[class*="uppercase"][class*="text-xs"] {
 }
 
 #hero-header nav a:hover,
-#hero-header nav button:hover,
-#hero-header a[href*="contact"]:hover {
+#hero-header nav button:hover {
   color: #07572F !important;
 }
 
-/* 3. REQUEST A COLLECTION CTA BUTTON */
+/* 3. CONTACT US BUTTON: White background, #07572F text, #07572F border */
+#hero-header a[href*="contact"],
+#hero-header[data-is-home="true"] a[href*="contact"] {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  background-color: #ffffff !important;
+  color: #07572F !important;
+  border: 1px solid #07572F !important;
+  transition: all 150ms ease-in-out !important;
+}
+
+#hero-header a[href*="contact"]:hover,
+#hero-header[data-is-home="true"] a[href*="contact"]:hover {
+  background-color: #F4F8F5 !important;
+  color: #07572F !important;
+  border-color: #07572F !important;
+}
+
+/* 4. REQUEST A COLLECTION CTA BUTTON: #07572F background, White text, #07572F border */
 #hero-header a[href*="quote"],
-#hero-header a[href*="collection"] {
+#hero-header a[href*="collection"],
+#hero-header[data-is-home="true"] a[href*="quote"],
+#hero-header[data-is-home="true"] a[href*="collection"] {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
   font-size: 16px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
   background-color: #07572F !important;
   color: #ffffff !important;
+  border: 1px solid #07572F !important;
+  transition: all 150ms ease-in-out !important;
 }
 
 #hero-header a[href*="quote"]:hover,
-#hero-header a[href*="collection"]:hover {
-  background-color: #054424 !important;
-}
-
-/* Home Page Header Buttons (Green background compatible) */
-#hero-header[data-is-home="true"] a[href*="contact"] {
-  color: #ffffff !important;
-  background-color: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.7) !important;
-}
-#hero-header[data-is-home="true"] a[href*="contact"]:hover {
-  border-color: #ffffff !important;
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  color: #ffffff !important;
-}
-#hero-header[data-is-home="true"] a[href*="quote"],
-#hero-header[data-is-home="true"] a[href*="collection"] {
-  background-color: #ffffff !important;
-  color: #07572F !important;
-}
+#hero-header a[href*="collection"]:hover,
 #hero-header[data-is-home="true"] a[href*="quote"]:hover,
 #hero-header[data-is-home="true"] a[href*="collection"]:hover {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  color: #07572F !important;
+  background-color: #054324 !important;
+  color: #ffffff !important;
+  border-color: #054324 !important;
 }
 
 /* 4. SERVICES DROPDOWN - EXACT CONTAINER DIMENSIONS */

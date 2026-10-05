@@ -384,6 +384,13 @@ export default defineType({
                                 }),
 
                                 defineField({
+                                    name: 'iconImage',
+                                    title: 'Step Thumbnail / Icon',
+                                    type: 'image',
+                                    options: { hotspot: true },
+                                }),
+
+                                defineField({
                                     name: 'badge',
                                     title: 'Phase Badge',
                                     type: 'string',
