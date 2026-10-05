@@ -36,24 +36,24 @@ jobs:
           SANITY_PROJECT_ID: ${{ secrets.PUBLIC_SANITY_PROJECT_ID || secrets.SANITY_PROJECT_ID || 'zjv69ibt' }}
           SANITY_DATASET: ${{ secrets.PUBLIC_SANITY_DATASET || secrets.SANITY_DATASET || 'techsteps' }}
 
-- name: Install production dependencies in dist
-  run: |
-    cd dist
-    npm install --omit=dev
+      - name: Install production dependencies in dist
+        run: |
+          cd dist
+          npm install --omit=dev
 
-- name: Verify Astro output
-  run: |
-    echo "Checking Astro build..."
-    test -f dist/index.html
-    test -f dist/server.js
-    test -f dist/package.json
-    test -d dist/node_modules
-    test -d dist/node_modules/dotenv
-    test -d dist/node_modules/nodemailer
-    echo "dist/index.html and Azure server runner files exist"
-    echo "Production dependencies installed successfully"
-    echo "Build output:"
-    find dist -maxdepth 2 -type f | head -50
+      - name: Verify Astro output
+        run: |
+          echo "Checking Astro build..."
+          test -f dist/index.html
+          test -f dist/server.js
+          test -f dist/package.json
+          test -d dist/node_modules
+          test -d dist/node_modules/dotenv
+          test -d dist/node_modules/nodemailer
+          echo "dist/index.html and Azure server runner files exist"
+          echo "Production dependencies installed successfully"
+          echo "Build output:"
+          find dist -maxdepth 2 -type f | head -50
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
