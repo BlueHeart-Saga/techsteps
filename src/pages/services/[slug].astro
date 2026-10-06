@@ -147,19 +147,42 @@ const breadcrumbSchema = generateBreadcrumbSchema([
   { name: service.divisionTitle, url: `/${divisionPageSlug}` },
   { name: service.title, url: `/services/${service.slug}` },
 ], Astro.site?.origin || 'https://techsteps.co.uk');
-// Identify light-background hero pages (Digital Mailroom & Document Scanning)
+// Identify light-background hero pages (Information Management Services matching Home Hero style)
 const cleanSlug = service.slug ? service.slug.toLowerCase().replace(/-(uk|services|services-uk)$/, '') : '';
 const isDigitalMailroom = cleanSlug === 'digital-mailroom' || service.slug?.toLowerCase().includes('digital-mailroom') || service.title?.toLowerCase().includes('mailroom');
 const isDocumentScanning = cleanSlug === 'document-scanning' || service.slug?.toLowerCase().includes('document-scanning') || service.title?.toLowerCase().includes('scanning');
+const isDocumentManagement = cleanSlug === 'document-management' || service.slug?.toLowerCase().includes('document-management') || service.title?.toLowerCase().includes('document management');
+const isDocumentStorage = cleanSlug === 'document-storage' || service.slug?.toLowerCase().includes('document-storage') || service.title?.toLowerCase().includes('document storage');
+const isTapeStorage = cleanSlug === 'tape-media-storage' || cleanSlug === 'tape-storage' || service.slug?.toLowerCase().includes('tape') || service.title?.toLowerCase().includes('tape');
+const isHeritageStorage = cleanSlug === 'heritage-storage' || service.slug?.toLowerCase().includes('heritage') || service.title?.toLowerCase().includes('heritage');
+const isVaultStorage = cleanSlug === 'vault-storage' || service.slug?.toLowerCase().includes('vault') || service.title?.toLowerCase().includes('vault');
 
-const isLightHero = isDigitalMailroom || isDocumentScanning ||
-  (typeof service.heroImage === 'string' && (service.heroImage.includes('digital mail room') || service.heroImage.includes('document scaning')));
+const isLightHero = isDigitalMailroom || isDocumentScanning || isDocumentManagement || isDocumentStorage || isTapeStorage || isHeritageStorage || isVaultStorage ||
+  (typeof service.heroImage === 'string' && (
+    service.heroImage.includes('digital mail room') ||
+    service.heroImage.includes('document scaning') ||
+    service.heroImage.includes('document management') ||
+    service.heroImage.includes('secure document storage') ||
+    service.heroImage.includes('Tape and Media Storage') ||
+    service.heroImage.includes('heritage storage') ||
+    service.heroImage.includes('Valut storage')
+  ));
 
 const heroBgImage = isDigitalMailroom
   ? '/images/hero/digital mail room services.webp'
   : isDocumentScanning
   ? '/images/hero/document scaning services.webp'
-  : (service.heroImage || '/images/services/document-storage.jpg');
+  : isDocumentManagement
+  ? '/images/hero/document management.webp'
+  : isDocumentStorage
+  ? '/images/hero/secure document storage.webp'
+  : isTapeStorage
+  ? '/images/hero/Tape and Media Storage.webp'
+  : isHeritageStorage
+  ? '/images/hero/heritage storage.webp'
+  : isVaultStorage
+  ? '/images/hero/Valut storage.webp'
+  : (service.heroImage || '/images/hero/secure document storage.webp');
 ---
 
 <BaseLayout
@@ -263,7 +286,7 @@ const heroBgImage = isDigitalMailroom
             </a>
 
             <!-- Contact Us / Talk to Our Team Button -->
-            <a
+            {/*<a
               href={`/contact?service=${encodeURIComponent(service.slug)}`}
               class="inline-flex items-center justify-center
                      px-6 sm:px-7
@@ -280,7 +303,7 @@ const heroBgImage = isDigitalMailroom
                      focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
             >
               Talk to Our Team
-            </a>
+            </a>*/}
           </div>
 
         </div>
@@ -322,12 +345,12 @@ const heroBgImage = isDigitalMailroom
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </a>
-          <a
+          {/*<a
             href={`/contact?service=${encodeURIComponent(service.slug)}`}
             class="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm sm:text-base border border-white/25 hover:border-white transition-all duration-200 backdrop-blur-xs transform hover:-translate-y-0.5"
           >
             Talk to Our Team
-          </a>
+          </a>*/}
         </div>
       </div>
     )}

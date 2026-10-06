@@ -1,7 +1,7 @@
 ---
 import HeroHeader from '../global/HeroHeader.astro';
 import Breadcrumbs from '../seo/Breadcrumbs.astro';
-import TornPaperDivider from '../layout/TornPaperDivider.astro';
+//import TornPaperDivider from '../layout/TornPaperDivider.astro';
 
 interface BreadcrumbItem {
   name: string;
@@ -180,5 +180,5 @@ const currentPath = Astro.url.pathname;
   <div class="h-2 sm:h-4 w-full pointer-events-none" aria-hidden="true"></div>
 
   <!-- 5. Torn Paper Edge Transition -->
-  {showDivider && <TornPaperDivider color={dividerColor} />}
+  <!--{showDivider && <TornPaperDivider color={dividerColor} />}-->
 </section>

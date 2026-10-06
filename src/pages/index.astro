@@ -128,38 +128,41 @@ const divisionMetadata: Record<
 
     <Container className="relative z-10">
       <!-- Two-Column Narrative: Left Image with Backing Design, Right Content -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
-        <!-- Left: Transparent Graphic with Shaded Green Backing Accents -->
+      <div id="itad-reveal-section" class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
+        <!-- Left: Transparent Graphic with Shaded Green Backing Accents (smooth scroll reveal) -->
         <div class="lg:col-span-5 xl:col-span-5 flex justify-center">
-          <div class="relative w-full max-w-[460px]">
+          <div class="itad-reveal-image relative w-full max-w-[460px] transition-all duration-700 ease-out">
             <img
-              src="/images/brand/itad-intro-green.png"
+              src="/images/brand/itad-intro-green.webp"
               alt="TechSteps certified IT recycling and hardware disposition technician"
               class="relative z-10 w-full h-auto object-contain drop-shadow-md select-none"
-              loading="lazy"
+              loading="eager"
               decoding="async"
             />
           </div>
         </div>
 
-        <!-- Right: Heading and Concise Narrative Content -->
-        <div class="lg:col-span-7 xl:col-span-7 space-y-4 lg:space-y-5 text-left">
-          <!-- Main Headline (Dark Green #0F623A) -->
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] font-extrabold tracking-tight leading-[1.14] font-display text-[#0F623A]">
-            {homePage?.intro?.heading || 'Secure ITAD Services in the UK'}
-          </h2>
+        <!-- Right: Heading and Concise Narrative Content with Staggered Scroll Reveal -->
+        <div class="lg:col-span-7 xl:col-span-7 space-y-4 sm:space-y-5 text-left py-2">
+          <!-- Main Headline (Dark Green #0F623A) with subtle scroll reveal -->
+          <div class="itad-reveal-heading transition-all duration-700 ease-out">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] font-extrabold tracking-tight leading-[1.14] font-display text-[#0F623A]">
+              {homePage?.intro?.heading || 'Trusted ITAD Services Across the UK'}
+            </h2>
 
-          <!-- Decorative underline bar (Dark Green #0F623A) -->
-          <div class="flex items-center !mt-3 sm:!mt-3.5" aria-hidden="true">
-            <span class="w-16 sm:w-24 h-1.5 bg-[#0F623A] rounded-full"></span>
+            <!-- Decorative underline bar (Dark Green #0F623A) -->
+            <div class="flex items-center mt-3 sm:mt-3.5" aria-hidden="true">
+              <span class="w-16 sm:w-24 h-1.5 bg-[#0F623A] rounded-full"></span>
+            </div>
           </div>
 
-          <!-- Description Paragraph (Increased to 3 sentences for ideal visual balance) -->
-          <p class="text-base sm:text-lg lg:text-[19px] text-slate-700 leading-relaxed font-normal min-h-[3lh] min-h-[4.8em]">
-            {homePage?.intro?.description || "TechSteps provides a fully accredited IT disposal company framework designed for modern UK enterprises. We simplify the ITAD process by combining logistics with maximum security, helping you retire hardware without risk. From single-site pickups to complex IT asset disposal projects, our team ensures your redundant equipment is handled according to the highest environmental standards."}
+          <!-- Description Paragraph: Short, concise 1-2 lines with staggered scroll reveal -->
+          <p class="itad-reveal-paragraph text-base sm:text-lg lg:text-[19px] text-slate-700 leading-relaxed font-normal max-w-2xl transition-all duration-700 ease-out">
+            {homePage?.intro?.description || "Techsteps delivers secure, GDPR-compliant IT asset disposal and responsible recycling for UK businesses across the hardware lifecycle."}
           </p>
         </div>
       </div>
+      <br />
 
       <!-- 4 Stats Columns Spread Out With Large Spacing -->
       <div id="stats-counter-section" class="grid grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-14 lg:gap-20 xl:gap-28 mt-10 sm:mt-12 text-center w-full mx-auto px-4 sm:px-6">
@@ -478,6 +481,9 @@ const divisionMetadata: Record<
       <ProcessSteps lifecycle={homePage?.lifecycle} />
     </Container>
   </Section>
+
+  <!-- Section 13 — Client Reviews / Testimonials -->
+  <Testimonials />
 
   <!-- Section 13 — Sectors We Serve -->
   <!-- <Section theme="slate" id="sectors" padding="py-8 md:py-12">
@@ -814,19 +820,118 @@ const divisionMetadata: Record<
         });
       };
 
+      // Scroll-based reveal animation for ITAD Section
+      const initItadReveal = () => {
+        const section = document.getElementById('itad-reveal-section');
+        if (!section) return;
+
+        const imgWrap = section.querySelector('.itad-reveal-image');
+        const heading = section.querySelector('.itad-reveal-heading');
+        const paragraph = section.querySelector('.itad-reveal-paragraph');
+        if (!heading || !paragraph) return;
+
+        // Check if user prefers reduced motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+          if (imgWrap) {
+            imgWrap.style.opacity = '1';
+            imgWrap.style.transform = 'none';
+          }
+          heading.style.opacity = '1';
+          heading.style.transform = 'none';
+          paragraph.style.opacity = '1';
+          paragraph.style.transform = 'none';
+          return;
+        }
+
+        // Prevent duplicate initialization on view transitions if already revealed
+        if (section.dataset.revealed === 'true') {
+          if (imgWrap) {
+            imgWrap.style.opacity = '1';
+            imgWrap.style.transform = 'translateY(0) scale(1)';
+          }
+          heading.style.opacity = '1';
+          heading.style.transform = 'translateY(0)';
+          paragraph.style.opacity = '1';
+          paragraph.style.transform = 'translateY(0)';
+          return;
+        }
+
+        // Set initial subtle hidden state
+        if (imgWrap) {
+          imgWrap.style.opacity = '0.15';
+          imgWrap.style.transform = 'translateY(28px) scale(0.97)';
+        }
+        heading.style.opacity = '0';
+        heading.style.transform = 'translateY(20px)';
+        paragraph.style.opacity = '0';
+        paragraph.style.transform = 'translateY(20px)';
+
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  section.dataset.revealed = 'true';
+                  
+                  // 1. Image begins revealing first
+                  if (imgWrap) {
+                    imgWrap.style.opacity = '1';
+                    imgWrap.style.transform = 'translateY(0) scale(1)';
+                  }
+
+                  // 2. Heading smoothly glides & fades in shortly after
+                  setTimeout(() => {
+                    heading.style.opacity = '1';
+                    heading.style.transform = 'translateY(0)';
+                  }, 180);
+
+                  // 3. Stagger reveal short paragraph next
+                  setTimeout(() => {
+                    paragraph.style.opacity = '1';
+                    paragraph.style.transform = 'translateY(0)';
+                  }, 420);
+
+                  // Disconnect so once revealed it stays permanently visible
+                  observer.disconnect();
+                }
+              });
+            },
+            {
+              threshold: 0.15,
+              rootMargin: '0px 0px -30px 0px'
+            }
+          );
+          observer.observe(section);
+        } else {
+          // Fallback for browsers without IntersectionObserver
+          if (imgWrap) {
+            imgWrap.style.opacity = '1';
+            imgWrap.style.transform = 'translateY(0) scale(1)';
+          }
+          heading.style.opacity = '1';
+          heading.style.transform = 'translateY(0)';
+          paragraph.style.opacity = '1';
+          paragraph.style.transform = 'translateY(0)';
+        }
+      };
+
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
+          initItadReveal();
           initStoryHover();
           initStatsCounter();
           initServicesCardSwap();
         });
       } else {
+        initItadReveal();
         initStoryHover();
         initStatsCounter();
         initServicesCardSwap();
       }
 
       document.addEventListener('astro:page-load', () => {
+        initItadReveal();
         initStoryHover();
         initStatsCounter();
         initServicesCardSwap();

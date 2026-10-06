@@ -1,222 +1,248 @@
 ---
+import Container from '../layout/Container.astro';
 import { getTestimonials } from '../../lib/sanity/client';
 
 const testimonials = await getTestimonials();
+
+// Ensure we have a robust set of 6 items
+const displayTestimonials = testimonials && testimonials.length > 0 ? testimonials : [
+  {
+    id: 't1',
+    quote: 'Impressed by the security rigor, speed, and attention to detail from day one. TechSteps transformed our lifecycle compliance.',
+    author: 'David Miller',
+    role: 'Head of Infrastructure Security',
+    company: 'Defence Prime Contractor',
+    industry: 'Defence',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-1.jpg',
+  },
+  {
+    id: 't2',
+    quote: 'A seamless experience from start to finish. Freed 4,000 sq ft of hospital ward space with zero data risk and verified audit trails.',
+    author: 'Sarah Jenkins',
+    role: 'Director of Health Records',
+    company: 'NHS Foundation Trust',
+    industry: 'Healthcare',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-2.jpg',
+  },
+  {
+    id: 't3',
+    quote: 'Reliable and trustworthy. Handled our weekend trading floor relocation and server migration with complete security and zero downtime.',
+    author: 'James Roberts',
+    role: 'Chief Technology Officer',
+    company: 'Tier 1 Investment Bank',
+    industry: 'Financial Services',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-3.jpg',
+  },
+  {
+    id: 't4',
+    quote: 'Exceeded all GGC zero-landfill mandates while delivering defensible Scope 3 carbon compliance and certified destruction.',
+    author: 'Eleanor Vance',
+    role: 'Governance & Information Director',
+    company: 'Central Government Agency',
+    industry: 'Central Government',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-4.jpg',
+  },
+  {
+    id: 't5',
+    quote: 'Digitized 80 years of irreplaceable historical research archives with 100% precision, full indexation, and BS 10008 legal admissibility.',
+    author: 'Prof. Marcus Thorne',
+    role: 'Dean of Research Operations',
+    company: 'Russell Group University',
+    industry: 'Education & Research',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-5.jpg',
+  },
+  {
+    id: 't6',
+    quote: 'Unlocked substantial rebate value from our retired enterprise server fleet with certified NIST 800-88 erasure and chain of custody.',
+    author: 'Rachel Adams',
+    role: 'Global Head of ESG & Sustainability',
+    company: 'Enterprise Technology Corp',
+    industry: 'Technology',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-6.jpg',
+  },
+];
+
+// Duplicate list for infinite seamless marquee loop
+const carouselItems = [...displayTestimonials, ...displayTestimonials];
 ---
 
-<div id="testimonial-section-wrapper" class="w-full max-w-5xl mx-auto select-none space-y-8 sm:space-y-10 py-2">
-  <!-- Section Header ("What Our Clients Say") -->
-  <div class="text-center max-w-3xl mx-auto space-y-3">
-    <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C]">
-      TESTIMONIALS
-    </span>
-    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight">
-      What Our Clients Say
-    </h2>
-  </div>
+<section
+  id="client-testimonials-section"
+  class="relative bg-[#F9FBF8] py-14 sm:py-16 md:py-20 lg:py-24 overflow-hidden border-t border-slate-200/80 select-none"
+  aria-label="Client Reviews and Testimonials"
+>
+  <!-- Background subtle ambient lighting -->
+  <div class="absolute top-0 right-1/4 w-96 h-96 bg-emerald-500/[0.03] rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-[#0F623A]/[0.03] rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
 
-  <!-- Open Premium Layout (No Card Box, No White BG Container) -->
-  <div class="relative pt-2">
-    <!-- Sleek Auto-Play Timer Progress Bar -->
-    <div class="relative w-full h-1 bg-slate-200/80 rounded-full overflow-hidden mb-6">
-      <div
-        id="testimonial-progress-bar"
-        class="absolute left-0 top-0 h-full bg-[#146B5C] rounded-full transition-all duration-100 ease-linear w-0"
-      ></div>
+  <!-- Header Container aligned exactly with site navbar / standard Container grid -->
+  <Container className="relative z-10">
+    <div class="max-w-2xl mx-auto space-y-3 sm:space-y-4 mb-10 sm:mb-12 md:mb-14 text-center">
+      {/*<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#146B5C]/10 border border-[#146B5C]/20 text-[#0F623A] text-xs font-bold uppercase tracking-wider">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+        Client Reviews
+      </div>*/}
+
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-[1.08]">
+        What Our Clients Say
+      </h2>
+
+      <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+        Discover how UK enterprises trust Techsteps for secure IT asset disposition, compliant records management, and certified data sanitisation.
+      </p>
     </div>
+  </Container>
 
-    <!-- Main Open Quote Showcase -->
-    <div class="py-4 sm:py-6 min-h-[220px] sm:min-h-[240px] flex flex-col justify-center">
-      {testimonials.map((item, idx) => (
-        <div
-          key={item.id}
-          data-testimonial-slide={idx}
-          class={`testimonial-slide transition-all duration-500 flex flex-col md:flex-row items-start gap-6 lg:gap-10 ${
-            idx === 0 ? 'block opacity-100 translate-y-0' : 'hidden opacity-0 translate-y-2'
-          }`}
+  <!-- Full-Width Horizontal Continuous Carousel Track Container -->
+  <div class="relative w-full overflow-hidden">
+    <!-- Left edge subtle gradient fade out on desktop -->
+    <div class="hidden sm:block absolute left-0 inset-y-0 w-16 lg:w-28 bg-gradient-to-r from-[#F9FBF8] to-transparent z-20 pointer-events-none" aria-hidden="true"></div>
+    
+    <!-- Right edge subtle gradient fade out on desktop -->
+    <div class="hidden sm:block absolute right-0 inset-y-0 w-16 lg:w-28 bg-gradient-to-l from-[#F9FBF8] to-transparent z-20 pointer-events-none" aria-hidden="true"></div>
+
+    <!-- Scrolling Marquee Wrapper (Pauses smoothly on hover / touch) -->
+    <div
+      id="testimonial-marquee"
+      class="testimonial-track flex items-stretch gap-5 sm:gap-6 py-4 px-4 sm:px-6 w-max cursor-grab active:cursor-grabbing"
+    >
+      {carouselItems.map((item, index) => (
+        <article
+          class="testimonial-card group relative flex flex-col justify-between w-[310px] sm:w-[380px] md:w-[420px] lg:w-[440px] shrink-0 bg-white rounded-2xl p-6 sm:p-7 md:p-8 border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_32px_-4px_rgba(15,98,58,0.12)] hover:border-[#146B5C]/40 transition-all duration-300"
+          data-index={index}
         >
-          <!-- Left: Large Simple & Clean Double Quotation Symbol (2 Quote Marks) -->
-          <div class="shrink-0 text-[#146B5C]/40 pt-1 select-none">
-            <svg class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 drop-shadow-xs" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-            </svg>
+          <!-- Top Row: Star Rating & Quotation Mark Indicator -->
+          <div class="flex items-center justify-between gap-4 mb-4 sm:mb-5">
+            <!-- 5 Star Rating -->
+            <div class="flex items-center gap-1" aria-label={`Rating: ${item.rating || 5} out of 5 stars`}>
+              {Array.from({ length: item.rating || 5 }).map(() => (
+                <svg
+                  class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#0F623A] fill-current"
+                  viewBox="0 0 20 20"
+                  aria-hidden="true"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              ))}
+            </div>
+
+            <!-- Subtle Decorative Quote Mark Icon -->
+            <div class="text-[#0F623A]/20 group-hover:text-[#0F623A]/40 transition-colors duration-300 shrink-0" aria-hidden="true">
+              <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+              </svg>
+            </div>
           </div>
 
-          <!-- Right: Open Massive Quote Typography -->
-          <div class="flex-1 min-w-0">
-            <p class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-display text-brand-navy leading-snug sm:leading-[1.25] tracking-tight">
-              {item.quote}
-            </p>
-          </div>
-        </div>
-      ))}
-    </div>
+          <!-- Middle: Testimonial Body Quote -->
+          <blockquote class="text-slate-700 text-sm sm:text-base md:text-[16.5px] leading-relaxed font-normal mb-6 sm:mb-8 flex-1">
+            "{item.quote}"
+          </blockquote>
 
-    <!-- Bottom Horizontal Divider & Profile / Controls Row -->
-    <div class="border-t border-slate-200/90 pt-6 sm:pt-8 mt-4">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-        
-        <!-- Left: Author Profile Notch -->
-        <div class="flex items-center gap-4">
-          {testimonials.map((item, idx) => (
-            <div
-              key={`author-${item.id}`}
-              data-testimonial-author={idx}
-              class={`transition-all duration-500 flex items-center gap-4 ${
-                idx === 0 ? 'flex opacity-100' : 'hidden opacity-0'
-              }`}
-            >
-              <!-- Square avatar image with soft rounded corners -->
+          <!-- Bottom: Client Profile Row -->
+          <div class="pt-4 border-t border-slate-100 flex items-center gap-3.5 sm:gap-4 mt-auto">
+            <!-- Client Avatar Image -->
+            <div class="relative shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-slate-100 border border-slate-200/80 shadow-xs">
               <img
                 src={item.avatar}
                 alt={item.author}
-                class="w-12 h-12 rounded-xl object-cover shadow-xs border border-slate-200 shrink-0"
+                class="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
               />
-
-              <div class="min-w-0">
-                <h4 class="text-base sm:text-lg font-extrabold font-display text-brand-navy tracking-tight truncate">
-                  {item.author}
-                </h4>
-                <p class="text-xs font-mono uppercase tracking-wider text-slate-500 truncate mt-0.5">
-                  {item.role} OF {item.company}
-                </p>
+              <!-- Fallback Initials Avatar -->
+              <div class="hidden absolute inset-0 bg-[#0F623A] text-white font-bold text-xs sm:text-sm items-center justify-center">
+                {item.author.split(' ').map(n => n[0]).join('').slice(0, 2)}
               </div>
             </div>
-          ))}
-        </div>
 
-        <!-- Right: Modern Square Navigation Arrow Buttons -->
-        <div class="flex items-center gap-2.5 self-end sm:self-auto shrink-0">
-          <button
-            type="button"
-            id="t-prev-btn"
-            aria-label="Previous Testimonial"
-            class="w-11 h-11 bg-slate-200/80 hover:bg-brand-navy hover:text-white text-slate-700 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 shadow-xs"
-          >
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <button
-            type="button"
-            id="t-next-btn"
-            aria-label="Next Testimonial"
-            class="w-11 h-11 bg-slate-200/80 hover:bg-brand-navy hover:text-white text-slate-700 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-95 shadow-xs"
-          >
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-
-      </div>
+            <!-- Client Info -->
+            <div class="min-w-0 flex-1">
+              <h3 class="text-sm sm:text-[15px] font-bold text-brand-navy tracking-tight leading-snug truncate">
+                {item.author}
+              </h3>
+              <p class="text-xs text-slate-500 leading-tight truncate mt-0.5">
+                {item.role}
+              </p>
+              <p class="text-[11px] font-semibold text-[#0F623A] uppercase tracking-wider truncate mt-0.5">
+                {item.company}
+              </p>
+            </div>
+          </div>
+        </article>
+      ))}
     </div>
-
   </div>
-</div>
+</section>
+
+<style>
+  /* Smooth horizontal scrolling animation */
+  .testimonial-track {
+    animation: testimonialScroll 55s linear infinite;
+    will-change: transform;
+  }
+
+  /* Pause smoothly when hovered */
+  .testimonial-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes testimonialScroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      /* Halfway scroll since the list is duplicated exactly once */
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Respect prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-track {
+      animation: none !important;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .testimonial-card {
+      scroll-snap-align: start;
+    }
+  }
+</style>
 
 <script is:inline>
   (() => {
-    const initTestimonialShowcase = () => {
-      const wrapper = document.getElementById('testimonial-section-wrapper');
-      if (!wrapper) return;
+    const initCarouselTouch = () => {
+      const track = document.getElementById('testimonial-marquee');
+      if (!track) return;
 
-      const slides = Array.from(wrapper.querySelectorAll('[data-testimonial-slide]'));
-      const authors = Array.from(wrapper.querySelectorAll('[data-testimonial-author]'));
-      const progressBar = document.getElementById('testimonial-progress-bar');
-      const prevBtn = document.getElementById('t-prev-btn');
-      const nextBtn = document.getElementById('t-next-btn');
+      let isDown = false;
+      let startX;
+      let scrollLeft;
 
-      const total = slides.length;
-      if (!total) return;
+      // Handle touch drag for mobile / tablet smooth interaction
+      track.addEventListener('touchstart', () => {
+        track.style.animationPlayState = 'paused';
+      }, { passive: true });
 
-      let currentIndex = 0;
-      let elapsed = 0;
-      const DURATION = 4500; // 4.5 seconds auto-change
-      const INTERVAL = 50; // update frequency
-      let timer = null;
-      let isPaused = false;
-
-      const goToSlide = (index) => {
-        currentIndex = (index + total) % total;
-        elapsed = 0;
-
-        slides.forEach((slide, idx) => {
-          if (idx === currentIndex) {
-            slide.classList.remove('hidden', 'opacity-0', 'translate-y-2');
-            slide.classList.add('block', 'opacity-100', 'translate-y-0');
-          } else {
-            slide.classList.remove('block', 'opacity-100', 'translate-y-0');
-            slide.classList.add('hidden', 'opacity-0', 'translate-y-2');
-          }
-        });
-
-        authors.forEach((author, idx) => {
-          if (idx === currentIndex) {
-            author.classList.remove('hidden', 'opacity-0');
-            author.classList.add('flex', 'opacity-100');
-          } else {
-            author.classList.remove('flex', 'opacity-100');
-            author.classList.add('hidden', 'opacity-0');
-          }
-        });
-
-        if (progressBar) {
-          progressBar.style.width = '0%';
-        }
-      };
-
-      const startTimer = () => {
-        stopTimer();
-        timer = setInterval(() => {
-          if (!isPaused) {
-            elapsed += INTERVAL;
-            const progress = Math.min((elapsed / DURATION) * 100, 100);
-            if (progressBar) {
-              progressBar.style.width = `${progress}%`;
-            }
-
-            if (elapsed >= DURATION) {
-              goToSlide(currentIndex + 1);
-            }
-          }
-        }, INTERVAL);
-      };
-
-      const stopTimer = () => {
-        if (timer) clearInterval(timer);
-      };
-
-      if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-          goToSlide(currentIndex - 1);
-        });
-      }
-
-      if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-          goToSlide(currentIndex + 1);
-        });
-      }
-
-      wrapper.addEventListener('mouseenter', () => {
-        isPaused = true;
-      });
-
-      wrapper.addEventListener('mouseleave', () => {
-        isPaused = false;
-      });
-
-      goToSlide(0);
-      startTimer();
+      track.addEventListener('touchend', () => {
+        track.style.animationPlayState = 'running';
+      }, { passive: true });
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTestimonialShowcase);
+      document.addEventListener('DOMContentLoaded', initCarouselTouch);
     } else {
-      initTestimonialShowcase();
+      initCarouselTouch();
     }
-    document.addEventListener('astro:page-load', initTestimonialShowcase);
+
+    document.addEventListener('astro:page-load', initCarouselTouch);
   })();
 </script>
