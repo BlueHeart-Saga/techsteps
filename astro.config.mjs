@@ -17,7 +17,7 @@ const sanityDataset =
 const productionSite =
   process.env.PUBLIC_SITE_URL ||
   process.env.SITE_URL ||
-  'https://techsteps-azhjfdhnacfqaeh3.southindia-01.azurewebsites.net';
+  'https://techsteps.co.uk';
 
 // https://astro.build/config
 export default defineConfig({

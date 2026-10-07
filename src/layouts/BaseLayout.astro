@@ -11,7 +11,11 @@ import { getSiteSettings } from '../lib/sanity/client';
 import { ClientRouter } from 'astro:transitions';
 
 const siteSettings = await getSiteSettings();
-import { generateOrganizationSchema } from '../lib/seo/jsonld';
+import {
+  generateOrganizationSchema,
+  generateWebSiteSchema,
+  generateWebPageSchema,
+} from '../lib/seo/jsonld';
 
 interface Props {
   title?: string;
@@ -35,12 +39,32 @@ const {
   hasHeroHeader = false,
 } = Astro.props;
 
-const orgSchema = generateOrganizationSchema(siteSettings, Astro.site?.origin || 'https://techsteps.co.uk');
-const combinedSchemas = jsonLd
-  ? (Array.isArray(jsonLd) ? [orgSchema, ...jsonLd] : [orgSchema, jsonLd])
-  : [orgSchema];
+const origin = Astro.site?.origin || 'https://techsteps.co.uk';
+
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 const heroActive = isHome || hasHeroHeader;
+
+const orgSchema = generateOrganizationSchema(siteSettings, origin);
+
+const websiteSchema = isHome
+  ? generateWebSiteSchema(origin)
+  : null;
+
+const webpageSchema = isHome
+  ? generateWebPageSchema(origin)
+  : null;
+
+const baseSchemas = [
+  orgSchema,
+  ...(websiteSchema ? [websiteSchema] : []),
+  ...(webpageSchema ? [webpageSchema] : []),
+];
+
+const combinedSchemas = jsonLd
+  ? (Array.isArray(jsonLd)
+      ? [...baseSchemas, ...jsonLd]
+      : [...baseSchemas, jsonLd])
+  : baseSchemas;
 ---
 
 <!doctype html>

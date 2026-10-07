@@ -147,7 +147,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
   { name: service.divisionTitle, url: `/${divisionPageSlug}` },
   { name: service.title, url: `/services/${service.slug}` },
 ], Astro.site?.origin || 'https://techsteps.co.uk');
-// Identify light-background hero pages (Information Management Services matching Home Hero style)
+// Identify light-background hero pages (Information Management & IT Lifecycle Services matching Home Hero style)
 const cleanSlug = service.slug ? service.slug.toLowerCase().replace(/-(uk|services|services-uk)$/, '') : '';
 const isDigitalMailroom = cleanSlug === 'digital-mailroom' || service.slug?.toLowerCase().includes('digital-mailroom') || service.title?.toLowerCase().includes('mailroom');
 const isDocumentScanning = cleanSlug === 'document-scanning' || service.slug?.toLowerCase().includes('document-scanning') || service.title?.toLowerCase().includes('scanning');
@@ -157,7 +157,16 @@ const isTapeStorage = cleanSlug === 'tape-media-storage' || cleanSlug === 'tape-
 const isHeritageStorage = cleanSlug === 'heritage-storage' || service.slug?.toLowerCase().includes('heritage') || service.title?.toLowerCase().includes('heritage');
 const isVaultStorage = cleanSlug === 'vault-storage' || service.slug?.toLowerCase().includes('vault') || service.title?.toLowerCase().includes('vault');
 
+// IT Lifecycle services
+const isSecureItDisposal = cleanSlug === 'secure-it-disposal' || service.slug?.toLowerCase().includes('secure-it-disposal') || service.title?.toLowerCase().includes('secure it disposal');
+const isSecureCollection = cleanSlug === 'secure-collection-services' || cleanSlug === 'secure-collection' || service.slug?.toLowerCase().includes('secure-collection') || service.title?.toLowerCase().includes('secure collection');
+const isItad = cleanSlug === 'it-asset-disposition-services' || cleanSlug === 'it-asset-disposition' || cleanSlug === 'itad' || service.slug?.toLowerCase().includes('itad') || service.title?.toLowerCase().includes('disposition');
+const isItam = cleanSlug === 'it-asset-tracking-services' || cleanSlug === 'it-asset-tracking' || cleanSlug === 'itat' || service.slug?.toLowerCase().includes('itat') || service.title?.toLowerCase().includes('asset tracking');
+const isRemarketingRecycling = cleanSlug === 'remarketing-recycling' || cleanSlug === 'remarketing' || service.slug?.toLowerCase().includes('remarketing') || service.title?.toLowerCase().includes('remarketing');
+const isHardDriveDestruction = cleanSlug === 'ultra-secure-hard-drive-destruction' || cleanSlug === 'hard-drive-destruction' || service.slug?.toLowerCase().includes('hard-drive-destruction') || service.title?.toLowerCase().includes('hard drive destruction');
+
 const isLightHero = isDigitalMailroom || isDocumentScanning || isDocumentManagement || isDocumentStorage || isTapeStorage || isHeritageStorage || isVaultStorage ||
+  isSecureItDisposal || isSecureCollection || isItad || isItam || isRemarketingRecycling || isHardDriveDestruction ||
   (typeof service.heroImage === 'string' && (
     service.heroImage.includes('digital mail room') ||
     service.heroImage.includes('document scaning') ||
@@ -165,7 +174,13 @@ const isLightHero = isDigitalMailroom || isDocumentScanning || isDocumentManagem
     service.heroImage.includes('secure document storage') ||
     service.heroImage.includes('Tape and Media Storage') ||
     service.heroImage.includes('heritage storage') ||
-    service.heroImage.includes('Valut storage')
+    service.heroImage.includes('Valut storage') ||
+    service.heroImage.includes('IT Asset Disposition') ||
+    service.heroImage.includes('IT Asset Tracking') ||
+    service.heroImage.includes('Remarketing & Recycling') ||
+    service.heroImage.includes('Secure Collection') ||
+    service.heroImage.includes('Secure IT Disposal') ||
+    service.heroImage.includes('Hard Drive Destruction')
   ));
 
 const heroBgImage = isDigitalMailroom
@@ -182,6 +197,18 @@ const heroBgImage = isDigitalMailroom
   ? '/images/hero/heritage storage.webp'
   : isVaultStorage
   ? '/images/hero/Valut storage.webp'
+  : isSecureItDisposal
+  ? '/images/hero/Secure IT Disposal.webp'
+  : isSecureCollection
+  ? '/images/hero/Secure Collection Services.webp'
+  : isItad
+  ? '/images/hero/IT Asset Disposition Services (ITAD).webp'
+  : isItam
+  ? '/images/hero/IT Asset Tracking Services.webp'
+  : isRemarketingRecycling
+  ? '/images/hero/Remarketing & Recycling.webp'
+  : isHardDriveDestruction
+  ? '/images/hero/Ultra Secure Hard Drive Destruction.webp'
   : (service.heroImage || '/images/hero/secure document storage.webp');
 ---
 
@@ -357,13 +384,13 @@ const heroBgImage = isDigitalMailroom
   </PageHero>
 
   <!-- ===== 2. ABOUT THE SERVICE ===== -->
-  <section class="bg-white py-8 lg:py-12 border-b border-slate-200/80 relative overflow-hidden">
+  <section class="bg-white py-8 lg:py-12 border-b border-slate-200/80 relative">
     <Container>
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
         {/* Left Side: Photo */}
-        <div class="lg:col-span-6 relative">
+        <div class="lg:col-span-6 relative lg:sticky lg:top-28 self-start">
           <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border-2 border-[#0F623A]/20 bg-white p-2 sm:p-3 transition-all duration-300 hover:shadow-2xl hover:border-[#0F623A]/40 group">
-            <div class="rounded-xl sm:rounded-2xl overflow-hidden bg-slate-900 relative aspect-[4/3.2] sm:aspect-[4/3]">
+            <div class="rounded-xl sm:rounded-2xl overflow-hidden bg-slate-900 relative h-[620px]">
               <img
                 src={detail.aboutImage}
                 alt={detail.aboutImageAlt}
@@ -375,7 +402,7 @@ const heroBgImage = isDigitalMailroom
         </div>
 
         {/* Right Side: Service Content */}
-        <div class="lg:col-span-6 space-y-6">
+        <div class="lg:col-span-6 space-y-8">
           <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
             <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
             {detail.aboutBadge}

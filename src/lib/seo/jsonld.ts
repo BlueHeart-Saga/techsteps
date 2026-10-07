@@ -1,13 +1,23 @@
 import type { Service, Sector, Article, SiteSettings } from '../sanity/types';
 
-export function generateOrganizationSchema(settings: SiteSettings, origin: string = 'https://techsteps.co.uk') {
+export function generateOrganizationSchema(
+  settings: SiteSettings,
+  origin: string = 'https://techsteps.co.uk'
+) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Corporation',
+    '@type': 'Organization',
+    '@id': `${origin}/#organization`,
     name: settings.companyName,
     legalName: settings.legalName,
-    url: origin,
+    url: `${origin}/`,
     logo: `${origin}/images/brand/logo.png`,
+    description:
+      'Techsteps provides secure IT asset disposal, IT asset disposition, recycling, data destruction and information management services for businesses across the UK.',
+    areaServed: {
+      '@type': 'Country',
+      name: 'United Kingdom',
+    },
     telephone: settings.phone,
     email: settings.email,
     address: {
@@ -25,23 +35,61 @@ export function generateOrganizationSchema(settings: SiteSettings, origin: strin
   };
 }
 
-export function generateServiceSchema(service: Service, settings: SiteSettings, origin: string = 'https://techsteps.co.uk') {
+export function generateWebSiteSchema(origin: string = 'https://techsteps.co.uk') {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${origin}/#website`,
+    name: 'Techsteps',
+    url: `${origin}/`,
+    publisher: {
+      '@id': `${origin}/#organization`,
+    },
+  };
+}
+
+export function generateWebPageSchema(
+  origin: string = 'https://techsteps.co.uk'
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${origin}/#webpage`,
+    url: `${origin}/`,
+    name: 'Techsteps | IT Asset Recycling & Information Management',
+    isPartOf: {
+      '@id': `${origin}/#website`,
+    },
+    about: {
+      '@id': `${origin}/#organization`,
+    },
+  };
+}
+
+export function generateServiceSchema(
+  service: Service,
+  settings: SiteSettings,
+  origin: string = 'https://techsteps.co.uk'
+) {
+  const serviceUrl = `${origin}/services/${service.slug}`;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
+    '@id': `${serviceUrl}#service`,
     name: service.title,
-    serviceType: service.divisionTitle,
     description: service.summary,
+    url: serviceUrl,
     provider: {
-      '@type': 'Corporation',
+      '@type': 'Organization',
+      '@id': `${origin}/#organization`,
       name: settings.companyName,
-      url: origin,
     },
     areaServed: {
       '@type': 'Country',
       name: 'United Kingdom',
     },
-    url: `${origin}/services/${service.slug}`,
+    serviceType: service.divisionTitle,
   };
 }
 

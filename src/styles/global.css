@@ -384,7 +384,7 @@ div[class*="uppercase"][class*="text-xs"] {
 #services-megamenu-panel .services-left-col .pillar-label,
 #services-megamenu-panel .services-left-col .all-services-link,
 #services-megamenu-panel .services-left-col .all-services-link span {
-  font-family: 'Lora', Georgia, serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 16px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
@@ -394,7 +394,7 @@ div[class*="uppercase"][class*="text-xs"] {
 /* 6. SERVICES DROPDOWN - CENTER & RIGHT COLUMN HEADINGS: Lora, Weight 500, Size 16px */
 #services-megamenu-panel .services-middle-heading,
 #services-megamenu-panel .services-right-heading {
-  font-family: 'Lora', Georgia, serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 16px !important;
   font-weight: 500 !important;
   letter-spacing: -0.01em !important;
@@ -418,7 +418,7 @@ div[class*="uppercase"][class*="text-xs"] {
   font-size: 16px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
-  line-height: 1.5 !important;
+  line-height: 0.1 !important;
 }
 
 /* Selected active pill styling in left column */
