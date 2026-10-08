@@ -4,6 +4,8 @@ import Container from '../../../components/layout/Container.astro';
 import Breadcrumbs from '../../../components/seo/Breadcrumbs.astro';
 import InteractiveLikeButton from '../../../components/insights/InteractiveLikeButton';
 import { insightsApi, isPublishedPost, type Post } from '../../../lib/insightsApi';
+import { getSiteSettings } from '../../../lib/sanity/client';
+import { generatePostSchema, generateBreadcrumbSchema } from '../../../lib/seo/jsonld';
 
 export async function getStaticPaths() {
   let allPosts: Post[] = [];
@@ -53,15 +55,23 @@ interface Props {
 }
 
 const { post, allPosts } = Astro.props;
+const siteSettings = await getSiteSettings();
 
 const categorySlug = post.category?.slug || 'blogs';
 const categoryName = post.category?.name || 'Blogs';
 
+const primaryPostSlug = post.seoSlug || post.id;
+const canonicalUrl = `https://techsteps.co.uk/insights/${categorySlug}/${primaryPostSlug}`;
+
 const breadcrumbs = [
   { name: 'Insights', url: '/insights' },
   { name: categoryName, url: `/insights/${categorySlug}` },
-  { name: post.title, url: `/insights/${categorySlug}/${post.seoSlug || post.id}` },
+  { name: post.title, url: `/insights/${categorySlug}/${primaryPostSlug}` },
 ];
+
+const origin = Astro.site?.origin || 'https://techsteps.co.uk';
+const postSchema = generatePostSchema(post, siteSettings, origin);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs, origin);
 
 // Related posts: prioritize same category, exclude current
 const relatedPosts = (allPosts || [])
@@ -115,7 +125,10 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
 <BaseLayout
   title={`${post.title} | TechSteps Insights`}
   description={post.excerpt || post.subtitle || 'Read verified technical analysis, regulatory briefs, and zero-landfill insights from TechSteps UK.'}
+  canonicalUrl={canonicalUrl}
   ogType="article"
+  ogImage={post.image || undefined}
+  jsonLd={[postSchema, breadcrumbSchema]}
 >
 
   <!-- ===== ARTICLE HERO ===== -->

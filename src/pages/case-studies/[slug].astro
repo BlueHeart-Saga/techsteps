@@ -3,7 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import Section from '../../components/layout/Section.astro';
 import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
-import { getCaseStudies, getServices } from '../../lib/sanity/client';
+import { getCaseStudies, getServices, getSiteSettings } from '../../lib/sanity/client';
+import { generateCaseStudySchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 import type { CaseStudy } from '../../lib/sanity/types';
 
 export async function getStaticPaths() {
@@ -19,12 +20,19 @@ interface Props {
 }
 
 const { caseStudy } = Astro.props;
-const services = await getServices();
+const [services, siteSettings] = await Promise.all([
+  getServices(),
+  getSiteSettings(),
+]);
 
+const origin = Astro.site?.origin || 'https://techsteps.co.uk';
 const breadcrumbs = [
   { name: 'Case Studies', url: '/case-studies' },
   { name: caseStudy.title, url: `/case-studies/${caseStudy.slug}` },
 ];
+
+const caseStudySchema = generateCaseStudySchema(caseStudy, siteSettings, origin);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs, origin);
 
 const featuredServices = services.filter((s) =>
   caseStudy.servicesUsed.includes(s.slug)
@@ -34,6 +42,7 @@ const featuredServices = services.filter((s) =>
 <BaseLayout
   title={caseStudy.metaTitle || `${caseStudy.title} | Techsteps Case Study`}
   description={caseStudy.metaDescription || caseStudy.challenge}
+  jsonLd={[caseStudySchema, breadcrumbSchema]}
 >
   <div class="bg-brand-navy text-white py-16">
     <Container size="narrow">

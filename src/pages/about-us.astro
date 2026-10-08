@@ -191,6 +191,7 @@ const aboutPageSchema = {
               )}
 
             </h2>
+            <br />
 
             <div class="space-y-4 text-base sm:text-lg text-slate-700 leading-relaxed font-normal mb-4 sm:mb-6">
 
@@ -286,7 +287,7 @@ const aboutPageSchema = {
                           {highlight.title}
                         </h3>
 
-                        <p class="text-xs sm:text-[13.5px] text-slate-500 leading-relaxed font-normal">
+                        <p class="!mt-1 text-xs sm:text-[13.5px] text-slate-500 leading-relaxed font-normal">
                           {highlight.description}
                         </p>
 
@@ -368,10 +369,10 @@ const aboutPageSchema = {
                   <img
                     src={
                       index === 0
-                        ? '/images/services/process-step-2-secure.jpg'
+                        ? '/images/about/It-lifecycle-services.webp'
                         : index === 1
-                          ? '/images/services/process-step-3-sanitise.jpg'
-                          : '/images/services/process-step-1-collect.jpg'
+                          ? '/images/about/Information-management.webp'
+                          : '/images/about/Moving&relocation.webp'
                     }
                     alt={
                       item.imageAlt ||
@@ -392,11 +393,11 @@ const aboutPageSchema = {
 
               </div>
 
-              <h3 class="min-h-[2lh] flex items-end">
+              <h3 class="min-h-[2lh] flex items-end !capitalize">
                 {item.title}
               </h3>
 
-              <p class="min-h-[4lh]">
+              <p class="min-h-[4lh] !mt-3">
                 {item.description}
               </p>
 
@@ -554,7 +555,7 @@ const aboutPageSchema = {
                     {step.title}
                   </h3>
 
-                  <p>
+                  <p class="!mt-2">
                     {step.description}
                   </p>
 
@@ -661,7 +662,7 @@ const aboutPageSchema = {
                   {capability.title}
                 </h3>
 
-                <p>
+                <p class="!mt-2">
                   {capability.description}
                 </p>
 

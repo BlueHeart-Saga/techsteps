@@ -158,7 +158,7 @@ const accreditations = [
   <!-- ===== EXISTING HERO — KEPT UNCHANGED ===== -->
   <PageHero
     title={sectorsPage.hero?.title || "Sectors"}
-    eyebrow={sectorsPage.hero?.eyebrow || "SECTOR EXPERTISE"}
+    //eyebrow={sectorsPage.hero?.eyebrow || "SECTOR EXPERTISE"}
     subheading={sectorsPage.hero?.subheading || "Specialist information, IT lifecycle, destruction and relocation solutions designed around the requirements of your organisation."}
     breadcrumbs={breadcrumbs}
     dividerColor="#ffffff"
@@ -305,61 +305,65 @@ const accreditations = [
     </Container>
   </section>
 
-  <!-- ===== 2. SECTORS WE SERVE — Large Image Cards 2x2 with Sharp Edges ===== -->
-  <section class="bg-[#F2F8F5] py-8 lg:py-12 border-t border-slate-200">
-    <Container>
-      <div class="text-center mb-14">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">
-          {sectorsPage.sectorsSection?.eyebrow || "Industries"}
-        </span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-display">
-          {sectorsPage.sectorsSection?.heading || "Sectors We Serve"}
-        </h2>
-        <p class="mt-4 text-base text-slate-600 max-w-xl mx-auto leading-relaxed font-sans">
-          {sectorsPage.sectorsSection?.description || "Built around the specific security, compliance and operational requirements of regulated industries."}
-        </p>
-      </div>
+<!-- ===== 2. SECTORS WE SERVE — Hover Reveal Cards ===== -->
+<section class="bg-[#F2F8F5] py-8 lg:py-12 border-t border-slate-200">
+  <Container>
+    <div class="text-center mb-14">
+      <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">
+        {sectorsPage.sectorsSection?.eyebrow || "Industries"}
+      </span>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-        {coreSectors.map((sector) => (
-          <a
-            href={`/sectors/${sector.slug}`}
-            class="group relative rounded-none overflow-hidden border border-slate-300/80 hover:border-[#0F623A] shadow-md hover:shadow-2xl transition-all duration-500 bg-[#0B0F0D] min-h-[320px] sm:min-h-[340px] flex flex-col justify-end p-8 lg:p-10"
-          >
-            <!-- Background Photography with smooth hover zoom -->
-            <img
-              src={sector.image}
-              alt={`${sector.title} sector IT solutions`}
-              class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
-              loading="lazy"
-            />
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-display">
+        {sectorsPage.sectorsSection?.heading || "Sectors We Serve"}
+      </h2>
 
-            <!-- Dark Gradient Vignette for high text contrast -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F0D] via-[#0B0F0D]/80 to-[#0B0F0D]/40 transition-opacity duration-300"></div>
+      <p class="mt-4 text-base text-slate-600 max-w-xl mx-auto leading-relaxed font-sans">
+        {sectorsPage.sectorsSection?.description || "Built around the specific security, compliance and operational requirements of regulated industries."}
+      </p>
+    </div>
 
-            <!-- Top Accent Line (Sharp) -->
-            <div class="absolute top-0 left-0 right-0 h-1 bg-[#0F623A] opacity-80 group-hover:opacity-100 transition-opacity"></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      {coreSectors.map((sector) => (
+        <a
+          href={`/sectors/${sector.slug}`}
+          class="group relative rounded-none overflow-hidden border border-slate-300/80 hover:border-[#0F623A] shadow-md hover:shadow-2xl transition-all duration-500 bg-[#0B0F0D] min-h-[320px] sm:min-h-[340px] flex flex-col justify-end p-8 lg:p-10"
+        >
+          <!-- Background Image -->
+          <img
+            src={sector.image}
+            alt={`${sector.title} sector IT solutions`}
+            class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+            loading="lazy"
+          />
 
-            <div class="relative z-10">
-              <span class="inline-block text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/90 mb-3.5 border border-white/30 px-3 py-1 rounded-none bg-black/40 backdrop-blur-xs font-mono">
-                Sector Expertise
-              </span>
-              <h3 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight mb-2.5 font-display group-hover:text-[#0F623A] transition-colors">
-                {sector.title}
-              </h3>
-              <p class="text-sm sm:text-[15px] text-slate-200/90 leading-relaxed max-w-md mb-6 font-sans">
-                {sector.tagline}
-              </p>
-              <span class="inline-flex items-center gap-2 text-sm font-bold text-[#0F623A] group-hover:text-white group-hover:gap-3 transition-all duration-200 font-sans">
-                <span>Explore {sector.title}</span>
-                <span class="text-base">&rarr;</span>
-              </span>
+          <!-- Dark Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0B0F0D]/95 via-[#0B0F0D]/60 to-[#0B0F0D]/20 transition-all duration-500 group-hover:from-[#0B0F0D] group-hover:via-[#0B0F0D]/80 group-hover:to-[#0B0F0D]/50"></div>
+
+          <div class="relative z-10">
+            <!-- Title: Always Visible -->
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight font-display transition-colors duration-300 group-hover:text-[#0F623A]">
+              {sector.title}
+            </h3>
+
+            <!-- Description and Link: Visible Only on Hover -->
+            <div class="grid transition-all duration-500 ease-out grid-rows-[0fr] opacity-0 translate-y-4 group-hover:grid-rows-[1fr] group-hover:opacity-100 group-hover:translate-y-0">
+              <div class="overflow-hidden">
+                <p class="text-sm sm:text-[15px] text-slate-200/90 leading-relaxed max-w-md mt-2.5 mb-6 font-sans">
+                  {sector.tagline}
+                </p>
+
+                <span class="inline-flex items-center gap-2 text-sm font-bold text-white group-hover:gap-3 transition-all duration-200 font-sans">
+                  <span>Explore {sector.title}</span>
+                  <span class="text-base">&rarr;</span>
+                </span>
+              </div>
             </div>
-          </a>
-        ))}
-      </div>
-    </Container>
-  </section>
+          </div>
+        </a>
+      ))}
+    </div>
+  </Container>
+</section>
 
   <!-- ===== 3. SECURITY-FIRST APPROACH ===== -->
   <section class="bg-white py-8 lg:py-12 border-t border-slate-100">
@@ -495,9 +499,6 @@ const accreditations = [
                   href={cat.href}
                   class="service-card-inner group block relative rounded-3xl p-5 sm:p-7 lg:p-8 border transition-all duration-500 overflow-hidden"
                 >
-                  <!-- Top Green Accent Line -->
-                  <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#0F623A] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-3xl"></div>
-
                   <!-- Service Image Box (Numbers removed) -->
                   <div class="relative h-48 sm:h-52 w-full rounded-2xl overflow-hidden mb-5 bg-slate-100 border border-slate-200/70">
                     <img
@@ -507,30 +508,6 @@ const accreditations = [
                       loading="lazy"
                     />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none"></div>
-
-                    <!-- Floating Icon Badge -->
-                    <div class="absolute top-3 left-3 h-11 w-11 rounded-xl bg-white/95 backdrop-blur-xs border border-white/60 flex items-center justify-center text-[#0F623A] shadow-md group-hover:bg-[#0F623A] group-hover:text-white transition-all duration-300">
-                      {cat.icon === 'cpu' && (
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-                          <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor"/><rect x="9" y="9" width="6" height="6" stroke="currentColor"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" stroke="currentColor" stroke-linecap="round"/>
-                        </svg>
-                      )}
-                      {cat.icon === 'folder' && (
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
-                        </svg>
-                      )}
-                      {cat.icon === 'shield' && (
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        </svg>
-                      )}
-                      {cat.icon === 'truck' && (
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M1 3h15v13H1V3zm15 5h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="1.5"/><circle cx="18.5" cy="18.5" r="1.5"/>
-                        </svg>
-                      )}
-                    </div>
                   </div>
 
                   <!-- Title & Service Scope -->

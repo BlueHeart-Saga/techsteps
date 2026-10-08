@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import HeroSector from '../../components/hero/HeroSector.astro';
-import { getSectors, getCaseStudies } from '../../lib/sanity/client';
+import { getSectors, getCaseStudies, getSiteSettings } from '../../lib/sanity/client';
+import { generateSectorSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 import type { Sector } from '../../lib/sanity/types';
 
 export async function getStaticPaths() {
@@ -20,8 +21,18 @@ interface Props {
 
 const { sector } = Astro.props;
 
-const allSectors = await getSectors();
-const caseStudies = await getCaseStudies();
+const [allSectors, caseStudies, siteSettings] = await Promise.all([
+  getSectors(),
+  getCaseStudies(),
+  getSiteSettings(),
+]);
+
+const origin = Astro.site?.origin || 'https://techsteps.co.uk';
+const sectorSchema = generateSectorSchema(sector, siteSettings, origin);
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Sectors', url: '/sectors' },
+  { name: sector.title, url: `/sectors/${sector.slug}` },
+], origin);
 
 // 8 Defined Sectors with exact corresponding icons in /icons/
 {/*const sectorNavList = [
@@ -100,6 +111,7 @@ const matchingCaseStudy = caseStudies.find(
 <BaseLayout
   title={sector.metaTitle || `${sector.title} Solutions | Techsteps UK`}
   description={sector.metaDescription || sector.summary}
+  jsonLd={[sectorSchema, breadcrumbSchema]}
   hasHeroHeader={true}
 >
   <!-- ========================================================= -->
@@ -247,11 +259,11 @@ const matchingCaseStudy = caseStudies.find(
                 </div>
 
                 <!-- Subtle Right Arrow Indicator -->
-                <div class="text-slate-400 group-hover:text-[#0F623A] group-hover:translate-x-1 transition-all duration-200 shrink-0 pr-1">
+                {/*<div class="text-slate-400 group-hover:text-[#0F623A] group-hover:translate-x-1 transition-all duration-200 shrink-0 pr-1">
                   <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
-                </div>
+                </div>*/}
               </div>
             ))}
           </div>

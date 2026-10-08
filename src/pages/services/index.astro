@@ -301,7 +301,7 @@ const divisionCards = [
 >
           <img
             id="division-image"
-            src="/images/services/image1.png"
+            src="/images/services/image1.webp"
             alt="Information Management"
             class="w-full h-full object-cover transition-all duration-500"
           />
@@ -570,42 +570,40 @@ const divisionCards = [
       </div>
     </div>
 
-    <Container className="relative z-10">
-      <!-- Top Left Header & Intro (matching the image layout) -->
-      <div class="max-w-2xl mb-14 sm:mb-16 lg:mb-20">
-        <!-- Eyebrow Pill -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A] text-white text-[11px] font-bold uppercase tracking-wider mb-4 shadow-xs">
-          <svg class="w-3.5 h-3.5 text-[#0F623A]" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
-          </svg>
-          <span>Our Work Process</span>
-        </div>
+<Container className="relative z-10">
+  <div class="w-full mb-14 sm:mb-16 lg:mb-20 text-center">
 
-        <!-- Main Title: First line bold dark, second line light styled -->
-<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
-  Every Asset.
-  <span class="block font-light text-slate-400">
-    A Smarter Journey.
-  </span>
-</h2>
+    <!-- Eyebrow -->
+    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A] text-white text-[11px] font-bold uppercase tracking-wider mb-4 shadow-xs">
+      <span>Our Work Process</span>
+    </div>
 
-        <!-- Description Paragraph -->
-        <p class="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
-          We help organisations move technology through the right lifecycle pathway, balancing security, value recovery and responsible end-of-life management.
-        </p>
+    <!-- Main Title -->
+    <h2 class="w-full text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.05]">
+      Every Asset.
+      <span class="block font-light text-slate-400">
+        A Smarter Journey.
+      </span>
+    </h2>
 
-        <!-- CTA Link -->
-        <div class="mt-5">
-          <a
-            href="#division-it-lifecycle-services-destruction"
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0F623A] hover:bg-[#146B5C] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
-          >
-            <span>Explore IT Asset Lifecycle</span>
-            <span class="text-sm font-bold">&rarr;</span>
-          </a>
-        </div>
-      </div>
+    <!-- Description -->
+    <p class="mt-5 w-full max-w-4xl mx-auto text-base sm:text-lg text-slate-600 leading-relaxed">
+      We help organisations move technology through the right lifecycle pathway,
+      balancing security, value recovery and responsible end-of-life management.
+    </p>
 
+    <!-- CTA -->
+    <div class="mt-6 flex justify-center">
+      <a
+        href="/services/it-lifecycle"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F623A] hover:bg-[#146B5C] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+      >
+        <span>Explore IT Asset Lifecycle</span>
+        <span class="text-sm font-bold">&rarr;</span>
+      </a>
+    </div>
+
+  </div>
       <!-- Stepper Wave Track Area -->
       <div class="relative pt-4 pb-8 lg:pb-16">
         <!-- Connecting Smooth Wave Line (SVG Bezier Path, visible on lg screens) -->
@@ -853,29 +851,46 @@ const divisionCards = [
               </div>
             </div>
 
-            <!-- Bottom Content: Title, Description, and Pill Button -->
-            <div class="relative z-10 flex flex-col items-start mt-auto pt-16">
-              <!-- Title -->
-              <h3 class="text-xl sm:text-[22px] font-bold text-white tracking-tight leading-snug mb-2 group-hover:text-emerald-300 transition-colors">
-                {card.title}
-              </h3>
+<!-- Bottom Content: Title Always Visible, Details on Hover -->
+<div class="relative z-10 flex flex-col items-start mt-auto pt-16">
 
-              <!-- Description -->
-              <p class="text-xs sm:text-[13px] text-white/80 leading-relaxed font-normal mb-5 line-clamp-3">
-                {card.desc}
-              </p>
+  <!-- Title: Always Visible -->
+  <h3 class="text-xl sm:text-[22px] font-bold text-white tracking-tight leading-snug mb-0 group-hover:text-emerald-300 transition-colors duration-300">
+    {card.title}
+  </h3>
 
-              <!-- Pill CTA Button with Explore -->
-              <div class="inline-flex items-center gap-2.5 pl-4 pr-1.5 py-1.5 rounded-full bg-white text-slate-900 font-semibold text-xs sm:text-sm shadow-md group-hover:bg-[#0F623A] group-hover:text-white transition-all duration-300">
-                <span>Explore</span>
-                <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 text-white flex items-center justify-center group-hover:bg-white group-hover:text-[#0F623A] transition-colors shrink-0">
-                  <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </span>
-              </div>
-            </div>
+  <!-- Description and Explore Button: Reveal on Hover -->
+  <div class="grid grid-rows-[0fr] opacity-0 translate-y-4 transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100 group-hover:translate-y-0">
+    <div class="overflow-hidden">
+
+      <!-- Description -->
+      <p class="text-xs sm:text-[13px] text-white/80 leading-relaxed font-normal mt-2 mb-5 line-clamp-3">
+        {card.desc}
+      </p>
+
+      <!-- Explore Button -->
+      <div class="inline-flex items-center gap-2.5 pl-4 pr-1.5 py-1.5 rounded-full bg-white text-slate-900 font-semibold text-xs sm:text-sm shadow-md group-hover:bg-[#0F623A] group-hover:text-white transition-all duration-300">
+        <span>Explore</span>
+
+        <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 text-white flex items-center justify-center group-hover:bg-white group-hover:text-[#0F623A] transition-colors shrink-0">
+          <svg
+            class="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </span>
+      </div>
+
+    </div>
+  </div>
+</div>
           </a>
         ))}
       </div>

@@ -32,144 +32,486 @@ const breadcrumbs = [
   />
 
   <!-- 2. MAIN CONTACT FORM SECTION (Image on Left, Send us a message Form on Right) -->
-  <section class="relative bg-[#f1f4ef] pt-6 sm:pt-8 pb-10 sm:pb-14">
+  <!-- 2. MAIN CONTACT FORM SECTION -->
+  <section class="relative bg-[#f1f4ef] pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24 overflow-hidden">
+    
+    <!-- Subtle decorative background -->
+    <div
+      class="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#146B5C]/[0.035] blur-3xl pointer-events-none"
+    ></div>
+
     <Container>
-      <!-- Main Contact Wrapper -->
-      <div class="w-full mx-auto relative z-30">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          
-          <!-- LEFT COLUMN: Client Consultation & Support Image (Image Only, No Text Inside) -->
+      <div class="w-full mx-auto relative z-10">
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-center">
+
+          <!-- ===================================================== -->
+          <!-- LEFT: UNIQUE IMAGE LAYOUT -->
+          <!-- ===================================================== -->
           <div class="lg:col-span-5 relative">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-300/80 bg-slate-100 group aspect-[4/5] sm:aspect-[4/4.5] lg:aspect-[4/5.2]">
+
+            <!-- Decorative green shape behind image -->
+            <div
+              class="absolute -left-4 sm:-left-6 bottom-[-20px] sm:bottom-[-28px]
+                     w-[78%] h-[72%]
+                     bg-[#146B5C]
+                     rounded-[2rem] sm:rounded-[2.5rem]
+                     rotate-[-5deg]"
+              aria-hidden="true"
+            ></div>
+
+            <!-- Secondary decorative shape -->
+            <div
+              class="absolute -right-3 sm:-right-5 top-[-18px] sm:top-[-24px]
+                     w-24 h-24 sm:w-32 sm:h-32
+                     border-[14px] sm:border-[18px]
+                     border-[#3FB33D]/20
+                     rounded-full"
+              aria-hidden="true"
+            ></div>
+
+            <!-- Main image -->
+            <div
+              class="relative z-10
+                     w-full
+                     aspect-[4/5]
+                     sm:aspect-[5/5.5]
+                     lg:aspect-[4/5.2]
+                     overflow-hidden
+                     rounded-[2rem] sm:rounded-[2.5rem]
+                     bg-slate-200
+                     shadow-[0_25px_60px_rgba(15,98,58,0.16)]
+                     border border-white/80"
+            >
               <img
-                src={contactPage.formSection?.image || "/images/contact/contact-consultation.jpg"}
+                src={
+                  contactPage.formSection?.image ||
+                  "/images/contact/contact-consultation.jpg"
+                }
                 alt="Techsteps UK client consultation and support"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                class="w-full h-full object-cover
+                       transition-transform duration-700
+                       hover:scale-[1.04]"
                 loading="eager"
               />
+
+              <!-- Image overlay -->
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-[#063b2c]/35 via-transparent to-transparent pointer-events-none"
+              ></div>
             </div>
+
+            <!-- Small decorative corner -->
+            <div
+              class="absolute z-20 bottom-5 right-[-10px] sm:right-[-18px]
+                     w-16 h-16 sm:w-20 sm:h-20
+                     bg-white
+                     rounded-2xl
+                     shadow-xl
+                     border border-slate-100
+                     flex items-center justify-center"
+              aria-hidden="true"
+            >
+              <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#146B5C]/10 flex items-center justify-center">
+                <svg
+                  class="w-4 h-4 sm:w-5 sm:h-5 text-[#146B5C]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1118 0z"
+                  />
+                  <circle
+                    cx="12"
+                    cy="10"
+                    r="3"
+                    stroke-width="1.8"
+                  />
+                </svg>
+              </div>
+            </div>
+
           </div>
 
-          <!-- RIGHT COLUMN: Send us a message -->
-          <div class="lg:col-span-7 space-y-6">
-            <div class="space-y-2">
-              <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-slate-900 tracking-tight">
-                {contactPage.formSection?.heading || "Send us a message"}
-              </h2>
-            </div>
 
-            <form
-              class="space-y-6"
-              id="techsteps-contact-form"
+          <!-- ===================================================== -->
+          <!-- RIGHT: PROFESSIONAL CONTACT FORM -->
+          <!-- ===================================================== -->
+          <div class="lg:col-span-7">
+
+            <div
+              class="relative
+                     bg-white
+                     rounded-[2rem] sm:rounded-[2.5rem]
+                     border border-slate-200/80
+                     shadow-[0_20px_60px_rgba(15,23,42,0.08)]
+                     p-6 sm:p-8 lg:p-10 xl:p-12"
             >
 
-              <!-- Row 1: Name & Company -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div class="space-y-1.5">
-                  <label for="contact-name" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 font-mono">
-                    Name <span class="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="contact-name"
-                    name="name"
-                    required
-                    placeholder="Enter your name"
-                    class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none font-sans"
-                  />
+              <!-- Form heading -->
+              <div class="mb-8 sm:mb-10">
+
+                <div class="flex items-center gap-3 mb-4">
+                  <span class="h-px w-8 bg-[#146B5C]"></span>
+
+                  <span
+                    class="text-[10px] sm:text-[11px]
+                           font-bold
+                           uppercase
+                           tracking-[0.22em]
+                           text-[#146B5C]"
+                  >
+                    Get in touch
+                  </span>
                 </div>
 
-                <div class="space-y-1.5">
-                  <label for="contact-company" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 font-mono">
-                    Company
-                  </label>
-                  <input
-                    type="text"
-                    id="contact-company"
-                    name="company"
-                    placeholder="Enter company name"
-                    class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none font-sans"
-                  />
-                </div>
-              </div>
-
-              <!-- Row 2: Phone & Email -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div class="space-y-1.5">
-                  <label for="contact-phone" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 font-mono">
-                    Phone <span class="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    id="contact-phone"
-                    name="phone"
-                    required
-                    placeholder="Enter phone number"
-                    class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none font-sans"
-                  />
-                </div>
-
-                <div class="space-y-1.5">
-                  <label for="contact-email" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 font-mono">
-                    Email <span class="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    id="contact-email"
-                    name="email"
-                    required
-                    placeholder="Enter email address"
-                    class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none font-sans"
-                  />
-                </div>
-              </div>
-
-              <!-- Row 3: Subject -->
-              <div class="space-y-1.5">
-                <label for="contact-subject" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 font-mono">
-                  Subject <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="contact-subject"
-                  name="subject"
-                  required
-                  placeholder="How can we help you?"
-                  class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none font-sans"
-                />
-              </div>
-
-              <!-- Row 4: Message -->
-              <div class="space-y-1.5">
-                <label for="contact-message" class="block text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 font-mono">
-                  Message <span class="text-red-500">*</span>
-                </label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  required
-                  rows="3"
-                  placeholder="Write your message here..."
-                  class="w-full px-1 py-2.5 bg-transparent border-0 border-b-2 border-slate-300 focus:border-[#146B5C] text-base font-semibold text-slate-900 placeholder:text-slate-400 outline-none transition-colors duration-200 rounded-none resize-none font-sans"
-                ></textarea>
-              </div>
-
-              <!-- Submit Button -->
-              <div class="pt-4">
-                <button
-                  type="submit"
-                  class="w-full py-4 rounded-xl bg-[#146B5C] hover:bg-[#0D5549] text-white text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer font-sans"
+                <h2
+                  class="text-3xl sm:text-4xl lg:text-[2.7rem]
+                         font-extrabold
+                         font-display
+                         text-slate-900
+                         tracking-tight
+                         leading-[1.08]"
                 >
-                  Send Message
-                </button>
+                  {contactPage.formSection?.heading || "Send us a message"}
+                </h2>
+
+                <p
+                  class="mt-3
+                         text-sm sm:text-base
+                         text-slate-500
+                         leading-relaxed
+                         max-w-xl"
+                >
+                  Tell us what you need and our team will get back to you shortly.
+                </p>
+
               </div>
 
-              <div id="contact-success" class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-base font-semibold font-sans">
-                Thank you for contacting Techsteps. Your enquiry has been routed to our UK support desk and a team member will reply shortly.
-              </div>
-            </form>
+
+              <!-- Contact Form -->
+              <form
+                class="space-y-6"
+                id="techsteps-contact-form"
+              >
+
+                <!-- Row 1 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+
+                  <!-- Name -->
+                  <div class="space-y-2">
+
+                    <label
+                      for="contact-name"
+                      class="block text-xs
+                             font-bold
+                             uppercase
+                             tracking-[0.12em]
+                             text-slate-700"
+                    >
+                      Name <span class="text-red-500">*</span>
+                    </label>
+
+                    <input
+                      type="text"
+                      id="contact-name"
+                      name="name"
+                      required
+                      placeholder="Enter your name"
+                      class="w-full
+                             h-12 sm:h-[52px]
+                             px-4
+                             rounded-xl
+                             bg-slate-50
+                             border border-slate-200
+                             text-sm sm:text-base
+                             font-medium
+                             text-slate-900
+                             placeholder:text-slate-400
+                             outline-none
+                             transition-all duration-200
+                             focus:bg-white
+                             focus:border-[#146B5C]
+                             focus:ring-4
+                             focus:ring-[#146B5C]/10"
+                    />
+
+                  </div>
+
+
+                  <!-- Company -->
+                  <div class="space-y-2">
+
+                    <label
+                      for="contact-company"
+                      class="block text-xs
+                             font-bold
+                             uppercase
+                             tracking-[0.12em]
+                             text-slate-700"
+                    >
+                      Company
+                    </label>
+
+                    <input
+                      type="text"
+                      id="contact-company"
+                      name="company"
+                      placeholder="Enter company name"
+                      class="w-full
+                             h-12 sm:h-[52px]
+                             px-4
+                             rounded-xl
+                             bg-slate-50
+                             border border-slate-200
+                             text-sm sm:text-base
+                             font-medium
+                             text-slate-900
+                             placeholder:text-slate-400
+                             outline-none
+                             transition-all duration-200
+                             focus:bg-white
+                             focus:border-[#146B5C]
+                             focus:ring-4
+                             focus:ring-[#146B5C]/10"
+                    />
+
+                  </div>
+
+                </div>
+
+
+                <!-- Row 2 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+
+                  <!-- Phone -->
+                  <div class="space-y-2">
+
+                    <label
+                      for="contact-phone"
+                      class="block text-xs
+                             font-bold
+                             uppercase
+                             tracking-[0.12em]
+                             text-slate-700"
+                    >
+                      Phone <span class="text-red-500">*</span>
+                    </label>
+
+                    <input
+                      type="tel"
+                      id="contact-phone"
+                      name="phone"
+                      required
+                      placeholder="Enter phone number"
+                      class="w-full
+                             h-12 sm:h-[52px]
+                             px-4
+                             rounded-xl
+                             bg-slate-50
+                             border border-slate-200
+                             text-sm sm:text-base
+                             font-medium
+                             text-slate-900
+                             placeholder:text-slate-400
+                             outline-none
+                             transition-all duration-200
+                             focus:bg-white
+                             focus:border-[#146B5C]
+                             focus:ring-4
+                             focus:ring-[#146B5C]/10"
+                    />
+
+                  </div>
+
+
+                  <!-- Email -->
+                  <div class="space-y-2">
+
+                    <label
+                      for="contact-email"
+                      class="block text-xs
+                             font-bold
+                             uppercase
+                             tracking-[0.12em]
+                             text-slate-700"
+                    >
+                      Email <span class="text-red-500">*</span>
+                    </label>
+
+                    <input
+                      type="email"
+                      id="contact-email"
+                      name="email"
+                      required
+                      placeholder="Enter email address"
+                      class="w-full
+                             h-12 sm:h-[52px]
+                             px-4
+                             rounded-xl
+                             bg-slate-50
+                             border border-slate-200
+                             text-sm sm:text-base
+                             font-medium
+                             text-slate-900
+                             placeholder:text-slate-400
+                             outline-none
+                             transition-all duration-200
+                             focus:bg-white
+                             focus:border-[#146B5C]
+                             focus:ring-4
+                             focus:ring-[#146B5C]/10"
+                    />
+
+                  </div>
+
+                </div>
+
+
+                <!-- Subject -->
+                <div class="space-y-2">
+
+                  <label
+                    for="contact-subject"
+                    class="block text-xs
+                           font-bold
+                           uppercase
+                           tracking-[0.12em]
+                           text-slate-700"
+                  >
+                    Subject <span class="text-red-500">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    id="contact-subject"
+                    name="subject"
+                    required
+                    placeholder="How can we help you?"
+                    class="w-full
+                           h-12 sm:h-[52px]
+                           px-4
+                           rounded-xl
+                           bg-slate-50
+                           border border-slate-200
+                           text-sm sm:text-base
+                           font-medium
+                           text-slate-900
+                           placeholder:text-slate-400
+                           outline-none
+                           transition-all duration-200
+                           focus:bg-white
+                           focus:border-[#146B5C]
+                           focus:ring-4
+                           focus:ring-[#146B5C]/10"
+                  />
+
+                </div>
+
+
+                <!-- Message -->
+                <div class="space-y-2">
+
+                  <label
+                    for="contact-message"
+                    class="block text-xs
+                           font-bold
+                           uppercase
+                           tracking-[0.12em]
+                           text-slate-700"
+                  >
+                    Message <span class="text-red-500">*</span>
+                  </label>
+
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    required
+                    rows="5"
+                    placeholder="Write your message here..."
+                    class="w-full
+                           min-h-[130px]
+                           px-4
+                           py-3.5
+                           rounded-xl
+                           bg-slate-50
+                           border border-slate-200
+                           text-sm sm:text-base
+                           font-medium
+                           text-slate-900
+                           placeholder:text-slate-400
+                           outline-none
+                           transition-all duration-200
+                           focus:bg-white
+                           focus:border-[#146B5C]
+                           focus:ring-4
+                           focus:ring-[#146B5C]/10
+                           resize-none"
+                  ></textarea>
+
+                </div>
+
+
+                <!-- Submit -->
+                <div class="pt-2">
+
+                  <button
+                    type="submit"
+                    class="group
+                           w-full
+                           min-h-[54px]
+                           px-6
+                           rounded-xl
+                           bg-[#146B5C]
+                           hover:bg-[#0D5549]
+                           text-white
+                           text-sm sm:text-base
+                           font-bold
+                           tracking-wide
+                           shadow-[0_10px_25px_rgba(20,107,92,0.18)]
+                           hover:shadow-[0_14px_30px_rgba(20,107,92,0.25)]
+                           transition-all duration-200
+                           cursor-pointer
+                           flex items-center justify-center gap-3"
+                  >
+                    <span>Send Message</span>
+
+                    <span
+                      class="text-lg transition-transform duration-200 group-hover:translate-x-1"
+                      aria-hidden="true"
+                    >
+                      →
+                    </span>
+                  </button>
+
+                </div>
+
+
+                <!-- Success / Error message -->
+                <div
+                  id="contact-success"
+                  class="hidden p-4 rounded-xl
+                         bg-emerald-50
+                         border border-emerald-200
+                         text-emerald-800
+                         text-sm
+                         font-semibold"
+                >
+                  Thank you for contacting Techsteps. Your enquiry has been routed to our UK support desk and a team member will reply shortly.
+                </div>
+
+              </form>
+
+            </div>
+
           </div>
+
         </div>
+
       </div>
     </Container>
 

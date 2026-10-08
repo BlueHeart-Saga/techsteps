@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/layout/Container.astro';
 import PageHero from '../../../components/hero/PageHero.astro';
 import { insightsApi, isPublishedPost, type Post } from '../../../lib/insightsApi';
+import { generateBreadcrumbSchema } from '../../../lib/seo/jsonld';
 import InlineNewsletter from '../../../components/newsletter/InlineNewsletter';
 
 export async function getStaticPaths() {
@@ -102,11 +103,15 @@ const breadcrumbs = [
   { name: 'Insights', url: '/insights' },
   { name: category.name, url: `/insights/${category.slug}` },
 ];
+
+const origin = Astro.site?.origin || 'https://techsteps.co.uk';
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs, origin);
 ---
 
 <BaseLayout
   title={`${category.name} | TechSteps Insights & Research Hub`}
   description={`Browse verified ${category.name.toLowerCase()} regarding certified IT asset disposition, ADISA 8.0 standards, BS 10008 legal admissibility, and zero-landfill ESG recycling from TechSteps.`}
+  jsonLd={[breadcrumbSchema]}
   hasHeroHeader={true}
 >
 

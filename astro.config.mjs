@@ -44,6 +44,25 @@ export default defineConfig({
         const path = page.replace(productionSite, '').replace('https://techsteps.co.uk', '');
         // Exclude 404 error page, admin studio, and legacy /terms alias
         if (path === '/404' || path === '/terms' || path.startsWith('/admin')) return false;
+
+        // For service dynamic routes, ensure only primary canonical services or division hub pages are included, filtering out artificial alias variations
+        if (path.startsWith('/services/')) {
+          const slug = path.replace('/services/', '');
+          if (slug.endsWith('-services-uk') || slug.endsWith('-services-services') || slug.endsWith('-uk-services')) {
+            return false;
+          }
+        }
+
+        // For insights dynamic routes, filter raw ID aliases if SEO slug exists
+        if (path.startsWith('/insights/') && path.split('/').length > 3) {
+          const parts = path.split('/');
+          const postSlug = parts[parts.length - 1];
+          // If post slug looks like an internal uuid/raw id when an seo slug is preferred, keep only standard slugs
+          if (/^[a-f0-9]{24}$/i.test(postSlug)) {
+            return false;
+          }
+        }
+
         return true;
       },
       serialize(item) {
