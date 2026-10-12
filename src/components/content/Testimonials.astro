@@ -1,11 +1,24 @@
 ---
-import Container from '../layout/Container.astro';
 import { getTestimonials } from '../../lib/sanity/client';
+import type { TestimonialItem } from '../../lib/sanity/types';
 
-const testimonials = await getTestimonials();
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  description?: string;
+  testimonials?: TestimonialItem[];
+}
 
-// Ensure we have a robust set of 6 items
-const displayTestimonials = testimonials && testimonials.length > 0 ? testimonials : [
+const {
+  eyebrow: customEyebrow,
+  heading: customHeading,
+  description: customDescription,
+  testimonials: customTestimonials,
+} = Astro.props;
+
+const sanityTestimonials = await getTestimonials();
+
+const fallbackTestimonials: TestimonialItem[] = [
   {
     id: 't1',
     quote: 'Impressed by the security rigor, speed, and attention to detail from day one. TechSteps transformed our lifecycle compliance.',
@@ -68,181 +81,344 @@ const displayTestimonials = testimonials && testimonials.length > 0 ? testimonia
   },
 ];
 
-// Duplicate list for infinite seamless marquee loop
-const carouselItems = [...displayTestimonials, ...displayTestimonials];
+const sourceList: TestimonialItem[] = (customTestimonials && customTestimonials.length > 0)
+  ? customTestimonials
+  : (sanityTestimonials && sanityTestimonials.length > 0)
+    ? sanityTestimonials
+    : fallbackTestimonials;
+
+const sectionEyebrow = customEyebrow || 'Client testimonials';
+const sectionHeading = customHeading || 'What our clients say';
+const sectionDescription = customDescription || 'Discover how UK enterprises trust Techsteps for secure IT asset disposition, compliant records management, and certified data sanitisation.';
+
+function getInitials(name: string): string {
+  if (!name) return 'TS';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) {
+    return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+  }
+  return name.slice(0, 2).toUpperCase();
+}
+
+// Since sourceList has 6 testimonials (< 8), repeat twice in each half
+// Half 1: 12 cards, Half 2: 12 cards -> Total: 24 cards
+// Both halves contain the exact same number of cards (12 cards each)
+const halfOne = [...sourceList, ...sourceList];
+const halfTwo = [...sourceList, ...sourceList];
+const allCards = [...halfOne, ...halfTwo];
+const uniqueCount = sourceList.length;
 ---
 
 <section
   id="client-testimonials-section"
-  class="relative bg-[#F9FBF8] py-14 sm:py-16 md:py-20 lg:py-24 overflow-hidden border-t border-slate-200/80 select-none"
-  aria-label="Client Reviews and Testimonials"
+  class="testimonials-marquee-section relative bg-[#F1F4EF] py-[68px] lg:pt-[104px] lg:pb-[96px] overflow-hidden text-slate-900 border-t border-slate-200/80 select-none"
+  aria-labelledby="testimonials-heading"
 >
-  <!-- Background subtle ambient lighting -->
-  <div class="absolute top-0 right-1/4 w-96 h-96 bg-emerald-500/[0.03] rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
-  <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-[#0F623A]/[0.03] rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <!-- Ambient Soft Eco Glow Background Accents -->
+  <div class="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
+    <div class="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full bg-emerald-100/25 blur-[130px]"></div>
+    <div class="absolute bottom-0 left-1/4 w-[450px] h-[450px] rounded-full bg-[#EEF7F2]/60 blur-[130px]"></div>
+  </div>
 
-  <!-- Header Container aligned exactly with site navbar / standard Container grid -->
-  <Container className="relative z-10">
-    <div class="max-w-2xl mx-auto space-y-3 sm:space-y-4 mb-10 sm:mb-12 md:mb-14 text-center">
-      {/*<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#146B5C]/10 border border-[#146B5C]/20 text-[#0F623A] text-xs font-bold uppercase tracking-wider">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-        Client Reviews
-      </div>*/}
-
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-[1.08]">
-        What Our Clients Say
-      </h2>
-
-      <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-        Discover how UK enterprises trust Techsteps for secure IT asset disposition, compliant records management, and certified data sanitisation.
-      </p>
+  <!-- Centred Section Header -->
+  <div class="relative z-10 max-w-3xl mx-auto mb-10 sm:mb-14 lg:mb-16 px-4 text-center">
+    <!-- Faint oversized decorative quote mark behind heading (rgba(15,98,58,.05)) -->
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none -z-10" aria-hidden="true">
+      <svg class="w-44 h-44 sm:w-60 sm:h-60 text-[#0F623A]/[0.05]" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+      </svg>
     </div>
-  </Container>
 
-  <!-- Full-Width Horizontal Continuous Carousel Track Container -->
-  <div class="relative w-full overflow-hidden">
-    <!-- Left edge subtle gradient fade out on desktop -->
-    <div class="hidden sm:block absolute left-0 inset-y-0 w-16 lg:w-28 bg-gradient-to-r from-[#F9FBF8] to-transparent z-20 pointer-events-none" aria-hidden="true"></div>
-    
-    <!-- Right edge subtle gradient fade out on desktop -->
-    <div class="hidden sm:block absolute right-0 inset-y-0 w-16 lg:w-28 bg-gradient-to-l from-[#F9FBF8] to-transparent z-20 pointer-events-none" aria-hidden="true"></div>
+    <!-- Eyebrow: Small uppercase green eyebrow with short lines either side -->
+    <div class="inline-flex items-center justify-center gap-3 mb-3">
+      <span class="w-7 sm:w-10 h-[1.5px] bg-[#0F623A]/40" aria-hidden="true"></span>
+      <span class="text-xs sm:text-[13px] font-mono font-bold tracking-[0.22em] text-[#0F623A] uppercase">
+        {sectionEyebrow}
+      </span>
+      <span class="w-7 sm:w-10 h-[1.5px] bg-[#0F623A]/40" aria-hidden="true"></span>
+    </div>
 
-    <!-- Scrolling Marquee Wrapper (Pauses smoothly on hover / touch) -->
-    <div
-      id="testimonial-marquee"
-      class="testimonial-track flex items-stretch gap-5 sm:gap-6 py-4 px-4 sm:px-6 w-max cursor-grab active:cursor-grabbing"
+    <!-- Heading: Sentence-case, existing heading text -->
+    <h2
+      id="testimonials-heading"
+      class="text-3xl sm:text-4xl lg:text-[44px] font-extrabold font-display text-slate-900 tracking-tight leading-[1.14] mb-3 sm:mb-4 text-balance"
     >
-      {carouselItems.map((item, index) => (
-        <article
-          class="testimonial-card group relative flex flex-col justify-between w-[310px] sm:w-[380px] md:w-[420px] lg:w-[440px] shrink-0 bg-white rounded-2xl p-6 sm:p-7 md:p-8 border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_32px_-4px_rgba(15,98,58,0.12)] hover:border-[#146B5C]/40 transition-all duration-300"
-          data-index={index}
-        >
-          <!-- Top Row: Star Rating & Quotation Mark Indicator -->
-          <div class="flex items-center justify-between gap-4 mb-4 sm:mb-5">
-            <!-- 5 Star Rating -->
-            <div class="flex items-center gap-1" aria-label={`Rating: ${item.rating || 5} out of 5 stars`}>
-              {Array.from({ length: item.rating || 5 }).map(() => (
-                <svg
-                  class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#0F623A] fill-current"
-                  viewBox="0 0 20 20"
-                  aria-hidden="true"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-            </div>
+      {sectionHeading}
+    </h2>
 
-            <!-- Subtle Decorative Quote Mark Icon -->
-            <div class="text-[#0F623A]/20 group-hover:text-[#0F623A]/40 transition-colors duration-300 shrink-0" aria-hidden="true">
-              <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor" viewBox="0 0 24 24">
+    <!-- Supporting description -->
+    {sectionDescription && (
+      <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
+        {sectionDescription}
+      </p>
+    )}
+  </div>
+
+  <!-- ONE Horizontal Row of Cards inside Full-Width Container with Edge-Fade Masks -->
+  <div class="testimonial-marquee-wrapper relative w-full overflow-hidden">
+    <!-- Flex Marquee Track -->
+    <div
+      class="testimonial-track track"
+      id="testimonial-track"
+      role="region"
+      aria-label="Client review carousel"
+    >
+      {allCards.map((item, index) => {
+        // First `uniqueCount` items are read by screen readers; subsequent duplicate repetitions have aria-hidden="true"
+        const isDuplicate = index >= uniqueCount;
+        // Alternating card variant: every second card is dark variant (#0F623A to #083d24)
+        const isDark = (index % 2 === 1);
+
+        return (
+          <article
+            class={`testimonial-card ${isDark ? 'testimonial-card-dark' : 'testimonial-card-light'}`}
+            aria-hidden={isDuplicate ? 'true' : undefined}
+          >
+            <!-- Top: 44px rounded-square (12px radius) tile with green gradient & white quote-mark glyph -->
+            <div
+              class={`w-[44px] h-[44px] rounded-[12px] flex items-center justify-center shrink-0 shadow-xs ${
+                isDark
+                  ? 'bg-[#3FB33D] text-[#083d24]'
+                  : 'bg-gradient-to-br from-[#0F623A] to-[#083d24] text-white'
+              }`}
+              aria-hidden="true"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
               </svg>
             </div>
-          </div>
 
-          <!-- Middle: Testimonial Body Quote -->
-          <blockquote class="text-slate-700 text-sm sm:text-base md:text-[16.5px] leading-relaxed font-normal mb-6 sm:mb-8 flex-1">
-            "{item.quote}"
-          </blockquote>
+            <!-- Middle: Quote Text (19px, weight 500, line-height 1.5, 17px on mobile, never truncated) -->
+            <blockquote
+              class={`m-0 p-0 text-[17px] sm:text-[19px] font-medium leading-[1.5] flex-1 ${
+                isDark ? 'text-white' : 'text-slate-800'
+              }`}
+            >
+              "{item.quote}"
+            </blockquote>
 
-          <!-- Bottom: Client Profile Row -->
-          <div class="pt-4 border-t border-slate-100 flex items-center gap-3.5 sm:gap-4 mt-auto">
-            <!-- Client Avatar Image -->
-            <div class="relative shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-slate-100 border border-slate-200/80 shadow-xs">
-              <img
-                src={item.avatar}
-                alt={item.author}
-                class="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-              />
-              <!-- Fallback Initials Avatar -->
-              <div class="hidden absolute inset-0 bg-[#0F623A] text-white font-bold text-xs sm:text-sm items-center justify-center">
-                {item.author.split(' ').map(n => n[0]).join('').slice(0, 2)}
+            <!-- Bottom: 1px divider + Avatar, Name, Role & Company -->
+            <div class="mt-auto space-y-[22px]">
+              <div
+                class={`h-[1px] w-full ${isDark ? 'bg-white/15' : 'bg-[#dbe7df]'}`}
+                aria-hidden="true"
+              ></div>
+
+              <div class="flex items-center gap-3.5">
+                <!-- Avatar: 46px circle with 2px #3FB33D ring -->
+                <div
+                  class={`relative shrink-0 w-[46px] h-[46px] rounded-full overflow-hidden ring-2 ring-[#3FB33D] ${
+                    isDark ? 'bg-white/10' : 'bg-[#EEF7F2]'
+                  }`}
+                >
+                  {item.avatar ? (
+                    <img
+                      src={item.avatar}
+                      alt={isDuplicate ? '' : `${item.author} avatar`}
+                      class="w-full h-full object-cover"
+                      width="46"
+                      height="46"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div
+                      class={`w-full h-full flex items-center justify-center font-bold text-sm ${
+                        isDark ? 'text-white' : 'text-[#0F623A]'
+                      }`}
+                      aria-hidden="true"
+                    >
+                      {getInitials(item.author)}
+                    </div>
+                  )}
+                </div>
+
+                <!-- Name, Role and Company (No truncation, allowed to wrap naturally onto multiple lines) -->
+                <div class="min-w-0 flex-1">
+                  <h3
+                    class={`text-base font-bold leading-snug tracking-tight ${
+                      isDark ? 'text-white' : 'text-[#0F623A]'
+                    }`}
+                  >
+                    {item.author}
+                  </h3>
+                  <p
+                    class={`text-[13px] leading-snug mt-0.5 ${
+                      isDark ? 'text-emerald-100/85' : 'text-slate-600'
+                    }`}
+                  >
+                    {item.role}{item.company ? ` • ${item.company}` : ''}
+                  </p>
+                </div>
               </div>
             </div>
-
-            <!-- Client Info -->
-            <div class="min-w-0 flex-1">
-              <h3 class="text-sm sm:text-[15px] font-bold text-brand-navy tracking-tight leading-snug truncate">
-                {item.author}
-              </h3>
-              <p class="text-xs text-slate-500 leading-tight truncate mt-0.5">
-                {item.role}
-              </p>
-              <p class="text-[11px] font-semibold text-[#0F623A] uppercase tracking-wider truncate mt-0.5">
-                {item.company}
-              </p>
-            </div>
-          </div>
-        </article>
-      ))}
+          </article>
+        );
+      })}
     </div>
   </div>
+
 </section>
 
 <style>
-  /* Smooth horizontal scrolling animation */
+  /* ---------------------------------------------------- */
+  /* EDGE-FADE GRADIENT MASKS ON FULL-WIDTH TRACK WRAPPER */
+  /* ---------------------------------------------------- */
+  .testimonial-marquee-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+    padding: 12px 0 18px;
+  }
+
+  /* ---------------------------------------------------- */
+  /* MARQUEE TRACK ANIMATION (PURE CSS)                   */
+  /* ---------------------------------------------------- */
   .testimonial-track {
-    animation: testimonialScroll 55s linear infinite;
+    display: flex;
+    gap: 22px;
+    width: max-content;
+    animation: run 72s linear infinite;
     will-change: transform;
   }
 
-  /* Pause smoothly when hovered */
-  .testimonial-track:hover {
+  /* Seamless loop: exactly -50% - 11px (half of 22px gap) */
+  @keyframes run {
+    to {
+      transform: translateX(calc(-50% - 11px));
+    }
+  }
+
+  /* Pause on hover, on focus-within, and via pause button toggle */
+  .testimonial-track:hover,
+  .testimonial-track:focus-within,
+  .testimonial-track.is-paused {
     animation-play-state: paused;
   }
 
-  @keyframes testimonialScroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      /* Halfway scroll since the list is duplicated exactly once */
-      transform: translateX(-50%);
+  /* ---------------------------------------------------- */
+  /* CARD STYLES                                          */
+  /* ---------------------------------------------------- */
+  .testimonial-card {
+    width: 290px;
+    padding: 24px 20px 20px;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  @media (min-width: 640px) {
+    .testimonial-card {
+      width: 400px;
+      padding: 32px 30px 26px;
     }
   }
 
-  /* Respect prefers-reduced-motion */
+  /* Light card variant */
+  .testimonial-card-light {
+    background-color: #ffffff;
+    border: 1px solid #dbe7df;
+    box-shadow: 0 10px 30px -5px rgba(15, 98, 58, 0.08);
+  }
+
+  .testimonial-card-light:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px -6px rgba(15, 98, 58, 0.16);
+  }
+
+  /* Dark card variant (every second card) */
+  .testimonial-card-dark {
+    background: linear-gradient(145deg, #0F623A 0%, #083d24 100%);
+    border: 1px solid rgba(63, 179, 61, 0.25);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.22);
+  }
+
+  .testimonial-card-dark:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px -6px rgba(0, 0, 0, 0.38);
+  }
+
+  /* ---------------------------------------------------- */
+  /* REDUCED MOTION PREFERENCE (ACCESSIBILITY)            */
+  /* ---------------------------------------------------- */
   @media (prefers-reduced-motion: reduce) {
+    .testimonial-marquee-wrapper {
+      mask-image: none !important;
+      -webkit-mask-image: none !important;
+      overflow-x: auto !important;
+      scroll-snap-type: x mandatory !important;
+      -webkit-overflow-scrolling: touch;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
     .testimonial-track {
       animation: none !important;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
+      width: auto !important;
     }
+
     .testimonial-card {
-      scroll-snap-align: start;
+      scroll-snap-align: center;
+    }
+
+    .testimonial-card[aria-hidden="true"] {
+      display: none !important;
+    }
+
+    .testimonial-card:hover {
+      transform: none !important;
+    }
+
+    .pause-control-wrapper {
+      display: none !important;
     }
   }
 </style>
 
 <script is:inline>
   (() => {
-    const initCarouselTouch = () => {
-      const track = document.getElementById('testimonial-marquee');
-      if (!track) return;
+    const initPauseControl = () => {
+      const btn = document.getElementById('testimonial-pause-toggle');
+      const track = document.getElementById('testimonial-track');
+      const pauseIcon = document.getElementById('pause-icon');
+      const playIcon = document.getElementById('play-icon');
+      const btnText = document.getElementById('pause-btn-text');
 
-      let isDown = false;
-      let startX;
-      let scrollLeft;
+      if (!btn || !track) return;
 
-      // Handle touch drag for mobile / tablet smooth interaction
-      track.addEventListener('touchstart', () => {
-        track.style.animationPlayState = 'paused';
-      }, { passive: true });
+      let isPaused = false;
 
-      track.addEventListener('touchend', () => {
-        track.style.animationPlayState = 'running';
-      }, { passive: true });
+      btn.addEventListener('click', () => {
+        isPaused = !isPaused;
+        if (isPaused) {
+          track.classList.add('is-paused');
+          btn.setAttribute('aria-pressed', 'true');
+          btn.setAttribute('aria-label', 'Resume testimonial marquee animation');
+          if (pauseIcon) pauseIcon.classList.add('hidden');
+          if (playIcon) playIcon.classList.remove('hidden');
+          if (btnText) btnText.textContent = 'Resume animation';
+        } else {
+          track.classList.remove('is-paused');
+          btn.setAttribute('aria-pressed', 'false');
+          btn.setAttribute('aria-label', 'Pause testimonial marquee animation');
+          if (pauseIcon) pauseIcon.classList.remove('hidden');
+          if (playIcon) playIcon.classList.add('hidden');
+          if (btnText) btnText.textContent = 'Pause animation';
+        }
+      });
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initCarouselTouch);
+      document.addEventListener('DOMContentLoaded', initPauseControl);
     } else {
-      initCarouselTouch();
+      initPauseControl();
     }
 
-    document.addEventListener('astro:page-load', initCarouselTouch);
+    document.addEventListener('astro:page-load', initPauseControl);
   })();
 </script>

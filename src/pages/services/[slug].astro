@@ -383,16 +383,15 @@ const needsIconPaths: Record<string, string> = {
             <span class="text-slate-900 font-bold">{service.title}</span>
           </nav>
 
-          <!-- Heading: Serif font matching Home page hero -->
+          <!-- Heading -->
           <h1
-            class="font-display font-serif
+            class="font-display
                    text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
                    font-extrabold
                    text-slate-900
-                   tracking-tight
-                   leading-[1.1] sm:leading-[1.08]
+                   tracking-normal
+                   leading-[1.12] sm:leading-[1.1]
                    max-w-xl"
-            style="font-family: 'Lora', Georgia, serif;"
           >
             {detail.heroTitle}
           </h1>
@@ -1034,9 +1033,10 @@ const needsIconPaths: Record<string, string> = {
 .process-heading h2 {
   margin: 0;
   color: #123d2b;
-  font-family: Georgia, serif;
+  font-family: var(--font-sans);
   font-size: clamp(32px, 3.5vw, 48px);
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: normal;
   line-height: 1.12;
 }
 
@@ -1152,9 +1152,10 @@ const needsIconPaths: Record<string, string> = {
   max-width: 260px;
   margin: 30px 0 18px;
   color: #123d2b;
-  font-family: Georgia, serif;
+  font-family: var(--font-sans);
   font-size: clamp(21px, 1.8vw, 25px);
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: normal;
   line-height: 1.2;
 }
 

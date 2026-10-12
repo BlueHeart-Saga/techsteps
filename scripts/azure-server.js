@@ -85,7 +85,7 @@ function generateCollectionHtml(data) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TechSteps Collection Request - ${ref}</title>
 </head>
-<body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
+<body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F4F7F4; padding:32px 12px;">
     <tr>
       <td align="center">
@@ -279,7 +279,7 @@ function generateContactHtml(data) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Techsteps Contact Enquiry - ${subject}</title>
 </head>
-<body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
+<body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F4F7F4; padding:32px 12px;">
     <tr>
       <td align="center">
@@ -419,7 +419,7 @@ function generateCustomerCollectionConfirmationHtml(data) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Techsteps Collection Request Received - ${ref}</title>
 </head>
-<body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
+<body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F4F7F4; padding:32px 12px;">
     <tr>
       <td align="center">
@@ -625,7 +625,7 @@ function generateCustomerContactConfirmationHtml(data) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thank you for contacting Techsteps</title>
 </head>
-<body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
+<body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F4F7F4; padding:32px 12px;">
     <tr>
       <td align="center">

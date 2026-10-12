@@ -9,7 +9,7 @@ interface Step {
   shortDesc?: string;
   description: string;
   image: string;
-  iconImage: string;
+  iconImage?: string;
   badge?: string;
   imageAlt?: string;
 }
@@ -31,7 +31,6 @@ const fallbackDefaultSteps: Step[] = [
     description: 'We collect your IT equipment securely and transport it through a fully tracked process, ensuring complete visibility from pickup to arrival.',
     badge: 'PHASE 01 // AUDIT & TRANSIT',
     image: '/images/process/01. COLLECT.webp',
-    iconImage: '/images/process/01. COLLECT-1.webp',
     imageAlt: 'Techsteps secure collection vehicle and logistics specialist',
   },
   {
@@ -43,7 +42,6 @@ const fallbackDefaultSteps: Step[] = [
     description: 'Ingestion into biometric-monitored facilities with tamper-evident serialized containment and audited chain of custody.',
     badge: 'PHASE 02 // CUSTODY & CONTAINMENT',
     image: '/images/process/02. SECURE.webp',
-    iconImage: '/images/process/02. SECURE-1.webp',
     imageAlt: 'Techsteps tamper-evident flight case tracking and digital custody verification',
   },
   {
@@ -55,7 +53,6 @@ const fallbackDefaultSteps: Step[] = [
     description: 'Certified sanitisation to NIST 800-88 standards or on-site mobile DIN 66399 mechanical granulation.',
     badge: 'PHASE 03 // DATA SANITISATION',
     image: '/images/process/03. PROCESS.webp',
-    iconImage: '/images/process/03. PROCESS-1.webp',
     imageAlt: 'NIST 800-88 certified hardware data sanitisation and live progress verification',
   },
   {
@@ -67,7 +64,6 @@ const fallbackDefaultSteps: Step[] = [
     description: 'Refurbishment, grading, and component testing to extract maximum economic residual value for your enterprise budget.',
     badge: 'PHASE 04 // VALUE RECOVERY',
     image: '/images/process/04. RECOVER.webp',
-    iconImage: '/images/process/04. RECOVER-1.webp',
     imageAlt: 'Enterprise laptop and hard drive component testing and value recovery',
   },
   {
@@ -79,13 +75,13 @@ const fallbackDefaultSteps: Step[] = [
     description: 'Ethical B2B remarketing or domestic closed-loop raw material separation, guaranteeing 100% landfill diversion.',
     badge: 'PHASE 05 // ZERO LANDFILL RECYCLING',
     image: '/images/process/RECYCLE.webp',
-    iconImage: '/images/process/RECYCLE-1.webp',
     imageAlt: 'Zero-landfill closed-loop sorting and responsible component recycling',
   },
 ];
 
 const { lifecycle, steps: customSteps, title: customTitle, subtitle: customSubtitle } = Astro.props;
 
+const sectionEyebrow = lifecycle?.eyebrow || 'CERTIFIED PROCESS';
 const sectionTitle = customTitle || lifecycle?.heading || 'Our Certified Lifecycle Process';
 const sectionSubtitle = customSubtitle || lifecycle?.description || 'A Secure, Auditable, And Environmentally Responsible End-To-End Chain Of Custody.';
 
@@ -96,34 +92,24 @@ const rawSteps = (customSteps && customSteps.length > 0)
     : fallbackDefaultSteps;
 
 const fallbackImages = [
-  { main: '/images/process/01. COLLECT.webp', icon: '/images/process/01. COLLECT-1.webp', badge: 'PHASE 01 // AUDIT & TRANSIT' },
-  { main: '/images/process/02. SECURE.webp', icon: '/images/process/02. SECURE-1.webp', badge: 'PHASE 02 // CUSTODY & CONTAINMENT' },
-  { main: '/images/process/03. PROCESS.webp', icon: '/images/process/03. PROCESS-1.webp', badge: 'PHASE 03 // DATA SANITISATION' },
-  { main: '/images/process/04. RECOVER.webp', icon: '/images/process/04. RECOVER-1.webp', badge: 'PHASE 04 // VALUE RECOVERY' },
-  { main: '/images/process/RECYCLE.webp', icon: '/images/process/RECYCLE-1.webp', badge: 'PHASE 05 // ZERO LANDFILL RECYCLING' },
+  '/images/process/01. COLLECT.webp',
+  '/images/process/02. SECURE.webp',
+  '/images/process/03. PROCESS.webp',
+  '/images/process/04. RECOVER.webp',
+  '/images/process/RECYCLE.webp',
 ];
 
 const normalizedSteps: Step[] = rawSteps.map((step: any, idx: number) => {
-  const defaultPair = fallbackImages[idx % fallbackImages.length];
   const stepNum = step.stepNumber || step.number || String(idx + 1).padStart(2, '0');
   const formattedNum = String(stepNum).replace(/[^0-9]/g, '').padStart(2, '0') || String(idx + 1).padStart(2, '0');
 
-  let mainImg = defaultPair.main;
+  let mainImg = fallbackImages[idx % fallbackImages.length];
   if (typeof step.image === 'string' && step.image) {
     mainImg = step.image;
   } else if (step.imageUrl) {
     mainImg = step.imageUrl;
   } else if (step.image?.asset?.url) {
     mainImg = step.image.asset.url;
-  }
-
-  let iconImg = defaultPair.icon;
-  if (typeof step.iconImage === 'string' && step.iconImage) {
-    iconImg = step.iconImage;
-  } else if (step.iconImageUrl) {
-    iconImg = step.iconImageUrl;
-  } else if (step.iconImage?.asset?.url) {
-    iconImg = step.iconImage.asset.url;
   }
 
   return {
@@ -133,333 +119,659 @@ const normalizedSteps: Step[] = rawSteps.map((step: any, idx: number) => {
     headline: step.headline || step.shortDesc || step.title || `Phase ${formattedNum}`,
     shortDesc: step.shortDesc || step.headline || '',
     description: step.description || step.lead || '',
-    badge: step.badge || defaultPair.badge,
+    badge: step.badge || `PHASE ${formattedNum}`,
     image: mainImg,
-    iconImage: iconImg,
     imageAlt: step.imageAlt || `${step.title || 'Process Step'} - Techsteps Certified Lifecycle`,
   };
 });
-
-const initialStep = normalizedSteps[0] || fallbackDefaultSteps[0];
 ---
 
-<section class="w-full select-none font-sans" id="hero-section-41-lifecycle">
-  <!-- Section Header (Centered) -->
-  <div class="text-center w-full max-w-[1240px] mx-auto space-y-2.5">
-    <h2 class="text-3xl font-extrabold font-display text-brand-navy tracking-tight sm:text-4xl lg:text-5xl">
+<div class="work-process-journey w-full select-none font-sans" id="work-process-section">
+  
+  <!-- ========================================================= -->
+  <!-- SECTION HEADER                                            -->
+  <!-- ========================================================= -->
+  <div class="text-center w-full max-w-3xl mx-auto space-y-3 mb-8 sm:mb-10 lg:mb-12">
+    <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#3FB33D] animate-pulse"></span>
+      {sectionEyebrow}
+    </span>
+    
+    <h2 class="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-extrabold font-display text-slate-900 tracking-tight leading-[1.14]">
       {sectionTitle}
     </h2>
-    <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl mx-auto font-medium">
+
+    <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
       {sectionSubtitle}
     </p>
   </div>
 
-  <!-- Single grid: Left = text + thumbnails | Right = image only -->
-  <div class="mx-auto w-full max-w-7xl">
-    <div class="grid grid-cols-1 lg:grid-cols-12 items-center gap-4 lg:gap-6">
+  <!-- ========================================================= -->
+  <!-- DESKTOP ZIG-ZAG TIMELINE JOURNEY (Screen >= 1024px)       -->
+  <!-- ========================================================= -->
+  <div class="hidden lg:block relative w-full max-w-[1340px] mx-auto min-h-[520px] xl:min-h-[550px] px-2" id="zigzag-desktop-container">
+    
+    <!-- SVG CONNECTING PATH LAYER (Behind the items) -->
+    <svg
+      id="zigzag-svg"
+      class="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
+      aria-hidden="true"
+    >
+      <defs>
+        <!-- Soft glowing filter for active line energy pulse -->
+        <filter id="zigzag-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#3FB33D" flood-opacity="0.35" />
+        </filter>
+      </defs>
 
-      <!-- ═══════════════════════════════════════════════
-           LEFT COLUMN: Step info + Pedestal thumbnails
-           ═══════════════════════════════════════════════ -->
-      <div class="flex flex-col gap-2 lg:col-span-5 max-lg:items-center max-lg:text-center">
+      <!-- Inactive Master Connecting Path (#D8E7DD) -->
+      <path
+        id="zigzag-inactive-path"
+        class="zigzag-inactive-path"
+        d=""
+        stroke="#D8E7DD"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-dasharray="6 6"
+        fill="none"
+      />
 
-        <!-- Step badge -->
-        <div
-          id="hero41-step-badge"
-          class="text-xs sm:text-sm font-extrabold uppercase tracking-[0.16em] text-[#146B5C] transition-opacity duration-200"
+      <!-- Progressive Active Green Segments (#3FB33D) -->
+      {normalizedSteps.slice(0, -1).map((_, idx) => (
+        <path
+          id={`zigzag-active-seg-${idx}`}
+          class="zigzag-active-segment"
+          data-segment-index={idx}
+          d=""
+          stroke="#3FB33D"
+          stroke-width="3.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="none"
+          filter="url(#zigzag-glow)"
+          style="stroke-dasharray: 400; stroke-dashoffset: 400; transition: stroke-dashoffset 0.65s cubic-bezier(0.25, 1, 0.5, 1);"
+        />
+      ))}
+
+      <!-- Segment Waypoint Dots (Centered along each zig-zag connection) -->
+      {normalizedSteps.slice(0, -1).map((_, idx) => (
+        <g
+          id={`waypoint-node-${idx}`}
+          class="waypoint-node transition-transform duration-500"
+          data-waypoint-index={idx}
+          transform="translate(-100, -100)"
         >
-          {initialStep.stepNumber}. {initialStep.title}
-        </div>
+          <!-- Outer pulsing halo when active -->
+          <circle
+            r="12"
+            fill="#3FB33D"
+            class="waypoint-halo opacity-0 transition-opacity duration-300"
+          />
+          <!-- Outer circle -->
+          <circle
+            r="6"
+            fill="#D8E7DD"
+            class="waypoint-outer transition-colors duration-400"
+          />
+          <!-- Inner crisp white core -->
+          <circle
+            r="2.5"
+            fill="#FFFFFF"
+          />
+        </g>
+      ))}
+    </svg>
 
-        <!-- Headline -->
-        <h3
-          id="hero41-step-headline"
-          class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-display text-slate-900 tracking-tight leading-tight transition-opacity duration-200"
-        >
-          {initialStep.headline}
-        </h3>
+    <!-- HORIZONTAL 5-STEP ZIG-ZAG GRID (Alternating Upper & Lower) -->
+    <div class="relative z-10 grid grid-cols-5 gap-3 xl:gap-5 w-full h-full items-start">
+      {normalizedSteps.map((step, idx) => {
+        // Alternating positions: 0, 2, 4 = upper (01, 03, 05) | 1, 3 = lower (02, 04)
+        const isUpper = idx % 2 === 0;
+        const isFirst = idx === 0;
 
-        <!-- Description -->
-        <p
-          id="hero41-step-desc"
-          class="text-slate-600 text-base sm:text-lg lg:text-[1.125rem] max-w-xl leading-relaxed font-normal transition-opacity duration-200"
-        >
-          {initialStep.description}
-        </p>
+        return (
+          <div
+            class={`zigzag-step-item relative flex flex-col items-center text-center transition-all duration-700 ease-out cursor-pointer ${
+              isUpper ? 'pt-2 pb-24' : 'pt-36 xl:pt-40 pb-2'
+            } ${isFirst ? 'is-revealed is-active' : 'is-hidden'}`}
+            data-step-index={idx}
+            id={`desktop-step-${idx}`}
+            role="button"
+            tabindex="0"
+            aria-label={`Step ${step.stepNumber}: ${step.title}`}
+          >
+            <!-- Anchor Dot for SVG Path Alignment -->
+            <div
+              class="step-anchor absolute opacity-0 pointer-events-none"
+              data-anchor-index={idx}
+              style="top: 140px; left: 50%; transform: translateX(-50%);"
+            ></div>
 
-        <!-- ─── Pedestal Thumbnail Row (inside left col) ─── -->
-        <div class="relative w-full mt-8 sm:mt-10 lg:mt-14 overflow-hidden" role="region" aria-roledescription="carousel">
-          <!-- Fade masks -->
-          <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-white to-transparent"></div>
-          <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-white to-transparent"></div>
-
-          <!-- Track viewport -->
-          <div class="overflow-hidden w-full" id="hero41-thumb-viewport">
-            <div class="flex items-end transition-transform duration-500 ease-out" id="hero41-thumb-track">
-              {normalizedSteps.map((step, idx) => {
-                const isFirst = idx === 0;
-                return (
-                  <div
-                    role="button"
-                    tabindex="0"
-                    aria-label={`Select Step ${step.stepNumber}: ${step.title}`}
-                    aria-selected={isFirst ? 'true' : 'false'}
-                    class={`hero41-thumb-item min-w-0 shrink-0 grow-0 basis-1/3 cursor-pointer px-1 flex items-end justify-center ${
-                      isFirst ? 'active' : ''
-                    }`}
-                    data-thumb-index={idx}
-                    data-number={step.stepNumber}
-                    data-title={step.title}
-                    data-headline={step.headline}
-                    data-desc={step.description}
-                    data-badge={step.badge}
-                    data-icon={step.iconImage}
-                    data-short={step.shortDesc}
-                  >
-                    <div class="relative flex h-24 items-end justify-center w-full group">
-                      <!-- SVG Pedestal -->
-                      <div
-                        class={`hero41-pedestal-svg absolute bottom-0 w-full flex justify-center transition-colors duration-300 ${
-                          isFirst ? 'text-[#146B5C]' : 'text-slate-200 group-hover:text-slate-300'
-                        }`}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="161" height="92" viewBox="0 0 161 92" fill="none" class="w-full max-w-[110px] sm:max-w-[130px] h-auto">
-                          <path
-                            d="M0.682517 80.6118L0.501193 39.6946C0.480127 34.9409 3.80852 30.8294 8.46241 29.8603L148.426 0.713985C154.636 -0.579105 160.465 4.16121 160.465 10.504V80.7397C160.465 86.2674 155.98 90.7465 150.453 90.7397L10.6701 90.5674C5.16936 90.5607 0.706893 86.1125 0.682517 80.6118Z"
-                            stroke="currentColor"
-                            stroke-width="2"
-                          ></path>
-                        </svg>
-                      </div>
-                      <!-- Icon -->
-                      <img
-                        src={step.iconImage}
-                        alt={step.title}
-                        class={`hero41-thumb-img size-14 sm:size-16 object-contain transition-all duration-300 relative z-10 group-hover:scale-110 ${
-                          isFirst ? 'scale-105 opacity-100 drop-shadow-md' : 'scale-95 opacity-70'
-                        }`}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+            <!-- 1. STEP NUMBER -->
+            <div class="step-num-wrap mb-2 sm:mb-2.5">
+              <span class="step-number font-mono font-extrabold text-xl sm:text-2xl tracking-wider text-[#0F623A] transition-colors duration-400">
+                {step.stepNumber}
+              </span>
             </div>
-          </div>
-        </div>
-        <!-- ─── End Thumbnail Row ─── -->
 
-      </div>
-
-      <!-- ═══════════════════════════════════════════════
-           RIGHT COLUMN: Large lifecycle image only
-           ═══════════════════════════════════════════════ -->
-      <div
-        class="relative w-full lg:col-span-7 flex items-center justify-center"
-        role="region"
-        aria-roledescription="carousel"
-      >
-        <div class="relative w-full h-[260px] sm:h-[340px] md:h-[380px] lg:h-[420px] xl:h-[460px] flex items-center justify-center">
-          {normalizedSteps.map((step, idx) => {
-            const isFirst = idx === 0;
-            return (
+            <!-- 2. 3D PROCESS IMAGE (Clean floating graphic without white box) -->
+            <div class="process-image-plate relative group/img mb-3">
               <div
-                class={`hero41-main-slide absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-500 ease-out ${
-                  isFirst
-                    ? 'opacity-100 scale-100 translate-x-0 pointer-events-auto z-10'
-                    : 'opacity-0 scale-95 translate-x-6 pointer-events-none z-0'
-                }`}
-                data-slide-index={idx}
+                class="plate-card relative w-[160px] xl:w-[185px] h-[118px] xl:h-[135px] flex items-center justify-center transition-all duration-400 group-hover/img:-translate-y-1.5"
               >
                 <img
                   src={step.image}
                   alt={step.imageAlt}
-                  class="w-full h-full object-contain drop-shadow-md select-none"
-                  loading={isFirst ? 'eager' : 'lazy'}
+                  class="step-img w-full h-full object-contain select-none transition-transform duration-400 group-hover/img:scale-[1.06] drop-shadow-[0_12px_24px_rgba(15,98,58,0.15)] mix-blend-multiply"
+                  loading={idx < 2 ? 'eager' : 'lazy'}
                   decoding="async"
                 />
               </div>
-            );
-          })}
-        </div>
-      </div>
+            </div>
 
+            <!-- 3. PROCESS TITLE -->
+            <h3 class="step-title font-display font-bold text-base xl:text-[17px] text-[#0F623A] tracking-wider uppercase mb-1.5 transition-colors duration-400">
+              {step.title}
+            </h3>
+
+            <!-- 4. PROCESS DESCRIPTION (Constrained to ~180-230px) -->
+            <p class="step-description text-xs sm:text-[13px] text-slate-600 leading-relaxed max-w-[190px] xl:max-w-[220px] mx-auto font-normal transition-colors duration-400">
+              {step.description}
+            </p>
+
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MOBILE & TABLET VERTICAL JOURNEY (Screen < 1024px)        -->
+  <!-- ========================================================= -->
+  <div class="lg:hidden relative w-full max-w-[500px] mx-auto px-4" id="zigzag-mobile-container">
+    <div class="flex flex-col items-center w-full">
+      {normalizedSteps.map((step, idx) => {
+        const isFirst = idx === 0;
+        const isLast = idx === normalizedSteps.length - 1;
+
+        return (
+          <div class="w-full flex flex-col items-center">
+            
+            <!-- Step Item Block -->
+            <div
+              class={`mobile-step-item w-full flex flex-col items-center text-center transition-all duration-700 ease-out ${
+                isFirst ? 'is-revealed is-active' : 'is-hidden'
+              }`}
+              data-mobile-index={idx}
+              id={`mobile-step-${idx}`}
+            >
+              <!-- Step Number -->
+              <span class="step-number font-mono font-extrabold text-xl tracking-wider text-[#0F623A] mb-2 transition-colors duration-400">
+                {step.stepNumber}
+              </span>
+
+              <!-- 3D Process Image (Clean floating graphic without white box) -->
+              <div class="process-image-plate relative mb-3">
+                <div class="relative w-[180px] sm:w-[200px] h-[130px] sm:h-[145px] flex items-center justify-center p-1">
+                  <img
+                    src={step.image}
+                    alt={step.imageAlt}
+                    class="w-full h-full object-contain select-none drop-shadow-[0_10px_20px_rgba(15,98,58,0.15)] mix-blend-multiply"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </div>
+
+              <!-- Title -->
+              <h3 class="step-title font-display font-bold text-lg text-[#0F623A] tracking-wider uppercase mb-1">
+                {step.title}
+              </h3>
+
+              <!-- Description -->
+              <p class="step-description text-sm text-slate-600 leading-relaxed max-w-[260px] mx-auto font-normal">
+                {step.description}
+              </p>
+            </div>
+
+            <!-- Vertical Animated Connecting Line Between Steps -->
+            {!isLast && (
+              <div
+                class="mobile-connector-line h-16 sm:h-20 w-[3px] bg-[#D8E7DD] my-4 relative overflow-hidden rounded-full"
+                data-mobile-line-index={idx}
+              >
+                <!-- Animated Active Fill -->
+                <div
+                  class="mobile-line-fill w-full h-full bg-[#3FB33D] rounded-full transform -translate-y-full transition-transform duration-600 ease-out"
+                ></div>
+                <!-- Midpoint Waypoint Dot -->
+                <div
+                  class="mobile-waypoint-dot w-3 h-3 rounded-full bg-[#D8E7DD] border-2 border-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-colors duration-400 shadow-xs"
+                ></div>
+              </div>
+            )}
+
+          </div>
+        );
+      })}
     </div>
   </div>
-</section>
 
-<!-- Auto-Scroll Engine & Synchronization Script (Matching Hero Section 41 Delay: 3000ms) -->
+</div>
+
+<style>
+  /* -------------------------------------------------- */
+  /* Sequential Animation Base States                    */
+  /* -------------------------------------------------- */
+  
+  /* Hidden step before animation reaches it */
+  .zigzag-step-item.is-hidden,
+  .mobile-step-item.is-hidden {
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .zigzag-step-item.is-hidden .process-image-plate,
+  .mobile-step-item.is-hidden .process-image-plate {
+    opacity: 0;
+    transform: translateY(25px) scale(0.96);
+  }
+
+  .zigzag-step-item.is-hidden .step-number,
+  .mobile-step-item.is-hidden .step-number {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .zigzag-step-item.is-hidden .step-title,
+  .mobile-step-item.is-hidden .step-title {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .zigzag-step-item.is-hidden .step-description,
+  .mobile-step-item.is-hidden .step-description {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  /* Revealed state */
+  .zigzag-step-item.is-revealed,
+  .mobile-step-item.is-revealed {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .zigzag-step-item.is-revealed .process-image-plate,
+  .mobile-step-item.is-revealed .process-image-plate {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition:
+      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .zigzag-step-item.is-revealed .step-number,
+  .mobile-step-item.is-revealed .step-number {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.5s ease 0.1s,
+      transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  }
+
+  .zigzag-step-item.is-revealed .step-title,
+  .mobile-step-item.is-revealed .step-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.5s ease 0.15s,
+      transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+
+  .zigzag-step-item.is-revealed .step-description,
+  .mobile-step-item.is-revealed .step-description {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.5s ease 0.2s,
+      transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  }
+
+  /* -------------------------------------------------- */
+  /* Active Step Visual Emphasis                        */
+  /* -------------------------------------------------- */
+  .zigzag-step-item.is-active .step-number,
+  .mobile-step-item.is-active .step-number {
+    color: #3FB33D;
+    text-shadow: 0 0 12px rgba(63, 179, 61, 0.25);
+  }
+
+  .zigzag-step-item.is-active .step-img,
+  .mobile-step-item.is-active img {
+    filter: drop-shadow(0 14px 24px rgba(15, 98, 58, 0.22));
+    transform: scale(1.04);
+  }
+
+  .zigzag-step-item.is-active .step-title,
+  .mobile-step-item.is-active .step-title {
+    color: #0F623A;
+  }
+
+  /* -------------------------------------------------- */
+  /* Waypoint Nodes                                     */
+  /* -------------------------------------------------- */
+  .waypoint-node.is-active .waypoint-outer {
+    fill: #3FB33D;
+  }
+
+  .waypoint-node.is-active .waypoint-halo {
+    opacity: 0.35;
+  }
+
+  /* -------------------------------------------------- */
+  /* Reduced Motion Support                             */
+  /* -------------------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    .zigzag-step-item,
+    .mobile-step-item {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    .zigzag-step-item .process-image-plate,
+    .mobile-step-item .process-image-plate,
+    .zigzag-step-item .step-number,
+    .mobile-step-item .step-number,
+    .zigzag-step-item .step-title,
+    .mobile-step-item .step-title,
+    .zigzag-step-item .step-description,
+    .mobile-step-item .step-description {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .zigzag-active-segment {
+      stroke-dashoffset: 0 !important;
+      transition: none !important;
+    }
+
+    .mobile-line-fill {
+      transform: translateY(0) !important;
+      transition: none !important;
+    }
+
+    .waypoint-outer,
+    .mobile-waypoint-dot {
+      fill: #3FB33D !important;
+      background-color: #3FB33D !important;
+    }
+  }
+</style>
+
 <script is:inline>
   (() => {
-    const initHero41Lifecycle = () => {
-      const container = document.getElementById('hero-section-41-lifecycle');
-      if (!container) return;
+    const initWorkProcessTimeline = () => {
+      const section = document.getElementById('work-process-section');
+      if (!section) return;
 
-      const mainSlides = container.querySelectorAll('.hero41-main-slide');
-      const thumbItems = container.querySelectorAll('.hero41-thumb-item');
-      const thumbTrack = document.getElementById('hero41-thumb-track');
-      const thumbViewport = document.getElementById('hero41-thumb-viewport');
+      const desktopContainer = section.querySelector('#zigzag-desktop-container');
+      const mobileContainer = section.querySelector('#zigzag-mobile-container');
+      const svg = section.querySelector('#zigzag-svg');
+      const inactivePath = section.querySelector('#zigzag-inactive-path');
+      const desktopSteps = Array.from(section.querySelectorAll('.zigzag-step-item'));
+      const activeSegments = Array.from(section.querySelectorAll('.zigzag-active-segment'));
+      const waypointNodes = Array.from(section.querySelectorAll('.waypoint-node'));
 
-      const stepBadgeEl = document.getElementById('hero41-step-badge');
-      const headlineEl = document.getElementById('hero41-step-headline');
-      const descEl = document.getElementById('hero41-step-desc');
+      const mobileSteps = Array.from(section.querySelectorAll('.mobile-step-item'));
+      const mobileLineFills = Array.from(section.querySelectorAll('.mobile-line-fill'));
+      const mobileWaypointDots = Array.from(section.querySelectorAll('.mobile-waypoint-dot'));
 
-      const totalItems = thumbItems.length;
-      if (totalItems === 0) return;
+      const totalSteps = desktopSteps.length;
+      if (totalSteps <= 1) return;
 
-      let currentIndex = 0;
-      let autoplayTimer = null;
-      const AUTO_SCROLL_DELAY = 3000; // Exact delay from Hero Section 41 reference
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      const updateThumbTrackPosition = (index) => {
-        if (!thumbTrack || !thumbViewport || !thumbItems[index]) return;
-        const targetItem = thumbItems[index];
-        const itemWidth = targetItem.offsetWidth;
-        const viewportWidth = thumbViewport.offsetWidth;
+      // ----------------------------------------------------
+      // 1. RECOMPUTE SVG ZIG-ZAG PATH COORDINATES (Desktop)
+      // ----------------------------------------------------
+      let segmentLengths = [];
 
-        // Center the active thumbnail item in the track
-        const targetLeft = targetItem.offsetLeft;
-        const centerOffset = targetLeft - (viewportWidth / 2) + (itemWidth / 2);
-        const maxScroll = Math.max(0, thumbTrack.scrollWidth - viewportWidth);
-        const clampedOffset = Math.max(0, Math.min(centerOffset, maxScroll));
+      const updateSvgPaths = () => {
+        if (!svg || !desktopContainer || window.innerWidth < 1024) return;
 
-        thumbTrack.style.transform = `translateX(-${clampedOffset}px)`;
-      };
+        const svgRect = svg.getBoundingClientRect();
+        if (svgRect.width === 0 || svgRect.height === 0) return;
 
-      const selectStep = (index, userInitiated = false) => {
-        currentIndex = (index + totalItems) % totalItems;
-        const activeItem = thumbItems[currentIndex];
-        if (!activeItem) return;
-
-        // 1. Update Main Slides
-        mainSlides.forEach((slide, idx) => {
-          if (idx === currentIndex) {
-            slide.classList.remove('opacity-0', 'scale-95', 'translate-x-8', 'pointer-events-none', 'z-0');
-            slide.classList.add('opacity-100', 'scale-100', 'translate-x-0', 'pointer-events-auto', 'z-10');
-          } else {
-            slide.classList.remove('opacity-100', 'scale-100', 'translate-x-0', 'pointer-events-auto', 'z-10');
-            slide.classList.add('opacity-0', 'scale-95', 'translate-x-8', 'pointer-events-none', 'z-0');
-          }
+        const points = desktopSteps.map((step) => {
+          const card = step.querySelector('.plate-card');
+          if (!card) return { x: 0, y: 0 };
+          const rect = card.getBoundingClientRect();
+          return {
+            x: rect.left + rect.width / 2 - svgRect.left,
+            y: rect.top + rect.height / 2 - svgRect.top,
+          };
         });
 
-        // 2. Update Left Narrative Content with subtle 120ms cross-fade
-        if (headlineEl && descEl && stepBadgeEl) {
-          headlineEl.style.opacity = '0';
-          descEl.style.opacity = '0';
-          stepBadgeEl.style.opacity = '0';
-
-          setTimeout(() => {
-            const num = activeItem.getAttribute('data-number') || '';
-            const title = activeItem.getAttribute('data-title') || '';
-            const headline = activeItem.getAttribute('data-headline') || '';
-            const desc = activeItem.getAttribute('data-desc') || '';
-
-            stepBadgeEl.textContent = `${num}. ${title}`;
-            headlineEl.textContent = headline;
-            descEl.textContent = desc;
-
-            headlineEl.style.opacity = '1';
-            descEl.style.opacity = '1';
-            stepBadgeEl.style.opacity = '1';
-          }, 120);
+        // 1.1 Inactive connecting path (Dashed #D8E7DD)
+        let d = '';
+        points.forEach((p, i) => {
+          d += i === 0 ? `M ${p.x.toFixed(1)} ${p.y.toFixed(1)}` : ` L ${p.x.toFixed(1)} ${p.y.toFixed(1)}`;
+        });
+        if (inactivePath) {
+          inactivePath.setAttribute('d', d);
         }
 
-        // 3. Update Pedestal Thumbnails & SVGs
-        thumbItems.forEach((item, idx) => {
-          const isActive = idx === currentIndex;
-          item.setAttribute('aria-selected', isActive ? 'true' : 'false');
-          const svgEl = item.querySelector('.hero41-pedestal-svg');
-          const imgEl = item.querySelector('.hero41-thumb-img');
+        // 1.2 Individual Active Segments (#3FB33D)
+        segmentLengths = [];
+        for (let i = 0; i < points.length - 1; i++) {
+          const seg = activeSegments[i];
+          if (seg) {
+            const p1 = points[i];
+            const p2 = points[i + 1];
+            const segD = `M ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} L ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
+            seg.setAttribute('d', segD);
 
-          if (isActive) {
-            item.classList.add('active');
-            if (svgEl) {
-              svgEl.classList.remove('text-slate-200', 'group-hover:text-slate-300');
-              svgEl.classList.add('text-[#146B5C]');
-            }
-            if (imgEl) {
-              imgEl.classList.remove('scale-95', 'opacity-80');
-              imgEl.classList.add('scale-105', 'opacity-100', 'drop-shadow-md');
-            }
-          } else {
-            item.classList.remove('active');
-            if (svgEl) {
-              svgEl.classList.remove('text-[#146B5C]');
-              svgEl.classList.add('text-slate-200', 'group-hover:text-slate-300');
-            }
-            if (imgEl) {
-              imgEl.classList.remove('scale-105', 'opacity-100', 'drop-shadow-md');
-              imgEl.classList.add('scale-95', 'opacity-80');
-            }
+            const len = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+            segmentLengths[i] = len;
+
+            // Preserve current reveal state of the segment
+            const isRevealed = seg.classList.contains('is-drawn');
+            seg.style.strokeDasharray = `${len.toFixed(1)}`;
+            seg.style.strokeDashoffset = isRevealed ? '0' : `${len.toFixed(1)}`;
           }
-        });
 
-        // 4. Scroll Pedestal Track
-        updateThumbTrackPosition(currentIndex);
-
-        // 5. Reset Autoplay Cycle
-        resetAutoplay();
-      };
-
-      const startAutoplay = () => {
-        stopAutoplay();
-        autoplayTimer = setInterval(() => {
-          selectStep(currentIndex + 1);
-        }, AUTO_SCROLL_DELAY);
-      };
-
-      const stopAutoplay = () => {
-        if (autoplayTimer) {
-          clearInterval(autoplayTimer);
-          autoplayTimer = null;
+          // 1.3 Waypoint Dots at midpoint of segment
+          const wp = waypointNodes[i];
+          if (wp) {
+            const midX = (points[i].x + points[i + 1].x) / 2;
+            const midY = (points[i].y + points[i + 1].y) / 2;
+            wp.setAttribute('transform', `translate(${midX.toFixed(1)}, ${midY.toFixed(1)})`);
+          }
         }
       };
 
-      const resetAutoplay = () => {
-        stopAutoplay();
-        startAutoplay();
-      };
+      // ----------------------------------------------------
+      // 2. SEQUENTIAL JOURNEY CONTROLLER (01 -> 02 -> 03 ...)
+      // ----------------------------------------------------
+      let currentStepIndex = 0;
+      let isAnimating = false;
+      let sequenceTimer = null;
+      let hasStarted = false;
 
-      // Event listeners for thumbnails
-      thumbItems.forEach((item, idx) => {
-        item.addEventListener('click', () => {
-          selectStep(idx, true);
+      const advanceToStep = (targetIndex, immediate = false) => {
+        if (targetIndex <= currentStepIndex && hasStarted) return;
+        currentStepIndex = Math.min(totalSteps - 1, targetIndex);
+
+        // Update Desktop & Mobile Steps up to targetIndex
+        desktopSteps.forEach((step, idx) => {
+          if (idx <= currentStepIndex) {
+            step.classList.remove('is-hidden');
+            step.classList.add('is-revealed');
+          }
+          if (idx === currentStepIndex) {
+            step.classList.add('is-active');
+          } else {
+            step.classList.remove('is-active');
+          }
         });
 
-        item.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            selectStep(idx, true);
-          } else if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            const next = (idx + 1) % totalItems;
-            thumbItems[next]?.focus();
-            selectStep(next, true);
-          } else if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            const prev = (idx - 1 + totalItems) % totalItems;
-            thumbItems[prev]?.focus();
-            selectStep(prev, true);
+        mobileSteps.forEach((step, idx) => {
+          if (idx <= currentStepIndex) {
+            step.classList.remove('is-hidden');
+            step.classList.add('is-revealed');
+          }
+          if (idx === currentStepIndex) {
+            step.classList.add('is-active');
+          } else {
+            step.classList.remove('is-active');
+          }
+        });
+
+        // Update Desktop Path Segments
+        activeSegments.forEach((seg, idx) => {
+          if (idx < currentStepIndex) {
+            seg.classList.add('is-drawn');
+            seg.style.strokeDashoffset = '0';
+          }
+        });
+
+        waypointNodes.forEach((wp, idx) => {
+          if (idx < currentStepIndex) {
+            wp.classList.add('is-active');
+          }
+        });
+
+        // Update Mobile Connector Lines
+        mobileLineFills.forEach((fill, idx) => {
+          if (idx < currentStepIndex) {
+            fill.style.transform = 'translateY(0)';
+          }
+        });
+
+        mobileWaypointDots.forEach((dot, idx) => {
+          if (idx < currentStepIndex) {
+            dot.style.backgroundColor = '#3FB33D';
+          }
+        });
+      };
+
+      const runStepTransition = (fromIdx) => {
+        if (fromIdx >= totalSteps - 1) return;
+        const nextIdx = fromIdx + 1;
+        isAnimating = true;
+
+        // 1. Draw segment fromIdx -> nextIdx
+        const seg = activeSegments[fromIdx];
+        if (seg) {
+          seg.classList.add('is-drawn');
+          seg.style.strokeDashoffset = '0';
+        }
+
+        const mobFill = mobileLineFills[fromIdx];
+        if (mobFill) {
+          mobFill.style.transform = 'translateY(0)';
+        }
+
+        // Halfway mark: waypoint activates
+        setTimeout(() => {
+          if (waypointNodes[fromIdx]) {
+            waypointNodes[fromIdx].classList.add('is-active');
+          }
+          if (mobileWaypointDots[fromIdx]) {
+            mobileWaypointDots[fromIdx].style.backgroundColor = '#3FB33D';
+          }
+        }, 280);
+
+        // When line reaches the next step: reveal next step
+        setTimeout(() => {
+          advanceToStep(nextIdx);
+          isAnimating = false;
+
+          // Schedule next step transition
+          if (nextIdx < totalSteps - 1) {
+            sequenceTimer = setTimeout(() => {
+              runStepTransition(nextIdx);
+            }, 420);
+          }
+        }, 580);
+      };
+
+      const startSequence = () => {
+        if (hasStarted) return;
+        hasStarted = true;
+
+        if (prefersReducedMotion) {
+          advanceToStep(totalSteps - 1, true);
+          return;
+        }
+
+        // Step 01 is already visible; start animating connection toward Step 02 after 350ms
+        sequenceTimer = setTimeout(() => {
+          runStepTransition(0);
+        }, 350);
+      };
+
+      // ----------------------------------------------------
+      // 3. SCROLL & INTERSECTION TRIGGER
+      // ----------------------------------------------------
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                updateSvgPaths();
+                startSequence();
+              }
+            });
+          },
+          {
+            threshold: 0.15,
+            rootMargin: '0px 0px -10% 0px',
+          }
+        );
+
+        observer.observe(section);
+      } else {
+        startSequence();
+      }
+
+      // Fast-forward on click of any step
+      desktopSteps.forEach((step, idx) => {
+        step.addEventListener('click', () => {
+          if (sequenceTimer) clearTimeout(sequenceTimer);
+          advanceToStep(idx, true);
+          if (idx < totalSteps - 1) {
+            sequenceTimer = setTimeout(() => runStepTransition(idx), 350);
           }
         });
       });
 
-      // Window resize re-centering
-      window.addEventListener('resize', () => {
-        updateThumbTrackPosition(currentIndex);
-      });
+      // Window resize handling with debouncing
+      let resizeTimer = null;
+      window.addEventListener(
+        'resize',
+        () => {
+          if (resizeTimer) clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(updateSvgPaths, 80);
+        },
+        { passive: true }
+      );
 
-      // Initialize active position and start autoplay
-      updateThumbTrackPosition(0);
-      startAutoplay();
+      // Initial layout measurement
+      setTimeout(updateSvgPaths, 100);
+      setTimeout(updateSvgPaths, 400);
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initHero41Lifecycle);
+      document.addEventListener('DOMContentLoaded', initWorkProcessTimeline);
     } else {
-      initHero41Lifecycle();
+      initWorkProcessTimeline();
     }
-    document.addEventListener('astro:page-load', initHero41Lifecycle);
+
+    document.addEventListener('astro:page-load', initWorkProcessTimeline);
   })();
 </script>

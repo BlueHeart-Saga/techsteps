@@ -918,9 +918,9 @@ const aboutPageSchema = {
 
   --shell: 1240px;
   --gutter: clamp(20px, 5vw, 72px);
-  --display: 'Lora', Georgia, 'Times New Roman', serif;
-  --text: 'Montserrat', system-ui, sans-serif;
-  --sans: 'Montserrat', system-ui, sans-serif;
+  --display: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  --text: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  --sans: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
   --cut: 46px;
 
   background: var(--surface);
@@ -953,10 +953,21 @@ const aboutPageSchema = {
 .about-page-wrapper h3:not(.num):not(.idx) {
   font-family: var(--display);
   margin: 0;
-  letter-spacing: -.026em;
-  line-height: 1.03;
-  font-weight: 100 !important;
+  letter-spacing: normal;
+  line-height: 1.15;
   color: #0F172A;
+}
+
+.about-page-wrapper h1:not(.num):not(.idx) {
+  font-weight: 700 !important;
+}
+
+.about-page-wrapper h2:not(.num):not(.idx) {
+  font-weight: 700 !important;
+}
+
+.about-page-wrapper h3:not(.num):not(.idx) {
+  font-weight: 600 !important;
 }
 
 .on-dark h1,

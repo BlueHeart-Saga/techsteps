@@ -29,30 +29,30 @@
   --color-brand-border: #D3DCD0;
   --color-brand-border-dark: #47564D;
 
-  --font-sans: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Lora', Georgia, 'Times New Roman', serif;
-  --font-mono: 'Montserrat', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-poppins: 'Montserrat', system-ui, sans-serif;
+  --font-sans: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  --font-display: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  --font-mono: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  --font-poppins: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
 
   /* Editorial & Manifest Letter Spacing System */
-  --tracking-tight: 0.01em;
-  --tracking-tighter: 0.005em;
-  --tracking-display: 0.01em;
+  --tracking-tight: normal;
+  --tracking-tighter: -0.01em;
+  --tracking-display: normal;
   --tracking-eyebrow: 0.14em;
   --tracking-mono: 0.08em;
   --tracking-wider: 0.14em;
   --tracking-widest: 0.18em;
 
-  /* Refined font weights across the design system */
+  /* Refined font weights matching Microsoft reference typography */
   --font-weight-thin: 100;
   --font-weight-extralight: 200;
   --font-weight-light: 300;
   --font-weight-normal: 400;
-  --font-weight-medium: 450;
-  --font-weight-semibold: 500;
-  --font-weight-bold: 600;
-  --font-weight-extrabold: 600;
-  --font-weight-black: 700;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 700;
+  --font-weight-black: 800;
 
   /* Scaled up typography sizing for improved legibility and prominent descriptions */
   --text-xs: 0.875rem;
@@ -129,7 +129,7 @@
     outline-offset: 2px;
   }
 
-  /* Typography defaults — thin headings site-wide */
+  /* Typography defaults — Microsoft Student Ambassadors style heading typography */
   h1:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
   h2:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
   h3:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
@@ -137,11 +137,32 @@
   h5:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
   h6:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]) {
     font-family: var(--font-display);
-    font-weight: 100 !important;
-    line-height: 1.18;
-    letter-spacing: 0.01em;
+    line-height: 1.15;
+    letter-spacing: normal;
     text-wrap: balance;
     color: var(--color-brand-navy);
+  }
+
+  h1:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]) {
+    font-weight: 700;
+    letter-spacing: normal;
+  }
+
+  h2:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]) {
+    font-weight: 700;
+    letter-spacing: normal;
+  }
+
+  h3:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]) {
+    font-weight: 600;
+    letter-spacing: normal;
+  }
+
+  h4:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+  h5:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+  h6:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]) {
+    font-weight: 600;
+    letter-spacing: normal;
   }
 
   b,
@@ -150,25 +171,25 @@
   }
 }
 
-/* Universal Font-Weight Softening / Boldness Reduction across all classes */
+/* Font-Weight Utilities matching Microsoft design system */
 .font-black {
-  font-weight: 700 !important;
+  font-weight: 800 !important;
 }
 
 .font-extrabold {
-  font-weight: 600 !important;
+  font-weight: 700 !important;
 }
 
 .font-bold {
-  font-weight: 600 !important;
+  font-weight: 700 !important;
 }
 
 .font-semibold {
-  font-weight: 500 !important;
+  font-weight: 600 !important;
 }
 
 .font-medium {
-  font-weight: 450 !important;
+  font-weight: 500 !important;
 }
 
 .font-normal {
@@ -182,7 +203,7 @@
 /* Custom utility components */
 .font-display {
   font-family: var(--font-display);
-  letter-spacing: 0.01em;
+  letter-spacing: normal;
 }
 
 .font-sans {
@@ -208,7 +229,7 @@
   font-weight: 500;
 }
 
-/* Kicker tags across existing components: apply Montserrat & 0.14em tracking */
+/* Kicker tags across existing components: apply Segoe UI & 0.14em tracking */
 [class*="tracking-wider"][class*="uppercase"] {
   letter-spacing: 0.14em;
 }
@@ -218,7 +239,7 @@ div[class*="uppercase"][class*="text-xs"] {
   font-family: var(--font-sans);
 }
 
-/* Display numbers, running numbers & big counters — match button font (Inter sans-serif, bold) */
+/* Display numbers, running numbers & big counters — Segoe UI bold */
 .num,
 .idx,
 .stat-counter-item,
@@ -271,10 +292,10 @@ div[class*="uppercase"][class*="text-xs"] {
    NORMAL / TOP NAVBAR & SERVICES DROPDOWN - EXACT REFERENCE TYPOGRAPHY
    ========================================================================== */
 
-/* 1. LOGO: Nunito Sans, Weight 600, Size 27.2px */
+/* 1. LOGO: Segoe UI, Weight 600, Size 27.2px */
 #hero-header .hero-logo-text,
 #hero-header .hero-logo-text span {
-  font-family: 'Nunito Sans', sans-serif !important;
+  font-family: var(--font-sans) !important;
   font-weight: 600 !important;
   font-size: 27.2px !important;
   line-height: 1 !important;
@@ -286,7 +307,7 @@ div[class*="uppercase"][class*="text-xs"] {
 #hero-header nav button,
 #hero-header nav a span,
 #hero-header nav button span {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-sans) !important;
   font-size: 18px !important;
   font-weight: 500 !important;
   letter-spacing: -0.01em !important;
@@ -302,7 +323,7 @@ div[class*="uppercase"][class*="text-xs"] {
 /* 3. CONTACT US BUTTON: White background, #07572F text, #07572F border */
 #hero-header a[href*="contact"],
 #hero-header[data-is-home="true"] a[href*="contact"] {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-sans) !important;
   font-size: 16px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
@@ -324,7 +345,7 @@ div[class*="uppercase"][class*="text-xs"] {
 #hero-header a[href*="collection"],
 #hero-header[data-is-home="true"] a[href*="quote"],
 #hero-header[data-is-home="true"] a[href*="collection"] {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-sans) !important;
   font-size: 16px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
@@ -375,7 +396,7 @@ div[class*="uppercase"][class*="text-xs"] {
   box-sizing: border-box !important;
 }
 
-/* 5. SERVICES DROPDOWN - LEFT COLUMN: Lora, Weight 600, Size 16px */
+/* 5. SERVICES DROPDOWN - LEFT COLUMN */
 #services-megamenu-panel .services-left-col,
 #services-megamenu-panel .services-left-col *,
 #services-megamenu-panel .services-left-col h3,
@@ -384,37 +405,37 @@ div[class*="uppercase"][class*="text-xs"] {
 #services-megamenu-panel .services-left-col .pillar-label,
 #services-megamenu-panel .services-left-col .all-services-link,
 #services-megamenu-panel .services-left-col .all-services-link span {
-  font-family: 'Inter', sans-serif !important;
+  font-family: var(--font-sans) !important;
   font-size: 16px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
   line-height: 1.4 !important;
 }
 
-/* 6. SERVICES DROPDOWN - CENTER & RIGHT COLUMN HEADINGS: Lora, Weight 500, Size 16px */
+/* 6. SERVICES DROPDOWN - CENTER & RIGHT COLUMN HEADINGS */
 #services-megamenu-panel .services-middle-heading,
 #services-megamenu-panel .services-right-heading {
-  font-family: 'Inter', sans-serif !important;
+  font-family: var(--font-sans) !important;
   font-size: 16px !important;
   font-weight: 500 !important;
   letter-spacing: -0.01em !important;
   line-height: 1.4 !important;
 }
 
-/* 7. SERVICES DROPDOWN - CENTER SERVICE ITEMS: Inter, Weight 400, Size 16px */
+/* 7. SERVICES DROPDOWN - CENTER SERVICE ITEMS */
 #services-megamenu-panel .service-tab-panel a,
 #services-megamenu-panel .service-tab-panel span {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-sans) !important;
   font-size: 16px !important;
   font-weight: 400 !important;
   letter-spacing: -0.01em !important;
   line-height: 1.5 !important;
 }
 
-/* 8. SERVICES DROPDOWN - RIGHT "VISIT": Inter, Weight 600, Size 16px */
+/* 8. SERVICES DROPDOWN - RIGHT "VISIT" */
 #services-megamenu-panel .sustainability-link,
 #services-megamenu-panel .sustainability-link span {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-sans) !important;
   font-size: 16px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;

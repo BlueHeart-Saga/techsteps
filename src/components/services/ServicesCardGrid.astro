@@ -1,0 +1,542 @@
+---
+import Container from '../layout/Container.astro';
+
+interface ServiceItem {
+  id?: number | string;
+  divisionNumber?: string;
+  number?: string;
+  title: string;
+  description: string;
+  image?: any;
+  imageUrl?: string;
+  imageAlt?: string;
+  buttonText?: string;
+  link?: string;
+}
+
+interface Props {
+  services: ServiceItem[];
+  eyebrow?: string;
+  heading?: string;
+  description?: string;
+  viewAllText?: string;
+  viewAllLink?: string;
+}
+
+const {
+  services = [],
+  eyebrow = 'OUR SERVICES',
+  heading = 'Services For The Complete Business Lifecycle',
+  viewAllText = 'Explore All 27 Certified Services →',
+  viewAllLink = '/services',
+} = Astro.props;
+
+const fallbackImages = [
+  '/images/services/1.jpg',
+  '/images/services/2.jpg',
+  '/images/services/3.jpg',
+  '/images/services/4.jpg',
+];
+
+const items = services.map((item, idx) => {
+  let imgUrl =
+    (typeof item.image === 'string' && item.image.length > 0)
+      ? item.image
+      : (item.image?.asset?.url || item.imageUrl || fallbackImages[idx % fallbackImages.length]);
+
+  return {
+    id: item.id ?? idx,
+    title: item.title,
+    description: item.description,
+    image: imgUrl,
+    imageAlt: item.imageAlt || `${item.title} - TechSteps Service`,
+    buttonText: item.buttonText || 'View Service',
+    link: item.link || '#',
+  };
+});
+---
+
+<!-- ========================================================= -->
+<!-- SECTION: Our Services — Asymmetric Framed Card Grid       -->
+<!-- ========================================================= -->
+<section
+  id="divisions"
+  class="services-grid-section relative py-8 sm:py-10 lg:py-12 bg-[#FAFBF9] border-t border-slate-200/60 overflow-hidden text-slate-900"
+  aria-labelledby="services-section-heading"
+>
+  <!-- Ambient Soft Eco Glow Background Accents -->
+  <div class="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-32 right-1/4 w-[500px] h-[500px] rounded-full bg-emerald-100/35 blur-[120px]"></div>
+    <div class="absolute bottom-10 left-10 w-[450px] h-[450px] rounded-full bg-[#EEF7F2] blur-[130px]"></div>
+  </div>
+
+  <!-- SVG Clip Path Definitions (Mathematically Smooth Bezier Curves for Asymmetric Image Frames) -->
+  <svg class="sr-only" aria-hidden="true" width="0" height="0">
+    <defs>
+      <!-- Card 1: Signature Top-Right Scoop + Asymmetric Lower-Right Cutout -->
+      <clipPath id="service-clip-0" clipPathUnits="objectBoundingBox">
+        <path d="M 0,0 L 0.70,0 C 0.74,0.01 0.78,0.05 0.82,0.12 C 0.86,0.18 0.90,0.20 0.96,0.20 L 1,0.20 L 1,0.78 C 0.94,0.80 0.87,0.84 0.80,0.90 C 0.72,0.96 0.65,1 0.58,1 L 0,1 Z" />
+      </clipPath>
+
+      <!-- Card 2: Top-Right Scoop + Lower-Left Cutout (Bright/Dark Green Combination) -->
+      <clipPath id="service-clip-1" clipPathUnits="objectBoundingBox">
+        <path d="M 0,0 L 0.72,0 C 0.76,0.01 0.80,0.06 0.84,0.13 C 0.88,0.19 0.92,0.22 0.97,0.22 L 1,0.22 L 1,1 L 0.48,1 C 0.38,0.98 0.28,0.93 0.18,0.86 C 0.10,0.81 0.04,0.78 0,0.78 Z" />
+      </clipPath>
+
+      <!-- Card 3: Angled Chamfered Top-Right + Precision Stepped Bottom Transition -->
+      <clipPath id="service-clip-2" clipPathUnits="objectBoundingBox">
+        <path d="M 0,0 L 0.70,0 L 0.78,0.07 L 0.85,0.14 L 0.92,0.18 L 1,0.18 L 1,0.86 L 0.88,0.86 L 0.80,1 L 0.38,1 L 0.30,0.90 L 0,0.90 Z" />
+      </clipPath>
+
+      <!-- Card 4: Balanced Mirror of Card 1 — Top-Left Scoop + Lower-Left Cutout -->
+      <clipPath id="service-clip-3" clipPathUnits="objectBoundingBox">
+        <path d="M 0,0.20 L 0.08,0.20 C 0.14,0.20 0.18,0.18 0.22,0.12 C 0.26,0.05 0.29,0.01 0.34,0 L 1,0 L 1,1 L 0.40,1 C 0.30,0.98 0.22,0.94 0.14,0.87 C 0.07,0.82 0.02,0.78 0,0.78 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+
+  <Container size="wide" className="!max-w-[1360px] relative z-10">
+    
+    <!-- ===================================================== -->
+    <!-- 1. CENTERED SECTION HEADER                             -->
+    <!-- Balanced horizontally above the service cards          -->
+    <!-- ===================================================== -->
+    <header class="text-center w-full max-w-3xl mx-auto space-y-3 mb-6 sm:mb-8 select-none">
+      <!-- Eyebrow: Centered with green dot -->
+      <div class="inline-flex items-center justify-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-[#3FB33D]" aria-hidden="true"></span>
+        <span class="text-xs sm:text-sm font-mono font-bold tracking-[0.25em] text-[#0F623A] uppercase">
+          {eyebrow}
+        </span>
+      </div>
+
+      <!-- Main Heading: Centered -->
+      <h2
+        id="services-section-heading"
+        class="text-3xl sm:text-4xl lg:text-[44px] font-extrabold font-display text-slate-900 tracking-tight leading-[1.12] text-balance mx-auto"
+      >
+        {heading}
+      </h2>
+    </header>
+
+    <!-- ===================================================== -->
+    <!-- 2. FOUR-CARD GRID: Responsive (4 desktop / 2 tablet / 1 mobile) -->
+    <!-- ===================================================== -->
+    <div
+      class="services-cards-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-6 lg:gap-7 items-stretch"
+      id="services-interactive-grid"
+    >
+      {items.map((item, idx) => (
+        <article
+          class="service-card group relative flex flex-col rounded-[20px] bg-white border border-slate-200/90 hover:border-[#0F623A]/40 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 ease-out h-[470px] select-none"
+          data-service-index={idx}
+          tabindex="0"
+          aria-labelledby={`service-title-${idx}`}
+          role="region"
+        >
+          <!-- ─── UPPER PORTION: Asymmetric Organic Image-Frame Treatment ─── -->
+          <div class="service-image-area relative w-full h-[340px] overflow-hidden rounded-t-[20px] shrink-0 bg-slate-100">
+            
+            <!-- TechSteps Brand-Colored Shape Behind Image (Stays Stable on Hover) -->
+            <div
+              class={`service-frame-bg service-frame-bg--${idx} absolute inset-0 pointer-events-none select-none`}
+              aria-hidden="true"
+            >
+              {idx === 0 && (
+                <div class="w-full h-full bg-[#0F623A] relative">
+                  <div class="absolute top-0 right-0 w-28 h-20 bg-[#127244]/40 rounded-bl-3xl"></div>
+                  <div class="absolute bottom-0 right-0 w-32 h-16 bg-[#0c4e2e]/50"></div>
+                </div>
+              )}
+
+              {idx === 1 && (
+                <div class="w-full h-full bg-[#0F623A] relative overflow-hidden">
+                  <div class="absolute -bottom-4 -left-4 w-32 h-28 rounded-full bg-[#3FB33D]/90"></div>
+                  <div class="absolute top-0 right-0 w-24 h-16 bg-[#3FB33D]/30 rounded-bl-2xl"></div>
+                  <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-[#0F623A]/40 to-transparent"></div>
+                </div>
+              )}
+
+              {idx === 2 && (
+                <div class="w-full h-full bg-[#0F623A] relative overflow-hidden">
+                  <div class="absolute inset-0 bg-gradient-to-br from-[#0F623A] via-[#0e5c36] to-[#0A4327]"></div>
+                  <div class="absolute top-2 right-2 w-16 h-8 border-t border-r border-[#3FB33D]/40 pointer-events-none"></div>
+                  <div class="absolute bottom-1 left-2 w-20 h-6 border-b border-l border-[#3FB33D]/30 pointer-events-none"></div>
+                </div>
+              )}
+
+              {idx === 3 && (
+                <div class="w-full h-full bg-[#0F623A] relative overflow-hidden">
+                  <div class="absolute inset-0 bg-gradient-to-tl from-[#0A4327] to-[#0F623A]"></div>
+                  <div class="absolute -top-3 -left-3 w-28 h-24 bg-[#3FB33D]/35 rounded-br-3xl"></div>
+                  <div class="absolute -bottom-4 -left-4 w-28 h-20 bg-[#127244]/60 rounded-tr-3xl"></div>
+                </div>
+              )}
+            </div>
+
+            <!-- Asymmetrically Clipped Foreground Image Area -->
+            <div
+              class={`service-image-clip service-image-clip--${idx} relative w-full h-full overflow-hidden select-none`}
+            >
+              <img
+                src={item.image}
+                alt={item.imageAlt}
+                class="service-img w-full h-full object-cover object-center select-none"
+                loading={idx === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                width="600"
+                height="400"
+                onerror={`this.onerror=null; this.src='/images/services/${idx + 1}.jpg';`}
+              />
+            </div>
+
+            <!-- Ultra-Subtle Inner Rim Glow for Premium Finish -->
+            <div class="absolute inset-x-0 top-0 h-px bg-white/15 pointer-events-none" aria-hidden="true"></div>
+          </div>
+
+          <!-- ─── LOWER PORTION: Anchored Content Panel with Expandable Details on Hover ─── -->
+          <!-- Default: Shows accent bar & title. Hover: Expands upward to reveal description & CTA -->
+          <div class="service-content-panel absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-md p-5 sm:p-6 rounded-b-[20px] border-t border-slate-100 flex flex-col justify-end transition-all duration-500 ease-out">
+            
+            <!-- Default Visible State: Green Accent Line & Service Title -->
+            <div class="service-default-header space-y-2">
+              <!-- Subtle Green Accent Line (animates width on hover) -->
+              <span
+                class="service-accent-bar inline-block h-[2.5px] w-7 rounded-full bg-[#3FB33D] transition-all duration-400 ease-out group-hover:w-12 group-hover:bg-[#0F623A]"
+                aria-hidden="true"
+              ></span>
+
+              <!-- Strong Service Title -->
+              <h3
+                id={`service-title-${idx}`}
+                class="service-title text-xl lg:text-[21px] font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-300 leading-snug tracking-tight"
+              >
+                <a
+                  href={item.link}
+                  class="service-title-link focus:outline-none focus:underline"
+                  tabindex="-1"
+                >
+                  {item.title}
+                </a>
+              </h3>
+            </div>
+
+            <!-- Collapsible Details: Shown ONLY on Hover/Focus/Tap, otherwise hidden -->
+            <div class="service-collapsible-wrapper">
+              <div class="service-collapsible-content pt-3 space-y-3.5">
+                
+                <!-- Existing Sanity Service Description -->
+                <p class="service-desc text-xs sm:text-[13.5px] text-slate-600 leading-relaxed font-normal line-clamp-3">
+                  {item.description}
+                </p>
+
+                <!-- Minimal Editorial CTA (View Service →) -->
+                <div class="service-cta-row pt-1">
+                  <a
+                    href={item.link}
+                    class="service-cta-link inline-flex items-center gap-2.5 text-xs sm:text-[13px] font-mono font-bold tracking-wider text-[#0F623A] uppercase hover:text-[#0c4e2e] transition-colors duration-200 group/cta focus:outline-none focus:ring-2 focus:ring-[#3FB33D] focus:ring-offset-2 rounded-sm"
+                    aria-label={`View ${item.title} service details`}
+                  >
+                    <span class="cta-label relative">
+                      View Service
+                      <span class="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-[#3FB33D] transition-all duration-300 ease-out group-hover/cta:w-full" aria-hidden="true"></span>
+                    </span>
+                    <svg
+                      class="cta-arrow w-4 h-4 text-[#3FB33D] transition-transform duration-300 ease-out group-hover/cta:translate-x-1.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      aria-hidden="true"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- BOTTOM: View All Services Link                         -->
+    <!-- ===================================================== -->
+    {viewAllLink && (
+      <div class="mt-6 sm:mt-8 text-center">
+        <a
+          href={viewAllLink}
+          class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#3FB33D]"
+        >
+          <span>{viewAllText}</span>
+        </a>
+      </div>
+    )}
+
+  </Container>
+</section>
+
+<style>
+  /* ---------------------------------------------------- */
+  /* CARD STRUCTURE & LAYOUT STABILITY                     */
+  /* ---------------------------------------------------- */
+  .service-card {
+    will-change: transform, box-shadow, border-color;
+  }
+
+  .service-content-panel {
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  /* ---------------------------------------------------- */
+  /* ASYMMETRIC IMAGE CLIPPING (Cross-Browser Supported)  */
+  /* High-density CSS polygon + Native SVG Bezier Paths   */
+  /* ---------------------------------------------------- */
+  
+  /* Card 1: Information Management — Top-right scoop & lower-right cutout */
+  .service-image-clip--0 {
+    clip-path: polygon(
+      0% 0%,
+      70% 0%,
+      74% 2%,
+      79% 8%,
+      84% 16%,
+      90% 20%,
+      100% 20%,
+      100% 78%,
+      95% 80%,
+      88% 84%,
+      80% 90%,
+      70% 96%,
+      60% 100%,
+      0% 100%
+    );
+    clip-path: url(#service-clip-0);
+  }
+
+  /* Card 2: IT Lifecycle Services — Top-right scoop & lower-left cutout */
+  .service-image-clip--1 {
+    clip-path: polygon(
+      0% 0%,
+      72% 0%,
+      76% 2%,
+      81% 9%,
+      86% 17%,
+      92% 22%,
+      100% 22%,
+      100% 100%,
+      48% 100%,
+      38% 97%,
+      28% 92%,
+      18% 85%,
+      8% 80%,
+      0% 78%
+    );
+    clip-path: url(#service-clip-1);
+  }
+
+  /* Card 3: Secure Shredding — Angled top-right chamfer & stepped bottom */
+  .service-image-clip--2 {
+    clip-path: polygon(
+      0% 0%,
+      70% 0%,
+      78% 7%,
+      85% 14%,
+      92% 18%,
+      100% 18%,
+      100% 86%,
+      88% 86%,
+      80% 100%,
+      38% 100%,
+      30% 90%,
+      0% 90%
+    );
+    clip-path: url(#service-clip-2);
+  }
+
+  /* Card 4: Moving & Relocation — Opposite mirror: Top-left scoop & lower-left cutout */
+  .service-image-clip--3 {
+    clip-path: polygon(
+      0% 20%,
+      8% 20%,
+      15% 16%,
+      21% 9%,
+      26% 2%,
+      30% 0%,
+      100% 0%,
+      100% 100%,
+      40% 100%,
+      30% 96%,
+      20% 90%,
+      12% 84%,
+      5% 80%,
+      0% 78%
+    );
+    clip-path: url(#service-clip-3);
+  }
+
+  /* ---------------------------------------------------- */
+  /* SUBTLE IMAGE HOVER EFFECT (450ms, Scale 1.04)        */
+  /* Colored frame & clip shape remain completely stable  */
+  /* ---------------------------------------------------- */
+  .service-img {
+    will-change: transform;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .service-card:hover .service-img,
+  .service-card:focus-within .service-img,
+  .service-card.is-active .service-img {
+    transform: scale(1.04);
+  }
+
+  /* ---------------------------------------------------- */
+  /* COLLAPSIBLE DETAILS REVEAL (CSS Grid Technique)      */
+  /* Default: Title only. Hover/Focus/Tap: Reveals details */
+  /* ---------------------------------------------------- */
+  .service-collapsible-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+      grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.4s ease;
+  }
+
+  .service-collapsible-content {
+    overflow: hidden;
+  }
+
+  /* Description & CTA Reveal Motion */
+  .service-desc {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.35s ease 0.06s,
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.06s;
+  }
+
+  .service-cta-row {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.35s ease 0.12s,
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+  }
+
+  /* Hover, Focus, or Mobile Tap Active State */
+  .service-card:hover .service-collapsible-wrapper,
+  .service-card:focus-within .service-collapsible-wrapper,
+  .service-card.is-active .service-collapsible-wrapper {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .service-card:hover .service-desc,
+  .service-card:focus-within .service-desc,
+  .service-card.is-active .service-desc {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .service-card:hover .service-cta-row,
+  .service-card:focus-within .service-cta-row,
+  .service-card.is-active .service-cta-row {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Keyboard focus outline */
+  .service-card:focus-visible {
+    outline: 2px solid #3FB33D;
+    outline-offset: 4px;
+  }
+
+  /* ---------------------------------------------------- */
+  /* REDUCED MOTION SUPPORT                               */
+  /* ---------------------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .service-img,
+    .service-accent-bar,
+    .service-collapsible-wrapper,
+    .service-desc,
+    .service-cta-row,
+    .cta-arrow {
+      transition: none !important;
+      transform: none !important;
+    }
+
+    .service-collapsible-wrapper {
+      opacity: 1 !important;
+      grid-template-rows: 1fr !important;
+    }
+
+    .service-desc,
+    .service-cta-row {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const initInteractiveServiceCards = () => {
+      const container = document.getElementById('services-interactive-grid');
+      if (!container) return;
+
+      const cards = Array.from(container.querySelectorAll('.service-card'));
+      if (!cards.length) return;
+
+      // Handle mobile tap / click interaction
+      cards.forEach((card) => {
+        card.addEventListener('click', (e) => {
+          // If clicked directly on the CTA link, allow direct navigation
+          if (e.target.closest('.service-cta-link')) {
+            return;
+          }
+
+          // Check for touch / small screen interaction
+          const isTouch = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 1024;
+          if (isTouch) {
+            const isAlreadyActive = card.classList.contains('is-active');
+
+            // Close other cards in the grid
+            cards.forEach((c) => {
+              if (c !== card) c.classList.remove('is-active');
+            });
+
+            if (!isAlreadyActive) {
+              card.classList.add('is-active');
+            } else {
+              // Second tap navigates to service page
+              const link = card.querySelector('.service-cta-link');
+              if (link && link.href) {
+                window.location.href = link.href;
+              }
+            }
+          }
+        });
+      });
+
+      // Close active card on click outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.service-card')) {
+          cards.forEach((c) => c.classList.remove('is-active'));
+        }
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initInteractiveServiceCards);
+    } else {
+      initInteractiveServiceCards();
+    }
+
+    document.addEventListener('astro:page-load', initInteractiveServiceCards);
+  })();
+</script>

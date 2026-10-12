@@ -1,279 +1,813 @@
 ---
+import type { Sector } from '../../lib/sanity/types';
+
+interface Props {
+  sectors?: Sector[];
+}
+
+const { sectors = [] } = Astro.props;
+
 interface SectorItem {
   id: string;
+  number: string;
   title: string;
   slug: string;
+  category: string;
   image: string;
+  icon: string;
   description: string;
 }
 
-const sectorItems: SectorItem[] = [
+const defaultSectorItems: SectorItem[] = [
   {
-    id: 'sec-healthcare',
-    title: 'Healthcare',
+    id: 'sec-nhs',
+    number: '01',
+    title: 'NHS & Healthcare',
     slug: 'nhs',
+    category: 'Healthcare & Trusts',
     image: '/images/sectors/nhs.jpg',
-    description: 'Caldicott compliant records vaulting, BS 10008 legal scanning, emergency 1-hour scan recall, and hospital ward IT decommissioning.',
+    icon: '/icons/NHS & Healthcare.svg',
+    description: 'Caldicott-compliant patient records vaulting, BS 10008 legal scanning, emergency 1-hour recall, and hospital ward IT decommissioning.',
   },
   {
     id: 'sec-finance',
+    number: '02',
     title: 'Financial Services',
     slug: 'finance',
+    category: 'Banking & Finance',
     image: '/images/sectors/finance.jpg',
-    description: 'FCA & PRA aligned governance, trading floor relocations, PCI-DSS compliance, and ADISA certified data wiping.',
-  },
-  {
-    id: 'sec-corporate',
-    title: 'Corporate & Enterprise',
-    slug: 'corporate',
-    image: '/images/sectors/corporate.jpg',
-    description: 'End-to-end IT asset disposal, office relocations, and secure data sanitisation for multi-site corporate headquarters.',
-  },
-  {
-    id: 'sec-government',
-    title: 'Government & Public Sector',
-    slug: 'central-government',
-    image: '/images/sectors/government.jpg',
-    description: 'Crown Commercial Service frameworks, Greening Government Commitments (GGC), zero landfill ITAD, and public records governance.',
+    icon: '/icons/Financial Services.svg',
+    description: 'FCA & PRA aligned governance, trading floor relocations, PCI-DSS compliance, and ADISA-certified sanitisation.',
   },
   {
     id: 'sec-defence',
-    title: 'Defence & Manufacturing',
+    number: '03',
+    title: 'Defence & Aerospace',
     slug: 'defence',
+    category: 'Defence & Security',
     image: '/images/sectors/defence.jpg',
-    description: 'JSP 440 security-cleared personnel, on-site mobile DIN 66399 shredding, SC/DV vetted logistics, and industrial plant disposal.',
+    icon: '/icons/Defence & Aerospace.svg',
+    description: 'JSP 440 security-cleared personnel, on-site mobile DIN 66399 shredding, SC/DV vetted logistics, and classified plant disposal.',
+  },
+  {
+    id: 'sec-government',
+    number: '04',
+    title: 'Central Government & Public Sector',
+    slug: 'central-government',
+    category: 'Public Sector',
+    image: '/images/sectors/government.jpg',
+    icon: '/icons/Central Government.svg',
+    description: 'Crown Commercial Service frameworks, Greening Government Commitments (GGC), zero landfill ITAD, and public records governance.',
+  },
+  {
+    id: 'sec-legal',
+    number: '05',
+    title: 'Legal & Professional Services',
+    slug: 'legal-professional-services',
+    category: 'Legal & Corporate',
+    image: '/images/sectors/legal.jpg',
+    icon: '/icons/Corporate & Legal.svg',
+    description: 'SRA-aligned confidentiality, litigation bundle digitization, deep vault storage, and on-site hardware sanitisation.',
   },
   {
     id: 'sec-education',
-    title: 'Education & Research',
-    slug: 'education',
+    number: '06',
+    title: 'Education & Universities',
+    slug: 'education-universities',
+    category: 'Higher Education',
     image: '/images/sectors/education.jpg',
-    description: 'Secure campus IT retirement, academic research archive digitization, and lab instrument relocation services.',
+    icon: '/icons/Education & Universities.svg',
+    description: 'Secure campus IT retirement, academic research archive digitization, and climate-monitored lab instrument relocations.',
+  },
+  {
+    id: 'sec-manufacturing',
+    number: '07',
+    title: 'Manufacturing & Engineering',
+    slug: 'manufacturing-engineering',
+    category: 'Advanced Industry',
+    image: '/images/sectors/manufacturing.jpg',
+    icon: '/icons/Manufacturing & Engineering.svg',
+    description: 'CAD/CAM blueprint protection, industrial control ITAD, prototype destruction, and clean production lab relocations.',
+  },
+  {
+    id: 'sec-technology',
+    number: '08',
+    title: 'IT & Technology',
+    slug: 'it-technology',
+    category: 'Technology & Cloud',
+    image: '/images/sectors/technology.jpg',
+    icon: '/icons/IT & Technology.svg',
+    description: 'Hyperscale data centre de-racking, NIST 800-88 certified mass erasure, zero landfill asset lifecycle, and server remarketing.',
   },
 ];
+
+const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
+  ? defaultSectorItems.map((defaultItem) => {
+      const match = sectors.find(
+        (s) => s.slug === defaultItem.slug ||
+               (s.slug === 'legal-professional-sector' && defaultItem.slug === 'legal-professional-services') ||
+               (s.slug === 'education' && defaultItem.slug === 'education-universities') ||
+               (s.slug === 'manufacturing' && defaultItem.slug === 'manufacturing-engineering') ||
+               (s.slug === 'technology' && defaultItem.slug === 'it-technology')
+      );
+      if (!match) return defaultItem;
+      return {
+        ...defaultItem,
+        title: match.title || defaultItem.title,
+        slug: defaultItem.slug,
+        description: match.summary || match.tagline || defaultItem.description,
+        image: match.heroImage || defaultItem.image,
+      };
+    })
+  : defaultSectorItems;
 ---
 
-<div id="industry-slider-wrapper" class="relative w-full max-w-6xl mx-auto py-4 select-none">
-  <!-- Main Showcase Container -->
-  <div class="relative flex flex-col md:flex-row items-center md:items-stretch gap-6 lg:gap-12 min-h-[460px] lg:min-h-[500px]">
+<div
+  id="sector-carousel-root"
+  class="relative w-full max-w-[1440px] mx-auto py-4 select-none"
+  data-total={sectorItems.length}
+  aria-roledescription="carousel"
+  aria-label="Sectors We Serve Carousel"
+>
+  <!-- Carousel Stage Wrapper -->
+  <div class="relative w-full flex items-center justify-center overflow-hidden py-6 sm:py-8">
     
-    <!-- Left: Main Image Box -->
-    <div class="relative w-full md:w-[440px] lg:w-[500px] h-[360px] sm:h-[420px] lg:h-[480px] rounded-2xl overflow-hidden shadow-xl shrink-0 bg-slate-100">
-      {sectorItems.map((item, idx) => (
-        <img
-          key={item.id}
-          data-slide-img={idx}
-          src={item.image}
-          alt={item.title}
-          class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-            idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
-        />
-      ))}
-    </div>
+    <!-- Left Navigation Arrow -->
+    <button
+      type="button"
+      id="sector-carousel-prev"
+      class="sector-carousel-nav-btn absolute left-2 sm:left-4 lg:left-6 xl:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.08)] text-[#0F623A] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:border-[#3FB33D] hover:bg-[#0F623A] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#0F623A] cursor-pointer group"
+      aria-label="Previous Sector"
+    >
+      <svg class="w-5 h-5 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
 
-    <!-- Center: Content Panel -->
-    <div class="flex-1 flex flex-col justify-between py-2 sm:py-4 px-2 md:px-0 text-left min-w-0">
-      <div>
-        <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#146B5C]">
-          Industries
-        </span>
+    <!-- Right Navigation Arrow -->
+    <button
+      type="button"
+      id="sector-carousel-next"
+      class="sector-carousel-nav-btn absolute right-2 sm:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.08)] text-[#0F623A] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:border-[#3FB33D] hover:bg-[#0F623A] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#0F623A] cursor-pointer group"
+      aria-label="Next Sector"
+    >
+      <svg class="w-5 h-5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
 
-        {sectorItems.map((item, idx) => (
-          <div
-            key={item.id}
-            data-slide-content={idx}
-            class={`transition-all duration-500 ${
-              idx === 0 ? 'block opacity-100 translate-y-0' : 'hidden opacity-0 translate-y-2'
-            }`}
-          >
-            <h3 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-tight leading-tight mt-2 mb-5">
-              {item.title}
-            </h3>
-
-            <p class="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-md">
-              {item.description}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <!-- Bottom Controls: Explore Button + Navigation Arrows -->
-      <div class="flex items-center gap-6 pt-6 mt-auto">
-        <!-- Dynamic Explore Link -->
-        <a
-          id="slider-explore-btn"
-          href={`/sectors/${sectorItems[0].slug}`}
-          class="px-7 py-3 rounded-full border border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white text-sm font-bold transition-all duration-300 shadow-xs hover:shadow-md inline-flex items-center gap-2"
-        >
-          <span>Explore</span>
-        </a>
-
-        <!-- Arrows (Left & Right) -->
-        <div class="flex items-center gap-3">
-          <button
-            type="button"
-            id="slider-prev-btn"
-            aria-label="Previous Industry"
-            class="w-10 h-10 rounded-full border border-slate-300 hover:border-brand-navy text-slate-700 hover:text-brand-navy flex items-center justify-center transition-all duration-200 hover:scale-105"
-          >
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <button
-            type="button"
-            id="slider-next-btn"
-            aria-label="Next Industry"
-            class="w-10 h-10 rounded-full border border-slate-300 hover:border-brand-navy text-slate-700 hover:text-brand-navy flex items-center justify-center transition-all duration-200 hover:scale-105"
-          >
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right: Next Slide Peek Preview -->
+    <!-- Carousel 3D Cards Stage -->
     <div
-      id="slider-peek-container"
-      class="hidden lg:block relative w-24 h-[480px] rounded-2xl overflow-hidden shadow-md cursor-pointer shrink-0 opacity-75 hover:opacity-100 transition-opacity group"
-      title="Next Industry"
+      id="sector-carousel-stage"
+      class="sector-carousel-stage carousel-entering relative w-full h-[520px] sm:h-[550px] lg:h-[580px] xl:h-[600px] flex items-center justify-center"
     >
       {sectorItems.map((item, idx) => (
-        <img
+        <article
           key={item.id}
-          data-peek-img={idx}
-          src={item.image}
-          alt={`Peek ${item.title}`}
-          class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-            idx === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
-        />
-      ))}
-      <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
-    </div>
+          class="sector-carousel-card group"
+          data-index={idx}
+          data-slug={item.slug}
+          data-pos={idx === 0 ? "0" : idx === 1 ? "1" : idx === sectorItems.length - 1 ? "-1" : idx === 2 ? "2" : idx === sectorItems.length - 2 ? "-2" : "hidden-right"}
+          role="group"
+          aria-roledescription="slide"
+          aria-label={`${item.title} (${idx + 1} of ${sectorItems.length})`}
+        >
+          <div class="sector-card-inner relative w-full h-full bg-white rounded-[26px] p-5 sm:p-6 flex flex-col justify-between border border-slate-200/90 overflow-hidden">
+            <!-- Ambient Top Subtle Tint -->
+            <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-transparent via-[#0F623A]/20 to-transparent pointer-events-none opacity-0 group-data-[pos='0']:opacity-100 transition-opacity duration-500"></div>
 
+            <!-- Top Row: Index Badge & Category + Icon -->
+            <div class="flex items-center justify-between gap-2 mb-3.5 shrink-0">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="inline-flex items-center justify-center font-mono text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#0F623A]/10 text-[#0F623A] border border-[#0F623A]/15 shrink-0">
+                  {item.number}
+                </span>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 truncate">
+                  {item.category}
+                </span>
+              </div>
+              <div class="w-7 h-7 rounded-full bg-[#F4F7F4] flex items-center justify-center p-1.5 shrink-0 border border-slate-200/60">
+                <img src={item.icon} alt="" class="w-full h-full object-contain opacity-75" loading="lazy" />
+              </div>
+            </div>
+
+            <!-- Image Container -->
+            <div class="sector-card-image-box relative w-full aspect-[16/10] sm:aspect-[16/11] rounded-2xl overflow-hidden mb-3.5 bg-slate-100 shrink-0">
+              <img
+                src={item.image}
+                alt={item.title}
+                class="sector-card-img w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+              />
+              <!-- Subtle photo bottom gradient overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+            </div>
+
+            <!-- Text Content -->
+            <div class="flex-1 flex flex-col justify-between min-h-0">
+              <div>
+                <h3 class="sector-card-title text-xl sm:text-[22px] font-bold font-display text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors line-clamp-1 mb-2">
+                  <a
+                    href={`/sectors/${item.slug}`}
+                    class="sector-card-link focus:outline-none"
+                    tabindex="-1"
+                  >
+                    {item.title}
+                  </a>
+                </h3>
+                <p class="sector-card-desc text-xs sm:text-[13px] text-slate-600 font-normal leading-relaxed line-clamp-3">
+                  {item.description}
+                </p>
+              </div>
+
+              <!-- Bottom Action CTA -->
+              <div class="sector-card-action mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-between shrink-0">
+                <span class="sector-card-cta-label text-xs font-bold text-[#0F623A] tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors">
+                  <span>Explore Sector</span>
+                </span>
+
+                <a
+                  href={`/sectors/${item.slug}`}
+                  class="sector-card-arrow-btn w-9 h-9 rounded-full bg-[#0F623A] text-white flex items-center justify-center shadow-sm group-hover:bg-[#3FB33D] group-hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+                  aria-label={`Explore ${item.title}`}
+                  tabindex="-1"
+                >
+                  <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <!-- Pagination Indicators -->
+  <div
+    class="sector-carousel-dots flex items-center justify-center gap-2 mt-4 sm:mt-6"
+    role="tablist"
+    aria-label="Sectors carousel navigation"
+  >
+    {sectorItems.map((item, idx) => (
+      <button
+        type="button"
+        class="sector-dot-btn h-2.5 rounded-full transition-all duration-300 ease-out cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+        data-dot-index={idx}
+        role="tab"
+        aria-selected={idx === 0 ? "true" : "false"}
+        aria-label={`Go to ${item.title}`}
+        style={idx === 0 ? "width: 2rem; background-color: #0F623A;" : "width: 0.625rem; background-color: #CBD5E1;"}
+      >
+        <span class="sr-only">{item.title}</span>
+      </button>
+    ))}
   </div>
 </div>
 
+<style>
+  /* Stage Setup */
+  .sector-carousel-stage {
+    position: relative;
+    width: 100%;
+    transform-style: preserve-3d;
+    perspective: 1200px;
+  }
+
+  /* Base Card Styles */
+  .sector-carousel-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 82vw;
+    max-width: 320px;
+    height: 470px;
+    will-change: transform, opacity;
+    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: center center;
+    cursor: pointer;
+  }
+
+  @media (min-width: 640px) {
+    .sector-carousel-card {
+      max-width: 340px;
+      height: 490px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .sector-carousel-card {
+      max-width: 350px;
+      height: 510px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .sector-carousel-card {
+      max-width: 370px;
+      height: 520px;
+    }
+  }
+
+  /* Card Inner Shadows & Borders */
+  .sector-card-inner {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.02);
+    transition: box-shadow 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Entrance Animation: Cards start lower, scaled down and transparent */
+  .sector-carousel-stage.carousel-entering .sector-carousel-card {
+    opacity: 0 !important;
+    transform: translate3d(-50%, calc(-50% + 45px), 0) scale(0.72) !important;
+  }
+
+  /* ========================================================
+     3D CAROUSEL POSITIONS (DESKTOP >= 1280px)
+     ======================================================== */
+  @media (min-width: 1280px) {
+    /* Center Active (0) */
+    .sector-carousel-card[data-pos="0"] {
+      transform: translate3d(-50%, -53%, 0) scale(1.06);
+      z-index: 30;
+      opacity: 1;
+      cursor: default;
+    }
+    .sector-carousel-card[data-pos="0"] .sector-card-inner {
+      border-color: rgba(15, 98, 58, 0.28);
+      box-shadow: 0 25px 60px -15px rgba(15, 98, 58, 0.22), 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Immediate Right (1) */
+    .sector-carousel-card[data-pos="1"] {
+      transform: translate3d(calc(-50% + 290px), -48%, 0) scale(0.9);
+      z-index: 20;
+      opacity: 0.85;
+    }
+    .sector-carousel-card[data-pos="1"]:hover {
+      opacity: 0.98;
+      transform: translate3d(calc(-50% + 290px), -50%, 0) scale(0.92);
+    }
+
+    /* Immediate Left (-1) */
+    .sector-carousel-card[data-pos="-1"] {
+      transform: translate3d(calc(-50% - 290px), -48%, 0) scale(0.9);
+      z-index: 20;
+      opacity: 0.85;
+    }
+    .sector-carousel-card[data-pos="-1"]:hover {
+      opacity: 0.98;
+      transform: translate3d(calc(-50% - 290px), -50%, 0) scale(0.92);
+    }
+
+    /* Far Right (2) */
+    .sector-carousel-card[data-pos="2"] {
+      transform: translate3d(calc(-50% + 530px), -46%, 0) scale(0.78);
+      z-index: 10;
+      opacity: 0.52;
+    }
+    .sector-carousel-card[data-pos="2"]:hover {
+      opacity: 0.82;
+      transform: translate3d(calc(-50% + 530px), -48%, 0) scale(0.81);
+    }
+
+    /* Far Left (-2) */
+    .sector-carousel-card[data-pos="-2"] {
+      transform: translate3d(calc(-50% - 530px), -46%, 0) scale(0.78);
+      z-index: 10;
+      opacity: 0.52;
+    }
+    .sector-carousel-card[data-pos="-2"]:hover {
+      opacity: 0.82;
+      transform: translate3d(calc(-50% - 530px), -48%, 0) scale(0.81);
+    }
+
+    /* Hidden Cards */
+    .sector-carousel-card[data-pos="hidden-right"] {
+      transform: translate3d(calc(-50% + 720px), -45%, 0) scale(0.65);
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .sector-carousel-card[data-pos="hidden-left"] {
+      transform: translate3d(calc(-50% - 720px), -45%, 0) scale(0.65);
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* ========================================================
+     3D CAROUSEL POSITIONS (LARGE DESKTOP 1024px - 1279px)
+     ======================================================== */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .sector-carousel-card[data-pos="0"] {
+      transform: translate3d(-50%, -53%, 0) scale(1.05);
+      z-index: 30;
+      opacity: 1;
+      cursor: default;
+    }
+    .sector-carousel-card[data-pos="0"] .sector-card-inner {
+      border-color: rgba(15, 98, 58, 0.28);
+      box-shadow: 0 25px 60px -15px rgba(15, 98, 58, 0.22), 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+    }
+
+    .sector-carousel-card[data-pos="1"] {
+      transform: translate3d(calc(-50% + 250px), -48%, 0) scale(0.88);
+      z-index: 20;
+      opacity: 0.85;
+    }
+    .sector-carousel-card[data-pos="1"]:hover {
+      opacity: 0.98;
+      transform: translate3d(calc(-50% + 250px), -50%, 0) scale(0.91);
+    }
+
+    .sector-carousel-card[data-pos="-1"] {
+      transform: translate3d(calc(-50% - 250px), -48%, 0) scale(0.88);
+      z-index: 20;
+      opacity: 0.85;
+    }
+    .sector-carousel-card[data-pos="-1"]:hover {
+      opacity: 0.98;
+      transform: translate3d(calc(-50% - 250px), -50%, 0) scale(0.91);
+    }
+
+    .sector-carousel-card[data-pos="2"] {
+      transform: translate3d(calc(-50% + 460px), -46%, 0) scale(0.76);
+      z-index: 10;
+      opacity: 0.52;
+    }
+    .sector-carousel-card[data-pos="2"]:hover {
+      opacity: 0.82;
+      transform: translate3d(calc(-50% + 460px), -48%, 0) scale(0.79);
+    }
+
+    .sector-carousel-card[data-pos="-2"] {
+      transform: translate3d(calc(-50% - 460px), -46%, 0) scale(0.76);
+      z-index: 10;
+      opacity: 0.52;
+    }
+    .sector-carousel-card[data-pos="-2"]:hover {
+      opacity: 0.82;
+      transform: translate3d(calc(-50% - 460px), -48%, 0) scale(0.79);
+    }
+
+    .sector-carousel-card[data-pos="hidden-right"] {
+      transform: translate3d(calc(-50% + 640px), -45%, 0) scale(0.65);
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .sector-carousel-card[data-pos="hidden-left"] {
+      transform: translate3d(calc(-50% - 640px), -45%, 0) scale(0.65);
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* ========================================================
+     3D CAROUSEL POSITIONS (TABLET 768px - 1023px)
+     ======================================================== */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .sector-carousel-card[data-pos="0"] {
+      transform: translate3d(-50%, -52%, 0) scale(1.04);
+      z-index: 30;
+      opacity: 1;
+      cursor: default;
+    }
+    .sector-carousel-card[data-pos="0"] .sector-card-inner {
+      border-color: rgba(15, 98, 58, 0.28);
+      box-shadow: 0 25px 60px -15px rgba(15, 98, 58, 0.22), 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+    }
+
+    .sector-carousel-card[data-pos="1"] {
+      transform: translate3d(calc(-50% + 230px), -48%, 0) scale(0.86);
+      z-index: 20;
+      opacity: 0.78;
+    }
+    .sector-carousel-card[data-pos="1"]:hover {
+      opacity: 0.95;
+      transform: translate3d(calc(-50% + 230px), -50%, 0) scale(0.89);
+    }
+
+    .sector-carousel-card[data-pos="-1"] {
+      transform: translate3d(calc(-50% - 230px), -48%, 0) scale(0.86);
+      z-index: 20;
+      opacity: 0.78;
+    }
+    .sector-carousel-card[data-pos="-1"]:hover {
+      opacity: 0.95;
+      transform: translate3d(calc(-50% - 230px), -50%, 0) scale(0.89);
+    }
+
+    .sector-carousel-card[data-pos="2"],
+    .sector-carousel-card[data-pos="-2"],
+    .sector-carousel-card[data-pos="hidden-right"],
+    .sector-carousel-card[data-pos="hidden-left"] {
+      transform: translate3d(-50%, -46%, 0) scale(0.65);
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* ========================================================
+     3D CAROUSEL POSITIONS (MOBILE < 768px)
+     ======================================================== */
+  @media (max-width: 767px) {
+    .sector-carousel-card[data-pos="0"] {
+      transform: translate3d(-50%, -50%, 0) scale(1);
+      z-index: 30;
+      opacity: 1;
+      cursor: default;
+    }
+    .sector-carousel-card[data-pos="0"] .sector-card-inner {
+      border-color: rgba(15, 98, 58, 0.25);
+      box-shadow: 0 20px 45px -10px rgba(15, 98, 58, 0.2), 0 4px 16px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .sector-carousel-card[data-pos="1"] {
+      transform: translate3d(calc(-50% + 82vw), -50%, 0) scale(0.88);
+      z-index: 15;
+      opacity: 0.45;
+    }
+
+    .sector-carousel-card[data-pos="-1"] {
+      transform: translate3d(calc(-50% - 82vw), -50%, 0) scale(0.88);
+      z-index: 15;
+      opacity: 0.45;
+    }
+
+    .sector-carousel-card[data-pos="2"],
+    .sector-carousel-card[data-pos="-2"],
+    .sector-carousel-card[data-pos="hidden-right"],
+    .sector-carousel-card[data-pos="hidden-left"] {
+      transform: translate3d(-50%, -50%, 0) scale(0.65);
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .sector-carousel-card {
+      transition: opacity 0.2s ease !important;
+    }
+    .sector-carousel-stage.carousel-entering .sector-carousel-card {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .sector-dot-btn {
+      transition: none !important;
+    }
+  }
+</style>
+
 <script is:inline>
   (() => {
-    const initIndustrySlider = () => {
-      const wrapper = document.getElementById('industry-slider-wrapper');
-      if (!wrapper) return;
+    const initSectorCarousel = () => {
+      const root = document.getElementById('sector-carousel-root');
+      if (!root) return;
 
-      const imgs = wrapper.querySelectorAll('[data-slide-img]');
-      const contents = wrapper.querySelectorAll('[data-slide-content]');
-      const peeks = wrapper.querySelectorAll('[data-peek-img]');
-      const exploreBtn = document.getElementById('slider-explore-btn');
-      const prevBtn = document.getElementById('slider-prev-btn');
-      const nextBtn = document.getElementById('slider-next-btn');
-      const peekContainer = document.getElementById('slider-peek-container');
+      // Prevent duplicate attachment across view transitions
+      if (root.dataset.carouselInitialized === 'true') return;
+      root.dataset.carouselInitialized = 'true';
 
-      const slugs = [
-        'nhs',
-        'finance',
-        'corporate',
-        'central-government',
-        'defence',
-        'education',
-      ];
+      const stage = root.querySelector('#sector-carousel-stage');
+      const cards = Array.from(root.querySelectorAll('.sector-carousel-card'));
+      const dots = Array.from(root.querySelectorAll('.sector-dot-btn'));
+      const prevBtn = document.getElementById('sector-carousel-prev');
+      const nextBtn = document.getElementById('sector-carousel-next');
 
-      const total = imgs.length;
-      if (!total) return;
+      const total = cards.length;
+      if (!total || !stage) return;
 
       let currentIndex = 0;
       let timer = null;
+      const AUTOPLAY_INTERVAL = 5000;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      const goToSlide = (index) => {
-        currentIndex = (index + total) % total;
-        const nextIndex = (currentIndex + 1) % total;
+      // Update positions of all cards relative to active index
+      const updatePositions = (newIndex) => {
+        currentIndex = (newIndex + total) % total;
 
-        // Active image
-        imgs.forEach((img, idx) => {
-          if (idx === currentIndex) {
-            img.classList.remove('opacity-0', 'z-0');
-            img.classList.add('opacity-100', 'z-10');
-          } else {
-            img.classList.remove('opacity-100', 'z-10');
-            img.classList.add('opacity-0', 'z-0');
+        cards.forEach((card, idx) => {
+          let diff = (idx - currentIndex) % total;
+          if (diff > total / 2) diff -= total;
+          if (diff < -total / 2) diff += total;
+
+          let posAttr = 'hidden-right';
+          if (diff === 0) {
+            posAttr = '0';
+          } else if (diff === 1) {
+            posAttr = '1';
+          } else if (diff === -1) {
+            posAttr = '-1';
+          } else if (diff === 2) {
+            posAttr = '2';
+          } else if (diff === -2) {
+            posAttr = '-2';
+          } else if (diff > 2) {
+            posAttr = 'hidden-right';
+          } else if (diff < -2) {
+            posAttr = 'hidden-left';
           }
+
+          card.setAttribute('data-pos', posAttr);
+
+          // Update tab indices and links accessibility
+          const isFeatured = (posAttr === '0');
+          const links = card.querySelectorAll('a, button');
+          links.forEach((el) => {
+            if (isFeatured) {
+              el.setAttribute('tabindex', '0');
+            } else {
+              el.setAttribute('tabindex', '-1');
+            }
+          });
         });
 
-        // Active content
-        contents.forEach((content, idx) => {
-          if (idx === currentIndex) {
-            content.classList.remove('hidden', 'opacity-0', 'translate-y-2');
-            content.classList.add('block', 'opacity-100', 'translate-y-0');
+        // Update pagination indicators
+        dots.forEach((dot, idx) => {
+          const isActive = (idx === currentIndex);
+          dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          if (isActive) {
+            dot.style.width = '2rem';
+            dot.style.backgroundColor = '#0F623A';
           } else {
-            content.classList.remove('block', 'opacity-100', 'translate-y-0');
-            content.classList.add('hidden', 'opacity-0', 'translate-y-2');
+            dot.style.width = '0.625rem';
+            dot.style.backgroundColor = '#CBD5E1';
           }
         });
-
-        // Peek image
-        peeks.forEach((peek, idx) => {
-          if (idx === nextIndex) {
-            peek.classList.remove('opacity-0', 'z-0');
-            peek.classList.add('opacity-100', 'z-10');
-          } else {
-            peek.classList.remove('opacity-100', 'z-10');
-            peek.classList.add('opacity-0', 'z-0');
-          }
-        });
-
-        // Update explore link
-        if (exploreBtn && slugs[currentIndex]) {
-          exploreBtn.setAttribute('href', `/sectors/${slugs[currentIndex]}`);
-        }
       };
 
+      // Autoplay controls
       const startTimer = () => {
+        if (prefersReducedMotion) return;
         stopTimer();
         timer = setInterval(() => {
-          goToSlide(currentIndex + 1);
-        }, 4000);
+          updatePositions(currentIndex + 1);
+        }, AUTOPLAY_INTERVAL);
       };
 
       const stopTimer = () => {
-        if (timer) clearInterval(timer);
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      };
+
+      // Navigation Actions
+      const goToPrev = () => {
+        updatePositions(currentIndex - 1);
+        startTimer();
+      };
+
+      const goToNext = () => {
+        updatePositions(currentIndex + 1);
+        startTimer();
       };
 
       if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-          goToSlide(currentIndex - 1);
-          startTimer();
+        prevBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          goToPrev();
         });
       }
 
       if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-          goToSlide(currentIndex + 1);
-          startTimer();
+        nextBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          goToNext();
         });
       }
 
-      if (peekContainer) {
-        peekContainer.addEventListener('click', () => {
-          goToSlide(currentIndex + 1);
+      // Dot click navigation
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', (e) => {
+          e.preventDefault();
+          updatePositions(idx);
           startTimer();
         });
-      }
+      });
 
-      wrapper.addEventListener('mouseenter', stopTimer);
-      wrapper.addEventListener('mouseleave', startTimer);
+      // Card Click Handler: Clicking side card smoothly brings it to center.
+      // Clicking center card or its link/button allows navigation to sector details page.
+      cards.forEach((card, idx) => {
+        card.addEventListener('click', (e) => {
+          const pos = card.getAttribute('data-pos');
+          if (pos !== '0') {
+            e.preventDefault();
+            e.stopPropagation();
+            updatePositions(idx);
+            startTimer();
+          } else {
+            // Center card clicked: if clicked on an element other than direct link, navigate to sector page
+            const target = e.target;
+            if (!target.closest('a')) {
+              const slug = card.getAttribute('data-slug');
+              if (slug) {
+                window.location.href = `/sectors/${slug}`;
+              }
+            }
+          }
+        });
+      });
 
-      startTimer();
+      // Pause autoplay on mouse enter, resume on mouse leave
+      root.addEventListener('mouseenter', stopTimer);
+      root.addEventListener('mouseleave', startTimer);
+
+      // Mobile Touch / Swipe Handling
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let isTouching = false;
+
+      stage.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+        isTouching = true;
+        stopTimer();
+      }, { passive: true });
+
+      stage.addEventListener('touchend', (e) => {
+        if (!isTouching) return;
+        isTouching = false;
+        const touchEndX = e.changedTouches[0].screenX;
+        const touchEndY = e.changedTouches[0].screenY;
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        // Ensure clear horizontal intent (threshold 40px)
+        if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+          if (deltaX < 0) {
+            goToNext();
+          } else {
+            goToPrev();
+          }
+        }
+        startTimer();
+      }, { passive: true });
+
+      // Pause timer when document is hidden / tab switched
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopTimer();
+        } else {
+          startTimer();
+        }
+      });
+
+      // ========================================================
+      // ENTRANCE ANIMATION VIA INTERSECTION OBSERVER
+      // ========================================================
+      const entranceObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Apply staggered entrance delays
+              cards.forEach((card) => {
+                const pos = card.getAttribute('data-pos');
+                let delay = '0ms';
+                if (pos === '0') delay = '60ms';
+                else if (pos === '1' || pos === '-1') delay = '180ms';
+                else if (pos === '2' || pos === '-2') delay = '300ms';
+                card.style.transitionDelay = delay;
+              });
+
+              // Trigger entrance
+              stage.classList.remove('carousel-entering');
+
+              // Clear transition delays after entrance completes so slide navigation has no delay
+              setTimeout(() => {
+                cards.forEach((card) => {
+                  card.style.transitionDelay = '';
+                });
+                startTimer();
+              }, 950);
+
+              entranceObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      entranceObserver.observe(root);
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initIndustrySlider);
+      document.addEventListener('DOMContentLoaded', initSectorCarousel);
     } else {
-      initIndustrySlider();
+      initSectorCarousel();
     }
-    document.addEventListener('astro:page-load', initIndustrySlider);
+    document.addEventListener('astro:page-load', initSectorCarousel);
   })();
 </script>

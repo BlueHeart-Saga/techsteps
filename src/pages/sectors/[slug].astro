@@ -184,27 +184,58 @@ const matchingCaseStudy = caseStudies.find(
           </p>
         </div>
 
-        <!-- Challenge Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {sector.challenges?.map((challenge, idx) => (
-            <div class="relative flex flex-col justify-start p-7 sm:p-8 rounded-2xl bg-white border border-slate-200/90 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_32px_-4px_rgba(15,98,58,0.08)] hover:border-[#0F623A]/30 transition-all duration-300">
-              <!-- Number Header with clean horizontal line -->
-              <div class="flex items-center gap-3 mb-5">
-                <span class="text-2xl sm:text-3xl font-extrabold font-display text-[#0F623A] leading-none">
-                  {String(idx + 1).padStart(2, '0')}
-                </span>
-                <span class="h-px flex-1 bg-slate-200/90" aria-hidden="true"></span>
-              </div>
+<!-- Challenge Cards: Connected Green Panels -->
+        <div class="relative pt-8 sm:pt-10">
 
-              <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug uppercase mb-3 font-sans">
-                {challenge.title}
-              </h3>
+          <!-- Connecting timeline -->
+          <div
+            class="absolute left-0 right-0 top-0 hidden h-[7px] rounded-full bg-[#0F623A] md:block"
+            aria-hidden="true"
+          ></div>
 
-              <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-                {challenge.description}
-              </p>
-            </div>
-          ))}
+          <div class="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6 lg:gap-8">
+            {sector.challenges?.map((challenge, idx) => (
+              <article class="group relative isolate flex min-h-[390px] flex-col overflow-visible rounded-b-[24px] rounded-t-none bg-[#0F623A] px-6 pb-8 pt-16 text-white shadow-[0_18px_32px_-18px_rgba(15,98,58,0.38)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_38px_-18px_rgba(15,98,58,0.48)] sm:px-8 sm:pb-10 sm:pt-[76px] md:mt-[60px] md:min-h-[440px]">
+
+                <!-- Angled top corners -->
+                <div
+                  class="absolute -inset-x-px -top-px -z-10 h-[38px] bg-[#0F623A]"
+                  style="clip-path: polygon(0 100%, 15% 0, 85% 0, 100% 100%);"
+                  aria-hidden="true"
+                ></div>
+
+                <!-- Vertical timeline connector -->
+                <div
+                  class="absolute left-1/2 top-[-60px] hidden h-[60px] w-[2px] -translate-x-1/2 bg-[#0F623A] md:block"
+                  aria-hidden="true"
+                ></div>
+
+                <!-- Number marker -->
+                <div class="absolute left-1/2 top-[-20px] z-20 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-[4px] border-[#A7E8C2] bg-white shadow-sm md:top-[-42px] md:h-8 md:w-8">
+                  <span class="sr-only">Challenge </span>
+                  <span class="absolute inset-0 rounded-full" aria-hidden="true"></span>
+                </div>
+
+                <!-- Number -->
+                <div class="mb-7">
+                  <span class="font-display text-5xl font-bold leading-none tracking-tight text-[#A7E8C2] sm:text-[54px]">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                </div>
+
+                <!-- Challenge title -->
+                <h3 class="mb-6 min-h-[3.5rem] text-lg font-bold uppercase leading-snug tracking-wide text-white sm:text-xl">
+                  {challenge.title}
+                </h3>
+
+                <!-- Challenge description -->
+                <p class="text-base leading-[1.9] text-white/85 sm:text-[17px]">
+                  {challenge.description}
+                </p>
+
+              </article>
+            ))}
+          </div>
         </div>
 
       </div>

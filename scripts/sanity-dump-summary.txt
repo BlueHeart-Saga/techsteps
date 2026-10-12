@@ -1,4 +1,21 @@
 
+=== TYPE: homePage (2 docs) ===
+ID: 5b048d70-2eb7-4536-961a-929985dda6e5
+  hero: {
+  "description": "We responsibly recycle and remarket retired IT equipment, ensuring zero ",
+  "eyebrow": "IT RECYCLING"
+}...
+  fields: [hero]
+ID: homePage
+  hero: {
+  "buttonLink": "/ services",
+  "buttonText": "Explore Services",
+  "description": "Techsteps securely reuse and recycle retired IT assets, reducing waste while recovering maximum value responsibly.",
+  "eyebrow": "SUSTAINABLE IT RECYCLING",
+  "heading": "Creating Value From Each Device",
+  "image...
+  fields: [cta, hero, intro, lifecycle, metaDescription, metaTitle, services, statistics]
+
 === TYPE: system.group (11 docs) ===
 ID: _.groups.access-manager
   fields: [grants, members]
@@ -35,10 +52,10 @@ ID: _.schemas.default
 ID: aboutPage
   hero: {
   "badge": "CHAIN OF CUSTODY",
-  "description": "We protect your business's critical assets — data, records, and hardware — handled securely and returned to value.",
+  "description": "We protect your business's critical assets — data, records, and hardware — handled securely and.",
   "eyebrow": "About Techsteps",
   "headline": "Managing What Matters. Protecting What Comes Next.",
-  "imageAlt": "Techsteps technic...
+  "imageAlt": "Techsteps technicians in secure fac...
   fields: [approach, capabilities, cta, hero, metaDescription, metaTitle, statistics, whatWeDo, whoWeAre]
 
 === TYPE: article (2 docs) ===
@@ -52,12 +69,11 @@ ID: art-simpler-recycling-2025
 === TYPE: contactPage (1 docs) ===
 ID: contactPage
   hero: {
-  "bgImage": "/images/brand/contact-hero-bg.jpg",
   "eyebrow": "CONTACT US",
   "subheading": "Techsteps is ready to provide the right solution according to your needs",
   "title": "Contact us"
 }...
-  fields: [directLines, formSection, hero, metaDescription, metaTitle]
+  fields: [directLines, formSection, hero]
 
 === TYPE: caseStudy (2 docs) ===
 ID: cs-nhs-trust
@@ -70,54 +86,66 @@ ID: cs-tier1-bank
 === TYPE: division (4 docs) ===
 ID: div-im
   title: "Information Management"
-  fields: [headline, icon, order, slug, summary, title]
+  fields: [aboutBadge, aboutParagraphs, aboutTitle, faqs, headline, heroCtaLink, heroCtaText, heroDescription, heroTitle, icon, lifecycleStages, metaDescription, metaTitle, order, slug, summary, title]
 ID: div-it
   title: "IT Lifecycle Services & Destruction"
-  fields: [headline, icon, order, slug, summary, title]
+  fields: [aboutBadge, aboutParagraphs, aboutTitle, faqs, headline, heroCtaLink, heroCtaText, heroDescription, heroTitle, icon, metaDescription, metaTitle, order, slug, summary, title]
 ID: div-mv
   title: "Moving & Relocation Services"
-  fields: [headline, icon, order, slug, summary, title]
+  fields: [aboutBadge, aboutParagraphs, aboutTitle, faqs, headline, heroCtaLink, heroCtaText, heroDescription, heroTitle, icon, metaDescription, metaTitle, order, slug, summary, title]
 ID: div-sh
   title: "Secure Shredding & Document Integrity"
-  fields: [headline, icon, order, slug, summary, title]
+  fields: [aboutBadge, aboutParagraphs, aboutTitle, faqs, headline, heroCtaLink, heroCtaText, heroDescription, heroTitle, icon, metaDescription, metaTitle, order, slug, summary, title]
 
 === TYPE: faqPage (1 docs) ===
 ID: faqPage
   hero: {
   "bgImage": "/images/brand/about-hero-bg.jpg",
-  "eyebrow": "KNOWLEDGE CENTER // FAQS",
+  "eyebrow": "KNOWLEDGE CENTER / FAQS",
   "subheading": "Explore our comprehensive knowledge base covering secure IT asset disposition, confidential shredding, records management, relocations, and regulatory compliance.",
-  "title": "FREQUENTLY ASKE...
+  "title": "FREQUENTLY ASKED...
   fields: [categories, contactCard, hero, items, metaDescription, metaTitle]
 
-=== TYPE: homePage (1 docs) ===
-ID: homePage
-  hero: {
-  "description": "We responsibly recycle and remarket retired IT equipment, ensuring zero landfill and maximum value recovery.",
-  "eyebrow": "SUSTAINABLE IT RECYCLING",
-  "heading": "GIVING TECHNOLOGY A SECOND LIFE",
-  "image": {
-    "_type": "image",
-    "asset": {
-      "_ref": "image-02bc42d51...
-  fields: [cta, hero, intro, lifecycle, services, statistics]
-
-=== TYPE: sanity.imageAsset (11 docs) ===
+=== TYPE: sanity.imageAsset (23 docs) ===
 ID: image-02bc42d51db33f6c971f5be49fc16e5a433c614b-1722x793-png
   fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-1582c01918620b78e8e7c2a3696345c2d4122dab-1024x1024-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-170c60441e5f0bc2968aafa3d8da9c492d37509b-1536x1024-png
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
 ID: image-233407f895ccd8d6e5b24ac1c3684f6dd6f97aea-600x600-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-2c5e668876f356ba6c56370a76b50c9987e6cb67-1376x768-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-3df29bdcb991e8b0c6ded202e2bddd7652115189-1983x793-png
   fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
 ID: image-46aa8411ca99d4d064dad043d87927434575f224-600x600-jpg
   fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
 ID: image-47d07ef4679e48fae8117e18d10af8a1a0c8191a-600x400-png
   fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-4fcd9bceb7848338835c898ae705e93998c96573-4320x2337-webp
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-5004e1e126812aaac775bfb5c687f14fc889e87d-1024x1024-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
 ID: image-5278f958e5072edd20fc556d0ea7e3300d8d9414-1024x1024-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-7c91e6872e1da333d0a203823669a93aad55bf97-1024x1024-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-8db7bdad0cd9d19be465cf62ea373673be0cfb19-1024x1024-jpg
   fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
 ID: image-909ea175949a97cdbe8053063eb688cb5d10c59d-7135x4762-jpg
   fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-b35952c3a393d1a3275240fb88988a58e7f02240-4320x2337-webp
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-bf2a1be075e2b8887d07092061d312cb6ca52d80-1376x768-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
 ID: image-c846e1ab844ffcfaeef2e1694009c65e673a06e3-650x366-jpg
   fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-c9607f4d7542a6b3a3fbacbbfcc573c2cfa136c9-1024x1024-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
 ID: image-d98b22f90ef600c4310224b446b2747baedfaa0a-600x600-jpg
+  fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
+ID: image-e04eb70ec30c780b0306506c4f6a6b6c45b6a67a-1024x1024-jpg
   fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
 ID: image-e4f9326200ce1a96078242737a5734eb32b5ab61-700x467-jpg
   fields: [assetId, extension, metadata, mimeType, originalFilename, path, sha1hash, size, uploadId, url]
@@ -133,7 +161,51 @@ ID: investorsPage
   "eyebrow": "INVESTOR RELATIONS",
   "subheading": "Techsteps delivers vital business lifecycle services across document management, IT asset disposition, secure destruction, and commercial relocation.",
   "title": "Market leadership in essential lif...
-  fields: [hero, investmentCase, irContact, metaDescription, metaTitle, stats, strategicPillars]
+  fields: [businesses, esgPillars, hero, investmentCase, irContact, metaDescription, metaTitle, stats, strategicPillars]
+
+=== TYPE: legalPage (14 docs) ===
+ID: legal-accessibility
+  title: "Accessibility Statement"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legal-cookie-policy
+  title: "Cookie Policy"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legal-environmental-policy
+  title: "Environmental Policy"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legal-information-security-policy
+  title: "Information Security Policy"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legal-modern-slavery-statement
+  title: "Modern Slavery Statement"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legal-privacy-policy
+  title: "Privacy Policy"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legal-terms-and-conditions
+  title: "Terms & Conditions"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legalPage-accessibility
+  title: "Accessibility Statement"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legalPage-cookie-policy
+  title: "Cookie Policy"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legalPage-environmental-policy
+  title: "Environmental Policy"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legalPage-information-security-policy
+  title: "Information Security Policy"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legalPage-modern-slavery-statement
+  title: "Modern Slavery Statement"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legalPage-privacy-policy
+  title: "Privacy Policy"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
+ID: legalPage-terms-and-conditions
+  title: "Terms & Conditions"
+  fields: [complianceBadge, eyebrow, lastUpdated, metaDescription, metaTitle, sections, slug, subheading, title]
 
 === TYPE: requestCollectionPage (1 docs) ===
 ID: requestCollectionPage
@@ -146,115 +218,135 @@ ID: requestCollectionPage
 === TYPE: sector (8 docs) ===
 ID: sec-central-government
   title: "Central Government & Public Sector"
-  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+  fields: [benefitsSection, caseStudySection, challenges, challengesSection, complianceStandards, cta, faqSection, faqs, heroActions, heroAlt, heroImage, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, securitySection, slug, solutions, solutionsSection, summary, tagline, title]
 ID: sec-defence
   title: "Defence & Aerospace"
-  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+  fields: [benefitsSection, caseStudySection, challenges, challengesSection, complianceStandards, cta, faqSection, faqs, heroActions, heroAlt, heroImage, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, securitySection, slug, solutions, solutionsSection, summary, tagline, title]
 ID: sec-education
   title: "Education & Universities"
-  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+  fields: [benefitsSection, caseStudySection, challenges, challengesSection, complianceStandards, cta, faqSection, faqs, heroActions, heroAlt, heroImage, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, securitySection, slug, solutions, solutionsSection, summary, tagline, title]
 ID: sec-finance
   title: "Financial & Banking Institutions"
-  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+  fields: [benefitsSection, caseStudy, caseStudySection, challenges, challengesSection, complianceStandards, cta, faqSection, faqs, heroActions, heroAlt, heroImage, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, securitySection, slug, solutions, solutionsSection, summary, tagline, title]
 ID: sec-legal
-  title: "Legal & Professional Services"
-  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+  title: "Legal & Professional Sector"
+  fields: [benefitsSection, caseStudySection, challenges, challengesSection, complianceStandards, cta, faqSection, faqs, heroActions, heroAlt, heroImage, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, securitySection, slug, solutions, solutionsSection, summary, tagline, title]
 ID: sec-manufacturing
   title: "Manufacturing & Engineering"
-  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+  fields: [benefitsSection, caseStudySection, challenges, challengesSection, complianceStandards, cta, faqSection, faqs, heroActions, heroAlt, heroImage, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, securitySection, slug, solutions, solutionsSection, summary, tagline, title]
 ID: sec-nhs
   title: "NHS & Healthcare Trusts"
-  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+  fields: [benefitsSection, caseStudy, caseStudySection, challenges, challengesSection, complianceStandards, cta, faqSection, faqs, heroActions, heroAlt, heroImage, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, securitySection, slug, solutions, solutionsSection, summary, tagline, title]
 ID: sec-technology
   title: "IT & Technology"
-  fields: [challenges, complianceStandards, faqs, heroAlt, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, slug, solutions, summary, tagline, title]
+  fields: [benefitsSection, caseStudySection, challenges, challengesSection, complianceStandards, cta, faqSection, faqs, heroActions, heroAlt, heroImage, howTechstepsHelps, keyBenefits, metaDescription, metaTitle, relevantServices, securityConsiderations, securitySection, slug, solutions, solutionsSection, summary, tagline, title]
+
+=== TYPE: sectorsPage (1 docs) ===
+ID: sectorsPage
+  hero: {
+  "eyebrow": "SECTOR EXPERTISE",
+  "primaryButtonLink": "/request-a-quote",
+  "primaryButtonText": "Request Sector Consultation",
+  "secondaryButtonLink": "#sector-intro",
+  "secondaryButtonText": "Explore Sectors",
+  "subheading": "Specialist information, IT lifecycle, destruction and relocation ...
+  fields: [bottomCta, hero, intro, philosophy, sectorsSection, seo]
+
+=== TYPE: servicesPage (1 docs) ===
+ID: servicesPage
+  hero: {
+  "eyebrow": "OUR SERVICES",
+  "subheading": "Specialist IT asset disposition, secure destruction, information management and technology relocation services for organisations across the UK.",
+  "title": "Solutions Across the Technology Lifecycle"
+}...
+  fields: [bottomCta, divisionsShowcase, hero, lifecycle, pillars, seo]
 
 === TYPE: siteSettings (1 docs) ===
 ID: siteSettings
-  fields: [address, companyName, defaultMetaDescription, defaultMetaTitle, email, footerCompany, footerCopyright, footerLegal, footerSectors, footerServices, legalName, mainNav, operatingHours, phone, registrationNumber, socialLinks, vatNumber]
+  fields: [accreditationBadges, address, companyName, defaultMetaDescription, defaultMetaTitle, email, footerCompany, footerCopyright, footerLegal, footerSectors, footerServices, legalName, mainNav, operatingHours, phone, registrationNumber, socialLinks, vatNumber]
 
 === TYPE: service (27 docs) ===
 ID: srv-business-relocations
   title: "Business Relocations"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-cardboard-recycling
   title: "Cardboard Recycling"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-digital-mailroom
   title: "Digital Mailroom"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroImage, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-disposal-services
   title: "Disposal Services"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-document-management
   title: "Document Management"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-document-scanning
   title: "Document Scanning"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroImage, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-document-storage
-  title: "Document Storage"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  title: "Secure Document Storage"
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-dry-mixed-recycling
   title: "Dry Mixed Recycling (DMR)"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-europe-international-domestic-moves
   title: "Europe & International Domestic Moves"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-heritage-relocations-storage
   title: "Heritage Relocations & Storage"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-heritage-storage
-  title: "Heritage Storage"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  title: "Heritage Storage Services"
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-home-shredding
   title: "Home Shredding"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-it-asset-disposition-services
   title: "IT Asset Disposition Services (ITAD)"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-it-asset-management-services
-  title: "IT Asset Management Services (ITAM)"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  title: "IT Asset Tracking Services"
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-it-relocations-specialist
   title: "IT Relocations Specialist"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-laboratory-relocations-storage
   title: "Laboratory Relocations & Storage"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-off-site-shredding
-  title: "Off-Site Shredding"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  title: "OffSite Shredding Services "
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-on-site-shredding
-  title: "On-Site Shredding"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  title: "OnSite Shredding"
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-product-shredding
   title: "Product Shredding"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-project-management
   title: "Project Management"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-remarketing-recycling
   title: "Remarketing & Recycling"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-secure-collection-services
   title: "Secure Collection Services"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-secure-it-disposal
   title: "Secure IT Disposal"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-simpler-recycling-services
   title: "Simpler Recycling Services"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-tape-media-storage
-  title: "Tape & Media Storage"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  title: "Tape and Media Storage"
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-ultra-secure-hard-drive-destruction
   title: "Ultra Secure Hard Drive Destruction"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 ID: srv-vault-storage
   title: "Vault Storage"
-  fields: [capabilities, customerProblem, division, faqs, heroAlt, keyBenefits, metaDescription, metaTitle, noIndex, process, relatedSectors, relatedServices, slug, solution, summary, title]
+  fields: [aboutBadge, aboutBullets, aboutImage, aboutImageAlt, aboutParagraphs, aboutTitle, businessNeedsCards, businessNeedsSubtitle, businessNeedsTitle, capabilities, customerProblem, division, faqBadge, faqSubtitle, faqTitle, faqs, heroAlt, heroDescription, heroTag, heroTitle, keyBenefits, metaDescription, metaTitle, noIndex, processBadge, processSteps, processSubtitle, processTitle, slug, solution, summary, title, whyPoints, whySubtitle, whyTitle]
 
 === TYPE: stat (4 docs) ===
 ID: stat-audit
@@ -274,7 +366,7 @@ ID: sustainabilityPage
   "eyebrow": "SUSTAINABILITY",
   "subheading": "We help organisations extend the life of technology, recover value from IT assets and responsibly manage equipment that reaches the end of its useful life.",
   "title": "A Smart...
-  fields: [approach, bottomCta, esgPillars, hero, lifecycleSection, metaDescription, metaTitle, metrics]
+  fields: [approach, bottomCta, esgPillars, hero, lifecycleSection, lifecycleSteps, metaDescription, metaTitle, metrics]
 
 === TYPE: testimonial (6 docs) ===
 ID: testimonial-t1
