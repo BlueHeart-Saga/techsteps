@@ -1,5 +1,5 @@
 ---
-import PageHero from './PageHero.astro';
+import HeroHeader from '../global/HeroHeader.astro';
 import type { Sector } from '../../lib/sanity/types';
 
 interface Props {
@@ -8,74 +8,189 @@ interface Props {
 
 const { sector } = Astro.props;
 
-const breadcrumbs = [
-  { name: 'Sectors', url: '/sectors' },
-  { name: sector.title, url: `/sectors/${sector.slug}` },
-];
-
 const sectorBgImages: Record<string, string> = {
-  defence: '/images/sectors/defence.jpg',
-  nhs: '/images/sectors/nhs.jpg',
-  finance: '/images/sectors/finance.jpg',
-  'central-government': '/images/sectors/government.jpg',
-  'it-technology': '/images/sectors/technology.jpg',
-  'manufacturing-engineering': '/images/sectors/manufacturing.jpg',
-  'education-universities': '/images/sectors/education.jpg',
-  'legal-professional-services': '/images/sectors/legal.jpg',
+  defence: '/images/sectors/Defence and aerospace.webp',
+  nhs: '/images/sectors/health care.webp',
+  healthcare: '/images/sectors/health care.webp',
+  finance: '/images/sectors/Financial services.webp',
+  'financial-services': '/images/sectors/Financial services.webp',
+  'central-government': '/images/sectors/central covernment.webp',
+  government: '/images/sectors/central covernment.webp',
+  'education-universities': '/images/sectors/univercites and education.webp',
+  education: '/images/sectors/univercites and education.webp',
+  'legal-professional-services': '/images/sectors/corparate and legal.webp',
+  legal: '/images/sectors/corparate and legal.webp',
+  'manufacturing-engineering': '/images/sectors/manuacturing and engineering.webp',
+  manufacturing: '/images/sectors/manuacturing and engineering.webp',
+  'it-technology': '/images/sectors/IT and Technology.webp',
+  technology: '/images/sectors/IT and Technology.webp',
 };
 
-const bgImage = sectorBgImages[sector.slug] || '/images/brand/hero-bg.jpg';
+const bgImage = sectorBgImages[sector.slug] || '/images/brand/hero section.webp';
 ---
 
-<PageHero
-  bgImage={bgImage}
-  breadcrumbs={breadcrumbs}
-  showDivider={false}
-  layout="custom"
-  minHeight="min-h-[440px] sm:min-h-[480px] lg:min-h-[520px]"
+<!-- =========================
+     SECTOR HERO SECTION
+     Ref: HeroHome.astro (Same height, light styling, no dark overlay)
+========================= -->
+<section
+  id="sector-hero"
+  class="relative w-full overflow-hidden bg-white select-none"
 >
-  <div class="w-full max-w-[1240px] mx-auto text-left space-y-4 sm:space-y-5 pt-2 sm:pt-4 pb-6 sm:pb-8">
-    
-    <!-- Eyebrow with pill line indicator -->
-    <!--<div class="inline-flex items-center gap-2">
-      <span class="text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.16em] text-emerald-400">
-        SECTOR EXPERTISE
-      </span>
-      <span class="w-8 h-px bg-emerald-400/60" aria-hidden="true"></span>
-    </div>-->
+  <!-- Background Image on Desktop (Full section composition with sector visual on the right) -->
+  <img
+    src={bgImage}
+    alt=""
+    aria-hidden="true"
+    class="hidden lg:block absolute inset-0 w-full h-full object-cover object-[right_center] xl:object-right pointer-events-none select-none z-0"
+    loading="eager"
+    fetchpriority="high"
+    decoding="sync"
+  />
 
-    <!-- Main Sector Title -->
-    <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[60px] font-semibold text-white tracking-tight leading-[1.1] max-w-3xl drop-shadow-md">
-      {sector.title}
-    </h1>
+  <!-- Top Hero Header (Integrated light hero navbar) -->
+  <HeroHeader isHome={true} />
 
-    <!-- Sector Subheading / Description -->
-    <p class="text-base sm:text-lg text-slate-200/95 leading-relaxed max-w-2xl font-normal drop-shadow-xs">
-      {sector.tagline || sector.summary}
-    </p>
+  <!-- Main Hero Content Container -->
+  <div
+    class="relative z-10 w-full max-w-7xl mx-auto
+           px-4 sm:px-6 lg:px-8
+           pt-4 sm:pt-8 lg:pt-12 xl:pt-14
+           pb-6 sm:pb-8 lg:pb-10"
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
 
-    <!-- Call to Action Buttons -->
-    <div class="flex flex-wrap items-center gap-3.5 pt-3 sm:pt-4">
-      <a
-        href={`/request-a-quote?sector=${encodeURIComponent(sector.slug)}`}
-        class="inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-lg bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200"
-      >
-        <span>Request a Collection</span>
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-      </a>
+      <!-- =========================
+           HERO CONTENT (Left)
+      ========================= -->
+      <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
 
-      <a
-        href="/services"
-        class="inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm sm:text-base font-bold border border-white/25 hover:border-white transition-all duration-200 backdrop-blur-xs"
-      >
-        <span>Explore Services</span>
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-      </a>
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
+          <a href="/sectors" class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
+            Sectors UK
+          </a>
+          <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
+          <span class="text-slate-900 font-bold">{sector.title}</span>
+        </nav>
+
+        <!-- Eyebrow Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.18em] mb-3 sm:mb-4">
+          <span>{sector.eyebrow || 'SECTOR SOLUTIONS'}</span>
+        </div>
+
+        <!-- Main Sector Title -->
+        <h1
+          class="font-display
+                 text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
+                 font-semibold
+                 text-slate-900
+                 tracking-normal
+                 leading-[1.12] sm:leading-[1.1]
+                 max-w-xl"
+        >
+          {sector.title}
+        </h1>
+
+        <!-- Sector Subheading / Description -->
+        <p
+          class="mt-4 sm:mt-5
+                 text-base sm:text-lg lg:text-[17px]
+                 text-slate-600
+                 max-w-lg
+                 leading-relaxed
+                 font-sans font-normal"
+        >
+          {sector.tagline || sector.summary}
+        </p>
+
+        <!-- Call to Action Buttons -->
+        <div
+          class="mt-6 sm:mt-8
+                 flex flex-wrap
+                 items-center
+                 gap-3.5 sm:gap-4"
+        >
+          <a
+            href={`/request-a-quote?sector=${encodeURIComponent(sector.slug)}`}
+            class="inline-flex items-center justify-center
+                   gap-2.5
+                   px-6 sm:px-7
+                   py-3 sm:py-3.5
+                   rounded-none
+                   bg-[#0F623A] hover:bg-[#0c4e2e]
+                   text-white
+                   text-sm sm:text-base
+                   font-bold
+                   shadow-md hover:shadow-lg
+                   transition-all duration-200
+                   hover:scale-[1.02]
+                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+          >
+            <span>Request a Collection</span>
+            <svg
+              class="w-4 h-4 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </a>
+
+          <a
+            href="/services"
+            class="inline-flex items-center justify-center
+                   px-6 sm:px-7
+                   py-3 sm:py-3.5
+                   rounded-none
+                   bg-white hover:bg-slate-50
+                   border-2 border-[#0F623A] hover:border-[#0c4e2e]
+                   text-[#0F623A] hover:text-[#0c4e2e]
+                   text-sm sm:text-base
+                   font-bold
+                   transition-all duration-200
+                   hover:scale-[1.02]
+                   shadow-xs
+                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+          >
+            Explore Services
+          </a>
+        </div>
+
+        <!-- Mobile & Tablet Visual Stack (Below Text on <lg) -->
+        <div class="lg:hidden w-full flex justify-center items-center mt-8 sm:mt-10">
+          <div class="relative w-full max-w-[460px]">
+            <img
+              src={bgImage}
+              alt={sector.heroAlt || `TechSteps ${sector.title} specialist operations`}
+              class="w-full h-auto object-contain drop-shadow-md select-none mx-auto block rounded-2xl"
+              loading="eager"
+              decoding="sync"
+            />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =========================
+           HERO SPACER (Right on Desktop)
+      ========================= -->
+      <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end min-h-[420px] lg:min-h-[480px] xl:min-h-[520px] pointer-events-none" aria-hidden="true">
+      </div>
+
     </div>
-
   </div>
-</PageHero>
+</section>
+
+<style>
+  #sector-hero {
+    /* Fallback soft gradient matching image backdrop */
+    background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 45%, #EBF3EA 100%);
+  }
+</style>
