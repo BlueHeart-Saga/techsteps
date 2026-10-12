@@ -144,12 +144,12 @@
   }
 
   h1:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]) {
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: normal;
   }
 
   h2:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]) {
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: normal;
   }
 
@@ -169,6 +169,35 @@
   strong {
     font-weight: 600;
   }
+}
+
+/* Heading typography system: enforce 600 / Semi-Bold on all headings and subheadings site-wide */
+h1:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+h2:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+h3:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+h4:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+h5:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+h6:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]),
+h1.font-black,
+h1.font-extrabold,
+h1.font-bold,
+h2.font-black,
+h2.font-extrabold,
+h2.font-bold,
+h3.font-black,
+h3.font-extrabold,
+h3.font-bold,
+h4.font-black,
+h4.font-extrabold,
+h4.font-bold,
+h5.font-black,
+h5.font-extrabold,
+h5.font-bold,
+h6.font-black,
+h6.font-extrabold,
+h6.font-bold,
+[role="heading"]:not(.num):not(.idx):not(.stat-counter-item):not([class*="stat-"]) {
+  font-weight: 600 !important;
 }
 
 /* Font-Weight Utilities matching Microsoft design system */
@@ -570,7 +599,7 @@ samp {
 
 /* Homepage content uses a single calm paper ground; the photographic hero remains intact. */
 .home-main>section:not(:first-child) {
-  background-color: #F1F4EF !important;
+  background-color: fffff !important;
 }
 
 /* Descriptions, Paragraphs & Narrative text — increased size & comfortable legibility */

@@ -220,7 +220,7 @@ export const CategoryPreferenceModal: React.FC<CategoryPreferenceModalProps> = (
             </svg>
             <span>Preferences</span>
           </div>
-          <h3 id="modal-title" className="text-xl sm:text-2xl font-bold tracking-tight text-white font-display">
+          <h3 id="modal-title" className="text-xl sm:text-2xl font-semibold tracking-tight text-white font-display">
             Personalize Your Technical Digest
           </h3>
           <p className="text-xs sm:text-sm text-slate-300/80 mt-1.5 max-w-md mx-auto">
@@ -251,7 +251,7 @@ export const CategoryPreferenceModal: React.FC<CategoryPreferenceModalProps> = (
               return (
                 <div key={section.slug} className="space-y-2.5">
                   <div className="flex items-center justify-between pb-1 border-b border-white/5">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-400/90">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-emerald-400/90">
                       {section.name}
                     </h4>
                     <button

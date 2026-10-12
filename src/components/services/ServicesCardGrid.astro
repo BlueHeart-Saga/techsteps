@@ -61,14 +61,9 @@ const items = services.map((item, idx) => {
 <!-- ========================================================= -->
 <section
   id="divisions"
-  class="services-grid-section relative py-8 sm:py-10 lg:py-12 bg-[#FAFBF9] border-t border-slate-200/60 overflow-hidden text-slate-900"
+  class="services-grid-section relative py-8 sm:py-10 lg:py-12 bg-white overflow-hidden text-slate-900"
   aria-labelledby="services-section-heading"
 >
-  <!-- Ambient Soft Eco Glow Background Accents -->
-  <div class="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
-    <div class="absolute -top-32 right-1/4 w-[500px] h-[500px] rounded-full bg-emerald-100/35 blur-[120px]"></div>
-    <div class="absolute bottom-10 left-10 w-[450px] h-[450px] rounded-full bg-[#EEF7F2] blur-[130px]"></div>
-  </div>
 
   <!-- SVG Clip Path Definitions (Mathematically Smooth Bezier Curves for Asymmetric Image Frames) -->
   <svg class="sr-only" aria-hidden="true" width="0" height="0">
@@ -113,7 +108,7 @@ const items = services.map((item, idx) => {
       <!-- Main Heading: Centered -->
       <h2
         id="services-section-heading"
-        class="text-3xl sm:text-4xl lg:text-[44px] font-extrabold font-display text-slate-900 tracking-tight leading-[1.12] text-balance mx-auto"
+        class="text-3xl sm:text-4xl lg:text-[44px] font-semibold font-display text-slate-900 tracking-tight leading-[1.12] text-balance mx-auto"
       >
         {heading}
       </h2>
@@ -209,7 +204,7 @@ const items = services.map((item, idx) => {
               <!-- Strong Service Title -->
               <h3
                 id={`service-title-${idx}`}
-                class="service-title text-xl lg:text-[21px] font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-300 leading-snug tracking-tight"
+                class="service-title text-xl lg:text-[21px] font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-300 leading-snug tracking-tight"
               >
                 <a
                   href={item.link}

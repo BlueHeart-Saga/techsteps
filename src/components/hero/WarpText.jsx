@@ -669,7 +669,7 @@ const WarpText = ({
     >
       <h1
         ref={fallbackRef}
-        className={`warp-text-fallback font-display font-black tracking-tight uppercase leading-[0.92] select-none ${isReady ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        className={`warp-text-fallback font-display font-semibold tracking-tight uppercase leading-[0.92] select-none ${isReady ? 'opacity-0 pointer-events-none' : 'opacity-100'
           } transition-opacity duration-700 ease-out`}
         style={{
           color: color || '#FFFFFF',

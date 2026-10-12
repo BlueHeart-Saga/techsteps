@@ -121,6 +121,20 @@ export default {
       of: [{ type: 'string' }],
     },
     {
+      name: 'deliverables',
+      title: 'Service Deliverables & Documentation',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'title', title: 'Deliverable Title', type: 'string' },
+            { name: 'description', title: 'Description', type: 'text', rows: 2 },
+          ],
+        },
+      ],
+    },
+    {
       name: 'faqs',
       title: 'Frequently Asked Questions',
       type: 'array',

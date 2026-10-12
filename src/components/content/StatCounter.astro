@@ -30,7 +30,7 @@ const noteColor = theme === 'dark' ? 'text-slate-400' : 'text-slate-500';
               <span>{stat.value}</span>
               {stat.suffix && <span class="text-3xl sm:text-4xl">{stat.suffix}</span>}
             </div>
-            <h3 class={`text-sm sm:text-base font-bold ${labelColor}`}>{stat.label}</h3>
+            <h3 class={`text-sm sm:text-base font-semibold ${labelColor}`}>{stat.label}</h3>
             {stat.contextNote && (
               <p class={`text-xs max-w-xs mx-auto ${noteColor}`}>{stat.contextNote}</p>
             )}

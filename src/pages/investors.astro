@@ -132,6 +132,23 @@ const defaultEsgPillars = [
 const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length > 0)
   ? investorsData.esgPillars
   : defaultEsgPillars;
+
+  // Turns string / Astro image / Sanity image / relative path into a safe URL
+const resolveImage = (img: any): string => {
+  let src = typeof img === 'string' ? img : (img?.src ?? img?.asset?.url ?? img?.url ?? '');
+  src = String(src ?? '').trim();
+  if (!src) return '';
+  if (!/^(https?:)?\/\//.test(src) && !src.startsWith('/') && !src.startsWith('data:')) src = '/' + src;
+  return src.replace(/ /g, '%20');
+};
+
+// Same fallback files the homepage service cards use
+const fallbackImages = [
+  '/images/services/1.jpg',
+  '/images/services/2.jpg',
+  '/images/services/3.jpg',
+  '/images/services/4.jpg',
+];
 ---
 
 <BaseLayout
@@ -161,7 +178,7 @@ const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length 
               <span class="text-4xl sm:text-5xl font-black font-sans tracking-tight text-slate-900 tabular-nums investor-stat-num" data-target={stat.value}>{stat.value}</span>
               <span class="text-2xl sm:text-3xl font-extrabold text-[#0F623A]">{stat.suffix}</span>
             </div>
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">{stat.title}</h3>
+            <h3 class="text-base sm:text-lg font-semibold text-slate-900 tracking-tight">{stat.title}</h3>
             <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">{stat.desc}</p>
           </div>
         ))}
@@ -253,12 +270,12 @@ const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length 
   <section class="py-12 sm:py-16 lg:py-20 bg-[#f8faf7] border-y border-slate-200/80">
     <Container>
       <div class="text-center max-w-4xl mx-auto space-y-4 mb-12 sm:mb-16">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 text-[#0F623A] border border-emerald-300/60 text-xs sm:text-sm font-medium uppercase tracking-wider">
+        <!--span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 text-[#0F623A] border border-emerald-300/60 text-xs sm:text-sm font-medium uppercase tracking-wider">
           <span class="w-2 h-2 rounded-full bg-[#0F623A]"></span>
           Investment Foundations
-        </span>
+        </span-->
         <h2 class="text-2xl sm:text-3xl lg:text-4xl font-normal font-display text-slate-900 tracking-normal leading-snug">
-          Techsteps plc has four businesses providing leading services in the management of data, information, communications and assets.
+          Techsteps plc has four businesses providing leading services in the management of data.
         </h2>
       </div>
 
@@ -292,7 +309,7 @@ const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length 
                   </span>
                 </div>
 
-                <h3 class={`text-2xl sm:text-3xl font-bold font-display tracking-tight leading-[1.15] ${isFeatured ? 'text-white' : 'text-slate-900 group-hover:text-[#0F623A] transition-colors'}`}>
+                <h3 class={`text-2xl sm:text-3xl font-semibold font-display tracking-tight leading-[1.15] ${isFeatured ? 'text-white' : 'text-slate-900 group-hover:text-[#0F623A] transition-colors'}`}>
                   {pillar.title}
                 </h3>
 
@@ -313,86 +330,175 @@ const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length 
   </section>
 
   <!-- 5. Four Businesses, One Techsteps plc (Redesigned: Clean Light Cards) -->
-  <section class="py-12 sm:py-16 lg:py-20 bg-white overflow-hidden">
-    <Container>
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-14">
-        <div class="max-w-3xl space-y-3">
-          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#146B5C]">
-            ABOUT OUR BUSINESSES
-          </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-slate-950 tracking-tight leading-[1.15]">
-            Four Businesses,<br class="hidden sm:block" /> One Techsteps plc
-          </h2>
-          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl">
-            Techsteps plc has four businesses, who work together to offer organisations a holistic approach to the management of their data, information, communications and assets.
-          </p>
-        </div>
-
-        <div class="shrink-0">
-          <a href="/contact" class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200">
-            <span>Get In Touch</span>
-            <span class="ml-2">&rarr;</span>
-          </a>
-        </div>
+<section class="py-12 sm:py-16 lg:py-20 bg-white overflow-hidden">
+  <Container>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-14">
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#146B5C]">
+          ABOUT OUR BUSINESSES
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display text-slate-950 tracking-tight leading-[1.15]">
+          Four Businesses,<br class="hidden sm:block" /> One Techsteps plc
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl">
+          Techsteps plc has four businesses, who work together to offer organisations a holistic approach to the management of their data, information, communications and assets.
+        </p>
       </div>
 
-      <!-- Division Cards Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {businesses.map((biz, idx) => (
-          <a href={biz.link} class="group flex flex-col rounded-2xl overflow-hidden bg-white border border-slate-200 hover:border-[#0F623A]/40 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5">
-
-            <!-- Image Panel -->
-            <div class="relative h-44 sm:h-48 overflow-hidden bg-slate-900">
-              <img
-                src={biz.image}
-                alt={biz.name}
-                class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out opacity-95"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
-
-              <!-- Division label -->
-              <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold tracking-widest text-[#0F623A] shadow-sm">
-                {biz.division}
-              </span>
-
-              <!-- Arrow chip -->
-              <span class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/95 backdrop-blur-md text-[#0F623A] flex items-center justify-center shadow-sm group-hover:bg-[#0F623A] group-hover:text-white transition-colors duration-300">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </span>
-            </div>
-
-            <!-- Body -->
-            <div class="flex flex-col flex-1 p-6 space-y-4">
-              <h3 class="text-lg sm:text-xl font-bold font-display text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
-                {biz.name}
-              </h3>
-
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal line-clamp-4 flex-1">
-                {biz.description}
-              </p>
-
-              <!-- Accreditation strip -->
-              <!--<div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span class="text-[10px] font-mono font-bold text-slate-500 tracking-wider uppercase truncate pr-2">
-                  {biz.accreditations}
-                </span>
-                <span class="text-[10px] font-bold text-[#0F623A] uppercase tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Explore &rarr;
-                </span>
-              </div>-->
-            </div>
-          </a>
-        ))}
+      <div class="shrink-0">
+        <a href="/contact" class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200">
+          <span>Get In Touch</span>
+          <span class="ml-2">&rarr;</span>
+        </a>
       </div>
-    </Container>
-  </section>
+    </div>
+
+    <!-- Clip-path shapes (same four shapes as the homepage cards) -->
+    <svg class="sr-only" aria-hidden="true" width="0" height="0">
+      <defs>
+        <clipPath id="biz-clip-0" clipPathUnits="objectBoundingBox">
+          <path d="M 0,0 L 0.70,0 C 0.74,0.01 0.78,0.05 0.82,0.12 C 0.86,0.18 0.90,0.20 0.96,0.20 L 1,0.20 L 1,0.78 C 0.94,0.80 0.87,0.84 0.80,0.90 C 0.72,0.96 0.65,1 0.58,1 L 0,1 Z" />
+        </clipPath>
+        <clipPath id="biz-clip-1" clipPathUnits="objectBoundingBox">
+          <path d="M 0,0 L 0.72,0 C 0.76,0.01 0.80,0.06 0.84,0.13 C 0.88,0.19 0.92,0.22 0.97,0.22 L 1,0.22 L 1,1 L 0.48,1 C 0.38,0.98 0.28,0.93 0.18,0.86 C 0.10,0.81 0.04,0.78 0,0.78 Z" />
+        </clipPath>
+        <clipPath id="biz-clip-2" clipPathUnits="objectBoundingBox">
+          <path d="M 0,0 L 0.70,0 L 0.78,0.07 L 0.85,0.14 L 0.92,0.18 L 1,0.18 L 1,0.86 L 0.88,0.86 L 0.80,1 L 0.38,1 L 0.30,0.90 L 0,0.90 Z" />
+        </clipPath>
+        <clipPath id="biz-clip-3" clipPathUnits="objectBoundingBox">
+          <path d="M 0,0.20 L 0.08,0.20 C 0.14,0.20 0.18,0.18 0.22,0.12 C 0.26,0.05 0.29,0.01 0.34,0 L 1,0 L 1,1 L 0.40,1 C 0.30,0.98 0.22,0.94 0.14,0.87 C 0.07,0.82 0.02,0.78 0,0.78 Z" />
+        </clipPath>
+      </defs>
+    </svg>
+
+    <!-- Division Cards Grid -->
+    <div
+      id="biz-interactive-grid"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7 items-stretch"
+    >
+      {businesses.map((biz, idx) => {
+        const shape = idx % 4;
+        const imgSrc = resolveImage(biz.image) || fallbackImages[shape];
+        return (
+          <article
+            class="biz-card group relative flex flex-col rounded-[20px] bg-white border border-slate-200/90 hover:border-[#0F623A]/40 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 ease-out h-[470px] select-none"
+            tabindex="0"
+            aria-labelledby={`biz-title-${idx}`}
+            role="region"
+          >
+            <!-- UPPER PORTION: framed, asymmetric image -->
+            <div class="relative w-full h-[340px] overflow-hidden rounded-t-[20px] shrink-0 bg-slate-100">
+
+              <!-- Brand-coloured shape behind the image -->
+              <div class="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
+                {shape === 0 && (
+                  <div class="w-full h-full bg-[#0F623A] relative">
+                    <div class="absolute top-0 right-0 w-28 h-20 bg-[#127244]/40 rounded-bl-3xl"></div>
+                    <div class="absolute bottom-0 right-0 w-32 h-16 bg-[#0c4e2e]/50"></div>
+                  </div>
+                )}
+                {shape === 1 && (
+                  <div class="w-full h-full bg-[#0F623A] relative overflow-hidden">
+                    <div class="absolute -bottom-4 -left-4 w-32 h-28 rounded-full bg-[#3FB33D]/90"></div>
+                    <div class="absolute top-0 right-0 w-24 h-16 bg-[#3FB33D]/30 rounded-bl-2xl"></div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-[#0F623A]/40 to-transparent"></div>
+                  </div>
+                )}
+                {shape === 2 && (
+                  <div class="w-full h-full bg-[#0F623A] relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#0F623A] via-[#0e5c36] to-[#0A4327]"></div>
+                    <div class="absolute top-2 right-2 w-16 h-8 border-t border-r border-[#3FB33D]/40 pointer-events-none"></div>
+                    <div class="absolute bottom-1 left-2 w-20 h-6 border-b border-l border-[#3FB33D]/30 pointer-events-none"></div>
+                  </div>
+                )}
+                {shape === 3 && (
+                  <div class="w-full h-full bg-[#0F623A] relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-tl from-[#0A4327] to-[#0F623A]"></div>
+                    <div class="absolute -top-3 -left-3 w-28 h-24 bg-[#3FB33D]/35 rounded-br-3xl"></div>
+                    <div class="absolute -bottom-4 -left-4 w-28 h-20 bg-[#127244]/60 rounded-tr-3xl"></div>
+                  </div>
+                )}
+              </div>
+
+              <!-- Clipped foreground image (clip-path applied inline so it never depends on the stylesheet) -->
+              <div
+                class={`biz-image-clip biz-image-clip--${shape} relative w-full h-full overflow-hidden select-none`}
+                style={`clip-path:url(#biz-clip-${shape});-webkit-clip-path:url(#biz-clip-${shape});`}
+              >
+                <img
+                  src={imgSrc}
+                  alt={biz.name}
+                  class="biz-img absolute inset-0 w-full h-full object-cover object-center select-none"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="400"
+                  onerror={`this.onerror=null; console.warn('Image failed:', this.src); this.src='${fallbackImages[shape]}';`}
+                />
+              </div>
+
+              <div class="absolute inset-x-0 top-0 h-px bg-white/15 pointer-events-none" aria-hidden="true"></div>
+            </div>
+
+            <!-- LOWER PORTION: title by default, details on hover / focus / tap -->
+            <div class="biz-content-panel absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-md p-5 sm:p-6 rounded-b-[20px] border-t border-slate-100 flex flex-col justify-end transition-all duration-500 ease-out">
+
+              <div class="space-y-2">
+                <!-- Existing division label (delete this block if you don't want it on the card) -->
+                {biz.division && (
+                  <span class="block text-[10px] font-mono font-bold tracking-widest uppercase text-[#0F623A]/80">
+                    {biz.division}
+                  </span>
+                )}
+
+                <span
+                  class="inline-block h-[2.5px] w-7 rounded-full bg-[#3FB33D] transition-all duration-500 ease-out group-hover:w-12 group-hover:bg-[#0F623A]"
+                  aria-hidden="true"
+                ></span>
+
+                <h3
+                  id={`biz-title-${idx}`}
+                  class="text-xl lg:text-[21px] font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-300 leading-snug tracking-tight"
+                >
+                  <a href={biz.link} class="focus:outline-none focus:underline" tabindex="-1">
+                    {biz.name}
+                  </a>
+                </h3>
+              </div>
+
+              <div class="biz-collapsible">
+                <div class="biz-collapsible-content pt-3 space-y-3.5">
+                  <p class="biz-desc text-xs sm:text-[13.5px] text-slate-600 leading-relaxed font-normal line-clamp-4">
+                    {biz.description}
+                  </p>
+
+                  <div class="biz-cta-row pt-1">
+                    <a
+                      href={biz.link}
+                      class="biz-cta-link group/cta inline-flex items-center gap-2.5 text-xs sm:text-[13px] font-mono font-bold tracking-wider text-[#0F623A] uppercase hover:text-[#0c4e2e] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#3FB33D] focus:ring-offset-2 rounded-sm"
+                      aria-label={`Explore ${biz.name}`}
+                    >
+                      <span class="relative">
+                        Explore
+                        <span class="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-[#3FB33D] transition-all duration-300 ease-out group-hover/cta:w-full" aria-hidden="true"></span>
+                      </span>
+                      <svg class="w-4 h-4 text-[#3FB33D] transition-transform duration-300 ease-out group-hover/cta:translate-x-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </Container>
+</section>
 
   <!-- 6. Restoring our World – ESG Strategy (Redesigned: Ledger + Sticky Visual) -->
-  <section class="py-12 sm:py-16 lg:py-20 bg-[#f1f4ef] border-t border-slate-200/80">
+  <section class="py-12 sm:py-16 lg:py-20 bg-white border-t border-slate-200/80">
     <Container>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
 
@@ -403,7 +509,7 @@ const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length 
               <span class="w-2 h-2 rounded-full bg-[#0F623A]"></span>
               Now It's Your Turn
             </span>
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-slate-950 tracking-tight leading-[1.15]">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display text-slate-950 tracking-tight leading-[1.15]">
               Restoring our World<br class="hidden sm:block" />
               <span class="text-[#0F623A]">– Our ESG strategy</span>
             </h2>
@@ -426,7 +532,7 @@ const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length 
                 <!-- Content -->
                 <div class="col-span-10 sm:col-span-11 space-y-2">
                   <div class="flex flex-wrap items-center gap-3">
-                    <h4 class="font-bold text-slate-950 text-base sm:text-lg tracking-tight">{item.title}</h4>
+                    <h4 class="font-semibold text-slate-950 text-base sm:text-lg tracking-tight">{item.title}</h4>
                     <span class="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-white text-[#0F623A] border border-emerald-200 tracking-widest uppercase">
                       {item.badge}
                     </span>
@@ -467,7 +573,7 @@ const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length 
               <!-- Caption -->
               <!--<div class="absolute bottom-6 left-6 right-6 text-white z-10">
                 <span class="text-[10px] font-mono font-bold tracking-widest uppercase text-emerald-400">ESG ROADMAP // CIRCULAR IMPACT</span>
-                <h4 class="text-lg sm:text-xl font-bold font-display mt-2 leading-tight">
+                <h4 class="text-lg sm:text-xl font-semibold font-display mt-2 leading-tight">
                   Driving Verifiable Decarbonisation &amp; Corporate Responsibility
                 </h4>
                 <div class="flex items-center gap-4 mt-4 pt-4 border-t border-white/20">
@@ -490,58 +596,129 @@ const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length 
   </section>
 
   <!-- 7. Corporate Governance Factsheet & Investor Contacts -->
-  <section class="py-8 sm:py-10 bg-white">
-    <Container>
-      <div class="p-8 sm:p-12 lg:p-14 rounded-3xl bg-slate-950 text-white relative overflow-hidden shadow-2xl">
-        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
-        <div class="relative z-10 max-w-4xl space-y-6">
-          <span class="text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A]">
-            CORPORATE GOVERNANCE &amp; DISCLOSURE
-          </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display tracking-tight text-white">
-            Committed to Transparent Corporate Governance
-          </h2>
-          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl">
-            Techsteps plc maintains rigorous oversight of cyber risk, chain-of-custody security, health &amp; safety compliance, and environmental stewardship. For investor relations queries, financial disclosures, or governance mandates, please contact our corporate affairs team.
-          </p>
+<section class="py-8 sm:py-10 bg-white">
+  <Container>
+    <div class="bg-white text-black relative w-full">
+      <div class="relative z-10 w-full space-y-6 text-center">
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 text-xs">
-            <div class="p-4 rounded-xl bg-white/5 border border-white/10">
-              <span class="text-slate-400 block mb-1">Corporate Entity</span>
-              <span class="font-bold text-white text-sm">{siteSettings.legalName || 'Techsteps plc'}</span>
-            </div>
-            <div class="p-4 rounded-xl bg-white/5 border border-white/10">
-              <span class="text-slate-400 block mb-1">Registration Jurisdiction</span>
-              <span class="font-bold text-white text-sm">England &amp; Wales</span>
-            </div>
-            <div class="p-4 rounded-xl bg-white/5 border border-white/10">
-              <span class="text-slate-400 block mb-1">Core Standard</span>
-              <span class="font-bold text-white text-sm">ADISA 8.0 &amp; ISO 27001</span>
-            </div>
-            <div class="p-4 rounded-xl bg-white/5 border border-white/10">
-              <span class="text-slate-400 block mb-1">ESG Target</span>
-              <span class="font-bold text-white text-sm">100% Zero Landfill</span>
-            </div>
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A]">
+          CORPORATE GOVERNANCE &amp; DISCLOSURE
+        </span>
+
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display tracking-tight text-black">
+          Committed to Transparent Corporate Governance
+        </h2>
+
+        <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-4xl mx-auto">
+          Techsteps plc maintains rigorous oversight of cyber risk, chain-of-custody security, health &amp; safety compliance, and environmental stewardship. For investor relations queries, financial disclosures, or governance mandates, please contact our corporate affairs team.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 text-xs text-left">
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <span class="text-slate-500 block mb-1">
+              Corporate Entity
+            </span>
+            <span class="font-bold text-black text-sm">
+              {siteSettings.legalName || 'Techsteps plc'}
+            </span>
           </div>
 
-          <div class="pt-6 flex flex-wrap gap-4">
-            <a
-              href="/contact"
-              class="px-8 py-3.5 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
-            >
-              Contact Investor Relations &rarr;
-            </a>
-            <a
-              href="/sustainability"
-              class="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/20 transition-all duration-200"
-            >
-              Review ESG Disclosures
-            </a>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <span class="text-slate-500 block mb-1">
+              Registration Jurisdiction
+            </span>
+            <span class="font-bold text-black text-sm">
+              England &amp; Wales
+            </span>
           </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <span class="text-slate-500 block mb-1">
+              Core Standard
+            </span>
+            <span class="font-bold text-black text-sm">
+              ADISA 8.0 &amp; ISO 27001
+            </span>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <span class="text-slate-500 block mb-1">
+              ESG Target
+            </span>
+            <span class="font-bold text-black text-sm">
+              100% Zero Landfill
+            </span>
+          </div>
+
         </div>
+
+        <div class="pt-6 flex flex-wrap justify-center gap-4">
+          <a
+            href="/contact"
+            class="px-8 py-3.5 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
+          >
+            Contact Investor Relations &rarr;
+          </a>
+
+          <a
+            href="/sustainability"
+            class="px-8 py-3.5 rounded-full bg-slate-100 hover:bg-slate-200 text-[#0F623A] text-sm font-bold border border-slate-200 transition-all duration-200"
+          >
+            Review ESG Disclosures
+          </a>
+        </div>
+
       </div>
-    </Container>
-  </section>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .biz-card { will-change: transform, box-shadow, border-color; }
+  .biz-content-panel { box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04); }
+
+  .biz-img { will-change: transform; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+  .biz-card:hover .biz-img,
+  .biz-card:focus-within .biz-img,
+  .biz-card.is-active .biz-img { transform: scale(1.04); }
+
+  .biz-collapsible {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  }
+  .biz-collapsible-content { overflow: hidden; }
+
+  .biz-desc {
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.35s ease 0.06s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.06s;
+  }
+  .biz-cta-row {
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.35s ease 0.12s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+  }
+
+  .biz-card:hover .biz-collapsible,
+  .biz-card:focus-within .biz-collapsible,
+  .biz-card.is-active .biz-collapsible { grid-template-rows: 1fr; opacity: 1; }
+
+  .biz-card:hover .biz-desc, .biz-card:focus-within .biz-desc, .biz-card.is-active .biz-desc,
+  .biz-card:hover .biz-cta-row, .biz-card:focus-within .biz-cta-row, .biz-card.is-active .biz-cta-row {
+    opacity: 1; transform: translateY(0);
+  }
+
+  .biz-card:focus-visible { outline: 2px solid #3FB33D; outline-offset: 4px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .biz-card, .biz-img, .biz-collapsible, .biz-desc, .biz-cta-row {
+      transition: none !important; transform: none !important;
+    }
+    .biz-collapsible { opacity: 1 !important; grid-template-rows: 1fr !important; }
+    .biz-desc, .biz-cta-row { opacity: 1 !important; }
+  }
+</style>
 
   <script>
     function setupInvestorStatsCounter() {
@@ -632,5 +809,40 @@ const esgPillars = (investorsData.esgPillars && investorsData.esgPillars.length 
     }
 
     document.addEventListener("astro:page-load", setupInvestorStatsCounter);
+
+(() => {
+    const init = () => {
+      const grid = document.getElementById('biz-interactive-grid');
+      if (!grid) return;
+      const cards = Array.from(grid.querySelectorAll('.biz-card'));
+
+      cards.forEach((card) => {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.biz-cta-link')) return; // the Explore link navigates directly
+          const isTouch = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 1024;
+          if (!isTouch) return;
+
+          const wasActive = card.classList.contains('is-active');
+          cards.forEach((c) => c !== card && c.classList.remove('is-active'));
+
+          if (!wasActive) {
+            e.preventDefault();
+            card.classList.add('is-active');            // first tap reveals the details
+          } else {
+            const link = card.querySelector('.biz-cta-link');
+            if (link?.href) window.location.href = link.href; // second tap opens the page
+          }
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.biz-card')) cards.forEach((c) => c.classList.remove('is-active'));
+      });
+    };
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+    document.addEventListener('astro:page-load', init);
+  })();
   </script>
 </BaseLayout>

@@ -22,7 +22,7 @@ const [siteSettings, legalData] = await Promise.all([
     legalData.sections.map((sec) => (
       <section class="space-y-4 mb-8">
         {sec.heading && (
-          <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+          <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
             {sec.heading}
           </h2>
         )}
@@ -39,7 +39,7 @@ const [siteSettings, legalData] = await Promise.all([
           <div class="space-y-3">
             {sec.cards.map((c) => (
               <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
-                <h3 class="font-bold text-slate-900 text-base">{c.title}</h3>
+                <h3 class="font-semibold text-slate-900 text-base">{c.title}</h3>
                 <p class="text-xs sm:text-sm text-slate-600 mt-1">{c.description}</p>
               </div>
             ))}
@@ -49,7 +49,7 @@ const [siteSettings, legalData] = await Promise.all([
     ))
   ) : (
   <section class="space-y-4">
-    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+    <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       1. What Are Cookies?
     </h2>
     <p>
@@ -61,7 +61,7 @@ const [siteSettings, legalData] = await Promise.all([
   </section>
 
   <section class="space-y-4">
-    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+    <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       2. Cookie Categories We Deploy
     </h2>
     <p>
@@ -70,7 +70,7 @@ const [siteSettings, legalData] = await Promise.all([
     <div class="space-y-4">
       <div class="p-5 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-2">
         <div class="flex items-center justify-between">
-          <h3 class="font-bold text-slate-900 text-base">A. Strictly Necessary / Essential Cookies</h3>
+          <h3 class="font-semibold text-slate-900 text-base">A. Strictly Necessary / Essential Cookies</h3>
           <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-mono font-bold">Always Active</span>
         </div>
         <p class="text-xs sm:text-sm text-slate-600">
@@ -80,7 +80,7 @@ const [siteSettings, legalData] = await Promise.all([
 
       <div class="p-5 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-2">
         <div class="flex items-center justify-between">
-          <h3 class="font-bold text-slate-900 text-base">B. Preference &amp; Functionality Cookies</h3>
+          <h3 class="font-semibold text-slate-900 text-base">B. Preference &amp; Functionality Cookies</h3>
           <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-mono font-bold">Optional</span>
         </div>
         <p class="text-xs sm:text-sm text-slate-600">
@@ -90,7 +90,7 @@ const [siteSettings, legalData] = await Promise.all([
 
       <div class="p-5 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-2">
         <div class="flex items-center justify-between">
-          <h3 class="font-bold text-slate-900 text-base">C. Privacy-Conscious Performance &amp; Analytics Cookies</h3>
+          <h3 class="font-semibold text-slate-900 text-base">C. Privacy-Conscious Performance &amp; Analytics Cookies</h3>
           <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-mono font-bold">Optional</span>
         </div>
         <p class="text-xs sm:text-sm text-slate-600">
@@ -101,7 +101,7 @@ const [siteSettings, legalData] = await Promise.all([
   </section>
 
   <section class="space-y-4">
-    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+    <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       3. Detailed Cookie Inventory Table
     </h2>
     <div class="overflow-x-auto">
@@ -150,7 +150,7 @@ const [siteSettings, legalData] = await Promise.all([
   </section>
 
   <section class="space-y-4">
-    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+    <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       4. Managing &amp; Disabling Cookies
     </h2>
     <p>
@@ -170,7 +170,7 @@ const [siteSettings, legalData] = await Promise.all([
   </section>
 
   <section class="space-y-4">
-    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+    <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       5. Updates to This Cookie Policy
     </h2>
     <p>

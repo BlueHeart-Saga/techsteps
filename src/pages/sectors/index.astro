@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import PageHero from '../../components/hero/PageHero.astro';
+import CommonCTA from '../components/global/cta.astro';
 import { getSectors, getDivisions, getSectorsPage } from '../../lib/sanity/client';
 
 const breadcrumbs = [
@@ -197,7 +198,7 @@ const accreditations = [
             <span>{sectorsPage.intro?.badge || "Our Approach & Framework"}</span>
           </div>
 
-          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold text-slate-900 tracking-tight leading-[1.15] font-display">
+          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight leading-[1.15] font-display">
             {sectorsPage.intro?.heading || "Solutions Built Around Your Organisation"}
           </h2>
 
@@ -295,7 +296,7 @@ const accreditations = [
                 <span class="text-xs font-mono font-bold text-slate-400 group-hover:text-[#0F623A] transition-colors">{p.num}</span>
               </div>
               <div class="space-y-1.5">
-                <h3 class="text-base sm:text-lg font-bold text-slate-900 font-display">{p.label}</h3>
+                <h3 class="text-base sm:text-lg font-semibold text-slate-900 font-display">{p.label}</h3>
                 <p class="text-sm text-slate-600 leading-relaxed">{p.desc}</p>
               </div>
             </div>
@@ -313,7 +314,7 @@ const accreditations = [
         {sectorsPage.sectorsSection?.eyebrow || "Industries"}
       </span>
 
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-display">
+      <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight font-display">
         {sectorsPage.sectorsSection?.heading || "Sectors We Serve"}
       </h2>
 
@@ -341,7 +342,7 @@ const accreditations = [
 
           <div class="relative z-10">
             <!-- Title: Always Visible -->
-            <h3 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight font-display transition-colors duration-300 group-hover:text-[#0F623A]">
+            <h3 class="text-2xl sm:text-3xl font-semibold text-white leading-tight font-display transition-colors duration-300 group-hover:text-[#0F623A]">
               {sector.title}
             </h3>
 
@@ -370,7 +371,7 @@ const accreditations = [
     <Container>
       <div class="max-w-2xl mx-auto text-center mb-14">
         <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Our Philosophy</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight">
           Security Is Part of Every Lifecycle
         </h2>
         <p class="mt-4 text-base text-slate-600 leading-relaxed">
@@ -418,7 +419,7 @@ const accreditations = [
     <Container>
       <div class="text-center mb-14">
         <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-emerald-400 mb-4">Our Process</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        <h2 class="text-3xl sm:text-4xl font-semibold text-white tracking-tight">
           From First Collection to Final Outcome.
         </h2>
         <p class="mt-4 text-base text-slate-400 max-w-xl mx-auto leading-relaxed">
@@ -451,7 +452,7 @@ const accreditations = [
       <!-- Header with Eyebrow & Title (Numbers removed) -->
       <div class="flex flex-col items-center justify-center text-center mb-10 sm:mb-14">
         <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">Capabilities</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-display">
+        <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight font-display">
           Specialist Services for Your Requirements
         </h2>
       </div>
@@ -511,7 +512,7 @@ const accreditations = [
                   </div>
 
                   <!-- Title & Service Scope -->
-                  <h3 class="text-2xl sm:text-[25px] font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors mb-2 font-display tracking-tight leading-snug">
+                  <h3 class="text-2xl sm:text-[25px] font-semibold text-slate-900 group-hover:text-[#0F623A] transition-colors mb-2 font-display tracking-tight leading-snug">
                     {cat.title}
                   </h3>
                   <p class="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed font-mono mb-6 min-h-[38px]">
@@ -744,7 +745,7 @@ const accreditations = [
     <Container>
       <div class="w-full max-w-[1240px] mx-auto text-center mb-12">
         <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">Accreditations</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4 font-display">Aligned with Us.</h2>
+        <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight mb-4 font-display">Aligned with Us.</h2>
         <p class="text-base text-slate-600 leading-relaxed font-sans">
           Our services are designed to help organisations manage technology and information with security, accountability and responsible lifecycle practices.
         </p>
@@ -781,7 +782,7 @@ const accreditations = [
         <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4 font-mono">
           {sectorsPage.bottomCta?.eyebrow || "Work With Techsteps"}
         </span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight font-display">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 mb-5 leading-tight tracking-tight font-display">
           {sectorsPage.bottomCta?.heading || "Let's Build the Right Solution for Your Sector."}
         </h2>
         <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 font-medium max-w-xl mx-auto">

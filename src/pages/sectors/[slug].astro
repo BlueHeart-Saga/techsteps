@@ -2,9 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import HeroSector from '../../components/hero/HeroSector.astro';
-import { getSectors, getCaseStudies, getSiteSettings } from '../../lib/sanity/client';
+import CTA from '../../components/global/cta.astro';
+import { getSectors, getServices, getCaseStudies, getSiteSettings } from '../../lib/sanity/client';
 import { generateSectorSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
-import type { Sector } from '../../lib/sanity/types';
+import type { Sector, Service } from '../../lib/sanity/types';
 
 export async function getStaticPaths() {
   const allSectors = await getSectors();
@@ -21,8 +22,9 @@ interface Props {
 
 const { sector } = Astro.props;
 
-const [allSectors, caseStudies, siteSettings] = await Promise.all([
+const [allSectors, allServices, caseStudies, siteSettings] = await Promise.all([
   getSectors(),
+  getServices(),
   getCaseStudies(),
   getSiteSettings(),
 ]);
@@ -33,18 +35,6 @@ const breadcrumbSchema = generateBreadcrumbSchema([
   { name: 'Sectors', url: '/sectors' },
   { name: sector.title, url: `/sectors/${sector.slug}` },
 ], origin);
-
-// 8 Defined Sectors with exact corresponding icons in /icons/
-{/*const sectorNavList = [
-  { title: 'NHS & Healthcare', slug: 'nhs', icon: '/icons/NHS%20&%20Healthcare.svg' },
-  { title: 'Financial Services', slug: 'finance', icon: '/icons/Financial%20Services.svg' },
-  { title: 'Defence & Aerospace', slug: 'defence', icon: '/icons/Defence%20&%20Aerospace.svg' },
-  { title: 'Corporate & Legal', slug: 'legal-professional-services', icon: '/icons/Corporate%20&%20Legal.svg' },
-  { title: 'Manufacturing & Engineering', slug: 'manufacturing-engineering', icon: '/icons/Manufacturing%20&%20Engineering.svg' },
-  { title: 'IT & Technology', slug: 'it-technology', icon: '/icons/IT%20&%20Technology.svg' },
-  { title: 'Central Government', slug: 'central-government', icon: '/icons/Central%20Government.svg' },
-  { title: 'Education & Universities', slug: 'education-universities', icon: '/icons/Education%20&%20Universities.svg' },
-];*/}
 
 /*
  * Grouped section fields
@@ -95,17 +85,98 @@ const sectorData = sector as Sector & {
   };
 };
 
-/*
- * Matching case study
- */
-const matchingCaseStudy = caseStudies.find(
-  (c) =>
-    c.clientIndustry?.toLowerCase().includes(sector.title.toLowerCase()) ||
-    (sector.slug === 'finance' &&
-      c.clientIndustry?.toLowerCase().includes('financial')) ||
-    (sector.slug === 'nhs' &&
-      c.clientIndustry?.toLowerCase().includes('healthcare'))
-);
+// 01 / WHO WE SUPPORT: Verified organisation groups
+const defaultSectorOrgs: Record<string, { name: string; description: string }[]> = {
+  'nhs': [
+    { name: 'NHS Integrated Care Boards & Acute Trusts', description: 'Supporting compliant health records management, Caldicott governance, and acute hospital ward IT decommissions.' },
+    { name: 'Private Hospital Groups & Clinics', description: 'Guaranteeing medical records security, rapid 1-hour scan-on-demand, and compliant diagnostic asset lifecycle management.' },
+    { name: 'Medical Research Institutes & Labs', description: 'Protecting clinical trials databases, specialized laboratory relocations, and confidential pathology archives.' },
+  ],
+  'defence': [
+    { name: 'Ministry of Defence Prime Contractors', description: 'Enforcing JSP 440 compliance, MOD security clearance, and audited on-site granulator destruction.' },
+    { name: 'Aerospace & Defence Manufacturers', description: 'Providing certified chain-of-custody tracking for restricted intellectual property and avionics hardware.' },
+    { name: 'National Security & Sensitive Facilities', description: 'High-security biometric transport, dual-custody handling, and DIN 66399 Level H-5 hardware sanitisation.' },
+  ],
+  'finance': [
+    { name: 'Retail & Commercial Banking Groups', description: 'Delivering FCA-compliant IT asset disposition, Blancco cryptographic sanitisation, and secure branch decommissioning.' },
+    { name: 'Investment Managers & Trading Firms', description: 'Decommissioning high-frequency trading servers, SAN storage arrays, and immutable financial audit registers.' },
+    { name: 'FinTech Leaders & Insurance Providers', description: 'Scalable data centre de-racking, distributed remote employee hardware recovery, and ESG remarketing rebates.' },
+  ],
+  'central-government': [
+    { name: 'Ministerial Departments & Core Civil Service', description: 'Delivering Crown Commercial Service aligned records lifecycles and FOI-ready physical archiving.' },
+    { name: 'Executive Agencies & Arm’s-Length Bodies', description: 'Secure hardware decommissioning adhering strictly to Greening Government Commitments (GGC).' },
+    { name: 'Local Authorities & Civic Councils', description: 'Departmental office relocations, confidential historical document scanning, and civic asset tracking.' },
+  ],
+  'education-universities': [
+    { name: 'Russell Group Universities & HE Institutions', description: 'Managing large-scale campus computer fleet refreshes, research data protection, and lab moves.' },
+    { name: 'Multi-Academy Trusts & School Networks', description: 'Compliant pupil records digitization, statutory retention tracking, and hardware remarketing rebates.' },
+    { name: 'Higher Education Colleges & Campuses', description: 'Certified WEEE recycling, confidential examination paper shredding, and secure hardware redeployment.' },
+  ],
+  'legal-professional-services': [
+    { name: 'Law Firms & Barristers Chambers', description: 'Guaranteeing absolute client-solicitor confidentiality, deed vaulting, and SRA-compliant destruction.' },
+    { name: 'Accountancy & Audit Practices', description: 'Multi-year statutory retention scheduling, high-volume tax file scanning, and secure document storage.' },
+    { name: 'Management Consultancies & Corporate Advisory', description: 'Rapid workplace decants, secure encrypted drive shredding, and agile hardware lifecycle tracking.' },
+  ],
+  'manufacturing-engineering': [
+    { name: 'Precision Manufacturing & Engineering Leaders', description: 'Secure decommissioning of legacy industrial control systems (ICS) and SCADA assets.' },
+    { name: 'Automotive & Aerospace Production Plants', description: 'Controlled destruction of prototype components, CAD design drives, and proprietary tooling.' },
+    { name: 'Pharmaceutical & Life Science Facilities', description: 'Certified cleanroom equipment relocations and BS EN 15713 confidential documentation shredding.' },
+  ],
+  'it-technology': [
+    { name: 'Cloud & Colocation Data Centre Providers', description: 'High-density rack de-installation, Blancco server sanitisation, and bulk solid-state drive destruction.' },
+    { name: 'Enterprise Software & SaaS Vendors', description: 'Remote workforce laptop returns kits, custom golden image deployment, and asset recovery rebates.' },
+    { name: 'Telecommunications & Network Operators', description: 'Decommissioning central office switching gear, optical hardware, and cellular masts under WEEE.' },
+  ],
+};
+
+const organizationsSupported = (sector.whoWeSupport && sector.whoWeSupport.length > 0)
+  ? sector.whoWeSupport
+  : (defaultSectorOrgs[sector.slug] || [
+      { name: `${sector.title} Enterprise Organisations`, description: `Supporting specialized information lifecycle, secure disposal, and data integrity for ${sector.title.toLowerCase()}.` },
+      { name: `Regulated ${sector.title} Institutions`, description: `Full regulatory adherence and chain-of-custody audit trails tailored for ${sector.title.toLowerCase()} mandates.` },
+      { name: `Specialist Facilities & Operations`, description: `End-to-end logistics, compliant relocations, and confidential lifecycle decommissioning.` },
+    ]);
+
+// 03 / TAILORED SOLUTIONS: Resolve mapped services from sector.relevantServices
+const mappedServices = (sector.relevantServices || [])
+  .map((slug) => {
+    const clean = slug.toLowerCase().replace(/-services|-uk/g, '');
+    return allServices.find((s) => {
+      const sClean = s.slug?.toLowerCase().replace(/-services|-uk/g, '');
+      return s.slug?.toLowerCase() === slug.toLowerCase() || sClean === clean;
+    });
+  })
+  .filter(Boolean) as Service[];
+
+// 04 / SERVICE MAPPING: Connect challenges to accredited services
+const serviceMappings = (sector.challenges || []).map((challenge, idx) => {
+  const matchedService = mappedServices[idx] || mappedServices[0];
+  return {
+    need: challenge.title,
+    needDesc: challenge.description,
+    service: matchedService,
+  };
+}).filter((m) => Boolean(m.service));
+
+// 08 / PROVEN EXPERIENCE: Strictly sector-specific verified case study
+const matchingCaseStudy = (caseStudies || []).find((c) => {
+  if (!c) return false;
+  const targetIndustry = (c.clientIndustry || '').toLowerCase();
+  const sectorTitle = sector.title.toLowerCase();
+  const slug = sector.slug.toLowerCase();
+
+  if (targetIndustry && sectorTitle && (targetIndustry.includes(sectorTitle) || sectorTitle.includes(targetIndustry))) return true;
+  if (slug === 'finance' && (targetIndustry.includes('financial') || targetIndustry.includes('bank') || targetIndustry.includes('investment'))) return true;
+  if (slug === 'nhs' && (targetIndustry.includes('healthcare') || targetIndustry.includes('nhs') || targetIndustry.includes('hospital') || targetIndustry.includes('patient'))) return true;
+  if (slug === 'central-government' && (targetIndustry.includes('central government') || targetIndustry.includes('civil service'))) return true;
+  if (slug === 'defence' && (targetIndustry.includes('defence') || targetIndustry.includes('defense') || targetIndustry.includes('mod') || targetIndustry.includes('military'))) return true;
+  if (slug === 'legal-professional-services' && (targetIndustry.includes('legal') || targetIndustry.includes('law firm') || targetIndustry.includes('barrister'))) return true;
+  if (slug === 'education-universities' && (targetIndustry.includes('university') || targetIndustry.includes('higher education'))) return true;
+  if (slug === 'manufacturing-engineering' && (targetIndustry.includes('manufacturing') || targetIndustry.includes('aerospace engineering'))) return true;
+  if (slug === 'it-technology' && (targetIndustry.includes('data centre') || targetIndustry.includes('telecom') || targetIndustry === 'technology')) return true;
+
+  return false;
+});
 ---
 
 <BaseLayout
@@ -119,448 +190,540 @@ const matchingCaseStudy = caseStudies.find(
   <!-- ========================================================= -->
   <HeroSector sector={sector} />
 
-  <!-- ========================================================= -->
-  <!-- 2. SECTOR NAVIGATION / SWITCHER BAR -->
-  <!-- ========================================================= -->
-  <!--<section class="bg-white border-b border-slate-200/90 py-4 sm:py-6 select-none relative z-20">
+  <!-- ===== 01 / WHO WE SUPPORT ===== -->
+  <section class="py-16 lg:py-24 bg-white border-b border-slate-200/80">
     <Container>
-      <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-2 sm:pb-0 scrollbar-none justify-start lg:justify-between">
-        {sectorNavList.map((item) => {
-          const isActive = item.slug === sector.slug;
+      <div class="max-w-3xl mb-12 lg:mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+          01 / WHO WE SUPPORT
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+          Solutions for {sector.title} Organisations
+        </h2>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+          {sector.summary}
+        </p>
+      </div>
+
+      <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
+        {organizationsSupported.map((org: any, idx: number) => {
+          const num = String(idx + 1).padStart(2, '0');
           return (
-            <a
-              href={`/sectors/${item.slug}`}
-              class={`flex flex-col items-center justify-center p-3 sm:p-3.5 rounded-xl border text-center transition-all duration-200 shrink-0 min-w-[108px] sm:min-w-[124px] lg:min-w-0 lg:flex-1 ${
-                isActive
-                  ? 'bg-[#0F623A] border-[#0F623A] text-white shadow-md'
-                  : 'bg-white hover:bg-slate-50 border-slate-200/90 text-slate-700 hover:border-slate-300'
-              }`}
-            >
-              <div class="w-6 h-6 sm:w-7 sm:h-7 mb-2 flex items-center justify-center">
-                <img
-                  src={item.icon}
-                  alt=""
-                  aria-hidden="true"
-                  class={`w-5 h-5 sm:w-6 sm:h-6 object-contain transition-all ${
-                    isActive ? 'brightness-0 invert' : 'opacity-80'
-                  }`}
-                />
+            <div class="py-7 sm:py-8 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline">
+                <div class="md:col-span-2">
+                  <span class="text-2xl sm:text-3xl font-mono font-bold text-[#0F623A] tracking-tight">
+                    {num}
+                  </span>
+                </div>
+                <div class="md:col-span-4">
+                  <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-snug">
+                    {org.name}
+                  </h3>
+                </div>
+                <div class="md:col-span-6">
+                  <p class="text-base text-slate-600 font-sans leading-relaxed">
+                    {org.description}
+                  </p>
+                </div>
               </div>
-              <span class={`text-[11px] sm:text-xs font-bold leading-tight line-clamp-2 ${
-                isActive ? 'text-white' : 'text-slate-800'
-              }`}>
-                {item.title}
-              </span>
-            </a>
+            </div>
           );
         })}
       </div>
     </Container>
-  </section>-->
+  </section>
 
-  <!-- ========================================================= -->
-  <!-- 3. INDUSTRY CONTEXT & CHALLENGES -->
-  <!-- ========================================================= -->
-  <section class="py-14 sm:py-16 lg:py-20 bg-white">
+  <!-- ===== 02 / INDUSTRY CHALLENGES ===== -->
+  <section class="py-16 lg:py-24 bg-[#F8FAF9] border-b border-slate-200/80">
     <Container>
-      <div class="space-y-10 sm:space-y-12">
-
-        <!-- Section Header -->
-        <div class="max-w-3xl space-y-3.5">
-          <div class="inline-flex items-center gap-2">
-            <span class="w-6 h-0.5 bg-[#0F623A]" aria-hidden="true"></span>
-            <span class="text-xs font-bold uppercase tracking-[0.16em] text-[#0F623A]">
-              {sectorData.challengesSection?.eyebrow || 'KEY INDUSTRY CHALLENGES'}
-            </span>
-          </div>
-
-          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-extrabold font-display text-slate-900 tracking-tight leading-[1.12]">
-            {sectorData.challengesSection?.heading || `Key Industry Challenges in ${sector.title}`}
-          </h2>
-
-          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            {sectorData.challengesSection?.description ||
-              `Organizations within the UK ${sector.title} ecosystem operate under unforgiving compliance scrutiny. Standard commercial disposal, moving, and archiving contractors lack the specialized vetting and technical procedures needed to neutralize these liabilities.`}
-          </p>
+      <div class="max-w-3xl mb-12 lg:mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+          02 / INDUSTRY CHALLENGES
         </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+          We Understand Your Challenges
+        </h2>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+          {sectorData.challengesSection?.description ||
+            `Organisations across the UK ${sector.title} ecosystem operate under unforgiving statutory and operational standards. Standard commercial contractors lack the specialist clearance and chain-of-custody controls needed to neutralize these liabilities.`}
+        </p>
+      </div>
 
-<!-- Challenge Cards: Connected Green Panels -->
-        <div class="relative pt-8 sm:pt-10">
-
-          <!-- Connecting timeline -->
-          <div
-            class="absolute left-0 right-0 top-0 hidden h-[7px] rounded-full bg-[#0F623A] md:block"
-            aria-hidden="true"
-          ></div>
-
-          <div class="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6 lg:gap-8">
-            {sector.challenges?.map((challenge, idx) => (
-              <article class="group relative isolate flex min-h-[390px] flex-col overflow-visible rounded-b-[24px] rounded-t-none bg-[#0F623A] px-6 pb-8 pt-16 text-white shadow-[0_18px_32px_-18px_rgba(15,98,58,0.38)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_38px_-18px_rgba(15,98,58,0.48)] sm:px-8 sm:pb-10 sm:pt-[76px] md:mt-[60px] md:min-h-[440px]">
-
-                <!-- Angled top corners -->
-                <div
-                  class="absolute -inset-x-px -top-px -z-10 h-[38px] bg-[#0F623A]"
-                  style="clip-path: polygon(0 100%, 15% 0, 85% 0, 100% 100%);"
-                  aria-hidden="true"
-                ></div>
-
-                <!-- Vertical timeline connector -->
-                <div
-                  class="absolute left-1/2 top-[-60px] hidden h-[60px] w-[2px] -translate-x-1/2 bg-[#0F623A] md:block"
-                  aria-hidden="true"
-                ></div>
-
-                <!-- Number marker -->
-                <div class="absolute left-1/2 top-[-20px] z-20 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-[4px] border-[#A7E8C2] bg-white shadow-sm md:top-[-42px] md:h-8 md:w-8">
-                  <span class="sr-only">Challenge </span>
-                  <span class="absolute inset-0 rounded-full" aria-hidden="true"></span>
-                </div>
-
-                <!-- Number -->
-                <div class="mb-7">
-                  <span class="font-display text-5xl font-bold leading-none tracking-tight text-[#A7E8C2] sm:text-[54px]">
-                    {String(idx + 1).padStart(2, '0')}
+      <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
+        {sector.challenges?.map((challenge, idx) => {
+          const num = String(idx + 1).padStart(2, '0');
+          return (
+            <div class="py-7 sm:py-9 group transition-colors duration-200 hover:bg-white px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center">
+                <div class="md:col-span-2 flex items-baseline gap-3">
+                  <span class="text-2xl sm:text-3xl font-mono font-bold text-[#0F623A] tracking-tight">
+                    {num}
                   </span>
                 </div>
-
-                <!-- Challenge title -->
-                <h3 class="mb-6 min-h-[3.5rem] text-lg font-bold uppercase leading-snug tracking-wide text-white sm:text-xl">
-                  {challenge.title}
-                </h3>
-
-                <!-- Challenge description -->
-                <p class="text-base leading-[1.9] text-white/85 sm:text-[17px]">
-                  {challenge.description}
-                </p>
-
-              </article>
-            ))}
-          </div>
-        </div>
-
+                <div class="md:col-span-9">
+                  <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-snug">
+                    {challenge.title}
+                  </h3>
+                  <p class="mt-2 text-base text-slate-600 font-sans leading-relaxed">
+                    {challenge.description}
+                  </p>
+                </div>
+                <div class="md:col-span-1 flex justify-end">
+                  <span class="w-10 h-10 rounded-full border border-slate-200 group-hover:border-[#0F623A] group-hover:bg-[#0F623A] group-hover:text-white flex items-center justify-center text-slate-400 transition-all duration-300 transform group-hover:translate-x-1">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </Container>
   </section>
 
-  <!-- ========================================================= -->
-  <!-- 4. SOLUTIONS & SECURITY PROTOCOLS -->
-  <!-- ========================================================= -->
-  <section class="py-14 sm:py-16 lg:py-20 bg-[#F9FBF8] border-y border-slate-200/80">
+  <!-- ===== 03 / TAILORED SOLUTIONS ===== -->
+  <section id="tailored-solutions" class="py-16 lg:py-24 bg-white border-b border-slate-200/80">
     <Container>
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-14 items-start">
+      <div class="max-w-3xl mb-12 lg:mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+          03 / TAILORED SOLUTIONS
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+          Our {sector.title} Solutions
+        </h2>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+          {sectorData.solutionsSection?.description ||
+            `Accredited services specifically deployed and certified to meet the operational demands of ${sector.title.toLowerCase()}.`}
+        </p>
+      </div>
 
-        <!-- Left: Solutions Column -->
-        <div class="lg:col-span-7 space-y-6">
-          <div class="space-y-3">
-            <div class="inline-flex items-center gap-2">
-              <span class="w-6 h-0.5 bg-[#0F623A]" aria-hidden="true"></span>
-              <span class="text-xs font-bold uppercase tracking-[0.16em] text-[#0F623A]">
-                {sectorData.solutionsSection?.eyebrow || 'HOW TECHSTEPS SOLVES'}
-              </span>
-            </div>
-
-            <h2 class="text-3xl sm:text-4xl lg:text-[40px] font-extrabold font-display text-slate-900 tracking-tight leading-[1.14]">
-              {sectorData.solutionsSection?.heading || `How Techsteps Solves ${sector.title} Vulnerabilities`}
-            </h2>
-
-            {sectorData.solutionsSection?.description && (
-              <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-                {sectorData.solutionsSection.description}
-              </p>
-            )}
-          </div>
-
-          <!-- Horizontal Solution Cards -->
-          <div class="space-y-4 pt-2">
-            {sector.solutions?.map((solution, idx) => (
-              <div class="group flex items-center gap-4 sm:gap-5 p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(15,98,58,0.08)] hover:border-[#0F623A]/40 transition-all duration-300">
-                <!-- Circular Number Badge -->
-                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#0F623A]/10 text-[#0F623A] group-hover:bg-[#0F623A] group-hover:text-white flex items-center justify-center font-bold text-sm sm:text-base shrink-0 transition-colors duration-200">
-                  {String(idx + 1).padStart(2, '0')}
+      <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
+        {mappedServices.map((service, idx) => {
+          const num = String(idx + 1).padStart(2, '0');
+          return (
+            <div class="py-8 sm:py-9 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center">
+                <div class="md:col-span-2">
+                  <span class="text-2xl sm:text-3xl font-mono font-bold text-[#0F623A] tracking-tight">
+                    {num}
+                  </span>
                 </div>
-
-                <!-- Solution Info -->
-                <div class="flex-1 min-w-0">
-                  <h4 class="font-bold text-slate-900 text-base sm:text-lg tracking-tight leading-snug">
-                    {solution.title}
-                  </h4>
-                  <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mt-1">
-                    {solution.description}
+                <div class="md:col-span-7">
+                  <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-snug">
+                    {service.title}
+                  </h3>
+                  <p class="mt-2 text-base text-slate-600 font-sans leading-relaxed">
+                    {service.summary || service.solution || 'Certified lifecycle delivery meeting strict statutory requirements.'}
                   </p>
                 </div>
-
-                <!-- Subtle Right Arrow Indicator -->
-                {/*<div class="text-slate-400 group-hover:text-[#0F623A] group-hover:translate-x-1 transition-all duration-200 shrink-0 pr-1">
-                  <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>*/}
+                <div class="md:col-span-3 flex md:justify-end">
+                  <a
+                    href={`/services/${service.slug}`}
+                    class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#0F623A] group-hover:text-[#0c4e2e] transition-colors py-2 px-4 rounded-lg bg-[#0F623A]/10 group-hover:bg-[#0F623A] group-hover:text-white"
+                  >
+                    <span>Learn More</span>
+                    <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+          );
+        })}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 04 / SERVICE MAPPING ===== -->
+  <section class="py-16 lg:py-24 bg-[#F8FAF9] border-b border-slate-200/80">
+    <Container>
+      <div class="max-w-3xl mb-12 lg:mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+          04 / SERVICE MAPPING
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+          Connecting Challenges to Solutions
+        </h2>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+          Direct alignment between key {sector.title.toLowerCase()} operational requirements and TechSteps accredited service delivery.
+        </p>
+      </div>
+
+      <!-- Editorial Mapping Grid (Not a basic HTML table) -->
+      <div class="rounded-2xl border border-slate-200/90 bg-white shadow-xs overflow-hidden">
+        <!-- Table Column Header -->
+        <div class="hidden md:grid md:grid-cols-12 gap-6 px-8 py-4 bg-slate-50/80 border-b border-slate-200 text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
+          <div class="md:col-span-5">Business Need / Challenge</div>
+          <div class="md:col-span-2 text-center">Relationship</div>
+          <div class="md:col-span-5">TechSteps Accredited Solution</div>
         </div>
 
-        <!-- Right: Dark Security Protocols Card -->
-        <div class="lg:col-span-5 pt-2">
-          <div class="relative rounded-3xl bg-[#092618] text-white p-7 sm:p-9 shadow-2xl border border-emerald-800/40 overflow-hidden">
-            <!-- Ambient green lighting glow inside card -->
-            <div class="absolute -top-24 -right-24 w-60 h-60 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
-
-            <div class="relative z-10 space-y-6">
-              <div>
-                <span class="text-xs font-bold uppercase tracking-[0.18em] text-emerald-400 block mb-1">
-                  {sectorData.securitySection?.eyebrow || 'SECURITY PROTOCOLS'}
+        <div class="divide-y divide-slate-100">
+          {serviceMappings.map((item) => (
+            <div class="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-center hover:bg-slate-50/50 transition-colors group">
+              <!-- Left: Need -->
+              <div class="md:col-span-5 space-y-1">
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] block md:hidden mb-1">
+                  Business Need
                 </span>
-                <h3 class="text-xl sm:text-2xl font-extrabold font-display text-white tracking-tight">
-                  {sectorData.securitySection?.heading || 'Sector Security Protocols'}
-                </h3>
+                <h4 class="text-lg font-semibold text-slate-900 font-display">
+                  {item.need}
+                </h4>
+                <p class="text-sm text-slate-600 leading-relaxed font-sans">
+                  {item.needDesc}
+                </p>
               </div>
 
-              {sectorData.securitySection?.description && (
-                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  {sectorData.securitySection.description}
-                </p>
-              )}
+              <!-- Center: Arrow -->
+              <div class="md:col-span-2 flex items-center justify-start md:justify-center py-1 md:py-0">
+                <div class="w-9 h-9 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center font-bold text-sm group-hover:bg-[#0F623A] group-hover:text-white transition-colors duration-200">
+                  <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </div>
+              </div>
 
-              <!-- Checklist with green circular checks -->
-              <ul class="space-y-3.5 text-sm sm:text-base text-slate-200">
-                {sector.securityConsiderations?.map((securityNote) => (
-                  <li class="flex items-start gap-3">
-                    <div class="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
-                      ✓
-                    </div>
-                    <span class="leading-snug">{securityNote}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <!-- Governing Standards -->
-              {sector.complianceStandards && sector.complianceStandards.length > 0 && (
-                <div class="pt-5 border-t border-white/15">
-                  <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                    GOVERNING STANDARDS
+              <!-- Right: Solution -->
+              <div class="md:col-span-5 flex items-center justify-between gap-4">
+                <div class="space-y-1">
+                  <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] block md:hidden mb-1">
+                    TechSteps Solution
                   </span>
-                  <p class="text-xs sm:text-sm font-mono text-emerald-300 font-semibold tracking-wide">
-                    {sector.complianceStandards.join(' • ')}
+                  <a
+                    href={`/services/${item.service.slug}`}
+                    class="text-lg font-semibold text-slate-900 hover:text-[#0F623A] transition-colors font-display inline-flex items-center gap-1.5"
+                  >
+                    <span>{item.service.title}</span>
+                    <span class="text-xs text-[#0F623A]">↗</span>
+                  </a>
+                  <p class="text-sm text-slate-600 leading-relaxed font-sans line-clamp-2">
+                    {item.service.summary || item.service.solution}
                   </p>
                 </div>
-              )}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-
       </div>
     </Container>
   </section>
 
-  <!-- ========================================================= -->
-  <!-- 5. COMMERCIAL & COMPLIANCE OUTCOMES -->
-  <!-- ========================================================= -->
-  {sector.keyBenefits && sector.keyBenefits.length > 0 && (
-    <section class="py-14 sm:py-16 lg:py-20 bg-white">
-      <Container>
-        <div class="space-y-10 sm:space-y-12">
+  <!-- ===== 05 / OPERATIONAL USE CASES ===== -->
+  <section class="py-16 lg:py-24 bg-white border-b border-slate-200/80">
+    <Container>
+      <div class="max-w-3xl mb-12 lg:mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+          05 / OPERATIONAL USE CASES
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+          Designed for Real {sector.title} Needs
+        </h2>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+          How TechSteps delivers end-to-end information governance, secure asset disposition, and compliant relocations in practice.
+        </p>
+      </div>
 
-          <!-- Section Header -->
-          <div class="max-w-3xl space-y-3">
-            <div class="inline-flex items-center gap-2">
-              <span class="w-6 h-0.5 bg-[#0F623A]" aria-hidden="true"></span>
-              <span class="text-xs font-bold uppercase tracking-[0.16em] text-[#0F623A]">
-                {sectorData.benefitsSection?.eyebrow || 'COMMERCIAL & COMPLIANCE OUTCOMES'}
-              </span>
+      <!-- Large Image + Editorial Layout -->
+      <div class="rounded-3xl border border-slate-200/90 bg-[#F8FAF9] p-6 sm:p-8 lg:p-12 shadow-xs">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <!-- Large Realistic Image -->
+          <div class="lg:col-span-6">
+            <div class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 aspect-[4/3] bg-slate-900 group">
+              <img
+                src={sector.heroImage || `/images/sectors/${sector.slug}.jpg`}
+                alt={sector.heroAlt || `TechSteps operational deployment for ${sector.title}`}
+                class="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none"></div>
             </div>
-
-            <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-extrabold font-display text-slate-900 tracking-tight leading-[1.14]">
-              {sectorData.benefitsSection?.heading || `Commercial & Compliance Outcomes`}
-            </h2>
-
-            <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              {sectorData.benefitsSection?.description ||
-                'Protecting sensitive information isn\'t just about security — it\'s about proving control at every stage.'}
-            </p>
           </div>
 
-          <!-- Clean 2-Column Outcome Cards Grid with Green Circular Checks -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-            {sector.keyBenefits.map((benefit) => (
-              <div class="flex items-start gap-4 p-6 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_14px_rgba(0,0,0,0.03)] hover:border-[#0F623A]/30 transition-all duration-200">
-                <div class="w-9 h-9 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+          <!-- Editorial Scenario Content -->
+          <div class="lg:col-span-6 space-y-6">
+            <span class="inline-block text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10">
+              Operational Delivery
+            </span>
+
+            <h3 class="text-2xl sm:text-3xl font-semibold text-slate-900 font-display leading-tight">
+              Enterprise Lifecycle Management in Action
+            </h3>
+
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+              {sector.howTechstepsHelps}
+            </p>
+
+            <!-- Verified Highlights -->
+            <div class="space-y-3 pt-2">
+              {sector.solutions?.map((sol) => (
+                <div class="flex items-start gap-3">
+                  <div class="w-5 h-5 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                    ✓
+                  </div>
+                  <span class="text-sm sm:text-base font-medium text-slate-900 leading-snug">
+                    {sol.title} — <span class="text-slate-600 font-normal">{sol.description}</span>
+                  </span>
                 </div>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm sm:text-base text-slate-800 font-medium leading-relaxed">
+              ))}
+            </div>
+
+            <div class="pt-4">
+              <a
+                href="#tailored-solutions"
+                class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#0F623A] hover:text-[#0c4e2e] transition-colors"
+              >
+                <span>Explore Relevant Services</span>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 06 / SECURITY & COMPLIANCE ===== -->
+  <section class="py-16 lg:py-24 bg-[#0A331E] relative overflow-hidden border-b border-emerald-950 text-white">
+    <Container>
+      <div class="max-w-3xl mb-12 lg:mb-16">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
+          06 / SECURITY & COMPLIANCE
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
+          Security Built into Delivery
+        </h2>
+        <p class="mt-4 text-base sm:text-lg text-emerald-100/85 leading-relaxed font-sans max-w-2xl font-normal">
+          Rigorous governance protocols, security-vetted personnel, and certified chain-of-custody procedures protecting {sector.title.toLowerCase()}.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <!-- Left: Verified Security Considerations -->
+        <div class="lg:col-span-7 space-y-6">
+          <h3 class="text-xl sm:text-2xl font-semibold text-white font-display">
+            Operational Security Controls
+          </h3>
+
+          <ul class="space-y-4">
+            {sector.securityConsiderations?.map((note) => (
+              <li class="flex items-start gap-4 p-5 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-400/30 transition-colors">
+                <div class="w-6 h-6 rounded-full bg-emerald-400/20 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+                  ✓
+                </div>
+                <span class="text-base text-emerald-100/90 leading-relaxed font-sans">
+                  {note}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Right: Governing Standards -->
+        <div class="lg:col-span-5 p-7 sm:p-9 rounded-2xl bg-emerald-950/60 border border-emerald-500/30 backdrop-blur-xs space-y-6">
+          <div>
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400 block mb-2">
+              Statutory Governance
+            </span>
+            <h3 class="text-xl sm:text-2xl font-semibold text-white font-display">
+              Governing Standards & Accreditations
+            </h3>
+          </div>
+
+          <p class="text-sm text-emerald-100/80 leading-relaxed font-sans">
+            Every procedure is executed under verified quality, security, and environmental management systems.
+          </p>
+
+          <div class="flex flex-wrap gap-2.5 pt-2">
+            {sector.complianceStandards?.map((std) => (
+              <span class="inline-flex items-center px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-emerald-200 text-xs sm:text-sm font-mono font-semibold tracking-wide">
+                {std}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 07 / BUSINESS OUTCOMES ===== -->
+  <section class="py-16 lg:py-24 bg-white border-b border-slate-200/80">
+    <Container>
+      <div class="max-w-3xl mb-12 lg:mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+          07 / BUSINESS OUTCOMES
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+          The Value We Aim to Deliver
+        </h2>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+          {sectorData.benefitsSection?.description ||
+            `Measurable commercial, environmental, and compliance benefits delivered for ${sector.title.toLowerCase()} organisations.`}
+        </p>
+      </div>
+
+      <!-- Large Typography Editorial Outcome Rows -->
+      <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
+        {sector.keyBenefits?.map((benefit, idx) => {
+          const num = String(idx + 1).padStart(2, '0');
+          return (
+            <div class="py-8 sm:py-10 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline">
+                <div class="md:col-span-2">
+                  <span class="text-3xl sm:text-4xl font-mono font-bold text-[#0F623A] tracking-tight">
+                    {num}
+                  </span>
+                </div>
+                <div class="md:col-span-10">
+                  <p class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-relaxed">
                     {benefit}
                   </p>
                 </div>
               </div>
-            ))}
-          </div>
-
-        </div>
-      </Container>
-    </section>
-  )}
-
-  <!-- ========================================================= -->
-  <!-- 6. VERIFIED CASE STUDY (IF MATCHED) -->
-  <!-- ========================================================= -->
-  {matchingCaseStudy && (
-    <section class="py-12 sm:py-14 bg-[#F9FBF8] border-t border-slate-200/80">
-      <Container>
-        <div class="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-6 max-w-4xl mx-auto">
-          <div class="flex items-center justify-between gap-4">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#0F623A]">
-              {sectorData.caseStudySection?.eyebrow || 'VERIFIED CASE STUDY'}
-            </span>
-            <span class="text-xs font-semibold text-slate-500">
-              {matchingCaseStudy.clientIndustry}
-            </span>
-          </div>
-
-          <h3 class="text-2xl font-bold font-display text-slate-900">
-            {matchingCaseStudy.title}
-          </h3>
-
-          <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
-            {matchingCaseStudy.solution}
-          </p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            {matchingCaseStudy.results?.map((result) => (
-              <div class="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-800">
-                <span class="text-[#0F623A] font-bold">✓</span>
-                <span>{result}</span>
-              </div>
-            ))}
-          </div>
-
-          <div class="pt-2">
-            <a
-              href={`/case-studies/${matchingCaseStudy.slug}`}
-              class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0F623A] hover:underline"
-            >
-              <span>Read Full Case Study Breakdown</span>
-              <span>&rarr;</span>
-            </a>
-          </div>
-        </div>
-      </Container>
-    </section>
-  )}
-
-  <!-- ========================================================= -->
-  <!-- 7. FREQUENTLY ASKED QUESTIONS (VISIBLE BY DEFAULT) -->
-  <!-- ========================================================= -->
-  {sector.faqs && sector.faqs.length > 0 && (
-    <section class="py-14 sm:py-16 lg:py-20 bg-white border-t border-slate-200/80">
-      <Container>
-        <div class="space-y-10 max-w-4xl mx-auto">
-
-          <!-- FAQ Header -->
-          <div class="text-center space-y-3">
-            <div class="inline-flex items-center justify-center gap-2">
-              <span class="w-6 h-0.5 bg-[#0F623A]" aria-hidden="true"></span>
-              <span class="text-xs font-bold uppercase tracking-[0.16em] text-[#0F623A]">
-                {sectorData.faqSection?.eyebrow || 'FREQUENTLY ASKED QUESTIONS'}
-              </span>
-              <span class="w-6 h-0.5 bg-[#0F623A]" aria-hidden="true"></span>
             </div>
-
-            <h2 class="text-3xl sm:text-4xl lg:text-[40px] font-extrabold font-display text-slate-900 tracking-tight leading-tight">
-              {sectorData.faqSection?.heading || `${sector.title} FAQ`}
-            </h2>
-
-            <p class="text-base text-slate-600 max-w-2xl mx-auto">
-              {sectorData.faqSection?.description ||
-                'Clear answers regarding our security protocols, regulatory compliance, and UK operations.'}
-            </p>
-          </div>
-
-          <!-- FAQ Items (Open & Clearly Separated Question / Answer Layout) -->
-          <div class="space-y-4">
-            {sector.faqs.map((faq: { question: string; answer: string }, index: number) => (
-              <div class="rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:border-[#0F623A]/30 transition-all duration-200">
-                <div class="flex items-start gap-4 sm:gap-6">
-                  <!-- Number Identifier -->
-                  <span class="text-2xl sm:text-3xl font-extrabold font-display text-[#0F623A] leading-none shrink-0 pt-0.5">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-
-                  <!-- Question & Answer -->
-                  <div class="flex-1 min-w-0 space-y-2">
-                    <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug">
-                      {faq.question}
-                    </h3>
-                    <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-                      {faq.answer}
-                    </p>
-                  </div>
-
-                  <!-- Small Arrow Accent -->
-                  <div class="text-slate-300 shrink-0 pt-1" aria-hidden="true">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </Container>
-    </section>
-  )}
-
-  <!-- ========================================================= -->
-  <!-- 8. FINAL CALL TO ACTION (CTA) -->
-  <!-- ========================================================= -->
-  <section class="relative bg-[#EBF5EF] py-14 sm:py-16 lg:py-20 overflow-hidden border-t border-slate-200/90 select-none">
-    <!-- Subtle Eco Ambient Background Wave -->
-    <div class="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(#0F623A_1px,transparent_1px)] [background-size:24px_24px]" aria-hidden="true"></div>
-
-    <Container className="relative z-10 text-center max-w-3xl mx-auto space-y-6">
-      <div class="inline-flex items-center gap-2">
-        <span class="w-6 h-0.5 bg-[#0F623A]" aria-hidden="true"></span>
-        <span class="text-xs font-bold uppercase tracking-[0.16em] text-[#0F623A]">
-          {sectorData.cta?.eyebrow || 'READY TO PROTECT YOUR SECTOR'}
-        </span>
-        <span class="w-6 h-0.5 bg-[#0F623A]" aria-hidden="true"></span>
-      </div>
-
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-[1.12]">
-        {sectorData.cta?.heading || `Ready to Protect Your ${sector.title}?`}
-      </h2>
-
-      <p class="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed font-normal">
-        {sectorData.cta?.description ||
-          `Schedule a confidential ${sector.title} consultation with our security-cleared specialists.`}
-      </p>
-
-      <div class="flex flex-wrap items-center justify-center gap-3.5 pt-2">
-        <a
-          href={`/request-a-quote?sector=${encodeURIComponent(sector.slug)}`}
-          class="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-base font-bold shadow-md hover:shadow-lg transition-all duration-200"
-        >
-          <span>{sectorData.cta?.primaryButtonText || `Request ${sector.title} Briefing`}</span>
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </a>
-
-        <a
-          href="/contact"
-          class="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-900 text-base font-bold border border-slate-300/90 shadow-xs hover:shadow-sm transition-all duration-200"
-        >
-          <span>{sectorData.cta?.secondaryButtonText || 'Speak with Sector Lead'}</span>
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </a>
+          );
+        })}
       </div>
     </Container>
   </section>
+
+  <!-- ===== 08 / PROVEN EXPERIENCE ===== -->
+  {matchingCaseStudy && (
+    <section class="py-16 lg:py-24 bg-[#0A331E] text-white border-b border-emerald-950 relative overflow-hidden">
+      <Container>
+        <div class="max-w-3xl mb-10 lg:mb-14">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-4">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
+            08 / PROVEN EXPERIENCE
+          </span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
+            Customer Success in {sector.title}
+          </h2>
+          <p class="mt-4 text-base sm:text-lg text-emerald-100/85 leading-relaxed font-sans font-normal">
+            Real-world operational delivery for {matchingCaseStudy.clientIndustry} organisations.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-emerald-500/30 bg-emerald-950/40 p-8 sm:p-10 lg:p-12 backdrop-blur-xs">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div class="lg:col-span-7 space-y-6">
+              <span class="inline-block text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/20">
+                {matchingCaseStudy.clientIndustry}
+              </span>
+              <h3 class="text-2xl sm:text-3xl font-semibold text-white font-display leading-tight">
+                {matchingCaseStudy.title}
+              </h3>
+              <div class="space-y-4 text-emerald-100/85 font-sans leading-relaxed text-base sm:text-lg">
+                <p><strong class="text-white">Challenge:</strong> {matchingCaseStudy.challenge}</p>
+                <p><strong class="text-white">Solution:</strong> {matchingCaseStudy.solution}</p>
+              </div>
+              <div class="pt-4">
+                <a
+                  href={`/case-studies/${matchingCaseStudy.slug}`}
+                  class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-emerald-300 hover:text-white transition-colors"
+                >
+                  Read Full Case Study
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-white/5 rounded-xl border border-white/10 p-6 sm:p-8 space-y-4">
+              <h4 class="text-sm font-mono font-bold uppercase tracking-widest text-emerald-300">
+                Verified Project Results
+              </h4>
+              <ul class="space-y-3.5">
+                {matchingCaseStudy.results?.map((result) => (
+                  <li class="flex items-start gap-3 text-sm sm:text-base text-emerald-100/90 font-sans">
+                    <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>{result}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- ===== 09 / FREQUENTLY ASKED QUESTIONS ===== -->
+  {sector.faqs && sector.faqs.length > 0 && (
+    <section class="py-16 lg:py-24 bg-[#FAF8F5] relative overflow-hidden border-b border-slate-200/80">
+      <Container>
+        <div class="max-w-4xl mx-auto mb-12 lg:mb-16 text-center">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+            09 / FREQUENTLY ASKED QUESTIONS
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+            {sectorData.faqSection?.heading || `${sector.title} FAQ`}
+          </h2>
+          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans max-w-2xl mx-auto font-normal">
+            {sectorData.faqSection?.description ||
+              `Clear answers regarding our security accreditations, statutory compliance controls, and UK nationwide operations.`}
+          </p>
+        </div>
+
+        {/* Clean Accordion with Numbering and Chevron Indicator */}
+        <div class="max-w-4xl mx-auto space-y-4">
+          {sector.faqs.map((faq: { question: string; answer: string }, idx: number) => {
+            const num = String(idx + 1).padStart(2, '0');
+            return (
+              <details class="group rounded-2xl border border-slate-200/90 bg-white transition-all duration-200 open:border-[#0F623A]/40 open:shadow-sm" open={idx === 0}>
+                <summary class="flex items-center justify-between gap-4 p-6 sm:p-7 cursor-pointer list-none select-none">
+                  <div class="flex items-baseline gap-4 text-left">
+                    <span class="font-mono font-bold text-sm sm:text-base text-[#0F623A] shrink-0">
+                      {num}
+                    </span>
+                    <h3 class="text-base sm:text-lg lg:text-xl font-semibold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug">
+                      {faq.question}
+                    </h3>
+                  </div>
+                  <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-[#0F623A]/10 text-slate-500 group-hover:text-[#0F623A] flex items-center justify-center shrink-0 transition-transform duration-200 group-open:rotate-180">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </summary>
+                <div class="px-6 pb-6 pt-0 sm:px-7 sm:pb-7 pl-14 sm:pl-16">
+                  <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+                    {faq.answer}
+                  </p>
+                </div>
+              </details>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- ===== COMMON CTA ===== -->
+  <CTA
+    eyebrow="LET’S SUPPORT YOUR ORGANISATION"
+    title={`Ready to Protect Your ${sector.title}?`}
+    description={`Discuss your ${sector.title.toLowerCase()} operational, compliance and asset lifecycle requirements with TechSteps.`}
+    primaryText="Request a Collection"
+    primaryHref={`/request-a-collection?sector=${encodeURIComponent(sector.slug)}`}
+    secondaryText="Contact Our Team"
+    secondaryHref="/contact"
+  />
 
 </BaseLayout>

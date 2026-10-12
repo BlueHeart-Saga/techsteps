@@ -110,7 +110,9 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
                (s.slug === 'manufacturing' && defaultItem.slug === 'manufacturing-engineering') ||
                (s.slug === 'technology' && defaultItem.slug === 'it-technology')
       );
+
       if (!match) return defaultItem;
+
       return {
         ...defaultItem,
         title: match.title || defaultItem.title,
@@ -131,7 +133,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 >
   <!-- Carousel Stage Wrapper -->
   <div class="relative w-full flex items-center justify-center overflow-hidden py-6 sm:py-8">
-    
+
     <!-- Left Navigation Arrow -->
     <button
       type="button"
@@ -172,27 +174,17 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
           aria-roledescription="slide"
           aria-label={`${item.title} (${idx + 1} of ${sectorItems.length})`}
         >
-          <div class="sector-card-inner relative w-full h-full bg-white rounded-[26px] p-5 sm:p-6 flex flex-col justify-between border border-slate-200/90 overflow-hidden">
+          <a
+            href={`/sectors/${item.slug}`}
+            class="sector-card-inner relative w-full h-full bg-white rounded-[26px] p-5 flex flex-col border border-slate-200/90 overflow-hidden text-left no-underline block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A] focus-visible:ring-offset-2"
+            tabindex={idx === 0 ? "0" : "-1"}
+            aria-label={`Explore ${item.title}`}
+          >
             <!-- Ambient Top Subtle Tint -->
             <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-transparent via-[#0F623A]/20 to-transparent pointer-events-none opacity-0 group-data-[pos='0']:opacity-100 transition-opacity duration-500"></div>
 
-            <!-- Top Row: Index Badge & Category + Icon -->
-            <div class="flex items-center justify-between gap-2 mb-3.5 shrink-0">
-              <div class="flex items-center gap-2 min-w-0">
-                <span class="inline-flex items-center justify-center font-mono text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#0F623A]/10 text-[#0F623A] border border-[#0F623A]/15 shrink-0">
-                  {item.number}
-                </span>
-                <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 truncate">
-                  {item.category}
-                </span>
-              </div>
-              <div class="w-7 h-7 rounded-full bg-[#F4F7F4] flex items-center justify-center p-1.5 shrink-0 border border-slate-200/60">
-                <img src={item.icon} alt="" class="w-full h-full object-contain opacity-75" loading="lazy" />
-              </div>
-            </div>
-
             <!-- Image Container -->
-            <div class="sector-card-image-box relative w-full aspect-[16/10] sm:aspect-[16/11] rounded-2xl overflow-hidden mb-3.5 bg-slate-100 shrink-0">
+            <div class="sector-card-image-box relative w-full rounded-2xl overflow-hidden bg-slate-100">
               <img
                 src={item.image}
                 alt={item.title}
@@ -200,46 +192,48 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
                 loading="lazy"
                 decoding="async"
               />
+
               <!-- Subtle photo bottom gradient overlay -->
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
             </div>
 
-            <!-- Text Content -->
-            <div class="flex-1 flex flex-col justify-between min-h-0">
-              <div>
-                <h3 class="sector-card-title text-xl sm:text-[22px] font-bold font-display text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors line-clamp-1 mb-2">
-                  <a
-                    href={`/sectors/${item.slug}`}
-                    class="sector-card-link focus:outline-none"
-                    tabindex="-1"
-                  >
-                    {item.title}
-                  </a>
-                </h3>
-                <p class="sector-card-desc text-xs sm:text-[13px] text-slate-600 font-normal leading-relaxed line-clamp-3">
-                  {item.description}
-                </p>
-              </div>
+            <!-- Content Area -->
+            <div class="sector-card-content shrink-0 pt-3.5">
 
-              <!-- Bottom Action CTA -->
-              <div class="sector-card-action mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-between shrink-0">
-                <span class="sector-card-cta-label text-xs font-bold text-[#0F623A] tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors">
-                  <span>Explore Sector</span>
-                </span>
+              <!-- Sector Title -->
+              <h3 class="sector-card-title text-xl sm:text-[22px] font-semibold font-display text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors line-clamp-2">
+                {item.title}
+              </h3>
 
-                <a
-                  href={`/sectors/${item.slug}`}
-                  class="sector-card-arrow-btn w-9 h-9 rounded-full bg-[#0F623A] text-white flex items-center justify-center shadow-sm group-hover:bg-[#3FB33D] group-hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
-                  aria-label={`Explore ${item.title}`}
-                  tabindex="-1"
-                >
-                  <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </a>
+              <!-- Collapsible Reveal Container -->
+              <div class="sector-card-more">
+                <div class="sector-card-more-inner">
+
+                  <!-- Description -->
+                  <p class="sector-card-desc text-xs sm:text-[13px] text-slate-700 font-normal leading-relaxed line-clamp-3 pt-3">
+                    {item.description}
+                  </p>
+
+                  <!-- Bottom Action CTA -->
+                  <div class="sector-card-action pt-3 mt-3.5 border-t border-slate-100 flex items-center justify-between">
+                    <span class="sector-card-cta-label text-xs font-bold text-[#0F623A] tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors">
+                      <span>Explore Sector</span>
+                    </span>
+
+                    <span
+                      class="sector-card-arrow-btn w-9 h-9 rounded-full bg-white border border-[#0F623A]/35 text-[#0F623A] flex items-center justify-center shadow-xs transition-all duration-300"
+                      aria-hidden="true"
+                    >
+                      <svg class="w-4 h-4 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </span>
+                  </div>
+
+                </div>
               </div>
             </div>
-          </div>
+          </a>
         </article>
       ))}
     </div>
@@ -268,7 +262,10 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 </div>
 
 <style>
-  /* Stage Setup */
+  /* ========================================================
+     STAGE SETUP
+     ======================================================== */
+
   .sector-carousel-stage {
     position: relative;
     width: 100%;
@@ -276,7 +273,10 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     perspective: 1200px;
   }
 
-  /* Base Card Styles */
+  /* ========================================================
+     BASE CARD STYLES
+     ======================================================== */
+
   .sector-carousel-card {
     position: absolute;
     top: 50%;
@@ -285,9 +285,12 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     max-width: 320px;
     height: 470px;
     will-change: transform, opacity;
-    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-                filter 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+
+    transition:
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+
     transform-origin: center center;
     cursor: pointer;
   }
@@ -313,75 +316,196 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     }
   }
 
-  /* Card Inner Shadows & Borders */
+  /* ========================================================
+     CARD INNER
+     ======================================================== */
+
   .sector-card-inner {
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.02);
-    transition: box-shadow 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-                border-color 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    box-shadow:
+      0 10px 25px -5px rgba(0, 0, 0, 0.05),
+      0 4px 10px -2px rgba(0, 0, 0, 0.02);
+
+    transition:
+      box-shadow 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* Entrance Animation: Cards start lower, scaled down and transparent */
+  /* ========================================================
+     IMAGE BOX
+     ======================================================== */
+
+  .sector-card-image-box {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .sector-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ========================================================
+     CONTENT
+     ======================================================== */
+
+  .sector-card-content {
+    flex-shrink: 0;
+  }
+
+  .sector-card-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ========================================================
+     COLLAPSIBLE REVEAL
+     ======================================================== */
+
+  .sector-card-more {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transform: translateY(10px);
+    visibility: hidden;
+
+    transition:
+      grid-template-rows 0.45s cubic-bezier(0.3, 0.8, 0.3, 1),
+      opacity 0.35s ease,
+      transform 0.45s cubic-bezier(0.3, 0.8, 0.3, 1),
+      visibility 0s 0.45s;
+  }
+
+  .sector-card-more > .sector-card-more-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  /* Revealed state */
+  .sector-carousel-card:hover .sector-card-more,
+  .sector-carousel-card:focus-within .sector-card-more,
+  .sector-card-inner:focus-visible .sector-card-more {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+
+    transition:
+      grid-template-rows 0.45s cubic-bezier(0.3, 0.8, 0.3, 1),
+      opacity 0.35s ease,
+      transform 0.45s cubic-bezier(0.3, 0.8, 0.3, 1),
+      visibility 0s 0s;
+  }
+
+  /* ========================================================
+     ARROW BUTTON
+     ======================================================== */
+
+  .sector-card-arrow-btn {
+    transition:
+      background-color 0.3s cubic-bezier(0.3, 0.8, 0.3, 1),
+      color 0.3s cubic-bezier(0.3, 0.8, 0.3, 1),
+      border-color 0.3s cubic-bezier(0.3, 0.8, 0.3, 1),
+      box-shadow 0.3s cubic-bezier(0.3, 0.8, 0.3, 1);
+  }
+
+  .sector-carousel-card:hover .sector-card-arrow-btn,
+  .sector-carousel-card:focus-within .sector-card-arrow-btn,
+  .sector-card-inner:focus-visible .sector-card-arrow-btn {
+    background-color: #0F623A;
+    color: #FFFFFF;
+    border-color: #0F623A;
+    box-shadow: 0 4px 12px rgba(15, 98, 58, 0.22);
+  }
+
+  .sector-carousel-card:hover .sector-card-arrow-btn svg,
+  .sector-carousel-card:focus-within .sector-card-arrow-btn svg,
+  .sector-card-inner:focus-visible .sector-card-arrow-btn svg {
+    transform: translateX(2px);
+  }
+
+  /* ========================================================
+     ENTRANCE ANIMATION
+     ======================================================== */
+
   .sector-carousel-stage.carousel-entering .sector-carousel-card {
     opacity: 0 !important;
     transform: translate3d(-50%, calc(-50% + 45px), 0) scale(0.72) !important;
   }
 
   /* ========================================================
-     3D CAROUSEL POSITIONS (DESKTOP >= 1280px)
+     3D CAROUSEL POSITIONS
+     DESKTOP >= 1280px
      ======================================================== */
+
   @media (min-width: 1280px) {
-    /* Center Active (0) */
+
+    /* Center Active */
     .sector-carousel-card[data-pos="0"] {
       transform: translate3d(-50%, -53%, 0) scale(1.06);
       z-index: 30;
       opacity: 1;
       cursor: default;
     }
+
     .sector-carousel-card[data-pos="0"] .sector-card-inner {
       border-color: rgba(15, 98, 58, 0.28);
-      box-shadow: 0 25px 60px -15px rgba(15, 98, 58, 0.22), 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+      box-shadow:
+        0 25px 60px -15px rgba(15, 98, 58, 0.22),
+        0 8px 24px -4px rgba(0, 0, 0, 0.06);
     }
 
-    /* Immediate Right (1) */
+    /* Immediate Right */
     .sector-carousel-card[data-pos="1"] {
       transform: translate3d(calc(-50% + 290px), -48%, 0) scale(0.9);
       z-index: 20;
       opacity: 0.85;
     }
+
     .sector-carousel-card[data-pos="1"]:hover {
       opacity: 0.98;
       transform: translate3d(calc(-50% + 290px), -50%, 0) scale(0.92);
     }
 
-    /* Immediate Left (-1) */
+    /* Immediate Left */
     .sector-carousel-card[data-pos="-1"] {
       transform: translate3d(calc(-50% - 290px), -48%, 0) scale(0.9);
       z-index: 20;
       opacity: 0.85;
     }
+
     .sector-carousel-card[data-pos="-1"]:hover {
       opacity: 0.98;
       transform: translate3d(calc(-50% - 290px), -50%, 0) scale(0.92);
     }
 
-    /* Far Right (2) */
+    /* Far Right */
     .sector-carousel-card[data-pos="2"] {
       transform: translate3d(calc(-50% + 530px), -46%, 0) scale(0.78);
       z-index: 10;
       opacity: 0.52;
     }
+
     .sector-carousel-card[data-pos="2"]:hover {
       opacity: 0.82;
       transform: translate3d(calc(-50% + 530px), -48%, 0) scale(0.81);
     }
 
-    /* Far Left (-2) */
+    /* Far Left */
     .sector-carousel-card[data-pos="-2"] {
       transform: translate3d(calc(-50% - 530px), -46%, 0) scale(0.78);
       z-index: 10;
       opacity: 0.52;
     }
+
     .sector-carousel-card[data-pos="-2"]:hover {
       opacity: 0.82;
       transform: translate3d(calc(-50% - 530px), -48%, 0) scale(0.81);
@@ -394,6 +518,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
       opacity: 0;
       pointer-events: none;
     }
+
     .sector-carousel-card[data-pos="hidden-left"] {
       transform: translate3d(calc(-50% - 720px), -45%, 0) scale(0.65);
       z-index: 1;
@@ -403,18 +528,24 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
   }
 
   /* ========================================================
-     3D CAROUSEL POSITIONS (LARGE DESKTOP 1024px - 1279px)
+     LARGE DESKTOP
+     1024px - 1279px
      ======================================================== */
+
   @media (min-width: 1024px) and (max-width: 1279px) {
+
     .sector-carousel-card[data-pos="0"] {
       transform: translate3d(-50%, -53%, 0) scale(1.05);
       z-index: 30;
       opacity: 1;
       cursor: default;
     }
+
     .sector-carousel-card[data-pos="0"] .sector-card-inner {
       border-color: rgba(15, 98, 58, 0.28);
-      box-shadow: 0 25px 60px -15px rgba(15, 98, 58, 0.22), 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+      box-shadow:
+        0 25px 60px -15px rgba(15, 98, 58, 0.22),
+        0 8px 24px -4px rgba(0, 0, 0, 0.06);
     }
 
     .sector-carousel-card[data-pos="1"] {
@@ -422,6 +553,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
       z-index: 20;
       opacity: 0.85;
     }
+
     .sector-carousel-card[data-pos="1"]:hover {
       opacity: 0.98;
       transform: translate3d(calc(-50% + 250px), -50%, 0) scale(0.91);
@@ -432,6 +564,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
       z-index: 20;
       opacity: 0.85;
     }
+
     .sector-carousel-card[data-pos="-1"]:hover {
       opacity: 0.98;
       transform: translate3d(calc(-50% - 250px), -50%, 0) scale(0.91);
@@ -442,6 +575,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
       z-index: 10;
       opacity: 0.52;
     }
+
     .sector-carousel-card[data-pos="2"]:hover {
       opacity: 0.82;
       transform: translate3d(calc(-50% + 460px), -48%, 0) scale(0.79);
@@ -452,6 +586,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
       z-index: 10;
       opacity: 0.52;
     }
+
     .sector-carousel-card[data-pos="-2"]:hover {
       opacity: 0.82;
       transform: translate3d(calc(-50% - 460px), -48%, 0) scale(0.79);
@@ -463,6 +598,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
       opacity: 0;
       pointer-events: none;
     }
+
     .sector-carousel-card[data-pos="hidden-left"] {
       transform: translate3d(calc(-50% - 640px), -45%, 0) scale(0.65);
       z-index: 1;
@@ -472,18 +608,24 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
   }
 
   /* ========================================================
-     3D CAROUSEL POSITIONS (TABLET 768px - 1023px)
+     TABLET
+     768px - 1023px
      ======================================================== */
+
   @media (min-width: 768px) and (max-width: 1023px) {
+
     .sector-carousel-card[data-pos="0"] {
       transform: translate3d(-50%, -52%, 0) scale(1.04);
       z-index: 30;
       opacity: 1;
       cursor: default;
     }
+
     .sector-carousel-card[data-pos="0"] .sector-card-inner {
       border-color: rgba(15, 98, 58, 0.28);
-      box-shadow: 0 25px 60px -15px rgba(15, 98, 58, 0.22), 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+      box-shadow:
+        0 25px 60px -15px rgba(15, 98, 58, 0.22),
+        0 8px 24px -4px rgba(0, 0, 0, 0.06);
     }
 
     .sector-carousel-card[data-pos="1"] {
@@ -491,6 +633,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
       z-index: 20;
       opacity: 0.78;
     }
+
     .sector-carousel-card[data-pos="1"]:hover {
       opacity: 0.95;
       transform: translate3d(calc(-50% + 230px), -50%, 0) scale(0.89);
@@ -501,6 +644,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
       z-index: 20;
       opacity: 0.78;
     }
+
     .sector-carousel-card[data-pos="-1"]:hover {
       opacity: 0.95;
       transform: translate3d(calc(-50% - 230px), -50%, 0) scale(0.89);
@@ -518,18 +662,23 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
   }
 
   /* ========================================================
-     3D CAROUSEL POSITIONS (MOBILE < 768px)
+     MOBILE < 768px
      ======================================================== */
+
   @media (max-width: 767px) {
+
     .sector-carousel-card[data-pos="0"] {
       transform: translate3d(-50%, -50%, 0) scale(1);
       z-index: 30;
       opacity: 1;
       cursor: default;
     }
+
     .sector-carousel-card[data-pos="0"] .sector-card-inner {
       border-color: rgba(15, 98, 58, 0.25);
-      box-shadow: 0 20px 45px -10px rgba(15, 98, 58, 0.2), 0 4px 16px -2px rgba(0, 0, 0, 0.05);
+      box-shadow:
+        0 20px 45px -10px rgba(15, 98, 58, 0.2),
+        0 4px 16px -2px rgba(0, 0, 0, 0.05);
     }
 
     .sector-carousel-card[data-pos="1"] {
@@ -555,17 +704,56 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     }
   }
 
-  /* Reduced Motion Support */
+  /* ========================================================
+     TOUCH DEVICES
+     ======================================================== */
+
+  @media (hover: none) {
+
+    .sector-carousel-card[data-pos="0"] .sector-card-more {
+      grid-template-rows: 1fr !important;
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+      transition: none !important;
+    }
+
+    .sector-carousel-card[data-pos="0"] .sector-card-arrow-btn {
+      background-color: #0F623A !important;
+      color: #FFFFFF !important;
+      border-color: #0F623A !important;
+      box-shadow: 0 4px 12px rgba(15, 98, 58, 0.22) !important;
+      transition: none !important;
+    }
+  }
+
+  /* ========================================================
+     REDUCED MOTION
+     ======================================================== */
+
   @media (prefers-reduced-motion: reduce) {
+
     .sector-carousel-card {
       transition: opacity 0.2s ease !important;
     }
+
     .sector-carousel-stage.carousel-entering .sector-carousel-card {
       opacity: 1 !important;
       transform: none !important;
     }
+
     .sector-dot-btn {
       transition: none !important;
+    }
+
+    .sector-card-more {
+      transition: none !important;
+    }
+
+    .sector-carousel-card:hover .sector-card-more,
+    .sector-carousel-card:focus-within .sector-card-more,
+    .sector-card-inner:focus-visible .sector-card-more {
+      transform: none !important;
     }
   }
 </style>
@@ -587,23 +775,31 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
       const nextBtn = document.getElementById('sector-carousel-next');
 
       const total = cards.length;
+
       if (!total || !stage) return;
 
       let currentIndex = 0;
-      let timer = null;
-      const AUTOPLAY_INTERVAL = 5000;
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // Update positions of all cards relative to active index
+      // ======================================================
+      // UPDATE CARD POSITIONS
+      // ======================================================
+
       const updatePositions = (newIndex) => {
         currentIndex = (newIndex + total) % total;
 
         cards.forEach((card, idx) => {
           let diff = (idx - currentIndex) % total;
-          if (diff > total / 2) diff -= total;
-          if (diff < -total / 2) diff += total;
+
+          if (diff > total / 2) {
+            diff -= total;
+          }
+
+          if (diff < -total / 2) {
+            diff += total;
+          }
 
           let posAttr = 'hidden-right';
+
           if (diff === 0) {
             posAttr = '0';
           } else if (diff === 1) {
@@ -622,22 +818,28 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 
           card.setAttribute('data-pos', posAttr);
 
-          // Update tab indices and links accessibility
-          const isFeatured = (posAttr === '0');
-          const links = card.querySelectorAll('a, button');
-          links.forEach((el) => {
-            if (isFeatured) {
-              el.setAttribute('tabindex', '0');
-            } else {
-              el.setAttribute('tabindex', '-1');
-            }
-          });
+          // Accessibility
+          const isFeatured = posAttr === '0';
+
+          const link = card.querySelector('a.sector-card-inner');
+
+          if (link) {
+            link.setAttribute(
+              'tabindex',
+              isFeatured ? '0' : '-1'
+            );
+          }
         });
 
         // Update pagination indicators
         dots.forEach((dot, idx) => {
-          const isActive = (idx === currentIndex);
-          dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          const isActive = idx === currentIndex;
+
+          dot.setAttribute(
+            'aria-selected',
+            isActive ? 'true' : 'false'
+          );
+
           if (isActive) {
             dot.style.width = '2rem';
             dot.style.backgroundColor = '#0F623A';
@@ -648,166 +850,265 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
         });
       };
 
-      // Autoplay controls
-      const startTimer = () => {
-        if (prefersReducedMotion) return;
-        stopTimer();
-        timer = setInterval(() => {
-          updatePositions(currentIndex + 1);
-        }, AUTOPLAY_INTERVAL);
-      };
+      // ======================================================
+      // NAVIGATION
+      // ======================================================
 
-      const stopTimer = () => {
-        if (timer) {
-          clearInterval(timer);
-          timer = null;
-        }
-      };
-
-      // Navigation Actions
       const goToPrev = () => {
         updatePositions(currentIndex - 1);
-        startTimer();
       };
 
       const goToNext = () => {
         updatePositions(currentIndex + 1);
-        startTimer();
       };
+
+      // ======================================================
+      // AUTO SCROLL
+      // ======================================================
+
+      let autoScrollTimer;
+
+      // Time between automatic slides
+      const AUTO_SCROLL_DELAY = 4000;
+
+      const startAutoScroll = () => {
+        clearInterval(autoScrollTimer);
+
+        autoScrollTimer = window.setInterval(() => {
+          goToNext();
+        }, AUTO_SCROLL_DELAY);
+      };
+
+      const stopAutoScroll = () => {
+        clearInterval(autoScrollTimer);
+      };
+
+      // ======================================================
+      // PREVIOUS BUTTON
+      // ======================================================
 
       if (prevBtn) {
         prevBtn.addEventListener('click', (e) => {
           e.preventDefault();
+
+          // Reset timer after manual interaction
+          stopAutoScroll();
+
           goToPrev();
+
+          startAutoScroll();
         });
       }
+
+      // ======================================================
+      // NEXT BUTTON
+      // ======================================================
 
       if (nextBtn) {
         nextBtn.addEventListener('click', (e) => {
           e.preventDefault();
+
+          // Reset timer after manual interaction
+          stopAutoScroll();
+
           goToNext();
+
+          startAutoScroll();
         });
       }
 
-      // Dot click navigation
+      // ======================================================
+      // DOT NAVIGATION
+      // ======================================================
+
       dots.forEach((dot, idx) => {
         dot.addEventListener('click', (e) => {
           e.preventDefault();
+
+          // Reset timer after manual interaction
+          stopAutoScroll();
+
           updatePositions(idx);
-          startTimer();
+
+          startAutoScroll();
         });
       });
 
-      // Card Click Handler: Clicking side card smoothly brings it to center.
-      // Clicking center card or its link/button allows navigation to sector details page.
+      // ======================================================
+      // CARD CLICK HANDLER
+      // ======================================================
+
       cards.forEach((card, idx) => {
         card.addEventListener('click', (e) => {
           const pos = card.getAttribute('data-pos');
+
+          // Side card:
+          // First click moves it to the centre
           if (pos !== '0') {
             e.preventDefault();
             e.stopPropagation();
+
+            stopAutoScroll();
+
             updatePositions(idx);
-            startTimer();
-          } else {
-            // Center card clicked: if clicked on an element other than direct link, navigate to sector page
-            const target = e.target;
-            if (!target.closest('a')) {
-              const slug = card.getAttribute('data-slug');
-              if (slug) {
-                window.location.href = `/sectors/${slug}`;
-              }
-            }
+
+            startAutoScroll();
           }
+
+          // Centre card:
+          // Normal link navigation is allowed
         });
       });
 
-      // Pause autoplay on mouse enter, resume on mouse leave
-      root.addEventListener('mouseenter', stopTimer);
-      root.addEventListener('mouseleave', startTimer);
+      // ======================================================
+      // PAUSE ON HOVER
+      // ======================================================
 
-      // Mobile Touch / Swipe Handling
+      root.addEventListener('mouseenter', () => {
+        stopAutoScroll();
+      });
+
+      root.addEventListener('mouseleave', () => {
+        startAutoScroll();
+      });
+
+      // ======================================================
+      // PAUSE WHEN USER FOCUSES CAROUSEL
+      // ======================================================
+
+      root.addEventListener('focusin', () => {
+        stopAutoScroll();
+      });
+
+      root.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+          if (!root.contains(document.activeElement)) {
+            startAutoScroll();
+          }
+        }, 0);
+      });
+
+      // ======================================================
+      // MOBILE TOUCH / SWIPE
+      // ======================================================
+
       let touchStartX = 0;
       let touchStartY = 0;
       let isTouching = false;
 
-      stage.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-        touchStartY = e.changedTouches[0].screenY;
-        isTouching = true;
-        stopTimer();
-      }, { passive: true });
+      stage.addEventListener(
+        'touchstart',
+        (e) => {
+          stopAutoScroll();
 
-      stage.addEventListener('touchend', (e) => {
-        if (!isTouching) return;
-        isTouching = false;
-        const touchEndX = e.changedTouches[0].screenX;
-        const touchEndY = e.changedTouches[0].screenY;
-        const deltaX = touchEndX - touchStartX;
-        const deltaY = touchEndY - touchStartY;
+          touchStartX = e.changedTouches[0].screenX;
+          touchStartY = e.changedTouches[0].screenY;
 
-        // Ensure clear horizontal intent (threshold 40px)
-        if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
-          if (deltaX < 0) {
-            goToNext();
-          } else {
-            goToPrev();
+          isTouching = true;
+        },
+        { passive: true }
+      );
+
+      stage.addEventListener(
+        'touchend',
+        (e) => {
+          if (!isTouching) return;
+
+          isTouching = false;
+
+          const touchEndX = e.changedTouches[0].screenX;
+          const touchEndY = e.changedTouches[0].screenY;
+
+          const deltaX = touchEndX - touchStartX;
+          const deltaY = touchEndY - touchStartY;
+
+          // Ensure clear horizontal intent
+          if (
+            Math.abs(deltaX) > 40 &&
+            Math.abs(deltaX) > Math.abs(deltaY) * 1.2
+          ) {
+            if (deltaX < 0) {
+              goToNext();
+            } else {
+              goToPrev();
+            }
           }
-        }
-        startTimer();
-      }, { passive: true });
 
-      // Pause timer when document is hidden / tab switched
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-          stopTimer();
-        } else {
-          startTimer();
-        }
-      });
+          // Resume auto-scroll after swipe
+          startAutoScroll();
+        },
+        { passive: true }
+      );
 
-      // ========================================================
-      // ENTRANCE ANIMATION VIA INTERSECTION OBSERVER
-      // ========================================================
+      // ======================================================
+      // ENTRANCE ANIMATION
+      // ======================================================
+
       const entranceObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
+
               // Apply staggered entrance delays
               cards.forEach((card) => {
                 const pos = card.getAttribute('data-pos');
+
                 let delay = '0ms';
-                if (pos === '0') delay = '60ms';
-                else if (pos === '1' || pos === '-1') delay = '180ms';
-                else if (pos === '2' || pos === '-2') delay = '300ms';
+
+                if (pos === '0') {
+                  delay = '60ms';
+                } else if (pos === '1' || pos === '-1') {
+                  delay = '180ms';
+                } else if (pos === '2' || pos === '-2') {
+                  delay = '300ms';
+                }
+
                 card.style.transitionDelay = delay;
               });
 
               // Trigger entrance
               stage.classList.remove('carousel-entering');
 
-              // Clear transition delays after entrance completes so slide navigation has no delay
+              // Clear transition delays after entrance
               setTimeout(() => {
                 cards.forEach((card) => {
                   card.style.transitionDelay = '';
                 });
-                startTimer();
               }, 950);
+
+              // Start auto-scroll only once the carousel
+              // has entered the viewport
+              startAutoScroll();
 
               entranceObserver.disconnect();
             }
           });
         },
-        { threshold: 0.15 }
+        {
+          threshold: 0.15
+        }
       );
 
       entranceObserver.observe(root);
     };
 
+    // ======================================================
+    // INITIALIZE
+    // ======================================================
+
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initSectorCarousel);
+      document.addEventListener(
+        'DOMContentLoaded',
+        initSectorCarousel
+      );
     } else {
       initSectorCarousel();
     }
-    document.addEventListener('astro:page-load', initSectorCarousel);
+
+    // Astro View Transitions
+    document.addEventListener(
+      'astro:page-load',
+      initSectorCarousel
+    );
   })();
 </script>

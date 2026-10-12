@@ -91,7 +91,7 @@ const relatedServices = categoryServiceMap[article.category] || [
       </div>
 
       <!-- H1 Title -->
-      <h1 class="relative z-10 text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold text-slate-900 leading-[1.1] tracking-tight mb-7 max-w-3xl">
+      <h1 class="relative z-10 text-4xl sm:text-5xl lg:text-[3.25rem] font-semibold text-slate-900 leading-[1.1] tracking-tight mb-7 max-w-3xl">
         {article.title}
       </h1>
 
@@ -154,7 +154,7 @@ const relatedServices = categoryServiceMap[article.category] || [
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                 </svg>
               </div>
-              <h2 class="text-base font-bold text-slate-900 uppercase tracking-wider">Key Takeaways</h2>
+              <h2 class="text-base font-semibold text-slate-900 uppercase tracking-wider">Key Takeaways</h2>
             </div>
             <ul class="space-y-3">
               {keyTakeaways.map((point: string) => (
@@ -261,7 +261,7 @@ const relatedServices = categoryServiceMap[article.category] || [
     <section class="bg-[#f7f8f5] py-8 lg:py-10 border-t border-slate-200">
       <Container>
         <div class="flex items-center gap-4 mb-10">
-          <h2 class="text-2xl font-extrabold text-slate-900">Related Insights</h2>
+          <h2 class="text-2xl font-semibold text-slate-900">Related Insights</h2>
           <div class="flex-1 h-px bg-slate-200"></div>
           <a href="/insights" class="text-sm font-bold text-[#2D6A4F] hover:underline shrink-0">View all →</a>
         </div>
@@ -280,7 +280,7 @@ const relatedServices = categoryServiceMap[article.category] || [
               </div>
               <div class="flex-1 p-5 flex flex-col">
                 <p class="text-[11px] text-slate-400 font-mono mb-2">{rel.publishedDate} · {rel.readTime}</p>
-                <h3 class="text-sm font-bold text-slate-900 group-hover:text-[#2D6A4F] transition-colors leading-snug mb-2 line-clamp-2 flex-1">
+                <h3 class="text-sm font-semibold text-slate-900 group-hover:text-[#2D6A4F] transition-colors leading-snug mb-2 line-clamp-2 flex-1">
                   {rel.title}
                 </h3>
                 <span class="mt-3 flex items-center gap-1 text-xs font-bold text-[#2D6A4F] group-hover:gap-2 transition-all">
@@ -303,7 +303,7 @@ const relatedServices = categoryServiceMap[article.category] || [
     <Container className="relative z-10">
       <div class="w-full max-w-[1240px] mx-auto text-center">
         <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Work With Techsteps</span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 mb-5 leading-tight tracking-tight">
           Ready to Build a Smarter Technology Lifecycle?
         </h2>
         <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 font-medium max-w-xl mx-auto">

@@ -114,7 +114,7 @@ const divisionMetadata: Record<
   <HeroHome />
 
   <!-- Section 2 — Corporate Introduction & Impact: Secure ITAD Services in the UK -->
-  <Section padding="pt-8 sm:pt-10 lg:pt-12 pb-6 sm:pb-8" className="relative overflow-hidden bg-[#f1f4ef] text-slate-900">
+  {/*<Section padding="pt-8 sm:pt-10 lg:pt-12 pb-6 sm:pb-8" className="relative overflow-hidden bg-white text-slate-900">
     <!-- Ambient World Dots Watermark Background in Upper Section -->
     <div class="absolute top-6 right-0 w-full lg:w-2/3 h-72 sm:h-96 pointer-events-none opacity-25 select-none overflow-hidden" aria-hidden="true">
       <img
@@ -127,8 +127,6 @@ const divisionMetadata: Record<
     </div>
 
     <!-- Soft radial eco ambient glow -->
-    <div class="absolute top-16 -left-20 w-80 h-80 rounded-full bg-emerald-100/30 blur-3xl pointer-events-none" aria-hidden="true"></div>
-
     <Container className="relative z-10">
       <!-- Two-Column Narrative: Left Image with Backing Design, Right Content -->
       <div id="itad-reveal-section" class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
@@ -149,7 +147,7 @@ const divisionMetadata: Record<
         <div class="lg:col-span-7 xl:col-span-7 space-y-4 sm:space-y-5 text-left py-2">
           <!-- Main Headline (Dark Green #0F623A) with subtle scroll reveal -->
           <div class="itad-reveal-heading transition-all duration-700 ease-out">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] font-extrabold tracking-normal leading-[1.14] font-display text-[#0F623A]">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[52px] font-semibold tracking-normal leading-[1.14] font-display text-[#0F623A]">
               {homePage?.intro?.heading || 'Trusted ITAD Services Across the UK'}
             </h2>
 
@@ -172,7 +170,7 @@ const divisionMetadata: Record<
   homePage?.statistics?.map((stat) => (
     <div class="space-y-2.5">
       <div
-        class="text-5xl sm:text-6xl lg:text-[70px] font-bold text-[#0F623A] tracking-tight leading-none font-sans stat-counter-item"
+        class="text-5xl sm:text-6xl lg:text-[70px] font-semibold text-[#0F623A] tracking-tight leading-none font-sans stat-counter-item"
         data-target={stat.number || '0'}
         data-suffix={stat.suffix || ''}
       >
@@ -192,7 +190,7 @@ const divisionMetadata: Record<
 }
       </div>
     </Container>
-  </Section>
+  </Section>*/}
 
   <!-- Section 3 — About Company / Waste Solutions (Commented out as requested) -->
   {/*
@@ -202,7 +200,7 @@ const divisionMetadata: Record<
         <!-- Left Column: Waste Solutions Photo Collage (Made Big) -->
         <div class="lg:col-span-7 xl:col-span-8 flex justify-center items-center">
           <div class="relative w-full max-w-[760px] xl:max-w-[840px] lg:scale-105 xl:scale-110 lg:origin-center transition-transform duration-300">
-            <div class="absolute -inset-4 bg-emerald-500/10 rounded-3xl blur-2xl pointer-events-none" aria-hidden="true"></div>
+            <div class="absolute -inset-4  blur-2xl pointer-events-none" aria-hidden="true"></div>
             <img
               src="/images/brand/about-company-collage.png"
               alt="About Techsteps company, IT recycling operations and sustainable asset disposal"
@@ -219,7 +217,7 @@ const divisionMetadata: Record<
             <span class="text-sm sm:text-base font-bold text-[#0F623A] tracking-wider uppercase font-sans">
               About Company
             </span>
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[46px] font-extrabold text-black tracking-tight leading-[1.12] font-display">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[46px] font-semibold text-black tracking-tight leading-[1.12] font-display">
               Waste Solutions For Brighter Tomorrow
             </h2>
           </div>
@@ -274,7 +272,7 @@ const divisionMetadata: Record<
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white text-brand-blue text-xs font-bold uppercase tracking-wider border border-slate-200">
             <span>Specialist Advisory &amp; Operations</span>
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight leading-tight">
+          <h2 class="text-3xl sm:text-4xl font-semibold text-brand-navy tracking-tight leading-tight">
             Expert Help Every Step of the Way
           </h2>
           <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
@@ -282,11 +280,11 @@ const divisionMetadata: Record<
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-xs">
-              <h4 class="font-bold text-brand-navy text-sm mb-1">Tailored Governance</h4>
+              <h4 class="font-semibold text-brand-navy text-sm mb-1">Tailored Governance</h4>
               <p class="text-xs text-slate-600">Bespoke SLAs configured to your exact internal security classification mandates.</p>
             </div>
             <div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-xs">
-              <h4 class="font-bold text-brand-navy text-sm mb-1">Rapid Dispatch SLA</h4>
+              <h4 class="font-semibold text-brand-navy text-sm mb-1">Rapid Dispatch SLA</h4>
               <p class="text-xs text-slate-600">Nationwide tracked fleet capable of executing urgent emergency collections.</p>
             </div>
           </div>
@@ -296,22 +294,22 @@ const divisionMetadata: Record<
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
               <span class="text-2xl font-black text-brand-accent">01</span>
-              <h3 class="text-base font-bold text-brand-navy">Risk Assessment</h3>
+              <h3 class="text-base font-semibold text-brand-navy">Risk Assessment</h3>
               <p class="text-xs text-slate-600">Full audit of hardware models, data sensitivities, and logistics access prior to scheduling.</p>
             </div>
             <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
               <span class="text-2xl font-black text-brand-accent">02</span>
-              <h3 class="text-base font-bold text-brand-navy">Chain of Custody</h3>
+              <h3 class="text-base font-semibold text-brand-navy">Chain of Custody</h3>
               <p class="text-xs text-slate-600">Tamper-evident barcode seals applied on-site with dual signature verification.</p>
             </div>
             <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
               <span class="text-2xl font-black text-brand-accent">03</span>
-              <h3 class="text-base font-bold text-brand-navy">Certified Processing</h3>
+              <h3 class="text-base font-semibold text-brand-navy">Certified Processing</h3>
               <p class="text-xs text-slate-600">ADISA Standard 8.0 sanitisation or DIN 66399 micro-granulation.</p>
             </div>
             <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
               <span class="text-2xl font-black text-brand-accent">04</span>
-              <h3 class="text-base font-bold text-brand-navy">Defensible Closeout</h3>
+              <h3 class="text-base font-semibold text-brand-navy">Defensible Closeout</h3>
               <p class="text-xs text-slate-600">Itemized certificates of destruction and corporate ESG rebate returns.</p>
             </div>
           </div>
@@ -354,7 +352,7 @@ const divisionMetadata: Record<
           <!-- Main Dominant Headline -->
           <h2
             id="why-choose-heading"
-            class="why-choose-reveal text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-extrabold font-display text-slate-900 tracking-tight leading-[1.14] mb-4 sm:mb-5"
+            class="why-choose-reveal text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-semibold font-display text-slate-900 tracking-tight leading-[1.14] mb-4 sm:mb-5"
           >
             Why Choose TechSteps?
           </h2>
@@ -381,7 +379,7 @@ const divisionMetadata: Record<
                 </svg>
               </div>
               <div class="space-y-1 pt-0.5">
-                <h3 class="text-lg sm:text-xl font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
                   Security & Compliance
                 </h3>
                 <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
@@ -405,7 +403,7 @@ const divisionMetadata: Record<
                 </svg>
               </div>
               <div class="space-y-1 pt-0.5">
-                <h3 class="text-lg sm:text-xl font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
                   Complete Lifecycle Solutions
                 </h3>
                 <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
@@ -429,7 +427,7 @@ const divisionMetadata: Record<
                 </svg>
               </div>
               <div class="space-y-1 pt-0.5">
-                <h3 class="text-lg sm:text-xl font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
                   Sustainable Outcomes
                 </h3>
                 <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
@@ -453,7 +451,7 @@ const divisionMetadata: Record<
                 </svg>
               </div>
               <div class="space-y-1 pt-0.5">
-                <h3 class="text-lg sm:text-xl font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
                   Reliable Service
                 </h3>
                 <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
@@ -491,10 +489,8 @@ const divisionMetadata: Record<
   </Section>
 
   <!-- Section 7 — Sectors We Serve -->
-  <Section theme="slate" id="sectors" padding="py-8 sm:py-10 lg:py-12" className="relative overflow-hidden bg-gradient-to-b from-[#F5F8F5] via-[#EFF4EF] to-[#F7FAF7] border-t border-slate-200/80">
-    <!-- Ambient subtle background lighting accents -->
-    <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-emerald-200/25 blur-3xl rounded-full pointer-events-none" aria-hidden="true"></div>
-    <div class="absolute bottom-0 right-10 w-96 h-96 bg-[#3FB33D]/5 blur-3xl rounded-full pointer-events-none" aria-hidden="true"></div>
+  <Section theme="slate" id="sectors" padding="py-8 sm:py-10 lg:py-12" className="relative overflow-hidden bg-white border-t border-slate-200/80">
+
 
     <div class="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto space-y-3.5 mb-6 sm:mb-8">
@@ -502,7 +498,7 @@ const divisionMetadata: Record<
           <span class="w-1.5 h-1.5 rounded-full bg-[#3FB33D] animate-pulse"></span>
           SECTORS WE SERVE
         </span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 tracking-tight leading-[1.18]">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display text-slate-900 tracking-tight leading-[1.18]">
           Supporting Businesses Across Every Sector
         </h2>
         <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
@@ -519,10 +515,10 @@ const divisionMetadata: Record<
 
 
   <!-- Section 15 — Homepage Final CTA -->
-<Section theme="slate" padding="py-6 sm:py-8" className="relative overflow-hidden border-t border-slate-200/80">
+<Section theme="slate" padding="py-6 sm:py-8" className="relative overflow-hidden bg-white border-t border-slate-200/80">
   <Container className="relative z-10 text-center w-full !max-w-[1408px] mx-auto space-y-8">
 
-<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-brand-navy tracking-normal leading-tight mx-auto w-full">
+<h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display text-brand-navy tracking-normal leading-tight mx-auto w-full">
   {homePage?.cta?.heading?.replace(' securely?', '') || 'Ready to manage your IT lifecycle more'}
   <span class="block">securely?</span>
 </h2>

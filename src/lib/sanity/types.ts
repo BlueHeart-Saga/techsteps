@@ -84,6 +84,7 @@ export interface Service {
   keyBenefits: string[];
   process: ServiceProcessStep[];
   capabilities: string[];
+  deliverables?: { title: string; description?: string }[];
   faqs: FAQItem[];
   relatedServices?: string[]; // service slugs
   relatedSectors?: string[];  // sector slugs
@@ -134,6 +135,11 @@ export interface Sector {
   summary: string;
   heroImage: string;
   heroAlt: string;
+
+  whoWeSupport?: {
+    name: string;
+    description: string;
+  }[];
 
   challengesSection?: {
     eyebrow?: string;

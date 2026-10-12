@@ -111,14 +111,10 @@ const uniqueCount = sourceList.length;
 
 <section
   id="client-testimonials-section"
-  class="testimonials-marquee-section relative bg-[#F1F4EF] py-[68px] lg:pt-[104px] lg:pb-[96px] overflow-hidden text-slate-900 border-t border-slate-200/80 select-none"
+  class="testimonials-marquee-section relative bg-white py-[68px] lg:pt-[104px] lg:pb-[96px] overflow-hidden text-slate-900 border-t border-slate-200/80 select-none"
   aria-labelledby="testimonials-heading"
 >
-  <!-- Ambient Soft Eco Glow Background Accents -->
-  <div class="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
-    <div class="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full bg-emerald-100/25 blur-[130px]"></div>
-    <div class="absolute bottom-0 left-1/4 w-[450px] h-[450px] rounded-full bg-[#EEF7F2]/60 blur-[130px]"></div>
-  </div>
+
 
   <!-- Centred Section Header -->
   <div class="relative z-10 max-w-3xl mx-auto mb-10 sm:mb-14 lg:mb-16 px-4 text-center">
@@ -141,7 +137,7 @@ const uniqueCount = sourceList.length;
     <!-- Heading: Sentence-case, existing heading text -->
     <h2
       id="testimonials-heading"
-      class="text-3xl sm:text-4xl lg:text-[44px] font-extrabold font-display text-slate-900 tracking-tight leading-[1.14] mb-3 sm:mb-4 text-balance"
+      class="text-3xl sm:text-4xl lg:text-[44px] font-semibold font-display text-slate-900 tracking-tight leading-[1.14] mb-3 sm:mb-4 text-balance"
     >
       {sectionHeading}
     </h2>
@@ -236,7 +232,7 @@ const uniqueCount = sourceList.length;
                 <!-- Name, Role and Company (No truncation, allowed to wrap naturally onto multiple lines) -->
                 <div class="min-w-0 flex-1">
                   <h3
-                    class={`text-base font-bold leading-snug tracking-tight ${
+                    class={`text-base font-semibold leading-snug tracking-tight ${
                       isDark ? 'text-white' : 'text-[#0F623A]'
                     }`}
                   >

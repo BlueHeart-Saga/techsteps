@@ -93,6 +93,25 @@ export default {
     },
 
     // =========================================================
+    // 1B. WHO WE SUPPORT (ORGANISATIONS)
+    // =========================================================
+
+    {
+      name: 'whoWeSupport',
+      title: 'Who We Support (Organisations)',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'name', title: 'Organisation Type', type: 'string' },
+            { name: 'description', title: 'Description', type: 'text', rows: 2 },
+          ],
+        },
+      ],
+    },
+
+    // =========================================================
     // 2. INDUSTRY CONTEXT / CHALLENGES
     // =========================================================
 

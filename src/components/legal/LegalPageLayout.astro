@@ -122,7 +122,7 @@ const policyNav = [
         <aside class="lg:col-span-4 lg:sticky lg:top-24 space-y-6 select-none">
           <!-- Policy Navigation Card -->
           <div class="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-4">
-            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">
+            <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 font-mono">
               Corporate Governance Directory
             </h2>
             <nav class="space-y-1" aria-label="Governance and Legal Policies">
@@ -178,7 +178,7 @@ const policyNav = [
             {sections && sections.length > 0 ? (
               sections.map((sec) => (
                 <section class="space-y-4">
-                  <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+                  <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
                     {sec.heading}
                   </h2>
                   {sec.body && (
@@ -198,7 +198,7 @@ const policyNav = [
                     <div class="space-y-3">
                       {sec.cards.map((c) => (
                         <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
-                          <h3 class="font-bold text-slate-900 text-base">{c.title}</h3>
+                          <h3 class="font-semibold text-slate-900 text-base">{c.title}</h3>
                           <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">{c.text}</p>
                         </div>
                       ))}

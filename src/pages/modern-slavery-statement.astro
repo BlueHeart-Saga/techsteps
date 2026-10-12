@@ -22,7 +22,7 @@ const [siteSettings, legalData] = await Promise.all([
     legalData.sections.map((sec) => (
       <section class="space-y-4 mb-8">
         {sec.heading && (
-          <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+          <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
             {sec.heading}
           </h2>
         )}
@@ -39,7 +39,7 @@ const [siteSettings, legalData] = await Promise.all([
           <div class="space-y-3">
             {sec.cards.map((c) => (
               <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
-                <h3 class="font-bold text-slate-900 text-base">{c.title}</h3>
+                <h3 class="font-semibold text-slate-900 text-base">{c.title}</h3>
                 <p class="text-xs sm:text-sm text-slate-600 mt-1">{c.description}</p>
               </div>
             ))}
@@ -49,7 +49,7 @@ const [siteSettings, legalData] = await Promise.all([
     ))
   ) : (
   <section class="space-y-4">
-    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+    <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       1. Organizational Stance &amp; Policy Scope
     </h2>
     <p>
@@ -61,7 +61,7 @@ const [siteSettings, legalData] = await Promise.all([
   </section>
 
   <section class="space-y-4">
-    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+    <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       2. Business Structure &amp; Supply Chain Overview
     </h2>
     <p>
@@ -79,7 +79,7 @@ const [siteSettings, legalData] = await Promise.all([
   </section>
 
   <section class="space-y-4">
-    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+    <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       3. Strict Recruitment &amp; Employee Vetting Standards
     </h2>
     <p>
@@ -87,26 +87,26 @@ const [siteSettings, legalData] = await Promise.all([
     </p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
-        <h4 class="font-bold text-slate-900 text-sm">Mandatory BS 7858 Screening</h4>
+        <h4 class="font-semibold text-slate-900 text-sm">Mandatory BS 7858 Screening</h4>
         <p class="text-xs text-slate-600 mt-1">100% of employees undergo comprehensive 5-year employment verification, financial probity checks, and enhanced criminal record checks prior to commencing work.</p>
       </div>
       <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
-        <h4 class="font-bold text-slate-900 text-sm">Real Living Wage Employer</h4>
+        <h4 class="font-semibold text-slate-900 text-sm">Real Living Wage Employer</h4>
         <p class="text-xs text-slate-600 mt-1">We are committed to paying all employees at or above the independently calculated Real Living Wage, mitigating the financial vulnerability that can lead to worker exploitation.</p>
       </div>
       <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
-        <h4 class="font-bold text-slate-900 text-sm">Direct Employment Priority</h4>
+        <h4 class="font-semibold text-slate-900 text-sm">Direct Employment Priority</h4>
         <p class="text-xs text-slate-600 mt-1">We prioritize direct permanent employment contracts over agency temporary labour, ensuring transparent working conditions and statutory employment rights.</p>
       </div>
       <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
-        <h4 class="font-bold text-slate-900 text-sm">Right to Work Verification</h4>
+        <h4 class="font-semibold text-slate-900 text-sm">Right to Work Verification</h4>
         <p class="text-xs text-slate-600 mt-1">Robust physical and Home Office digital share-code right-to-work verification is conducted for every candidate without exception.</p>
       </div>
     </div>
   </section>
 
   <section class="space-y-4">
-    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+    <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       4. Downstream Supplier Due Diligence &amp; Audits
     </h2>
     <p>
@@ -126,7 +126,7 @@ const [siteSettings, legalData] = await Promise.all([
   </section>
 
   <section class="space-y-4">
-    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+    <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       5. Whistleblowing &amp; Anonymous Reporting
     </h2>
     <p>
@@ -140,7 +140,7 @@ const [siteSettings, legalData] = await Promise.all([
   </section>
 
   <section class="space-y-4">
-    <h2 class="text-2xl font-bold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
+    <h2 class="text-2xl font-semibold text-slate-900 font-display tracking-tight border-b border-slate-200 pb-3">
       6. Board Approval &amp; Executive Sign-Off
     </h2>
     <p>

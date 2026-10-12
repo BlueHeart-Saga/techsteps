@@ -7,14 +7,6 @@ const about = await getAboutPage();
 
 const canonicalUrl = 'https://techsteps.co.uk/about-us';
 
-const hero = about?.hero;
-const whoWeAre = about?.whoWeAre;
-const highlights = whoWeAre?.highlights || [];
-const whatWeDo = about?.whatWeDo?.items || [];
-const approach = about?.approach;
-const approachSteps = approach?.steps || [];
-const capabilities = about?.capabilities?.items || [];
-const statistics = about?.statistics || [];
 const cta = about?.cta;
 
 const aboutPageSchema = {
@@ -27,7 +19,7 @@ const aboutPageSchema = {
     'About Techsteps — Managing What Matters',
   description:
     about?.metaDescription ||
-    '',
+    'TechSteps is an IT asset recovery and responsible recycling company. We partner with businesses to securely manage their retired technology.',
   mainEntity: {
     '@id': 'https://techsteps.co.uk/#organization',
   },
@@ -35,538 +27,122 @@ const aboutPageSchema = {
 ---
 
 <BaseLayout
-  title={about?.metaTitle || ''}
-  description={about?.metaDescription || ''}
+  title={about?.metaTitle || 'About Us — Techsteps'}
+  description={about?.metaDescription || 'TechSteps is an IT asset recovery and responsible recycling company.'}
   canonicalUrl={canonicalUrl}
   jsonLd={aboutPageSchema}
   hasHeroHeader={true}
 >
-  <div class="about-page-wrapper">
+  <!-- Top Navigation Header on clean white background -->
+  <HeroHeader isHome={false} />
+
+  <div class="about-page-wrapper bg-white text-slate-900 selection:bg-[#0F623A] selection:text-white">
 
     <!-- =====================================================
-         1. HERO
+         1. SECTION 1 — TECHNOLOGY WITH A PURPOSE (HERO)
     ====================================================== -->
+    <section id="technology-purpose" class="relative bg-white pt-8 sm:pt-12 lg:pt-14 pb-0 overflow-hidden min-h-[596px] flex items-center">
+      <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
 
-    <section
-      id="top"
-      class="hero on-dark select-none"
-    >
-      <div
-        class="hero-bg-media absolute inset-0 select-none pointer-events-none overflow-hidden z-0"
-        aria-hidden="true"
-      >
-<img
-  src={hero?.image || "/images/hero/about-hero-technicians.jpg"}
-  alt={hero?.imageAlt || 'Techsteps technicians in secure facility'}
-  class="w-full h-full object-cover object-center brightness-[0.92] contrast-[1.03] scale-100"
-  loading="eager"
-/>
-
-        <!-- Left-side High-Contrast Overlay for Brand Badge & Logo -->
-        <div class="absolute inset-y-0 left-0 w-full sm:w-[58%] md:w-[50%] lg:w-[44%] xl:w-[40%] 2xl:w-[36%] bg-gradient-to-r from-black/92 via-black/75 via-[55%] via-black/35 via-[82%] to-transparent pointer-events-none z-[1]"></div>
-      </div>
-
-      <!-- Integrated Hero Navbar -->
-      <HeroHeader />
-
-      <div class="shell relative z-10 pt-4 sm:pt-6 lg:pt-8">
-
-        <!-- Breadcrumb -->
-        <nav
-          class="flex items-center text-xs sm:text-sm font-sans font-medium text-slate-300/90 pb-4 sm:pb-6"
-          aria-label="Breadcrumb"
-        >
-          <a
-            href="/"
-            class="hover:text-white transition-colors duration-150"
-          >
-            Home
-          </a>
-
-          <span class="inline-flex items-center">
-            <span class="mx-2 text-slate-400/80">/</span>
-
-            <span class="text-white font-semibold">
-              About Us
-            </span>
-          </span>
-        </nav>
-
-        <div class="grid">
-
-          <div>
-
-            {hero?.eyebrow && (
-              <p class="eyebrow lift">
-                {hero.eyebrow}
-              </p>
-            )}
-
-            <h1 class="lift min-h-[2lh] !text-white text-white">
-              {hero?.title}
-
-              {hero?.highlightedTitle && (
-                <span class="l2">
-                  {hero.highlightedTitle}
-                </span>
-              )}
+          <!-- Left: Heading and Supporting Text -->
+          <div class="lg:col-span-4 xl:col-span-4 text-left">
+            <h1 class="text-4xl sm:text-5xl lg:text-[54px] font-semibold text-slate-900 tracking-tight leading-[1.08] font-display">
+              Technology<br />With a Purpose
             </h1>
-
-            {hero?.description && (
-              <p class="lede lift min-h-[3lh]">
-                {hero.description}
-              </p>
-            )}
-
+            <p class="mt-6 text-slate-600 text-base sm:text-[17px] leading-relaxed max-w-sm">
+              We give businesses a smarter way to manage their IT assets securely, responsibly, and sustainably.
+            </p>
           </div>
 
-          <figure class="hero-figure lift">
-
-            <div
-              class="photo border-2 border-white/20 shadow-2xl"
-              data-caption="Techsteps secure processing facility"
-            >
-<img
-  src={hero?.image || "/images/hero/about-hero-technicians.jpg"}
-  alt={hero?.imageAlt || 'Techsteps secure processing facility'}
-  class="w-full h-full object-cover object-center"
-  loading="eager"
-/>
-            </div>
-
-            <div
-              class="ring"
-              aria-hidden="true"
-            ></div>
-
-            <div
-              class="seal"
-              aria-hidden="true"
-            >
-              Chain of<br />
-              custody
-            </div>
-
-          </figure>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- =====================================================
-         2. WHO WE ARE
-    ====================================================== -->
-
-    <section
-      id="who"
-      class="band bg-white py-8 sm:py-12 lg:py-16"
-    >
-      <div class="shell">
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-
-          <!-- Content -->
-
-          <div class="lg:col-span-7 flex flex-col">
-
-            <div class="flex items-center gap-3 mb-4 sm:mb-5">
-
-              <span class="text-xs sm:text-sm font-bold tracking-widest text-[#0F623A] uppercase font-sans">
-                {whoWeAre?.eyebrow || 'WHO WE ARE'}
-              </span>
-
-              <span class="w-8 h-[2.5px] bg-[#0F623A] rounded-full inline-block"></span>
-
-            </div>
-
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-950 tracking-tight leading-[1.12] mt-3 sm:mt-4 mb-3 sm:mb-4">
-
-              {whoWeAre?.title}
-
-              {whoWeAre?.highlightedTitle && (
-                <span class="text-[#0F623A]">
-                  {whoWeAre.highlightedTitle}
-                </span>
-              )}
-
-            </h2>
-            <br />
-
-            <div class="space-y-4 text-base sm:text-lg text-slate-700 leading-relaxed font-normal mb-4 sm:mb-6">
-
-              {whoWeAre?.paragraphs?.map((paragraph) => (
-                <p>
-                  {paragraph}
-                </p>
-              ))}
-
-              {!whoWeAre?.paragraphs &&
-                whoWeAre?.description && (
-                  <p>
-                    {whoWeAre.description}
-                  </p>
-                )}
-
-            </div>
-
-
-            <!-- Feature Pillars -->
-
-            {highlights.length > 0 && (
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-0">
-
-                {highlights.slice(0, 3).map(
-                  (highlight, index) => (
-
-                    <div class="space-y-3">
-
-                      <div class="w-12 h-12 rounded-full bg-[#EBF5EF] text-[#0F623A] flex items-center justify-center">
-
-                        {index === 0 && (
-                          <svg
-                            class="w-6 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 00-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                            />
-                          </svg>
-                        )}
-
-                        {index === 1 && (
-                          <svg
-                            class="w-6 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"
-                            />
-                            <line
-                              x1="16"
-                              y1="8"
-                              x2="2"
-                              y2="22"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        )}
-
-                        {index === 2 && (
-                          <svg
-                            class="w-6 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                            />
-                          </svg>
-                        )}
-
-                      </div>
-
-                      <div class="space-y-6">
-
-                        <h3 class="text-base sm:text-[17px] font-bold text-slate-900 leading-snug">
-                          {highlight.title}
-                        </h3>
-
-                        <p class="!mt-1 text-xs sm:text-[13.5px] text-slate-500 leading-relaxed font-normal">
-                          {highlight.description}
-                        </p>
-
-                      </div>
-
-                    </div>
-
-                  )
-                )}
-
-              </div>
-            )}
-
-          </div>
-
-
-          <!-- Right Image -->
-
-          <div class="lg:col-span-5 flex items-center justify-center lg:justify-end">
-
-            <div class="relative w-full max-w-[520px]">
-
+          <!-- Center: Technician Worker Image -->
+          <div class="lg:col-span-8 xl:col-span-8 flex justify-center items-center relative mt-6 mb-0 lg:my-0">
+            <div class="relative w-full max-w-[771px] h-[596px] flex justify-center items-center mx-auto">
               <img
-                src={whoWeAre?.image || "/images/about/who-we-are-technician.png"}
-                alt={
-                  whoWeAre?.imageAlt ||
-                  'Techsteps certified technician inspecting refurbished hardware'
-                }
-                class="w-full h-auto object-contain max-h-[560px] drop-shadow-md mx-auto lg:ml-auto"
-                loading="lazy"
-                decoding="async"
+                src="/images/about/about hero.webp"
+                alt="TechSteps technician wearing branded uniform"
+                class="w-full h-full max-w-[771px] max-h-[596px] object-contain object-bottom drop-shadow-sm select-none mx-auto"
+                width="771"
+                height="596"
+                loading="eager"
               />
-
             </div>
-
           </div>
-
         </div>
       </div>
     </section>
 
 
     <!-- =====================================================
-         3. WHAT WE DO
+         2. SECTION 2 — DRIVING A CLEANER, SMARTER TOMORROW.
     ====================================================== -->
+    <section id="cleaner-smarter" class="bg-white pt-4 sm:pt-6 lg:pt-6 pb-10 sm:pb-12 lg:pb-14">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <section
-      id="do"
-      class="band bg-white"
-      style="padding-top:0"
-    >
-      <div class="shell">
-
-        <div class="head-rule">
-
-          <span class="dot"></span>
-
-          <p class="eyebrow">
-            {about?.whatWeDo?.eyebrow || 'What we do'}
+        <!-- Centered Heading & Description -->
+        <div class="text-center max-w-3xl mx-auto">
+          <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold text-slate-900 tracking-tight font-display leading-tight">
+            Driving a Cleaner, Smarter Tomorrow.
+          </h2>
+          <p class="mt-3.5 text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+            TechSteps is an IT asset recovery and responsible recycling company. We partner with businesses to securely manage their retired technology, recover value where possible, and ensure environmental responsibility throughout.
           </p>
-
-          <span class="line"></span>
-
         </div>
 
-        <div class="divisions">
-
-          {whatWeDo.map((item, index) => (
-
-            <article class="division">
-
-              <div class="shot">
-
-                <div
-                  class="photo"
-                  data-caption={item.title || ''}
-                >
-
-                  <img
-                    src={
-                      index === 0
-                        ? '/images/about/It-lifecycle-services.webp'
-                        : index === 1
-                          ? '/images/about/Information-management.webp'
-                          : '/images/about/Moving&relocation.webp'
-                    }
-                    alt={
-                      item.imageAlt ||
-                      item.title ||
-                      ''
-                    }
-                    class="w-full h-full object-cover"
-                    loading="lazy"
-                    onerror="this.style.display='none'"
-                  />
-
-                </div>
-
-                <span class="no">
-                  {item.number ||
-                    String(index + 1).padStart(2, '0')}
-                </span>
-
-              </div>
-
-              <h3 class="min-h-[2lh] flex items-end !capitalize">
-                {item.title}
-              </h3>
-
-              <p class="min-h-[4lh] !mt-3">
-                {item.description}
-              </p>
-
-              {item.link && (
-                <a
-                  class="go"
-                  href={item.link}
-                >
-                  Explore services
-
-                  <em aria-hidden="true">
-                    &rarr;
-                  </em>
-                </a>
-              )}
-
-            </article>
-
-          ))}
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- =====================================================
-         4. APPROACH
-    ====================================================== -->
-
-    <section
-      id="approach"
-      class="approach"
-    >
-      <div class="shell">
-
-        <div class="head-rule">
-
-          <span class="dot"></span>
-
-          <p class="eyebrow">
-            {approach?.eyebrow || 'Our approach'}
-          </p>
-
-          <span class="line"></span>
-
-        </div>
-
-        <h2>
-          {approach?.title}
-        </h2>
-
-        {approach?.description && (
-          <p class="intro">
-            {approach.description}
-          </p>
-        )}
-
-        <div class="flow">
-
-          <svg
-            viewBox="0 0 1000 80"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M120 12 C 250 12, 250 60, 375 60 S 500 12, 625 12 S 750 60, 875 60"
-              fill="none"
-              stroke="#0F623A"
-              stroke-width="2"
-              stroke-dasharray="6 6"
-              opacity=".4"
+        <!-- Three Horizontally Aligned Value Indicators -->
+        <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 lg:gap-14 mt-8 sm:mt-10">
+          <!-- 1. Secure Handling -->
+          <div class="flex flex-col items-center text-center px-4">
+            <img
+              src="/images/about/Secure Handling.svg"
+              alt="Secure Handling icon"
+              class="w-10 h-10 object-contain mx-auto"
+              loading="lazy"
             />
-          </svg>
-
-          <div class="steps">
-
-            {approachSteps.map((step, index) => (
-
-              <div class="step">
-
-                <div
-                  class="hex"
-                  aria-label={`Step ${index + 1}: ${step.title || ''}`}
-                >
-
-                  {index === 0 && (
-                    <svg
-                      class="hex-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      <path d="m9 12 2 2 4-4" />
-                    </svg>
-                  )}
-
-                  {index === 1 && (
-                    <svg
-                      class="hex-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
-                      <path d="M9 18h6" />
-                      <path d="M10 22h4" />
-                    </svg>
-                  )}
-
-                  {index === 2 && (
-                    <svg
-                      class="hex-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5" />
-                      <path d="M11 19h8.2a1.8 1.8 0 0 0 1.565-.89 1.78 1.78 0 0 0 .004-1.78l-3.955-6.83" />
-                      <path d="M8.2 5.8 12 2l3.8 3.8" />
-                      <path d="M12 2v10" />
-                    </svg>
-                  )}
-
-                  {index === 3 && (
-                    <svg
-                      class="hex-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-                      <polyline points="16 7 22 7 22 13" />
-                    </svg>
-                  )}
-
-                </div>
-
-                <div>
-
-                  <h3>
-                    {step.title}
-                  </h3>
-
-                  <p class="!mt-2">
-                    {step.description}
-                  </p>
-
-                </div>
-
-              </div>
-
-            ))}
-
+            <span class="mt-2 text-sm sm:text-base font-semibold text-slate-900">
+              Secure Handling
+            </span>
           </div>
 
+          <div class="hidden sm:block w-px h-9 bg-slate-200" aria-hidden="true"></div>
+
+          <!-- 2. Recover Value -->
+          <div class="flex flex-col items-center text-center px-4">
+            <img
+              src="/images/about/Recover Value.svg"
+              alt="Recover Value icon"
+              class="w-10 h-10 object-contain mx-auto"
+              loading="lazy"
+            />
+            <span class="mt-2 text-sm sm:text-base font-semibold text-slate-900">
+              Recover Value
+            </span>
+          </div>
+
+          <div class="hidden sm:block w-px h-9 bg-slate-200" aria-hidden="true"></div>
+
+          <!-- 3. Sustainable Impact -->
+          <div class="flex flex-col items-center text-center px-4">
+            <img
+              src="/images/about/Sustainable Impact.svg"
+              alt="Sustainable Impact icon"
+              class="w-10 h-10 object-contain mx-auto"
+              loading="lazy"
+            />
+            <span class="mt-2 text-sm sm:text-base font-semibold text-slate-900">
+              Sustainable Impact
+            </span>
+          </div>
+        </div>
+
+        <!-- Prominent Building Image -->
+        <div class="mt-8 sm:mt-10 max-w-5xl mx-auto overflow-hidden">
+          <img
+            src="/images/about/building.webp"
+            alt="TechSteps secure IT disposal and recycling facility"
+            class="w-full h-auto object-contain mx-auto"
+            loading="lazy"
+          />
         </div>
 
       </div>
@@ -574,156 +150,264 @@ const aboutPageSchema = {
 
 
     <!-- =====================================================
-         5. CAPABILITIES
+         3. SECTION 3 — MORE THAN RECYCLING. A BRIGHTER FUTURE.
     ====================================================== -->
+    <section id="brighter-future" class="bg-white py-10 sm:py-12 lg:py-14 border-t border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
-    <section
-      id="caps"
-      class="band bg-white"
-    >
-      <div class="shell">
+          <!-- Left Column: Heading and Editorial Description -->
+          <div class="lg:col-span-7">
+            <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+              More Than<br />Recycling.<br />A Brighter Future.
+            </h2>
+            <p class="mt-4 sm:mt-5 text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl">
+              We believe technology can create a better future — especially when it's handled responsibly. Our mission is to make IT asset management simple, secure, and sustainable for every business, helping you protect data and protect the planet.
+            </p>
+          </div>
 
-        <div class="head-rule">
-
-          <span class="dot"></span>
-
-          <p class="eyebrow">
-            {about?.capabilities?.eyebrow ||
-              'Our capabilities'}
-          </p>
-
-          <span class="line"></span>
+          <!-- Right Column: Hand holding recovered IT hardware -->
+          <div class="lg:col-span-5 flex justify-center lg:justify-end">
+            <img
+              src="/images/about/More Than Recycling. A Brighter Future..webp"
+              alt="Hand holding recovered IT components and hardware"
+              class="w-full max-w-md h-auto object-contain rounded-2xl"
+              loading="lazy"
+            />
+          </div>
 
         </div>
+      </div>
+    </section>
 
-        <div class="caps">
 
-          {capabilities.map((capability, index) => (
+    <!-- =====================================================
+         4. SECTION 4 — BUILT ON TRUST. DRIVEN BY IMPACT.
+    ====================================================== -->
+    <section id="trust-impact" class="bg-white py-10 sm:py-12 lg:py-14 border-t border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div class="cap">
+        <!-- Introductory Two-Column Area -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-10 items-center">
+          <div class="lg:col-span-6">
+            <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+              Built on Trust.<br />Driven by Impact.
+            </h2>
+          </div>
+          <div class="lg:col-span-6">
+            <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-lg lg:ml-auto">
+              Our values guide everything we do — from how we handle your data and technology to the environmental impact of our operations.
+            </p>
+          </div>
+        </div>
 
-              <div class="medal">
+        <!-- Four Feature Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-8 sm:mt-10">
+          <!-- Card 1: Security First -->
+          <div class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <img
+              src="/images/about/Card 1_ Security First (Deep Forest Slate Theme).webp"
+              alt="Security First: secure asset handling and compliance dashboard"
+              class="w-full h-auto object-contain"
+              loading="lazy"
+            />
+          </div>
 
-                {index === 0 && (
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                  >
-                    <circle cx="9" cy="8" r="3.2" />
-                    <path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5" />
-                    <path d="M16 5.5a3 3 0 0 1 0 5.6M18 20c0-2.3-.8-3.9-2.2-5" />
-                  </svg>
-                )}
+          <!-- Card 2: Environmental Responsibility -->
+          <div class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <img
+              src="/images/about/Card 2_ Environmental Responsibility (Emerald Green Theme).webp"
+              alt="Environmental Responsibility: recycling and responsible material recovery dashboard"
+              class="w-full h-auto object-contain"
+              loading="lazy"
+            />
+          </div>
 
-                {index === 1 && (
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                  >
-                    <path d="M12 2.5 20 6v6.2c0 4.6-3.3 8-8 9.3-4.7-1.3-8-4.7-8-9.3V6z" />
-                    <path d="m8.8 12.2 2.2 2.2 4.3-4.6" />
-                  </svg>
-                )}
+          <!-- Card 3: Customer Focus -->
+          <div class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <img
+              src="/images/about/card 3.webp"
+              alt="Customer Focus: transparency, service quality, and reliability dashboard"
+              class="w-full h-auto object-contain"
+              loading="lazy"
+            />
+          </div>
 
-                {index === 2 && (
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                  >
-                    <path d="M3 7.5h11v9H3zM14 10.5h4l3 3v3h-7z" />
-                    <circle cx="7" cy="18" r="1.9" />
-                    <circle cx="17" cy="18" r="1.9" />
-                  </svg>
-                )}
+          <!-- Card 4: Continuous Improvement -->
+          <div class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <img
+              src="/images/about/card-4 Deep Forest Theme.webp"
+              alt="Continuous Improvement: circular economy and performance metrics dashboard"
+              class="w-full h-auto object-contain"
+              loading="lazy"
+            />
+          </div>
+        </div>
 
-                {index === 3 && (
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                  >
-                    <circle cx="12" cy="12" r="9" />
-                    <path d="M3 12h18M12 3c2.6 2.6 2.6 15 0 18-2.6-3-2.6-15.4 0-18z" />
-                  </svg>
-                )}
+      </div>
+    </section>
 
+
+    <!-- =====================================================
+         5. SECTION 5 — PEOPLE. PLANET. PROGRESS.
+    ====================================================== -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+
+    <section id="people-planet-progress" class="bg-white py-10 sm:py-12 lg:py-14 border-t border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+          <!-- Left Column: Hand holding plant in soil -->
+          <div class="lg:col-span-5 flex justify-center lg:justify-start">
+            <img
+              src="/images/about/People. Planet. Progress..webp"
+              alt="Hand holding plant seedling in soil"
+              class="w-full max-w-md h-auto object-contain rounded-2xl"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Right Column: Heading, Paragraph, and Three Metrics -->
+          <div class="lg:col-span-7">
+            <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+              People. Planet.<br />Progress.
+            </h2>
+            <p class="mt-4 sm:mt-5 text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl">
+              We're committed to creating positive change through responsible IT asset recycling, reducing environmental impact, and supporting a circular economy.
+            </p>
+
+            <!-- Three Horizontally Aligned Metrics -->
+            <div id="stats-counter-block" class="mt-7 sm:mt-9 flex flex-wrap items-center gap-6 sm:gap-8 lg:gap-10">
+              <div class="stat-item flex-1 min-w-[120px] sm:min-w-0" aria-label="100K+ Devices Processed">
+                <span
+                  class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+                  aria-hidden="true"
+                >
+                  100K+
+                </span>
+                <span class="block mt-2 text-xs sm:text-sm font-medium text-slate-600">
+                  Devices Processed
+                </span>
               </div>
 
-              <div>
+              <div class="hidden sm:block w-px h-10 bg-slate-200" aria-hidden="true"></div>
 
-                <h3>
-                  {capability.title}
-                </h3>
-
-                <p class="!mt-2">
-                  {capability.description}
-                </p>
-
+              <div class="stat-item flex-1 min-w-[120px] sm:min-w-0" aria-label="500+ Businesses Served">
+                <span
+                  class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+                  aria-hidden="true"
+                >
+                  500+
+                </span>
+                <span class="block mt-2 text-xs sm:text-sm font-medium text-slate-600">
+                  Businesses Served
+                </span>
               </div>
 
+              <div class="hidden sm:block w-px h-10 bg-slate-200" aria-hidden="true"></div>
+
+              <div class="stat-item flex-1 min-w-[120px] sm:min-w-0" aria-label="0% To Landfill (Recoverable)">
+                <span
+                  class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+                  aria-hidden="true"
+                >
+                  0%
+                </span>
+                <span class="block mt-2 text-xs sm:text-sm font-medium text-slate-600">
+                  To Landfill (Recoverable)
+                </span>
+              </div>
             </div>
 
-          ))}
+          </div>
 
         </div>
+      </div>
+    </section>
 
 
-        <!-- Statistics -->
+    <!-- =====================================================
+         6. SECTION 6 — FROM A SIMPLE IDEA TO A BIGGER IMPACT.
+    ====================================================== -->
+    <section id="journey-milestones" class="bg-white py-10 sm:py-12 lg:py-14 border-t border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {statistics.length > 0 && (
-          <div class="stats">
-
-            {statistics.map((stat, index) => (
-
-              <div
-                class:list={[
-                  'stat',
-                  {
-                    'highlight-stat': index === 2
-                  }
-                ]}
-              >
-
-                <div>
-
-                  <b>
-                    {stat.value}
-
-                    {stat.suffix && (
-                      <em>
-                        {stat.suffix}
-                      </em>
-                    )}
-                  </b>
-
-                  <span>
-                    {stat.label}
-                  </span>
-
-                </div>
-
-              </div>
-
-            ))}
-
+        <!-- Introductory Two-Column Area -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-10 items-center">
+          <div class="lg:col-span-6">
+            <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+              From a Simple<br />Idea to a Bigger<br />Impact.
+            </h2>
           </div>
-        )}
+          <div class="lg:col-span-6">
+            <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-lg lg:ml-auto">
+              What started as a vision to make IT disposal more responsible and secure has grown into a trusted service for businesses across the UK. Today, we continue to expand our impact, helping organisations turn retired technology into new opportunities.
+            </p>
+          </div>
+        </div>
+
+        <!-- Horizontal Timeline -->
+        <div class="mt-8 sm:mt-10 mx-auto max-w-6xl">
+          <div class="tl-track" id="tl-track">
+            <!-- Step 0: Founded -->
+            <div class="st" style="--i:0">
+              <div class="nd" aria-hidden="false">
+                <img src="/images/about/Founded.webp" alt="" />
+              </div>
+              <div class="stem" aria-hidden="true"></div>
+              <div class="lb">
+                <h3>Founded</h3>
+                <p>With a vision for responsible IT disposal.</p>
+              </div>
+            </div>
+
+            <!-- Step 1: Expanded -->
+            <div class="st" style="--i:1">
+              <div class="nd" aria-hidden="false">
+                <img src="/images/about/Expanded.webp" alt="" />
+              </div>
+              <div class="stem" aria-hidden="true"></div>
+              <div class="lb">
+                <h3>Expanded</h3>
+                <p>Our recycling capabilities.</p>
+              </div>
+            </div>
+
+            <!-- Step 2: Partnered -->
+            <div class="st" style="--i:2">
+              <div class="nd" aria-hidden="false">
+                <img src="/images/about/Partnered.webp" alt="" />
+              </div>
+              <div class="stem" aria-hidden="true"></div>
+              <div class="lb">
+                <h3>Partnered</h3>
+                <p>With businesses across the UK.</p>
+              </div>
+            </div>
+
+            <!-- Step 3: Driving -->
+            <div class="st" style="--i:3">
+              <div class="nd" aria-hidden="false">
+                <img src="/images/about/Driving.webp" alt="" />
+              </div>
+              <div class="stem" aria-hidden="true"></div>
+              <div class="lb">
+                <h3>Driving</h3>
+                <p>Long-term environmental and economic impact.</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </section>
 
 
     <!-- =====================================================
-         6. LET'S TALK
+         7. EXISTING CTA SECTION — PROTECTED & COMPLETELY UNCHANGED
     ====================================================== -->
-
     <section
       id="talk"
       class="talk-white-section py-10 sm:py-12 lg:py-16 bg-white relative overflow-hidden border-t border-slate-200"
@@ -897,102 +581,434 @@ const aboutPageSchema = {
     </section>
 
   </div>
+
+  <script>
+    function initAboutScrollAnimations() {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // 1. Stats Counter Animation
+      const statsBlock = document.getElementById('stats-counter-block');
+      if (statsBlock && statsBlock.dataset.observed !== 'true') {
+        statsBlock.dataset.observed = 'true';
+
+        const statElements = statsBlock.querySelectorAll('.stat-counter-number');
+
+        if (!prefersReducedMotion && 'IntersectionObserver' in window && statElements.length) {
+          const parsedStats: {
+            element: Element;
+            raw: string;
+            prefix: string;
+            target: number;
+            suffix: string;
+            start: number;
+          }[] = [];
+
+          statElements.forEach((el) => {
+            const raw = (el.textContent || '').trim();
+            const match = raw.match(/^([^\d]*)(\d+)(.*)$/);
+            if (match) {
+              const prefix = match[1] || '';
+              const target = parseInt(match[2], 10);
+              const suffix = match[3] || '';
+              const start = target === 0 ? 100 : 0;
+              parsedStats.push({
+                element: el,
+                raw,
+                prefix,
+                target,
+                suffix,
+                start,
+              });
+            }
+          });
+
+          if (parsedStats.length) {
+            const statsObserver = new IntersectionObserver(
+              (entries, observer) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    observer.unobserve(entry.target);
+
+                    const duration = 1900;
+                    let startTime: number | null = null;
+
+                    parsedStats.forEach((stat) => {
+                      stat.element.textContent = stat.prefix + stat.start + stat.suffix;
+                    });
+
+                    function step(timestamp: number) {
+                      if (!startTime) startTime = timestamp;
+                      const elapsed = timestamp - startTime;
+                      const p = Math.min(1, elapsed / duration);
+                      const eased = 1 - Math.pow(1 - p, 3);
+
+                      parsedStats.forEach((stat) => {
+                        const current = Math.round(stat.start + (stat.target - stat.start) * eased);
+                        stat.element.textContent = stat.prefix + current + stat.suffix;
+                      });
+
+                      if (p < 1) {
+                        requestAnimationFrame(step);
+                      } else {
+                        parsedStats.forEach((stat) => {
+                          stat.element.textContent = stat.raw;
+                        });
+                      }
+                    }
+
+                    requestAnimationFrame(step);
+                  }
+                });
+              },
+              { threshold: 0.6 }
+            );
+
+            statsObserver.observe(statsBlock);
+          }
+        }
+      }
+
+      // 2. Timeline Sequence Animation
+      const tlTrack = document.getElementById('tl-track') as HTMLElement | null;
+      if (tlTrack && tlTrack.dataset.observed !== 'true') {
+        tlTrack.dataset.observed = 'true';
+
+        if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+          tlTrack.classList.add('go');
+        } else {
+          const tlObserver = new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  observer.unobserve(entry.target);
+                  tlTrack.classList.add('go');
+                }
+              });
+            },
+            { threshold: 0.35 }
+          );
+
+          tlObserver.observe(tlTrack);
+        }
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAboutScrollAnimations);
+    } else {
+      initAboutScrollAnimations();
+    }
+    document.addEventListener('astro:page-load', initAboutScrollAnimations);
+  </script>
 </BaseLayout>
 
 
 <style>
-.about-page-wrapper {
-  --green-primary: #0F623A;
-  --green-forest: #0F623A;
-  --green-darkest: #0A331E;
-  --green-hover: #124d2b;
-  --green-light: #F2F8F5;
-  --green-surface: #EFF8F3;
-
-  --surface: #FFFFFF;
-  --paper: #F8FAF9;
-  --on-surface: #0F172A;
-  --on-surface-dim: #475569;
-  --hairline: #E2E8F0;
-  --panel: #FFFFFF;
-
-  --shell: 1240px;
-  --gutter: clamp(20px, 5vw, 72px);
-  --display: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  --text: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  --sans: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  --cut: 46px;
-
-  background: var(--surface);
-  color: var(--on-surface);
-  font-family: var(--text);
-  font-size: clamp(15.5px, 1.02vw, 17px);
-  line-height: 1.62;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+/* =========================================================
+   STATS COUNTER ANIMATION
+========================================================= */
+.stat-counter-number {
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  min-width: 3.2ch;
 }
 
-.about-page-wrapper *,
-.about-page-wrapper *::before,
-.about-page-wrapper *::after {
-  box-sizing: border-box;
-}
-
-.about-page-wrapper img,
-.about-page-wrapper svg {
-  display: block;
-  max-width: 100%;
-}
-
-.about-page-wrapper a {
-  color: inherit;
-}
-
-.about-page-wrapper h1:not(.num):not(.idx),
-.about-page-wrapper h2:not(.num):not(.idx),
-.about-page-wrapper h3:not(.num):not(.idx) {
-  font-family: var(--display);
-  margin: 0;
-  letter-spacing: normal;
-  line-height: 1.15;
-  color: #0F172A;
-}
-
-.about-page-wrapper h1:not(.num):not(.idx) {
-  font-weight: 700 !important;
-}
-
-.about-page-wrapper h2:not(.num):not(.idx) {
-  font-weight: 700 !important;
-}
-
-.about-page-wrapper h3:not(.num):not(.idx) {
-  font-weight: 600 !important;
-}
-
-.on-dark h1,
-.on-dark h2,
-.on-dark h3,
-.about-page-wrapper .on-dark h1,
-.about-page-wrapper .on-dark h2,
-.about-page-wrapper .on-dark h3,
-.about-page-wrapper .hero h1 {
-  color: #FFFFFF !important;
-}
-
-.about-page-wrapper p {
-  margin: 0;
-}
-
-.shell {
-  max-width: var(--shell);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
+/* =========================================================
+   TIMELINE — DESKTOP (> 900px)
+   4-column horizontal, node → stem → label below,
+   connecting line drawn via ::after pseudo-element on .st
+========================================================= */
+.tl-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   position: relative;
 }
 
-.hero .shell {
-  max-width: 1320px;
+/* Each step is a positioned column */
+.st {
+  position: relative;
+  padding-top: 0;
+}
+
+/* Circle node: fixed 46×46px, dark green fill */
+.nd {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #1f6b45;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  transform-origin: center;
+}
+
+/* Icon inside node: MUST be exactly 24px, never grow */
+.nd img,
+.nd svg {
+  width: 24px;
+  height: 24px;
+  max-width: none;
+  flex: none;
+  display: block;
+}
+
+/* Horizontal connecting line: drawn as ::after on .st */
+/* Runs from the right edge of this node to the left edge of the next node */
+.st::after {
+  content: "";
+  position: absolute;
+  left: 46px;
+  right: 0;
+  top: 22px;
+  height: 2px;
+  background: #3a3f3d;
+  transform-origin: left;
+  z-index: 1;
+}
+
+/* Last step has no outgoing line */
+.st:last-child::after {
+  display: none;
+}
+
+/* Short vertical stem below node */
+.stem {
+  position: absolute;
+  left: 22px;
+  top: 46px;
+  width: 1px;
+  height: 38px;
+  background: #3a3f3d;
+}
+
+/* Text block: sits below stem (top offset = node 46px + stem 38px + gap) */
+.lb {
+  margin-top: 90px;
+  transform-origin: top left;
+}
+
+.lb h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 6px;
+  line-height: 1.3;
+}
+
+.lb p {
+  font-size: 15px;
+  color: #3c4a43;
+  max-width: 190px;
+  line-height: 1.55;
+  margin: 0;
+}
+@media (min-width: 901px) {
+  /* 1. icon fills the whole circle; the empty padding in the file then leaves a ~26px symbol */
+  .tl-track .nd { width: 46px; height: 46px; }
+  .tl-track .nd img { width: 100%; height: 100%; max-width: none; object-fit: contain; }
+
+  /* 2. line continues past the last circle to the right edge */
+  .tl-track .st:last-child::after { display: block; left: 46px; right: 0; }
+
+  /* 3. shorter stem, tighter gap to the title */
+  .tl-track .stem { height: 24px; }
+  .tl-track .lb { margin-top: 46px; }
+
+  /* 4. align with the heading: remove any left padding/margin on the track */
+  .tl-track { padding-left: 0; margin-left: 0; }
+
+  /* 5. wider text column, reference text sizes */
+  .tl-track .lb h3 { font-size: 17px; font-weight: 600; }
+  .tl-track .lb p  { font-size: 16px; line-height: 1.5; max-width: 215px; color: #222; }
+}
+
+/* =========================================================
+   TIMELINE — MOBILE (<= 900px)
+   Vertical list: node left, text right, line runs down
+========================================================= */
+@media (max-width: 900px) {
+  .tl-track {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .st {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .st:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Node stays 46px, no changes */
+  .nd {
+    flex-shrink: 0;
+  }
+
+  /* Vertical line: runs downward from bottom of node to next item */
+  .st::after {
+    left: 22px;
+    right: auto;
+    top: 46px;
+    bottom: 0;
+    width: 2px;
+    height: auto;
+    transform-origin: top;
+  }
+
+  /* Hide last item's line on mobile */
+  .st:last-child::after {
+    display: none;
+  }
+
+  /* Hide horizontal stems on mobile */
+  .stem {
+    display: none;
+  }
+
+  /* Text to the right of node */
+  .lb {
+    margin-top: 0;
+    padding-left: 1.5rem;
+    flex: 1;
+  }
+
+  .lb h3 {
+    font-size: 16px;
+    margin-top: 6px;
+  }
+
+  .lb p {
+    font-size: 14px;
+  }
+}
+
+/* =========================================================
+   ANIMATION — initial hidden states (only under .js class)
+   All scoped to .tl-track so short class names are safe
+   No layout properties changed — only opacity + transform
+========================================================= */
+:global(html.js) .tl-track .nd {
+  opacity: 0;
+  transform: scale(0.3);
+}
+
+:global(html.js) .tl-track .st::after {
+  transform: scaleX(0);
+}
+
+:global(html.js) .tl-track .stem {
+  opacity: 0;
+}
+
+:global(html.js) .tl-track .lb {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* Mobile vertical line starts scaleY(0) */
+@media (max-width: 900px) {
+  :global(html.js) .tl-track .st::after {
+    transform: scaleY(0);
+  }
+}
+
+/* Animations play once when .go is added to .tl-track */
+:global(html.js) .tl-track.go .nd {
+  animation: tlPop 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) forwards;
+  animation-delay: calc(var(--i) * 1.35s);
+}
+
+:global(html.js) .tl-track.go .stem {
+  animation: tlFade 0.4s ease forwards;
+  animation-delay: calc(var(--i) * 1.35s + 0.25s);
+}
+
+:global(html.js) .tl-track.go .lb {
+  animation: tlRise 0.55s ease forwards;
+  animation-delay: calc(var(--i) * 1.35s + 0.35s);
+}
+
+:global(html.js) .tl-track.go .st::after {
+  animation: tlDrawX 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--i) * 1.35s + 0.65s);
+}
+
+@media (max-width: 900px) {
+  :global(html.js) .tl-track.go .st::after {
+    animation-name: tlDrawY;
+  }
+}
+
+@keyframes tlPop {
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes tlFade {
+  to { opacity: 1; }
+}
+
+@keyframes tlRise {
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes tlDrawX {
+  to { transform: scaleX(1); }
+}
+
+@keyframes tlDrawY {
+  to { transform: scaleY(1); }
+}
+
+/* Reduced motion: skip animation, show everything immediately */
+@media (prefers-reduced-motion: reduce) {
+  :global(html.js) .tl-track .nd,
+  :global(html.js) .tl-track .stem,
+  :global(html.js) .tl-track .lb {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  :global(html.js) .tl-track .st::after {
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+   PROTECTED CTA & CORE SHARED STYLES
+========================================================= */
+.shell {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 72px);
+  position: relative;
+}
+
+.head-rule {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0F623A;
+}
+
+.line {
+  width: 32px;
+  height: 1.5px;
+  background: #0F623A;
 }
 
 .eyebrow {
@@ -1000,1293 +1016,54 @@ const aboutPageSchema = {
   font-weight: 500;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: var(--green-primary);
-}
-
-.on-dark .eyebrow {
   color: #0F623A;
 }
-
-
-/* =========================================================
-   PHOTO
-========================================================= */
-
-.photo {
-  position: relative;
-  overflow: hidden;
-  background: #0A331E;
-
-  clip-path: polygon(
-    0 0,
-    calc(100% - var(--cut)) 0,
-    100% var(--cut),
-    100% 100%,
-    var(--cut) 100%,
-    0 calc(100% - var(--cut))
-  );
-}
-
-.photo img {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.photo::before {
-  display: none;
-}
-
-.photo::after {
-  content: attr(data-caption);
-
-  position: absolute;
-  left: 18px;
-  bottom: 14px;
-
-  font-size: 10px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  font-weight: 500;
-
-  color: #FFFFFF;
-  background: rgba(15, 98, 58, 0.88);
-
-  padding: 3px 9px;
-  border-radius: 4px;
-
-  backdrop-filter: blur(4px);
-
-  border: 1px solid rgba(255,255,255,0.2);
-
-  z-index: 3;
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero {
-  background: var(--green-darkest);
-  color: #fff;
-  position: relative;
-
-  padding-bottom: clamp(36px, 5vw, 64px);
-
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 100%,
-    0 calc(100% - clamp(28px, 3.5vw, 48px))
-  );
-}
-
-.hero::after {
-  content: "";
-
-  position: absolute;
-  right: -14%;
-  top: -24%;
-
-  width: 60%;
-  aspect-ratio: 1;
-
-  border-radius: 50%;
-
-  border: 1.5px solid rgba(24, 98, 55, 0.3);
-
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hero .grid {
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, 1fr)
-    minmax(0, .86fr);
-
-  gap: clamp(28px, 4vw, 66px);
-
-  align-items: center;
-}
-
-.hero h1,
-.about-page-wrapper .hero h1,
-.about-page-wrapper .hero h1:not(.num):not(.idx) {
-  font-size: clamp(40px, 6.1vw, 82px);
-  line-height: .96;
-
-  margin: 22px 0 26px;
-
-  color: #FFFFFF !important;
-
-  letter-spacing: -.033em;
-}
-
-.hero h1 .l2 {
-  display: block;
-  color: #0F623A;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
-}
-
-.hero .lede {
-  font-size: clamp(16.5px, 1.32vw, 19.5px);
-
-  color: #FFFFFF;
-
-  max-width: 48ch;
-
-  line-height: 1.55;
-}
-
-.hero-figure {
-  margin: 0;
-  position: relative;
-}
-
-.hero-figure .photo {
-  --cut: 74px;
-  aspect-ratio: 4 / 3.4;
-}
-
-.hero-figure .ring {
-  position: absolute;
-
-  left: -44px;
-  bottom: -40px;
-
-  width: 132px;
-  height: 132px;
-
-  border-radius: 50%;
-
-  border: 1.5px dashed rgba(63, 179, 61, 0.7);
-
-  pointer-events: none;
-}
-
-.seal {
-  position: absolute;
-
-  right: -16px;
-  top: -26px;
-
-  width: 92px;
-  height: 104px;
-
-  background: var(--green-primary);
-  color: #FFFFFF;
-
-  clip-path: polygon(
-    50% 0,
-    100% 25%,
-    100% 75%,
-    50% 100%,
-    0 75%,
-    0 25%
-  );
-
-  display: grid;
-  place-content: center;
-
-  text-align: center;
-
-  font-family: var(--text);
-  font-weight: 600;
-
-  font-size: 11px;
-
-  letter-spacing: .06em;
-
-  line-height: 1.3;
-
-  text-transform: uppercase;
-
-  z-index: 4;
-
-  box-shadow:
-    0 8px 24px rgba(15,98,58,0.35);
-
-  border: 1px solid rgba(255,255,255,0.25);
-}
-
-
-/* =========================================================
-   GENERAL BANDS
-========================================================= */
-
-.band {
-  padding-block: clamp(24px, 3vw, 44px);
-}
-
-.head-rule {
-  display: flex;
-  align-items: center;
-
-  gap: 16px;
-
-  margin-bottom: clamp(
-    18px,
-    2.4vw,
-    32px
-  );
-}
-
-.head-rule .dot {
-  width: 10px;
-  height: 11px;
-
-  background: var(--green-primary);
-
-  flex: none;
-
-  clip-path: polygon(
-    50% 0,
-    100% 25%,
-    100% 75%,
-    50% 100%,
-    0 75%,
-    0 25%
-  );
-}
-
-.head-rule .line {
-  flex: 1;
-
-  height: 1px;
-
-  background: var(--hairline);
-}
-
-
-/* =========================================================
-   WHO WE ARE
-========================================================= */
-
-.who {
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, 58fr)
-    minmax(0, 42fr);
-
-  gap: clamp(34px, 5vw, 80px);
-
-  align-items: center;
-}
-
-.who h2 {
-  font-size: clamp(30px, 3.5vw, 48px);
-
-  margin-bottom: 24px;
-
-  max-width: 16ch;
-
-  color: #0F172A;
-}
-
-.who .body p + p {
-  margin-top: 17px;
-}
-
-.who .body p {
-  color: var(--on-surface-dim);
-  max-width: 62ch;
-}
-
-.who .body p.first {
-  color: #0F172A;
-
-  font-size: clamp(
-    17px,
-    1.3vw,
-    20px
-  );
-
-  line-height: 1.55;
-
-  padding-left: 20px;
-
-  border-left:
-    4px solid var(--green-primary);
-}
-
-.sectors {
-  margin: 30px 0 0;
-
-  padding: 22px 0 0;
-
-  border-top:
-    1px solid var(--hairline);
-
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 8px;
-}
-
-.sectors li {
-  list-style: none;
-
-  font-size: 12.5px;
-
-  font-weight: 400;
-
-  padding: 6px 14px;
-
-  border:
-    1px solid #E2E8F0;
-
-  border-radius: 999px;
-
-  color: var(--green-forest);
-
-  background: var(--green-surface);
-
-  transition:
-    all .2s ease;
-}
-
-.sectors li:hover {
-  background: var(--green-primary);
-
-  color: #FFFFFF;
-
-  border-color:
-    var(--green-primary);
-
-  transform:
-    translateY(-1px);
-}
-
-.who-image-wrap {
-  position: relative;
-
-  width: 100%;
-}
-
-.who-image-wrap img {
-  transform-origin: center;
-
-  transition:
-    transform 0.4s ease;
-}
-
-.who-image-wrap:hover img {
-  transform:
-    scale(1.02);
-}
-
-
-/* =========================================================
-   WHAT WE DO
-========================================================= */
-
-.divisions {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, 1fr);
-
-  gap: clamp(
-    16px,
-    2.2vw,
-    30px
-  );
-
-  align-items: start;
-}
-
-.division:nth-child(2) {
-  margin-top:
-    clamp(0px, 2vw, 24px);
-}
-
-.division:nth-child(3) {
-  margin-top:
-    clamp(0px, 4vw, 48px);
-}
-
-.division .shot {
-  position: relative;
-
-  height:
-    clamp(
-      210px,
-      21vw,
-      300px
-    );
-
-  clip-path: polygon(
-    0 34px,
-    100% 0,
-    100% calc(100% - 34px),
-    0 100%
-  );
-}
-
-.division .shot .photo {
-  clip-path: none;
-  height: 100%;
-}
-
-.division .no {
-  position: absolute;
-
-  left: 0;
-  top: 44px;
-
-  z-index: 3;
-
-  background:
-    var(--green-primary);
-
-  color: #FFFFFF;
-
-  font-family:
-    var(--text);
-
-  font-weight: 600;
-
-  font-size: 12px;
-
-  letter-spacing: .1em;
-
-  padding:
-    6px 14px 6px 10px;
-
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    calc(100% - 10px) 100%,
-    0 100%
-  );
-}
-
-.division h3 {
-  font-size:
-    clamp(
-      19px,
-      1.6vw,
-      23px
-    );
-
-  margin:
-    22px 0 10px;
-
-  text-transform: uppercase;
-
-  color: #0F172A;
-
-  font-weight: 600;
-}
-
-.division p {
-  font-size: 14.6px;
-
-  color:
-    var(--on-surface-dim);
-
-  max-width: 34ch;
-}
-
-.division .go {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 9px;
-
-  margin-top: 16px;
-
-  font-size: 13.5px;
-
-  font-weight: 500;
-
-  text-decoration: none;
-
-  color: #FFFFFF;
-
-  background:
-    var(--green-primary);
-
-  padding:
-    11px 20px;
-
-  border-radius: 999px;
-
-  transition:
-    all .2s ease;
-}
-
-.division .go:hover {
-  background:
-    var(--green-hover);
-
-  color: #FFFFFF;
-
-  box-shadow:
-    0 6px 18px
-    rgba(63,179,61,0.35);
-
-  transform:
-    translateY(-1px);
-}
-
-.division .go em {
-  font-style: normal;
-
-  transition:
-    transform .18s ease;
-}
-
-.division:hover .go em {
-  transform:
-    translateX(4px);
-}
-
-
-/* =========================================================
-   APPROACH
-========================================================= */
-
-.approach {
-  background:
-    var(--surface);
-
-  color:
-    var(--on-surface);
-
-  position: relative;
-
-  padding-block:
-    clamp(
-      32px,
-      4.2vw,
-      56px
-    );
-}
-
-.approach .head-rule .line {
-  background:
-    var(--hairline);
-}
-
-.approach h2 {
-  font-size:
-    clamp(
-      30px,
-      3.5vw,
-      48px
-    );
-
-  color: #0F172A;
-
-  max-width: 18ch;
-}
-
-.approach .intro {
-  color:
-    var(--on-surface-dim);
-
-  max-width: 54ch;
-
-  margin-top: 18px;
-}
-
-.flow {
-  position: relative;
-
-  margin-top:
-    clamp(
-      24px,
-      3.2vw,
-      40px
-    );
-}
-
-.flow > svg {
-  position: absolute;
-
-  left: 0;
-  right: 0;
-
-  top: 34px;
-
-  width: 100%;
-
-  height: 70px;
-
-  overflow: visible;
-}
-
-.steps {
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, 1fr);
-
-  gap:
-    clamp(
-      14px,
-      2vw,
-      28px
-    );
-
-  position: relative;
-
-  z-index: 2;
-}
-
-.step {
-  text-align: center;
-
-  padding-top: 0;
-}
-
-.step:nth-child(odd) {
-  transform:
-    translateY(0);
-}
-
-.step:nth-child(even) {
-  transform:
-    translateY(28px);
-}
-
-.hex {
-  width: 76px;
-  height: 86px;
-
-  margin:
-    0 auto 18px;
-
-  background:
-    var(--green-forest);
-
-  color: #FFFFFF;
-
-  clip-path: polygon(
-    50% 0,
-    100% 25%,
-    100% 75%,
-    50% 100%,
-    0 75%,
-    0 25%
-  );
-
-  display: grid;
-
-  place-content: center;
-
-  box-shadow:
-    0 6px 18px
-    rgba(15, 98, 58, 0.16);
-
-  border:
-    1px solid
-    rgba(255,255,255,0.2);
-
-  transition:
-    all .25s ease;
-}
-
-.step:nth-child(even) .hex {
-  background:
-    var(--green-primary);
-
-  color: #FFFFFF;
-
-  box-shadow:
-    0 6px 18px
-    rgba(63, 179, 61, 0.24);
-}
-
-.step:hover .hex {
-  transform:
-    translateY(-4px)
-    scale(1.05);
-
-  box-shadow:
-    0 10px 24px
-    rgba(15, 98, 58, 0.25);
-}
-
-.hex-icon {
-  width: 30px;
-  height: 30px;
-}
-
-.step h3 {
-  font-size:
-    clamp(
-      15px,
-      1.24vw,
-      18px
-    );
-
-  text-transform: uppercase;
-
-  letter-spacing: .05em;
-
-  color: #0F172A;
-
-  margin-bottom: 9px;
-
-  font-weight: 600;
-}
-
-.step p {
-  font-size: 14.2px;
-
-  color:
-    var(--on-surface-dim);
-
-  max-width: 26ch;
-
-  margin-inline: auto;
-}
-
-
-/* =========================================================
-   CAPABILITIES
-========================================================= */
-
-.caps {
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, 1fr);
-
-  gap:
-    clamp(
-      26px,
-      3.4vw,
-      52px
-    );
-}
-
-.cap {
-  display: grid;
-
-  grid-template-columns:
-    78px 1fr;
-
-  gap: 22px;
-
-  align-items: start;
-}
-
-.medal {
-  width: 78px;
-  height: 78px;
-
-  border-radius: 50%;
-
-  display: grid;
-
-  place-content: center;
-
-  color:
-    var(--green-forest);
-
-  border:
-    1.5px solid
-    var(--hairline);
-
-  position: relative;
-
-  background:
-    var(--green-surface);
-}
-
-.medal::after {
-  content: "";
-
-  position: absolute;
-
-  inset: -7px;
-
-  border-radius: 50%;
-
-  border:
-    1.5px dashed
-    rgba(63,179,61,.45);
-}
-
-.medal svg {
-  width: 32px;
-  height: 32px;
-}
-
-.cap h3 {
-  font-size:
-    clamp(
-      17px,
-      1.4vw,
-      20px
-    );
-
-  text-transform: uppercase;
-
-  letter-spacing: .04em;
-
-  margin:
-    8px 0 9px;
-
-  color: #0F172A;
-
-  font-weight: 600;
-}
-
-.cap p {
-  font-size: 14.6px;
-
-  color:
-    var(--on-surface-dim);
-
-  max-width: 40ch;
-}
-
-
-/* =========================================================
-   STATISTICS
-========================================================= */
-
-.stats {
-  margin-top:
-    clamp(
-      24px,
-      3.2vw,
-      40px
-    );
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, 1fr);
-
-  gap:
-    clamp(
-      10px,
-      1.4vw,
-      18px
-    );
-}
-
-.stat {
-  transform:
-    skewX(-9deg);
-
-  background:
-    var(--green-darkest);
-
-  color: #fff;
-
-  padding:
-    clamp(
-      22px,
-      2.6vw,
-      34px
-    )
-    clamp(
-      18px,
-      2.2vw,
-      30px
-    );
-
-  overflow: hidden;
-
-  border-radius: 4px;
-}
-
-.stat.highlight-stat {
-  background:
-    var(--green-primary);
-
-  color: #FFFFFF;
-
-  box-shadow:
-    0 10px 30px
-    rgba(63,179,61,0.35);
-}
-
-.stat > div {
-  transform:
-    skewX(9deg);
-}
-
-.stat b {
-  display: block;
-
-  font-family:
-    var(--sans);
-
-  font-weight: 700;
-
-  font-size:
-    clamp(
-      32px,
-      4vw,
-      54px
-    );
-
-  letter-spacing: -.04em;
-
-  line-height: 1;
-}
-
-.stat em {
-  font-style: normal;
-
-  color:
-    #0F623A;
-}
-
-.stat.highlight-stat em {
-  color: #FFFFFF;
-  opacity: .9;
-}
-
-.stat span {
-  display: block;
-
-  margin-top: 10px;
-
-  font-size: 12.5px;
-
-  color: #D1EFE2;
-
-  line-height: 1.45;
-}
-
-.stat.highlight-stat span {
-  color: #FFFFFF;
-}
-
-
-/* =========================================================
-   CTA
-========================================================= */
 
 .talk-white-section {
   position: relative;
+  background: #FFFFFF;
 }
 
 .photo-split-frame {
-  background:
-    var(--green-darkest);
+  background: #0A331E;
 }
 
 .talk-contactline a {
   text-decoration: none;
 }
 
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
 .btn {
   display: inline-flex;
-
   align-items: center;
-
   gap: 10px;
-
   text-decoration: none;
-
   font-weight: 500;
-
   font-size: 15px;
-
-  padding:
-    14px 28px;
-
+  padding: 14px 28px;
   border-radius: 999px;
-
-  transition:
-    all .2s ease;
+  transition: all .2s ease;
 }
 
 .btn-primary {
-  background:
-    var(--green-primary);
-
+  background: #0F623A;
   color: #FFFFFF !important;
-
-  box-shadow:
-    0 4px 14px
-    rgba(15, 98, 58, 0.35);
+  box-shadow: 0 4px 14px rgba(15, 98, 58, 0.35);
 }
 
 .btn-primary:hover {
-  background:
-    var(--green-hover);
-
+  background: #124d2b;
   color: #FFFFFF !important;
-
-  transform:
-    translateY(-1px);
-
-  box-shadow:
-    0 6px 20px
-    rgba(15, 98, 58, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(15, 98, 58, 0.45);
 }
 
 .btn-secondary {
-  border:
-    1.5px solid
-    var(--green-primary);
-
-  color:
-    var(--green-forest);
-
-  background:
-    var(--green-surface);
+  border: 1.5px solid #0F623A;
+  color: #0F623A;
+  background: transparent;
 }
 
 .btn-secondary:hover {
-  border-color:
-    var(--green-hover);
-
-  background:
-    var(--green-primary);
-
-  color: #FFFFFF;
-
-  transform:
-    translateY(-1px);
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 900px) {
-
-  .hero .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-figure {
-    order: -1;
-  }
-
-  .seal {
-    right: 6px;
-    top: -18px;
-
-    width: 76px;
-    height: 86px;
-  }
-
-  .who {
-    grid-template-columns: 1fr;
-  }
-
-}
-
-
-@media (max-width: 860px) {
-
-  .divisions {
-    grid-template-columns: 1fr;
-
-    gap: 46px;
-  }
-
-  .division:nth-child(2),
-  .division:nth-child(3) {
-    margin-top: 0;
-  }
-
-  .steps {
-    grid-template-columns: 1fr;
-
-    gap: 34px;
-  }
-
-  .flow > svg {
-    display: none;
-  }
-
-  .step,
-  .step:nth-child(even) {
-    transform: none;
-
-    text-align: left;
-
-    display: grid;
-
-    grid-template-columns:
-      74px 1fr;
-
-    gap: 20px;
-
-    align-items: start;
-  }
-
-  .hex {
-    margin: 0;
-  }
-
-  .step p {
-    margin-inline: 0;
-  }
-
-  .step h3 {
-    margin-top: 6px;
-  }
-
-  .caps {
-    grid-template-columns: 1fr;
-  }
-
-  .stats {
-    grid-template-columns:
-      repeat(2, 1fr);
-  }
-
-}
-
-@media (max-width: 640px) {
-
-  .hero h1 {
-    font-size: clamp(
-      42px,
-      12vw,
-      64px
-    );
-  }
-
-  .hero-figure .photo {
-    --cut: 42px;
-  }
-
-  .head-rule {
-    gap: 10px;
-  }
-
-  .stats {
-    grid-template-columns: 1fr;
-  }
-
-  .cap {
-    grid-template-columns:
-      64px 1fr;
-
-    gap: 18px;
-  }
-
-  .medal {
-    width: 64px;
-    height: 64px;
-  }
-
-  .medal svg {
-    width: 27px;
-    height: 27px;
-  }
-
-}
-
-
-@media (max-width: 480px) {
-
-  .hero {
-    padding-bottom: 50px;
-  }
-
-  .hero-figure {
-    margin-top: 10px;
-  }
-
-  .seal {
-    width: 68px;
-    height: 78px;
-
-    font-size: 9px;
-  }
-
-  .hero-figure .ring {
-    left: -20px;
-    bottom: -25px;
-
-    width: 90px;
-    height: 90px;
-  }
-
-  .btn {
-    width: 100%;
-
-    justify-content: center;
-  }
-
-}
-
-
-/* =========================================================
-   ACCESSIBILITY / MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: no-preference) {
-
-  .lift {
-    opacity: 0;
-
-    transform:
-      translateY(14px);
-
-    animation:
-      lift .7s
-      cubic-bezier(.22, .8, .3, 1)
-      forwards;
-  }
-
-  .hero .eyebrow {
-    animation-delay: .05s;
-  }
-
-  .hero h1 {
-    animation-delay: .14s;
-  }
-
-  .hero .lede {
-    animation-delay: .26s;
-  }
-
-  .hero-figure {
-    animation-delay: .2s;
-  }
-
-}
-
-
-@keyframes lift {
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-
-@media (prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
+  background: rgba(15, 98, 58, 0.06);
 }
 </style>

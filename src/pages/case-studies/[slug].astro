@@ -52,7 +52,7 @@ const featuredServices = services.filter((s) =>
           {caseStudy.clientIndustry} &bull; Case Study
         </span>
 
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight">
           {caseStudy.title}
         </h1>
 
@@ -69,7 +69,7 @@ const featuredServices = services.filter((s) =>
         <!-- Challenge -->
         <div class="p-8 rounded-2xl bg-brand-slate border border-slate-200/90 space-y-3">
           <span class="text-xs font-bold uppercase tracking-wider text-red-600">The Problem &amp; Business Liability</span>
-          <h2 class="text-2xl font-bold text-brand-navy">The Challenge</h2>
+          <h2 class="text-2xl font-semibold text-brand-navy">The Challenge</h2>
           <p class="text-base text-slate-700 leading-relaxed">
             {caseStudy.challenge}
           </p>
@@ -78,7 +78,7 @@ const featuredServices = services.filter((s) =>
         <!-- Solution -->
         <div class="p-8 rounded-2xl bg-brand-navy text-white space-y-3 shadow-lg">
           <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">The Certified Execution</span>
-          <h2 class="text-2xl font-bold text-white">Our Engineering Solution</h2>
+          <h2 class="text-2xl font-semibold text-white">Our Engineering Solution</h2>
           <p class="text-base text-slate-200 leading-relaxed">
             {caseStudy.solution}
           </p>
@@ -86,7 +86,7 @@ const featuredServices = services.filter((s) =>
 
         <!-- Results Checkpoints -->
         <div class="space-y-4">
-          <h2 class="text-2xl font-bold text-brand-navy">Key Measurable Outcomes</h2>
+          <h2 class="text-2xl font-semibold text-brand-navy">Key Measurable Outcomes</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {caseStudy.results.map((res) => (
               <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200/80 flex items-start gap-3">
@@ -102,7 +102,7 @@ const featuredServices = services.filter((s) =>
         <!-- Services Used -->
         {featuredServices.length > 0 && (
           <div class="space-y-4 pt-4 border-t border-slate-200">
-            <h3 class="text-lg font-bold text-brand-navy">Services Deployed in This Engagement:</h3>
+            <h3 class="text-lg font-semibold text-brand-navy">Services Deployed in This Engagement:</h3>
             <div class="flex flex-wrap gap-2">
               {featuredServices.map((srv) => (
                 <a

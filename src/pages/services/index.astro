@@ -1,1034 +1,663 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
-import PageHero from '../../components/hero/PageHero.astro';
-import { getDivisions, getServices, getServicesPage } from '../../lib/sanity/client';
+import HeroHeader from '../../components/global/HeroHeader.astro';
+import SectorGrid from '../../components/sectors/SectorGrid.astro';
+import { getDivisions, getServices, getServicesPage, getSectors } from '../../lib/sanity/client';
 
-const breadcrumbs = [
-  { name: 'Services', url: '/services' },
-];
-
-const [divisions, services, servicesPage] = await Promise.all([
+const [divisions, services, servicesPage, sectors] = await Promise.all([
   getDivisions(),
   getServices(),
   getServicesPage(),
+  getSectors(),
 ]);
 
-// Ordered divisions for display
-const orderedDivisions = [...divisions].sort((a, b) => a.order - b.order);
+const pageTitle = servicesPage?.metaTitle || "Services | Practical, Secure & Sustainable Asset Solutions | TechSteps";
+const pageDescription = servicesPage?.metaDescription || "Explore practical, secure, and responsible solutions for managing institutional information, technology assets, and mission-critical business operations throughout their lifecycle.";
 
-// Division config — featured service slugs + display metadata
-const divisionConfig: Record<string, {
-  number: string;
-  accent: string;
-  bg: string;
-  featuredSlugs: string[];
-  tagline: string;
-  icon: string;
-}> = {
-  'it-lifecycle-services-destruction': {
-    number: '02',
-    accent: '#0F623A',
-    bg: '#F2F8F5',
-    tagline: 'Securely manage IT assets from collection and data sanitisation through reuse, remarketing, destruction and recycling.',
-    featuredSlugs: ['secure-it-disposal', 'it-asset-disposition-services', 'ultra-secure-hard-drive-destruction', 'remarketing-recycling', 'it-asset-management-services'],
-    icon: 'cpu',
+// Four Service Cards mapping to images/services assets and existing routes
+const serviceCards = [
+  {
+    title: 'Information Management',
+    slug: 'information-management',
+    href: '/services/information-management',
+    anchorId: '#information-management',
+    description: 'Store, scan and manage business information with structured, reliable processes that transition paper to search-ready cloud data.',
+    cardImage: '/images/services/Card 1_ Security First (Deep Forest Slate Theme) (1).webp',
+    alt: 'Information Management - Secure document storage, scanning and cloud records management',
   },
-  'information-management': {
-    number: '01',
-    accent: '#0F623A',
-    bg: '#F2F8F5',
-    tagline: 'Securely manage business information through physical storage, high-speed scanning and full records lifecycle governance.',
-    featuredSlugs: ['document-storage', 'document-scanning', 'digital-mailroom', 'document-management'],
-    icon: 'folder',
+  {
+    title: 'IT Lifecycle Services',
+    slug: 'it-lifecycle-services-destruction',
+    href: '/services/it-lifecycle',
+    anchorId: '#it-lifecycle',
+    description: 'Manage IT equipment through certified collection, military-spec data sanitization, refurbishment, and circular zero-waste recovery.',
+    cardImage: '/images/services/Card 2_ Environmental Responsibility (Emerald Green Theme) (1).webp',
+    alt: 'IT Lifecycle Services - Certified hardware disposition, data sanitization and recycling',
   },
-  'secure-shredding-document-integrity': {
-    number: '03',
-    accent: '#0F623A',
-    bg: '#F2F8F5',
-    tagline: 'Protect sensitive information through certified on-site and off-site destruction for documents, media and hard drives.',
-    featuredSlugs: ['on-site-shredding', 'off-site-shredding', 'ultra-secure-hard-drive-destruction', 'product-shredding'],
-    icon: 'shield',
+  {
+    title: 'Secure Shredding',
+    slug: 'secure-shredding-document-integrity',
+    href: '/services/secure-destruction',
+    anchorId: '#secure-shredding',
+    description: 'Support the secure disposal of confidential paper records and media to EN 15713 standards with complete chain-of-custody proof.',
+    cardImage: '/images/services/Card 3_ Customer Focus.webp',
+    alt: 'Secure Shredding - Compliant on-site and off-site confidential destruction',
   },
-  'moving-relocation-services': {
-    number: '04',
-    accent: '#0F623A',
-    bg: '#F2F8F5',
-    tagline: 'Specialist technology relocation services for IT equipment, data centres, laboratories and mission-critical environments.',
-    featuredSlugs: ['it-relocations-specialist', 'business-relocations', 'laboratory-relocations-storage', 'heritage-relocations-storage'],
-    icon: 'truck',
+  {
+    title: 'Relocation Services',
+    slug: 'moving-relocation-services',
+    href: '/services/relocation',
+    anchorId: '#relocation',
+    description: 'Help organisations relocate archives, sensitive hardware, and operations equipment with precision scheduling and zero downtime.',
+    cardImage: '/images/services/Card 4_ Continuous Improvement.webp',
+    alt: 'Relocation Services - Precision business, data centre and heritage equipment moves',
   },
-};
-
-// Lifecycle steps
-const lifecycleSteps = [
-  { step: 'Collect', number: '01', desc: 'Secure GPS-tracked collection by BS 7858 vetted personnel.', image: '/images/services/process-step-1-collect.jpg' },
-  { step: 'Secure', number: '02', desc: 'Controlled handling, high-security chain of custody.', image: '/images/services/process-step-2-secure.jpg' },
-  { step: 'Sanitise', number: '03', desc: 'ADISA-certified erasure, degaussing or shredding.', image: '/images/services/process-step-3-sanitise.jpg' },
-  { step: 'Reuse', number: '04', desc: 'Refurbishment and remarketing to maximise residual value.', image: '/images/services/process-step-4-reuse.jpg' },
-  { step: 'Recycle', number: '05', desc: 'Zero-landfill, WEEE-compliant responsible recycling.', image: '/images/services/process-step-5-recycle.jpg' },
-  { step: 'Report', number: '06', desc: 'Certificates, audit trails and ESG reporting.', image: '/images/services/process-step-6-report.jpg' },
 ];
 
-// Why Techsteps pillars
-const pillars = [
+// Connected approach 4 steps
+const connectedSteps = [
   {
-    title: 'Security',
-    desc: 'Protecting information and assets with uncompromising standards throughout the lifecycle.',
-    icon: 'lock',
+    step: '01',
+    title: 'Understand',
+    text: 'Identify your regulatory baseline, data sensitivity tiers, and exact hardware or archive inventories.',
   },
   {
-    title: 'Expertise',
-    desc: 'Specialist lifecycle and operational knowledge across every service discipline.',
-    icon: 'star',
+    step: '02',
+    title: 'Plan',
+    text: 'Establish the optimum pathway: digitisation schedules, on-site vs off-site sanitisation, and SLA expectations.',
   },
   {
-    title: 'Responsibility',
-    desc: 'Making better choices for technology and the environment at every stage.',
+    step: '03',
+    title: 'Manage',
+    text: 'Handle assets through vetted personnel with live chain-of-custody tracking accessible via our portal.',
+  },
+  {
+    step: '04',
+    title: 'Deliver',
+    text: 'Receive comprehensive sanitisation certificates, recycling manifest data, and full audit documentation.',
+  },
+];
+
+// 4 Benefits in a 2x2 grid
+const businessBenefits = [
+  {
+    title: 'Security First',
+    text: 'Rigorous verification protocols and accredited personnel ensure compliance standards are met at every stage of the service lifecycle.',
+    icon: 'shield',
+  },
+  {
+    title: 'Clear Accountability',
+    text: 'End-to-end audit trails and transparent chain-of-custody documentation provide complete visibility from collection to final outcome.',
+    icon: 'check-circle',
+  },
+  {
+    title: 'Responsible Outcomes',
+    text: "Prioritising circular economy pathways and zero-landfill disposal methods to help meet your organisation's ESG targets.",
     icon: 'leaf',
   },
   {
-    title: 'Accountability',
-    desc: 'Clear processes, serialised tracking and complete visibility throughout the lifecycle.',
-    icon: 'check',
+    title: 'A Practical Partnership',
+    text: 'Flexible scheduling, dedicated account management, and tailored solutions built around your operational needs.',
+    icon: 'handshake',
   },
 ];
 
-// Sectors for cross-link band
-const sectors = [
-  { title: 'Defence', slug: 'defence' },
-  { title: 'NHS & Healthcare', slug: 'nhs' },
-  { title: 'Financial Services', slug: 'finance' },
-  { title: 'Central Government', slug: 'central-government' },
-];
-
-// 4 Division Cards for the catalogue showcase
-const divisionCards = [
-  {
-    division: 'DIVISION 01',
-    slug: 'information-management',
-    title: 'Information Management',
-    desc: 'Secure, compliant storage, scanning and management of physical and digital information, designed to protect valuable records throughout their lifecycle.',
-    cta: 'EXPLORE INFORMATION MANAGEMENT',
-    href: '/services/information-management',
-    bgImage: '/images/services/image1.png',
-    icon: 'doc-shield',
-  },
-  {
-    division: 'DIVISION 02',
-    slug: 'it-lifecycle-services-destruction',
-    title: 'IT Lifecycle Services & Destruction',
-    desc: 'End-to-end IT asset disposition, secure collection, data sanitisation, hardware refurbishment and responsible electronic recycling.',
-    cta: 'EXPLORE IT LIFECYCLE',
-    href: '/services/it-lifecycle',
-    bgImage: '/images/services/image2.jpg',
-    icon: 'laptop-recycle',
-  },
-  {
-    division: 'DIVISION 03',
-    slug: 'secure-shredding-document-integrity',
-    title: 'Secure Shredding & Document Integrity',
-    desc: 'Secure destruction of confidential documents, media and products through compliant shredding, collection and responsible recycling services.',
-    cta: 'EXPLORE SECURE SHREDDING',
-    href: '/services/secure-destruction',
-    bgImage: '/images/services/image3.jpg',
-    icon: 'shredder',
-  },
-  {
-    division: 'DIVISION 04',
-    slug: 'moving-relocation-services',
-    title: 'Moving & Relocation Services',
-    desc: 'Specialist IT relocation, laboratory moves, museum and archive transportation, commercial office moves and turnkey logistics management.',
-    cta: 'EXPLORE RELOCATION',
-    href: '/services/relocation',
-    bgImage: '/images/services/image4.jpg',
-    icon: 'truck',
-  },
-];
 ---
 
 <BaseLayout
-  title={servicesPage.metaTitle || "Our Services | IT Lifecycle, Information Management & Secure Destruction | Techsteps"}
-  description={servicesPage.metaDescription || "Techsteps delivers certified IT asset disposition, secure document and media destruction, information management and specialist relocation services across the UK."}
+  title={pageTitle}
+  description={pageDescription}
   hasHeroHeader={true}
 >
-  <!-- ===== 1. SERVICES HERO (Simple & Clean, ref: /sustainability) ===== -->
-<PageHero
-  layout="split"
-  eyebrow={servicesPage.hero?.eyebrow || "OUR SERVICES"}
-  title={servicesPage.hero?.title || "Solutions Across the Technology Lifecycle"}
-  subheading={servicesPage.hero?.subheading || "Specialist IT asset disposition, secure destruction, information management and technology relocation services for organisations across the UK."}
-  bgImage={servicesPage.hero?.bgImage || "/images/services/data-centre-hardware.jpg"}
-  breadcrumbs={breadcrumbs}
-  dividerColor="#ffffff"
-/>
+  <!-- Top Navigation Header (matches About, Contact and sub-pages at scroll 0) -->
+  <HeroHeader isHome={false} />
 
-  <!-- ===== 1. ONE PARTNER. MULTIPLE SOLUTIONS. ===== -->
-<!-- ===== SERVICE DIVISIONS SHOWCASE ===== -->
-<section id="divisions" class="bg-white py-8 lg:py-10 overflow-hidden">
-  <Container>
+  <!-- =====================================================
+       2. HERO SECTION
+       ===================================================== -->
+  <section class="relative bg-white pt-8 sm:pt-10 lg:pt-12 pb-4 sm:pb-5 lg:pb-6 overflow-hidden">
+    <Container size="normal">
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] gap-6 lg:gap-8 items-center">
+        
+        <!-- Left: Text content -->
+        <div class="max-w-xl space-y-5 sm:space-y-6 text-left">
+          <h1 class="text-4xl sm:text-5xl lg:text-[54px] xl:text-[58px] font-semibold text-slate-900 tracking-tight leading-[1.12] font-display">
+            Services That Move<br class="hidden sm:inline" />
+            Your Business<br class="hidden sm:inline" />
+            Forward
+          </h1>
 
-<!-- SECTION HEADER -->
-<div class="text-center mb-4 lg:mb-6">
-  <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3">
-    {servicesPage.divisionsShowcase?.eyebrow || "Service Divisions"}
-  </span>
-
-  <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
-    {servicesPage.divisionsShowcase?.heading || "One Partner. Multiple Solutions."}
-  </h2>
-</div>
-
-
-    <!-- TWO COLUMNS -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-24 items-center">
-
-
-      <!-- ========================================= -->
-      <!-- COLUMN 1 : TITLE + DESCRIPTION -->
-      <!-- ========================================= -->
-
-      <div class="flex items-center">
-
-        <div class="max-w-xl">
-
-          <span
-            id="division-label"
-            class="text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A]"
-          >
-            Division 01
-          </span>
-
-          <h2
-            id="division-heading"
-            class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-light text-slate-900 leading-[1.08] tracking-tight"
-          >
-            Information Management
-          </h2>
-
-          <p
-            id="division-description"
-            class="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed"
-          >
-            Secure and efficient information management solutions designed
-            to help organisations store, manage and protect their critical
-            business information.
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+            Explore practical, secure, and responsible solutions for managing institutional information, technology assets, and mission-critical business operations throughout their lifecycle.
           </p>
 
-          <a
-            id="division-link"
-            href="/services/information-management"
-            class="mt-8 inline-flex items-center gap-5 bg-[#0F623A] text-white px-6 py-4 text-sm font-bold hover:bg-[#0c4e2e] transition-all duration-200"
-          >
-            <span id="division-button">
-              Explore Information Management
-            </span>
-
-            <svg
-              class="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              viewBox="0 0 24 24"
+          <div class="pt-1">
+            <a
+              href="/contact"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
-            </svg>
-          </a>
-
+              <span>Talk to Our Team</span>
+              <span class="text-lg leading-none" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
         </div>
 
-      </div>
+        <!-- Right: Technician Cut-out with Floating Badges (Closer to text, clean edges, no drop shadow band) -->
+        <div class="relative justify-self-start w-full max-w-[560px] mt-6 lg:mt-0">
+          <div class="relative w-full max-w-[560px]">
+            <!-- Main Technician Image (No drop-shadow wrapper or band) -->
+            <img
+              src="/images/services/service main hero.webp"
+              alt="TechSteps certified specialist representing compliance, security and lifecycle management"
+              width="1560"
+              height="2176"
+              class="w-full max-w-[560px] h-auto object-contain object-bottom select-none"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
 
-
-      <!-- ========================================= -->
-      <!-- COLUMN 2 : CIRCULAR IMAGE -->
-      <!-- ========================================= -->
-
-      <div class="relative h-[380px] lg:h-[440px] flex items-center justify-center">
-
-        <!-- LARGE ORBIT -->
-<div
-  class="absolute
-         w-[340px] h-[340px]
-         sm:w-[410px] sm:h-[410px]
-         lg:w-[480px] lg:h-[480px]
-         rounded-full
-         border border-dashed
-         border-[#0F623A]/25"
-></div>
-
-
-        <!-- SECOND ORBIT -->
-<div
-  class="absolute
-         w-[260px] h-[260px]
-         sm:w-[320px] sm:h-[320px]
-         lg:w-[380px] lg:h-[380px]
-         rounded-full
-         border border-[#0F623A]/10"
-></div>
-
-
-        <!-- ROTATING ORBIT -->
-        <div
-          class="absolute inset-0 flex items-center justify-center animate-orbit"
-        >
-
-          <!-- ORBIT DOT -->
-          <span
-            class="absolute
-                   top-[1px]
-                   w-3 h-3
-                   rounded-full
-                   bg-[#0F623A]
-                   shadow-[0_0_0_7px_rgba(15,98,58,0.12)]"
-          ></span>
-
+          </div>
         </div>
 
-
-        <!-- IMAGE -->
-<div
-  class="relative z-10
-         w-[270px] h-[270px]
-         sm:w-[330px] sm:h-[330px]
-         lg:w-[390px] lg:h-[390px]
-         rounded-full
-         overflow-hidden
-         border-[7px]
-         border-white
-         shadow-[0_20px_60px_rgba(15,98,58,0.18)]"
->
-          <img
-            id="division-image"
-            src="/images/services/image1.webp"
-            alt="Information Management"
-            class="w-full h-full object-cover transition-all duration-500"
-          />
-        </div>
-
-
-        <!-- SMALL DECORATIVE DOTS -->
-
-        <span
-          class="absolute
-                 left-[12%] top-[32%]
-                 w-2 h-2
-                 rounded-full
-                 bg-[#0F623A]/50"
-        ></span>
-
-        <span
-          class="absolute
-                 right-[12%] bottom-[30%]
-                 w-2 h-2
-                 rounded-full
-                 bg-[#0F623A]/40"
-        ></span>
-
-      </div>
-
-    </div>
-
-  </Container>
-</section>
-<style>
-  @keyframes orbit {
-    from {
-      transform: rotate(0deg);
-    }
-
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .animate-orbit {
-    animation: orbit 18s linear infinite;
-  }
-
-  #division-image {
-    transition:
-      opacity 0.4s ease,
-      transform 0.4s ease;
-  }
-</style>
-<script>
-  const divisionData = {
-    information: {
-      label: "Division 01",
-      title: "Information Management",
-      description:
-        "Secure and efficient information management solutions designed to help organisations store, manage and protect their critical business information.",
-      image: "/images/services/image1.png",
-      link: "/services/information-management",
-      button: "Explore Information Management",
-    },
-
-    lifecycle: {
-      label: "Division 02",
-      title: "IT Lifecycle Services",
-      description:
-        "Responsible IT asset lifecycle services covering collection, data sanitisation, reuse, remarketing, recycling and secure destruction.",
-      image: "/images/services/image2.jpg",
-      link: "/services/it-lifecycle",
-      button: "Explore IT Lifecycle Services",
-    },
-
-    shredding: {
-      label: "Division 03",
-      title: "Secure Shredding",
-      description:
-        "Secure destruction services for confidential documents, data-bearing media and sensitive materials, helping organisations protect information throughout its lifecycle.",
-      image: "/images/services/image3.jpg",
-      link: "/services/secure-shredding",
-      button: "Explore Secure Shredding",
-    },
-
-    relocation: {
-      label: "Division 04",
-      title: "Moving & Relocation",
-      description:
-        "Specialist technology relocation services for safely moving IT equipment, infrastructure and technology environments with minimal disruption.",
-      image: "/images/services/image4.jpg",
-      link: "/services/relocation",
-      button: "Explore Moving & Relocation",
-    },
-  };
-
-
-  function setupDivisionTabs() {
-    const tabs = document.querySelectorAll(".division-tab");
-    const image = document.getElementById("division-image");
-    const label = document.getElementById("division-label");
-    const heading = document.getElementById("division-heading");
-    const description = document.getElementById("division-description");
-    const link = document.getElementById("division-link");
-    const button = document.getElementById("division-button");
-
-    if (!tabs.length) return;
-
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        const key = tab.getAttribute("data-division");
-        if (!key || !divisionData[key]) return;
-        const data = divisionData[key];
-
-        // Reset all tabs
-        tabs.forEach((item) => {
-          const title = item.querySelector(".division-title");
-          const arrow = item.querySelector(".division-arrow");
-          title?.classList.remove("text-[#0F623A]");
-          title?.classList.add("text-slate-500");
-          arrow?.classList.remove("text-[#0F623A]");
-          arrow?.classList.add("text-slate-300");
-        });
-
-        // Activate selected tab
-        const activeTitle = tab.querySelector(".division-title");
-        const activeArrow = tab.querySelector(".division-arrow");
-        activeTitle?.classList.remove("text-slate-500");
-        activeTitle?.classList.add("text-[#0F623A]");
-        activeArrow?.classList.remove("text-slate-300");
-        activeArrow?.classList.add("text-[#0F623A]");
-
-        // Small fade effect for image
-        if (image) {
-          image.style.opacity = "0";
-          setTimeout(() => {
-            image.setAttribute("src", data.image);
-            image.setAttribute("alt", data.title);
-            image.style.opacity = "1";
-          }, 180);
-        }
-
-        // Update content
-        if (label) label.textContent = data.label;
-        if (heading) heading.textContent = data.title;
-        if (description) description.textContent = data.description;
-        if (link) link.setAttribute("href", data.link);
-        if (button) button.textContent = data.button;
-      });
-    });
-  }
-
-  function setupServicesStatsCounter() {
-    const statsContainer = document.getElementById("services-stats-card");
-    if (!statsContainer) return;
-
-    const numSpans = statsContainer.querySelectorAll(".service-stat-num");
-    if (numSpans.length === 0) return;
-
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      numSpans.forEach((span) => {
-        span.textContent = span.getAttribute("data-target") || "0";
-      });
-      return;
-    }
-
-    if (statsContainer._statsObserver) {
-      statsContainer._statsObserver.disconnect();
-      statsContainer._statsObserver = null;
-    }
-
-    let animFrameId = null;
-
-    const resetNumbers = () => {
-      if (animFrameId) {
-        cancelAnimationFrame(animFrameId);
-        animFrameId = null;
-      }
-      numSpans.forEach((span) => {
-        span.textContent = "0";
-      });
-    };
-
-    const runAnimation = () => {
-      if (animFrameId) {
-        cancelAnimationFrame(animFrameId);
-        animFrameId = null;
-      }
-
-      const duration = 1800; // 1.8s smooth running animation
-      const startTime = performance.now();
-
-      const update = (currentTime) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const easeProgress = 1 - Math.pow(1 - progress, 3); // cubic ease-out
-
-        numSpans.forEach((span) => {
-          const target = parseInt(span.getAttribute("data-target") || "0", 10);
-          const currentVal = Math.floor(easeProgress * target);
-          span.textContent = progress >= 1 ? target.toString() : currentVal.toString();
-        });
-
-        if (progress < 1) {
-          animFrameId = requestAnimationFrame(update);
-        } else {
-          animFrameId = null;
-        }
-      };
-
-      animFrameId = requestAnimationFrame(update);
-    };
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              runAnimation();
-            } else {
-              resetNumbers();
-            }
-          });
-        },
-        { threshold: 0.15 }
-      );
-      observer.observe(statsContainer);
-      statsContainer._statsObserver = observer;
-    } else {
-      runAnimation();
-    }
-  }
-
-  function initServicesPage() {
-    setupDivisionTabs();
-    setupServicesStatsCounter();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initServicesPage);
-  } else {
-    initServicesPage();
-  }
-
-  document.addEventListener("astro:page-load", initServicesPage);
-</script>
-
-  <!-- ===== 2. IT ASSET LIFECYCLE VISUAL ===== -->
-  <section class="relative bg-white py-8 lg:py-12 overflow-hidden border-t border-slate-100">
-    <!-- Subtle organic corner gradient (matching bottom-right of reference design) -->
-    <div class="absolute -right-24 -bottom-24 w-96 h-96 rounded-full bg-gradient-to-tl from-[#0F623A]/10 via-[#0F623A]/5 to-transparent blur-3xl pointer-events-none select-none"></div>
-
-    <!-- Floating botanical leaves in bottom-right (from reference design) -->
-    <div class="absolute right-4 sm:right-10 bottom-6 sm:bottom-12 pointer-events-none select-none z-0 hidden md:block">
-      <div class="relative w-52 h-40">
-        <svg class="absolute bottom-2 right-12 w-16 h-16 text-[#0F623A] opacity-40 rotate-[35deg] drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
-        </svg>
-        <svg class="absolute bottom-12 right-2 w-12 h-12 text-[#0F623A] opacity-30 -rotate-[20deg] drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
-        </svg>
-        <svg class="absolute bottom-20 right-24 w-8 h-8 text-[#0F623A] opacity-30 rotate-[65deg]" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
-        </svg>
-        <svg class="absolute bottom-6 right-36 w-6 h-6 text-[#0F623A] opacity-25 -rotate-[40deg]" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
-        </svg>
-      </div>
-    </div>
-
-<Container className="relative z-10">
-  <div class="w-full mb-14 sm:mb-16 lg:mb-20 text-center">
-
-    <!-- Eyebrow -->
-    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A] text-white text-[11px] font-bold uppercase tracking-wider mb-4 shadow-xs">
-      <span>Our Work Process</span>
-    </div>
-
-    <!-- Main Title -->
-    <h2 class="w-full text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.05]">
-      Every Asset.
-      <span class="block font-light text-slate-400">
-        A Smarter Journey.
-      </span>
-    </h2>
-
-    <!-- Description -->
-    <p class="mt-5 w-full max-w-4xl mx-auto text-base sm:text-lg text-slate-600 leading-relaxed">
-      We help organisations move technology through the right lifecycle pathway,
-      balancing security, value recovery and responsible end-of-life management.
-    </p>
-
-    <!-- CTA -->
-    <div class="mt-6 flex justify-center">
-      <a
-        href="/services/it-lifecycle"
-        class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F623A] hover:bg-[#146B5C] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
-      >
-        <span>Explore IT Asset Lifecycle</span>
-        <span class="text-sm font-bold">&rarr;</span>
-      </a>
-    </div>
-
-  </div>
-      <!-- Stepper Wave Track Area -->
-      <div class="relative pt-4 pb-8 lg:pb-16">
-        <!-- Connecting Smooth Wave Line (SVG Bezier Path, visible on lg screens) -->
-        <svg
-          class="absolute inset-x-0 top-0 w-full h-[260px] pointer-events-none z-0 hidden lg:block"
-          viewBox="0 0 1200 260"
-          fill="none"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M 20 125 C 60 120, 80 112, 100 112 C 180 112, 220 48, 300 48 C 380 48, 420 120, 500 120 C 580 120, 620 40, 700 40 C 780 40, 820 104, 900 104 C 980 104, 1020 48, 1100 48 C 1130 48, 1150 44, 1180 40"
-            stroke="#0F623A"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            opacity="0.8"
-          />
-        </svg>
-
-        <!-- Steps Items: Responsive (horizontal swipe on mobile/tablet, 6-col wave grid on desktop) -->
-        <div class="flex lg:grid lg:grid-cols-6 gap-6 sm:gap-8 lg:gap-4 overflow-x-auto lg:overflow-visible pb-6 lg:pb-0 scrollbar-none snap-x relative z-10 px-2 lg:px-0">
-          {lifecycleSteps.map((step, i) => {
-            // Alternating wave translation classes for desktop to follow the curved SVG path
-            const waveY = [
-              'lg:translate-y-12',  // Step 1 (Collect): lower
-              'lg:-translate-y-4',  // Step 2 (Secure): higher
-              'lg:translate-y-14',  // Step 3 (Sanitise): lower
-              'lg:-translate-y-6',  // Step 4 (Reuse): higher
-              'lg:translate-y-10',  // Step 5 (Recycle): lower
-              'lg:-translate-y-4',  // Step 6 (Report): higher
-            ][i] || '';
-
-            return (
-              <div class={`shrink-0 w-[230px] sm:w-[250px] lg:w-auto snap-center flex flex-col items-center group transition-all duration-300 ${waveY}`}>
-                <!-- Circular Photo Card with Radial Halo -->
-                <div class="relative mx-auto w-28 h-28 sm:w-32 sm:h-32 mb-4">
-                  <!-- Decorative radial rays / dashed ring (matching reference design) -->
-                  <svg
-                    class="absolute -inset-3 sm:-inset-3.5 w-[calc(100%+24px)] sm:w-[calc(100%+28px)] h-[calc(100%+24px)] sm:h-[calc(100%+28px)] text-[#0F623A]/45 pointer-events-none select-none transition-transform duration-700 group-hover:rotate-45"
-                    viewBox="0 0 160 160"
-                    fill="none"
-                  >
-                    <circle cx="80" cy="80" r="70" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.6"/>
-                    <circle cx="80" cy="80" r="63" stroke="currentColor" stroke-width="0.8" opacity="0.3"/>
-                    {Array.from({ length: 24 }).map((_, idx) => (
-                      <line
-                        x1="80"
-                        y1="3"
-                        x2="80"
-                        y2="9"
-                        stroke="currentColor"
-                        stroke-width="1.2"
-                        stroke-linecap="round"
-                        transform={`rotate(${idx * 15} 80 80)`}
-                      />
-                    ))}
-                  </svg>
-
-                  <!-- Crisp White Circle Container with Drop Shadow -->
-                  <div class="relative w-full h-full rounded-full p-1.5 bg-white shadow-[0_12px_28px_rgba(0,0,0,0.12)] border border-slate-100 z-10 transition-transform duration-300 group-hover:scale-105">
-                    <div class="w-full h-full rounded-full overflow-hidden bg-slate-100">
-                      <img
-                        src={step.image}
-                        alt={step.step}
-                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-
-                  <!-- Numbered Badge Pinned to Bottom Center (solid green with white digit) -->
-                  <div class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#0F623A] text-white flex items-center justify-center text-xs sm:text-sm font-extrabold shadow-md border-2 border-white z-20">
-                    {i + 1}
-                  </div>
-                </div>
-
-                <!-- Text Content Below Node -->
-                <div class="text-center px-1">
-                  <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-1.5 tracking-tight group-hover:text-[#0F623A] transition-colors leading-snug">
-                    {step.step}
-                  </h3>
-                  <p class="text-xs sm:text-[13px] text-slate-500 leading-relaxed max-w-[190px] mx-auto">
-                    {step.desc}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
       </div>
     </Container>
   </section>
-  <!-- ===== 3. WHY CHOOSE TECHSTEPS & PROVEN SCALE ===== -->
-  <section class="relative bg-white pt-0 pb-12 lg:pb-16 overflow-hidden">
-    <!-- Photographic Banner with Visible Image & Light Overlay -->
-    <div class="relative w-full overflow-hidden pt-24 sm:pt-32 lg:pt-36 pb-32 sm:pb-40 lg:pb-48 bg-[#072011]">
-      <!-- Background Image (Vivid & Clearly Visible) -->
-      <img
-        src="/images/services/why-choose-banner.jpg"
-        alt="TechSteps Team Collaborating"
-        class="absolute inset-0 w-full h-full object-cover object-[center_30%] opacity-90 select-none pointer-events-none"
-        loading="lazy"
-      />
 
-      <!-- Light, Translucent Green-Dark Contrast Scrim -->
-      <div class="absolute inset-0 bg-gradient-to-r from-[#051a0e]/80 via-[#072412]/55 to-[#051a0e]/80 pointer-events-none select-none"></div>
-      <div class="absolute inset-0 bg-black/35 pointer-events-none select-none"></div>
 
-      <!-- Center Banner Content with BIG Typography -->
-      <div class="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px] font-normal text-white tracking-tight leading-[1.16] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-          TechSteps is a Leading IT Recycling Company Providing Secure IT Disposal, Data Destruction, and Certified Recycling Services across the UK.
+  <!-- =====================================================
+       3. "THE RIGHT EXPERTISE, ALL IN ONE PLACE"
+       4 DEEP-GREEN CARDS
+       ===================================================== -->
+  <section class="bg-white py-10 sm:py-12 lg:py-16 border-t border-slate-100">
+    <Container size="normal">
+      <!-- Section Heading -->
+      <div class="text-left max-w-3xl mb-8 sm:mb-10">
+        <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.15]">
+          The Right Expertise, All in One Place
         </h2>
-        <div class="mt-8 sm:mt-10">
-          <a
-            href="/contact"
-            class="inline-flex items-center justify-center bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-extrabold text-base sm:text-lg md:text-xl px-10 sm:px-12 py-4 sm:py-5 rounded-md transition-all duration-200 shadow-2xl hover:shadow-[0_10px_30px_rgba(15,98,58,0.4)] hover:scale-105 font-sans"
-          >
-            Get In Touch
-          </a>
-        </div>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal mt-3">
+          From physical documents to end-of-life technology, our services help businesses manage essential assets with greater control, security, and efficiency.
+        </p>
       </div>
-    </div>
 
-    <!-- Floating White Stats Card Set Below Banner -->
-    <div id="services-stats-card" class="relative z-20 max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 -mt-16 sm:-mt-20 lg:-mt-24">
-      <div class="bg-white rounded-3xl sm:rounded-[36px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100/90 py-8 sm:py-10 lg:py-12 px-6 sm:px-8 lg:px-10">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 xl:gap-10 text-center">
-          <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-sans tabular-nums">
-              +<span class="service-stat-num" data-target="25">25</span>M
-            </div>
-            <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
-              Items In Storage
-            </p>
-          </div>
-          <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-sans tabular-nums">
-              +<span class="service-stat-num" data-target="238">238</span>M
-            </div>
-            <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
-              Images Scanned
-            </p>
-          </div>
-          <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-sans tabular-nums">
-              +<span class="service-stat-num" data-target="500">500</span>K
-            </div>
-            <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
-              Desktops Moved
-            </p>
-          </div>
-          <div>
-            <div class="text-3xl sm:text-4xl lg:text-[42px] xl:text-[48px] font-black text-black tracking-tight leading-none font-sans tabular-nums">
-              +<span class="service-stat-num" data-target="52">52</span>K
-            </div>
-            <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm font-extrabold uppercase tracking-[0.14em] text-[#0F623A]">
-              Tonnes Shredded
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 4. SERVICE DIVISIONS CATALOGUE ===== -->
-  <section id="divisions-catalogue" class="py-8 lg:py-12 bg-[#FAFBFB] border-t border-slate-100 scroll-mt-20">
-    <Container>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-        {divisionCards.map((card) => (
+      <!-- 4 Deep-Green Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {serviceCards.map((card) => (
           <a
-            id={`division-${card.slug}`}
             href={card.href}
-            class="group relative rounded-[28px] sm:rounded-[32px] overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 flex flex-col justify-between p-6 sm:p-7 min-h-[490px] sm:min-h-[530px] border border-black/5"
+            class="service-feature-card group relative bg-[#0F623A] rounded-[20px] sm:rounded-[24px] overflow-hidden border border-emerald-900/40 shadow-sm hover:shadow-xl hover:-translate-y-1.5 hover:border-emerald-400/50 transition-all duration-300 flex flex-col focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+            aria-label={`${card.title} - ${card.description}`}
           >
-            <!-- Background Image -->
-            <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+            <!-- Card Image (Pre-rendered card graphic from approved assets) -->
+            <div class="relative w-full aspect-[888/1068] bg-[#0F623A] overflow-hidden">
               <img
-                src={card.bgImage}
-                alt=""
-                aria-hidden="true"
-                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                src={card.cardImage}
+                alt={card.alt}
+                width="888"
+                height="1068"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02] select-none"
                 loading="lazy"
+                decoding="async"
               />
-              <!-- Subtle top shadow for badges -->
-              <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/50 via-black/20 to-transparent"></div>
-              <!-- Bottom gradient for copy and button contrast -->
-              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent via-50%"></div>
             </div>
 
-            <!-- Top Row: Translucent Category Pill & Circular Icon Badge -->
-            <div class="relative z-10 flex items-center justify-between w-full">
-              <!-- Pill Badge -->
-              <span class="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-[11px] sm:text-xs font-semibold tracking-wider uppercase shadow-sm">
-                {card.division}
-              </span>
-
-              <!-- Circular Icon Badge -->
-              <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-sm group-hover:bg-white/35 group-hover:scale-105 transition-all duration-300">
-                {card.icon === 'doc-shield' && (
-                  <svg class="w-5 h-5 text-white" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 5h14l8 8v22a3 3 0 0 1-3 3H12a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z" />
-                    <path d="M26 5v8h8" />
-                    <line x1="16" y1="18" x2="24" y2="18" />
-                    <line x1="16" y1="23" x2="22" y2="23" />
-                    <path d="M26 27c0 4.5 5 7.5 5 7.5s5-3 5-7.5v-4l-5-2-5 2v4z" stroke="currentColor" stroke-width="2.2" />
-                    <path d="M28.5 29.5l2 2 3.5-3.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                )}
-                {card.icon === 'laptop-recycle' && (
-                  <svg class="w-5 h-5 text-white" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="9" y="9" width="26" height="19" rx="2.5" />
-                    <path d="M5 31h34a1.5 1.5 0 0 1-1.5 1.5H6.5A1.5 1.5 0 0 1 5 31z" />
-                    <line x1="18" y1="31" x2="26" y2="31" />
-                    <path d="M22 15a4 4 0 0 1 3.8 2.8" />
-                    <path d="M26 15v3h-3" />
-                    <path d="M22 22a4 4 0 0 1-3.8-2.8" />
-                    <path d="M18 22v-3h3" />
-                  </svg>
-                )}
-                {card.icon === 'shredder' && (
-                  <svg class="w-5 h-5 text-white" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 13V5h16v8" />
-                    <line x1="18" y1="9" x2="26" y2="9" />
-                    <rect x="7" y="13" width="30" height="10" rx="2.5" />
-                    <line x1="12" y1="18" x2="32" y2="18" />
-                    <line x1="12" y1="27" x2="12" y2="35" />
-                    <line x1="17" y1="27" x2="17" y2="39" />
-                    <line x1="22" y1="27" x2="22" y2="34" />
-                    <line x1="27" y1="27" x2="27" y2="38" />
-                    <line x1="32" y1="27" x2="32" y2="35" />
-                  </svg>
-                )}
-                {card.icon === 'truck' && (
-                  <svg class="w-5 h-5 text-white" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="6" y="11" width="20" height="17" rx="2" />
-                    <path d="M26 16h7l5 6v6h-12V16z" />
-                    <path d="M28 18h4.5l3.5 4H28v-4z" />
-                    <circle cx="13" cy="31" r="3.5" stroke="currentColor" stroke-width="2.2" />
-                    <circle cx="33" cy="31" r="3.5" stroke="currentColor" stroke-width="2.2" />
-                    <line x1="16.5" y1="31" x2="29.5" y2="31" />
-                    <line x1="6" y1="28" x2="9.5" y2="28" />
-                    <line x1="36.5" y1="28" x2="39" y2="28" />
-                  </svg>
-                )}
-              </div>
-            </div>
-
-<!-- Bottom Content: Title Always Visible, Details on Hover -->
-<div class="relative z-10 flex flex-col items-start mt-auto pt-16">
-
-  <!-- Title: Always Visible -->
-  <h3 class="text-xl sm:text-[22px] font-bold text-white tracking-tight leading-snug mb-0 group-hover:text-emerald-300 transition-colors duration-300">
-    {card.title}
-  </h3>
-
-  <!-- Description and Explore Button: Reveal on Hover -->
-  <div class="grid grid-rows-[0fr] opacity-0 translate-y-4 transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100 group-hover:translate-y-0">
-    <div class="overflow-hidden">
-
-      <!-- Description -->
-      <p class="text-xs sm:text-[13px] text-white/80 leading-relaxed font-normal mt-2 mb-5 line-clamp-3">
-        {card.desc}
-      </p>
-
-      <!-- Explore Button -->
-      <div class="inline-flex items-center gap-2.5 pl-4 pr-1.5 py-1.5 rounded-full bg-white text-slate-900 font-semibold text-xs sm:text-sm shadow-md group-hover:bg-[#0F623A] group-hover:text-white transition-all duration-300">
-        <span>Explore</span>
-
-        <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 text-white flex items-center justify-center group-hover:bg-white group-hover:text-[#0F623A] transition-colors shrink-0">
-          <svg
-            class="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="7" y1="17" x2="17" y2="7"></line>
-            <polyline points="7 7 17 7 17 17"></polyline>
-          </svg>
-        </span>
-      </div>
-
-    </div>
-  </div>
-</div>
+            <!-- Screen reader accessible semantic hierarchy -->
+            <h3 class="sr-only">{card.title}</h3>
+            <p class="sr-only">{card.description}</p>
           </a>
         ))}
       </div>
     </Container>
   </section>
 
-  <!-- ===== 5. ONE LIFECYCLE. CONNECTED SERVICES. ===== -->
-  {/*<section class="bg-[#0F623A] py-8 lg:py-12 border-t border-[#3FB33D]/20">
-    <Container>
-      <div class="text-center mb-14">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#3FB33D] mb-4">Integration</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">One Lifecycle. Connected Services.</h2>
-        <p class="text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Combining specialist services allows organisations to manage technology and information through a more connected, efficient, and responsible lifecycle.
+
+  <!-- =====================================================
+       4. FOUR ALTERNATING FEATURE SECTIONS
+       ===================================================== -->
+  <div class="bg-white">
+
+    <!-- 4a. Information Management (Text Left, Image Right) -->
+    <section id="information-management" class="scroll-mt-24 sm:scroll-mt-28 py-10 sm:py-12 lg:py-16 border-t border-slate-100">
+      <Container size="normal">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
+          
+          <!-- Text Column (Desktop Left / Mobile 2nd) -->
+          <div class="lg:col-span-7 order-2 lg:order-1 space-y-5 sm:space-y-6">
+            <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.18]">
+              From Physical Records to Digital Clarity
+            </h2>
+
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+              Keep business information organised, accessible and protected through high-security document warehousing, scanning, digital mailroom automation, and enterprise document management systems.
+            </p>
+
+            <!-- Pill Rows with Check Icons -->
+            <div class="space-y-3 pt-1">
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+                  <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <span>BS 10008 Evidential Weight Certification</span>
+              </div>
+              <br class="hidden sm:inline" />
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+                  <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <span>Deep-Tier Secure Climate-Controlled Warehousing</span>
+              </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="pt-3">
+              <a
+                href="/services/information-management"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+              >
+                <span>Explore Information Management</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Image Column (Desktop Right / Mobile 1st) - Clean image, no shadow band -->
+          <div class="lg:col-span-5 order-1 lg:order-2 flex justify-center items-center">
+            <div class="relative w-full max-w-[420px] lg:max-w-[460px]">
+              <img
+                src="/images/services/From Physical Records to  Digital Clarity.webp"
+                alt="Female document management specialist organizing physical records and digital transitions"
+                width="1543"
+                height="1924"
+                class="w-full h-auto object-contain select-none"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+        </div>
+      </Container>
+    </section>
+
+    <!-- 4b. IT Lifecycle (Image Left, Text Right) -->
+    <section id="it-lifecycle" class="scroll-mt-24 sm:scroll-mt-28 py-10 sm:py-12 lg:py-16 border-t border-slate-100">
+      <Container size="normal">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
+          
+          <!-- Image Column (Desktop Left / Mobile 1st) - Clean image, no shadow band -->
+          <div class="lg:col-span-5 order-1 lg:order-1 flex justify-center items-center">
+            <div class="relative w-full max-w-[420px] lg:max-w-[460px]">
+              <img
+                src="/images/services/Give Technology a Responsible Next Chapter.webp"
+                alt="Recovered electronic technology hardware components prepared for secure remarketing and zero-waste recycling"
+                width="1758"
+                height="1272"
+                class="w-full h-auto object-contain select-none"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+          <!-- Text Column (Desktop Right / Mobile 2nd) -->
+          <div class="lg:col-span-7 order-2 lg:order-2 space-y-5 sm:space-y-6">
+            <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.18]">
+              Give Technology a Responsible Next Chapter
+            </h2>
+
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+              From collecting retired IT equipment to secure data sanitization, asset remarketing, and compliant e-waste recovery, help your organisation extract value while meeting ESG commitments.
+            </p>
+
+            <!-- CTA Button -->
+            <div class="pt-3">
+              <a
+                href="/contact"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+              >
+                <span>Discuss Your Requirements</span>
+                <span class="text-base leading-none" aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </Container>
+    </section>
+
+    <!-- 4c. Secure Shredding (Text Left, Image Right) -->
+    <section id="secure-shredding" class="scroll-mt-24 sm:scroll-mt-28 py-10 sm:py-12 lg:py-16 border-t border-slate-100">
+      <Container size="normal">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
+          
+          <!-- Text Column (Desktop Left / Mobile 2nd) -->
+          <div class="lg:col-span-7 order-2 lg:order-1 space-y-5 sm:space-y-6">
+            <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.18]">
+              Confidential Today. Securely Disposed Tomorrow.
+            </h2>
+
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+              Protect sensitive business records and hard drives through controlled, on-site or off-site destruction procedures compliant with British and European standards.
+            </p>
+
+            <!-- Pill Rows with Check Icons -->
+            <div class="space-y-3 pt-1">
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+                  <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <span>BS EN 15713 Level 4 to Level 6 Security Standards</span>
+              </div>
+              <br class="hidden sm:inline" />
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+                  <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <span>100% Closed-Loop Recycled Paper Stream</span>
+              </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="pt-3">
+              <a
+                href="/services/secure-destruction"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+              >
+                <span>Explore Secure Shredding</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Image Column (Desktop Right / Mobile 1st) - Clean image, no shadow band -->
+          <div class="lg:col-span-5 order-1 lg:order-2 flex justify-center items-center">
+            <div class="relative w-full max-w-[400px] lg:max-w-[440px]">
+              <img
+                src="/images/services/Confidential Today. Securely Disposed Tomorrow..webp"
+                alt="High-security confidential document shredding machinery and securely cross-cut recycled paper"
+                width="1584"
+                height="1394"
+                class="w-full h-auto object-contain select-none"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+        </div>
+      </Container>
+    </section>
+
+    <!-- 4d. Relocation (Image Left, Text Right) -->
+    <section id="relocation" class="scroll-mt-24 sm:scroll-mt-28 py-10 sm:py-12 lg:py-16 border-t border-slate-100">
+      <Container size="normal">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
+          
+          <!-- Image Column (Desktop Left / Mobile 1st) - Clean image, no shadow band -->
+          <div class="lg:col-span-5 order-1 lg:order-1 flex justify-center items-center">
+            <div class="relative w-full max-w-[420px] lg:max-w-[460px]">
+              <img
+                src="/images/services/Every Move, Carefully Managed.webp"
+                alt="Professional relocation technicians handling precision data centre hardware and protective logistics"
+                width="1410"
+                height="1338"
+                class="w-full h-auto object-contain select-none"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+          <!-- Text Column (Desktop Right / Mobile 2nd) -->
+          <div class="lg:col-span-7 order-2 lg:order-2 space-y-5 sm:space-y-6">
+            <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.18]">
+              Every Move, Carefully Managed
+            </h2>
+
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+              Support corporate relocations with structured logistics planning and coordinated handling of archives, server racks, desktop fleets, and delicate equipment.
+            </p>
+
+            <!-- Pill Rows with Genuine Relocation Capabilities -->
+            <div class="space-y-3 pt-1">
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+                  <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <span>Dedicated Project Management & Chain of Custody</span>
+              </div>
+              <br class="hidden sm:inline" />
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+                  <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <span>Air-Ride Logistics & Sensitive Equipment Handling</span>
+              </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="pt-3">
+              <a
+                href="/services/relocation"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+              >
+                <span>Explore Relocation Services</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </Container>
+    </section>
+
+  </div>
+
+
+  <!-- =====================================================
+       5. "MORE THAN INDIVIDUAL SERVICES. A CONNECTED APPROACH."
+       FOUR SOFT SAGE STEP CARDS
+       ===================================================== -->
+  <section class="bg-white py-10 sm:py-12 lg:py-16 border-t border-slate-100">
+    <Container size="normal">
+      <!-- Section Header -->
+      <div class="text-left max-w-3xl mb-8 sm:mb-10">
+        <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.15]">
+          More Than Individual Services. A Connected Approach.
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal mt-3">
+          Every organisation maintains different regulatory parameters. TechSteps helps align the appropriate sequence of disciplines so no asset falls outside auditable governance.
         </p>
       </div>
 
-      <!-- Visual connection diagram -->
-      <div class="max-w-3xl mx-auto">
-        <!-- Central hub -->
-        <div class="flex justify-center mb-8">
-          <div class="bg-[#3FB33D]/10 border border-[#3FB33D]/40 rounded-2xl px-10 py-5 text-center">
-            <p class="text-[11px] font-bold uppercase tracking-widest text-[#3FB33D] mb-1">One Partner</p>
-            <p class="text-2xl font-extrabold text-white">Techsteps</p>
+      <!-- 4 Soft Sage Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {connectedSteps.map((item) => (
+          <div class="bg-[#EEF7F2] rounded-[20px] sm:rounded-[24px] p-6 sm:p-7 border border-[#0F623A]/10 flex flex-col justify-start transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+            <span class="text-2xl sm:text-3xl font-bold text-[#0F623A]/30 mb-5 font-mono select-none" aria-hidden="true">
+              {item.step}
+            </span>
+            <h3 class="text-lg sm:text-xl font-semibold text-slate-900 mb-2 font-display">
+              {item.title}
+            </h3>
+            <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
+              {item.text}
+            </p>
           </div>
-        </div>
-
-        <!-- Connector lines (decorative) -->
-        <div class="flex justify-center gap-1 mb-8 opacity-40">
-          {[...Array(5)].map((_, i) => (
-            <div class={`h-8 w-px bg-gradient-to-b from-[#3FB33D] to-transparent ${i === 2 ? '' : 'opacity-50'}`}></div>
-          ))}
-        </div>
-
-        <!-- Four division boxes -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {[
-            { title: 'IT Lifecycle', slug: 'it-lifecycle-services-destruction', accent: '#0F623A' },
-            { title: 'Information Management', slug: 'information-management', accent: '#0F623A' },
-            { title: 'Secure Destruction', slug: 'secure-shredding-document-integrity', accent: '#0F623A' },
-            { title: 'Relocation', slug: 'moving-relocation-services', accent: '#0F623A' },
-          ].map((item) => (
-            <a
-              href={`#division-${item.slug}`}
-              class="group bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-2xl p-5 text-center transition-all duration-200"
-            >
-              <p class="text-xs font-bold uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors leading-snug">{item.title}</p>
-            </a>
-          ))}
-        </div>
-
-        <!-- Bottom arrows -->
-        <div class="flex justify-center gap-1 mb-8 opacity-40">
-          {[...Array(5)].map((_, i) => (
-            <div class={`h-8 w-px bg-gradient-to-b from-transparent to-[#3FB33D] ${i === 2 ? '' : 'opacity-50'}`}></div>
-          ))}
-        </div>
-
-        <!-- Outcome -->
-        <div class="flex justify-center">
-          <div class="bg-emerald-900/30 border border-emerald-500/30 rounded-2xl px-10 py-5 text-center">
-            <p class="text-[11px] font-bold uppercase tracking-widest text-[#3FB33D] mb-1">Every Step</p>
-            <p class="text-lg font-extrabold text-white">Responsible Outcome</p>
-          </div>
-        </div>
-      </div>
-    </Container>
-  </section>*/}
-
-  <!-- ===== 6. SOLUTIONS FOR YOUR SECTOR ===== -->
-  <section class="bg-[#0F623A] py-8 lg:py-12 text-white">
-    <Container>
-      <div class="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-16 xl:gap-20">
-        <div class="lg:w-96 xl:w-[420px] shrink-0">
-          <span class="inline-block text-xs sm:text-[13px] font-bold tracking-[0.2em] uppercase text-emerald-300 mb-4">
-            Sector Expertise
-          </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-[40px] xl:text-[44px] font-extrabold text-white tracking-tight leading-[1.15] mb-4">
-            Solutions Designed Around Your Sector
-          </h2>
-          <p class="text-base sm:text-lg lg:text-xl text-slate-200/90 leading-relaxed mb-6 font-normal">
-            Different organisations face different requirements. Explore how our services support your sector.
-          </p>
-          <a
-            href="/sectors"
-            class="inline-flex items-center gap-2.5 text-base sm:text-lg font-bold text-white hover:text-emerald-300 transition-colors group"
-          >
-            <span>View all sectors</span>
-            <span class="group-hover:translate-x-1 transition-transform">→</span>
-          </a>
-        </div>
-
-        <!-- Sector cards -->
-        <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-          {sectors.map((sector) => (
-            <a
-              href={`/sectors/${sector.slug}`}
-              class="group flex items-center justify-between gap-4 bg-white rounded-[20px] sm:rounded-[24px] px-7 py-6 sm:py-7 shadow-md hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
-            >
-              <p class="text-base sm:text-lg lg:text-xl font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug">{sector.title}</p>
-              <svg class="w-5 h-5 text-slate-400 group-hover:text-[#0F623A] group-hover:translate-x-1.5 transition-all shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-              </svg>
-            </a>
-          ))}
-        </div>
+        ))}
       </div>
     </Container>
   </section>
 
-  <!-- ===== 7. FINAL CTA (Clean Open Layout - No Background Box) ===== -->
-  <section class="relative z-10 py-8 lg:py-12 overflow-hidden">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#0F623A]/10 blur-3xl pointer-events-none"></div>
-    <Container className="relative z-10">
-      <div class="w-full max-w-[1240px] mx-auto text-center">
-        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4">
-          {servicesPage.bottomCta?.eyebrow || "Get Started"}
-        </span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">
-          {servicesPage.bottomCta?.heading || "Let's Find the Right Solution for Your Organisation."}
+
+  <!-- =====================================================
+       6. "BUILT AROUND WHAT MATTERS TO YOUR BUSINESS"
+       4 BENEFITS IN A 2x2 GRID
+       ===================================================== -->
+  <section class="bg-white py-10 sm:py-12 lg:py-16 border-t border-slate-100">
+    <Container size="normal">
+      <!-- Section Header -->
+      <div class="text-left max-w-3xl mb-8 sm:mb-10">
+        <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.15]">
+          Built Around What Matters to Your Business
         </h2>
-        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 font-medium max-w-xl mx-auto">
-          {servicesPage.bottomCta?.description || "Tell us what you're trying to achieve and our team can help identify the right combination of services."}
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal mt-3">
+          Our operational framework is engineered around core principles of data protection, regulatory compliance, environmental sustainability, and dedicated partnership.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href={servicesPage.bottomCta?.primaryButtonLink || "/contact"}
-            class="px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-          >
-            {servicesPage.bottomCta?.primaryButtonText || "Get In Touch →"}
-          </a>
-          <a
-            href={servicesPage.bottomCta?.secondaryButtonLink || "/request-a-quote"}
-            class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5"
-          >
-            {servicesPage.bottomCta?.secondaryButtonText || "Request a Collection"}
-          </a>
+      </div>
+
+      <!-- 2x2 Grid of Benefits -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-16 gap-y-8 sm:gap-y-10">
+        {businessBenefits.map((benefit) => (
+          <div class="flex items-start gap-4 sm:gap-5">
+            <!-- Icon -->
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 text-[#0F623A]" aria-hidden="true">
+              {benefit.icon === 'shield' && (
+                <svg class="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              )}
+              {benefit.icon === 'check-circle' && (
+                <svg class="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              )}
+              {benefit.icon === 'leaf' && (
+                <svg class="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                </svg>
+              )}
+              {benefit.icon === 'handshake' && (
+                <svg class="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              )}
+            </div>
+
+            <!-- Content -->
+            <div class="space-y-1">
+              <h3 class="text-lg sm:text-xl font-semibold text-slate-900 font-display">
+                {benefit.title}
+              </h3>
+              <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+                {benefit.text}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+
+  <!-- =====================================================
+       7. "SOLUTIONS FOR COMPLEX BUSINESS ENVIRONMENTS"
+       REUSING HOMEPAGE SECTORS CAROUSEL
+       ===================================================== -->
+  <section class="relative overflow-hidden bg-white  py-10 sm:py-12 lg:py-16 border-t border-slate-200/80">
+
+
+    <div class="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+<div class="text-center max-w-6xl mx-auto space-y-3 mb-6 sm:mb-8">
+  <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold font-display text-slate-900 tracking-tight leading-[1.18]">
+    Solutions for Complex Business Environments
+  </h2>
+
+  <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-4xl mx-auto">
+    Tailored lifecycle and information management solutions designed for the regulatory, security, and operational demands of distinct industries.
+  </p>
+</div>
+
+      <!-- Existing Reused Homepage Sectors Carousel Component -->
+      <SectorGrid sectors={sectors} />
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       8. FINAL CTA
+       ROUNDED DEEP-GREEN PANEL WITH RECYCLE WATERMARK
+       ===================================================== -->
+  <section class="bg-white py-10 sm:py-12 lg:py-16 border-t border-slate-100">
+    <Container size="normal">
+      <div class="relative bg-[#0F623A] rounded-[24px] sm:rounded-[32px] p-8 sm:p-12 lg:p-14 overflow-hidden shadow-xl text-white">
+        
+        <!-- Faint Recycle Watermark on the Right -->
+        <svg
+          class="absolute -right-8 -bottom-10 sm:-right-4 sm:-bottom-8 w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 text-white/[0.08] pointer-events-none select-none"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5" />
+          <path d="M11 19h8.2a1.8 1.8 0 0 0 1.565-.898 1.774 1.774 0 0 0 .007-1.776L16.74 9.5" />
+          <path d="m14 16 3 3 3-3" />
+          <path d="M8.293 13.596 5.196 9.5 2.1 13.596" />
+          <path d="m15.5 8.5-3.5-6-3.5 6" />
+          <path d="M12 2.5v7" />
+        </svg>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+          
+          <!-- Left: Big Heading -->
+          <div class="lg:col-span-6">
+            <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-white tracking-tight leading-[1.14] font-display">
+              Let's Find The<br class="hidden sm:inline" />
+              Right Solution for<br class="hidden sm:inline" />
+              Your Business.
+            </h2>
+          </div>
+
+          <!-- Right: Supporting Text + 2 Buttons -->
+          <div class="lg:col-span-6 space-y-6">
+            <p class="text-base sm:text-lg text-white/90 leading-relaxed font-normal">
+              Partner with TechSteps to manage your IT assets securely, responsibly, and sustainably.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
+              <a
+                href="/request-a-collection"
+                class="inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-white text-[#0F623A] hover:bg-slate-100 font-semibold text-sm sm:text-base shadow-sm hover:shadow transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0F623A]"
+              >
+                <span>Schedule Asset Pickup</span>
+              </a>
+
+              <a
+                href="/contact"
+                class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm sm:text-base border border-white/25 hover:border-white transition-all duration-200 backdrop-blur-xs transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0F623A]"
+              >
+                <span>Talk to Our Team</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+
         </div>
+
       </div>
     </Container>
   </section>
