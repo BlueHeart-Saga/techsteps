@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
+import CTA from '../components/global/cta.astro';
 import { getAboutPage } from '../lib/sanity/client';
 
 const about = await getAboutPage();
@@ -50,7 +51,7 @@ const aboutPageSchema = {
             <h1 class="text-4xl sm:text-5xl lg:text-[54px] font-semibold text-slate-900 tracking-tight leading-[1.08] font-display">
               Technology<br />With a Purpose
             </h1>
-            <p class="mt-6 text-slate-600 text-base sm:text-[17px] leading-relaxed max-w-sm">
+            <p class="mt-6 text-black text-lg sm:text-xl leading-relaxed max-w-sm">
               We give businesses a smarter way to manage their IT assets securely, responsibly, and sustainably.
             </p>
           </div>
@@ -84,7 +85,7 @@ const aboutPageSchema = {
           <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold text-slate-900 tracking-tight font-display leading-tight">
             Driving a Cleaner, Smarter Tomorrow.
           </h2>
-          <p class="mt-3.5 text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+          <p class="mt-3.5 text-black text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
             TechSteps is an IT asset recovery and responsible recycling company. We partner with businesses to securely manage their retired technology, recover value where possible, and ensure environmental responsibility throughout.
           </p>
         </div>
@@ -161,7 +162,7 @@ const aboutPageSchema = {
             <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
               More Than<br />Recycling.<br />A Brighter Future.
             </h2>
-            <p class="mt-4 sm:mt-5 text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl">
+            <p class="mt-4 sm:mt-5 text-black text-lg sm:text-xl leading-relaxed max-w-xl">
               We believe technology can create a better future — especially when it's handled responsibly. Our mission is to make IT asset management simple, secure, and sustainable for every business, helping you protect data and protect the planet.
             </p>
           </div>
@@ -195,7 +196,7 @@ const aboutPageSchema = {
             </h2>
           </div>
           <div class="lg:col-span-6">
-            <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-lg lg:ml-auto">
+            <p class="text-black text-lg sm:text-xl leading-relaxed max-w-lg lg:ml-auto">
               Our values guide everything we do — from how we handle your data and technology to the environmental impact of our operations.
             </p>
           </div>
@@ -274,7 +275,7 @@ const aboutPageSchema = {
             <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
               People. Planet.<br />Progress.
             </h2>
-            <p class="mt-4 sm:mt-5 text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl">
+            <p class="mt-4 sm:mt-5 text-black text-lg sm:text-xl leading-relaxed max-w-xl">
               We're committed to creating positive change through responsible IT asset recycling, reducing environmental impact, and supporting a circular economy.
             </p>
 
@@ -287,7 +288,7 @@ const aboutPageSchema = {
                 >
                   100K+
                 </span>
-                <span class="block mt-2 text-xs sm:text-sm font-medium text-slate-600">
+                <span class="block mt-2 text-sm sm:text-base font-medium text-black">
                   Devices Processed
                 </span>
               </div>
@@ -301,7 +302,7 @@ const aboutPageSchema = {
                 >
                   500+
                 </span>
-                <span class="block mt-2 text-xs sm:text-sm font-medium text-slate-600">
+                <span class="block mt-2 text-sm sm:text-base font-medium text-black">
                   Businesses Served
                 </span>
               </div>
@@ -315,7 +316,7 @@ const aboutPageSchema = {
                 >
                   0%
                 </span>
-                <span class="block mt-2 text-xs sm:text-sm font-medium text-slate-600">
+                <span class="block mt-2 text-sm sm:text-base font-medium text-black">
                   To Landfill (Recoverable)
                 </span>
               </div>
@@ -342,7 +343,7 @@ const aboutPageSchema = {
             </h2>
           </div>
           <div class="lg:col-span-6">
-            <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-lg lg:ml-auto">
+            <p class="text-black text-lg sm:text-xl leading-relaxed max-w-lg lg:ml-auto">
               What started as a vision to make IT disposal more responsible and secure has grown into a trusted service for businesses across the UK. Today, we continue to expand our impact, helping organisations turn retired technology into new opportunities.
             </p>
           </div>
@@ -406,179 +407,17 @@ const aboutPageSchema = {
 
 
     <!-- =====================================================
-         7. EXISTING CTA SECTION — PROTECTED & COMPLETELY UNCHANGED
+         7. COMMON CTA SECTION
     ====================================================== -->
-    <section
-      id="talk"
-      class="talk-white-section py-10 sm:py-12 lg:py-16 bg-white relative overflow-hidden border-t border-slate-200"
-    >
-      <div class="shell relative z-10">
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-
-          <!-- Left Image -->
-
-          <div class="lg:col-span-5 relative">
-
-            <div class="relative photo-split-frame rounded-2xl overflow-hidden shadow-xl border border-slate-200 group">
-
-              <img
-                src={cta?.image || "/images/services/process-step-1-collect.jpg"}
-                alt={
-                  cta?.imageAlt ||
-                  'Techsteps fleet and collection team on site'
-                }
-                class="w-full h-[360px] sm:h-[420px] lg:h-[460px] object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-                onerror="this.src='/images/brand/about-hero-bg.jpg'"
-              />
-
-              <div class="absolute inset-0 bg-gradient-to-t from-[#0A331E]/80 via-transparent to-transparent"></div>
-
-              <div class="absolute bottom-5 left-5 right-5 flex items-center justify-between text-white text-xs font-mono tracking-wider">
-
-                {cta?.badge && (
-                  <span class="bg-[#0F623A] px-3.5 py-1.5 rounded-full font-medium shadow-md flex items-center gap-1.5 text-white">
-
-                    <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-
-                    {cta.badge}
-
-                  </span>
-                )}
-
-                {cta?.secondaryBadge && (
-                  <span class="text-white text-[11px] bg-[#0A331E]/85 px-2.5 py-1 rounded-md backdrop-blur-xs border border-emerald-500/20">
-                    {cta.secondaryBadge}
-                  </span>
-                )}
-
-              </div>
-
-            </div>
-
-            <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-[#0F623A]/10 rounded-full filter blur-2xl -z-10"></div>
-
-          </div>
-
-
-          <!-- Right Content -->
-
-          <div class="lg:col-span-7">
-
-            <div class="head-rule mb-5">
-
-              <span class="dot"></span>
-
-              <p class="eyebrow">
-                {cta?.eyebrow}
-              </p>
-
-              <span class="line"></span>
-
-            </div>
-
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight leading-[1.08]">
-
-              {cta?.title}
-
-              {cta?.highlightedTitle && (
-                <span class="text-[#0F623A] block mt-1">
-                  {cta.highlightedTitle}
-                </span>
-              )}
-
-            </h2>
-
-            {cta?.description && (
-              <p class="text-base sm:text-lg text-slate-600 max-w-2xl mt-5 leading-relaxed font-normal">
-                {cta.description}
-              </p>
-            )}
-
-            <div class="flex flex-wrap items-center gap-4 mt-8">
-
-              {cta?.buttonLink && (
-                <a
-                  class="btn btn-primary text-white font-bold"
-                  href={cta.buttonLink}
-                >
-                  <span class="text-white">
-                    {cta.buttonText}
-                  </span>
-
-                  <span
-                    aria-hidden="true"
-                    class="text-white"
-                  >
-                    &rarr;
-                  </span>
-                </a>
-              )}
-
-              {cta?.secondaryButtonLink && (
-                <a
-                  class="btn btn-secondary"
-                  href={cta.secondaryButtonLink}
-                >
-                  <span>
-                    {cta.secondaryButtonText}
-                  </span>
-                </a>
-              )}
-
-            </div>
-
-            <div class="talk-contactline mt-10 pt-6 border-t border-slate-200 flex flex-wrap gap-y-3 gap-x-8 text-sm text-slate-600">
-
-              {cta?.phone && (
-                <span>
-                  <span class="text-slate-900 font-medium">
-                    Call:
-                  </span>
-
-                  <a
-                    href={`tel:${cta.phone.replace(/\s/g, '')}`}
-                    class="hover:text-[#0F623A] font-medium transition-colors"
-                  >
-                    {cta.phone}
-                  </a>
-                </span>
-              )}
-
-              {cta?.email && (
-                <span>
-                  <span class="text-slate-900 font-medium">
-                    Email:
-                  </span>
-
-                  <a
-                    href={`mailto:${cta.email}`}
-                    class="hover:text-[#0F623A] font-medium transition-colors"
-                  >
-                    {cta.email}
-                  </a>
-                </span>
-              )}
-
-              {cta?.hours && (
-                <span>
-                  <span class="text-slate-900 font-medium">
-                    Hours:
-                  </span>
-
-                  {cta.hours}
-                </span>
-              )}
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
+    <CTA
+      eyebrow={cta?.eyebrow}
+      title={cta?.title ? `${cta.title} ${cta?.highlightedTitle || ''}`.trim() : undefined}
+      description={cta?.description}
+      primaryText={cta?.buttonText || "Request a Collection"}
+      primaryHref={cta?.buttonLink || "/request-a-collection"}
+      secondaryText={cta?.secondaryButtonText || "Contact Our Team"}
+      secondaryHref={cta?.secondaryButtonLink || "/contact"}
+    />
 
   </div>
 

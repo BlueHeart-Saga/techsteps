@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
-import PageHero from '../components/hero/PageHero.astro';
+import CTA from '../components/global/cta.astro';
+import InfoHero from '../components/hero/InfoHero.astro';
 import { getFaqPage, getSiteSettings } from '../lib/sanity/client';
 
 const [faqPage, siteSettings] = await Promise.all([
@@ -80,16 +81,8 @@ const faqPageSchema = {
   jsonLd={faqPageSchema}
   hasHeroHeader={true}
 >
-  <!-- 1. Hero Section with Signature Integrated Header & Landscape -->
-  <PageHero
-    title={faqPage.hero?.title || "FREQUENTLY ASKED QUESTIONS"}
-    eyebrow={faqPage.hero?.eyebrow || "KNOWLEDGE CENTER // FAQS"}
-    subheading={faqPage.hero?.subheading || "Explore our comprehensive knowledge base covering secure IT asset disposition, confidential shredding, records management, relocations, and regulatory compliance."}
-    breadcrumbs={breadcrumbs}
-    bgImage={faqPage.hero?.bgImage || "/images/brand/about-hero-bg.jpg"}
-    minHeight="min-h-[500px] sm:min-h-[540px] lg:min-h-[580px]"
-    dividerColor="#F8FAF9"
-  />
+  <!-- 1. Reusable Information Page Hero (matching Background+Shadow.png) -->
+  <InfoHero title="FAQ" />
 
   <div class="bg-[#F8FAF9] min-h-screen text-[#0F172A] font-sans pb-24">
     <!-- 2. Search Bar Capsule (Floating Over Hero Boundary) -->
@@ -216,7 +209,7 @@ const faqPageSchema = {
                     </div>
 
                     <!-- Directly Visible Answer (NO HOVER TO REVEAL) -->
-                    <div class="pt-3.5 border-t border-slate-100 text-slate-600 text-sm sm:text-[15.5px] leading-relaxed">
+                    <div class="pt-3.5 border-t border-slate-100 text-black text-base sm:text-lg leading-relaxed">
                       <p>{item.answer}</p>
                     </div>
                   </article>
@@ -233,7 +226,7 @@ const faqPageSchema = {
               </svg>
             </div>
             <h3 class="text-lg font-semibold text-slate-900">No matching questions found</h3>
-            <p class="text-sm text-slate-600 max-w-md mx-auto">
+            <p class="text-base text-black max-w-md mx-auto">
               We couldn't find any questions matching your search keywords. Try searching for broader terms like "data", "shredding", "retrieval", or "ISO".
             </p>
             <button
@@ -251,7 +244,7 @@ const faqPageSchema = {
               <h3 class="text-lg sm:text-xl font-semibold text-slate-900">
                 {faqPage.contactCard?.heading || "Still can't find what you're looking for?"}
               </h3>
-              <p class="text-sm text-slate-600">
+              <p class="text-base text-black">
                 {faqPage.contactCard?.description || "Our compliance team is ready to answer specific technical, audit, or logistics questions."}
               </p>
             </div>
@@ -269,6 +262,7 @@ const faqPageSchema = {
       </div>
     </div>
   </div>
+  <CTA />
 </BaseLayout>
 
 <script>

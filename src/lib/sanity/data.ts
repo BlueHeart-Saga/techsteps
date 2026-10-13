@@ -90,6 +90,7 @@ export const divisions: Division[] = [
     icon: 'folder-lock',
     order: 1,
     featuredServices: ['document-storage', 'document-scanning', 'digital-mailroom', 'vault-storage'],
+    heroImage: '/images/hero/Information Management (1).webp',
   },
   {
     id: 'div-it',
@@ -100,6 +101,7 @@ export const divisions: Division[] = [
     icon: 'cpu',
     order: 2,
     featuredServices: ['secure-it-disposal', 'it-asset-disposition-services', 'ultra-secure-hard-drive-destruction', 'remarketing-recycling'],
+    heroImage: '/images/hero/IT Lifecycle & Destruction.webp',
   },
   {
     id: 'div-sh',
@@ -110,6 +112,7 @@ export const divisions: Division[] = [
     icon: 'shredder',
     order: 3,
     featuredServices: ['on-site-shredding', 'off-site-shredding', 'product-shredding', 'simpler-recycling-services'],
+    heroImage: '/images/hero/Secure Shredding & Integrity.webp',
   },
   {
     id: 'div-mv',
@@ -120,6 +123,7 @@ export const divisions: Division[] = [
     icon: 'truck',
     order: 4,
     featuredServices: ['it-relocations-specialist', 'business-relocations', 'laboratory-relocations-storage', 'heritage-relocations-storage'],
+    heroImage: '/images/hero/Moving & Relocation Services.webp',
   },
 ];
 

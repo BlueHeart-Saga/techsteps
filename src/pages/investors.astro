@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
 import Section from '../components/layout/Section.astro';
+import CTA from '../components/global/cta.astro';
 import PageHero from '../components/hero/PageHero.astro';
 import { getInvestorsPage, getDivisions, getSiteSettings } from '../lib/sanity/client';
 
@@ -179,7 +180,7 @@ const fallbackImages = [
               <span class="text-2xl sm:text-3xl font-extrabold text-[#0F623A]">{stat.suffix}</span>
             </div>
             <h3 class="text-base sm:text-lg font-semibold text-slate-900 tracking-tight">{stat.title}</h3>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">{stat.desc}</p>
+            <p class="text-sm sm:text-base text-black leading-relaxed font-normal">{stat.desc}</p>
           </div>
         ))}
       </div>
@@ -318,7 +319,7 @@ const fallbackImages = [
                 <p class={`text-sm font-bold leading-snug ${isFeatured ? 'text-emerald-50' : 'text-slate-800'}`}>
                   {pillar.desc}
                 </p>
-                <p class={`text-xs sm:text-sm leading-relaxed font-normal ${isFeatured ? 'text-emerald-100/75' : 'text-slate-600'}`}>
+                <p class={`text-sm sm:text-base leading-relaxed font-normal ${isFeatured ? 'text-emerald-100/75' : 'text-black'}`}>
                   {pillar.detail}
                 </p>
               </div>
@@ -340,7 +341,7 @@ const fallbackImages = [
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display text-slate-950 tracking-tight leading-[1.15]">
           Four Businesses,<br class="hidden sm:block" /> One Techsteps plc
         </h2>
-        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl">
+        <p class="text-lg sm:text-xl text-black leading-relaxed font-normal max-w-2xl">
           Techsteps plc has four businesses, who work together to offer organisations a holistic approach to the management of their data, information, communications and assets.
         </p>
       </div>
@@ -468,7 +469,7 @@ const fallbackImages = [
 
               <div class="biz-collapsible">
                 <div class="biz-collapsible-content pt-3 space-y-3.5">
-                  <p class="biz-desc text-xs sm:text-[13.5px] text-slate-600 leading-relaxed font-normal line-clamp-4">
+                  <p class="biz-desc text-sm sm:text-[15px] text-black leading-relaxed font-normal line-clamp-4">
                     {biz.description}
                   </p>
 
@@ -513,7 +514,7 @@ const fallbackImages = [
               Restoring our World<br class="hidden sm:block" />
               <span class="text-[#0F623A]">– Our ESG strategy</span>
             </h2>
-            <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl">
+            <p class="text-lg sm:text-xl text-black leading-relaxed font-normal max-w-2xl">
               Techsteps plc recognises the impact of its operations on the environment, its responsibility to the communities it operates within and its obligations to its people, its suppliers and other invested stakeholders.
             </p>
           </div>
@@ -537,7 +538,7 @@ const fallbackImages = [
                       {item.badge}
                     </span>
                   </div>
-                  <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal max-w-2xl">
+                  <p class="text-base sm:text-lg text-black leading-relaxed font-normal max-w-2xl">
                     {item.desc}
                   </p>
                 </div>
@@ -672,7 +673,13 @@ const fallbackImages = [
       </div>
     </div>
   </Container>
+  <br />
+  <br />
 </section>
+  <!-- ===================================================== -->
+  <!-- 4. COMMON CTA (Requested by user) -->
+  <!-- ===================================================== -->
+  <CTA />
 
 <style>
   .biz-card { will-change: transform, box-shadow, border-color; }

@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import PageHero from '../../components/hero/PageHero.astro';
 import AccordionFaq from '../../components/content/AccordionFaq.astro';
+import ServicesCardGrid from '../../components/services/ServicesCardGrid.astro';
+import CTA from '../../components/global/cta.astro';
 import { getServices, getDivisions } from '../../lib/sanity/client';
 
 const breadcrumbs = [
@@ -34,41 +36,6 @@ const defaultFaqs = [
   { question: 'What happens to equipment that cannot be reused?', answer: 'Assets that cannot be reused are processed through WEEE-compliant zero-landfill recycling channels. No equipment is sent to landfill.' },
 ];
 const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defaultFaqs;
-
-const mainServices = [
-  {
-    number: '01',
-    title: 'Information Management',
-    slug: '/services/information-management',
-    description: 'Climate-controlled physical document storage, accredited high-speed scanning, digital mailrooms, and secure media vaulting.',
-    image: '/images/services/image1.png',
-    badge: 'Division 01',
-  },
-  {
-    number: '02',
-    title: 'IT Lifecycle & Destruction',
-    slug: '/services/it-lifecycle',
-    description: 'End-to-end ITAD, tracked GPS logistics, verified data sanitisation (ADISA compliant), and zero-landfill electronic recycling.',
-    image: '/images/services/image2.jpg',
-    badge: 'Division 02',
-  },
-  {
-    number: '03',
-    title: 'Secure Shredding & Destruction',
-    slug: '/services/secure-destruction',
-    description: 'BS EN 15713 accredited mobile cross-cut shredding, secure console management, product destruction, and certified recycling.',
-    image: '/images/services/image3_web.jpg',
-    badge: 'Division 03',
-  },
-  {
-    number: '04',
-    title: 'Moving & Relocation Services',
-    slug: '/services/relocation',
-    description: 'Specialist IT relocation, laboratory migration, delicate museum archives, commercial office moves, and turnkey logistics.',
-    image: '/images/services/image4.jpg',
-    badge: 'Division 04',
-  },
-];
 ---
 
 <BaseLayout
@@ -78,38 +45,98 @@ const mainServices = [
 >
   <!-- ===== 1. HERO ===== -->
   <PageHero
-    breadcrumbs={breadcrumbs}
-    bgImage="/images/brand/hero-bg.jpg"
-    showDivider={false}
-    minHeight="min-h-[480px] sm:min-h-[520px] lg:min-h-[560px]"
+    bgImage={division?.heroImage || "/images/hero/IT Lifecycle & Destruction.webp"}
+    bgAlt="IT Lifecycle & Destruction Services UK - TechSteps"
+    breadcrumbs={[]}
     layout="custom"
+    showDivider={true}
+    dividerColor="#ffffff"
+    minHeight="min-h-[540px] sm:min-h-[580px] lg:min-h-[640px]"
+    noOverlay={true}
+    theme="light"
   >
-    <div class="w-full max-w-[1240px] mx-auto text-center space-y-6">
-      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-white tracking-tight leading-[1.08] drop-shadow-2xl">
-        {division?.heroTitle || 'IT Lifecycle & Destruction Services UK'}
-      </h1>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
+      <!-- HERO CONTENT (Left) -->
+      <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
 
-      <p class="text-base sm:text-lg lg:text-xl text-slate-200/90 leading-relaxed max-w-2xl mx-auto font-medium">
-        {division?.heroDescription || 'Secure, accredited IT asset disposition (ITAD), verified data erasure, hardware remarketing, and circular zero-landfill electronic recycling for UK enterprise.'}
-      </p>
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
+          <a href="/services" class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
+            Services
+          </a>
+          <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
+          <span class="text-slate-900 font-bold">IT Lifecycle & Destruction</span>
+        </nav>
 
-      <!-- CTA Buttons (TechSteps Logo Theme Color) -->
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-        <a
-          href={division?.heroCtaLink || '/contact?service=it-lifecycle'}
-          class="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 border border-emerald-400/30"
+        <!-- Heading -->
+        <h1
+          class="font-display
+                 text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
+                 font-semibold
+                 text-slate-900
+                 tracking-normal
+                 leading-[1.12] sm:leading-[1.1]
+                 max-w-xl"
         >
-          {division?.heroCtaText || 'Talk to an IT Lifecycle Specialist'}
-        </a>
-        <a
-          href="#it-services"
-          class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm sm:text-base border border-white/25 hover:border-white transition-all duration-200 backdrop-blur-xs transform hover:-translate-y-0.5"
+          {division?.heroTitle || 'IT Lifecycle & Destruction Services UK'}
+        </h1>
+
+        <!-- Description -->
+        <p
+          class="mt-4 sm:mt-5
+                 text-lg sm:text-xl lg:text-lg
+                 text-black
+                 max-w-lg
+                 leading-relaxed
+                 font-sans font-normal"
         >
-          Explore Our Services
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-          </svg>
-        </a>
+          {division?.heroDescription || 'Secure, accredited IT asset disposition (ITAD), verified data erasure, hardware remarketing, and circular zero-landfill electronic recycling for UK enterprise.'}
+        </p>
+
+        <!-- CTA Button -->
+        <div
+          class="mt-6 sm:mt-8
+                 flex flex-wrap
+                 items-center
+                 gap-3.5 sm:gap-4"
+        >
+          <a
+            href={division?.heroCtaLink || '/request-a-collection?service=it-lifecycle'}
+            class="inline-flex items-center justify-center
+                   gap-2.5
+                   px-6 sm:px-7
+                   py-3 sm:py-3.5
+                   rounded-none
+                   bg-[#0F623A] hover:bg-[#0c4e2e]
+                   text-white
+                   text-sm sm:text-base
+                   font-bold
+                   shadow-md hover:shadow-lg
+                   transition-all duration-200
+                   hover:scale-[1.02]
+                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+          >
+            <span>{division?.heroCtaText || 'Request a Collection'}</span>
+            <svg
+              class="w-4 h-4 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- HERO SPACER (Right on Desktop) -->
+      <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end min-h-[420px] lg:min-h-[480px] xl:min-h-[520px] pointer-events-none" aria-hidden="true">
       </div>
     </div>
   </PageHero>
@@ -129,7 +156,7 @@ const mainServices = [
             {division?.aboutTitle || 'Sustainable, Secure IT Asset Management for Modern Enterprise'}
           </h2>
 
-          <div class="space-y-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+          <div class="space-y-4 text-lg sm:text-xl text-black leading-relaxed font-sans font-normal">
             {(division?.aboutParagraphs && division.aboutParagraphs.length > 0) ? (
               division.aboutParagraphs.map((paragraph) => (
                 <p>{paragraph}</p>
@@ -175,72 +202,9 @@ const mainServices = [
     </Container>
   </section>
 
-  <!-- ===== 2.5 SPECIALIST SERVICES OVERVIEW (4 MAIN SERVICES) ===== -->
-  <section id="specialist-services" class="bg-slate-50 py-8 lg:py-12 border-b border-slate-200/80 scroll-mt-20">
-    <Container>
-      <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          Core Divisions
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display">
-          Specialist Services for Your Requirements
-        </h2>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-          Explore our four specialist core divisions delivering nationwide compliance, security, and lifecycle management.
-        </p>
-      </div>
+  <!-- ===== 2.5 SERVICES / CORE DIVISIONS ===== -->
+  <ServicesCardGrid />
 
-      <!-- 4 Main Services Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {mainServices.map((service) => (
-          <div class="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl overflow-hidden min-h-[420px] sm:min-h-[460px] p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5 border border-slate-200/80 bg-slate-900">
-            <!-- Background Image & Dark Gradient -->
-            <img
-              src={service.image}
-              alt={service.title}
-              class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/30 pointer-events-none"></div>
-
-            <!-- Top Row (Badge + Number) -->
-            <div class="relative z-10 flex items-center justify-between w-full">
-              <span class="px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-[11px] font-mono font-bold tracking-widest uppercase shadow-sm">
-                {service.badge}
-              </span>
-              <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center text-white font-mono text-xs font-bold shadow-sm">
-                {service.number}
-              </span>
-            </div>
-
-            <!-- Bottom Content Area -->
-            <div class="relative z-10 flex flex-col justify-end mt-auto pt-12">
-              <h3 class="text-xl sm:text-2xl font-semibold font-display text-white tracking-tight leading-snug group-hover:text-emerald-400 transition-colors">
-                {service.title}
-              </h3>
-              <p class="mt-2.5 text-xs sm:text-sm text-slate-200/90 leading-relaxed font-normal">
-                {service.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <!-- Common Navigation Button to Main Service Page -->
-      <div class="mt-12 sm:mt-16 text-center">
-        <a
-          href="/services"
-          class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-base shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 border border-emerald-500/30 group"
-        >
-          <span>Explore All Services</span>
-          <svg class="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-      </div>
-    </Container>
-  </section>
 
   <!-- ===== WHY PROACTIVE IT LIFECYCLE MATTERS (GREEN THEME) ===== -->
   <section class="bg-[#0A331E] py-8 sm:py-10 lg:py-12 border-b border-emerald-900/50 relative overflow-hidden">
@@ -343,7 +307,7 @@ const mainServices = [
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display">
             Our IT Lifecycle & Disposition Process
           </h2>
-          <p class="mt-3 text-base sm:text-lg text-slate-600 font-normal">
+          <p class="mt-3 text-lg sm:text-xl text-black font-normal">
             A structured, secure end-to-end framework to collect, audit, sanitise and remarket or recycle technology assets.
           </p>
         </div>
@@ -365,7 +329,7 @@ const mainServices = [
               <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
                 Collect & Secure
               </h3>
-              <p class="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
                 GPS-tracked vehicles and vetted personnel collect hardware with full chain of custody.
               </p>
             </div>
@@ -380,7 +344,7 @@ const mainServices = [
               <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
                 Audit & Ingest
               </h3>
-              <p class="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
                 Every unit is barcoded, scanned, and logged by serial number into our secure portal.
               </p>
             </div>
@@ -395,7 +359,7 @@ const mainServices = [
               <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
                 Sanitise & Grade
               </h3>
-              <p class="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
                 ADISA-certified data sanitisation and comprehensive hardware functionality grading.
               </p>
             </div>
@@ -410,7 +374,7 @@ const mainServices = [
               <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
                 Remarket or Recycle
               </h3>
-              <p class="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
                 Recover value through refurbishment or process end-of-life items via zero-landfill WEEE streams.
               </p>
             </div>
@@ -590,19 +554,14 @@ const mainServices = [
   </section>
   ===== */}
 
-  <!-- ===== CTA (Clean Open Layout - No Background Box) ===== -->
-  <section class="relative z-10 py-8 lg:py-12 overflow-hidden">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl pointer-events-none opacity-15" style={`background: ${clr.accent};`}></div>
-    <Container className="relative z-10">
-      <div class="w-full max-w-[1240px] mx-auto text-center">
-        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase mb-4" style={`color: ${clr.accent};`}>Get Started</span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 mb-5 leading-tight tracking-tight">Ready to Streamline Your IT Asset Lifecycle?</h2>
-        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 max-w-xl mx-auto font-medium">Tell us about your hardware volumes and data sanitisation requirements — we'll help you build the right disposition strategy.</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/request-a-collection" class="px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-[#0F623A] hover:bg-[#0c4e2e] text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">Get a Collection →</a>
-          <a href="/contact" class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5">Contact Techsteps</a>
-        </div>
-      </div>
-    </Container>
-  </section>
+  <!-- ===== COMMON CTA ===== -->
+  <CTA
+    eyebrow="GET STARTED"
+    title="Ready to Streamline Your IT Asset Lifecycle?"
+    description="Tell us about your hardware volumes and data sanitisation requirements — we'll help you build the right disposition strategy."
+    primaryText="Get a Collection"
+    primaryHref="/request-a-collection"
+    secondaryText="Contact Techsteps"
+    secondaryHref="/contact"
+  />
 </BaseLayout>

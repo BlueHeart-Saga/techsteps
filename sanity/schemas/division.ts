@@ -12,6 +12,7 @@ export default {
     { name: 'accreditation', title: 'Accreditation Badges Text', type: 'string', description: 'e.g. ISO 27001 • BS 4971 • UK GDPR' },
     { name: 'cardImage', title: 'Card / Feature Image', type: 'image', options: { hotspot: true } },
     { name: 'cardImageAlt', title: 'Card Image Alt Text', type: 'string' },
+    { name: 'heroImage', title: 'Hero Background Image', type: 'image', options: { hotspot: true } },
 
     // Page Specific Content
     { name: 'heroTitle', title: 'Hero Heading', type: 'string' },

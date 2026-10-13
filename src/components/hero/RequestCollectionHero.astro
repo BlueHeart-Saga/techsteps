@@ -1,0 +1,208 @@
+---
+import HeroHeader from '../global/HeroHeader.astro';
+---
+
+<section
+  id="request-collection-hero"
+  class="relative w-full overflow-hidden bg-white select-none"
+>
+  <!-- Request Collection Hero Image -->
+<img
+  src="/images/hero/Request a collection.webp"
+  alt=""
+  aria-hidden="true"
+  class="hidden lg:block absolute right-0 top-0 h-full w-auto max-w-none object-contain object-right pointer-events-none select-none z-0"
+  loading="eager"
+  fetchpriority="high"
+  decoding="sync"
+/>
+
+  <!-- Same Header as Homepage -->
+  <HeroHeader isHome={true} />
+
+  <!-- Main Hero Content -->
+<div
+  class="relative z-10 w-full max-w-7xl mx-auto
+         px-4 sm:px-6 lg:px-8
+         pt-4 sm:pt-8 lg:pt-12 xl:pt-14
+         pb-6 sm:pb-8 lg:pb-10"
+>
+    <div
+      class="grid grid-cols-1 lg:grid-cols-12
+             gap-8 lg:gap-8 xl:gap-10
+             items-center"
+    >
+
+      <!-- HERO CONTENT -->
+      <div
+        class="lg:col-span-6 xl:col-span-6
+               max-w-2xl lg:max-w-none
+               pt-2 sm:pt-4 z-10"
+      >
+
+        <!-- Eyebrow -->
+        <div
+          class="inline-flex items-center gap-2
+                 px-3 py-1
+                 rounded-full
+                 bg-[#0F623A]/10
+                 text-[#0F623A]
+                 text-xs sm:text-sm
+                 font-sans font-bold
+                 uppercase tracking-[0.18em]
+                 mb-3 sm:mb-4"
+        >
+          <span>REQUEST A COLLECTION</span>
+        </div>
+
+        <!-- Heading -->
+        <h1
+          class="font-display
+                 text-3xl sm:text-4xl md:text-5xl
+                 lg:text-[50px] xl:text-[56px]
+                 font-semibold
+                 text-slate-900
+                 tracking-normal
+                 leading-[1.12] sm:leading-[1.1]
+                 max-w-xl"
+        >
+          Book Your IT Asset
+          <br class="hidden sm:inline" />
+          Collection
+        </h1>
+
+        <!-- Description -->
+        <p
+          class="mt-4 sm:mt-5
+                 text-lg sm:text-xl lg:text-lg
+                 text-black
+                 max-w-lg
+                 leading-relaxed
+                 font-sans font-normal"
+        >
+          Arrange a secure, reliable collection of your IT equipment
+          with TechSteps. Tell us what you need collected and our team
+          will coordinate the next steps.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div
+          class="mt-6 sm:mt-8
+                 flex flex-wrap
+                 items-center
+                 gap-3.5 sm:gap-4"
+        >
+
+          <!-- Schedule Collection -->
+          <a
+            href="#collection-booking-form"
+            class="inline-flex items-center justify-center
+                   gap-2.5
+                   px-6 sm:px-7
+                   py-3 sm:py-3.5
+                   rounded-none
+                   bg-[#0F623A]
+                   hover:bg-[#0c4e2e]
+                   text-white
+                   text-sm sm:text-base
+                   font-bold
+                   shadow-md hover:shadow-lg
+                   transition-all duration-200
+                   hover:scale-[1.02]
+                   focus:outline-none
+                   focus:ring-2
+                   focus:ring-[#0F623A]"
+          >
+            <span>Schedule Collection</span>
+
+            <svg
+              class="w-4 h-4 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </a>
+
+          <!-- Contact Us -->
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center
+                   px-6 sm:px-7
+                   py-3 sm:py-3.5
+                   rounded-none
+                   bg-white
+                   hover:bg-slate-50
+                   border-2
+                   border-[#0F623A]
+                   hover:border-[#0c4e2e]
+                   text-[#0F623A]
+                   hover:text-[#0c4e2e]
+                   text-sm sm:text-base
+                   font-bold
+                   transition-all duration-200
+                   hover:scale-[1.02]
+                   shadow-xs
+                   focus:outline-none
+                   focus:ring-2
+                   focus:ring-[#0F623A]"
+          >
+            Contact Us
+          </a>
+
+        </div>
+
+        <!-- Mobile Image -->
+        <div
+          class="lg:hidden
+                 w-full
+                 flex justify-center items-center
+                 mt-8 sm:mt-10"
+        >
+          <div class="relative w-full max-w-[520px]">
+            <img
+              src="/images/hero/Request a collection hero.webp"
+              alt="TechSteps IT asset collection"
+              class="w-full h-auto object-contain
+                     select-none mx-auto block"
+              loading="eager"
+              decoding="sync"
+            />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Desktop Spacer -->
+      <div
+        class="hidden lg:flex
+               lg:col-span-6 xl:col-span-6
+               items-center justify-end
+               min-h-[420px]
+               lg:min-h-[480px]
+               xl:min-h-[520px]
+               pointer-events-none"
+        aria-hidden="true"
+      >
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  #request-collection-hero {
+    background: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #ffffff 45%,
+      #ebf3ea 100%
+    );
+  }
+</style>

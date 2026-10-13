@@ -1,0 +1,23 @@
+---
+import CTA from './cta.astro';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  heading?: string;
+  description?: string;
+  primaryText?: string;
+  primaryHref?: string;
+  primaryButtonText?: string;
+  primaryButtonLink?: string;
+  secondaryText?: string;
+  secondaryHref?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+  className?: string;
+}
+
+const props = Astro.props;
+---
+
+<CTA {...props} />

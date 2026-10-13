@@ -42,7 +42,7 @@ export async function getStaticPaths() {
     register(`${withoutServices}-services-uk`, service);
     register(`${withoutServices}-uk`, service);
 
-    // Match against fallback services to ensure menu slugs (e.g. digital-mailroom, document-management, secure-it-disposal) resolve
+    // Match against fallback services to ensure menu slugs resolve
     const fallbackMatch = fallbackServices.find(
       (f) =>
         f.id === service.id ||
@@ -151,7 +151,8 @@ const breadcrumbSchema = generateBreadcrumbSchema([
   { name: service.divisionTitle, url: `/${divisionPageSlug}` },
   { name: service.title, url: `/services/${service.slug}` },
 ], Astro.site?.origin || 'https://techsteps.co.uk');
-// Identify light-background hero pages (Information Management & IT Lifecycle Services matching Home Hero style)
+
+// Identify light-background hero pages matching Home Hero style
 const cleanSlug = service.slug ? service.slug.toLowerCase().replace(/-(uk|services|services-uk)$/, '') : '';
 const isDigitalMailroom = cleanSlug === 'digital-mailroom' || service.slug?.toLowerCase().includes('digital-mailroom') || service.title?.toLowerCase().includes('mailroom');
 const isDocumentScanning = cleanSlug === 'document-scanning' || service.slug?.toLowerCase().includes('document-scanning') || service.title?.toLowerCase().includes('scanning');
@@ -187,39 +188,7 @@ const isInternationalMoves = cleanSlug === 'europe-international-domestic-moves'
 const isItRelocations = cleanSlug === 'it-relocations-specialist' || cleanSlug === 'it-relocations' || service.slug?.toLowerCase().includes('it-relocations') || service.title?.toLowerCase().includes('it relocation');
 const isProjectManagement = cleanSlug === 'project-management' || service.slug?.toLowerCase().includes('project-management') || service.title?.toLowerCase().includes('project management');
 
-const isLightHero = isDigitalMailroom || isDocumentScanning || isDocumentManagement || isDocumentStorage || isTapeStorage || isHeritageStorage || isVaultStorage ||
-  isSecureItDisposal || isSecureCollection || isItad || isItam || isRemarketingRecycling || isHardDriveDestruction ||
-  isHomeShredding || isOnsiteShredding || isOffsiteShredding || isProductShredding || isSimplerRecycling || isDisposalServices || isCardboardRecycling || isDryMixedRecycling ||
-  isBusinessRelocations || isLabRelocations || isHeritageRelocations || isInternationalMoves || isItRelocations || isProjectManagement ||
-  (typeof service.heroImage === 'string' && (
-    service.heroImage.includes('digital mail room') ||
-    service.heroImage.includes('document scaning') ||
-    service.heroImage.includes('document management') ||
-    service.heroImage.includes('secure document storage') ||
-    service.heroImage.includes('Tape and Media Storage') ||
-    service.heroImage.includes('heritage storage') ||
-    service.heroImage.includes('Valut storage') ||
-    service.heroImage.includes('IT Asset Disposition') ||
-    service.heroImage.includes('IT Asset Tracking') ||
-    service.heroImage.includes('Remarketing & Recycling') ||
-    service.heroImage.includes('Secure Collection') ||
-    service.heroImage.includes('Secure IT Disposal') ||
-    service.heroImage.includes('Hard Drive Destruction') ||
-    service.heroImage.includes('Cardboard Recycling') ||
-    service.heroImage.includes('disposal services') ||
-    service.heroImage.includes('Dry Mixed Recycling') ||
-    service.heroImage.includes('home shredding') ||
-    service.heroImage.includes('offsite shredding') ||
-    service.heroImage.includes('onsite shredding') ||
-    service.heroImage.includes('product shredding') ||
-    service.heroImage.includes('simpler recycling') ||
-    service.heroImage.includes('Business Relocations') ||
-    service.heroImage.includes('Laboratory Relocations & Storage') ||
-    service.heroImage.includes('Heritage Relocations & Storage') ||
-    service.heroImage.includes('Europe & International Domestic Moves') ||
-    service.heroImage.includes('IT Relocations Specialist') ||
-    service.heroImage.includes('Project Management')
-  ));
+const isLightHero = true; // Uniform premium light hero matching Home & Contact standards
 
 const heroBgImage = isDigitalMailroom
   ? '/images/hero/digital mail room services.webp'
@@ -252,11 +221,11 @@ const heroBgImage = isDigitalMailroom
   : isOnsiteShredding
   ? '/images/hero/onsite shredding.webp'
   : isOffsiteShredding
-  ? '/images/hero/offsite shredding services.webp'
+  ? '/images/hero/offsite shredding.webp'
   : isProductShredding
   ? '/images/hero/product shredding.webp'
   : isSimplerRecycling
-  ? '/images/hero/simpler recycling services.webp'
+  ? '/images/hero/simpler recycling.webp'
   : isDisposalServices
   ? '/images/hero/disposal services.webp'
   : isCardboardRecycling
@@ -275,37 +244,18 @@ const heroBgImage = isDigitalMailroom
   ? '/images/hero/IT Relocations Specialist.webp'
   : isProjectManagement
   ? '/images/hero/Project Management.webp'
-  : (service.heroImage || '/images/hero/secure document storage.webp');
+  : (service.heroImage || '/images/hero/IT Lifecycle & Destruction.webp');
 
-  // ===== FRONTMATTER =====
-
-// PROCESS section (solid green bento cards, no images)
+// PROCESS STEPS: Clean 4-step progression
 const processFallback = {
-  badge: 'OUR PROCESS',
-  title: 'Our Secure Document Storage Process',
-  subtitle:
-    'Four simple steps to keep your documents secure, organised and accessible whenever you need them.',
+  badge: 'HOW IT WORKS',
+  title: 'Our Proven 4-Step Process',
+  subtitle: 'A structured, auditable delivery model engineered for seamless execution.',
   steps: [
-    {
-      title: 'Collect',
-      description:
-        'We supply high-grade archive boxes or securely collect your existing paperwork across the UK.',
-    },
-    {
-      title: 'Catalogue',
-      description:
-        'Every container is tagged, securely indexed and assigned a dedicated storage location.',
-    },
-    {
-      title: 'Secure Storage',
-      description:
-        'Documents are housed in secure, climate-controlled facilities with monitored access.',
-    },
-    {
-      title: 'Retrieve When Needed',
-      description:
-        'Request physical document delivery or digital access whenever your team needs a file.',
-    },
+    { title: 'Plan & Consult', description: 'We assess volumes, requirements and compliance criteria to design a tailored service schedule.' },
+    { title: 'Secure Handling', description: 'Operations are executed by vetted personnel using monitored, GPS-tracked logistics.' },
+    { title: 'Certified Processing', description: 'Assets and records are catalogued, managed or treated strictly to accredited standards.' },
+    { title: 'Verified Audit Delivery', description: 'Receive full serialized reporting, duty-of-care transfer notes and completion certificates.' },
   ],
 };
 
@@ -314,30 +264,20 @@ const processSteps =
     ? detail.processSteps.slice(0, 4)
     : processFallback.steps;
 
-const processBadge =
-  detail?.processBadge?.trim() || processFallback.badge;
-
-const processTitle =
-  detail?.processTitle?.trim() || processFallback.title;
-
-const processSubtitle =
-  detail?.processSubtitle?.trim() || processFallback.subtitle;
-
-const processIconPaths = [
-  'M12 3L19 7V12C19 16.5 16 19.5 12 21C8 19.5 5 16.5 5 12V7L12 3ZM9 12L11 14L15 10',
-  'M6 4H18V21H6V4ZM9 8H15M9 12H15M9 16H13',
-  'M5 10H19V20H5V10ZM8 10V7C8 4.8 9.8 3 12 3C14.2 3 16 4.8 16 7V10',
-  'M4 12C6.5 7 9 5 12 5C15 5 17.5 7 20 12C17.5 17 15 19 12 19C9 19 6.5 17 4 12ZM12 9A3 3 0 1 0 12 15A3 3 0 1 0 12 9',
-];
+const processTitle = detail?.processTitle?.trim() || processFallback.title;
+const processSubtitle = detail?.processSubtitle?.trim() || processFallback.subtitle;
 
 // BUSINESS NEEDS section (expanding image panels)
 const sectorImages: Record<string, string> = {
   legal: '/images/sectors/legal.jpg',
-  health: '/images/sectors/healthcare.jpg',
+  health: '/images/sectors/nhs.jpg',
   finance: '/images/sectors/finance.jpg',
   corporate: '/images/sectors/corporate.jpg',
   public: '/images/sectors/government.jpg',
-  business: '/images/sectors/tech.jpg',
+  business: '/images/sectors/technology.jpg',
+  tech: '/images/sectors/technology.jpg',
+  defence: '/images/sectors/defence.jpg',
+  education: '/images/sectors/education.jpg',
 };
 const needsIconPaths: Record<string, string> = {
   legal:
@@ -349,78 +289,8 @@ const needsIconPaths: Record<string, string> = {
     'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
   public: 'M3 21h18M3 10h18M5 10v8m4-8v8m6-8v8m4-8v8M12 3l9 7H3l9-7z',
   business: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+  tech: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
 };
-
-// 02 / CHALLENGES WE SOLVE: Operational challenges addressing customer problem
-const defaultChallengesByDivision: Record<string, { title: string; description: string }[]> = {
-  'it-lifecycle-services-destruction': [
-    { title: 'DATA SECURITY & RESIDUAL RISK', description: service.customerProblem || 'Unsanitised storage media in retired IT hardware presents catastrophic regulatory exposure under UK GDPR.' },
-    { title: 'WEEE STATUTORY AUDIT EXPOSURE', description: 'Disposal through non-accredited channels risks severe Environment Agency penalties and lack of serialized transfer logs.' },
-    { title: 'OPERATIONAL LOGISTICAL COMPLEXITY', description: 'Decommissioning heterogeneous IT assets across multi-site estates leads to inventory drift and operational friction.' },
-  ],
-  'information-management': [
-    { title: 'ESCALATING REAL ESTATE FOOTPRINT', description: service.customerProblem || 'Boxed physical files occupy high-cost office square footage while remaining vulnerable to environmental damage.' },
-    { title: 'ARCHIVAL INACCESSIBILITY & LATENCY', description: 'Decentralized document storage creates search bottlenecks during time-critical legal, clinical, or client audits.' },
-    { title: 'COMPLIANCE & RETENTION LIABILITIES', description: 'Unstructured record archives risk non-adherence to statutory retention mandates and BS 10008 legal admissibility.' },
-  ],
-  'secure-shredding-document-integrity': [
-    { title: 'CONFIDENTIAL DATA & BRAND INTEGRITY EXPOSURE', description: service.customerProblem || 'Unshredded records and obsolete branded inventory in general waste present critical security vulnerabilities.' },
-    { title: 'DUTY OF CARE NON-COMPLIANCE', description: 'Failure to demonstrate certified destruction to BS EN 15713 standards exposes organisations to statutory liabilities.' },
-    { title: 'LANDFILL CHARGES & ESG AUDIT DEFICITS', description: 'Mixed disposal practices trigger punitive Landfill Tax surcharges and degrade corporate environmental reporting.' },
-  ],
-  'moving-relocation-services': [
-    { title: 'CRITICAL OPERATIONAL DOWNTIME', description: service.customerProblem || 'Unplanned downtime during facility moves halts corporate trading, customer fulfillment, and core productivity.' },
-    { title: 'HIGH-VALUE EQUIPMENT & ASSET RISK', description: 'Moving sensitive data centre racks, laboratory instruments, or heritage archives requires specialized handling.' },
-    { title: 'PROJECT MANAGEMENT & CO-ORDINATION FRICTION', description: 'Coordinating multi-contractor decants, building access constraints, and sequential phases leads to overrun costs.' },
-  ],
-};
-
-const serviceChallenges = defaultChallengesByDivision[service.divisionSlug] || [
-  { title: 'DATA SECURITY & RISK EXPOSURE', description: service.customerProblem || 'Protecting sensitive information and physical assets throughout complex operational lifecycles.' },
-  { title: 'OPERATIONAL CONTINUITY', description: 'Minimising disruption to daily business activities during service transitions and hardware handovers.' },
-  { title: 'AUDIT TRACEABILITY', description: 'Ensuring end-to-end chain of custody with legally defensible documentation and regulatory compliance.' },
-];
-
-// 03 / WHAT'S INCLUDED: Service capabilities
-const capabilitiesList = (Array.isArray(service.capabilities) && service.capabilities.length > 0)
-  ? service.capabilities.map((cap: any) => typeof cap === 'string' ? { title: cap, description: '' } : cap)
-  : (detail.aboutBullets || []).map((b: string) => ({ title: b, description: '' }));
-
-// 05 / WHAT YOU RECEIVE: Service deliverables
-const defaultDeliverablesByDivision: Record<string, { title: string; description: string }[]> = {
-  'it-lifecycle-services-destruction': [
-    { title: 'Serialized Asset Inventory Register', description: 'Itemised digital schedule of all processed hardware with make, model, serial number, and asset tag.' },
-    { title: 'Duty of Care Waste Transfer Note', description: 'Statutory Environment Agency transfer documentation verifying licensed carrier movement.' },
-    { title: 'Certified Data Sanitisation & Destruction Report', description: 'Blancco-certified wiping logs and DIN 66399 shredding evidence for audit compliance.' },
-    { title: 'WEEE & Environmental Diversion Manifest', description: 'Detailed sustainability certificate confirming 0% landfill diversion and circular recovery rates.' },
-  ],
-  'information-management': [
-    { title: 'Itemised Box & File Catalogue', description: 'Comprehensive barcode register of all archived records indexed to your client portal.' },
-    { title: 'Chain of Custody Intake Documentation', description: 'Formal intake sign-off verifying biometric facility entry and dedicated shelf allocation.' },
-    { title: 'Rapid Retrieval & Scan-on-Demand Logs', description: 'Time-stamped audit trails of all physical recalls and encrypted digital file transfers.' },
-    { title: 'Statutory Retention Schedule Alerts', description: 'Automated periodic review notices flagging files reaching legal maturation dates.' },
-  ],
-  'secure-shredding-document-integrity': [
-    { title: 'BS EN 15713 Certificate of Destruction', description: 'Legally defensible documentation certifying complete physical particle destruction.' },
-    { title: 'Duty of Care Controlled Waste Transfer Note', description: 'Statutory transfer manifest proving compliant transfer to licensed facilities.' },
-    { title: 'Tamper-Evident Security Seal Log', description: 'Numbered seal verification records matching collection vehicles to depot processing.' },
-    { title: 'Circular Paper Recycling Certificate', description: 'Environmental verification documenting 100% recycling into UK paper manufacturing.' },
-  ],
-  'moving-relocation-services': [
-    { title: 'Pre-Move Condition & Inventory Register', description: 'Comprehensive audit of all furniture, technology, and facility assets prior to transit.' },
-    { title: 'GPS Consignment Tracking Manifest', description: 'Real-time vehicle and container transit verification with security driver sign-offs.' },
-    { title: 'Sequential Recommissioning Schedule', description: 'Detailed room-by-room, rack-by-rack placement confirmation for rapid resumption.' },
-    { title: 'Final Handover & Clearances Sign-Off', description: 'Formal sign-off report confirming complete delivery, environmental clean-up, and crate collection.' },
-  ],
-};
-
-const serviceDeliverables = (service.deliverables && service.deliverables.length > 0)
-  ? service.deliverables
-  : (defaultDeliverablesByDivision[service.divisionSlug] || [
-      { title: 'Comprehensive Service Inventory Log', description: 'Itemised tracking of all managed assets, serial numbers, and container identifiers.' },
-      { title: 'Duty of Care & Chain-of-Custody Manifest', description: 'Official transfer records documenting secure handling and transport.' },
-      { title: 'Certified Service Completion Documentation', description: 'Formal verification confirming operational execution to accredited standards.' },
-    ]);
 
 // 07 / INDUSTRIES / SECTORS: Map and filter relevant sectors
 const sectorIconMap: Record<string, string> = {
@@ -458,7 +328,29 @@ const finalSectorCards = (filteredSectorCards && filteredSectorCards.length >= 3
   ? filteredSectorCards
   : (detail.businessNeedsCards || []);
 
-// 09 / SUCCESS STORY: Strictly related case study
+// MERGED 3-PILLAR BENEFITS: Combining challenges, capabilities & documentation into 3 clear cards
+const consolidatedBenefits = [
+  {
+    tag: 'RISK MITIGATION',
+    title: detail.whyPoints?.[0]?.title || 'Confidentiality & Regulatory Security',
+    description: detail.whyPoints?.[0]?.description || service.customerProblem || 'Eliminate compliance liabilities, data leaks, and audit exposure through vetted personnel, biometric security, and full UK GDPR adherence.',
+    deliverable: 'Certified Chain of Custody & Non-Disclosure Verification',
+  },
+  {
+    tag: 'OPERATIONAL EFFICIENCY',
+    title: detail.whyPoints?.[1]?.title || 'Seamless Lifecycle Management',
+    description: detail.whyPoints?.[1]?.description || 'Minimise operational downtime and reclaim valuable workplace capacity with scheduled logistics, barcoded tracking, and fast retrieval.',
+    deliverable: 'Serialized Asset Manifests & Fast Portal Visibility',
+  },
+  {
+    tag: 'AUDIT & ESG ASSURANCE',
+    title: detail.whyPoints?.[2]?.title || 'Statutory Compliance & Circular Impact',
+    description: detail.whyPoints?.[2]?.description || 'Achieve measurable ESG progress with zero-landfill diversion, licensed waste transfers, and certified destruction documentation for total defense.',
+    deliverable: 'Duty of Care Waste Transfer Notes & Completion Certificates',
+  },
+];
+
+// SUCCESS STORY: Verified matching case study if available
 const matchingCaseStudy = (allCaseStudies || []).find((cs) => {
   if (!cs.servicesUsed || !Array.isArray(cs.servicesUsed)) return false;
   const targets = [
@@ -486,7 +378,7 @@ const matchingCaseStudy = (allCaseStudies || []).find((cs) => {
   });
 });
 
-// 10 / RELATED SERVICES: Resolve related services
+// COMPACT RELATED SERVICES
 const resolvedRelatedServices = (service.relatedServices || [])
   .map((rSlug) => {
     const clean = rSlug.toLowerCase().replace(/-(uk|services|services-uk)$/, '');
@@ -497,15 +389,15 @@ const resolvedRelatedServices = (service.relatedServices || [])
   })
   .filter(Boolean) as Service[];
 
-const relatedServices = resolvedRelatedServices.length >= 2
+const relatedServices = (resolvedRelatedServices.length >= 2
   ? resolvedRelatedServices.slice(0, 3)
   : [
       ...resolvedRelatedServices,
       ...allServices.filter((s) => s.divisionSlug === service.divisionSlug && s.slug !== service.slug && !resolvedRelatedServices.some((r) => r.slug === s.slug)),
-    ].slice(0, 3);
+    ]).slice(0, 3);
 
-// 11 / FREQUENTLY ASKED QUESTIONS: Exactly 6 when available
-const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slice(0, 6) : [];
+// FAQS: Strictly 4 to 6 concise questions
+const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slice(0, 5) : [];
 ---
 
 <BaseLayout
@@ -516,215 +408,149 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
   hasHeroHeader={true}
 >
 
-  <!-- ===== 1. SERVICE HERO ===== -->
+  <!-- ===================================================== -->
+  <!-- 1. HERO SECTION: Improved visual balance & spacing    -->
+  <!-- ===================================================== -->
   <PageHero
     bgImage={heroBgImage}
     breadcrumbs={[]}
     layout="custom"
     showDivider={true}
     dividerColor="#ffffff"
-    minHeight="min-h-[540px] sm:min-h-[580px] lg:min-h-[640px]"
-    noOverlay={isLightHero}
-    theme={isLightHero ? "light" : "dark"}
+    minHeight="min-h-[520px] sm:min-h-[560px] lg:min-h-[620px]"
+    noOverlay={true}
+    theme="light"
   >
-    {isLightHero ? (
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
-        <!-- =========================
-             HERO CONTENT (Left) - Exact Home Hero Sizing
-        ========================= -->
-        <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+      <!-- HERO CONTENT (Left) -->
+      <div class="lg:col-span-7 xl:col-span-7 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
 
-          <!-- Breadcrumb Navigation -->
-          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
-            <a href={`/services/${divisionPageSlug}`} class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
-              {service.divisionTitle} Services UK
-            </a>
-            <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
-            <span class="text-slate-900 font-bold">{service.title}</span>
-          </nav>
-
-          <!-- Heading -->
-          <h1
-            class="font-display
-                   text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
-                   font-semibold
-                   text-slate-900
-                   tracking-normal
-                   leading-[1.12] sm:leading-[1.1]
-                   max-w-xl"
-          >
-            {detail.heroTitle}
-          </h1>
-
-          <!-- Description: Exact Home Hero size & font -->
-          <p
-            class="mt-4 sm:mt-5
-                   text-base sm:text-lg lg:text-[17px]
-                   text-slate-600
-                   max-w-lg
-                   leading-relaxed
-                   font-sans font-normal"
-          >
-            {detail.heroDescription}
-          </p>
-
-          <!-- CTA Buttons: Exact Home Hero shape, buttons and size -->
-          <div
-            class="mt-6 sm:mt-8
-                   flex flex-wrap
-                   items-center
-                   gap-3.5 sm:gap-4"
-          >
-            <!-- Request a Collection Button -->
-            <a
-              href={`/request-a-collection?service=${encodeURIComponent(service.slug)}`}
-              class="inline-flex items-center justify-center
-                     gap-2.5
-                     px-6 sm:px-7
-                     py-3 sm:py-3.5
-                     rounded-none
-                     bg-[#0F623A] hover:bg-[#0c4e2e]
-                     text-white
-                     text-sm sm:text-base
-                     font-bold
-                     shadow-md hover:shadow-lg
-                     transition-all duration-200
-                     hover:scale-[1.02]
-                     focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
-            >
-              <span>Request a Collection</span>
-              <svg
-                class="w-4 h-4 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2.2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </a>
-
-            <!-- Contact Us / Talk to Our Team Button -->
-            {/*<a
-              href={`/contact?service=${encodeURIComponent(service.slug)}`}
-              class="inline-flex items-center justify-center
-                     px-6 sm:px-7
-                     py-3 sm:py-3.5
-                     rounded-none
-                     bg-white hover:bg-slate-50
-                     border-2 border-[#0F623A] hover:border-[#0c4e2e]
-                     text-[#0F623A] hover:text-[#0c4e2e]
-                     text-sm sm:text-base
-                     font-bold
-                     transition-all duration-200
-                     hover:scale-[1.02]
-                     shadow-xs
-                     focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
-            >
-              Talk to Our Team
-            </a>*/}
-          </div>
-
-        </div>
-
-        <!-- =========================
-             HERO SPACER (Right on Desktop)
-        ========================= -->
-        <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end min-h-[420px] lg:min-h-[480px] xl:min-h-[520px] pointer-events-none" aria-hidden="true">
-        </div>
-      </div>
-    ) : (
-      <div class="max-w-4xl py-6 sm:py-10 text-left space-y-5 sm:space-y-6">
-        <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-mono font-medium text-slate-300">
-          <a href={`/services/${divisionPageSlug}`} class="hover:text-white transition-colors underline-offset-4 hover:underline">
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
+          <a href={`/services/${divisionPageSlug}`} class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
             {service.divisionTitle} Services UK
           </a>
-          <span class="text-emerald-400 font-bold" aria-hidden="true">›</span>
-          <span class="text-white font-semibold">{service.title}</span>
+          <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
+          <span class="text-slate-900 font-bold">{service.title}</span>
         </nav>
 
+        <!-- Heading -->
         <h1
-          class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-white tracking-tight leading-[1.08] drop-shadow-2xl max-w-2xl"
-          style="min-height: calc(2 * 1.08em);"
+          class="font-display
+                 text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[54px]
+                 font-semibold
+                 text-slate-900
+                 tracking-normal
+                 leading-[1.12] sm:leading-[1.1]
+                 max-w-xl"
         >
           {detail.heroTitle}
         </h1>
 
-        <p class="text-base sm:text-lg lg:text-xl text-slate-200/90 leading-relaxed max-w-2xl font-normal drop-shadow-sm min-h-[2lh] min-h-[3.25em]">
+        <!-- Short Description -->
+        <p
+          class="mt-4 sm:mt-5
+                 text-base sm:text-lg lg:text-[19px]
+                 text-black
+                 max-w-xl
+                 leading-relaxed
+                 font-sans font-normal"
+        >
           {detail.heroDescription}
         </p>
 
-        <div class="flex flex-wrap items-center gap-3.5 pt-2">
+        <!-- Primary CTA -->
+        <div class="mt-6 sm:mt-8 flex flex-wrap items-center gap-4">
           <a
             href={`/request-a-collection?service=${encodeURIComponent(service.slug)}`}
-            class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 border border-emerald-400/30"
+            class="inline-flex items-center justify-center
+                   gap-2.5
+                   px-7 sm:px-8
+                   py-3.5 sm:py-4
+                   bg-[#0F623A] hover:bg-[#0c4e2e]
+                   text-white
+                   text-base sm:text-lg
+                   font-bold
+                   shadow-md hover:shadow-lg
+                   transition-all duration-200
+                   hover:scale-[1.01]
+                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
           >
-            Request a Collection
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            <span>Request a Collection</span>
+            <svg
+              class="w-5 h-5 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.2"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </a>
-          {/*<a
-            href={`/contact?service=${encodeURIComponent(service.slug)}`}
-            class="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm sm:text-base border border-white/25 hover:border-white transition-all duration-200 backdrop-blur-xs transform hover:-translate-y-0.5"
+
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center
+                   px-6 py-3.5
+                   bg-white hover:bg-slate-50
+                   border border-slate-300
+                   text-slate-800 hover:text-black
+                   text-base
+                   font-semibold
+                   transition-colors duration-200"
           >
-            Talk to Our Team
-          </a>*/}
+            Contact Specialist
+          </a>
         </div>
       </div>
-    )}
+
+      <!-- HERO SPACER (Right on Desktop) -->
+      <div class="hidden lg:flex lg:col-span-5 xl:col-span-5 items-center justify-end min-h-[420px] pointer-events-none" aria-hidden="true">
+      </div>
+    </div>
   </PageHero>
 
-  <!-- ===== 01 / SERVICE OVERVIEW ===== -->
-  <section class="bg-white py-16 lg:py-24 border-b border-slate-200/80 relative">
+  <!-- ===================================================== -->
+  <!-- 2. INTRODUCTION SECTION: Split Image & Text Layout    -->
+  <!-- ===================================================== -->
+  <section class="bg-white py-16 lg:py-20 border-b border-slate-200/80">
     <Container>
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-        {/* Left Side: Service Photo */}
-        <div class="lg:col-span-5 relative lg:sticky lg:top-28 self-start">
-          <div class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200/90 bg-slate-100 group">
-            <div class="relative h-[460px] sm:h-[520px] lg:h-[560px] w-full overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        <!-- Left Side: Service Photo -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative rounded-2xl overflow-hidden shadow-md border border-slate-200/90 bg-slate-100 group">
+            <div class="relative h-[380px] sm:h-[440px] lg:h-[480px] w-full overflow-hidden">
               <img
                 src={detail.aboutImage}
                 alt={detail.aboutImageAlt}
                 class="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500"
-                loading="lazy"
+                loading="eager"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent pointer-events-none"></div>
             </div>
           </div>
         </div>
 
-        {/* Right Side: Editorial Service Content */}
-        <div class="lg:col-span-7 space-y-8">
-          <div>
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-              01 / SERVICE OVERVIEW
-            </div>
-
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-              {detail.aboutTitle}
-            </h2>
+        <!-- Right Side: Editorial Content with 3 Key Benefits -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
+            SERVICE OVERVIEW
           </div>
 
-          <div class="space-y-5 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-            {detail.aboutParagraphs.map((paragraph) => (
-              <p class="leading-relaxed">
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.14]">
+            {detail.aboutTitle}
+          </h2>
 
-          {/* Bullet Checklist with Circular Green Checkmarks */}
-          <div class="pt-4 space-y-3.5 border-t border-slate-100">
-            {detail.aboutBullets.map((bullet) => (
+          <p class="text-base sm:text-lg lg:text-[19px] text-black leading-relaxed font-normal text-justify">
+            {detail.aboutParagraphs[0] || "We deliver tailored, security-cleared operational solutions ensuring compliance, continuous data protection, and complete chain of custody across the UK."}
+          </p>
+
+          <!-- 3 Key Benefits with Circular Green Checkmarks -->
+          <div class="pt-3 space-y-3.5 border-t border-slate-100  text-justify">
+            {detail.aboutBullets.slice(0, 3).map((bullet) => (
               <div class="flex items-start gap-3.5">
-                <div class="w-6 h-6 rounded-full bg-[#0F623A]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <svg class="w-3.5 h-3.5 text-[#0F623A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <div class="w-6 h-6 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
@@ -739,251 +565,194 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
     </Container>
   </section>
 
-  <!-- ===== 02 / CHALLENGES WE SOLVE ===== -->
-  <section class="py-16 lg:py-24 bg-[#F8FAF9] border-b border-slate-200/80">
+  <!-- ===================================================== -->
+  <!-- 3. BENEFITS SECTION: Consolidated 3 Visual Cards      -->
+  <!-- ===================================================== -->
+  <section class="py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
     <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          02 / CHALLENGES WE SOLVE
-        </div>
+      <div class="max-w-3xl mb-10 sm:mb-12">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+          KEY ADVANTAGES
+        </span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-          The Challenges Behind the Requirement
+          What the Service Delivers for Your Business
         </h2>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-          Navigating operational, regulatory, and security hurdles in enterprise information and asset management.
+        <p class="mt-3 text-base sm:text-lg lg:text-[19px] text-black leading-relaxed font-normal">
+          Consolidated risk reduction, streamlined operations, and certified documentation for total peace of mind.
         </p>
       </div>
 
-      <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
-        {serviceChallenges.map((challenge, idx) => {
-          const num = String(idx + 1).padStart(2, '0');
-          return (
-            <div class="py-8 sm:py-10 group transition-colors duration-200 hover:bg-white/80 px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
-              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center">
-                <div class="md:col-span-2">
-                  <span class="text-3xl sm:text-4xl font-mono font-bold text-[#0F623A] tracking-tight">
-                    {num}
-                  </span>
-                </div>
-                <div class="md:col-span-9">
-                  <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors duration-200 uppercase tracking-tight">
-                    {challenge.title}
-                  </h3>
-                  <p class="mt-2 text-base sm:text-lg text-slate-600 font-sans leading-relaxed">
-                    {challenge.description}
-                  </p>
-                </div>
-                <div class="md:col-span-1 flex justify-end">
-                  <span class="w-10 h-10 rounded-full border border-slate-200 group-hover:border-[#0F623A] group-hover:bg-[#0F623A] group-hover:text-white flex items-center justify-center text-slate-400 transition-all duration-300 transform group-hover:translate-x-1">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </span>
-                </div>
+      <!-- 3-Column Visual Benefit Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {consolidatedBenefits.map((benefit, idx) => (
+          <div class="bg-white rounded-2xl border border-slate-200/90 p-7 sm:p-8 shadow-xs hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10">
+                  {benefit.tag}
+                </span>
+                <span class="text-2xl font-mono font-bold text-slate-300">
+                  0{idx + 1}
+                </span>
               </div>
+
+              <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 leading-snug">
+                {benefit.title}
+              </h3>
+
+              <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-sans">
+                {benefit.description}
+              </p>
             </div>
-          );
-        })}
+
+            <!-- Proof / Deliverable Note at bottom of card -->
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-start gap-2.5">
+              <svg class="w-4 h-4 text-[#0F623A] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-xs font-medium text-slate-600 leading-snug">
+                {benefit.deliverable}
+              </span>
+            </div>
+          </div>
+        ))}
       </div>
     </Container>
   </section>
 
-  <!-- ===== 03 / WHAT'S INCLUDED ===== -->
-  <section class="py-16 lg:py-24 bg-white border-b border-slate-200/80">
+  <!-- ===================================================== -->
+  <!-- 4. PROCESS SECTION: 4-Step Process with Clean Spacing -->
+  <!-- ===================================================== -->
+  <section class="py-16 lg:py-20 bg-white border-b border-slate-200/80">
     <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          03 / WHAT'S INCLUDED
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-          Everything You Need to Manage the Service Lifecycle
-        </h2>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-          Certified operational capabilities and accredited provisions engineered specifically for {service.title.toLowerCase()}.
-        </p>
-      </div>
-
-      <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
-        {capabilitiesList.map((cap, idx) => {
-          const num = String(idx + 1).padStart(2, '0');
-          return (
-            <div class="py-7 sm:py-8 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
-              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center">
-                <div class="md:col-span-2">
-                  <span class="text-2xl sm:text-3xl font-mono font-bold text-[#0F623A] tracking-tight">
-                    {num}
-                  </span>
-                </div>
-                <div class="md:col-span-9">
-                  <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors duration-200">
-                    {cap.title}
-                  </h3>
-                  {cap.description && (
-                    <p class="mt-2 text-base text-slate-600 font-sans leading-relaxed">
-                      {cap.description}
-                    </p>
-                  )}
-                </div>
-                <div class="md:col-span-1 flex justify-end">
-                  <span class="w-10 h-10 rounded-full border border-slate-200 group-hover:border-[#0F623A] group-hover:bg-[#0F623A] group-hover:text-white flex items-center justify-center text-slate-400 transition-all duration-300 transform group-hover:translate-x-1">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </Container>
-  </section>
-
-  <!-- ===== 04 / HOW IT WORKS ===== -->
-  <section class="py-16 lg:py-24 bg-[#F8FAF9] border-b border-slate-200/80 relative overflow-hidden">
-    <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          04 / HOW IT WORKS
-        </div>
+      <div class="max-w-3xl mb-10 sm:mb-12">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+          HOW IT WORKS
+        </span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
           {processTitle}
         </h2>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+        <p class="mt-3 text-base sm:text-lg lg:text-[19px] text-black leading-relaxed font-normal">
           {processSubtitle}
         </p>
       </div>
 
-      <!-- Connected Process Grid -->
-      <div class="relative">
-        <!-- Connecting Line for Desktop -->
-        <div class="hidden lg:block absolute top-[52px] left-[6%] right-[6%] h-[2px] bg-slate-200 z-0" aria-hidden="true"></div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
-          {processSteps.map((step, i) => {
-            const stepNum = String(i + 1).padStart(2, '0');
-            return (
-              <article class="group relative rounded-xl border border-slate-200/90 bg-white p-7 shadow-xs hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-6">
-                    <div class="w-12 h-12 rounded-xl bg-[#0F623A] text-white flex items-center justify-center font-mono font-bold text-sm shadow-sm group-hover:scale-105 transition-transform duration-200">
-                      {stepNum}
-                    </div>
-                    <span class="text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A]">
-                      STEP {stepNum}
-                    </span>
-                  </div>
-
-                  <h3 class="text-xl font-semibold text-slate-900 font-display mb-3 group-hover:text-[#0F623A] transition-colors leading-snug">
-                    {step.title}
-                  </h3>
-
-                  <p class="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-
-                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Phase {i + 1} of {processSteps.length}</span>
-                  <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]/40 group-hover:bg-[#0F623A] transition-colors"></span>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-    </Container>
-  </section>
-
-  <!-- ===== 05 / WHAT YOU RECEIVE ===== -->
-  <section class="py-16 lg:py-24 bg-white border-b border-slate-200/80">
-    <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          05 / WHAT YOU RECEIVE
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-          Clear Documentation. Clear Evidence. Clear Outcomes.
-        </h2>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-          Formal deliverables, verified registers, and audit records provided upon service completion.
-        </p>
-      </div>
-
-      <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
-        {serviceDeliverables.map((item, idx) => {
-          const num = String(idx + 1).padStart(2, '0');
+      <!-- 4 Connected Process Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {processSteps.map((step, i) => {
+          const stepNum = String(i + 1).padStart(2, '0');
           return (
-            <div class="py-7 sm:py-8 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
-              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center">
-                <div class="md:col-span-2">
-                  <span class="text-2xl sm:text-3xl font-mono font-bold text-[#0F623A] tracking-tight">
-                    {num}
+            <article class="rounded-2xl border border-slate-200/90 bg-[#F8FAF9] p-6 sm:p-7 hover:border-[#0F623A]/40 hover:bg-white hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-5">
+                  <div class="w-10 h-10 rounded-xl bg-[#0F623A] text-white flex items-center justify-center font-mono font-bold text-sm shadow-xs">
+                    {stepNum}
+                  </div>
+                  <span class="text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A]">
+                    PHASE {stepNum}
                   </span>
                 </div>
-                <div class="md:col-span-9">
-                  <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors duration-200">
-                    {item.title}
-                  </h3>
-                  {item.description && (
-                    <p class="mt-2 text-base text-slate-600 font-sans leading-relaxed">
-                      {item.description}
-                    </p>
-                  )}
-                </div>
-                <div class="md:col-span-1 flex justify-end">
-                  <span class="w-10 h-10 rounded-full border border-slate-200 group-hover:border-[#0F623A] group-hover:bg-[#0F623A] group-hover:text-white flex items-center justify-center text-slate-400 transition-all duration-300 transform group-hover:translate-x-1">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </span>
-                </div>
+
+                <h3 class="text-xl font-semibold text-slate-900 font-display mb-2.5 leading-snug">
+                  {step.title}
+                </h3>
+
+                <p class="text-sm sm:text-base text-slate-700 font-sans leading-relaxed">
+                  {step.description}
+                </p>
               </div>
-            </div>
+
+              <div class="mt-6 pt-3.5 border-t border-slate-200/70 flex items-center justify-between">
+                <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Step {i + 1} of 4</span>
+                <span class="w-2 h-2 rounded-full bg-[#0F623A]"></span>
+              </div>
+            </article>
           );
         })}
       </div>
     </Container>
   </section>
 
-  <!-- ===== 06 / BUSINESS VALUE ===== -->
-  <section class="py-16 lg:py-24 bg-[#0A331E] relative overflow-hidden border-b border-emerald-950 text-white">
+  <!-- ===================================================== -->
+  <!-- 5. TRUST & SECURITY: Premium Dark-Green Section       -->
+  <!-- ===================================================== -->
+  <section class="py-16 lg:py-20 bg-[#0A331E] relative overflow-hidden border-b border-emerald-950 text-white">
     <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-          06 / BUSINESS VALUE
+      <div class="max-w-3xl mb-10 sm:mb-12">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-3">
+          SECURITY & TRUST
         </span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
-          {detail.whyTitle || "What the Service Means for Your Organisation"}
+          Enterprise Security Built into Every Step
         </h2>
-        <p class="mt-4 text-base sm:text-lg text-emerald-100/85 leading-relaxed font-sans max-w-2xl font-normal">
-          {detail.whySubtitle || "Proven commercial, risk reduction, and operational continuity delivered across the UK."}
+        <p class="mt-3 text-base sm:text-lg text-emerald-100/90 leading-relaxed font-sans font-normal max-w-2xl">
+          Rigorous vetting, certified information governance, and unbroken chain of custody protecting your assets nationwide.
         </p>
       </div>
 
-      <div class="divide-y divide-emerald-500/20 border-t border-b border-emerald-500/20">
-        {detail.whyPoints.map((pt) => (
-          <div class="py-8 sm:py-10 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline group hover:bg-white/[0.03] px-4 -mx-4 rounded-lg transition-colors">
-            <div class="md:col-span-4 flex items-baseline gap-4">
-              <span class="font-mono text-2xl sm:text-3xl font-bold text-emerald-400 shrink-0">
-                {pt.number}
-              </span>
-              <h3 class="text-xl sm:text-2xl font-semibold text-white font-display group-hover:text-emerald-200 transition-colors uppercase tracking-tight">
-                {pt.title}
-              </h3>
-            </div>
-            <div class="md:col-span-8">
-              <p class="text-base sm:text-lg text-emerald-100/85 leading-relaxed font-sans font-normal">
-                {pt.description}
-              </p>
-            </div>
+      <!-- 4 Trust & Security Pillars -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div class="p-6 rounded-2xl bg-white/[0.06] border border-white/10 hover:border-emerald-400/40 transition-colors space-y-3">
+          <div class="w-9 h-9 rounded-lg bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold font-mono text-sm">
+            01
           </div>
-        ))}
+          <h3 class="text-lg font-semibold text-white font-display">
+            Vetted Logistics & Fleet
+          </h3>
+          <p class="text-sm text-emerald-100/80 leading-relaxed font-sans">
+            BS 7858 security-vetted drivers, dedicated GPS-tracked vehicles, panic alarms, and numbered tamper-evident seals.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white/[0.06] border border-white/10 hover:border-emerald-400/40 transition-colors space-y-3">
+          <div class="w-9 h-9 rounded-lg bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold font-mono text-sm">
+            02
+          </div>
+          <h3 class="text-lg font-semibold text-white font-display">
+            ISO 27001 & UK GDPR
+          </h3>
+          <p class="text-sm text-emerald-100/80 leading-relaxed font-sans">
+            Certified data handling controls, strict confidentiality agreements, and statutory compliance with UK data protection laws.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white/[0.06] border border-white/10 hover:border-emerald-400/40 transition-colors space-y-3">
+          <div class="w-9 h-9 rounded-lg bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold font-mono text-sm">
+            03
+          </div>
+          <h3 class="text-lg font-semibold text-white font-display">
+            Traceable Chain of Custody
+          </h3>
+          <p class="text-sm text-emerald-100/80 leading-relaxed font-sans">
+            Barcoded inventory intake, real-time tracking, and Blancco-sanitised / DIN 66399 particle destruction verification.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white/[0.06] border border-white/10 hover:border-emerald-400/40 transition-colors space-y-3">
+          <div class="w-9 h-9 rounded-lg bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold font-mono text-sm">
+            04
+          </div>
+          <h3 class="text-lg font-semibold text-white font-display">
+            Zero-Landfill ESG Defence
+          </h3>
+          <p class="text-sm text-emerald-100/80 leading-relaxed font-sans">
+            100% circular diversion pathways, Environment Agency AATF carrier licences, and full statutory waste transfer notes.
+          </p>
+        </div>
+      </div>
+
+      <!-- Governing Accreditations Strip -->
+      <div class="pt-8 border-t border-emerald-500/20 flex flex-wrap items-center justify-between gap-4">
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-300">
+          Governing Accreditations:
+        </span>
+        <div class="flex flex-wrap gap-2.5">
+          {['ISO 27001', 'ISO 9001', 'ISO 14001', 'BS 7858 Vetted', 'Cyber Essentials Plus', 'Crown Commercial Service'].map((std) => (
+            <span class="inline-flex items-center px-3 py-1 rounded-lg bg-white/10 border border-white/15 text-emerald-200 text-xs font-mono font-semibold">
+              {std}
+            </span>
+          ))}
+        </div>
       </div>
     </Container>
   </section>
@@ -993,16 +762,12 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
     <Container>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end mb-12 lg:mb-16">
         <div class="lg:col-span-7">
-          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-            07 / INDUSTRIES / SECTORS
-          </span>
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
             {detail.businessNeedsTitle || "Industries We Support"}
           </h2>
         </div>
         <div class="lg:col-span-5">
-          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+          <p class="text-lg sm:text-xl text-black leading-relaxed font-sans font-normal">
             {detail.businessNeedsSubtitle || "Tailored operational and compliance protocols designed for regulated UK sectors."}
           </p>
         </div>
@@ -1043,240 +808,129 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
     </Container>
   </section>
 
-  <!-- ===== 08 / SECURITY & COMPLIANCE ===== -->
-  <section class="py-16 lg:py-24 bg-[#0A331E] relative overflow-hidden border-b border-emerald-950 text-white">
+  <!-- ===================================================== -->
+  <!-- 7. CUSTOMER SUCCESS & FAQS                            -->
+  <!-- ===================================================== -->
+  <section class="py-16 lg:py-20 bg-white border-b border-slate-200/80">
     <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-          08 / SECURITY & COMPLIANCE
-        </span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
-          Security Built into Every Stage
-        </h2>
-        <p class="mt-4 text-base sm:text-lg text-emerald-100/85 leading-relaxed font-sans max-w-2xl font-normal">
-          Rigorous governance protocols, security-vetted personnel, and certified chain-of-custody procedures protecting {service.title.toLowerCase()}.
-        </p>
-      </div>
+      <!-- Optional Single Genuine Case Study -->
+      {matchingCaseStudy && (
+        <div class="mb-16">
+          <div class="rounded-2xl border border-slate-200 bg-[#F8FAF9] p-8 sm:p-10 lg:p-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+              <div class="lg:col-span-7 space-y-5">
+                <span class="inline-block text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20">
+                  {matchingCaseStudy.clientIndustry || "Customer Success"}
+                </span>
+                <h3 class="text-2xl sm:text-3xl font-semibold text-slate-900 font-display leading-tight">
+                  {matchingCaseStudy.title}
+                </h3>
+                <div class="space-y-3 text-black font-sans leading-relaxed text-base sm:text-lg text-justify">
+                  <p><strong class="text-slate-900">Challenge:</strong> {matchingCaseStudy.challenge}</p>
+                  <p><strong class="text-slate-900">Solution:</strong> {matchingCaseStudy.solution}</p>
+                </div>
+                <div class="pt-2">
+                  <a
+                    href={`/case-studies/${matchingCaseStudy.slug}`}
+                    class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#0F623A] hover:text-[#0c4e2e] transition-colors"
+                  >
+                    Read Full Case Study →
+                  </a>
+                </div>
+              </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
-        <div class="p-6 sm:p-7 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-400/30 transition-colors space-y-3">
-          <div class="w-10 h-10 rounded-lg bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold text-sm">
-            01
+              <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200/90 p-6 sm:p-7 space-y-3.5 shadow-xs">
+                <h4 class="text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A]">
+                  Verified Project Results
+                </h4>
+                <ul class="space-y-3">
+                  {matchingCaseStudy.results?.map((result: string) => (
+                    <li class="flex items-start gap-3 text-sm sm:text-base text-slate-800 font-sans text-justify">
+                      <svg class="w-5 h-5 text-[#0F623A] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{result}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
-          <h3 class="text-xl font-semibold text-white font-display">
-            Security Controls
-          </h3>
-          <p class="text-sm sm:text-base text-emerald-100/80 leading-relaxed font-sans">
-            BS 7858 security-vetted personnel, GPS-tracked vehicle transport with panic alarms, and tamper-evident numbered seals on all consignments.
-          </p>
         </div>
+      )}
 
-        <div class="p-6 sm:p-7 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-400/30 transition-colors space-y-3">
-          <div class="w-10 h-10 rounded-lg bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold text-sm">
-            02
-          </div>
-          <h3 class="text-xl font-semibold text-white font-display">
-            Information Governance
-          </h3>
-          <p class="text-sm sm:text-base text-emerald-100/80 leading-relaxed font-sans">
-            ISO 27001 certified data handling protocols, full UK GDPR statutory adherence, and legally binding non-disclosure covenants across all personnel.
-          </p>
-        </div>
-
-        <div class="p-6 sm:p-7 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-400/30 transition-colors space-y-3">
-          <div class="w-10 h-10 rounded-lg bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold text-sm">
-            03
-          </div>
-          <h3 class="text-xl font-semibold text-white font-display">
-            Traceability & Evidence
-          </h3>
-          <p class="text-sm sm:text-base text-emerald-100/80 leading-relaxed font-sans">
-            Serialized asset registers, continuous chain of custody, and legally defensible certificates of completion and destruction for audit defense.
-          </p>
-        </div>
-      </div>
-
-      <!-- Governing Accreditations Strip -->
-      <div class="pt-8 border-t border-emerald-500/20 flex flex-wrap items-center justify-between gap-4">
-        <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-300">
-          Governing Accreditations:
-        </span>
-        <div class="flex flex-wrap gap-2.5">
-          {['ISO 27001', 'ISO 9001', 'ISO 14001', 'BS 7858 Vetted', 'Cyber Essentials Plus', 'Crown Commercial Service'].map((std) => (
-            <span class="inline-flex items-center px-3 py-1 rounded-lg bg-white/10 border border-white/15 text-emerald-200 text-xs font-mono font-semibold">
-              {std}
+      <!-- Frequently Asked Questions (4 to 6 concise questions) -->
+      {displayedFaqs.length > 0 && (
+        <div class="max-w-4xl mx-auto">
+          <div class="mb-10 text-center">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+              COMMON QUESTIONS
             </span>
-          ))}
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+              {detail.faqTitle || "Frequently Asked Questions"}
+            </h2>
+            <p class="mt-3 text-base sm:text-lg lg:text-[19px] text-black leading-relaxed font-normal">
+              {detail.faqSubtitle || "Clear answers about operational standards, accreditations, and UK delivery."}
+            </p>
+          </div>
+
+          <!-- Editorial FAQ List -->
+          <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
+            {displayedFaqs.map((faq: { question: string; answer: string }, idx: number) => {
+              const num = String(idx + 1).padStart(2, '0');
+              return (
+                <div class="py-7 sm:py-8 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
+                  <div class="flex items-baseline gap-3.5 mb-2">
+                    <span class="font-mono font-bold text-sm sm:text-base text-[#0F623A] shrink-0">
+                      {num}
+                    </span>
+                    <h3 class="text-lg sm:text-xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-snug">
+                      {faq.question}
+                    </h3>
+                  </div>
+                  <div class="pl-7 sm:pl-8">
+                    <p class="text-base sm:text-lg text-black leading-relaxed font-sans">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
+
+      <!-- Compact Row of Related Services -->
+      {relatedServices.length > 0 && (
+        <div class="mt-14 pt-10 border-t border-slate-200 max-w-4xl mx-auto">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-slate-500">
+              Related Services:
+            </span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            {relatedServices.map((rel) => (
+              <a
+                href={`/services/${rel.slug}`}
+                class="p-4 rounded-xl border border-slate-200/80 bg-[#F8FAF9] hover:bg-white hover:border-[#0F623A]/40 hover:shadow-sm transition-all text-left group"
+              >
+                <h4 class="text-sm font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors line-clamp-1">
+                  {rel.title}
+                </h4>
+                <p class="text-xs text-slate-600 line-clamp-1 mt-1">
+                  {rel.summary || `Specialist ${rel.title.toLowerCase()} service.`}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </Container>
   </section>
 
-  <!-- ===== 09 / SUCCESS STORY ===== -->
-  {matchingCaseStudy && (
-    <section class="py-16 lg:py-24 bg-white text-slate-900 border-b border-slate-200/80 relative overflow-hidden">
-      <Container>
-        <div class="max-w-3xl mb-10 lg:mb-14">
-          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-            09 / SUCCESS STORY
-          </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-            Customer Success in Action
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-            Proven enterprise delivery for {matchingCaseStudy.clientIndustry} organisations.
-          </p>
-        </div>
-
-        <div class="rounded-2xl border border-slate-200 bg-[#F8FAF9] p-8 sm:p-10 lg:p-12">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            <div class="lg:col-span-7 space-y-6">
-              <span class="inline-block text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20">
-                {matchingCaseStudy.clientIndustry}
-              </span>
-              <h3 class="text-2xl sm:text-3xl font-semibold text-slate-900 font-display leading-tight">
-                {matchingCaseStudy.title}
-              </h3>
-              <div class="space-y-4 text-slate-600 font-sans leading-relaxed text-base sm:text-lg">
-                <p><strong class="text-slate-900">Challenge:</strong> {matchingCaseStudy.challenge}</p>
-                <p><strong class="text-slate-900">Solution:</strong> {matchingCaseStudy.solution}</p>
-              </div>
-              <div class="pt-4">
-                <a
-                  href={`/case-studies/${matchingCaseStudy.slug}`}
-                  class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#0F623A] hover:text-[#0c4e2e] transition-colors"
-                >
-                  Read Full Case Study
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-
-            <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200/90 p-6 sm:p-8 space-y-4 shadow-xs">
-              <h4 class="text-sm font-mono font-bold uppercase tracking-widest text-[#0F623A]">
-                Verified Project Results
-              </h4>
-              <ul class="space-y-3.5">
-                {matchingCaseStudy.results?.map((result: string) => (
-                  <li class="flex items-start gap-3 text-sm sm:text-base text-slate-700 font-sans">
-                    <svg class="w-5 h-5 text-[#0F623A] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>{result}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </section>
-  )}
-
-  <!-- ===== 10 / RELATED SERVICES ===== -->
-  {relatedServices.length > 0 && (
-    <section class="py-16 lg:py-24 bg-[#F8FAF9] border-b border-slate-200/80">
-      <Container>
-        <div class="max-w-3xl mb-12 lg:mb-16">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-            10 / RELATED SERVICES
-          </div>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-            Explore Related Services
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-            Complementary lifecycle and operational solutions to support your organisation.
-          </p>
-        </div>
-
-        <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
-          {relatedServices.map((rel, idx) => {
-            const num = String(idx + 1).padStart(2, '0');
-            return (
-              <a
-                href={`/services/${rel.slug}`}
-                class="block py-7 sm:py-8 group transition-colors duration-200 hover:bg-white/80 px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg"
-              >
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center">
-                  <div class="md:col-span-2">
-                    <span class="text-2xl sm:text-3xl font-mono font-bold text-[#0F623A] tracking-tight">
-                      {num}
-                    </span>
-                  </div>
-                  <div class="md:col-span-9">
-                    <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors duration-200">
-                      {rel.title}
-                    </h3>
-                    <p class="mt-1.5 text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
-                      {rel.summary || `Specialist ${rel.title.toLowerCase()} delivered across the UK.`}
-                    </p>
-                  </div>
-                  <div class="md:col-span-1 flex justify-end">
-                    <span class="w-10 h-10 rounded-full border border-slate-200 group-hover:border-[#0F623A] group-hover:bg-[#0F623A] group-hover:text-white flex items-center justify-center text-slate-400 transition-all duration-300 transform group-hover:translate-x-1">
-                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            );
-          })}
-        </div>
-      </Container>
-    </section>
-  )}
-
-  <!-- ===== 11 / FREQUENTLY ASKED QUESTIONS ===== -->
-  {displayedFaqs.length > 0 && (
-    <section class="py-16 lg:py-24 bg-white relative overflow-hidden border-b border-slate-200/80">
-      <Container>
-        <div class="max-w-4xl mx-auto mb-12 lg:mb-16 text-center">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-            11 / FREQUENTLY ASKED QUESTIONS
-          </div>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-            {detail.faqTitle || "Frequently Asked Questions"}
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans max-w-2xl mx-auto font-normal">
-            {detail.faqSubtitle || "Clear, transparent answers about our accreditations, operational standards, and UK nationwide logistics."}
-          </p>
-        </div>
-
-        {/* Editorial FAQ List - Answers Visible by Default */}
-        <div class="max-w-4xl mx-auto divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
-          {displayedFaqs.map((faq: { question: string; answer: string; tag?: string }, idx: number) => {
-            const num = String(idx + 1).padStart(2, '0');
-            return (
-              <div class="py-8 sm:py-10 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
-                <div class="flex items-baseline gap-4 mb-3">
-                  <span class="font-mono font-bold text-base sm:text-lg text-[#0F623A] shrink-0">
-                    {num}
-                  </span>
-                  <h3 class="text-lg sm:text-xl lg:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-snug">
-                    {faq.question}
-                  </h3>
-                </div>
-                <div class="pl-8 sm:pl-10">
-                  <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-sans">
-                    {faq.answer}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </Container>
-    </section>
-  )}
-
-  <!-- ===== 12 / FINAL CTA ===== -->
+  <!-- ===================================================== -->
+  <!-- 8. FINAL CTA: Preserved Completely Unchanged           -->
+  <!-- ===================================================== -->
   <CTA
     eyebrow="READY TO TAKE THE NEXT STEP?"
     title={`Need ${service.title} for Your Organisation?`}
@@ -1288,6 +942,7 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
   />
 
 </BaseLayout>
+
 <style>
   .needs-row {
     display: flex;
@@ -1295,65 +950,95 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
     gap: 0.75rem;
   }
 
-.needs-panel {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border-radius: 1.5rem;
-  background: #000;
-  color: #fff;
-  text-align: left;
-  cursor: pointer;
-  height: 88px;
-  transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
+  .needs-panel {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background: #000;
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+    height: 88px;
+    transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
   .needs-panel.is-active {
     height: 290px;
   }
 
-.np-img {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.12);
-  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.needs-panel.is-active .np-img {
-  transform: scale(1);
-}
+  .np-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.12);
+    transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .needs-panel.is-active .np-img {
+    transform: scale(1);
+  }
 
-/* Folded strips: dark layer so the vertical title is readable */
+  /* Folded strips: dark layer so the vertical title is readable */
+/* Folded strips: slightly stronger dark overlay */
 .np-dim {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.65);
+  opacity: 1;
   transition: opacity 0.5s ease;
 }
+
+/* Active panel: remove the full-image dark overlay */
 .needs-panel.is-active .np-dim {
   opacity: 0;
 }
 
-/* Open panel: dark fade behind the text only */
+/* Active panel: remove the full-image dark overlay */
+.needs-panel.is-active .np-dim {
+  opacity: 0;
+}
+
+/* Default: no text-area overlay */
 .np-fade {
   position: absolute;
-  inset: 0;
+  inset: auto 0 0;
+  height: 0;
   z-index: -1;
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.92) 0%,
-    rgba(0, 0, 0, 0.72) 35%,
-    rgba(0, 0, 0, 0) 75%
+    rgba(0, 0, 0, 0.65) 55%,
+    rgba(0, 0, 0, 0) 100%
   );
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition:
+    height 0.5s ease,
+    opacity 0.5s ease;
 }
+
+/* Active / hovered panel: gradient behind the text only */
 .needs-panel.is-active .np-fade {
+  height: 65%;
   opacity: 1;
+}
+/* Show the text overlay when hovering over a panel */
+.needs-panel:hover .np-fade {
+  height: 65%;
+  opacity: 1;
+}
+
+/* Keep the image clear when the panel is closed */
+.needs-panel:not(.is-active) .np-img {
+  filter: none;
+}
+
+/* Smooth image zoom on hover */
+.needs-panel:hover .np-img {
+  transform: scale(1.04);
 }
 
   .np-icon {
@@ -1372,7 +1057,7 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
     transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* No overlay: a soft text shadow keeps the words readable on the photo */
+  /* Soft text shadow keeps the words readable on the photo */
   .np-vt,
   .np-title,
   .np-desc {
@@ -1445,32 +1130,27 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
       transform: translateX(0);
     }
 
-.np-vt {
-  position: absolute;
-  top: 88px;
-  left: 50%;
-  right: auto;
+    .np-vt {
+      position: absolute;
+      top: 88px;
+      left: 50%;
+      right: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      writing-mode: vertical-rl;
+      white-space: nowrap;
+      transform: translateX(-50%);
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.2;
+      transition: opacity 0.25s ease;
+    }
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  writing-mode: vertical-rl;
-  white-space: nowrap;
-
-  transform: translateX(-50%);
-
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.2;
-
-  transition: opacity 0.25s ease;
-}
-
-.needs-panel.is-active .np-vt {
-  opacity: 0;
-  pointer-events: none;
-}
+    .needs-panel.is-active .np-vt {
+      opacity: 0;
+      pointer-events: none;
+    }
 
     .np-body {
       top: auto;
@@ -1513,7 +1193,6 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
     }
 
     needsPanels.forEach((panel) => {
-      // Prevent duplicate event listeners
       if (panel.dataset.needsInitialized === 'true') return;
       panel.dataset.needsInitialized = 'true';
 
@@ -1531,9 +1210,6 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
     });
   }
 
-  // Initial page load
   initNeedsPanels();
-
-  // Astro client-side navigation
   document.addEventListener('astro:page-load', initNeedsPanels);
 </script>

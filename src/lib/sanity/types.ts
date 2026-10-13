@@ -45,6 +45,7 @@ export interface Division {
   icon: string;
   order: number;
   featuredServices?: string[]; // service slugs
+  heroImage?: string;
   heroTitle?: string;
   heroDescription?: string;
   heroCtaText?: string;

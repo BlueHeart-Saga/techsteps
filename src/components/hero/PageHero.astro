@@ -21,6 +21,7 @@ interface Props {
   layout?: 'default' | 'split' | 'custom';
   noOverlay?: boolean;
   theme?: 'light' | 'dark';
+  bgAlt?: string;
 }
 
 const {
@@ -36,6 +37,7 @@ const {
   layout = 'default',
   noOverlay = false,
   theme = 'dark',
+  bgAlt,
 } = Astro.props;
 
 const isLight = theme === 'light' || noOverlay;
@@ -46,7 +48,7 @@ const currentPath = Astro.url.pathname;
   <!-- Background Image: Full-Bleed -->
   <img
     src={bgImage}
-    alt="TechSteps UK background landscape"
+    alt={bgAlt || title || "TechSteps UK background landscape"}
     class={`absolute inset-0 w-full h-full object-cover select-none pointer-events-none ${isLight ? 'object-right lg:object-[right_center]' : ''}`}
     style={`
       object-position: ${isLight ? 'right center' : bgImagePosition};

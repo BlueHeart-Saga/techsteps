@@ -1,0 +1,66 @@
+---
+import HeroHeader from '../global/HeroHeader.astro';
+
+interface Props {
+  title: string;
+  className?: string;
+}
+
+const { title, className = "" } = Astro.props;
+---
+
+<!-- Top Hero Header (Integrated light navbar) -->
+<HeroHeader isHome={false} />
+
+<!-- ========================================================
+     REUSABLE INFORMATION PAGE HERO COMPONENT
+     Pages: FAQ, Privacy Policy, Cookie Policy,
+     Terms & Conditions, Accessibility, Modern Slavery,
+     Environmental Policy, Information Security.
+     Visual Ref: Background+Shadow.png
+     Dimension/Container Ref: HeroHome.astro (Full-width bg, inner max-w-7xl)
+======================================================== -->
+<section
+  id="info-hero"
+  class={`relative w-full overflow-hidden bg-[#163E2A] text-white select-none shadow-[0_12px_36px_rgba(0,0,0,0.10)] ${className}`}
+>
+  <!-- Decorative Layer: Subtle Geometric Brand Watermark on Right (matching Background+Shadow.png) -->
+  <div class="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
+    <img
+      src="/images/brand/cta-watermark-alpha.png"
+      alt=""
+      aria-hidden="true"
+      class="absolute right-0 top-1/2 -translate-y-1/2
+             h-[85%] sm:h-[100%] lg:h-[115%] w-auto max-w-[48%]
+             object-contain object-right
+             opacity-15 sm:opacity-20
+             pointer-events-none select-none"
+      loading="eager"
+      decoding="sync"
+    />
+  </div>
+
+  <!-- Inner Content Container: Centers page title & maintains standard max-w-7xl alignment -->
+  <div
+    class="relative z-10 w-full max-w-7xl mx-auto
+           px-4 sm:px-6 lg:px-8
+           py-14 sm:py-18 md:py-20 lg:py-24 xl:py-28
+           min-h-[240px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[360px]
+           flex items-center justify-center text-center"
+  >
+    <h1
+      class="font-display
+             text-3xl sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[58px]
+             font-semibold
+             text-white
+             tracking-tight
+             leading-[1.18] sm:leading-[1.12]
+             text-center
+             max-w-4xl
+             mx-auto
+             drop-shadow-xs"
+    >
+      {title}
+    </h1>
+  </div>
+</section>

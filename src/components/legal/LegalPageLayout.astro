@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../layout/Container.astro';
 import Section from '../layout/Section.astro';
-import PageHero from '../hero/PageHero.astro';
+import InfoHero from '../hero/InfoHero.astro';
+import CTA from '../global/cta.astro';
 import { getSiteSettings, getLegalPage } from '../../lib/sanity/client';
 
 const siteSettings = await getSiteSettings();
@@ -62,6 +63,18 @@ const policyNav = [
   { slug: 'environmental-policy', label: 'Environmental Policy', desc: 'ISO 14001, Circular IT & Zero Landfill' },
   { slug: 'information-security-policy', label: 'Information Security Policy', desc: 'ISO 27001, ADISA 8.0 & Cyber Essentials' },
 ];
+
+const pageTitleMap: Record<string, string> = {
+  'privacy-policy': 'Privacy Policy',
+  'cookie-policy': 'Cookie Policy',
+  'terms-and-conditions': 'Terms & Conditions',
+  'accessibility': 'Accessibility',
+  'modern-slavery-statement': 'Modern Slavery',
+  'environmental-policy': 'Environmental Policy',
+  'information-security-policy': 'Information Security',
+};
+
+const heroTitle = pageTitleMap[activeSlug] || title;
 ---
 
 <BaseLayout
@@ -70,16 +83,10 @@ const policyNav = [
   canonicalUrl={`https://techsteps.co.uk/${activeSlug}`}
   hasHeroHeader={true}
 >
-  <!-- Modern Editorial Page Hero -->
-  <PageHero
-    title={title}
-    eyebrow={eyebrow}
-    subheading={subheading || `Official corporate policy of ${siteSettings.legalName}. Compliant with prevailing UK legislation and accredited international standards.`}
-    breadcrumbs={breadcrumbs}
-    dividerColor="#ffffff"
-  />
+  <!-- Reusable Information Page Hero (matching Background+Shadow.png) -->
+  <InfoHero title={heroTitle} />
 
-  <Section theme="white" className="pt-4 pb-20 sm:pb-28">
+  <Section theme="white" className="pt-2 sm:pt-4 pb-20 sm:pb-28">
     <Container>
       <!-- Governance Meta Bar -->
       <div class="mb-10 p-5 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-xs flex flex-wrap items-center justify-between gap-4">
@@ -90,11 +97,11 @@ const policyNav = [
             </svg>
             Active & Verified
           </span>
-          <span class="text-xs font-medium text-slate-600">
+          <span class="text-sm font-medium text-black">
             <strong>Standard:</strong> {complianceBadge}
           </span>
           <span class="text-slate-300 hidden sm:inline">&bull;</span>
-          <span class="text-xs font-medium text-slate-600">
+          <span class="text-sm font-medium text-black">
             <strong>Entity:</strong> {siteSettings.legalName} (Reg #{siteSettings.registrationNumber})
           </span>
         </div>
@@ -199,13 +206,13 @@ const policyNav = [
                       {sec.cards.map((c) => (
                         <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
                           <h3 class="font-semibold text-slate-900 text-base">{c.title}</h3>
-                          <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">{c.text}</p>
+                          <p class="text-sm sm:text-base text-black mt-1 leading-relaxed">{c.text}</p>
                         </div>
                       ))}
                     </div>
                   )}
                   {sec.listItems && sec.listItems.length > 0 && (
-                    <ul class="list-disc pl-5 space-y-2 text-slate-600">
+                    <ul class="list-disc pl-5 space-y-2 text-black">
                       {sec.listItems.map((li) => (
                         <li>{li}</li>
                       ))}
@@ -220,5 +227,7 @@ const policyNav = [
         </div>
       </div>
     </Container>
+    <br />
   </Section>
+  <CTA />
 </BaseLayout>

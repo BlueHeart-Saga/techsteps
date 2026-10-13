@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
-import PageHero from '../components/hero/PageHero.astro';
+import CTA from '../components/global/cta.astro';
+import RequestCollectionHero from '../components/hero/RequestCollectionHero.astro';
 import { getRequestCollectionPage, getSiteSettings } from '../lib/sanity/client';
 
 const [pageData, siteSettings] = await Promise.all([
@@ -26,11 +27,7 @@ const description = pageData.metaDescription || "Book an IT equipment collection
   description={description}
   hasHeroHeader={true}
 >
-  <PageHero
-    title={heroTitle}
-    breadcrumbs={breadcrumbs}
-    dividerColor="#f1f4ef"
-  />
+<RequestCollectionHero />
 
   <section class="relative bg-[#f1f4ef] pt-6 sm:pt-8 lg:pt-10 pb-10 sm:pb-14">
     <Container>
@@ -39,7 +36,7 @@ const description = pageData.metaDescription || "Book an IT equipment collection
         <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-slate-950 tracking-tight leading-[1.08] mb-4">
           {pageData.hero?.title || "Book your collection"}
         </h2>
-        <p class="font-sans text-base sm:text-lg lg:text-[19px] text-slate-600 leading-relaxed max-w-2xl font-normal">
+        <p class="font-sans text-lg sm:text-xl lg:text-[19px] text-black leading-relaxed max-w-2xl font-normal">
           {pageData.hero?.description || "Takes about two minutes. You'll get a reference number as soon as you submit, and we'll come back with a collection window within two working days."}
         </p>
       </div>
@@ -326,6 +323,7 @@ const description = pageData.metaDescription || "Book an IT equipment collection
       </div>
     </Container>
   </section>
+  <CTA />
 </BaseLayout>
 
 <script>

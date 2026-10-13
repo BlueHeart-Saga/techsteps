@@ -40,7 +40,7 @@ const [siteSettings, legalData] = await Promise.all([
             {sec.cards.map((c) => (
               <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
                 <h3 class="font-semibold text-slate-900 text-base">{c.title}</h3>
-                <p class="text-xs sm:text-sm text-slate-600 mt-1">{c.description}</p>
+                <p class="text-sm sm:text-base text-black mt-1">{c.description}</p>
               </div>
             ))}
           </div>
@@ -73,7 +73,7 @@ const [siteSettings, legalData] = await Promise.all([
           <h3 class="font-semibold text-slate-900 text-base">A. Strictly Necessary / Essential Cookies</h3>
           <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-mono font-bold">Always Active</span>
         </div>
-        <p class="text-xs sm:text-sm text-slate-600">
+        <p class="text-sm sm:text-base text-black">
           Essential cookies are technically required for core website functionality, security, network routing, and accessibility. They allow you to navigate pages securely, submit interactive quote request forms, verify anti-CSRF tokens, and save your legal consent choices. You cannot disable these cookies in our settings without impairing website security.
         </p>
       </div>
@@ -83,7 +83,7 @@ const [siteSettings, legalData] = await Promise.all([
           <h3 class="font-semibold text-slate-900 text-base">B. Preference &amp; Functionality Cookies</h3>
           <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-mono font-bold">Optional</span>
         </div>
-        <p class="text-xs sm:text-sm text-slate-600">
+        <p class="text-sm sm:text-base text-black">
           These cookies enable our website to remember choices you make (such as your chosen division or preferred quote contact method) and provide enhanced, personalized navigational efficiency across visits.
         </p>
       </div>
@@ -93,7 +93,7 @@ const [siteSettings, legalData] = await Promise.all([
           <h3 class="font-semibold text-slate-900 text-base">C. Privacy-Conscious Performance &amp; Analytics Cookies</h3>
           <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-mono font-bold">Optional</span>
         </div>
-        <p class="text-xs sm:text-sm text-slate-600">
+        <p class="text-sm sm:text-base text-black">
           We use privacy-respecting aggregated analytics to assess website traffic patterns, popular service pages, and system load times. All telemetry is aggregated and anonymized; we do not build cross-site behavioural profiles, monetize browsing data, or sell data to third-party advertising brokers.
         </p>
       </div>
@@ -115,7 +115,7 @@ const [siteSettings, legalData] = await Promise.all([
             <th class="p-3 border border-slate-200">Category</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-slate-200 text-slate-600">
+        <tbody class="divide-y divide-slate-200 text-black">
           <tr>
             <td class="p-3 border border-slate-200 font-mono text-slate-900 font-semibold">techsteps_session</td>
             <td class="p-3 border border-slate-200">{siteSettings.companyName}</td>
@@ -156,7 +156,7 @@ const [siteSettings, legalData] = await Promise.all([
     <p>
       You maintain full autonomy over the storage of cookies on your device:
     </p>
-    <ul class="list-disc pl-5 space-y-2 text-slate-600">
+    <ul class="list-disc pl-5 space-y-2 text-black">
       <li>
         <strong>Via Browser Settings:</strong> You can configure modern web browsers (Chrome, Edge, Firefox, Safari) to reject all third-party cookies, notify you when a cookie is placed, or automatically purge local storage when closing your browser session.
       </li>

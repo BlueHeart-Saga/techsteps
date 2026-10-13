@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
-import PageHero from '../components/hero/PageHero.astro';
+import HeroHeader from '../components/global/HeroHeader.astro';
+import CTA from '../components/global/cta.astro';
 import { getContactPage, getSiteSettings } from '../lib/sanity/client';
 
 const [contactPage, siteSettings] = await Promise.all([
@@ -21,148 +22,221 @@ const breadcrumbs = [
   description={contactPage.metaDescription || "Contact Techsteps UK. Reach our UK headquarters in Dartford, Kent, or speak directly with our logistics dispatch and customer compliance teams."}
   hasHeroHeader={true}
 >
-  <!-- 1. HERO SECTION (Matching about-us page hero structure) -->
-  <PageHero
-    eyebrow={contactPage.hero?.eyebrow || "CONTACT US"}
-    title={contactPage.hero?.title || "Contact us"}
-    subheading={contactPage.hero?.subheading || "Techsteps is ready to provide the right solution according to your needs"}
-    bgImage={contactPage.hero?.bgImage || "/images/brand/contact-hero-bg.jpg"}
-    breadcrumbs={breadcrumbs}
-    dividerColor="#f1f4ef"
-  />
-
-  <!-- 2. MAIN CONTACT FORM SECTION (Image on Left, Send us a message Form on Right) -->
-  <!-- 2. MAIN CONTACT FORM SECTION -->
-  <section class="relative bg-[#f1f4ef] pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24 overflow-hidden">
+  <!-- ===================================================== -->
+  <!-- 1. HERO SECTION & OVERLAPPING "GET IN TOUCH" CARD -->
+  <!-- ===================================================== -->
+  <section class="relative w-full bg-[#f8fafc]/50 overflow-hidden select-none">
     
-    <!-- Subtle decorative background -->
-    <div
-      class="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#146B5C]/[0.035] blur-3xl pointer-events-none"
-    ></div>
+    <!-- Top Hero Banner with Warehouse Background & Emerald Gradient Wash -->
+    <div class="relative w-full overflow-hidden min-h-[540px] sm:min-h-[600px] lg:min-h-[650px]">
+      <!-- Background Image -->
+      <img
+        src="/images/contact/Contact hero.webp"
+        alt="Techsteps UK Logistics and Warehouse Operations"
+        class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+        loading="eager"
+        fetchpriority="high"
+        decoding="sync"
+      />
 
-    <Container>
-      <div class="w-full mx-auto relative z-10">
+      <!-- Fresh Emerald / Mint Gradient Overlay matching reference mockup -->
+      <div 
+        class="absolute inset-0 bg-gradient-to-r from-[#146B5C]/85 via-[#146B5C]/50 to-transparent pointer-events-none"
+      ></div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-center">
+      <!-- Header at Top of Hero -->
+      <HeroHeader isHome={true} />
+      <!-- Contact Us Heading -->
+<div class="absolute inset-0 z-[5] flex justify-center items-start px-6 pt-32 sm:pt-36 lg:pt-40 pointer-events-none">
+  <h1 class="text-4xl sm:text-5xl lg:text-7xl font-semibold font-display text-white tracking-tight leading-tight text-center">
+    Contact Us
+  </h1>
+</div>
+    </div>
 
-          <!-- ===================================================== -->
-          <!-- LEFT: UNIQUE IMAGE LAYOUT -->
-          <!-- ===================================================== -->
-          <div class="lg:col-span-5 relative">
-
-            <!-- Decorative green shape behind image -->
-            <div
-              class="absolute -left-4 sm:-left-6 bottom-[-20px] sm:bottom-[-28px]
-                     w-[78%] h-[72%]
-                     bg-[#146B5C]
-                     rounded-[2rem] sm:rounded-[2.5rem]
-                     rotate-[-5deg]"
-              aria-hidden="true"
-            ></div>
-
-            <!-- Secondary decorative shape -->
-            <div
-              class="absolute -right-3 sm:-right-5 top-[-18px] sm:top-[-24px]
-                     w-24 h-24 sm:w-32 sm:h-32
-                     border-[14px] sm:border-[18px]
-                     border-[#3FB33D]/20
-                     rounded-full"
-              aria-hidden="true"
-            ></div>
-
-            <!-- Main image -->
-            <div
-              class="relative z-10
-                     w-full
-                     aspect-[4/5]
-                     sm:aspect-[5/5.5]
-                     lg:aspect-[4/5.2]
-                     overflow-hidden
-                     rounded-[2rem] sm:rounded-[2.5rem]
-                     bg-slate-200
-                     shadow-[0_25px_60px_rgba(15,98,58,0.16)]
-                     border border-white/80"
-            >
-              <img
-                src={
-                  contactPage.formSection?.image ||
-                  "/images/contact/contact-consultation.jpg"
-                }
-                alt="Techsteps UK client consultation and support"
-                class="w-full h-full object-cover
-                       transition-transform duration-700
-                       hover:scale-[1.04]"
-                loading="eager"
-              />
-
-              <!-- Image overlay -->
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-[#063b2c]/35 via-transparent to-transparent pointer-events-none"
-              ></div>
+    <!-- Overlapping Floating "Get in touch" Card (Embedded Map + Contact Details) -->
+    <div class="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 -mt-52 sm:-mt-64 lg:-mt-72 pb-12 sm:pb-16">
+      <div 
+        class="bg-white rounded-[28px] sm:rounded-[36px] shadow-[0_20px_60px_rgba(15,23,42,0.08)] border border-slate-200/80 p-6 sm:p-10 lg:p-12 xl:p-14"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          <!-- LEFT COLUMN: Contact Details -->
+          <div class="lg:col-span-5 space-y-6 sm:space-y-8">
+            <div class="space-y-3">
+              <h1 class="text-4xl sm:text-5xl lg:text-[48px] font-semibold font-display text-slate-900 tracking-tight leading-[1.06]">
+                Get in touch
+              </h1>
+              <p class="text-base sm:text-lg lg:text-[19px] text-black leading-relaxed font-normal max-w-md">
+                Reach our UK sovereign headquarters or speak directly with our logistics dispatch and compliance teams.
+              </p>
             </div>
 
-            <!-- Small decorative corner -->
-            <div
-              class="absolute z-20 bottom-5 right-[-10px] sm:right-[-18px]
-                     w-16 h-16 sm:w-20 sm:h-20
-                     bg-white
-                     rounded-2xl
-                     shadow-xl
-                     border border-slate-100
-                     flex items-center justify-center"
-              aria-hidden="true"
-            >
-              <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#146B5C]/10 flex items-center justify-center">
-                <svg
-                  class="w-4 h-4 sm:w-5 sm:h-5 text-[#146B5C]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.8"
-                    d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1118 0z"
-                  />
-                  <circle
-                    cx="12"
-                    cy="10"
-                    r="3"
-                    stroke-width="1.8"
-                  />
-                </svg>
+            <!-- Contact Information List with Vibrant Round Circle Icons -->
+            <div class="space-y-5 sm:space-y-6">
+              
+              <!-- Address 1 -->
+              <div 
+                class="flex items-start gap-4 group cursor-pointer p-1.5 -mx-1.5 rounded-2xl hover:bg-slate-50 transition-all duration-200" 
+                onmouseenter="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address1' } }))"
+                onpointerenter="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address1' } }))"
+                onclick="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address1' } }))"
+                title="View Address 1 on map"
+              >
+                <div class="w-12 h-12 rounded-full bg-[#146B5C] text-white flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="text-lg sm:text-xl font-bold font-display text-slate-900 group-hover:text-[#146B5C] transition-colors tracking-tight">
+                    Address 1
+                  </h3>
+                  <p class="text-sm sm:text-base lg:text-[16px] text-black font-medium leading-relaxed">
+                    Unit B, Roebuck road<br />
+                    Hainault business park, IG6 3UF
+                  </p>
+                </div>
+              </div>
+
+              <!-- Address 2 -->
+              <div 
+                class="flex items-start gap-4 group cursor-pointer p-1.5 -mx-1.5 rounded-2xl hover:bg-slate-50 transition-all duration-200"
+                onmouseenter="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address2' } }))"
+                onpointerenter="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address2' } }))"
+                onclick="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address2' } }))"
+                title="View Address 2 on map"
+              >
+                <div class="w-12 h-12 rounded-full bg-[#146B5C] text-white flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="text-lg sm:text-xl font-bold font-display text-slate-900 group-hover:text-[#146B5C] transition-colors tracking-tight">
+                    Address 2
+                  </h3>
+                  <p class="text-sm sm:text-base lg:text-[16px] text-black font-medium leading-relaxed">
+                    Rickerscote Hall Ln, Stafford ST17 4HF
+                  </p>
+                </div>
+              </div>
+
+              <!-- Email Us -->
+              <div class="flex items-start gap-4 p-1.5 -mx-1.5">
+                <div class="w-12 h-12 rounded-full bg-[#146B5C] text-white flex items-center justify-center shrink-0 shadow-sm">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="text-lg sm:text-xl font-bold font-display text-slate-900 tracking-tight">
+                    Email Us
+                  </h3>
+                  <p class="text-sm sm:text-base lg:text-[16px] text-black font-medium leading-relaxed">
+                    <a href={`mailto:${siteSettings.email || 'enquiries@techsteps.co.uk'}`} class="hover:text-[#146B5C] transition-colors block">
+                      {siteSettings.email || 'enquiries@techsteps.co.uk'}
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Call Us -->
+              <div class="flex items-start gap-4 p-1.5 -mx-1.5">
+                <div class="w-12 h-12 rounded-full bg-[#146B5C] text-white flex items-center justify-center shrink-0 shadow-sm">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="text-lg sm:text-xl font-bold font-display text-slate-900 tracking-tight">
+                    Call Us
+                  </h3>
+                  <p class="text-sm sm:text-base lg:text-[16px] text-black font-medium leading-relaxed">
+                    Phone : <a href={`tel:${(siteSettings.phone || '+44 (0) 20 7946 0888').replace(/[^0-9+]/g, '')}`} class="hover:text-[#146B5C] font-bold text-black">{siteSettings.phone || '+44 (0) 20 7946 0888'}</a><br />
+                    Freephone : <a href="tel:08000834700" class="hover:text-[#146B5C] font-bold text-black">0800 083 4700</a>
+                  </p>
+                </div>
               </div>
             </div>
 
+            <!-- Follow our social media -->
+            <div class="pt-4 space-y-3">
+              <h4 class="text-base sm:text-lg font-semibold text-slate-900 tracking-tight">
+                Follow our social media
+              </h4>
+              <div class="flex items-center gap-3">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#146B5C] text-white flex items-center justify-center hover:bg-[#0D5549] transition-all hover:scale-105 shadow-xs" aria-label="LinkedIn">
+                  <svg class="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.75a1.45 1.45 0 1 0 0 2.9 1.45 1.45 0 0 0 0-2.9z"/></svg>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#146B5C] text-white flex items-center justify-center hover:bg-[#0D5549] transition-all hover:scale-105 shadow-xs" aria-label="Twitter X">
+                  <svg class="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#146B5C] text-white flex items-center justify-center hover:bg-[#0D5549] transition-all hover:scale-105 shadow-xs" aria-label="Facebook">
+                  <svg class="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#146B5C] text-white flex items-center justify-center hover:bg-[#0D5549] transition-all hover:scale-105 shadow-xs" aria-label="YouTube">
+                  <svg class="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+              </div>
+            </div>
           </div>
 
-
-          <!-- ===================================================== -->
-          <!-- RIGHT: PROFESSIONAL CONTACT FORM -->
-          <!-- ===================================================== -->
+          <!-- RIGHT COLUMN: Interactive 3D OpenStreetMap -->
           <div class="lg:col-span-7">
+            <div class="rounded-2xl overflow-hidden shadow-xs border border-slate-200/90 relative w-full h-[500px] sm:h-[560px] lg:h-[580px]">
+              <CustomStyleExample client:visible />
+            </div>
+          </div>
 
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== -->
+  <!-- 2. SECTION BELOW: "SEND US A MESSAGE" FORM + SPECIALIST IMAGE -->
+  <!-- ===================================================== -->
+  <section class="relative bg-white pt-10 sm:pt-14 lg:pt-16 pb-16 sm:pb-20 lg:pb-24 overflow-hidden">
+    <Container>
+      <div class="w-full mx-auto relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
+
+          <!-- LEFT: CUSTOMER SUPPORT SPECIALIST IMAGE (Significantly Larger) -->
+          <div class="lg:col-span-5 xl:col-span-5 relative flex items-center justify-center w-full self-center">
+            <div class="relative w-full max-w-[520px] sm:max-w-[560px] lg:max-w-none flex items-center justify-center">
+              <img
+                src="/images/contact/Contact page.webp"
+                alt="Techsteps UK dedicated client consultation and support specialist"
+                class="w-full h-auto max-h-[720px] lg:max-h-[780px] xl:max-h-[820px] object-contain select-none mx-auto block drop-shadow-xl transition-transform duration-500 hover:scale-[1.01]"
+                width="818"
+                height="1003"
+                loading="eager"
+                decoding="sync"
+              />
+            </div>
+          </div>
+
+          <!-- RIGHT: PROFESSIONAL CONTACT FORM -->
+          <div class="lg:col-span-7 xl:col-span-7">
             <div
               class="relative
                      bg-white
-                     rounded-[2rem] sm:rounded-[2.5rem]
+                     rounded-[28px] sm:rounded-[36px]
                      border border-slate-200/80
-                     shadow-[0_20px_60px_rgba(15,23,42,0.08)]
-                     p-6 sm:p-8 lg:p-10 xl:p-12"
+                     shadow-[0_20px_50px_rgba(15,23,42,0.06)]
+                     p-6 sm:p-10 lg:p-12 xl:p-14"
             >
-
-              <!-- Form heading -->
+              <!-- Form heading matching mockup -->
               <div class="mb-8 sm:mb-10">
-
-                <div class="flex items-center gap-3 mb-4">
-                  <span class="h-px w-8 bg-[#146B5C]"></span>
-
+                <div class="flex items-center gap-2.5 mb-3">
+                  <span class="h-[2px] w-6 bg-[#146B5C]"></span>
                   <span
-                    class="text-[10px] sm:text-[11px]
+                    class="text-xs sm:text-sm
                            font-bold
                            uppercase
-                           tracking-[0.22em]
+                           tracking-[0.2em]
                            text-[#146B5C]"
                   >
                     Get in touch
@@ -170,7 +244,7 @@ const breadcrumbs = [
                 </div>
 
                 <h2
-                  class="text-3xl sm:text-4xl lg:text-[2.7rem]
+                  class="text-4xl sm:text-5xl lg:text-[46px]
                          font-semibold
                          font-display
                          text-slate-900
@@ -182,36 +256,32 @@ const breadcrumbs = [
 
                 <p
                   class="mt-3
-                         text-sm sm:text-base
-                         text-slate-500
+                         text-base sm:text-lg lg:text-[19px]
+                         text-black
                          leading-relaxed
-                         max-w-xl"
+                         max-w-xl
+                         font-normal"
                 >
                   Tell us what you need and our team will get back to you shortly.
                 </p>
-
               </div>
 
-
-              <!-- Contact Form -->
+              <!-- Contact Form with Clean Minimal Borderless Fields -->
               <form
-                class="space-y-6"
+                class="space-y-7 sm:space-y-8"
                 id="techsteps-contact-form"
               >
-
-                <!-- Row 1 -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
-
+                <!-- Row 1: Name & Company -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                   <!-- Name -->
                   <div class="space-y-2">
-
                     <label
                       for="contact-name"
-                      class="block text-xs
+                      class="block text-xs sm:text-sm
                              font-bold
                              uppercase
-                             tracking-[0.12em]
-                             text-slate-700"
+                             tracking-[0.14em]
+                             text-slate-800"
                     >
                       Name <span class="text-red-500">*</span>
                     </label>
@@ -223,36 +293,32 @@ const breadcrumbs = [
                       required
                       placeholder="Enter your name"
                       class="w-full
-                             h-12 sm:h-[52px]
-                             px-4
-                             rounded-xl
-                             bg-slate-50
-                             border border-slate-200
-                             text-sm sm:text-base
+                             bg-transparent
+                             border-0
+                             border-b-2
+                             border-slate-200
+                             px-0.5
+                             py-2.5 sm:py-3
+                             text-base sm:text-lg
                              font-medium
                              text-slate-900
                              placeholder:text-slate-400
                              outline-none
-                             transition-all duration-200
-                             focus:bg-white
+                             transition-colors duration-200
                              focus:border-[#146B5C]
-                             focus:ring-4
-                             focus:ring-[#146B5C]/10"
+                             focus:ring-0"
                     />
-
                   </div>
-
 
                   <!-- Company -->
                   <div class="space-y-2">
-
                     <label
                       for="contact-company"
-                      class="block text-xs
+                      class="block text-xs sm:text-sm
                              font-bold
                              uppercase
-                             tracking-[0.12em]
-                             text-slate-700"
+                             tracking-[0.14em]
+                             text-slate-800"
                     >
                       Company
                     </label>
@@ -263,41 +329,35 @@ const breadcrumbs = [
                       name="company"
                       placeholder="Enter company name"
                       class="w-full
-                             h-12 sm:h-[52px]
-                             px-4
-                             rounded-xl
-                             bg-slate-50
-                             border border-slate-200
-                             text-sm sm:text-base
+                             bg-transparent
+                             border-0
+                             border-b-2
+                             border-slate-200
+                             px-0.5
+                             py-2.5 sm:py-3
+                             text-base sm:text-lg
                              font-medium
                              text-slate-900
                              placeholder:text-slate-400
                              outline-none
-                             transition-all duration-200
-                             focus:bg-white
+                             transition-colors duration-200
                              focus:border-[#146B5C]
-                             focus:ring-4
-                             focus:ring-[#146B5C]/10"
+                             focus:ring-0"
                     />
-
                   </div>
-
                 </div>
 
-
-                <!-- Row 2 -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
-
+                <!-- Row 2: Phone & Email -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                   <!-- Phone -->
                   <div class="space-y-2">
-
                     <label
                       for="contact-phone"
-                      class="block text-xs
+                      class="block text-xs sm:text-sm
                              font-bold
                              uppercase
-                             tracking-[0.12em]
-                             text-slate-700"
+                             tracking-[0.14em]
+                             text-slate-800"
                     >
                       Phone <span class="text-red-500">*</span>
                     </label>
@@ -309,36 +369,32 @@ const breadcrumbs = [
                       required
                       placeholder="Enter phone number"
                       class="w-full
-                             h-12 sm:h-[52px]
-                             px-4
-                             rounded-xl
-                             bg-slate-50
-                             border border-slate-200
-                             text-sm sm:text-base
+                             bg-transparent
+                             border-0
+                             border-b-2
+                             border-slate-200
+                             px-0.5
+                             py-2.5 sm:py-3
+                             text-base sm:text-lg
                              font-medium
                              text-slate-900
                              placeholder:text-slate-400
                              outline-none
-                             transition-all duration-200
-                             focus:bg-white
+                             transition-colors duration-200
                              focus:border-[#146B5C]
-                             focus:ring-4
-                             focus:ring-[#146B5C]/10"
+                             focus:ring-0"
                     />
-
                   </div>
-
 
                   <!-- Email -->
                   <div class="space-y-2">
-
                     <label
                       for="contact-email"
-                      class="block text-xs
+                      class="block text-xs sm:text-sm
                              font-bold
                              uppercase
-                             tracking-[0.12em]
-                             text-slate-700"
+                             tracking-[0.14em]
+                             text-slate-800"
                     >
                       Email <span class="text-red-500">*</span>
                     </label>
@@ -350,38 +406,33 @@ const breadcrumbs = [
                       required
                       placeholder="Enter email address"
                       class="w-full
-                             h-12 sm:h-[52px]
-                             px-4
-                             rounded-xl
-                             bg-slate-50
-                             border border-slate-200
-                             text-sm sm:text-base
+                             bg-transparent
+                             border-0
+                             border-b-2
+                             border-slate-200
+                             px-0.5
+                             py-2.5 sm:py-3
+                             text-base sm:text-lg
                              font-medium
                              text-slate-900
                              placeholder:text-slate-400
                              outline-none
-                             transition-all duration-200
-                             focus:bg-white
+                             transition-colors duration-200
                              focus:border-[#146B5C]
-                             focus:ring-4
-                             focus:ring-[#146B5C]/10"
+                             focus:ring-0"
                     />
-
                   </div>
-
                 </div>
 
-
-                <!-- Subject -->
+                <!-- Row 3: Subject -->
                 <div class="space-y-2">
-
                   <label
                     for="contact-subject"
-                    class="block text-xs
+                    class="block text-xs sm:text-sm
                            font-bold
                            uppercase
-                           tracking-[0.12em]
-                           text-slate-700"
+                           tracking-[0.14em]
+                           text-slate-800"
                   >
                     Subject <span class="text-red-500">*</span>
                   </label>
@@ -393,36 +444,32 @@ const breadcrumbs = [
                     required
                     placeholder="How can we help you?"
                     class="w-full
-                           h-12 sm:h-[52px]
-                           px-4
-                           rounded-xl
-                           bg-slate-50
-                           border border-slate-200
-                           text-sm sm:text-base
+                           bg-transparent
+                           border-0
+                           border-b-2
+                           border-slate-200
+                           px-0.5
+                           py-2.5 sm:py-3
+                           text-base sm:text-lg
                            font-medium
                            text-slate-900
                            placeholder:text-slate-400
                            outline-none
-                           transition-all duration-200
-                           focus:bg-white
+                           transition-colors duration-200
                            focus:border-[#146B5C]
-                           focus:ring-4
-                           focus:ring-[#146B5C]/10"
+                           focus:ring-0"
                   />
-
                 </div>
 
-
-                <!-- Message -->
+                <!-- Row 4: Message -->
                 <div class="space-y-2">
-
                   <label
                     for="contact-message"
-                    class="block text-xs
+                    class="block text-xs sm:text-sm
                            font-bold
                            uppercase
-                           tracking-[0.12em]
-                           text-slate-700"
+                           tracking-[0.14em]
+                           text-slate-800"
                   >
                     Message <span class="text-red-500">*</span>
                   </label>
@@ -431,45 +478,41 @@ const breadcrumbs = [
                     id="contact-message"
                     name="message"
                     required
-                    rows="5"
+                    rows="4"
                     placeholder="Write your message here..."
                     class="w-full
+                           bg-transparent
+                           border-0
+                           border-b-2
+                           border-slate-200
+                           px-0.5
+                           py-2.5 sm:py-3
                            min-h-[130px]
-                           px-4
-                           py-3.5
-                           rounded-xl
-                           bg-slate-50
-                           border border-slate-200
-                           text-sm sm:text-base
+                           text-base sm:text-lg
                            font-medium
                            text-slate-900
                            placeholder:text-slate-400
                            outline-none
-                           transition-all duration-200
-                           focus:bg-white
+                           transition-colors duration-200
                            focus:border-[#146B5C]
-                           focus:ring-4
-                           focus:ring-[#146B5C]/10
+                           focus:ring-0
                            resize-none"
                   ></textarea>
-
                 </div>
 
-
-                <!-- Submit -->
-                <div class="pt-2">
-
+                <!-- Submit Button -->
+                <div class="pt-3">
                   <button
                     type="submit"
                     class="group
                            w-full
-                           min-h-[54px]
+                           min-h-[58px]
                            px-6
                            rounded-xl
                            bg-[#146B5C]
                            hover:bg-[#0D5549]
                            text-white
-                           text-sm sm:text-base
+                           text-base sm:text-lg
                            font-bold
                            tracking-wide
                            shadow-[0_10px_25px_rgba(20,107,92,0.18)]
@@ -481,17 +524,15 @@ const breadcrumbs = [
                     <span>Send Message</span>
 
                     <span
-                      class="text-lg transition-transform duration-200 group-hover:translate-x-1"
+                      class="text-xl transition-transform duration-200 group-hover:translate-x-1"
                       aria-hidden="true"
                     >
                       →
                     </span>
                   </button>
-
                 </div>
 
-
-                <!-- Success / Error message -->
+                <!-- Success / Error message alert -->
                 <div
                   id="contact-success"
                   class="hidden p-4 rounded-xl
@@ -503,155 +544,21 @@ const breadcrumbs = [
                 >
                   Thank you for contacting Techsteps. Your enquiry has been routed to our UK support desk and a team member will reply shortly.
                 </div>
-
               </form>
-
             </div>
-
           </div>
 
         </div>
-
       </div>
     </Container>
+  </section>
 
-    <!-- 3. MAP & GET IN TOUCH SECTION (Get in Touch on Left, Map on Right) -->
-    <div class="mt-16 sm:mt-24 px-4 sm:px-6 lg:px-8 max-w-[1240px] mx-auto w-full">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center bg-white/60 backdrop-blur-xs rounded-3xl p-6 sm:p-10 lg:p-12 border border-slate-200/80 shadow-lg">
-        
-        <!-- LEFT COLUMN: Get in touch -->
-        <div class="lg:col-span-5 space-y-8">
-          <div class="space-y-3">
-            <h2 class="text-3xl sm:text-4xl font-semibold font-display text-slate-900 tracking-tight">
-              Get in touch
-            </h2>
-            <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
-              Reach our UK sovereign headquarters or speak directly with our logistics dispatch and compliance teams.
-            </p>
-          </div>
-
-          <!-- Contact Information List with Vibrant Round Circle Icons -->
-          <div class="space-y-6">
-            <!-- Address 1 -->
-            <div 
-              class="flex items-start gap-4 group cursor-pointer p-2.5 -mx-2.5 rounded-2xl hover:bg-white/80 transition-all duration-200" 
-              onmouseenter="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address1' } }))"
-              onpointerenter="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address1' } }))"
-              onclick="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address1' } }))"
-              title="View Address 1 on map"
-            >
-              <div class="w-12 h-12 rounded-full bg-[#146B5C] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div class="space-y-1">
-                <h3 class="text-lg font-semibold font-display text-slate-900 group-hover:text-[#146B5C] transition-colors tracking-tight">
-                  Address 1
-                </h3>
-                <p class="text-sm sm:text-base text-slate-700 font-semibold leading-relaxed">
-                  Unit B, Roebuck road<br />
-                  Hainault business park, IG6 3UF
-                </p>
-              </div>
-            </div>
-
-            <!-- Address 2 -->
-            <div 
-              class="flex items-start gap-4 group cursor-pointer p-2.5 -mx-2.5 rounded-2xl hover:bg-white/80 transition-all duration-200"
-              onmouseenter="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address2' } }))"
-              onpointerenter="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address2' } }))"
-              onclick="window.dispatchEvent(new CustomEvent('techsteps:switch-location', { detail: { location: 'address2' } }))"
-              title="View Address 2 on map"
-            >
-              <div class="w-12 h-12 rounded-full bg-[#146B5C] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-              </div>
-              <div class="space-y-1">
-                <h3 class="text-lg font-semibold font-display text-slate-900 group-hover:text-[#146B5C] transition-colors tracking-tight">
-                  Address 2
-                </h3>
-                <p class="text-sm sm:text-base text-slate-700 font-semibold leading-relaxed">
-                  Rickerscote Hall Ln, Stafford ST17 4HF
-                </p>
-              </div>
-            </div>
-
-            <!-- Item 2: Email Us -->
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 rounded-full bg-[#146B5C] text-white flex items-center justify-center shrink-0 shadow-md">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div class="space-y-1">
-                <h3 class="text-lg font-semibold font-display text-slate-900 tracking-tight">
-                  Email Us
-                </h3>
-                <p class="text-sm sm:text-base text-slate-700 font-semibold leading-relaxed">
-                  <a href={`mailto:${siteSettings.email}`} class="hover:text-[#146B5C] transition-colors block">
-                    {siteSettings.email}
-                  </a>
-                </p>
-              </div>
-            </div>
-
-            <!-- Item 3: Call Us -->
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 rounded-full bg-[#146B5C] text-white flex items-center justify-center shrink-0 shadow-md">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-              </div>
-              <div class="space-y-1">
-                <h3 class="text-lg font-semibold font-display text-slate-900 tracking-tight">
-                  Call Us
-                </h3>
-                <p class="text-sm sm:text-base text-slate-700 font-semibold leading-relaxed">
-                  Phone : <a href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`} class="hover:text-[#146B5C] font-bold text-slate-900">{siteSettings.phone}</a><br />
-                  Freephone : <a href="tel:08000834700" class="hover:text-[#146B5C] font-bold text-slate-900">0800 083 4700</a>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Follow our social media -->
-          <div class="pt-4 space-y-3 border-t border-slate-200">
-            <h4 class="text-base font-semibold text-slate-900 tracking-tight">
-              Follow our social media
-            </h4>
-            <div class="flex items-center gap-3">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#146B5C] text-white flex items-center justify-center hover:bg-[#0D5549] transition-all hover:scale-105 shadow-xs" aria-label="LinkedIn">
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.75a1.45 1.45 0 1 0 0 2.9 1.45 1.45 0 0 0 0-2.9z"/></svg>
-              </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#146B5C] text-white flex items-center justify-center hover:bg-[#0D5549] transition-all hover:scale-105 shadow-xs" aria-label="Twitter X">
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#146B5C] text-white flex items-center justify-center hover:bg-[#0D5549] transition-all hover:scale-105 shadow-xs" aria-label="Facebook">
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#146B5C] text-white flex items-center justify-center hover:bg-[#0D5549] transition-all hover:scale-105 shadow-xs" aria-label="YouTube">
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT COLUMN: Interactive Map -->
-        <div class="lg:col-span-7">
-          <div class="rounded-2xl overflow-hidden shadow-md border border-slate-200/90 relative">
-            <CustomStyleExample client:visible />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. TRUST / SECURITY SECTION (After Map) -->
-    <div class="mt-20 sm:mt-24 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center w-full max-w-[1240px] mx-auto mb-12">
+  <!-- ===================================================== -->
+  <!-- 3. TRUST / SECURITY SECTION (Preserved as requested) -->
+  <!-- ===================================================== -->
+  <section class="bg-[#f8fafc]/50 py-16 sm:py-20 lg:py-24 border-t border-slate-200/60">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center w-full max-w-[1240px] mx-auto mb-10 sm:mb-12">
         <h2 class="text-2xl sm:text-3xl font-semibold font-display text-slate-900 tracking-tight">
           Your Information. Handled Responsibly.
         </h2>
@@ -659,13 +566,13 @@ const breadcrumbs = [
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
         <!-- Point 1: SECURE -->
-        <div class="bg-white/70 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80 space-y-3 shadow-xs">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 space-y-3 shadow-xs">
           <div class="w-10 h-10 rounded-xl bg-[#146B5C]/10 text-[#146B5C] flex items-center justify-center">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
           </div>
-          <h3 class="text-sm font-semibold font-mono tracking-widest text-[#146B5C] uppercase">
+          <h3 class="text-xs sm:text-sm font-semibold font-mono tracking-widest text-[#146B5C] uppercase">
             SECURE
           </h3>
           <p class="text-base text-slate-800 font-semibold leading-relaxed">
@@ -674,13 +581,13 @@ const breadcrumbs = [
         </div>
 
         <!-- Point 2: CONFIDENTIAL -->
-        <div class="bg-white/70 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80 space-y-3 shadow-xs">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 space-y-3 shadow-xs">
           <div class="w-10 h-10 rounded-xl bg-[#146B5C]/10 text-[#146B5C] flex items-center justify-center">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
           </div>
-          <h3 class="text-sm font-semibold font-mono tracking-widest text-[#146B5C] uppercase">
+          <h3 class="text-xs sm:text-sm font-semibold font-mono tracking-widest text-[#146B5C] uppercase">
             CONFIDENTIAL
           </h3>
           <p class="text-base text-slate-800 font-semibold leading-relaxed">
@@ -689,13 +596,13 @@ const breadcrumbs = [
         </div>
 
         <!-- Point 3: ACCOUNTABLE -->
-        <div class="bg-white/70 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80 space-y-3 shadow-xs">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 space-y-3 shadow-xs">
           <div class="w-10 h-10 rounded-xl bg-[#146B5C]/10 text-[#146B5C] flex items-center justify-center">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
             </svg>
           </div>
-          <h3 class="text-sm font-semibold font-mono tracking-widest text-[#146B5C] uppercase">
+          <h3 class="text-xs sm:text-sm font-semibold font-mono tracking-widest text-[#146B5C] uppercase">
             ACCOUNTABLE
           </h3>
           <p class="text-base text-slate-800 font-semibold leading-relaxed">
@@ -704,9 +611,13 @@ const breadcrumbs = [
         </div>
       </div>
     </div>
-
-  
   </section>
+
+  <!-- ===================================================== -->
+  <!-- 4. COMMON CTA (Requested by user) -->
+  <!-- ===================================================== -->
+  <CTA />
+
 </BaseLayout>
 
 <script>

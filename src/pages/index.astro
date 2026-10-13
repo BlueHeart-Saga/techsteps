@@ -10,6 +10,7 @@ import SectorGrid from '../components/sectors/SectorGrid.astro';
 import StatCounter from '../components/content/StatCounter.astro';
 import TrustBadges from '../components/content/TrustBadges.astro';
 import Testimonials from '../components/content/Testimonials.astro';
+import CTA from '../components/global/cta.astro';
 import {
   getHomePage,
   getDivisions,
@@ -222,7 +223,7 @@ const divisionMetadata: Record<
             </h2>
           </div>
 
-          <p class="text-base sm:text-lg lg:text-[19px] text-slate-600 leading-relaxed font-medium">
+          <p class="text-lg sm:text-xl lg:text-[19px] text-black leading-relaxed font-medium">
             We provide accredited waste management and sustainable IT disposal solutions. From collection to recycling, we ensure responsible disposal that protects your brand and the environment.
           </p>
 
@@ -275,17 +276,17 @@ const divisionMetadata: Record<
           <h2 class="text-3xl sm:text-4xl font-semibold text-brand-navy tracking-tight leading-tight">
             Expert Help Every Step of the Way
           </h2>
-          <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p class="text-lg sm:text-xl text-black leading-relaxed">
             Navigating the intersection of UK GDPR, WEEE directives, Environment Agency permits, and operational relocations requires specialist competence. Techsteps pairs dedicated logistics directors with your IT, compliance, and facilities teams to eliminate operational blindspots.
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-xs">
               <h4 class="font-semibold text-brand-navy text-sm mb-1">Tailored Governance</h4>
-              <p class="text-xs text-slate-600">Bespoke SLAs configured to your exact internal security classification mandates.</p>
+              <p class="text-sm text-black">Bespoke SLAs configured to your exact internal security classification mandates.</p>
             </div>
             <div class="p-4 rounded-xl bg-white border border-slate-200/90 shadow-xs">
               <h4 class="font-semibold text-brand-navy text-sm mb-1">Rapid Dispatch SLA</h4>
-              <p class="text-xs text-slate-600">Nationwide tracked fleet capable of executing urgent emergency collections.</p>
+              <p class="text-sm text-black">Nationwide tracked fleet capable of executing urgent emergency collections.</p>
             </div>
           </div>
         </div>
@@ -295,22 +296,22 @@ const divisionMetadata: Record<
             <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
               <span class="text-2xl font-black text-brand-accent">01</span>
               <h3 class="text-base font-semibold text-brand-navy">Risk Assessment</h3>
-              <p class="text-xs text-slate-600">Full audit of hardware models, data sensitivities, and logistics access prior to scheduling.</p>
+              <p class="text-sm text-black">Full audit of hardware models, data sensitivities, and logistics access prior to scheduling.</p>
             </div>
             <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
               <span class="text-2xl font-black text-brand-accent">02</span>
               <h3 class="text-base font-semibold text-brand-navy">Chain of Custody</h3>
-              <p class="text-xs text-slate-600">Tamper-evident barcode seals applied on-site with dual signature verification.</p>
+              <p class="text-sm text-black">Tamper-evident barcode seals applied on-site with dual signature verification.</p>
             </div>
             <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
               <span class="text-2xl font-black text-brand-accent">03</span>
               <h3 class="text-base font-semibold text-brand-navy">Certified Processing</h3>
-              <p class="text-xs text-slate-600">ADISA Standard 8.0 sanitisation or DIN 66399 micro-granulation.</p>
+              <p class="text-sm text-black">ADISA Standard 8.0 sanitisation or DIN 66399 micro-granulation.</p>
             </div>
             <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
               <span class="text-2xl font-black text-brand-accent">04</span>
               <h3 class="text-base font-semibold text-brand-navy">Defensible Closeout</h3>
-              <p class="text-xs text-slate-600">Itemized certificates of destruction and corporate ESG rebate returns.</p>
+              <p class="text-sm text-black">Itemized certificates of destruction and corporate ESG rebate returns.</p>
             </div>
           </div>
         </div>
@@ -358,7 +359,7 @@ const divisionMetadata: Record<
           </h2>
 
           <!-- Aligned Concise Narrative Intro -->
-          <p class="why-choose-reveal text-base sm:text-lg text-slate-600 leading-relaxed font-normal mb-8 sm:mb-10 max-w-xl">
+          <p class="why-choose-reveal text-lg sm:text-xl text-black leading-relaxed font-normal mb-8 sm:mb-10 max-w-xl">
             TechSteps combines secure handling, reliable service, complete lifecycle solutions, and sustainability to deliver dependable IT asset management for organisations across the UK.
           </p>
 
@@ -382,7 +383,7 @@ const divisionMetadata: Record<
                 <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
                   Security & Compliance
                 </h3>
-                <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
+                <p class="text-base sm:text-lg text-black leading-relaxed font-normal">
                   Secure handling of IT assets and sensitive information, supported by responsible processes and appropriate documentation.
                 </p>
               </div>
@@ -406,7 +407,7 @@ const divisionMetadata: Record<
                 <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
                   Complete Lifecycle Solutions
                 </h3>
-                <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
+                <p class="text-base sm:text-lg text-black leading-relaxed font-normal">
                   Integrated IT asset management, collection, and end-of-life services through a coordinated approach.
                 </p>
               </div>
@@ -430,7 +431,7 @@ const divisionMetadata: Record<
                 <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
                   Sustainable Outcomes
                 </h3>
-                <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
+                <p class="text-base sm:text-lg text-black leading-relaxed font-normal">
                   Promote responsible reuse, recycling, and resource management to support more sustainable business operations.
                 </p>
               </div>
@@ -454,7 +455,7 @@ const divisionMetadata: Record<
                 <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
                   Reliable Service
                 </h3>
-                <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed font-normal">
+                <p class="text-base sm:text-lg text-black leading-relaxed font-normal">
                   Dependable collection coordination, clear communication, and traceable processes with completion records where applicable.
                 </p>
               </div>
@@ -501,7 +502,7 @@ const divisionMetadata: Record<
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display text-slate-900 tracking-tight leading-[1.18]">
           Supporting Businesses Across Every Sector
         </h2>
-        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
+        <p class="text-lg sm:text-xl text-black leading-relaxed font-normal max-w-2xl mx-auto">
           TechSteps provides secure, sustainable, and reliable IT asset lifecycle, certified data destruction, and compliance-driven solutions across different industries.
         </p>
       </div>
@@ -515,32 +516,15 @@ const divisionMetadata: Record<
 
 
   <!-- Section 15 — Homepage Final CTA -->
-<Section theme="slate" padding="py-6 sm:py-8" className="relative overflow-hidden bg-white border-t border-slate-200/80">
-  <Container className="relative z-10 text-center w-full !max-w-[1408px] mx-auto space-y-8">
-
-<h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display text-brand-navy tracking-normal leading-tight mx-auto w-full">
-  {homePage?.cta?.heading?.replace(' securely?', '') || 'Ready to manage your IT lifecycle more'}
-  <span class="block">securely?</span>
-</h2>
-<p class="text-base sm:text-lg text-slate-800 max-w-2xl mx-auto leading-relaxed font-medium min-h-[2lh] min-h-[3.5em]">
-  {homePage?.cta?.description || 'Speak with our certified compliance specialists today to request an asset collection, schedule a facility audit, or discuss custom ITAD frameworks for your enterprise.'}
-</p>
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-<a
-  href={homePage?.cta?.primaryButtonLink || '/request-a-quote'}
-  class="px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
->
-  {homePage?.cta?.primaryButtonText || 'Request a Collection'}
-</a>
-<a
-  href={homePage?.cta?.secondaryButtonLink || '/contact'}
-  class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 text-brand-navy text-base font-bold border border-slate-300 shadow-xs hover:shadow-sm transition-all duration-200"
->
-  {homePage?.cta?.secondaryButtonText || 'Contact Specialist'}
-</a>
-      </div>
-    </Container>
-  </Section>
+  <CTA
+    eyebrow={homePage?.cta?.eyebrow}
+    title={homePage?.cta?.heading}
+    description={homePage?.cta?.description}
+    primaryText={homePage?.cta?.primaryButtonText}
+    primaryHref={homePage?.cta?.primaryButtonLink}
+    secondaryText={homePage?.cta?.secondaryButtonText}
+    secondaryHref={homePage?.cta?.secondaryButtonLink}
+  />
 
   <!-- Interactive Story Journey Hover & Click Script -->
   <script is:inline>

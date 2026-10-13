@@ -328,7 +328,10 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 export async function getDivisions(): Promise<Division[]> {
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "division" && !(_id in path("drafts.**"))] | order(order asc)`);
+      const data = await sanityClient.fetch(`*[_type == "division" && !(_id in path("drafts.**"))]{
+        ...,
+        "heroImage": coalesce(heroImage.asset->url, heroImage)
+      } | order(order asc)`);
       if (data && data.length > 0) {
         return data.map((d: any) => ({
           ...d,

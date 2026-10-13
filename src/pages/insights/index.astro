@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
-import PageHero from '../../components/hero/PageHero.astro';
+import HeroHeader from '../../components/global/HeroHeader.astro';
+import CTA from '../../components/global/cta.astro';
 import { insightsApi, isPublishedPost, type Post } from '../../lib/insightsApi';
 import InlineNewsletter from '../../components/newsletter/InlineNewsletter';
 
@@ -74,33 +75,71 @@ const remainingArticles = posts.filter((p) => p.id !== featuredArticle?.id);
   hasHeroHeader={true}
 >
 
-  <!-- ===== 1. INSIGHTS HERO ===== -->
-  <PageHero
-    eyebrow="INSIGHTS & RESEARCH HUB"
-    title="Ideas for a Smarter Technology Lifecycle."
-    subheading="Explore verified analysis on IT asset management, military-grade data sanitisation, BS 10008 document integrity, and circular ESG metrics."
-    bgImage="/images/brand/hero-bg.jpg"
-    breadcrumbs={breadcrumbs}
-    dividerColor="#ffffff"
+  <!-- =========================
+       1. INSIGHTS HERO SECTION
+       Featuring /images/hero/Insights.webp
+  ========================= -->
+  <section
+    id="insights-hero"
+    class="relative w-full overflow-hidden bg-white select-none pt-0 pb-3 sm:pb-6 lg:pb-8 border-b border-slate-100"
   >
-    <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
-      <a
-        href="#featured-insight"
-        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#2D6A4F] hover:bg-[#245a41] text-white text-sm font-bold shadow-lg transition-all duration-200"
-      >
-        Explore Featured Research
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </a>
-      <a
-        href="#all-insights"
-        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/25 text-sm font-bold backdrop-blur-sm transition-all duration-200"
-      >
-        Browse All Articles ({posts.length})
-      </a>
+    <!-- Top Hero Header (Integrated light hero navbar) -->
+    <HeroHeader isHome={true} />
+
+    <!-- Breadcrumbs -->
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4">
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-1 sm:mb-2">
+        <a href="/" class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
+          Home
+        </a>
+        <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
+        <span class="text-slate-900 font-bold">Insights</span>
+      </nav>
     </div>
-  </PageHero>
+
+    <!-- Centered Visual Composition: Insights.webp -->
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-1 sm:pt-2">
+      <!-- Semantic H1 for SEO & Accessibility -->
+      <h1 class="sr-only">TechSteps Insights &amp; Research Hub - Ideas for a Smarter Technology Lifecycle</h1>
+
+      <!-- Hero Graphic -->
+      <div class="relative w-full max-w-6xl xl:max-w-7xl mx-auto flex items-center justify-center">
+        <img
+          src="/images/hero/Insights.webp"
+          alt="TechSteps Insights & Research Hub - Industry Insights, Sustainability, Tips & How-to, Data Security, IT Asset Management, Circular Technology"
+          class="w-full max-w-[1240px] h-auto max-h-[580px] lg:max-h-[660px] xl:max-h-[740px] object-contain mx-auto block select-none pointer-events-none"
+          loading="eager"
+          fetchpriority="high"
+          decoding="sync"
+        />
+      </div>
+
+      <!-- Action Buttons & Subtitle -->
+      {/*<div class="mt-6 sm:mt-8 max-w-3xl mx-auto space-y-5">
+        <p class="text-base sm:text-lg lg:text-xl text-black leading-relaxed font-sans font-normal">
+          Explore verified analysis on IT asset management, military-grade data sanitisation, BS 10008 document integrity, and circular ESG metrics.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
+          <a
+            href="#featured-insight"
+            class="inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-none bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+          >
+            <span>Explore Featured Research</span>
+            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <a
+            href="#all-insights"
+            class="inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-none bg-white hover:bg-slate-50 border-2 border-[#0F623A] hover:border-[#0c4e2e] text-[#0F623A] hover:text-[#0c4e2e] text-sm sm:text-base font-bold transition-all duration-200 hover:scale-[1.02] shadow-xs focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+          >
+            Browse All Articles ({posts.length})
+          </a>
+        </div>
+      </div>*/}
+    </div>
+  </section>
 
   <!-- ===== 2. DYNAMIC TAXONOMY & CATEGORY PILLS BAR ===== -->
   <section class="bg-white border-b border-slate-200 sticky top-0 z-30 backdrop-blur-md bg-white/95 shadow-xs">
@@ -236,7 +275,7 @@ const remainingArticles = posts.filter((p) => p.id !== featuredArticle?.id);
                   </p>
                 )}
 
-                <p class="text-sm sm:text-base text-slate-600 leading-relaxed line-clamp-4">
+                <p class="text-base sm:text-lg text-black leading-relaxed line-clamp-4">
                   {featuredArticle.excerpt}
                 </p>
 
@@ -350,7 +389,7 @@ const remainingArticles = posts.filter((p) => p.id !== featuredArticle?.id);
                 <h3 class="text-lg font-semibold text-slate-900 group-hover:text-[#2D6A4F] transition-colors leading-snug mb-3 line-clamp-2">
                   {article.title}
                 </h3>
-                <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 flex-1 mb-4">
+                <p class="text-base text-black leading-relaxed line-clamp-3 flex-1 mb-4">
                   {article.excerpt}
                 </p>
 
@@ -382,7 +421,7 @@ const remainingArticles = posts.filter((p) => p.id !== featuredArticle?.id);
           <h3 class="text-xl font-semibold text-slate-900 mb-2">
             No Insights Published Yet
           </h3>
-          <p class="text-sm text-slate-600 mb-8 leading-relaxed">
+          <p class="text-base text-black mb-8 leading-relaxed">
             Our team is currently preparing verified case studies, compliance briefs, and whitepapers for TechSteps. Check back soon or contact our advisory team directly.
           </p>
           <a
@@ -419,7 +458,7 @@ const remainingArticles = posts.filter((p) => p.id !== featuredArticle?.id);
                 <span class="w-2.5 h-2.5 rounded-full bg-[#2D6A4F]"></span>
                 <h3 class="text-xl font-semibold text-slate-900">{cat.name}</h3>
               </div>
-              <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              <p class="text-base text-black leading-relaxed mb-6">
                 {cat.description}
               </p>
             </div>
@@ -453,7 +492,7 @@ const remainingArticles = posts.filter((p) => p.id !== featuredArticle?.id);
         <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 mb-4 leading-tight tracking-tight">
           Stay Ahead of UK Compliance.
         </h2>
-        <p class="text-base text-slate-600 leading-relaxed mb-8 font-medium">
+        <p class="text-lg text-black leading-relaxed mb-8 font-medium">
           Receive our quarterly digest covering ADISA audits, Scope 3 IT recycling metrics, and BS 10008 legal precedents directly to your inbox.
         </p>
 
@@ -462,6 +501,10 @@ const remainingArticles = posts.filter((p) => p.id !== featuredArticle?.id);
         <p class="mt-4 text-xs text-slate-400">Zero spam. Unsubscribe at any time. Protected under UK GDPR.</p>
       </div>
     </Container>
+    <br />
+    <br />
   </section>
+
+<CTA />
 
 </BaseLayout>

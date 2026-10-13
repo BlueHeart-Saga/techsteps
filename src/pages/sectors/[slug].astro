@@ -37,55 +37,8 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 ], origin);
 
 /*
- * Grouped section fields
+ * Fallback organisation lists per sector
  */
-const sectorData = sector as Sector & {
-  challengesSection?: {
-    eyebrow?: string;
-    heading?: string;
-    description?: string;
-  };
-
-  solutionsSection?: {
-    eyebrow?: string;
-    heading?: string;
-    description?: string;
-  };
-
-  securitySection?: {
-    eyebrow?: string;
-    heading?: string;
-    description?: string;
-  };
-
-  benefitsSection?: {
-    eyebrow?: string;
-    heading?: string;
-    description?: string;
-  };
-
-  caseStudySection?: {
-    eyebrow?: string;
-    heading?: string;
-    description?: string;
-  };
-
-  faqSection?: {
-    eyebrow?: string;
-    heading?: string;
-    description?: string;
-  };
-
-  cta?: {
-    eyebrow?: string;
-    heading?: string;
-    description?: string;
-    primaryButtonText?: string;
-    secondaryButtonText?: string;
-  };
-};
-
-// 01 / WHO WE SUPPORT: Verified organisation groups
 const defaultSectorOrgs: Record<string, { name: string; description: string }[]> = {
   'nhs': [
     { name: 'NHS Integrated Care Boards & Acute Trusts', description: 'Supporting compliant health records management, Caldicott governance, and acute hospital ward IT decommissions.' },
@@ -137,7 +90,7 @@ const organizationsSupported = (sector.whoWeSupport && sector.whoWeSupport.lengt
       { name: `Specialist Facilities & Operations`, description: `End-to-end logistics, compliant relocations, and confidential lifecycle decommissioning.` },
     ]);
 
-// 03 / TAILORED SOLUTIONS: Resolve mapped services from sector.relevantServices
+// Resolved mapped services
 const mappedServices = (sector.relevantServices || [])
   .map((slug) => {
     const clean = slug.toLowerCase().replace(/-services|-uk/g, '');
@@ -148,9 +101,9 @@ const mappedServices = (sector.relevantServices || [])
   })
   .filter(Boolean) as Service[];
 
-// 04 / SERVICE MAPPING: Connect challenges to accredited services
+// Service Mapping: Connect challenges to accredited services without duplicates
 const serviceMappings = (sector.challenges || []).map((challenge, idx) => {
-  const matchedService = mappedServices[idx] || mappedServices[0];
+  const matchedService = mappedServices[idx] || mappedServices[idx % (mappedServices.length || 1)] || allServices[0];
   return {
     need: challenge.title,
     needDesc: challenge.description,
@@ -158,7 +111,27 @@ const serviceMappings = (sector.challenges || []).map((challenge, idx) => {
   };
 }).filter((m) => Boolean(m.service));
 
-// 08 / PROVEN EXPERIENCE: Strictly sector-specific verified case study
+// Fallback sector images
+const sectorFallbackImages: Record<string, string> = {
+  defence: '/images/sectors/defence.jpg',
+  nhs: '/images/sectors/nhs.jpg',
+  healthcare: '/images/sectors/nhs.jpg',
+  finance: '/images/sectors/finance.jpg',
+  'financial-services': '/images/sectors/finance.jpg',
+  'central-government': '/images/sectors/government.jpg',
+  government: '/images/sectors/government.jpg',
+  'education-universities': '/images/sectors/education.jpg',
+  education: '/images/sectors/education.jpg',
+  'legal-professional-services': '/images/sectors/legal.jpg',
+  legal: '/images/sectors/legal.jpg',
+  'manufacturing-engineering': '/images/sectors/manufacturing.jpg',
+  manufacturing: '/images/sectors/manufacturing.jpg',
+  'it-technology': '/images/sectors/technology.jpg',
+  technology: '/images/sectors/technology.jpg',
+};
+const deliveryImage = sector.heroImage || sectorFallbackImages[sector.slug] || '/images/sectors/corporate.jpg';
+
+// Strictly sector-specific verified case study
 const matchingCaseStudy = (caseStudies || []).find((c) => {
   if (!c) return false;
   const targetIndustry = (c.clientIndustry || '').toLowerCase();
@@ -186,260 +159,165 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   hasHeroHeader={true}
 >
   <!-- ========================================================= -->
-  <!-- 1. HERO -->
+  <!-- SECTION 1: HERO                                           -->
   <!-- ========================================================= -->
   <HeroSector sector={sector} />
 
-  <!-- ===== 01 / WHO WE SUPPORT ===== -->
-  <section class="py-16 lg:py-24 bg-white border-b border-slate-200/80">
+  <!-- ========================================================= -->
+  <!-- SECTION 2: WHO WE SUPPORT (3 Responsive Visual Cards)     -->
+  <!-- ========================================================= -->
+  <section class="py-14 sm:py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
     <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          01 / WHO WE SUPPORT
-        </div>
+      <div class="max-w-3xl mb-10 sm:mb-12">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+          WHO WE SUPPORT
+        </span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-          Solutions for {sector.title} Organisations
+          Tailored for {sector.title} Organisations
         </h2>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+        <p class="mt-3 text-base sm:text-lg text-slate-700 leading-relaxed font-sans font-normal">
           {sector.summary}
         </p>
       </div>
 
-      <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
-        {organizationsSupported.map((org: any, idx: number) => {
+      <!-- 3 Visual Organisation Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {organizationsSupported.slice(0, 3).map((org: any, idx: number) => {
           const num = String(idx + 1).padStart(2, '0');
+          const tiers = ['Enterprise Operations', 'Regulated Entities', 'Specialist Facilities'];
+          const tierTag = tiers[idx] || `Tier ${idx + 1}`;
           return (
-            <div class="py-7 sm:py-8 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
-              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline">
-                <div class="md:col-span-2">
-                  <span class="text-2xl sm:text-3xl font-mono font-bold text-[#0F623A] tracking-tight">
+            <div class="bg-white rounded-2xl border border-slate-200/90 p-7 sm:p-8 shadow-xs hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full group">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10">
+                    {tierTag}
+                  </span>
+                  <span class="text-2xl font-mono font-bold text-slate-300 group-hover:text-[#0F623A]/60 transition-colors">
                     {num}
                   </span>
                 </div>
-                <div class="md:col-span-4">
-                  <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-snug">
-                    {org.name}
-                  </h3>
-                </div>
-                <div class="md:col-span-6">
-                  <p class="text-base text-slate-600 font-sans leading-relaxed">
-                    {org.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </Container>
-  </section>
 
-  <!-- ===== 02 / INDUSTRY CHALLENGES ===== -->
-  <section class="py-16 lg:py-24 bg-[#F8FAF9] border-b border-slate-200/80">
-    <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          02 / INDUSTRY CHALLENGES
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-          We Understand Your Challenges
-        </h2>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-          {sectorData.challengesSection?.description ||
-            `Organisations across the UK ${sector.title} ecosystem operate under unforgiving statutory and operational standards. Standard commercial contractors lack the specialist clearance and chain-of-custody controls needed to neutralize these liabilities.`}
-        </p>
-      </div>
+                <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug">
+                  {org.name}
+                </h3>
 
-      <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
-        {sector.challenges?.map((challenge, idx) => {
-          const num = String(idx + 1).padStart(2, '0');
-          return (
-            <div class="py-7 sm:py-9 group transition-colors duration-200 hover:bg-white px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
-              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center">
-                <div class="md:col-span-2 flex items-baseline gap-3">
-                  <span class="text-2xl sm:text-3xl font-mono font-bold text-[#0F623A] tracking-tight">
-                    {num}
-                  </span>
-                </div>
-                <div class="md:col-span-9">
-                  <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-snug">
-                    {challenge.title}
-                  </h3>
-                  <p class="mt-2 text-base text-slate-600 font-sans leading-relaxed">
-                    {challenge.description}
-                  </p>
-                </div>
-                <div class="md:col-span-1 flex justify-end">
-                  <span class="w-10 h-10 rounded-full border border-slate-200 group-hover:border-[#0F623A] group-hover:bg-[#0F623A] group-hover:text-white flex items-center justify-center text-slate-400 transition-all duration-300 transform group-hover:translate-x-1">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </Container>
-  </section>
-
-  <!-- ===== 03 / TAILORED SOLUTIONS ===== -->
-  <section id="tailored-solutions" class="py-16 lg:py-24 bg-white border-b border-slate-200/80">
-    <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          03 / TAILORED SOLUTIONS
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-          Our {sector.title} Solutions
-        </h2>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-          {sectorData.solutionsSection?.description ||
-            `Accredited services specifically deployed and certified to meet the operational demands of ${sector.title.toLowerCase()}.`}
-        </p>
-      </div>
-
-      <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
-        {mappedServices.map((service, idx) => {
-          const num = String(idx + 1).padStart(2, '0');
-          return (
-            <div class="py-8 sm:py-9 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
-              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center">
-                <div class="md:col-span-2">
-                  <span class="text-2xl sm:text-3xl font-mono font-bold text-[#0F623A] tracking-tight">
-                    {num}
-                  </span>
-                </div>
-                <div class="md:col-span-7">
-                  <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-snug">
-                    {service.title}
-                  </h3>
-                  <p class="mt-2 text-base text-slate-600 font-sans leading-relaxed">
-                    {service.summary || service.solution || 'Certified lifecycle delivery meeting strict statutory requirements.'}
-                  </p>
-                </div>
-                <div class="md:col-span-3 flex md:justify-end">
-                  <a
-                    href={`/services/${service.slug}`}
-                    class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#0F623A] group-hover:text-[#0c4e2e] transition-colors py-2 px-4 rounded-lg bg-[#0F623A]/10 group-hover:bg-[#0F623A] group-hover:text-white"
-                  >
-                    <span>Learn More</span>
-                    <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </Container>
-  </section>
-
-  <!-- ===== 04 / SERVICE MAPPING ===== -->
-  <section class="py-16 lg:py-24 bg-[#F8FAF9] border-b border-slate-200/80">
-    <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          04 / SERVICE MAPPING
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-          Connecting Challenges to Solutions
-        </h2>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-          Direct alignment between key {sector.title.toLowerCase()} operational requirements and TechSteps accredited service delivery.
-        </p>
-      </div>
-
-      <!-- Editorial Mapping Grid (Not a basic HTML table) -->
-      <div class="rounded-2xl border border-slate-200/90 bg-white shadow-xs overflow-hidden">
-        <!-- Table Column Header -->
-        <div class="hidden md:grid md:grid-cols-12 gap-6 px-8 py-4 bg-slate-50/80 border-b border-slate-200 text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
-          <div class="md:col-span-5">Business Need / Challenge</div>
-          <div class="md:col-span-2 text-center">Relationship</div>
-          <div class="md:col-span-5">TechSteps Accredited Solution</div>
-        </div>
-
-        <div class="divide-y divide-slate-100">
-          {serviceMappings.map((item) => (
-            <div class="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-center hover:bg-slate-50/50 transition-colors group">
-              <!-- Left: Need -->
-              <div class="md:col-span-5 space-y-1">
-                <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] block md:hidden mb-1">
-                  Business Need
-                </span>
-                <h4 class="text-lg font-semibold text-slate-900 font-display">
-                  {item.need}
-                </h4>
-                <p class="text-sm text-slate-600 leading-relaxed font-sans">
-                  {item.needDesc}
+                <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+                  {org.description}
                 </p>
               </div>
 
-              <!-- Center: Arrow -->
-              <div class="md:col-span-2 flex items-center justify-start md:justify-center py-1 md:py-0">
-                <div class="w-9 h-9 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center font-bold text-sm group-hover:bg-[#0F623A] group-hover:text-white transition-colors duration-200">
-                  <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </div>
-              </div>
-
-              <!-- Right: Solution -->
-              <div class="md:col-span-5 flex items-center justify-between gap-4">
-                <div class="space-y-1">
-                  <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] block md:hidden mb-1">
-                    TechSteps Solution
-                  </span>
-                  <a
-                    href={`/services/${item.service.slug}`}
-                    class="text-lg font-semibold text-slate-900 hover:text-[#0F623A] transition-colors font-display inline-flex items-center gap-1.5"
-                  >
-                    <span>{item.service.title}</span>
-                    <span class="text-xs text-[#0F623A]">↗</span>
-                  </a>
-                  <p class="text-sm text-slate-600 leading-relaxed font-sans line-clamp-2">
-                    {item.service.summary || item.service.solution}
-                  </p>
-                </div>
+              <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs font-medium text-slate-500 font-sans">
+                  Audited Operational Protocols
+                </span>
+                <span class="w-2 h-2 rounded-full bg-[#0F623A]"></span>
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </Container>
   </section>
 
-  <!-- ===== 05 / OPERATIONAL USE CASES ===== -->
-  <section class="py-16 lg:py-24 bg-white border-b border-slate-200/80">
+  <!-- ========================================================= -->
+  <!-- SECTION 3: CHALLENGES & SOLUTIONS (Merged Cohesive Flow)  -->
+  <!-- ========================================================= -->
+  <section id="challenges-solutions" class="py-14 sm:py-16 lg:py-20 bg-white border-b border-slate-200/80">
     <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          05 / OPERATIONAL USE CASES
-        </div>
+      <div class="max-w-3xl mb-10 sm:mb-12">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+          CHALLENGES &amp; SOLUTIONS
+        </span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-          Designed for Real {sector.title} Needs
+          Resolving {sector.title} Operational Risks
         </h2>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-          How TechSteps delivers end-to-end information governance, secure asset disposition, and compliant relocations in practice.
+        <p class="mt-3 text-base sm:text-lg text-slate-700 leading-relaxed font-sans font-normal">
+          Direct alignment between key {sector.title.toLowerCase()} operational liabilities and TechSteps accredited service delivery.
         </p>
       </div>
 
-      <!-- Large Image + Editorial Layout -->
-      <div class="rounded-3xl border border-slate-200/90 bg-[#F8FAF9] p-6 sm:p-8 lg:p-12 shadow-xs">
+      <!-- Challenge to Solution Connected Rows -->
+      <div class="space-y-4 sm:space-y-5">
+        {serviceMappings.map((item, idx) => {
+          const num = String(idx + 1).padStart(2, '0');
+          return (
+            <div class="rounded-2xl border border-slate-200/90 bg-[#F8FAF9] p-6 sm:p-8 hover:bg-white hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                <!-- Left: Challenge (cols 5) -->
+                <div class="lg:col-span-5 space-y-2">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-xs font-mono font-bold text-slate-400">
+                      {num}
+                    </span>
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-rose-700 px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200/70">
+                      Industry Challenge
+                    </span>
+                  </div>
+                  <h3 class="text-lg sm:text-xl font-bold font-display text-slate-900 leading-snug">
+                    {item.need}
+                  </h3>
+                  <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+                    {item.needDesc}
+                  </p>
+                </div>
+
+                <!-- Center: Connection Arrow (cols 2) -->
+                <div class="lg:col-span-2 flex flex-col items-center justify-center py-2 lg:py-0">
+                  <div class="flex items-center gap-2 lg:flex-col">
+                    <div class="w-10 h-10 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 flex items-center justify-center text-[#0F623A] shadow-xs">
+                      <svg class="w-4 h-4 transform lg:rotate-0 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </div>
+                    <span class="text-[11px] font-mono font-bold uppercase tracking-widest text-[#0F623A]">
+                      Mapped To
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Right: Accredited Solution (cols 5) -->
+                <div class="lg:col-span-5 space-y-2 bg-white rounded-xl border border-slate-200/80 p-5 sm:p-6 shadow-xs">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-2.5 py-0.5 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20">
+                      Accredited Delivery
+                    </span>
+                    <a
+                      href={`/services/${item.service.slug}`}
+                      class="text-xs font-bold text-[#0F623A] hover:text-[#0c4e2e] inline-flex items-center gap-1 transition-colors"
+                    >
+                      View Service ↗
+                    </a>
+                  </div>
+                  <h4 class="text-lg sm:text-xl font-bold font-display text-slate-900 leading-snug">
+                    <a href={`/services/${item.service.slug}`} class="hover:text-[#0F623A] transition-colors">
+                      {item.service.title}
+                    </a>
+                  </h4>
+                  <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+                    {item.service.summary || item.service.solution || 'Certified lifecycle delivery meeting strict statutory requirements.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- SECTION 4: HOW WE DELIVER (Editorial 2-Column Layout)      -->
+  <!-- ========================================================= -->
+  <section class="py-14 sm:py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
+    <Container>
+      <div class="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 lg:p-12 shadow-xs ">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <!-- Large Realistic Image -->
-          <div class="lg:col-span-6">
-            <div class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 aspect-[4/3] bg-slate-900 group">
+          <!-- Left: High-Quality Sector Imagery -->
+          <div class="lg:col-span-5">
+            <div class="relative rounded-2xl overflow-hidden shadow-md border border-slate-200 aspect-[4/3] bg-slate-900 group">
               <img
-                src={sector.heroImage || `/images/sectors/${sector.slug}.jpg`}
+                src={deliveryImage}
                 alt={sector.heroAlt || `TechSteps operational deployment for ${sector.title}`}
                 class="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500"
                 loading="lazy"
@@ -448,193 +326,186 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
             </div>
           </div>
 
-          <!-- Editorial Scenario Content -->
-          <div class="lg:col-span-6 space-y-6">
-            <span class="inline-block text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10">
-              Operational Delivery
-            </span>
+          <!-- Right: Editorial Delivery & Integrated Benefits -->
+          <div class="lg:col-span-7 space-y-6">
+            <div>
+              <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+                HOW WE DELIVER
+              </span>
+              <h3 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-900 font-display leading-tight">
+                Enterprise Lifecycle Management in Action
+              </h3>
+            </div>
 
-            <h3 class="text-2xl sm:text-3xl font-semibold text-slate-900 font-display leading-tight">
-              Enterprise Lifecycle Management in Action
-            </h3>
-
-            <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
+            <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-sans text-justify">
               {sector.howTechstepsHelps}
             </p>
 
-            <!-- Verified Highlights -->
-            <div class="space-y-3 pt-2">
-              {sector.solutions?.map((sol) => (
-                <div class="flex items-start gap-3">
-                  <div class="w-5 h-5 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
-                    ✓
+            <!-- Up to Three Solution Highlights -->
+            {sector.solutions && sector.solutions.length > 0 && (
+              <div class="space-y-3 pt-1">
+                {sector.solutions.slice(0, 3).map((sol) => (
+                  <div class="flex items-start gap-3">
+                    <div class="w-5 h-5 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                      ✓
+                    </div>
+                    <span class="text-sm sm:text-base font-medium text-slate-900 leading-snug text-justify">
+                      <strong class="font-bold">{sol.title}</strong> — <span class="text-slate-600 font-normal">{sol.description}</span>
+                    </span>
                   </div>
-                  <span class="text-sm sm:text-base font-medium text-slate-900 leading-snug">
-                    {sol.title} — <span class="text-slate-600 font-normal">{sol.description}</span>
-                  </span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
 
-            <div class="pt-4">
+            <!-- Integrated Business Outcomes -->
+            {sector.keyBenefits && sector.keyBenefits.length > 0 && (
+              <div class="pt-4 border-t border-slate-100 space-y-2.5">
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 block">
+                  Supported Business Benefits
+                </span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-justify">
+                  {sector.keyBenefits.slice(0, 4).map((benefit) => (
+                    <div class="flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-700">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A] shrink-0"></span>
+                      <span class="line-clamp-2">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/*<div class="pt-2">
               <a
-                href="#tailored-solutions"
+                href="#challenges-solutions"
                 class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#0F623A] hover:text-[#0c4e2e] transition-colors"
               >
-                <span>Explore Relevant Services</span>
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
+                <span>View Tailored Service Pathways ↓</span>
               </a>
-            </div>
+            </div>*/}
           </div>
         </div>
       </div>
     </Container>
   </section>
 
-  <!-- ===== 06 / SECURITY & COMPLIANCE ===== -->
-  <section class="py-16 lg:py-24 bg-[#0A331E] relative overflow-hidden border-b border-emerald-950 text-white">
+  <!-- ========================================================= -->
+  <!-- SECTION 5: SECURITY & COMPLIANCE (Premium Dark Green)     -->
+  <!-- ========================================================= -->
+  <section class="py-14 sm:py-16 lg:py-20 bg-[#0A331E] relative overflow-hidden border-b border-emerald-950 text-white">
     <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-          06 / SECURITY & COMPLIANCE
+      <div class="max-w-3xl mb-10 sm:mb-12">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-3">
+          SECURITY &amp; COMPLIANCE
         </span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
-          Security Built into Delivery
+          Security Built into Every Step
         </h2>
-        <p class="mt-4 text-base sm:text-lg text-emerald-100/85 leading-relaxed font-sans max-w-2xl font-normal">
-          Rigorous governance protocols, security-vetted personnel, and certified chain-of-custody procedures protecting {sector.title.toLowerCase()}.
+        <p class="mt-3 text-base sm:text-lg text-emerald-100/85 leading-relaxed font-sans max-w-2xl font-normal">
+          Certified information governance, security-vetted personnel, and unbroken chain of custody protecting {sector.title.toLowerCase()} operations nationwide.
         </p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-        <!-- Left: Verified Security Considerations -->
-        <div class="lg:col-span-7 space-y-6">
-          <h3 class="text-xl sm:text-2xl font-semibold text-white font-display">
+        <!-- Left: Operational Security Controls (cols 7) -->
+        <div class="lg:col-span-7 space-y-4">
+          <h3 class="text-xl sm:text-2xl font-semibold text-white font-display mb-1">
             Operational Security Controls
           </h3>
 
-          <ul class="space-y-4">
-            {sector.securityConsiderations?.map((note) => (
-              <li class="flex items-start gap-4 p-5 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-400/30 transition-colors">
-                <div class="w-6 h-6 rounded-full bg-emerald-400/20 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
-                  ✓
-                </div>
-                <span class="text-base text-emerald-100/90 leading-relaxed font-sans">
-                  {note}
-                </span>
-              </li>
-            ))}
-          </ul>
+          {sector.securityConsiderations && sector.securityConsiderations.length > 0 ? (
+            <ul class="space-y-3">
+              {sector.securityConsiderations.map((note) => (
+                <li class="flex items-start gap-3.5 p-4 sm:p-5 rounded-xl bg-white/[0.06] border border-white/10 hover:border-emerald-400/30 transition-colors">
+                  <div class="w-5 h-5 rounded-full bg-emerald-400/20 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+                    ✓
+                  </div>
+                  <span class="text-sm sm:text-base text-emerald-100/90 leading-relaxed font-sans">
+                    {note}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="text-sm text-emerald-100/70 font-sans">
+              Strict BS 7858 vetted personnel, biometric facility access, and tamper-evident container manifests.
+            </p>
+          )}
         </div>
 
-        <!-- Right: Governing Standards -->
-        <div class="lg:col-span-5 p-7 sm:p-9 rounded-2xl bg-emerald-950/60 border border-emerald-500/30 backdrop-blur-xs space-y-6">
+        <!-- Right: Governing Compliance Standards (cols 5) -->
+        <div class="lg:col-span-5 p-6 sm:p-8 rounded-2xl bg-emerald-950/70 border border-emerald-500/30 space-y-5">
           <div>
-            <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400 block mb-2">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400 block mb-1.5">
               Statutory Governance
             </span>
             <h3 class="text-xl sm:text-2xl font-semibold text-white font-display">
-              Governing Standards & Accreditations
+              Governing Standards &amp; Chips
             </h3>
           </div>
 
           <p class="text-sm text-emerald-100/80 leading-relaxed font-sans">
-            Every procedure is executed under verified quality, security, and environmental management systems.
+            Every procedure is executed under verified quality, security, and statutory data protection frameworks.
           </p>
 
-          <div class="flex flex-wrap gap-2.5 pt-2">
-            {sector.complianceStandards?.map((std) => (
-              <span class="inline-flex items-center px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-emerald-200 text-xs sm:text-sm font-mono font-semibold tracking-wide">
-                {std}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </Container>
-  </section>
-
-  <!-- ===== 07 / BUSINESS OUTCOMES ===== -->
-  <section class="py-16 lg:py-24 bg-white border-b border-slate-200/80">
-    <Container>
-      <div class="max-w-3xl mb-12 lg:mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          07 / BUSINESS OUTCOMES
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-          The Value We Aim to Deliver
-        </h2>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans font-normal">
-          {sectorData.benefitsSection?.description ||
-            `Measurable commercial, environmental, and compliance benefits delivered for ${sector.title.toLowerCase()} organisations.`}
-        </p>
-      </div>
-
-      <!-- Large Typography Editorial Outcome Rows -->
-      <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
-        {sector.keyBenefits?.map((benefit, idx) => {
-          const num = String(idx + 1).padStart(2, '0');
-          return (
-            <div class="py-8 sm:py-10 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-lg">
-              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline">
-                <div class="md:col-span-2">
-                  <span class="text-3xl sm:text-4xl font-mono font-bold text-[#0F623A] tracking-tight">
-                    {num}
-                  </span>
-                </div>
-                <div class="md:col-span-10">
-                  <p class="text-xl sm:text-2xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-relaxed">
-                    {benefit}
-                  </p>
-                </div>
-              </div>
+          {sector.complianceStandards && sector.complianceStandards.length > 0 ? (
+            <div class="flex flex-wrap gap-2 pt-1">
+              {sector.complianceStandards.map((std) => (
+                <span class="inline-flex items-center px-3 py-1 rounded-lg bg-white/10 border border-white/15 text-emerald-200 text-xs sm:text-sm font-mono font-semibold tracking-wide">
+                  {std}
+                </span>
+              ))}
             </div>
-          );
-        })}
+          ) : (
+            <div class="flex flex-wrap gap-2 pt-1">
+              {['ISO 27001', 'ISO 9001', 'ISO 14001', 'BS 7858', 'Cyber Essentials Plus'].map((std) => (
+                <span class="inline-flex items-center px-3 py-1 rounded-lg bg-white/10 border border-white/15 text-emerald-200 text-xs sm:text-sm font-mono font-semibold tracking-wide">
+                  {std}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </Container>
   </section>
 
-  <!-- ===== 08 / PROVEN EXPERIENCE ===== -->
+  <!-- ========================================================= -->
+  <!-- SECTION 6: PROVEN EXPERIENCE (Strictly Sector-Specific)   -->
+  <!-- ========================================================= -->
   {matchingCaseStudy && (
-    <section class="py-16 lg:py-24 bg-[#0A331E] text-white border-b border-emerald-950 relative overflow-hidden">
+    <section class="py-14 sm:py-16 lg:py-20 bg-white border-b border-slate-200/80">
       <Container>
-        <div class="max-w-3xl mb-10 lg:mb-14">
-          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-4">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-            08 / PROVEN EXPERIENCE
+        <div class="max-w-3xl mb-10 sm:mb-12">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+            PROVEN EXPERIENCE
           </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
             Customer Success in {sector.title}
           </h2>
-          <p class="mt-4 text-base sm:text-lg text-emerald-100/85 leading-relaxed font-sans font-normal">
-            Real-world operational delivery for {matchingCaseStudy.clientIndustry} organisations.
+          <p class="mt-3 text-base sm:text-lg text-slate-700 leading-relaxed font-sans font-normal">
+            Real-world operational delivery verified for {matchingCaseStudy.clientIndustry} organisations.
           </p>
         </div>
 
-        <div class="rounded-2xl border border-emerald-500/30 bg-emerald-950/40 p-8 sm:p-10 lg:p-12 backdrop-blur-xs">
+        <div class="rounded-2xl border border-slate-200/90 bg-[#F8FAF9] p-7 sm:p-10 lg:p-12 shadow-xs">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            <div class="lg:col-span-7 space-y-6">
-              <span class="inline-block text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/20">
+            <div class="lg:col-span-7 space-y-5">
+              <span class="inline-block text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20">
                 {matchingCaseStudy.clientIndustry}
               </span>
-              <h3 class="text-2xl sm:text-3xl font-semibold text-white font-display leading-tight">
+              <h3 class="text-2xl sm:text-3xl font-semibold text-slate-900 font-display leading-tight">
                 {matchingCaseStudy.title}
               </h3>
-              <div class="space-y-4 text-emerald-100/85 font-sans leading-relaxed text-base sm:text-lg">
-                <p><strong class="text-white">Challenge:</strong> {matchingCaseStudy.challenge}</p>
-                <p><strong class="text-white">Solution:</strong> {matchingCaseStudy.solution}</p>
+              <div class="space-y-3 text-slate-700 font-sans leading-relaxed text-sm sm:text-base">
+                <p><strong class="text-slate-900 font-semibold">Challenge:</strong> {matchingCaseStudy.challenge}</p>
+                <p><strong class="text-slate-900 font-semibold">Solution:</strong> {matchingCaseStudy.solution}</p>
               </div>
-              <div class="pt-4">
+              <div class="pt-2">
                 <a
                   href={`/case-studies/${matchingCaseStudy.slug}`}
-                  class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-emerald-300 hover:text-white transition-colors"
+                  class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#0F623A] hover:text-[#0c4e2e] transition-colors"
                 >
-                  Read Full Case Study
+                  <span>Read Full Case Study</span>
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
@@ -642,68 +513,69 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
               </div>
             </div>
 
-            <div class="lg:col-span-5 bg-white/5 rounded-xl border border-white/10 p-6 sm:p-8 space-y-4">
-              <h4 class="text-sm font-mono font-bold uppercase tracking-widest text-emerald-300">
-                Verified Project Results
-              </h4>
-              <ul class="space-y-3.5">
-                {matchingCaseStudy.results?.map((result) => (
-                  <li class="flex items-start gap-3 text-sm sm:text-base text-emerald-100/90 font-sans">
-                    <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>{result}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {matchingCaseStudy.results && matchingCaseStudy.results.length > 0 && (
+              <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200/90 p-6 sm:p-7 space-y-4 shadow-xs">
+                <h4 class="text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A]">
+                  Verified Project Results
+                </h4>
+                <ul class="space-y-3">
+                  {matchingCaseStudy.results.map((result) => (
+                    <li class="flex items-start gap-3 text-sm text-slate-800 font-sans">
+                      <svg class="w-4 h-4 text-[#0F623A] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{result}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </Container>
     </section>
   )}
 
-  <!-- ===== 09 / FREQUENTLY ASKED QUESTIONS ===== -->
+  <!-- ========================================================= -->
+  <!-- SECTION 7: FAQS (Compact Editorial Accordion)             -->
+  <!-- ========================================================= -->
   {sector.faqs && sector.faqs.length > 0 && (
-    <section class="py-16 lg:py-24 bg-[#FAF8F5] relative overflow-hidden border-b border-slate-200/80">
+    <section class="py-14 sm:py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
       <Container>
-        <div class="max-w-4xl mx-auto mb-12 lg:mb-16 text-center">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-            09 / FREQUENTLY ASKED QUESTIONS
-          </div>
+        <div class="max-w-3xl mb-10 sm:mb-12">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+            FREQUENTLY ASKED QUESTIONS
+          </span>
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-            {sectorData.faqSection?.heading || `${sector.title} FAQ`}
+            {sector.title} Questions &amp; Answers
           </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans max-w-2xl mx-auto font-normal">
-            {sectorData.faqSection?.description ||
-              `Clear answers regarding our security accreditations, statutory compliance controls, and UK nationwide operations.`}
+          <p class="mt-3 text-base sm:text-lg text-slate-700 leading-relaxed font-sans font-normal">
+            Transparent answers regarding operational standards, statutory compliance controls, and UK nationwide logistics.
           </p>
         </div>
 
-        {/* Clean Accordion with Numbering and Chevron Indicator */}
-        <div class="max-w-4xl mx-auto space-y-4">
+        <div class="max-w-4xl space-y-3 sm:space-y-3.5">
           {sector.faqs.map((faq: { question: string; answer: string }, idx: number) => {
             const num = String(idx + 1).padStart(2, '0');
             return (
-              <details class="group rounded-2xl border border-slate-200/90 bg-white transition-all duration-200 open:border-[#0F623A]/40 open:shadow-sm" open={idx === 0}>
-                <summary class="flex items-center justify-between gap-4 p-6 sm:p-7 cursor-pointer list-none select-none">
-                  <div class="flex items-baseline gap-4 text-left">
-                    <span class="font-mono font-bold text-sm sm:text-base text-[#0F623A] shrink-0">
+              <details class="group rounded-xl border border-slate-200/90 bg-white transition-all duration-200 open:border-[#0F623A]/40 open:shadow-xs" open={idx === 0}>
+                <summary class="flex items-center justify-between gap-4 p-5 sm:p-6 cursor-pointer list-none select-none">
+                  <div class="flex items-baseline gap-3.5 text-left">
+                    <span class="font-mono font-bold text-xs sm:text-sm text-[#0F623A] shrink-0">
                       {num}
                     </span>
-                    <h3 class="text-base sm:text-lg lg:text-xl font-semibold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug">
+                    <h3 class="text-base sm:text-lg font-semibold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug">
                       {faq.question}
                     </h3>
                   </div>
-                  <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-[#0F623A]/10 text-slate-500 group-hover:text-[#0F623A] flex items-center justify-center shrink-0 transition-transform duration-200 group-open:rotate-180">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#0F623A]/10 text-slate-500 group-hover:text-[#0F623A] flex items-center justify-center shrink-0 transition-transform duration-200 group-open:rotate-180">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                     </svg>
                   </span>
                 </summary>
-                <div class="px-6 pb-6 pt-0 sm:px-7 sm:pb-7 pl-14 sm:pl-16">
-                  <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+                <div class="px-5 pb-5 pt-0 sm:px-6 sm:pb-6 pl-11 sm:pl-12">
+                  <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-sans">
                     {faq.answer}
                   </p>
                 </div>
@@ -715,7 +587,9 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
     </section>
   )}
 
-  <!-- ===== COMMON CTA ===== -->
+  <!-- ========================================================= -->
+  <!-- FINAL CTA (Preserved Completely Unchanged)                -->
+  <!-- ========================================================= -->
   <CTA
     eyebrow="LET’S SUPPORT YOUR ORGANISATION"
     title={`Ready to Protect Your ${sector.title}?`}

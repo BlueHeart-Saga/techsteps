@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
-import PageHero from '../../components/hero/PageHero.astro';
-import CommonCTA from '../components/global/cta.astro';
+import HeroHeader from '../../components/global/HeroHeader.astro';
+import CommonCTA from '../../components/global/CommonCTA.astro';
 import { getSectors, getDivisions, getSectorsPage } from '../../lib/sanity/client';
 
 const breadcrumbs = [
@@ -130,24 +130,24 @@ const repeatedCategories = [...serviceCategories, ...serviceCategories, ...servi
 
 // Accreditations & Certifications (comprehensive compliance register with official logos)
 const accreditations = [
-  { name: 'BSI Kitemark™', note: 'Remanufactured IT Devices', logo: '/images/certifications/bsi-kitemark.png' },
-  { name: 'NCSC CAS Certified', note: 'Government Security Scheme', logo: '/images/certifications/cas-sanitisation.jpg' },
-  { name: 'ISO 27001', note: 'Information Security Management', logo: '/images/certifications/iso-27001.png' },
-  { name: 'ISO 9001', note: 'Quality Management Systems', logo: '/images/certifications/iso-9001.png' },
-  { name: 'ISO 14001', note: 'Environmental Management', logo: '/images/certifications/iso-14001.png' },
-  { name: 'BS 7858:2012', note: 'Security Screening of Personnel', logo: '/images/certifications/bs-7858.png' },
-  { name: 'BS EN 15713', note: 'Secure Destruction of Material', logo: '/images/certifications/bs-en-15713.png' },
-  { name: 'ISO 45001', note: 'Health & Safety Management', logo: '/images/certifications/iso-45001.png' },
-  { name: 'Blancco Certified', note: 'Industry Standard Data Erasure', logo: '/images/certifications/blancco.jpg' },
-  { name: 'Cyber Essentials Plus', note: 'NCSC Government-Backed Cyber', logo: '/images/certifications/cyber-essentials-plus.png' },
-  { name: 'Crown Commercial Service', note: 'CCS Framework Supplier', logo: '/images/certifications/crown-commercial.png' },
-  { name: 'NHS IG Toolkit / DSPT', note: 'Data Security & Protection', logo: '/images/certifications/nhs.png' },
-  { name: 'Environment Agency', note: 'Approved AATF Waste Carrier', logo: '/images/certifications/environment-agency.png' },
-  { name: 'EcoVadis Sustainability', note: 'Business Sustainability Rating', logo: '/images/certifications/ecovadis.png' },
-  { name: 'Committed to Equality', note: 'Diversity & Equality Standard', logo: '/images/certifications/equality.png' },
-  { name: 'PCI DSS Compliant', note: 'Cardholder Data Security', logo: '/images/certifications/pci-dss.png' },
-  { name: 'King’s Award Enterprise', note: 'Promoting Opportunity & ESG', logo: '/images/certifications/kings-award.jpg' },
-  { name: 'Diamond Membership', note: 'Verified Quality & Warranty', logo: '/images/certifications/diamond-member.png' },
+  { name: 'BSI Kitemark™',  logo: '/images/certifications/bsi-kitemark.png' },
+  { name: 'NCSC CAS Certified', logo: '/images/certifications/cas-sanitisation.jpg' },
+  { name: 'ISO 27001', logo: '/images/certifications/iso-27001.png' },
+  { name: 'ISO 9001', logo: '/images/certifications/iso-9001.png' },
+  { name: 'ISO 14001', logo: '/images/certifications/iso-14001.png' },
+  { name: 'BS 7858:2012', logo: '/images/certifications/bs-7858.png' },
+  { name: 'BS EN 15713', logo: '/images/certifications/bs-en-15713.png' },
+  { name: 'ISO 45001', logo: '/images/certifications/iso-45001.png' },
+  { name: 'Blancco Certified', logo: '/images/certifications/blancco.jpg' },
+  { name: 'Cyber Essentials Plus', logo: '/images/certifications/cyber-essentials-plus.png' },
+  { name: 'Crown Commercial Service', logo: '/images/certifications/crown-commercial.png' },
+  { name: 'NHS IG Toolkit / DSPT', logo: '/images/certifications/nhs.png' },
+  { name: 'Environment Agency', logo: '/images/certifications/environment-agency.png' },
+  { name: 'EcoVadis Sustainability', logo: '/images/certifications/ecovadis.png' },
+  { name: 'Committed to Equality', logo: '/images/certifications/equality.png' },
+  { name: 'PCI DSS Compliant', logo: '/images/certifications/pci-dss.png' },
+  { name: 'King’s Award Enterprise', logo: '/images/certifications/kings-award.jpg' },
+  { name: 'Diamond Membership', logo: '/images/certifications/diamond-member.png' },
 ];
 ---
 
@@ -156,36 +156,163 @@ const accreditations = [
   description={sectorsPage.metaDescription || "Specialist information management, IT lifecycle, secure destruction and relocation solutions tailored for the requirements of Defence, NHS, Financial Services and Central Government."}
   hasHeroHeader={true}
 >
-  <!-- ===== EXISTING HERO — KEPT UNCHANGED ===== -->
-  <PageHero
-    title={sectorsPage.hero?.title || "Sectors"}
-    //eyebrow={sectorsPage.hero?.eyebrow || "SECTOR EXPERTISE"}
-    subheading={sectorsPage.hero?.subheading || "Specialist information, IT lifecycle, destruction and relocation solutions designed around the requirements of your organisation."}
-    breadcrumbs={breadcrumbs}
-    dividerColor="#ffffff"
-    bgImage={sectorsPage.hero?.bgImage || "/images/brand/sectors-hero-bg.jpg"}
+  <!-- =========================
+       1. SECTORS HERO SECTION
+       Featuring /images/hero/Sector hero.webp
+  ========================= -->
+  <section
+    id="sectors-hero"
+    class="relative w-full overflow-hidden bg-white select-none border-b border-slate-100"
   >
-    <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
-      <a
-        href={sectorsPage.hero?.primaryButtonLink || "/request-a-quote"}
-        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-lg transition-all duration-200"
-      >
-        {sectorsPage.hero?.primaryButtonText || "Request Sector Consultation"}
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-        </svg>
-      </a>
-      <a
-        href={sectorsPage.hero?.secondaryButtonLink || "#sector-intro"}
-        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/20 transition-all duration-200"
-      >
-        {sectorsPage.hero?.secondaryButtonText || "Explore Sectors"}
-      </a>
+    <!-- Background Image on Desktop (Full section composition with skyline on the right) -->
+    <img
+      src="/images/hero/Sector hero.webp"
+      alt="Sector IT Lifecycle and Information Governance - TechSteps UK"
+      aria-hidden="true"
+      class="hidden lg:block absolute inset-0 w-full h-full object-cover object-[right_center] xl:object-right pointer-events-none select-none z-0"
+      loading="eager"
+      fetchpriority="high"
+      decoding="sync"
+    />
+
+    <!-- Top Hero Header (Integrated light hero navbar) -->
+    <HeroHeader isHome={true} />
+
+    <!-- Main Hero Content Container -->
+    <div
+      class="relative z-10 w-full max-w-7xl mx-auto
+             px-4 sm:px-6 lg:px-8
+             pt-4 sm:pt-8 lg:pt-12 xl:pt-14
+             pb-6 sm:pb-8 lg:pb-10"
+    >
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
+
+        <!-- HERO CONTENT (Left) -->
+        <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
+
+          <!-- Breadcrumb Navigation -->
+          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
+            <a href="/" class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
+              Home
+            </a>
+            <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
+            <span class="text-slate-900 font-bold">Sectors</span>
+          </nav>
+
+          <!-- Eyebrow Badge -->
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.18em] mb-3 sm:mb-4">
+            <span>{sectorsPage.hero?.eyebrow || 'SECTOR EXPERTISE'}</span>
+          </div>
+
+          <!-- Heading -->
+          <h1
+            class="font-display
+                   text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
+                   font-semibold
+                   text-slate-900
+                   tracking-normal
+                   leading-[1.12] sm:leading-[1.1]
+                   max-w-xl"
+          >
+            {sectorsPage.hero?.title || 'Sector-Specific ITAD & Governance'}
+          </h1>
+
+          <!-- Description -->
+          <p
+            class="mt-4 sm:mt-5
+                   text-lg sm:text-xl lg:text-lg
+                   text-black
+                   max-w-lg
+                   leading-relaxed
+                   font-sans font-normal"
+          >
+            {sectorsPage.hero?.subheading || 'Specialist information, IT lifecycle, destruction and relocation solutions designed around the strict compliance and security requirements of your organisation.'}
+          </p>
+
+          <!-- CTA Buttons -->
+          <div
+            class="mt-6 sm:mt-8
+                   flex flex-wrap
+                   items-center
+                   gap-3.5 sm:gap-4"
+          >
+            <a
+              href={sectorsPage.hero?.primaryButtonLink || "/request-a-quote"}
+              class="inline-flex items-center justify-center
+                     gap-2.5
+                     px-6 sm:px-7
+                     py-3 sm:py-3.5
+                     rounded-none
+                     bg-[#0F623A] hover:bg-[#0c4e2e]
+                     text-white
+                     text-sm sm:text-base
+                     font-bold
+                     shadow-md hover:shadow-lg
+                     transition-all duration-200
+                     hover:scale-[1.02]
+                     focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+            >
+              <span>{sectorsPage.hero?.primaryButtonText || "Request Sector Consultation"}</span>
+              <svg
+                class="w-4 h-4 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2.2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </a>
+
+            <a
+              href={sectorsPage.hero?.secondaryButtonLink || "#sector-intro"}
+              class="inline-flex items-center justify-center
+                     px-6 sm:px-7
+                     py-3 sm:py-3.5
+                     rounded-none
+                     bg-white hover:bg-slate-50
+                     border-2 border-[#0F623A] hover:border-[#0c4e2e]
+                     text-[#0F623A] hover:text-[#0c4e2e]
+                     text-sm sm:text-base
+                     font-bold
+                     transition-all duration-200
+                     hover:scale-[1.02]
+                     shadow-xs
+                     focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+            >
+              {sectorsPage.hero?.secondaryButtonText || "Explore Sectors"}
+            </a>
+          </div>
+
+          <!-- Mobile & Tablet Visual Stack (Below Text on <lg) -->
+          <div class="lg:hidden w-full flex justify-center items-center mt-8 sm:mt-10">
+            <div class="relative w-full max-w-[480px]">
+              <img
+                src="/images/hero/Sector hero.webp"
+                alt="Sector IT Lifecycle and Information Governance - TechSteps UK"
+                class="w-full h-auto object-contain drop-shadow-md select-none mx-auto block rounded-2xl"
+                loading="eager"
+                decoding="sync"
+              />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- HERO SPACER (Right on Desktop) -->
+        <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end min-h-[420px] lg:min-h-[480px] xl:min-h-[520px] pointer-events-none" aria-hidden="true">
+        </div>
+
+      </div>
     </div>
-  </PageHero>
+  </section>
 
   <!-- ===== 1. SECTOR EXPERTISE INTRO ===== -->
-  <section class="relative bg-[#F8FAF7] py-8 sm:py-10 lg:py-12 overflow-hidden border-b border-slate-200/80">
+  <section id="sector-intro" class="relative bg-[#F8FAF7] py-8 sm:py-10 lg:py-12 overflow-hidden border-b border-slate-200/80">
     <!-- Ambient subtle glow behind pillars -->
     <div class="absolute -top-24 right-0 w-96 h-96 rounded-full bg-emerald-100/40 blur-3xl pointer-events-none" aria-hidden="true"></div>
 
@@ -202,7 +329,7 @@ const accreditations = [
             {sectorsPage.intro?.heading || "Solutions Built Around Your Organisation"}
           </h2>
 
-          <p class="text-slate-600 leading-relaxed text-base sm:text-lg">
+          <p class="text-black leading-relaxed text-lg sm:text-xl">
             {sectorsPage.intro?.description || "Every sector has different requirements for security, compliance, information management and technology. Techsteps brings together the expertise and certified services needed to manage those requirements throughout the asset lifecycle."}
           </p>
 
@@ -297,7 +424,7 @@ const accreditations = [
               </div>
               <div class="space-y-1.5">
                 <h3 class="text-base sm:text-lg font-semibold text-slate-900 font-display">{p.label}</h3>
-                <p class="text-sm text-slate-600 leading-relaxed">{p.desc}</p>
+                <p class="text-base text-black leading-relaxed">{p.desc}</p>
               </div>
             </div>
           ))}
@@ -318,7 +445,7 @@ const accreditations = [
         {sectorsPage.sectorsSection?.heading || "Sectors We Serve"}
       </h2>
 
-      <p class="mt-4 text-base text-slate-600 max-w-xl mx-auto leading-relaxed font-sans">
+      <p class="mt-4 text-lg text-black max-w-xl mx-auto leading-relaxed font-sans">
         {sectorsPage.sectorsSection?.description || "Built around the specific security, compliance and operational requirements of regulated industries."}
       </p>
     </div>
@@ -374,7 +501,7 @@ const accreditations = [
         <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight">
           Security Is Part of Every Lifecycle
         </h2>
-        <p class="mt-4 text-base text-slate-600 leading-relaxed">
+        <p class="mt-4 text-lg text-black leading-relaxed">
           Whatever your sector, our approach is built around three consistent principles.
         </p>
       </div>
@@ -515,7 +642,7 @@ const accreditations = [
                   <h3 class="text-2xl sm:text-[25px] font-semibold text-slate-900 group-hover:text-[#0F623A] transition-colors mb-2 font-display tracking-tight leading-snug">
                     {cat.title}
                   </h3>
-                  <p class="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed font-mono mb-6 min-h-[38px]">
+                  <p class="text-sm sm:text-[15px] text-black leading-relaxed font-mono mb-6 min-h-[38px]">
                     {cat.items}
                   </p>
 
@@ -746,7 +873,7 @@ const accreditations = [
       <div class="w-full max-w-[1240px] mx-auto text-center mb-12">
         <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">Accreditations</span>
         <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight mb-4 font-display">Aligned with Us.</h2>
-        <p class="text-base text-slate-600 leading-relaxed font-sans">
+        <p class="text-lg text-black leading-relaxed font-sans">
           Our services are designed to help organisations manage technology and information with security, accountability and responsible lifecycle practices.
         </p>
       </div>
@@ -772,37 +899,9 @@ const accreditations = [
         ))}
       </div>
     </Container>
+    <br />
   </section>
 
-  <!-- ===== 7. FINAL CTA (Clean Open Layout - No Background Box) ===== -->
-  <section class="relative z-10 py-8 lg:py-12 overflow-hidden">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#0F623A]/10 blur-3xl pointer-events-none"></div>
-    <Container className="relative z-10">
-      <div class="w-full max-w-[1240px] mx-auto text-center">
-        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4 font-mono">
-          {sectorsPage.bottomCta?.eyebrow || "Work With Techsteps"}
-        </span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 mb-5 leading-tight tracking-tight font-display">
-          {sectorsPage.bottomCta?.heading || "Let's Build the Right Solution for Your Sector."}
-        </h2>
-        <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-10 font-medium max-w-xl mx-auto">
-          {sectorsPage.bottomCta?.description || "Talk to our team about your organisation's technology and information lifecycle requirements."}
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href={sectorsPage.bottomCta?.primaryButtonLink || "/contact"}
-            class="px-8 py-4 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-          >
-            {sectorsPage.bottomCta?.primaryButtonText || "Get In Touch →"}
-          </a>
-          <a
-            href={sectorsPage.bottomCta?.secondaryButtonLink || "/services"}
-            class="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md transform hover:-translate-y-0.5"
-          >
-            {sectorsPage.bottomCta?.secondaryButtonText || "Explore Our Services"}
-          </a>
-        </div>
-      </div>
-    </Container>
-  </section>
+  <!-- ===== 7. FINAL CTA ===== -->
+  <CommonCTA />
 </BaseLayout>
