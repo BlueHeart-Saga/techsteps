@@ -30,6 +30,7 @@ export function generateOrganizationSchema(
     },
     sameAs: [
       settings.socialLinks.linkedin,
+      settings.socialLinks.instagram,
       settings.socialLinks.twitter,
     ].filter(Boolean),
   };

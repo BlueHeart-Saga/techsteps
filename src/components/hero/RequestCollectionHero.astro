@@ -4,29 +4,35 @@ import HeroHeader from '../global/HeroHeader.astro';
 
 <section
   id="request-collection-hero"
-  class="relative w-full overflow-hidden bg-white select-none"
+  class="relative w-full bg-white select-none"
 >
-  <!-- Request Collection Hero Image -->
-<img
-  src="/images/hero/Request a collection.webp"
-  alt=""
-  aria-hidden="true"
-  class="hidden lg:block absolute right-0 top-0 h-full w-auto max-w-none object-contain object-right pointer-events-none select-none z-0"
-  loading="eager"
-  fetchpriority="high"
-  decoding="sync"
-/>
-
   <!-- Same Header as Homepage -->
   <HeroHeader isHome={true} />
 
-  <!-- Main Hero Content -->
-<div
-  class="relative z-10 w-full max-w-7xl mx-auto
-         px-4 sm:px-6 lg:px-8
-         pt-4 sm:pt-8 lg:pt-12 xl:pt-14
-         pb-6 sm:pb-8 lg:pb-10"
->
+  <!-- Hero Content in same container as header -->
+  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative w-full min-h-[460px] sm:min-h-[500px] lg:min-h-[560px] flex flex-col justify-center">
+
+      <!-- Request Collection Hero Image (ends at right edge of header container) -->
+      <div class="absolute inset-y-0 right-0 w-full lg:w-[62%] overflow-hidden pointer-events-none select-none z-0">
+        <img
+          src="/images/hero/Request a collection.webp"
+          alt=""
+          aria-hidden="true"
+          class="w-full h-full object-cover object-right pointer-events-none select-none"
+          loading="eager"
+          fetchpriority="high"
+          decoding="sync"
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/30 lg:via-white/10 to-transparent pointer-events-none"></div>
+      </div>
+
+      <!-- Main Hero Content -->
+      <div
+        class="relative z-10 w-full
+               pt-4 sm:pt-8 lg:pt-12 xl:pt-14
+               pb-6 sm:pb-8 lg:pb-10"
+      >
     <div
       class="grid grid-cols-1 lg:grid-cols-12
              gap-8 lg:gap-8 xl:gap-10
@@ -194,15 +200,12 @@ import HeroHeader from '../global/HeroHeader.astro';
 
     </div>
   </div>
+  </div>
+  </div>
 </section>
 
 <style>
   #request-collection-hero {
-    background: linear-gradient(
-      90deg,
-      #ffffff 0%,
-      #ffffff 45%,
-      #ebf3ea 100%
-    );
+    background: #FFFFFF;
   }
 </style>

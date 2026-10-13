@@ -35,6 +35,7 @@ export const siteSettings: SiteSettings = {
   operatingHours: 'Monday – Friday: 08:00 – 18:00 GMT',
   socialLinks: {
     linkedin: 'https://www.linkedin.com/company/techsteps-uk',
+    instagram: 'https://www.instagram.com/techsteps_uk/',
     twitter: 'https://twitter.com/techsteps_uk',
   },
   defaultMetaTitle: 'Techsteps UK | Secure IT Recycling, Information Management & Specialist Relocations',

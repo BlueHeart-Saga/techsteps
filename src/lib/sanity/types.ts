@@ -23,6 +23,7 @@ export interface SiteSettings {
   operatingHours: string;
   socialLinks: {
     linkedin?: string;
+    instagram?: string;
     twitter?: string;
     youtube?: string;
   };

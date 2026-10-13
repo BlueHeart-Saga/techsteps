@@ -162,30 +162,36 @@ const accreditations = [
   ========================= -->
   <section
     id="sectors-hero"
-    class="relative w-full overflow-hidden bg-white select-none border-b border-slate-100"
+    class="relative w-full bg-white select-none border-b border-slate-100"
   >
-    <!-- Background Image on Desktop (Full section composition with skyline on the right) -->
-    <img
-      src="/images/hero/Sector hero.webp"
-      alt="Sector IT Lifecycle and Information Governance - TechSteps UK"
-      aria-hidden="true"
-      class="hidden lg:block absolute inset-0 w-full h-full object-cover object-[right_center] xl:object-right pointer-events-none select-none z-0"
-      loading="eager"
-      fetchpriority="high"
-      decoding="sync"
-    />
-
     <!-- Top Hero Header (Integrated light hero navbar) -->
     <HeroHeader isHome={true} />
 
-    <!-- Main Hero Content Container -->
-    <div
-      class="relative z-10 w-full max-w-7xl mx-auto
-             px-4 sm:px-6 lg:px-8
-             pt-4 sm:pt-8 lg:pt-12 xl:pt-14
-             pb-6 sm:pb-8 lg:pb-10"
-    >
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
+    <!-- Hero Content in same container as header -->
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="relative w-full min-h-[460px] sm:min-h-[500px] lg:min-h-[560px] flex flex-col justify-center">
+
+        <!-- Contained Image Wrapper (ends at right edge of header container) -->
+        <div class="absolute inset-y-0 right-0 w-full lg:w-[62%] overflow-hidden pointer-events-none select-none z-0">
+          <img
+            src="/images/hero/Sector hero.webp"
+            alt="Sector IT Lifecycle and Information Governance - TechSteps UK"
+            aria-hidden="true"
+            class="w-full h-full object-cover object-right pointer-events-none select-none"
+            loading="eager"
+            fetchpriority="high"
+            decoding="sync"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/30 lg:via-white/10 to-transparent pointer-events-none"></div>
+        </div>
+
+        <!-- Main Hero Content Container -->
+        <div
+          class="relative z-10 w-full
+                 pt-4 sm:pt-8 lg:pt-12 xl:pt-14
+                 pb-6 sm:pb-8 lg:pb-10"
+        >
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
 
         <!-- HERO CONTENT (Left) -->
         <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
@@ -309,7 +315,9 @@ const accreditations = [
 
       </div>
     </div>
-  </section>
+  </div>
+  </div>
+</section>
 
   <!-- ===== 1. SECTOR EXPERTISE INTRO ===== -->
   <section id="sector-intro" class="relative bg-[#F8FAF7] py-8 sm:py-10 lg:py-12 overflow-hidden border-b border-slate-200/80">

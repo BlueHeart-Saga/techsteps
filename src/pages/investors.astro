@@ -159,14 +159,117 @@ const fallbackImages = [
 >
   <!-- 1. Hero Section -->
   <PageHero
-    title={investorsData.hero?.title || "INVESTORS"}
-    eyebrow={investorsData.hero?.eyebrow || "TECHSTEPS PLC // INVESTOR RELATIONS"}
-    subheading={investorsData.hero?.subheading || "We provide secure and sustainable business services for data, information, communications and assets. Supporting public and private sectors with mission-critical, recurring lifecycle solutions that generate strong cashflows."}
+    bgImage="/images/hero/Investors.webp"
+    bgAlt="Techsteps plc Investor Relations and Executive Overview"
     breadcrumbs={breadcrumbs}
-    bgImage={investorsData.hero?.bgImage || "/images/brand/about-hero-bg.jpg"}
-    minHeight="min-h-[500px] sm:min-h-[540px] lg:min-h-[580px]"
+    layout="custom"
+    showDivider={true}
     dividerColor="#ffffff"
-  />
+    minHeight="min-h-[520px] sm:min-h-[560px] lg:min-h-[620px]"
+    noOverlay={true}
+    theme="light"
+    contained={true}
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
+      <!-- HERO CONTENT (Left) -->
+      <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
+
+        <!-- Eyebrow Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.18em] mb-3 sm:mb-4">
+          <span>{investorsData.hero?.eyebrow || 'TECHSTEPS PLC // INVESTOR RELATIONS'}</span>
+        </div>
+
+        <!-- Heading -->
+        <h1
+          class="font-display
+                 text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
+                 font-semibold
+                 text-slate-900
+                 tracking-normal
+                 leading-[1.12] sm:leading-[1.1]
+                 max-w-xl"
+        >
+          {investorsData.hero?.title || 'Investor Relations'}
+        </h1>
+
+        <!-- Description -->
+        <p
+          class="mt-4 sm:mt-5
+                 text-lg sm:text-xl lg:text-lg
+                 text-black
+                 max-w-lg
+                 leading-relaxed
+                 font-sans font-normal"
+        >
+          {investorsData.hero?.subheading || 'We provide secure and sustainable business services for data, information, communications and assets. Supporting public and private sectors with mission-critical, recurring lifecycle solutions that generate strong cashflows.'}
+        </p>
+
+        <!-- CTA Buttons -->
+        <div
+          class="mt-6 sm:mt-8
+                 flex flex-wrap
+                 items-center
+                 gap-3.5 sm:gap-4"
+        >
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center
+                   gap-2.5
+                   px-6 sm:px-7
+                   py-3 sm:py-3.5
+                   rounded-none
+                   bg-[#0F623A] hover:bg-[#0c4e2e]
+                   text-white
+                   text-sm sm:text-base
+                   font-bold
+                   shadow-md hover:shadow-lg
+                   transition-all duration-200
+                   hover:scale-[1.02]
+                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+          >
+            <span>Contact Investor Relations</span>
+            <svg
+              class="w-4 h-4 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </a>
+
+          <a
+            href="#strategic-pillars"
+            class="inline-flex items-center justify-center
+                   px-6 sm:px-7
+                   py-3 sm:py-3.5
+                   rounded-none
+                   bg-white hover:bg-slate-50
+                   border-2 border-[#0F623A] hover:border-[#0c4e2e]
+                   text-[#0F623A] hover:text-[#0c4e2e]
+                   text-sm sm:text-base
+                   font-bold
+                   transition-all duration-200
+                   hover:scale-[1.02]
+                   shadow-xs
+                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+          >
+            Investment Strategy
+          </a>
+        </div>
+
+      </div>
+
+      <!-- HERO SPACER (Right on Desktop) -->
+      <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end min-h-[420px] lg:min-h-[480px] xl:min-h-[520px] pointer-events-none" aria-hidden="true">
+      </div>
+    </div>
+  </PageHero>
 
   <!-- 2. High-Impact Stats Bar (From techsteps.co.uk/investors) -->
  <!-- <section class="relative -mt-10 sm:-mt-14 z-20 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -249,26 +352,24 @@ const fallbackImages = [
         </div>
 
         <!-- Right: Operations Facility Image with Subtle Elevation -->
-        <div class="lg:col-span-6 relative flex justify-center items-center">
-          <div class="relative w-full max-w-[600px] group">
-            <div class="absolute -inset-3 bg-gradient-to-tr from-[#0F623A]/15 to-emerald-400/10 rounded-3xl blur-2xl pointer-events-none" aria-hidden="true"></div>
-            <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 bg-white">
-              <img
-                src="/images/brand/investors-operations-technician.jpg"
-                alt="Techsteps certified technician managing enterprise IT lifecycle assets and hardware auditing"
-                class="w-full h-full object-cover aspect-[4/3] sm:aspect-[1.15/1] transition-transform duration-500 group-hover:scale-[1.03]"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </div>
-        </div>
+<div class="lg:col-span-6 relative flex justify-center items-center">
+  <div class="relative w-full max-w-[600px] group">
+    <div class="absolute -inset-3 bg-gradient-to-tr from-[#0F623A]/15 to-emerald-400/10 rounded-3xl blur-2xl pointer-events-none" aria-hidden="true"></div>
+    <img
+      src="/images/brand/itad-intro-green.webp"
+      alt="Techsteps certified technician managing enterprise IT lifecycle assets and hardware auditing"
+      class="relative w-full h-full object-cover aspect-[4/3] sm:aspect-[1.15/1] transition-transform duration-500 group-hover:scale-[1.03]"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+</div>
       </div>
     </Container>
   </section>
 
   <!-- 4. Strategic Investment Pillars (Redesigned: Asymmetric Featured Grid) -->
-  <section class="py-12 sm:py-16 lg:py-20 bg-[#f8faf7] border-y border-slate-200/80">
+  <section id="strategic-pillars" class="py-12 sm:py-16 lg:py-20 bg-[#f8faf7] border-y border-slate-200/80">
     <Container>
       <div class="text-center max-w-4xl mx-auto space-y-4 mb-12 sm:mb-16">
         <!--span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 text-[#0F623A] border border-emerald-300/60 text-xs sm:text-sm font-medium uppercase tracking-wider">

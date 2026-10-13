@@ -22,6 +22,7 @@ interface Props {
   noOverlay?: boolean;
   theme?: 'light' | 'dark';
   bgAlt?: string;
+  contained?: boolean;
 }
 
 const {
@@ -38,28 +39,31 @@ const {
   noOverlay = false,
   theme = 'dark',
   bgAlt,
+  contained = false,
 } = Astro.props;
 
 const isLight = theme === 'light' || noOverlay;
 const currentPath = Astro.url.pathname;
 ---
 
-<section class={`relative w-full overflow-hidden ${isLight ? 'bg-white text-slate-900' : 'bg-slate-950 text-white'} ${minHeight} flex flex-col justify-between select-none`}>
-  <!-- Background Image: Full-Bleed -->
-  <img
-    src={bgImage}
-    alt={bgAlt || title || "TechSteps UK background landscape"}
-    class={`absolute inset-0 w-full h-full object-cover select-none pointer-events-none ${isLight ? 'object-right lg:object-[right_center]' : ''}`}
-    style={`
-      object-position: ${isLight ? 'right center' : bgImagePosition};
-      ${isLight ? '' : 'transform: scale(1.05); transform-origin: center center;'}
-    `}
-    loading="eager"
-    decoding="async"
-  />
+<section class={`relative w-full ${contained ? '' : 'overflow-hidden'} ${isLight ? 'bg-white text-slate-900' : 'bg-slate-950 text-white'} ${contained ? '' : minHeight} flex flex-col justify-between select-none`}>
+  <!-- Background Image for Default / Uncontained (Full-Bleed) -->
+  {!contained && (
+    <img
+      src={bgImage}
+      alt={bgAlt || title || "TechSteps UK background landscape"}
+      class={`absolute inset-0 w-full h-full object-cover select-none pointer-events-none ${isLight ? 'object-right lg:object-[right_center]' : ''}`}
+      style={`
+        object-position: ${isLight ? 'right center' : bgImagePosition};
+        ${isLight ? '' : 'transform: scale(1.05); transform-origin: center center;'}
+      `}
+      loading="eager"
+      decoding="async"
+    />
+  )}
 
-  <!-- Multi-layered Atmospheric Vignettes for Contrast & Soft Lighting (Dark mode only) -->
-  {!noOverlay && (
+  <!-- Multi-layered Atmospheric Vignettes for Contrast & Soft Lighting (Dark mode uncontained only) -->
+  {!contained && !noOverlay && (
     <>
       <div class="absolute inset-0 bg-radial-[ellipse_at_center] from-black/10 via-black/25 to-black/60 pointer-events-none"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-black/35 pointer-events-none"></div>
@@ -67,120 +71,163 @@ const currentPath = Astro.url.pathname;
     </>
   )}
 
-  <!-- 1. Integrated Navbar at Top of Hero -->
+  <!-- 1. Integrated Navbar at Top of Hero (Untouched) -->
   <HeroHeader isHome={isLight} />
 
-  <!-- 2. Breadcrumbs: Positioned cleanly below the header -->
-  {breadcrumbs && breadcrumbs.length > 0 && (
-    <div class="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4">
-      <Breadcrumbs items={breadcrumbs} theme={isLight ? 'light' : 'dark'} />
-    </div>
-  )}
+  <!-- If Contained: Image and content share the exact container matching Header -->
+  {contained ? (
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class={`relative w-full ${minHeight} flex flex-col justify-center`}>
 
-<!-- 3. Hero Content -->
-{layout === 'split' && (
-  <div class="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
-    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-
-      <!-- LEFT CONTENT -->
-      <div class="max-w-2xl">
-
-        {eyebrow && (
-          <span class={`inline-block text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.2em] mb-4 ${isLight ? 'text-[#0F623A]' : 'text-emerald-400'}`}>
-            {eyebrow}
-          </span>
-        )}
-
-        <h1 class={`font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.05] min-h-[2lh] min-h-[2.1em] ${isLight ? 'text-slate-900' : 'text-white drop-shadow-2xl'}`}>
-          {title}
-        </h1>
-
-        {subheading && (
-          <p class={`mt-5 text-base sm:text-lg max-w-xl leading-relaxed min-h-[2lh] min-h-[3.25em] ${isLight ? 'text-slate-700 font-normal' : 'text-slate-200/90'}`}>
-            {subheading}
-          </p>
-        )}
-
-        <!-- CTA BUTTONS -->
-        <div class="mt-7 flex flex-col sm:flex-row gap-3">
-
-          <a
-            href="/request-a-quote"
-            class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-lg transition-all duration-200"
-          >
-            Get a Collection
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-
-          <a
-            href="/contact"
-            class={`inline-flex items-center justify-center px-6 py-3.5 rounded-xl text-sm font-bold transition-all duration-200 ${isLight ? 'bg-white hover:bg-slate-50 border-2 border-[#0F623A] text-[#0F623A]' : 'bg-white/10 hover:bg-white/20 border border-white/30 text-white'}`}
-          >
-            Speak to an Expert
-          </a>
-
-        </div>
-
-      </div>
-
-      <!-- RIGHT IMAGE -->
-      <div class="relative">
-        <div class="relative overflow-hidden rounded-3xl border border-white/20 shadow-2xl">
+        <!-- Image Wrapper: ends at right edge of header container -->
+        <div class="absolute inset-y-0 right-0 w-full lg:w-[62%] overflow-hidden pointer-events-none select-none z-0">
           <img
             src={bgImage}
-            alt="Techsteps professional IT services"
-            class="w-full h-[300px] sm:h-[360px] lg:h-[430px] object-cover"
+            alt={bgAlt || title || "TechSteps UK background landscape"}
+            class="w-full h-full object-cover object-right pointer-events-none select-none"
+            style={bgImagePosition ? `object-position: ${bgImagePosition};` : undefined}
             loading="eager"
             decoding="async"
           />
+          <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/30 lg:via-white/10 to-transparent pointer-events-none"></div>
+        </div>
 
-          {!noOverlay && (
-            <div class="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"></div>
+        <!-- Relative z-10 Content block: aligned with left edge of header/logo -->
+        <div class="relative z-10 w-full pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-12 lg:pb-16">
+          {breadcrumbs && breadcrumbs.length > 0 && (
+            <div class="w-full mb-3 sm:mb-4">
+              <Breadcrumbs items={breadcrumbs} theme={isLight ? 'light' : 'dark'} />
+            </div>
+          )}
+
+          {layout === 'custom' && (
+            <slot />
+          )}
+
+          {layout === 'default' && (
+            <div class="max-w-2xl text-left py-4 sm:py-6">
+              {eyebrow && (
+                <span class={`inline-block text-xs sm:text-sm font-sans font-bold uppercase tracking-widest mb-3 ${isLight ? 'text-[#0F623A] font-bold' : 'text-emerald-400 drop-shadow-sm'}`}>
+                  {eyebrow}
+                </span>
+              )}
+
+              {title && (
+                <h1 class={`font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] select-none ${isLight ? 'text-slate-900' : 'text-white drop-shadow-2xl'}`}>
+                  {title}
+                </h1>
+              )}
+
+              {subheading && (
+                <p class={`mt-3 text-sm sm:text-base lg:text-lg max-w-2xl leading-relaxed font-normal ${isLight ? 'text-slate-700 font-normal' : 'text-slate-200/90 drop-shadow-sm'}`}>
+                  {subheading}
+                </p>
+              )}
+            </div>
           )}
         </div>
+
       </div>
-
     </div>
-  </div>
-)}
+  ) : (
+    <>
+      <!-- 2. Breadcrumbs: Positioned cleanly below the header -->
+      {breadcrumbs && breadcrumbs.length > 0 && (
+        <div class="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4">
+          <Breadcrumbs items={breadcrumbs} theme={isLight ? 'light' : 'dark'} />
+        </div>
+      )}
 
-{layout === 'custom' && (
-  <div class={`relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 my-auto ${isLight ? 'max-w-7xl pt-4 sm:pt-8 lg:pt-12 xl:pt-14 pb-16 sm:pb-20 lg:pb-28' : 'max-w-[1240px] py-6 sm:py-8 lg:py-10'}`}>
-    <slot />
-  </div>
-)}
+      <!-- 3. Hero Content -->
+      {layout === 'split' && (
+        <div class="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+          <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div class="max-w-2xl">
+              {eyebrow && (
+                <span class={`inline-block text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.2em] mb-4 ${isLight ? 'text-[#0F623A]' : 'text-emerald-400'}`}>
+                  {eyebrow}
+                </span>
+              )}
 
-{layout === 'default' && (
-  <div class="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 text-center flex flex-col items-center justify-center my-auto">
+              <h1 class={`font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.05] min-h-[2lh] min-h-[2.1em] ${isLight ? 'text-slate-900' : 'text-white drop-shadow-2xl'}`}>
+                {title}
+              </h1>
 
-    {eyebrow && (
-      <span class={`inline-block text-xs sm:text-sm font-sans font-bold uppercase tracking-widest mb-3 ${isLight ? 'text-[#0F623A] font-bold' : 'text-emerald-400 drop-shadow-sm'}`}>
-        {eyebrow}
-      </span>
-    )}
+              {subheading && (
+                <p class={`mt-5 text-base sm:text-lg max-w-xl leading-relaxed min-h-[2lh] min-h-[3.25em] ${isLight ? 'text-slate-700 font-normal' : 'text-slate-200/90'}`}>
+                  {subheading}
+                </p>
+              )}
 
-    {title && (
-      <h1 class={`font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] select-none w-full max-w-[1240px] min-h-[2lh] min-h-[2.1em] ${isLight ? 'text-slate-900' : 'text-white drop-shadow-2xl'}`}>
-        {title}
-      </h1>
-    )}
+              <div class="mt-7 flex flex-col sm:flex-row gap-3">
+                <a
+                  href="/request-a-quote"
+                  class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-lg transition-all duration-200"
+                >
+                  Get a Collection
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+                <a
+                  href="/contact"
+                  class={`inline-flex items-center justify-center px-6 py-3.5 rounded-xl text-sm font-bold transition-all duration-200 ${isLight ? 'bg-white hover:bg-slate-50 border-2 border-[#0F623A] text-[#0F623A]' : 'bg-white/10 hover:bg-white/20 border border-white/30 text-white'}`}
+                >
+                  Speak to an Expert
+                </a>
+              </div>
+            </div>
 
-    {subheading && (
-      <p class={`mt-3 text-sm sm:text-base lg:text-lg max-w-2xl leading-relaxed font-normal min-h-[2lh] min-h-[3.25em] ${isLight ? 'text-slate-700 font-normal' : 'text-slate-200/90 drop-shadow-sm'}`}>
-        {subheading}
-      </p>
-    )}
+            <div class="relative">
+              <div class="relative overflow-hidden rounded-3xl border border-white/20 shadow-2xl">
+                <img
+                  src={bgImage}
+                  alt="Techsteps professional IT services"
+                  class="w-full h-[300px] sm:h-[360px] lg:h-[430px] object-cover"
+                  loading="eager"
+                  decoding="async"
+                />
+                {!noOverlay && (
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"></div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
-    <slot />
+      {layout === 'custom' && (
+        <div class={`relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 my-auto ${isLight ? 'max-w-7xl pt-4 sm:pt-8 lg:pt-12 xl:pt-14 pb-16 sm:pb-20 lg:pb-28' : 'max-w-[1240px] py-6 sm:py-8 lg:py-10'}`}>
+          <slot />
+        </div>
+      )}
 
-  </div>
-)}
+      {layout === 'default' && (
+        <div class="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 text-center flex flex-col items-center justify-center my-auto">
+          {eyebrow && (
+            <span class={`inline-block text-xs sm:text-sm font-sans font-bold uppercase tracking-widest mb-3 ${isLight ? 'text-[#0F623A] font-bold' : 'text-emerald-400 drop-shadow-sm'}`}>
+              {eyebrow}
+            </span>
+          )}
+
+          {title && (
+            <h1 class={`font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] select-none w-full max-w-[1240px] min-h-[2lh] min-h-[2.1em] ${isLight ? 'text-slate-900' : 'text-white drop-shadow-2xl'}`}>
+              {title}
+            </h1>
+          )}
+
+          {subheading && (
+            <p class={`mt-3 text-sm sm:text-base lg:text-lg max-w-2xl leading-relaxed font-normal min-h-[2lh] min-h-[3.25em] ${isLight ? 'text-slate-700 font-normal' : 'text-slate-200/90 drop-shadow-sm'}`}>
+              {subheading}
+            </p>
+          )}
+
+          <slot />
+        </div>
+      )}
+    </>
+  )}
 
   <!-- 4. Bottom Balancing Spacer -->
   <div class="h-2 sm:h-4 w-full pointer-events-none" aria-hidden="true"></div>
-
-  <!-- 5. Torn Paper Edge Transition -->
-  <!--{showDivider && <TornPaperDivider color={dividerColor} />}-->
 </section>

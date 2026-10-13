@@ -55,6 +55,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
     minHeight="min-h-[540px] sm:min-h-[580px] lg:min-h-[640px]"
     noOverlay={true}
     theme="light"
+    contained={true}
   >
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
       <!-- HERO CONTENT (Left) -->
@@ -187,17 +188,15 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
           </div>
         </div>
 
-        <!-- Right Side: Technician / Hardware Photo -->
-        <div class="lg:col-span-5 relative">
-          <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-slate-200/80 bg-slate-100 aspect-[4/3] sm:aspect-[4/3] lg:aspect-[5/4] group">
-            <img
-              src="/images/services/itad.jpg"
-              alt="Techsteps IT Lifecycle and Hardware Disposition Specialists"
-              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
-          </div>
+        <!-- Right Side: Service Graphic -->
+        <div class="lg:col-span-5 relative flex items-center justify-center">
+          <img
+            src="/images/services/About our services 2.webp"
+            alt="Techsteps IT Lifecycle and Hardware Disposition Specialists"
+            class="w-full max-w-[420px] lg:max-w-[460px] h-auto object-contain mx-auto select-none drop-shadow-md hover:scale-[1.02] transition-transform duration-300"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </Container>
@@ -526,6 +525,9 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
         </div>
       </div>
     </Container>
+        <br />
+    <br />
+    <br />
   </section>
 
   {/* ===== SECTORS (COMMENTED OUT) =====

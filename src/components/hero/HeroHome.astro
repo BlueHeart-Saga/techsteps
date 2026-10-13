@@ -11,30 +11,36 @@ const hero = homePage?.hero;
 ========================= -->
 <section
   id="hero"
-  class="relative w-full overflow-hidden bg-white select-none"
+  class="relative w-full bg-white select-none"
 >
-  <!-- Background Image on Desktop (Full section composition with worker on the right) -->
-  <img
-    src="/images/brand/hero section.webp"
-    alt=""
-    aria-hidden="true"
-    class="hidden lg:block absolute inset-0 w-full h-full object-cover object-[right_center] xl:object-right pointer-events-none select-none z-0"
-    loading="eager"
-    fetchpriority="high"
-    decoding="sync"
-  />
-
   <!-- Top Hero Header (Integrated with light hero background) -->
   <HeroHeader isHome={true} />
 
-  <!-- Main Hero Content Container -->
-  <div
-    class="relative z-10 w-full max-w-7xl mx-auto
-           px-4 sm:px-6 lg:px-8
-           pt-4 sm:pt-8 lg:pt-12 xl:pt-14
-           pb-6 sm:pb-8 lg:pb-10"
-  >
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
+  <!-- Hero Content in same container as header -->
+  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative w-full min-h-[460px] sm:min-h-[500px] lg:min-h-[560px] flex flex-col justify-center">
+
+      <!-- Background Image on Desktop (ends at right edge of header container) -->
+      <div class="absolute inset-y-0 right-0 w-full lg:w-[62%] overflow-hidden pointer-events-none select-none z-0">
+        <img
+          src="/images/brand/hero section.webp"
+          alt=""
+          aria-hidden="true"
+          class="w-full h-full object-cover object-right pointer-events-none select-none"
+          loading="eager"
+          fetchpriority="high"
+          decoding="sync"
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/30 lg:via-white/10 to-transparent pointer-events-none"></div>
+      </div>
+
+      <!-- Main Hero Content Container -->
+      <div
+        class="relative z-10 w-full
+               pt-4 sm:pt-8 lg:pt-12 xl:pt-14
+               pb-6 sm:pb-8 lg:pb-10"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
 
       <!-- =========================
            HERO CONTENT (Left)
@@ -162,6 +168,8 @@ const hero = homePage?.hero;
 
     </div>
   </div>
+  </div>
+  </div>
 
   <!-- =========================
        TORN PAPER DIVIDER (Bottom)
@@ -180,7 +188,6 @@ const hero = homePage?.hero;
 
 <style>
   #hero {
-    /* Fallback soft gradient matching image backdrop */
-    background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 45%, #EBF3EA 100%);
+    background: #FFFFFF;
   }
 </style>

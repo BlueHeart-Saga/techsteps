@@ -536,54 +536,54 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
     </section>
   )}
 
+
   <!-- ========================================================= -->
-  <!-- SECTION 7: FAQS (Compact Editorial Accordion)             -->
+  <!-- SECTION 7: FAQS (Centered Editorial Layout)                -->
   <!-- ========================================================= -->
   {sector.faqs && sector.faqs.length > 0 && (
     <section class="py-14 sm:py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
       <Container>
-        <div class="max-w-3xl mb-10 sm:mb-12">
-          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+        <div class="max-w-3xl mx-auto mb-10 sm:mb-12 text-center">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
             FREQUENTLY ASKED QUESTIONS
           </span>
+
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
             {sector.title} Questions &amp; Answers
           </h2>
-          <p class="mt-3 text-base sm:text-lg text-slate-700 leading-relaxed font-sans font-normal">
+
+          <p class="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed font-sans font-normal max-w-2xl mx-auto">
             Transparent answers regarding operational standards, statutory compliance controls, and UK nationwide logistics.
           </p>
         </div>
 
-        <div class="max-w-4xl space-y-3 sm:space-y-3.5">
-          {sector.faqs.map((faq: { question: string; answer: string }, idx: number) => {
-            const num = String(idx + 1).padStart(2, '0');
-            return (
-              <details class="group rounded-xl border border-slate-200/90 bg-white transition-all duration-200 open:border-[#0F623A]/40 open:shadow-xs" open={idx === 0}>
-                <summary class="flex items-center justify-between gap-4 p-5 sm:p-6 cursor-pointer list-none select-none">
-                  <div class="flex items-baseline gap-3.5 text-left">
-                    <span class="font-mono font-bold text-xs sm:text-sm text-[#0F623A] shrink-0">
-                      {num}
-                    </span>
-                    <h3 class="text-base sm:text-lg font-semibold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug">
-                      {faq.question}
-                    </h3>
-                  </div>
-                  <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#0F623A]/10 text-slate-500 group-hover:text-[#0F623A] flex items-center justify-center shrink-0 transition-transform duration-200 group-open:rotate-180">
-                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </span>
-                </summary>
-                <div class="px-5 pb-5 pt-0 sm:px-6 sm:pb-6 pl-11 sm:pl-12">
-                  <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-sans">
-                    {faq.answer}
-                  </p>
-                </div>
-              </details>
-            );
-          })}
+
+<div class="max-w-4xl mx-auto space-y-4">
+  {sector.faqs.slice(0, 5).map(
+    (faq: { question: string; answer: string }, idx: number) => (
+      <div class="rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
+        <div class="flex items-start gap-4">
+          <span class="font-mono font-bold text-sm text-[#0F623A] shrink-0">
+            {String(idx + 1).padStart(2, '0')}
+          </span>
+
+          <div class="flex-1 text-left">
+            <h3 class="text-base sm:text-lg font-semibold text-slate-900">
+              {faq.question}
+            </h3>
+
+            <p class="mt-3 text-sm sm:text-base text-slate-700 leading-relaxed">
+              {faq.answer}
+            </p>
+          </div>
         </div>
+      </div>
+    )
+  )}
+</div>
       </Container>
+      <br />
+      <br />
     </section>
   )}
 
