@@ -1040,7 +1040,7 @@ const servicePillars = defaultPillars.map((pillar) => {
        TRIGGER EVENTS
        ========================================================= */
 
-    triggers.forEach((t) => {
+    {/*triggers.forEach((t) => {
 
       const parentWrap =
         t.closest(
@@ -1087,14 +1087,79 @@ const servicePillars = defaultPillars.map((pillar) => {
         'focus',
         openMenu
       );
-    });
+    });*/}
+    /* =========================================================
+   TRIGGER EVENTS
+   ========================================================= */
+
+triggers.forEach((t) => {
+
+  const parentWrap =
+    t.closest(
+      '.nav-menu-trigger-wrap'
+    ) as HTMLElement | null;
+
+  const hoverTarget =
+    parentWrap || t;
+
+
+  /*
+   * Hovering the Services text OR arrow
+   * opens the dropdown.
+   *
+   * IMPORTANT:
+   * We intentionally do NOT close the menu
+   * when the mouse leaves the navbar item.
+   */
+  hoverTarget.addEventListener(
+    'mouseenter',
+    openMenu
+  );
+
+
+  /*
+   * Arrow click:
+   * toggle the dropdown.
+   *
+   * The Services text is now a normal <a>
+   * and will navigate to /services.
+   */
+  t.addEventListener(
+    'click',
+    (e) => {
+
+      e.stopPropagation();
+      e.preventDefault();
+
+      const isExpanded =
+        t.getAttribute(
+          'aria-expanded'
+        ) === 'true';
+
+      if (isExpanded) {
+        closeMenu(true);
+      } else {
+        openMenu();
+      }
+    }
+  );
+
+
+  /*
+   * Keyboard accessibility
+   */
+  t.addEventListener(
+    'focus',
+    openMenu
+  );
+});
 
 
     /* =========================================================
        PANEL HOVER
        ========================================================= */
 
-    panel.addEventListener(
+    {/*panel.addEventListener(
       'mouseenter',
       cancelClose
     );
@@ -1102,7 +1167,21 @@ const servicePillars = defaultPillars.map((pillar) => {
     panel.addEventListener(
       'mouseleave',
       () => closeMenu(false)
-    );
+    );*/}
+    /* =========================================================
+   PANEL HOVER
+   ========================================================= */
+
+/*
+ * Keep the dropdown open while the mouse
+ * is anywhere inside the dropdown.
+ *
+ * We intentionally do NOT close it on mouseleave.
+ */
+panel.addEventListener(
+  'mouseenter',
+  cancelClose
+);
 
 
     /* =========================================================

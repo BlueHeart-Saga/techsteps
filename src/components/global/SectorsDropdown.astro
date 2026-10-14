@@ -617,7 +617,7 @@ const column3 = [
        TRIGGERS
        ========================================================= */
 
-    triggers.forEach((t) => {
+    {/*triggers.forEach((t) => {
       const parentWrap =
         t.closest('.nav-menu-trigger-wrap') as HTMLElement | null;
 
@@ -644,17 +644,72 @@ const column3 = [
       });
 
       t.addEventListener('focus', openMenu);
-    });
+    });*/}
+    /* =========================================================
+   TRIGGERS
+   ========================================================= */
+
+triggers.forEach((t) => {
+  const parentWrap =
+    t.closest('.nav-menu-trigger-wrap') as HTMLElement | null;
+
+  const hoverTarget = parentWrap || t;
+
+  /*
+   * Hovering Sectors text or arrow opens
+   * the dropdown.
+   */
+  hoverTarget.addEventListener(
+    'mouseenter',
+    openMenu
+  );
+
+  /*
+   * Do NOT close when mouse leaves the navbar.
+   * The dropdown stays open until the user
+   * clicks somewhere else.
+   */
+
+  t.addEventListener('click', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const isExpanded =
+      t.getAttribute('aria-expanded') === 'true';
+
+    if (isExpanded) {
+      closeMenu(true);
+    } else {
+      openMenu();
+    }
+  });
+
+  /*
+   * Keyboard accessibility
+   */
+  t.addEventListener(
+    'focus',
+    openMenu
+  );
+});
 
     /* =========================================================
        PANEL HOVER
        ========================================================= */
 
-    panel.addEventListener('mouseenter', cancelClose);
+    {/*panel.addEventListener('mouseenter', cancelClose);
 
     panel.addEventListener('mouseleave', () =>
       closeMenu(false)
-    );
+    );*/}
+    /* =========================================================
+   PANEL HOVER
+   ========================================================= */
+
+panel.addEventListener(
+  'mouseenter',
+  cancelClose
+);
 
     /* =========================================================
        CROSS MENU CLOSE
