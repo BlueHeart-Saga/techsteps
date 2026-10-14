@@ -1758,7 +1758,7 @@ export const defaultAboutPage: AboutPageData = {
       'Whether you need secure IT disposal, information management or relocation support, speak with the Techsteps team. We will survey, scope and quote before anything moves.',
     image: '/images/services/process-step-1-collect.jpg',
     imageAlt: 'Techsteps fleet and collection team on site',
-    primaryButtonText: 'Talk to Techsteps',
+    primaryButtonText: 'Talk to Our Team',
     primaryButtonLink: '/contact',
     secondaryButtonText: 'Request a Collection',
     secondaryButtonLink: '/request-a-collection',

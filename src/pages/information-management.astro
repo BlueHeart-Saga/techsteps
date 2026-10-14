@@ -168,7 +168,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
             {division?.aboutTitle || 'Information Management Built Around Your Business'}
           </h2>
 
-          <div class="space-y-4 text-lg sm:text-xl text-black leading-relaxed font-sans font-normal">
+          <div class="space-y-4 text-lg sm:text-xl text-black leading-relaxed font-sans font-normal text-justify">
             {(division?.aboutParagraphs && division.aboutParagraphs.length > 0) ? (
               division.aboutParagraphs.map((paragraph) => (
                 <p>{paragraph}</p>
@@ -187,7 +187,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
 
           <div class="pt-2">
             <a
-              href="#specialist-services"
+              href="/services"
               class="inline-flex items-center gap-2 text-[#0F623A] hover:text-[#0A331E] font-bold text-sm sm:text-base transition-colors group"
             >
               <span>See our four service groups</span>

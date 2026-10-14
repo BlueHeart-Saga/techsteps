@@ -424,7 +424,7 @@ export default {
           name: 'primaryButtonText',
           title: 'Primary Button Text',
           type: 'string',
-          initialValue: 'Talk to Techsteps →',
+          initialValue: 'Talk to Our Team',
         },
         {
           name: 'primaryButtonLink',
