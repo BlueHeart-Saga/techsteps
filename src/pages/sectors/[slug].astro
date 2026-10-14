@@ -113,23 +113,44 @@ const serviceMappings = (sector.challenges || []).map((challenge, idx) => {
 
 // Fallback sector images
 const sectorFallbackImages: Record<string, string> = {
-  defence: '/images/sectors/defence.jpg',
-  nhs: '/images/sectors/nhs.jpg',
-  healthcare: '/images/sectors/nhs.jpg',
-  finance: '/images/sectors/finance.jpg',
-  'financial-services': '/images/sectors/finance.jpg',
-  'central-government': '/images/sectors/government.jpg',
-  government: '/images/sectors/government.jpg',
-  'education-universities': '/images/sectors/education.jpg',
-  education: '/images/sectors/education.jpg',
-  'legal-professional-services': '/images/sectors/legal.jpg',
-  legal: '/images/sectors/legal.jpg',
-  'manufacturing-engineering': '/images/sectors/manufacturing.jpg',
-  manufacturing: '/images/sectors/manufacturing.jpg',
-  'it-technology': '/images/sectors/technology.jpg',
-  technology: '/images/sectors/technology.jpg',
+  defence: '/images/sectors/defence.webp',
+  nhs: '/images/sectors/healthcare.webp',
+  healthcare: '/images/sectors/healthcare.webp',
+  finance: '/images/sectors/collection services.webp',
+  'financial-services': '/images/sectors/collection services.webp',
+  'central-government': '/images/sectors/central.webp',
+  government: '/images/sectors/central.webp',
+  'education-universities': '/images/sectors/Education.webp',
+  education: '/images/sectors/Education.webp',
+  'legal-professional-services': '/images/sectors/corporate.webp',
+  legal: '/images/sectors/corporate.webp',
+  'manufacturing-engineering': '/images/sectors/manufacturing.webp',
+  manufacturing: '/images/sectors/manufacturing.webp',
+  'it-technology': '/images/sectors/technology.webp',
+  technology: '/images/sectors/technology.webp',
 };
-const deliveryImage = sector.heroImage || sectorFallbackImages[sector.slug] || '/images/sectors/corporate.jpg';
+
+const sectorDeliveryImages: Record<string, string> = {
+  defence: '/images/sectors/defence.webp',
+  nhs: '/images/sectors/healthcare.webp',
+  healthcare: '/images/sectors/healthcare.webp',
+  finance: '/images/sectors/collection services.webp',
+  'financial-services': '/images/sectors/collection services.webp',
+  'central-government': '/images/sectors/central.webp',
+  government: '/images/sectors/government.webp',
+  'education-universities': '/images/sectors/Education.webp',
+  education: '/images/sectors/Education.webp',
+  'legal-professional-services': '/images/sectors/corporate.webp',
+  legal: '/images/sectors/corporate.webp',
+  'manufacturing-engineering': '/images/sectors/manufacturing.webp',
+  manufacturing: '/images/sectors/manufacturing.webp',
+  'it-technology': '/images/sectors/technology.webp',
+  technology: '/images/sectors/technology.webp',
+};
+
+const deliveryImage =
+  sectorDeliveryImages[sector.slug] ||
+  '/images/sectors/corporate.webp';
 
 // Strictly sector-specific verified case study
 const matchingCaseStudy = (caseStudies || []).find((c) => {
@@ -169,9 +190,9 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   <section class="py-14 sm:py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
     <Container>
       <div class="max-w-3xl mb-10 sm:mb-12">
-        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+        {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
           WHO WE SUPPORT
-        </span>
+        </span>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
           Tailored for {sector.title} Organisations
         </h2>
@@ -207,12 +228,12 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
                 </p>
               </div>
 
-              <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+              {/*<div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                 <span class="text-xs font-medium text-slate-500 font-sans">
                   Audited Operational Protocols
                 </span>
                 <span class="w-2 h-2 rounded-full bg-[#0F623A]"></span>
-              </div>
+              </div>*/}
             </div>
           );
         })}
@@ -226,9 +247,9 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   <section id="challenges-solutions" class="py-14 sm:py-16 lg:py-20 bg-white border-b border-slate-200/80">
     <Container>
       <div class="max-w-3xl mb-10 sm:mb-12">
-        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+        {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
           CHALLENGES &amp; SOLUTIONS
-        </span>
+        </span>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
           Resolving {sector.title} Operational Risks
         </h2>
@@ -314,24 +335,23 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
       <div class="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 lg:p-12 shadow-xs ">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <!-- Left: High-Quality Sector Imagery -->
-          <div class="lg:col-span-5">
-            <div class="relative rounded-2xl overflow-hidden shadow-md border border-slate-200 aspect-[4/3] bg-slate-900 group">
-              <img
-                src={deliveryImage}
-                alt={sector.heroAlt || `TechSteps operational deployment for ${sector.title}`}
-                class="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none"></div>
-            </div>
-          </div>
+<div class="lg:col-span-5">
+  <div class="relative overflow-hidden group">
+    <img
+      src={deliveryImage}
+      alt={sector.heroAlt || `TechSteps operational deployment for ${sector.title}`}
+      class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+      loading="lazy"
+    />
+  </div>
+</div>
 
           <!-- Right: Editorial Delivery & Integrated Benefits -->
           <div class="lg:col-span-7 space-y-6">
             <div>
-              <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+              {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
                 HOW WE DELIVER
-              </span>
+              </span>*/}
               <h3 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-900 font-display leading-tight">
                 Enterprise Lifecycle Management in Action
               </h3>
@@ -394,9 +414,9 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   <section class="py-14 sm:py-16 lg:py-20 bg-[#0A331E] relative overflow-hidden border-b border-emerald-950 text-white">
     <Container>
       <div class="max-w-3xl mb-10 sm:mb-12">
-        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-3">
+        {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-3">
           SECURITY &amp; COMPLIANCE
-        </span>
+        </span>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
           Security Built into Every Step
         </h2>
@@ -476,9 +496,9 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
     <section class="py-14 sm:py-16 lg:py-20 bg-white border-b border-slate-200/80">
       <Container>
         <div class="max-w-3xl mb-10 sm:mb-12">
-          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+          {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
             PROVEN EXPERIENCE
-          </span>
+          </span>*/}
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
             Customer Success in {sector.title}
           </h2>
@@ -544,9 +564,9 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
     <section class="py-14 sm:py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
       <Container>
         <div class="max-w-3xl mx-auto mb-10 sm:mb-12 text-center">
-          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
+          {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
             FREQUENTLY ASKED QUESTIONS
-          </span>
+          </span>*/}
 
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
             {sector.title} Questions &amp; Answers
@@ -591,7 +611,6 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   <!-- FINAL CTA (Preserved Completely Unchanged)                -->
   <!-- ========================================================= -->
   <CTA
-    eyebrow="LET’S SUPPORT YOUR ORGANISATION"
     title={`Ready to Protect Your ${sector.title}?`}
     description={`Discuss your ${sector.title.toLowerCase()} operational, compliance and asset lifecycle requirements with TechSteps.`}
     primaryText="Request a Collection"

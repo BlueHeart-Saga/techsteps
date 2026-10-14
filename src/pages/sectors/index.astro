@@ -83,15 +83,48 @@ const coreSectors = [
   },
 ];
 
-// Lifecycle steps
-const lifecycleSteps = [
-  { step: 'Collect', desc: 'Secure, GPS-tracked collection by BS 7858 vetted personnel.' },
-  { step: 'Secure', desc: 'Controlled handling and high-security chain of custody.' },
-  { step: 'Sanitise', desc: 'ADISA-certified data erasure, degaussing or physical shredding.' },
-  { step: 'Reuse', desc: 'Refurbishment and remarketing to maximise asset value.' },
-  { step: 'Recycle', desc: 'Zero-landfill, WEEE-compliant responsible recycling.' },
-  { step: 'Report', desc: 'Complete audit trails, serialized certificates and ESG reporting.' },
+// Lifecycle steps with enterprise ITAD photography matching reference workflow
+const defaultLifecycleSteps = [
+  {
+    step: 'Collect',
+    desc: 'Secure, GPS-tracked collection by BS 7858 vetted personnel.',
+    image: '/images/services/process-step-1-collect.jpg',
+  },
+  {
+    step: 'Secure',
+    desc: 'Controlled handling and high-security chain of custody.',
+    image: '/images/services/process-step-2-secure.jpg',
+  },
+  {
+    step: 'Sanitise',
+    desc: 'ADISA-certified data erasure, degaussing or physical shredding.',
+    image: '/images/services/process-step-3-sanitise.jpg',
+  },
+  {
+    step: 'Reuse',
+    desc: 'Refurbishment and remarketing to maximise asset value.',
+    image: '/images/services/process-step-4-reuse.jpg',
+  },
+  {
+    step: 'Recycle',
+    desc: 'Zero-landfill, WEEE-compliant responsible recycling.',
+    image: '/images/services/process-step-5-recycle.jpg',
+  },
+  {
+    step: 'Report',
+    desc: 'Complete audit trails, serialized certificates and ESG reporting.',
+    image: '/images/services/process-step-6-report.jpg',
+  },
 ];
+
+const lifecycleSteps = sectorsPage?.lifecycle?.steps?.length
+  ? sectorsPage.lifecycle.steps.map((s, idx) => ({
+      step: s.step || defaultLifecycleSteps[idx]?.step || '',
+      desc: s.desc || defaultLifecycleSteps[idx]?.desc || '',
+      image: s.image || defaultLifecycleSteps[idx]?.image || '/images/services/process-step-1-collect.jpg',
+    }))
+  : defaultLifecycleSteps;
+
 
 // Service category cards
 const serviceCategories = [
@@ -99,28 +132,28 @@ const serviceCategories = [
     title: 'IT Lifecycle',
     items: 'ITAD · Disposal · Data Destruction · Recycling',
     href: '/services/it-asset-disposition-services',
-    image: '/images/services/image2.jpg',
+    image: '/images/services/1.webp',
     icon: 'cpu',
   },
   {
     title: 'Information Management',
     items: 'Storage · Scanning · Records Management',
     href: '/services/document-storage',
-    image: '/images/services/image1.png',
+    image: '/images/services/2.webp',
     icon: 'folder',
   },
   {
     title: 'Secure Destruction',
     items: 'Hard Drive · Media · Document Shredding',
     href: '/services/ultra-secure-hard-drive-destruction',
-    image: '/images/services/image3_web.jpg',
+    image: '/images/services/3.webp',
     icon: 'shield',
   },
   {
     title: 'Relocation',
     items: 'IT Moves · Data Centre · Technology Logistics',
     href: '/services/it-relocations-specialist',
-    image: '/images/services/image4.jpg',
+    image: '/images/services/4.webp',
     icon: 'truck',
   },
 ];
@@ -183,6 +216,7 @@ const accreditations = [
             decoding="sync"
           />
           <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/30 lg:via-white/10 to-transparent pointer-events-none"></div>
+          <div class="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white via-white/70 to-transparent pointer-events-none"></div>
         </div>
 
         <!-- Main Hero Content Container -->
@@ -206,9 +240,9 @@ const accreditations = [
           </nav>
 
           <!-- Eyebrow Badge -->
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.18em] mb-3 sm:mb-4">
+          {/*<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.18em] mb-3 sm:mb-4">
             <span>{sectorsPage.hero?.eyebrow || 'SECTOR EXPERTISE'}</span>
-          </div>
+          </div>*/}
 
           <!-- Heading -->
           <h1
@@ -328,10 +362,10 @@ const accreditations = [
       <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         <!-- Left text narrative (5 cols) -->
         <div class="lg:col-span-5 space-y-6">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-600/20 text-[#0F623A] text-xs font-mono font-bold uppercase tracking-widest">
+          {/*<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-600/20 text-[#0F623A] text-xs font-mono font-bold uppercase tracking-widest">
             <span class="w-2 h-2 rounded-full bg-[#0F623A] animate-pulse"></span>
             <span>{sectorsPage.intro?.badge || "Our Approach & Framework"}</span>
-          </div>
+          </div>*/}
 
           <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight leading-[1.15] font-display">
             {sectorsPage.intro?.heading || "Solutions Built Around Your Organisation"}
@@ -343,17 +377,17 @@ const accreditations = [
 
           <div class="pt-2 flex flex-wrap items-center gap-3">
             <a
-              href="/contact"
+              href="/service"
               class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
             >
-              <span>Discuss Your Requirements</span>
+              <span>Explore Services</span>
               <span>&rarr;</span>
             </a>
             <a
-              href="/services"
+              href="/contact"
               class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 text-sm font-bold shadow-xs hover:shadow-md transition-all duration-200"
             >
-              <span>Explore Services</span>
+              <span>Contact Us</span>
             </a>
           </div>
 
@@ -380,25 +414,21 @@ const accreditations = [
         <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
           {[
             {
-              num: '01',
               label: 'Security',
               icon: 'lock',
               desc: 'Uncompromising chain of custody, GPS-tracked transit, and ADISA-certified data destruction throughout.',
             },
             {
-              num: '02',
               label: 'Lifecycle',
               icon: 'cycle',
               desc: 'End-to-end IT asset management from serialised on-site collection to itemised audit certificates.',
             },
             {
-              num: '03',
               label: 'Responsibility',
               icon: 'leaf',
               desc: 'Guaranteed zero-landfill processing with circular economy value recovery and Scope 3 carbon reporting.',
             },
             {
-              num: '04',
               label: 'Expertise',
               icon: 'star',
               desc: 'Sector-specific clearance and accredited capabilities tailored for NHS, Defence, Finance and Gov.',
@@ -445,9 +475,9 @@ const accreditations = [
 <section class="bg-[#F2F8F5] py-8 lg:py-12 border-t border-slate-200">
   <Container>
     <div class="text-center mb-14">
-      <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">
+      {/*<span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">
         {sectorsPage.sectorsSection?.eyebrow || "Industries"}
-      </span>
+      </span>*/}
 
       <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight font-display">
         {sectorsPage.sectorsSection?.heading || "Sectors We Serve"}
@@ -505,7 +535,7 @@ const accreditations = [
   <section class="bg-white py-8 lg:py-12 border-t border-slate-100">
     <Container>
       <div class="max-w-2xl mx-auto text-center mb-14">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Our Philosophy</span>
+        {/*<span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">Our Philosophy</span>*/}
         <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight">
           Security Is Part of Every Lifecycle
         </h2>
@@ -540,7 +570,7 @@ const accreditations = [
               {principle.number}
             </div>
             <div class="relative pt-8 pb-8 px-0 border-t-2 border-slate-200 group-hover:border-[#2D6A4F] transition-colors duration-300">
-              <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] text-[#2D6A4F] mb-3">{principle.label}</span>
+              <span class="inline-block text-[15px] font-bold uppercase tracking-[0.2em] text-[#2D6A4F] mb-3">{principle.label}</span>
               <p class="text-base text-slate-700 leading-relaxed">{principle.desc}</p>
             </div>
           </div>
@@ -550,43 +580,264 @@ const accreditations = [
   </section>
 
   <!-- ===== 4. LIFECYCLE: COLLECT → REPORT ===== -->
-  <section class="bg-[#1a2e1f] py-8 lg:py-10 border-t border-slate-800">
-    <Container>
-      <div class="text-center mb-14">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-emerald-400 mb-4">Our Process</span>
-        <h2 class="text-3xl sm:text-4xl font-semibold text-white tracking-tight">
-          From First Collection to Final Outcome.
-        </h2>
-        <p class="mt-4 text-base text-slate-400 max-w-xl mx-auto leading-relaxed">
-          Whatever the sector, our approach connects security, asset management and responsible lifecycle decisions.
-        </p>
+<section
+  class="process-section bg-white py-14 lg:py-20 border-t border-slate-100 relative overflow-hidden"
+  id="our-process"
+>
+  <Container>
+    <!-- ===================================================== -->
+    <!-- SECTION HEADING -->
+    <!-- ===================================================== -->
+
+    <div class="process-heading text-center mb-12 lg:mb-16">
+      {/*<span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">
+        {sectorsPage?.lifecycle?.eyebrow || 'Our Process'}
+      </span>*/}
+
+      <h2
+        class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight font-display"
+      >
+        {sectorsPage?.lifecycle?.heading ||
+          'From First Collection to Final Outcome.'}
+      </h2>
+
+      <p
+        class="mt-4 text-base text-slate-600 max-w-2xl mx-auto leading-relaxed"
+      >
+        {sectorsPage?.lifecycle?.description ||
+          'Whatever the sector, our approach connects security, asset management and responsible lifecycle decisions.'}
+      </p>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- DESKTOP & TABLET HORIZONTAL WORKFLOW -->
+    <!-- ===================================================== -->
+
+    <div class="hidden md:block relative">
+
+      <!-- ================================================= -->
+      <!-- SIX STAGES GRID -->
+      <!-- ================================================= -->
+
+      <div
+        class="process-grid grid grid-cols-6 gap-2 lg:gap-3 xl:gap-4 relative z-10"
+      >
+        {lifecycleSteps.map((step, i) => (
+          <div
+            class="process-step flex flex-col items-center text-center group relative"
+            style={`--step-index: ${i}`}
+          >
+
+            <!-- ================================================= -->
+            <!-- CONNECTOR TO NEXT STEP -->
+            <!-- ================================================= -->
+
+            {i < lifecycleSteps.length - 1 && (
+              <>
+                <!-- Green connecting line -->
+                <span
+                  class={`process-segment process-segment-${i + 1}`}
+                  aria-hidden="true"
+                ></span>
+
+                <!-- Arrow exactly in the middle of the line -->
+                <span
+                  class={`process-arrow process-arrow-${i + 1}`}
+                  aria-hidden="true"
+                >
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M6 3L11 8L6 13" />
+                  </svg>
+                </span>
+              </>
+            )}
+
+            <!-- ================================================= -->
+            <!-- CIRCULAR IMAGE -->
+            <!-- ================================================= -->
+
+            <div
+              class="relative mb-3 lg:mb-4 flex items-center justify-center z-10"
+            >
+              <div
+                class="process-circle w-20 h-20 lg:w-28 lg:h-28 xl:w-32 xl:h-32 rounded-full border-[3px] lg:border-[3.5px] border-[#C5E88C] p-1.5 lg:p-2 bg-white flex items-center justify-center relative shadow-xs group-hover:border-[#3FB33D] group-hover:shadow-md transition-all duration-300"
+              >
+
+                <!-- Circular Image -->
+                <div
+                  class="w-full h-full rounded-full overflow-hidden bg-slate-100 relative"
+                >
+                  <img
+                    src={step.image}
+                    alt={`${step.step} - TechSteps ITAD Lifecycle`}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                    loading="lazy"
+                    width="200"
+                    height="200"
+                  />
+                </div>
+
+                <!-- Number Badge -->
+                <div
+                  class="process-number absolute -top-1 -right-1 lg:-top-1.5 lg:-right-1.5 w-7 h-7 lg:w-8.5 lg:h-8.5 xl:w-9.5 xl:h-9.5 rounded-full bg-[#C5E88C] border-2 border-white flex items-center justify-center shadow-xs z-20"
+                >
+                  <span
+                    class="text-[11px] lg:text-xs xl:text-sm font-extrabold text-[#0F623A] tracking-tight"
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ================================================= -->
+            <!-- WORKFLOW TITLE -->
+            <!-- ================================================= -->
+
+            <h3
+              class="process-title text-sm lg:text-base xl:text-lg font-bold text-[#0F623A] tracking-tight mb-1 group-hover:text-[#3FB33D] transition-colors duration-200"
+            >
+              {step.step}
+            </h3>
+
+            <!-- Workflow Description -->
+            {/*<p class="text-[10px] lg:text-[11px] xl:text-xs text-slate-500 leading-relaxed max-w-[170px] lg:max-w-[190px] mx-auto">
+              {step.desc}
+            </p>*/}
+
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- MOBILE VERTICAL WORKFLOW -->
+    <!-- ===================================================== -->
+
+    <div class="md:hidden flex flex-col items-center relative">
+
+      <!-- Animated Vertical Line -->
+      <div
+        class="mobile-process-line-wrapper absolute top-14 bottom-14 left-1/2 -translate-x-1/2 w-[2px] pointer-events-none z-0"
+        aria-hidden="true"
+      >
+        <div
+          class="mobile-process-line absolute left-0 top-0 w-full bg-[#C5E88C]"
+        ></div>
+
+        <!-- Top Dot -->
+        <span
+          class="mobile-line-dot absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#C5E88C]"
+        ></span>
+
+        <!-- Bottom Dot -->
+        <span
+          class="mobile-line-dot absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#C5E88C]"
+        ></span>
       </div>
 
-      <div class="relative">
-        <div class="hidden lg:block absolute top-7 left-[8.33%] right-[8.33%] h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent pointer-events-none"></div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5 lg:gap-4">
-          {lifecycleSteps.map((step, i) => (
-            <div class="flex flex-col items-center text-center group">
-              <div class="relative mb-4">
-                <div class="h-14 w-14 rounded-2xl bg-[#2D6A4F]/20 border border-[#2D6A4F]/40 flex items-center justify-center group-hover:bg-[#2D6A4F]/40 group-hover:border-[#2D6A4F] transition-all duration-300">
-                  <span class="text-sm font-extrabold text-emerald-300">{String(i + 1).padStart(2, '0')}</span>
+      <div
+        class="flex flex-col items-center w-full space-y-8 relative z-10"
+      >
+        {lifecycleSteps.map((step, i) => (
+          <div
+            class="mobile-process-step flex flex-col items-center text-center w-full max-w-xs group"
+            style={`--step-index: ${i}`}
+          >
+
+            <!-- Circular Image -->
+            <div
+              class="relative mb-3 flex items-center justify-center"
+            >
+              <div
+                class="mobile-process-circle w-28 h-28 rounded-full border-[3px] border-[#C5E88C] p-2 bg-white flex items-center justify-center shadow-xs relative group-hover:border-[#3FB33D] transition-all duration-300"
+              >
+
+                <div
+                  class="w-full h-full rounded-full overflow-hidden bg-slate-100 relative"
+                >
+                  <img
+                    src={step.image}
+                    alt={`${step.step} - TechSteps ITAD Lifecycle`}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    width="160"
+                    height="160"
+                  />
                 </div>
+
+                <!-- Number Badge -->
+                <div
+                  class="mobile-process-number absolute -top-1 -right-1 w-8 h-8 rounded-full bg-[#C5E88C] border-2 border-white flex items-center justify-center shadow-xs z-20"
+                >
+                  <span
+                    class="text-xs font-black text-[#0F623A] tracking-tight"
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                </div>
+
               </div>
-              <p class="text-xs font-bold uppercase tracking-widest text-white mb-2">{step.step}</p>
-              <p class="text-[11px] text-slate-400 leading-relaxed">{step.desc}</p>
             </div>
-          ))}
-        </div>
+
+            <!-- Title & Description -->
+            <div class="bg-white/95 px-4 py-1 rounded-lg">
+
+              <h3
+                class="mobile-process-title text-base font-bold text-[#0F623A] tracking-tight mb-1"
+              >
+                {step.step}
+              </h3>
+
+              <p
+                class="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto"
+              >
+                {step.desc}
+              </p>
+
+            </div>
+
+            <!-- Downward Arrow -->
+            {i < lifecycleSteps.length - 1 && (
+              <div
+                class="mobile-process-arrow pt-3 text-[#86C232] pointer-events-none"
+                aria-hidden="true"
+              >
+                <svg
+                  class="w-4 h-4"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 6L8 11L13 6" />
+                </svg>
+              </div>
+            )}
+
+          </div>
+        ))}
       </div>
-    </Container>
-  </section>
+    </div>
+  </Container>
+</section>
 
   <!-- ===== 5. SPECIALIST SERVICES (Centered Focus Rotating Carousel) ===== -->
   <section class="bg-white py-8 lg:py-12 border-t border-slate-100 overflow-hidden" id="specialist-services-section">
     <Container>
       <!-- Header with Eyebrow & Title (Numbers removed) -->
       <div class="flex flex-col items-center justify-center text-center mb-10 sm:mb-14">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">Capabilities</span>
+        {/*<span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">Capabilities</span>*/}
         <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight font-display">
           Specialist Services for Your Requirements
         </h2>
@@ -879,7 +1130,7 @@ const accreditations = [
   <section class="bg-[#F2F8F5] py-8 lg:py-12 border-t border-slate-200">
     <Container>
       <div class="w-full max-w-[1240px] mx-auto text-center mb-12">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">Accreditations</span>
+        {/*<span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-3 font-mono">Accreditations</span>*/}
         <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight mb-4 font-display">Aligned with Us.</h2>
         <p class="text-lg text-black leading-relaxed font-sans">
           Our services are designed to help organisations manage technology and information with security, accountability and responsible lifecycle practices.
@@ -913,3 +1164,1099 @@ const accreditations = [
   <!-- ===== 7. FINAL CTA ===== -->
   <CommonCTA />
 </BaseLayout>
+
+<style>
+  /* =========================================================
+     HEADING
+     ========================================================= */
+
+  .process-heading {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .process-section.is-visible .process-heading {
+    animation:
+      processHeadingIn 900ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+  }
+
+  @keyframes processHeadingIn {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+  /* =========================================================
+     DESKTOP PROCESS GRID
+     ========================================================= */
+
+  .process-step {
+    position: relative;
+  }
+
+
+  /* =========================================================
+     DESKTOP CONNECTING LINE
+
+     The line starts from the center of the current circle
+     and finishes at the center of the next circle.
+     ========================================================= */
+
+  .process-segment {
+    position: absolute;
+
+    /* Center of current grid column */
+    left: 50%;
+
+    /* Circle center for md */
+    top: 40px;
+
+    /* md grid gap = 2px */
+    width: calc(100% + 2px);
+
+    height: 2px;
+
+    background: #C5E88C;
+
+    transform: scaleX(0);
+    transform-origin: left center;
+
+    /*
+     * Behind circles
+     */
+    z-index: 0;
+
+    pointer-events: none;
+  }
+
+
+  /* =========================================================
+     LARGE DESKTOP LINE
+     ========================================================= */
+
+  @media (min-width: 1024px) {
+
+    .process-segment {
+      /* Circle center */
+      top: 56px;
+
+      /* lg grid gap = 3px */
+      width: calc(100% + 3px);
+    }
+  }
+
+
+  /* =========================================================
+     XL DESKTOP LINE
+     ========================================================= */
+
+  @media (min-width: 1280px) {
+
+    .process-segment {
+      /* Circle center */
+      top: 64px;
+
+      /* xl grid gap = 4px */
+      width: calc(100% + 4px);
+    }
+  }
+
+
+  /* =========================================================
+     DESKTOP ARROW
+
+     IMPORTANT:
+     The arrow is positioned at the exact midpoint
+     between two circle centers.
+
+     Because the arrow uses the SAME grid geometry
+     as the connector line, it sits directly on the line.
+     ========================================================= */
+
+  .process-arrow {
+    position: absolute;
+
+    /*
+     * md:
+     * current center = 50%
+     * next center = 150% + 2px
+     * midpoint = 100% + 1px
+     */
+    left: calc(100% + 1px);
+
+    top: 40px;
+
+    width: 18px;
+    height: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #86C232;
+
+    /*
+     * Center the arrow itself on the line.
+     */
+    transform:
+      translate(-50%, -50%)
+      translateX(-10px)
+      scale(0.65);
+
+    opacity: 0;
+
+    /*
+     * Arrow above line and circles.
+     */
+    z-index: 30;
+
+    pointer-events: none;
+  }
+
+
+  /* =========================================================
+     LARGE DESKTOP ARROW
+     ========================================================= */
+
+  @media (min-width: 1024px) {
+
+    .process-arrow {
+      /*
+       * lg gap = 3px
+       * half gap = 1.5px
+       */
+      left: calc(100% + 1.5px);
+
+      top: 56px;
+    }
+  }
+
+
+  /* =========================================================
+     XL DESKTOP ARROW
+     ========================================================= */
+
+  @media (min-width: 1280px) {
+
+    .process-arrow {
+      /*
+       * xl gap = 4px
+       * half gap = 2px
+       */
+      left: calc(100% + 2px);
+
+      top: 64px;
+    }
+  }
+
+
+  /* =========================================================
+     ARROW SVG
+     ========================================================= */
+
+  .process-arrow svg {
+    width: 14px;
+    height: 14px;
+    color: #86C232;
+    display: block;
+  }
+
+
+  /* =========================================================
+     CONNECTING LINE ANIMATION
+     ========================================================= */
+
+  .process-section.is-visible .process-segment-1 {
+    animation:
+      processSegmentMove 900ms
+      cubic-bezier(0.65, 0, 0.35, 1)
+      forwards;
+
+    animation-delay: 1000ms;
+  }
+
+  .process-section.is-visible .process-segment-2 {
+    animation:
+      processSegmentMove 900ms
+      cubic-bezier(0.65, 0, 0.35, 1)
+      forwards;
+
+    animation-delay: 2100ms;
+  }
+
+  .process-section.is-visible .process-segment-3 {
+    animation:
+      processSegmentMove 900ms
+      cubic-bezier(0.65, 0, 0.35, 1)
+      forwards;
+
+    animation-delay: 3200ms;
+  }
+
+  .process-section.is-visible .process-segment-4 {
+    animation:
+      processSegmentMove 900ms
+      cubic-bezier(0.65, 0, 0.35, 1)
+      forwards;
+
+    animation-delay: 4300ms;
+  }
+
+  .process-section.is-visible .process-segment-5 {
+    animation:
+      processSegmentMove 900ms
+      cubic-bezier(0.65, 0, 0.35, 1)
+      forwards;
+
+    animation-delay: 5400ms;
+  }
+
+  @keyframes processSegmentMove {
+
+    from {
+      transform: scaleX(0);
+    }
+
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+
+  /* =========================================================
+     DESKTOP STEPS
+     ========================================================= */
+
+  .process-step {
+    opacity: 0;
+    transform: translateY(22px) scale(0.97);
+  }
+
+  .process-section.is-visible .process-step:nth-child(1) {
+    animation:
+      processStepIn 700ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+
+    animation-delay: 500ms;
+  }
+
+  .process-section.is-visible .process-step:nth-child(2) {
+    animation:
+      processStepIn 700ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+
+    animation-delay: 1900ms;
+  }
+
+  .process-section.is-visible .process-step:nth-child(3) {
+    animation:
+      processStepIn 700ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+
+    animation-delay: 3000ms;
+  }
+
+  .process-section.is-visible .process-step:nth-child(4) {
+    animation:
+      processStepIn 700ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+
+    animation-delay: 4100ms;
+  }
+
+  .process-section.is-visible .process-step:nth-child(5) {
+    animation:
+      processStepIn 700ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+
+    animation-delay: 5200ms;
+  }
+
+  .process-section.is-visible .process-step:nth-child(6) {
+    animation:
+      processStepIn 700ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+
+    animation-delay: 6300ms;
+  }
+
+  @keyframes processStepIn {
+
+    0% {
+      opacity: 0;
+      transform: translateY(22px) scale(0.97);
+    }
+
+    70% {
+      opacity: 1;
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+
+  /* =========================================================
+     CIRCLES
+     ========================================================= */
+
+  .process-circle {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(1)
+    .process-circle {
+    animation: processCircleIn 650ms ease forwards;
+    animation-delay: 500ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(2)
+    .process-circle {
+    animation: processCircleIn 650ms ease forwards;
+    animation-delay: 1900ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(3)
+    .process-circle {
+    animation: processCircleIn 650ms ease forwards;
+    animation-delay: 3000ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(4)
+    .process-circle {
+    animation: processCircleIn 650ms ease forwards;
+    animation-delay: 4100ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(5)
+    .process-circle {
+    animation: processCircleIn 650ms ease forwards;
+    animation-delay: 5200ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(6)
+    .process-circle {
+    animation: processCircleIn 650ms ease forwards;
+    animation-delay: 6300ms;
+  }
+
+  @keyframes processCircleIn {
+
+    from {
+      opacity: 0;
+      transform: scale(0.75);
+    }
+
+    70% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+
+  /* =========================================================
+     NUMBER BADGES
+     ========================================================= */
+
+  .process-number {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(1)
+    .process-number {
+    animation: processNumberIn 450ms ease forwards;
+    animation-delay: 900ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(2)
+    .process-number {
+    animation: processNumberIn 450ms ease forwards;
+    animation-delay: 2300ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(3)
+    .process-number {
+    animation: processNumberIn 450ms ease forwards;
+    animation-delay: 3400ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(4)
+    .process-number {
+    animation: processNumberIn 450ms ease forwards;
+    animation-delay: 4500ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(5)
+    .process-number {
+    animation: processNumberIn 450ms ease forwards;
+    animation-delay: 5600ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(6)
+    .process-number {
+    animation: processNumberIn 450ms ease forwards;
+    animation-delay: 6700ms;
+  }
+
+  @keyframes processNumberIn {
+
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+
+    70% {
+      opacity: 1;
+      transform: scale(1.12);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+
+  /* =========================================================
+     TITLES
+     ========================================================= */
+
+  .process-title {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(1)
+    .process-title {
+    animation: processTitleIn 550ms ease forwards;
+    animation-delay: 950ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(2)
+    .process-title {
+    animation: processTitleIn 550ms ease forwards;
+    animation-delay: 2350ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(3)
+    .process-title {
+    animation: processTitleIn 550ms ease forwards;
+    animation-delay: 3450ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(4)
+    .process-title {
+    animation: processTitleIn 550ms ease forwards;
+    animation-delay: 4550ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(5)
+    .process-title {
+    animation: processTitleIn 550ms ease forwards;
+    animation-delay: 5650ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(6)
+    .process-title {
+    animation: processTitleIn 550ms ease forwards;
+    animation-delay: 6750ms;
+  }
+
+  @keyframes processTitleIn {
+
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+  /* =========================================================
+     DESKTOP ARROW ANIMATION
+     ========================================================= */
+
+  .process-section.is-visible
+    .process-step:nth-child(1)
+    .process-arrow {
+    animation:
+      processArrowIn 500ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+
+    animation-delay: 1900ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(2)
+    .process-arrow {
+    animation:
+      processArrowIn 500ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+
+    animation-delay: 3000ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(3)
+    .process-arrow {
+    animation:
+      processArrowIn 500ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+
+    animation-delay: 4100ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(4)
+    .process-arrow {
+    animation:
+      processArrowIn 500ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+
+    animation-delay: 5200ms;
+  }
+
+  .process-section.is-visible
+    .process-step:nth-child(5)
+    .process-arrow {
+    animation:
+      processArrowIn 500ms
+      cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+
+    animation-delay: 6300ms;
+  }
+
+  @keyframes processArrowIn {
+
+    from {
+      opacity: 0;
+
+      transform:
+        translate(-50%, -50%)
+        translateX(-10px)
+        scale(0.65);
+    }
+
+    70% {
+      opacity: 1;
+
+      transform:
+        translate(-50%, -50%)
+        translateX(2px)
+        scale(1.08);
+    }
+
+    to {
+      opacity: 1;
+
+      transform:
+        translate(-50%, -50%)
+        translateX(0)
+        scale(1);
+    }
+  }
+
+
+  /* =========================================================
+     MOBILE LINE
+     ========================================================= */
+
+  .mobile-process-line {
+    height: 0;
+  }
+
+  .process-section.is-visible .mobile-process-line {
+    animation:
+      mobileProcessLine 6.2s
+      cubic-bezier(0.65, 0, 0.35, 1)
+      forwards;
+  }
+
+  @keyframes mobileProcessLine {
+
+    0% {
+      height: 0%;
+    }
+
+    16% {
+      height: 20%;
+    }
+
+    20% {
+      height: 20%;
+    }
+
+    36% {
+      height: 40%;
+    }
+
+    40% {
+      height: 40%;
+    }
+
+    56% {
+      height: 60%;
+    }
+
+    60% {
+      height: 60%;
+    }
+
+    76% {
+      height: 80%;
+    }
+
+    80% {
+      height: 80%;
+    }
+
+    100% {
+      height: 100%;
+    }
+  }
+
+
+  /* =========================================================
+     MOBILE STEPS
+     ========================================================= */
+
+  .mobile-process-step {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(1) {
+    animation: mobileStepIn 700ms ease forwards;
+    animation-delay: 500ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(2) {
+    animation: mobileStepIn 700ms ease forwards;
+    animation-delay: 1900ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(3) {
+    animation: mobileStepIn 700ms ease forwards;
+    animation-delay: 3000ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(4) {
+    animation: mobileStepIn 700ms ease forwards;
+    animation-delay: 4100ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(5) {
+    animation: mobileStepIn 700ms ease forwards;
+    animation-delay: 5200ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(6) {
+    animation: mobileStepIn 700ms ease forwards;
+    animation-delay: 6300ms;
+  }
+
+  @keyframes mobileStepIn {
+
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+  /* =========================================================
+     MOBILE CIRCLES
+     ========================================================= */
+
+  .mobile-process-circle {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(1)
+    .mobile-process-circle {
+    animation: mobileCircleIn 650ms ease forwards;
+    animation-delay: 500ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(2)
+    .mobile-process-circle {
+    animation: mobileCircleIn 650ms ease forwards;
+    animation-delay: 1900ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(3)
+    .mobile-process-circle {
+    animation: mobileCircleIn 650ms ease forwards;
+    animation-delay: 3000ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(4)
+    .mobile-process-circle {
+    animation: mobileCircleIn 650ms ease forwards;
+    animation-delay: 4100ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(5)
+    .mobile-process-circle {
+    animation: mobileCircleIn 650ms ease forwards;
+    animation-delay: 5200ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(6)
+    .mobile-process-circle {
+    animation: mobileCircleIn 650ms ease forwards;
+    animation-delay: 6300ms;
+  }
+
+  @keyframes mobileCircleIn {
+
+    from {
+      opacity: 0;
+      transform: scale(0.75);
+    }
+
+    70% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+
+  /* =========================================================
+     MOBILE NUMBER
+     ========================================================= */
+
+  .mobile-process-number {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  .process-section.is-visible
+    .mobile-process-number {
+    animation:
+      mobileNumberIn 450ms ease forwards;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(1)
+    .mobile-process-number {
+    animation-delay: 900ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(2)
+    .mobile-process-number {
+    animation-delay: 2300ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(3)
+    .mobile-process-number {
+    animation-delay: 3400ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(4)
+    .mobile-process-number {
+    animation-delay: 4500ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(5)
+    .mobile-process-number {
+    animation-delay: 5600ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(6)
+    .mobile-process-number {
+    animation-delay: 6700ms;
+  }
+
+  @keyframes mobileNumberIn {
+
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+
+    70% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+
+  /* =========================================================
+     MOBILE TITLES
+     ========================================================= */
+
+  .mobile-process-title {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .process-section.is-visible
+    .mobile-process-title {
+    animation:
+      mobileTitleIn 550ms ease forwards;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(1)
+    .mobile-process-title {
+    animation-delay: 950ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(2)
+    .mobile-process-title {
+    animation-delay: 2350ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(3)
+    .mobile-process-title {
+    animation-delay: 3450ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(4)
+    .mobile-process-title {
+    animation-delay: 4550ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(5)
+    .mobile-process-title {
+    animation-delay: 5650ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(6)
+    .mobile-process-title {
+    animation-delay: 6750ms;
+  }
+
+  @keyframes mobileTitleIn {
+
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+  /* =========================================================
+     MOBILE ARROWS
+     ========================================================= */
+
+  .mobile-process-arrow {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  .process-section.is-visible
+    .mobile-process-arrow {
+    animation:
+      mobileArrowIn 500ms ease forwards;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(1)
+    .mobile-process-arrow {
+    animation-delay: 1750ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(2)
+    .mobile-process-arrow {
+    animation-delay: 2850ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(3)
+    .mobile-process-arrow {
+    animation-delay: 3950ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(4)
+    .mobile-process-arrow {
+    animation-delay: 5050ms;
+  }
+
+  .process-section.is-visible
+    .mobile-process-step:nth-child(5)
+    .mobile-process-arrow {
+    animation-delay: 6150ms;
+  }
+
+  @keyframes mobileArrowIn {
+
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+  /* =========================================================
+     REDUCED MOTION
+     ========================================================= */
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .process-heading,
+    .process-segment,
+    .process-step,
+    .process-circle,
+    .process-number,
+    .process-title,
+    .process-arrow,
+    .mobile-process-line,
+    .mobile-process-step,
+    .mobile-process-circle,
+    .mobile-process-number,
+    .mobile-process-title,
+    .mobile-process-arrow {
+      opacity: 1 !important;
+      animation: none !important;
+    }
+
+    .process-heading,
+    .process-step,
+    .process-circle,
+    .process-number,
+    .process-title,
+    .process-arrow,
+    .mobile-process-step,
+    .mobile-process-circle,
+    .mobile-process-number,
+    .mobile-process-title,
+    .mobile-process-arrow {
+      transform: none !important;
+    }
+
+    .process-segment {
+      transform: scaleX(1) !important;
+    }
+
+    .mobile-process-line {
+      height: 100% !important;
+    }
+  }
+</style>
+
+<script>
+  const processSection = document.querySelector('#our-process');
+
+  if (processSection) {
+    const processObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            processSection.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.25,
+        rootMargin: '0px 0px -80px 0px',
+      }
+    );
+
+    processObserver.observe(processSection);
+  }
+</script>

@@ -1,48 +1,85 @@
 ---
-// Sectors dropdown items matching reference image:
-// 3 columns:
-// Column 1: NHS & Healthcare, Defence & Aerospace, Manufacturing & Engineering
-// Column 2: Financial Services, Corporate & Legal, IT & Technology
-// Column 3: Central Government, Education & Universities
 const column1 = [
-  { title: 'NHS & Healthcare', slug: 'nhs', icon: '/icons/NHS%20&%20Healthcare.svg', active: true },
-  { title: 'Defence & Aerospace', slug: 'defence', icon: '/icons/Defence%20&%20Aerospace.svg' },
-  { title: 'Manufacturing & Engineering', slug: 'manufacturing-engineering', icon: '/icons/Manufacturing%20&%20Engineering.svg' },
+  {
+    title: 'NHS & Healthcare',
+    slug: 'nhs',
+    icon: '/icons/NHS%20&%20Healthcare.svg',
+    active: true,
+  },
+  {
+    title: 'Defence & Aerospace',
+    slug: 'defence',
+    icon: '/icons/Defence%20&%20Aerospace.svg',
+  },
+  {
+    title: 'Manufacturing & Engineering',
+    slug: 'manufacturing-engineering',
+    icon: '/icons/Manufacturing%20&%20Engineering.svg',
+  },
 ];
 
 const column2 = [
-  { title: 'Financial Services', slug: 'finance', icon: '/icons/Financial%20Services.svg' },
-  { title: 'Corporate & Legal', slug: 'legal-professional-services', icon: '/icons/Corporate%20&%20Legal.svg' },
-  { title: 'IT & Technology', slug: 'it-technology', icon: '/icons/IT%20&%20Technology.svg' },
+  {
+    title: 'Financial Services',
+    slug: 'finance',
+    icon: '/icons/Financial%20Services.svg',
+  },
+  {
+    title: 'Corporate & Legal',
+    slug: 'legal-professional-services',
+    icon: '/icons/Corporate%20&%20Legal.svg',
+  },
+  {
+    title: 'IT & Technology',
+    slug: 'it-technology',
+    icon: '/icons/IT%20&%20Technology.svg',
+  },
 ];
 
 const column3 = [
-  { title: 'Central Government', slug: 'central-government', icon: '/icons/Central%20Government.svg' },
-  { title: 'Education & Universities', slug: 'education-universities', icon: '/icons/Education%20&%20Universities.svg' },
+  {
+    title: 'Central Government',
+    slug: 'central-government',
+    icon: '/icons/Central%20Government.svg',
+  },
+  {
+    title: 'Education & Universities',
+    slug: 'education-universities',
+    icon: '/icons/Education%20&%20Universities.svg',
+  },
 ];
 ---
 
-<!-- Sectors Dropdown Panel -->
+<!-- =========================================================
+     SECTORS DROPDOWN PANEL
+     ========================================================= -->
 <div
   id="sectors-dropdown-panel"
   class="fixed top-[82px] inset-x-0 z-[998] hidden opacity-0 -translate-y-1 transition-[opacity,transform] duration-150 ease-out pointer-events-none before:absolute before:-top-10 before:inset-x-0 before:h-10 before:content-[''] before:pointer-events-auto"
   role="region"
   aria-label="Sectors Menu"
 >
-  <div id="sectors-dropdown-wrapper" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div
+    id="sectors-dropdown-wrapper"
+    class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+  >
     <div
       id="sectors-dropdown-card"
       class="sectors-dropdown-card bg-white rounded-[12px] border border-slate-200/80 shadow-[0_16px_48px_rgba(0,0,0,0.08)] pointer-events-auto p-4 sm:p-5 flex items-stretch w-full min-h-[322px] box-border"
     >
-      <!-- LEFT: Industries We Serve Section (3 Columns) -->
-      <div class="flex-1 flex flex-col pt-6 pb-5 pl-2 sm:pl-3 pr-4 sm:pr-8">
-        <!-- Section Heading -->
+      <!-- =====================================================
+           LEFT: INDUSTRIES WE SERVE
+           ===================================================== -->
+      <div
+        class="flex-1 flex flex-col pt-6 pb-5 pl-2 sm:pl-3 pr-4 sm:pr-8"
+      >
         <h3 class="sectors-heading text-[#5A6874] mb-6">
           Industries We Serve
         </h3>
 
-        <!-- 3-Column Grid matching reference image -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 xl:gap-x-12 gap-y-2.5">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-x-6 xl:gap-x-12 gap-y-2.5"
+        >
           <!-- Column 1 -->
           <div class="flex flex-col space-y-2.5">
             {column1.map((item) => (
@@ -54,7 +91,6 @@ const column3 = [
                     : 'text-[#1E293B] hover:bg-[#E0F2E7]'
                 }`}
               >
-                <!-- Icon -->
                 <span class="shrink-0 flex items-center justify-center w-5 h-5">
                   <img
                     src={item.icon}
@@ -64,7 +100,10 @@ const column3 = [
                     height="20"
                   />
                 </span>
-                <span class="sector-label leading-snug">{item.title}</span>
+
+                <span class="sector-label leading-snug">
+                  {item.title}
+                </span>
               </a>
             ))}
           </div>
@@ -76,7 +115,6 @@ const column3 = [
                 href={`/sectors/${item.slug}`}
                 class="sector-link group flex items-center gap-3.5 px-3.5 py-2.5 rounded-[8px] transition-all duration-150 cursor-pointer text-[#1E293B] hover:bg-[#E0F2E7]"
               >
-                <!-- Icon -->
                 <span class="shrink-0 flex items-center justify-center w-5 h-5">
                   <img
                     src={item.icon}
@@ -86,7 +124,10 @@ const column3 = [
                     height="20"
                   />
                 </span>
-                <span class="sector-label leading-snug">{item.title}</span>
+
+                <span class="sector-label leading-snug">
+                  {item.title}
+                </span>
               </a>
             ))}
           </div>
@@ -98,7 +139,6 @@ const column3 = [
                 href={`/sectors/${item.slug}`}
                 class="sector-link group flex items-center gap-3.5 px-3.5 py-2.5 rounded-[8px] transition-all duration-150 cursor-pointer text-[#1E293B] hover:bg-[#E0F2E7]"
               >
-                <!-- Icon -->
                 <span class="shrink-0 flex items-center justify-center w-5 h-5">
                   <img
                     src={item.icon}
@@ -108,17 +148,26 @@ const column3 = [
                     height="20"
                   />
                 </span>
-                <span class="sector-label leading-snug">{item.title}</span>
+
+                <span class="sector-label leading-snug">
+                  {item.title}
+                </span>
               </a>
             ))}
           </div>
         </div>
       </div>
 
-      <!-- RIGHT: Investors Section matching reference image -->
-      <div class="sectors-right-col w-[280px] shrink-0 pt-6 pb-[13px] pr-8 flex flex-col ml-8 xl:ml-12">
-        <h3 class="sectors-right-heading text-[#5A6874] mb-5">Investors</h3>
-        <!-- Image link -->
+      <!-- =====================================================
+           RIGHT: INVESTORS
+           ===================================================== -->
+      <div
+        class="sectors-right-col w-[280px] shrink-0 pt-6 pb-[13px] pr-8 flex flex-col ml-8 xl:ml-12"
+      >
+        <h3 class="sectors-right-heading text-[#5A6874] mb-5">
+          Investors
+        </h3>
+
         <a href="/investors" class="group block shrink-0">
           <div
             class="rounded-xl overflow-hidden shadow-xs border border-slate-200/60 bg-slate-100"
@@ -134,13 +183,17 @@ const column3 = [
             />
           </div>
         </a>
-        <!-- Visit ↗ link -->
+
         <a
           href="/investors"
           class="investors-link mt-[36px] inline-flex items-center gap-1.5 font-sans text-[16px] font-semibold text-[#171717] hover:text-[#07572F] transition-colors group"
         >
           <span>Visit</span>
-          <span class="font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+          <span
+            class="font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          >
+            ↗
+          </span>
         </a>
       </div>
     </div>
@@ -148,7 +201,10 @@ const column3 = [
 </div>
 
 <style>
-  /* Container Dimensions & Specifications matching reference */
+  /* =========================================================
+     CONTAINER
+     ========================================================= */
+
   #sectors-dropdown-panel .sectors-dropdown-card {
     width: 100%;
     height: 322px;
@@ -167,7 +223,10 @@ const column3 = [
     box-sizing: border-box;
   }
 
-  /* Headings typography */
+  /* =========================================================
+     TYPOGRAPHY
+     ========================================================= */
+
   #sectors-dropdown-panel .sectors-heading,
   #sectors-dropdown-panel .sectors-right-heading {
     font-family: var(--font-sans) !important;
@@ -177,7 +236,6 @@ const column3 = [
     line-height: 1.4;
   }
 
-  /* Sector items typography & layout */
   #sectors-dropdown-panel .sector-link {
     font-family: var(--font-sans) !important;
     font-size: 16px;
@@ -187,18 +245,24 @@ const column3 = [
     text-decoration: none;
   }
 
-  /* Hover & Active States */
+  /* =========================================================
+     ACTIVE / HOVER
+     ========================================================= */
+
   #sectors-dropdown-panel .sector-link.active-sector {
-    background-color: #BCE6CE;
-    color: #0F172A;
+    background-color: #bce6ce;
+    color: #0f172a;
   }
 
   #sectors-dropdown-panel .sector-link:not(.active-sector):hover {
-    background-color: #E0F2E7;
-    color: #0F172A;
+    background-color: #e0f2e7;
+    color: #0f172a;
   }
 
-  /* Visit link typography */
+  /* =========================================================
+     VISIT LINK
+     ========================================================= */
+
   #sectors-dropdown-panel .investors-link {
     font-family: var(--font-sans) !important;
     font-size: 16px;
@@ -207,7 +271,20 @@ const column3 = [
     line-height: 0.1 !important;
   }
 
+  /* =========================================================
+     SCROLL NAV GLASS FALLBACK
+     The actual state is controlled directly by JS.
+     ========================================================= */
 
+  #sectors-dropdown-panel .sectors-dropdown-card.scroll-glass-active {
+    background: rgba(255, 255, 255, 0.58) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(140%) !important;
+    backdrop-filter: blur(22px) saturate(140%) !important;
+    border-color: rgba(255, 255, 255, 0.65) !important;
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.12),
+      0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  }
 
   @media (max-width: 1024px) {
     #sectors-dropdown-panel .sectors-dropdown-card {
@@ -235,23 +312,73 @@ const column3 = [
     if (panel.dataset.navInitialized === 'true') return;
     panel.dataset.navInitialized = 'true';
 
-    const triggers = document.querySelectorAll<HTMLElement>('#sectors-menu-trigger, .sectors-dropdown-toggle');
+    const triggers = document.querySelectorAll<HTMLElement>(
+      '#sectors-menu-trigger, .sectors-dropdown-toggle'
+    );
+
     if (triggers.length === 0) return;
 
     let closeTimeout: any = null;
     let hideTimeout: any = null;
 
-    const sectorLinks = panel.querySelectorAll<HTMLElement>('.sector-link');
+    const sectorLinks =
+      panel.querySelectorAll<HTMLElement>('.sector-link');
 
-    // Hover effect dynamically switches the green active background
-    sectorLinks.forEach((link) => {
-      link.addEventListener('mouseenter', () => {
-        sectorLinks.forEach((l) => {
-          l.classList.remove('active-sector', 'bg-[#BCE6CE]');
-        });
-        link.classList.add('active-sector', 'bg-[#BCE6CE]');
-      });
-    });
+    /* =========================================================
+       GLASS STATE
+       ========================================================= */
+
+    const setScrollGlass = (active: boolean) => {
+      const card = document.getElementById('sectors-dropdown-card');
+
+      if (!card) return;
+
+      if (active) {
+        card.classList.add('scroll-glass-active');
+
+        card.style.setProperty(
+          'background',
+          'rgba(255, 255, 255, 0.58)',
+          'important'
+        );
+
+        card.style.setProperty(
+          '-webkit-backdrop-filter',
+          'blur(22px) saturate(140%)',
+          'important'
+        );
+
+        card.style.setProperty(
+          'backdrop-filter',
+          'blur(22px) saturate(140%)',
+          'important'
+        );
+
+        card.style.setProperty(
+          'border',
+          '1px solid rgba(255, 255, 255, 0.65)',
+          'important'
+        );
+
+        card.style.setProperty(
+          'box-shadow',
+          '0 24px 60px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.06)',
+          'important'
+        );
+      } else {
+        card.classList.remove('scroll-glass-active');
+
+        card.style.removeProperty('background');
+        card.style.removeProperty('-webkit-backdrop-filter');
+        card.style.removeProperty('backdrop-filter');
+        card.style.removeProperty('border');
+        card.style.removeProperty('box-shadow');
+      }
+    };
+
+    /* =========================================================
+       POSITION + NAV STATE
+       ========================================================= */
 
     const updatePosition = () => {
       const siteHeader = document.getElementById('site-header');
@@ -260,13 +387,23 @@ const column3 = [
       const wrapper = document.getElementById('sectors-dropdown-wrapper');
 
       const isScrollNavActive =
-        siteHeader &&
+        !!siteHeader &&
         !siteHeader.classList.contains('opacity-0') &&
         !siteHeader.classList.contains('-translate-y-full');
 
+      /* -----------------------------------------
+         SCROLLING NAVBAR
+         ----------------------------------------- */
+
       if (isScrollNavActive && siteHeader) {
-        const maxWrap = siteHeader.querySelector<HTMLElement>(':scope > div');
-        const floatingBar = maxWrap?.querySelector<HTMLElement>(':scope > div');
+        setScrollGlass(true);
+
+        const maxWrap =
+          siteHeader.querySelector<HTMLElement>(':scope > div');
+
+        const floatingBar =
+          maxWrap?.querySelector<HTMLElement>(':scope > div');
+
         const ref = floatingBar ?? siteHeader;
         const rect = ref.getBoundingClientRect();
 
@@ -283,7 +420,15 @@ const column3 = [
           card.style.width = `${Math.round(rect.width)}px`;
           card.style.maxWidth = `${Math.round(rect.width)}px`;
         }
-      } else if (heroHeader) {
+      }
+
+      /* -----------------------------------------
+         NORMAL / HERO NAVBAR
+         ----------------------------------------- */
+
+      else if (heroHeader) {
+        setScrollGlass(false);
+
         const rect = heroHeader.getBoundingClientRect();
 
         panel.style.top = `${Math.round(rect.bottom + 8)}px`;
@@ -302,12 +447,26 @@ const column3 = [
       }
     };
 
+    /* =========================================================
+       BACKDROP
+       ========================================================= */
+
     const updateBackdrop = () => {
       const backdrop = document.getElementById('dropdown-backdrop');
+
       if (!backdrop) return;
-      const servicesPanel = document.getElementById('services-megamenu-panel');
-      const isServicesOpen = servicesPanel && !servicesPanel.classList.contains('hidden') && !servicesPanel.classList.contains('opacity-0');
-      const isSectorsOpen = !panel.classList.contains('hidden') && !panel.classList.contains('opacity-0');
+
+      const servicesPanel =
+        document.getElementById('services-megamenu-panel');
+
+      const isServicesOpen =
+        servicesPanel &&
+        !servicesPanel.classList.contains('hidden') &&
+        !servicesPanel.classList.contains('opacity-0');
+
+      const isSectorsOpen =
+        !panel.classList.contains('hidden') &&
+        !panel.classList.contains('opacity-0');
 
       if (isServicesOpen || isSectorsOpen) {
         backdrop.classList.add('active');
@@ -316,66 +475,137 @@ const column3 = [
       }
     };
 
+    /* =========================================================
+       CANCEL CLOSE
+       ========================================================= */
+
     const cancelClose = () => {
       if (closeTimeout) {
         clearTimeout(closeTimeout);
         closeTimeout = null;
       }
+
       if (hideTimeout) {
         clearTimeout(hideTimeout);
         hideTimeout = null;
       }
     };
 
+    /* =========================================================
+       SECTOR HOVER
+       ========================================================= */
+
+    sectorLinks.forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        sectorLinks.forEach((l) => {
+          l.classList.remove(
+            'active-sector',
+            'bg-[#BCE6CE]'
+          );
+        });
+
+        link.classList.add(
+          'active-sector',
+          'bg-[#BCE6CE]'
+        );
+      });
+    });
+
+    /* =========================================================
+       OPEN
+       ========================================================= */
+
     const openMenu = () => {
       cancelClose();
 
-      // Close Services dropdown immediately with zero waiting
-      window.dispatchEvent(new CustomEvent('techsteps:close-services', { detail: { immediate: true } }));
+      window.dispatchEvent(
+        new CustomEvent('techsteps:close-services', {
+          detail: { immediate: true },
+        })
+      );
 
       updatePosition();
 
       panel.classList.remove('hidden');
-      // Synchronous reflow to commit display:block before adding opacity
+
       void panel.offsetHeight;
 
-      panel.classList.remove('opacity-0', '-translate-y-1', 'pointer-events-none');
-      panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      panel.classList.remove(
+        'opacity-0',
+        '-translate-y-1',
+        'pointer-events-none'
+      );
+
+      panel.classList.add(
+        'opacity-100',
+        'translate-y-0',
+        'pointer-events-auto'
+      );
 
       triggers.forEach((t) => {
         t.setAttribute('aria-expanded', 'true');
+
         const caret = t.querySelector('.caret-icon');
-        if (caret) caret.classList.add('rotate-180');
+
+        if (caret) {
+          caret.classList.add('rotate-180');
+        }
       });
 
       updateBackdrop();
     };
 
+    /* =========================================================
+       CLOSE
+       ========================================================= */
+
     const closeMenu = (immediate = false) => {
       const doClose = () => {
-        panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-        panel.classList.add('opacity-0', '-translate-y-1', 'pointer-events-none');
+        panel.classList.remove(
+          'opacity-100',
+          'translate-y-0',
+          'pointer-events-auto'
+        );
+
+        panel.classList.add(
+          'opacity-0',
+          '-translate-y-1',
+          'pointer-events-none'
+        );
 
         triggers.forEach((t) => {
           t.setAttribute('aria-expanded', 'false');
+
           const caret = t.querySelector('.caret-icon');
-          if (caret) caret.classList.remove('rotate-180');
+
+          if (caret) {
+            caret.classList.remove('rotate-180');
+          }
         });
 
         updateBackdrop();
 
-        if (hideTimeout) clearTimeout(hideTimeout);
+        if (hideTimeout) {
+          clearTimeout(hideTimeout);
+        }
+
         if (immediate) {
-          if (panel.classList.contains('opacity-0')) panel.classList.add('hidden');
+          if (panel.classList.contains('opacity-0')) {
+            panel.classList.add('hidden');
+          }
         } else {
           hideTimeout = setTimeout(() => {
-            if (panel.classList.contains('opacity-0')) panel.classList.add('hidden');
+            if (panel.classList.contains('opacity-0')) {
+              panel.classList.add('hidden');
+            }
+
             hideTimeout = null;
           }, 160);
         }
       };
 
       cancelClose();
+
       if (immediate) {
         doClose();
       } else {
@@ -383,57 +613,133 @@ const column3 = [
       }
     };
 
-    // Attach hover listeners to triggers and their immediate navigation wrappers
+    /* =========================================================
+       TRIGGERS
+       ========================================================= */
+
     triggers.forEach((t) => {
-      const parentWrap = t.closest('.nav-menu-trigger-wrap') as HTMLElement | null;
+      const parentWrap =
+        t.closest('.nav-menu-trigger-wrap') as HTMLElement | null;
+
       const hoverTarget = parentWrap || t;
 
       hoverTarget.addEventListener('mouseenter', openMenu);
-      hoverTarget.addEventListener('mouseleave', () => closeMenu(false));
+
+      hoverTarget.addEventListener('mouseleave', () =>
+        closeMenu(false)
+      );
 
       t.addEventListener('click', (e) => {
         e.stopPropagation();
         e.preventDefault();
-        const isExpanded = t.getAttribute('aria-expanded') === 'true';
-        if (isExpanded) closeMenu(true);
-        else openMenu();
+
+        const isExpanded =
+          t.getAttribute('aria-expanded') === 'true';
+
+        if (isExpanded) {
+          closeMenu(true);
+        } else {
+          openMenu();
+        }
       });
+
       t.addEventListener('focus', openMenu);
     });
 
-    panel.addEventListener('mouseenter', cancelClose);
-    panel.addEventListener('mouseleave', () => closeMenu(false));
+    /* =========================================================
+       PANEL HOVER
+       ========================================================= */
 
-    window.addEventListener('techsteps:close-sectors', (e: any) => {
-      closeMenu(e.detail?.immediate ?? true);
-    });
+    panel.addEventListener('mouseenter', cancelClose);
+
+    panel.addEventListener('mouseleave', () =>
+      closeMenu(false)
+    );
+
+    /* =========================================================
+       CROSS MENU CLOSE
+       ========================================================= */
+
+    window.addEventListener(
+      'techsteps:close-sectors',
+      (e: any) => {
+        closeMenu(e.detail?.immediate ?? true);
+      }
+    );
+
+    /* =========================================================
+       ESCAPE
+       ========================================================= */
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeMenu(true);
+      if (e.key === 'Escape') {
+        closeMenu(true);
+      }
     });
+
+    /* =========================================================
+       OUTSIDE CLICK
+       ========================================================= */
 
     document.addEventListener('click', (e) => {
       let inside = false;
+
       triggers.forEach((t) => {
-        if (t.contains(e.target as Node)) inside = true;
+        if (t.contains(e.target as Node)) {
+          inside = true;
+        }
       });
-      if (!panel.contains(e.target as Node) && !inside) closeMenu(true);
+
+      if (!panel.contains(e.target as Node) && !inside) {
+        closeMenu(true);
+      }
     });
 
-    const backdrop = document.getElementById('dropdown-backdrop');
-    backdrop?.addEventListener('click', () => closeMenu(true));
+    /* =========================================================
+       BACKDROP CLICK
+       ========================================================= */
+
+    const backdrop =
+      document.getElementById('dropdown-backdrop');
+
+    backdrop?.addEventListener('click', () =>
+      closeMenu(true)
+    );
+
+    /* =========================================================
+       LINK CLICK
+       ========================================================= */
 
     panel.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => closeMenu(true));
+      link.addEventListener('click', () =>
+        closeMenu(true)
+      );
     });
 
-    window.addEventListener('resize', updatePosition, { passive: true });
-    window.addEventListener('scroll', updatePosition, { passive: true });
+    /* =========================================================
+       RESIZE / SCROLL
+       ========================================================= */
+
+    window.addEventListener(
+      'resize',
+      updatePosition,
+      { passive: true }
+    );
+
+    window.addEventListener(
+      'scroll',
+      updatePosition,
+      { passive: true }
+    );
   }
 
   setupSectorsMegaMenu();
+
   document.addEventListener('astro:page-load', () => {
-    document.getElementById('dropdown-backdrop')?.classList.remove('active');
+    document
+      .getElementById('dropdown-backdrop')
+      ?.classList.remove('active');
+
     setupSectorsMegaMenu();
   });
 </script>

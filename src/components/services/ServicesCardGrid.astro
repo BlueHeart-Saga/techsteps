@@ -30,7 +30,7 @@ const {
   services: propServices,
   eyebrow = homePage?.services?.eyebrow || 'OUR SERVICES',
   heading = homePage?.services?.heading || 'Services For The Complete Business Lifecycle',
-  viewAllText = homePage?.services?.viewAllText || 'Explore →',
+  viewAllText = 'Explore Our Services→',
   viewAllLink = homePage?.services?.viewAllLink || '/services',
 } = Astro.props;
 
@@ -65,22 +65,31 @@ const defaultServiceCards = (homePage?.services?.cards || []).map((card, idx) =>
 
 const services = (propServices && propServices.length > 0) ? propServices : defaultServiceCards;
 
-const items = services.map((item, idx) => {
-  let imgUrl =
-    (typeof item.image === 'string' && item.image.length > 0)
-      ? item.image
-      : (item.image?.asset?.url || item.imageUrl || fallbackImages[idx % fallbackImages.length]);
+const items = services
+  .map((item, idx) => {
+    let imgUrl =
+      (typeof item.image === 'string' && item.image.length > 0)
+        ? item.image
+        : (item.image?.asset?.url || item.imageUrl || fallbackImages[idx % fallbackImages.length]);
 
-  return {
-    id: item.id ?? idx,
-    title: item.title,
-    description: item.description,
-    image: imgUrl,
-    imageAlt: item.imageAlt || `${item.title} - TechSteps Service`,
-    buttonText: item.buttonText || 'View Service',
-    link: item.link || '#',
-  };
-});
+    return {
+      id: item.id ?? idx,
+      title: item.title,
+      description: item.description,
+      image: imgUrl,
+      imageAlt: item.imageAlt || `${item.title} - TechSteps Service`,
+      buttonText: item.buttonText || 'View Service',
+      link: item.link || '#',
+    };
+  })
+  .sort((a, b) => {
+    const aIsLifecycle = a.title.toLowerCase().includes('it lifecycle');
+    const bIsLifecycle = b.title.toLowerCase().includes('it lifecycle');
+
+    if (aIsLifecycle) return -1;
+    if (bIsLifecycle) return 1;
+    return 0;
+  });
 ---
 
 <!-- ========================================================= -->
@@ -125,12 +134,12 @@ const items = services.map((item, idx) => {
     <!-- ===================================================== -->
     <header class="text-center w-full max-w-3xl mx-auto space-y-3 mb-6 sm:mb-8 select-none">
       <!-- Eyebrow: Centered with green dot -->
-      <div class="inline-flex items-center justify-center gap-2.5">
+      {/*<div class="inline-flex items-center justify-center gap-2.5">
         <span class="w-2 h-2 rounded-full bg-[#3FB33D]" aria-hidden="true"></span>
         <span class="text-xs sm:text-sm font-mono font-bold tracking-[0.25em] text-[#0F623A] uppercase">
           {eyebrow}
         </span>
-      </div>
+      </div>*/}
 
       <!-- Main Heading: Centered -->
       <h2
@@ -157,44 +166,84 @@ const items = services.map((item, idx) => {
           role="region"
         >
           <!-- ─── UPPER PORTION: Asymmetric Organic Image-Frame Treatment ─── -->
-          <div class="service-image-area relative w-full h-[340px] overflow-hidden rounded-t-[20px] shrink-0 bg-slate-100">
-            
+<div class="service-image-area relative w-full h-[340px] overflow-hidden rounded-t-[20px] shrink-0 bg-[#45C800]">            
             <!-- TechSteps Brand-Colored Shape Behind Image (Stays Stable on Hover) -->
-            <div
-              class={`service-frame-bg service-frame-bg--${idx} absolute inset-0 pointer-events-none select-none`}
-              aria-hidden="true"
-            >
-              {idx === 0 && (
-                <div class="w-full h-full bg-[#0F623A] relative">
-                  <div class="absolute top-0 right-0 w-28 h-20 bg-[#127244]/40 rounded-bl-3xl"></div>
-                  <div class="absolute bottom-0 right-0 w-32 h-16 bg-[#0c4e2e]/50"></div>
-                </div>
-              )}
+<!-- TechSteps Logo-Colored Shape Behind Image -->
+<div
+  class={`service-frame-bg service-frame-bg--${idx} absolute inset-0 pointer-events-none select-none`}
+  aria-hidden="true"
+>
+  {idx === 0 && (
+    <div class="w-full h-full bg-[#45C800] relative">
+      <!-- Top-right lime shape -->
+      <div
+        class="absolute top-0 right-0 w-28 h-20 bg-[#79D900] rounded-bl-3xl"
+      ></div>
 
-              {idx === 1 && (
-                <div class="w-full h-full bg-[#0F623A] relative overflow-hidden">
-                  <div class="absolute -bottom-4 -left-4 w-32 h-28 rounded-full bg-[#3FB33D]/90"></div>
-                  <div class="absolute top-0 right-0 w-24 h-16 bg-[#3FB33D]/30 rounded-bl-2xl"></div>
-                  <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-[#0F623A]/40 to-transparent"></div>
-                </div>
-              )}
+      <!-- Bottom-right bright/lime shape -->
+      <div
+        class="absolute bottom-0 right-0 w-32 h-16 bg-[#79D900]"
+      ></div>
+    </div>
+  )}
 
-              {idx === 2 && (
-                <div class="w-full h-full bg-[#0F623A] relative overflow-hidden">
-                  <div class="absolute inset-0 bg-gradient-to-br from-[#0F623A] via-[#0e5c36] to-[#0A4327]"></div>
-                  <div class="absolute top-2 right-2 w-16 h-8 border-t border-r border-[#3FB33D]/40 pointer-events-none"></div>
-                  <div class="absolute bottom-1 left-2 w-20 h-6 border-b border-l border-[#3FB33D]/30 pointer-events-none"></div>
-                </div>
-              )}
+  {idx === 1 && (
+    <div class="w-full h-full bg-[#45C800] relative overflow-hidden">
+      <!-- Bottom-left lime organic shape -->
+      <div
+        class="absolute -bottom-4 -left-4 w-32 h-28 rounded-full bg-[#79D900]"
+      ></div>
 
-              {idx === 3 && (
-                <div class="w-full h-full bg-[#0F623A] relative overflow-hidden">
-                  <div class="absolute inset-0 bg-gradient-to-tl from-[#0A4327] to-[#0F623A]"></div>
-                  <div class="absolute -top-3 -left-3 w-28 h-24 bg-[#3FB33D]/35 rounded-br-3xl"></div>
-                  <div class="absolute -bottom-4 -left-4 w-28 h-20 bg-[#127244]/60 rounded-tr-3xl"></div>
-                </div>
-              )}
-            </div>
+      <!-- Top-right lime shape -->
+      <div
+        class="absolute top-0 right-0 w-24 h-16 bg-[#79D900] rounded-bl-2xl"
+      ></div>
+
+      <!-- Very subtle logo-green depth -->
+      <div
+        class="absolute inset-0 bg-gradient-to-tr from-transparent via-[#79D900]/10 to-transparent"
+      ></div>
+    </div>
+  )}
+
+  {idx === 2 && (
+    <div class="w-full h-full bg-[#45C800] relative overflow-hidden">
+      <!-- Soft two-tone green background -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-[#45C800] via-[#45C800] to-[#79D900]"
+      ></div>
+
+      <!-- Top-right decorative line -->
+      <div
+        class="absolute top-2 right-2 w-16 h-8 border-t border-r border-[#79D900]/70 pointer-events-none"
+      ></div>
+
+      <!-- Bottom-left decorative line -->
+      <div
+        class="absolute bottom-1 left-2 w-20 h-6 border-b border-l border-[#79D900]/70 pointer-events-none"
+      ></div>
+    </div>
+  )}
+
+  {idx === 3 && (
+    <div class="w-full h-full bg-[#45C800] relative overflow-hidden">
+      <!-- Lime-to-bright green background -->
+      <div
+        class="absolute inset-0 bg-gradient-to-tl from-[#45C800] to-[#79D900]"
+      ></div>
+
+      <!-- Top-left lime shape -->
+      <div
+        class="absolute -top-3 -left-3 w-28 h-24 bg-[#45C800] rounded-br-3xl"
+      ></div>
+
+      <!-- Bottom-left bright green shape -->
+      <div
+        class="absolute -bottom-4 -left-4 w-28 h-20 bg-[#79D900] rounded-tr-3xl"
+      ></div>
+    </div>
+  )}
+</div>
 
             <!-- Asymmetrically Clipped Foreground Image Area -->
             <div
@@ -218,10 +267,9 @@ const items = services.map((item, idx) => {
 
           <!-- ─── LOWER PORTION: Anchored Content Panel with Expandable Details on Hover ─── -->
           <!-- Default: Shows accent bar & title. Hover: Expands upward to reveal description & CTA -->
-          <div class="service-content-panel absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-md p-5 sm:p-6 rounded-b-[20px] border-t border-slate-100 flex flex-col justify-end transition-all duration-500 ease-out">
-            
+<div class="service-content-panel absolute bottom-0 inset-x-0 bg-white p-5 sm:p-6 rounded-b-[20px] border-t border-slate-100 flex flex-col justify-start transition-all duration-500 ease-out">            
             <!-- Default Visible State: Green Accent Line & Service Title -->
-            <div class="service-default-header space-y-2">
+            <div class="service-default-header min-h-[78px] flex flex-col justify-start space-y-2">
               <!-- Subtle Green Accent Line (animates width on hover) -->
               <span
                 class="service-accent-bar inline-block h-[2.5px] w-7 rounded-full bg-[#3FB33D] transition-all duration-400 ease-out group-hover:w-12 group-hover:bg-[#0F623A]"
@@ -229,10 +277,10 @@ const items = services.map((item, idx) => {
               ></span>
 
               <!-- Strong Service Title -->
-              <h3
-                id={`service-title-${idx}`}
-                class="service-title text-xl lg:text-[21px] font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-300 leading-snug tracking-tight"
-              >
+<h3
+  id={`service-title-${idx}`}
+  class="service-title text-xl lg:text-[21px] font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-300 leading-snug tracking-tight"
+>
                 <a
                   href={item.link}
                   class="service-title-link focus:outline-none focus:underline"
@@ -245,7 +293,7 @@ const items = services.map((item, idx) => {
 
             <!-- Collapsible Details: Shown ONLY on Hover/Focus/Tap, otherwise hidden -->
             <div class="service-collapsible-wrapper">
-              <div class="service-collapsible-content pt-3 space-y-3.5">
+              <div class="service-collapsible-content pt-1 space-y-3.5">
                 
                 <!-- Existing Sanity Service Description -->
                 <p class="service-desc text-sm sm:text-[15px] text-black leading-relaxed font-normal line-clamp-3">
@@ -293,7 +341,7 @@ const items = services.map((item, idx) => {
           href={viewAllLink}
           class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#3FB33D]"
         >
-          <span>{viewAllText}</span>
+          <span>Explore Our Services →</span>
         </a>
       </div>
     )}
@@ -503,6 +551,12 @@ const items = services.map((item, idx) => {
       transform: none !important;
     }
   }
+  /* Information Management - single-line title */
+.service-card[data-service-index="1"] .service-title {
+  white-space: nowrap;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
 </style>
 
 <script is:inline>

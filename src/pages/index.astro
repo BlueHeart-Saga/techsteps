@@ -322,7 +322,6 @@ const divisionMetadata: Record<
   <!-- Section 4 — Our Services: Interactive Card Grid -->
   <ServicesCardGrid
     services={allServiceCards}
-    eyebrow={homePage?.services?.eyebrow}
     heading={homePage?.services?.heading}
     viewAllText={homePage?.services?.viewAllText}
     viewAllLink={homePage?.services?.viewAllLink}
@@ -342,13 +341,6 @@ const divisionMetadata: Record<
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center">
         <!-- LEFT COLUMN: Eyebrow, Heading, Short Intro, and 4 Stacked Feature Items -->
         <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center">
-          
-          <!-- Eyebrow Badge -->
-          <div class="why-choose-reveal mb-3 sm:mb-4">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-[13px] font-sans font-bold uppercase tracking-[0.2em]">
-              WHY CHOOSE
-            </span>
-          </div>
 
           <!-- Main Dominant Headline -->
           <h2
@@ -492,13 +484,8 @@ const divisionMetadata: Record<
   <!-- Section 7 — Sectors We Serve -->
   <Section theme="slate" id="sectors" padding="py-8 sm:py-10 lg:py-12" className="relative overflow-hidden bg-white border-t border-slate-200/80">
 
-
     <div class="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto space-y-3.5 mb-6 sm:mb-8">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#3FB33D] animate-pulse"></span>
-          SECTORS WE SERVE
-        </span>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display text-slate-900 tracking-tight leading-[1.18]">
           Supporting Businesses Across Every Sector
         </h2>
@@ -517,7 +504,6 @@ const divisionMetadata: Record<
 
   <!-- Section 15 — Homepage Final CTA -->
   <CTA
-    eyebrow={homePage?.cta?.eyebrow}
     title={homePage?.cta?.heading}
     description={homePage?.cta?.description}
     primaryText={homePage?.cta?.primaryButtonText}

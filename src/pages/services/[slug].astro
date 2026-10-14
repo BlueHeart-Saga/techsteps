@@ -191,13 +191,13 @@ const isProjectManagement = cleanSlug === 'project-management' || service.slug?.
 const isLightHero = true; // Uniform premium light hero matching Home & Contact standards
 
 const heroBgImage = isDigitalMailroom
-  ? '/images/hero/digital mail room services.webp'
+  ? '/images/hero/digital mail room.jpg'
   : isDocumentScanning
-  ? '/images/hero/document scaning services.webp'
+  ? '/images/hero/document scaning services (1).webp'
   : isDocumentManagement
   ? '/images/hero/document management.webp'
   : isDocumentStorage
-  ? '/images/hero/secure document storage.webp'
+  ? '/images/hero/document storage.webp'
   : isTapeStorage
   ? '/images/hero/Tape and Media Storage.webp'
   : isHeritageStorage
@@ -534,9 +534,9 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
 
         <!-- Right Side: Editorial Content with 3 Key Benefits -->
         <div class="lg:col-span-7 space-y-6">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
+          {/*<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
             SERVICE OVERVIEW
-          </div>
+          </div>*/}
 
           <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.14]">
             {detail.aboutTitle}
@@ -572,9 +572,9 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
   <section class="py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
     <Container>
       <div class="max-w-3xl mb-10 sm:mb-12">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+        {/*<span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
           KEY ADVANTAGES
-        </span>
+        </span>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
           What the Service Delivers for Your Business
         </h2>
@@ -627,9 +627,9 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
   <section class="py-16 lg:py-20 bg-white border-b border-slate-200/80">
     <Container>
       <div class="max-w-3xl mb-10 sm:mb-12">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+        {/*<span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
           HOW IT WORKS
-        </span>
+        </span>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
           {processTitle}
         </h2>
@@ -680,9 +680,9 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
   <section class="py-16 lg:py-20 bg-[#0A331E] relative overflow-hidden border-b border-emerald-950 text-white">
     <Container>
       <div class="max-w-3xl mb-10 sm:mb-12">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-3">
+        {/*<span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-3">
           SECURITY & TRUST
-        </span>
+        </span>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
           Enterprise Security Built into Every Step
         </h2>
@@ -864,9 +864,9 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
       {displayedFaqs.length > 0 && (
         <div class="max-w-4xl mx-auto">
           <div class="mb-10 text-center">
-            <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+            {/*<span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
               COMMON QUESTIONS
-            </span>
+            </span>*/}
             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
               {detail.faqTitle || "Frequently Asked Questions"}
             </h2>
@@ -935,7 +935,6 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
   <!-- 8. FINAL CTA: Preserved Completely Unchanged           -->
   <!-- ===================================================== -->
   <CTA
-    eyebrow="READY TO TAKE THE NEXT STEP?"
     title={`Need ${service.title} for Your Organisation?`}
     description={`Speak with our specialist team to arrange a secure collection, request an on-site audit, or receive a formal proposal for ${service.title.toLowerCase()}.`}
     primaryText="Request a Collection"

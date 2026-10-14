@@ -1077,6 +1077,15 @@ export async function getRequestCollectionPage(): Promise<RequestCollectionPageD
   return defaultRequestCollectionPage;
 }
 
+const DEFAULT_TESTIMONIAL_AVATARS: Record<string, string> = {
+  'David Miller': '/images/testimonials/avatar-1.jpg',
+  'Sarah Jenkins': '/images/testimonials/avatar-2.jpg',
+  'James Roberts': '/images/testimonials/avatar-3.jpg',
+  'Eleanor Vance': '/images/testimonials/avatar-4.jpg',
+  'Prof. Marcus Thorne': '/images/testimonials/avatar-5.jpg',
+  'Rachel Adams': '/images/testimonials/avatar-6.jpg',
+};
+
 export async function getTestimonials(): Promise<TestimonialItem[]> {
   if (sanityClient) {
     try {
@@ -1089,12 +1098,25 @@ export async function getTestimonials(): Promise<TestimonialItem[]> {
           company,
           industry,
           rating,
-          "avatar": coalesce(avatar.asset->url, avatar, "/images/testimonials/avatar-1.jpg"),
+          "avatar": coalesce(avatar.asset->url, avatar),
           order
         }
       `);
       if (data && data.length > 0) {
-        return data;
+        const seenAvatars = new Set<string>();
+        return data.map((item: any, index: number) => {
+          const fallback = DEFAULT_TESTIMONIAL_AVATARS[item.author] || `/images/testimonials/avatar-${(index % 6) + 1}.jpg`;
+          let avatar = item.avatar || fallback;
+          // Guard against duplicated avatar values so all 6 testimonials have distinct images
+          if (seenAvatars.has(avatar)) {
+            avatar = fallback;
+          }
+          seenAvatars.add(avatar);
+          return {
+            ...item,
+            avatar,
+          };
+        });
       }
     } catch (err) {
       console.error('Failed to fetch Testimonials from Sanity:', err);

@@ -28,7 +28,8 @@ const fallbackDefaultSteps: Step[] = [
     title: 'COLLECT',
     headline: 'GPS-Tracked Transit',
     shortDesc: 'GPS-Tracked Transit',
-    description: 'We collect your IT equipment securely and transport it through a fully tracked process, ensuring complete visibility from pickup to arrival.',
+    description:
+      'We collect your IT equipment securely and transport it through a fully tracked process, ensuring complete visibility from pickup to arrival.',
     badge: 'PHASE 01 // AUDIT & TRANSIT',
     image: '/images/process/01. COLLECT.webp',
     iconImage: '/images/process/01. COLLECT-1.webp',
@@ -40,11 +41,13 @@ const fallbackDefaultSteps: Step[] = [
     title: 'SECURE',
     headline: 'Chain of Custody',
     shortDesc: 'Chain of Custody',
-    description: 'Ingestion into biometric-monitored facilities with tamper-evident serialized containment and audited chain of custody.',
+    description:
+      'Ingestion into biometric-monitored facilities with tamper-evident serialized containment and audited chain of custody.',
     badge: 'PHASE 02 // CUSTODY & CONTAINMENT',
     image: '/images/process/02. SECURE.webp',
     iconImage: '/images/process/02. SECURE-1.webp',
-    imageAlt: 'Techsteps tamper-evident flight case tracking and digital custody verification',
+    imageAlt:
+      'Techsteps tamper-evident flight case tracking and digital custody verification',
   },
   {
     stepNumber: '03',
@@ -52,11 +55,13 @@ const fallbackDefaultSteps: Step[] = [
     title: 'PROCESS',
     headline: 'Data Sanitisation',
     shortDesc: 'Data Sanitisation',
-    description: 'Certified sanitisation to NIST 800-88 standards or on-site mobile DIN 66399 mechanical granulation.',
+    description:
+      'Certified sanitisation to NIST 800-88 standards or on-site mobile DIN 66399 mechanical granulation.',
     badge: 'PHASE 03 // DATA SANITISATION',
     image: '/images/process/03. PROCESS.webp',
     iconImage: '/images/process/03. PROCESS-1.webp',
-    imageAlt: 'NIST 800-88 certified hardware data sanitisation and live progress verification',
+    imageAlt:
+      'NIST 800-88 certified hardware data sanitisation and live progress verification',
   },
   {
     stepNumber: '04',
@@ -64,11 +69,13 @@ const fallbackDefaultSteps: Step[] = [
     title: 'RECOVER',
     headline: 'Value Recovery',
     shortDesc: 'Value Recovery',
-    description: 'Refurbishment, grading, and component testing to extract maximum economic residual value for your enterprise budget.',
+    description:
+      'Refurbishment, grading, and component testing to extract maximum economic residual value for your enterprise budget.',
     badge: 'PHASE 04 // VALUE RECOVERY',
     image: '/images/process/04. RECOVER.webp',
     iconImage: '/images/process/04. RECOVER-1.webp',
-    imageAlt: 'Enterprise laptop and hard drive component testing and value recovery',
+    imageAlt:
+      'Enterprise laptop and hard drive component testing and value recovery',
   },
   {
     stepNumber: '05',
@@ -76,92 +83,180 @@ const fallbackDefaultSteps: Step[] = [
     title: 'RECYCLE',
     headline: 'Zero Landfill',
     shortDesc: 'Zero Landfill',
-    description: 'Ethical B2B remarketing or domestic closed-loop raw material separation, guaranteeing 100% landfill diversion.',
+    description:
+      'Ethical B2B remarketing or domestic closed-loop raw material separation, guaranteeing 100% landfill diversion.',
     badge: 'PHASE 05 // ZERO LANDFILL RECYCLING',
     image: '/images/process/RECYCLE.webp',
     iconImage: '/images/process/RECYCLE-1.webp',
-    imageAlt: 'Zero-landfill closed-loop sorting and responsible component recycling',
+    imageAlt:
+      'Zero-landfill closed-loop sorting and responsible component recycling',
   },
 ];
 
-const { lifecycle, steps: customSteps, title: customTitle, subtitle: customSubtitle } = Astro.props;
+const {
+  lifecycle,
+  steps: customSteps,
+  title: customTitle,
+  subtitle: customSubtitle,
+} = Astro.props;
 
-const sectionTitle = customTitle || lifecycle?.heading || 'Our Certified Lifecycle Process';
-const sectionSubtitle = customSubtitle || lifecycle?.description || 'A Secure, Auditable, And Environmentally Responsible End-To-End Chain Of Custody.';
+const sectionTitle =
+  customTitle ||
+  lifecycle?.heading ||
+  'Our Certified Lifecycle Process';
 
-const rawSteps = (customSteps && customSteps.length > 0)
-  ? customSteps
-  : (lifecycle?.steps && lifecycle.steps.length > 0)
-    ? lifecycle.steps
-    : fallbackDefaultSteps;
+const sectionSubtitle =
+  customSubtitle ||
+  lifecycle?.description ||
+  'A Secure, Auditable, And Environmentally Responsible End-To-End Chain Of Custody.';
+
+const rawSteps =
+  customSteps && customSteps.length > 0
+    ? customSteps
+    : lifecycle?.steps && lifecycle.steps.length > 0
+      ? lifecycle.steps
+      : fallbackDefaultSteps;
 
 const fallbackImages = [
-  { main: '/images/process/01. COLLECT.webp', icon: '/images/process/01. COLLECT-1.webp', badge: 'PHASE 01 // AUDIT & TRANSIT' },
-  { main: '/images/process/02. SECURE.webp', icon: '/images/process/02. SECURE-1.webp', badge: 'PHASE 02 // CUSTODY & CONTAINMENT' },
-  { main: '/images/process/03. PROCESS.webp', icon: '/images/process/03. PROCESS-1.webp', badge: 'PHASE 03 // DATA SANITISATION' },
-  { main: '/images/process/04. RECOVER.webp', icon: '/images/process/04. RECOVER-1.webp', badge: 'PHASE 04 // VALUE RECOVERY' },
-  { main: '/images/process/RECYCLE.webp', icon: '/images/process/RECYCLE-1.webp', badge: 'PHASE 05 // ZERO LANDFILL RECYCLING' },
+  {
+    main: '/images/process/01. COLLECT.webp',
+    icon: '/images/process/01. COLLECT-1.webp',
+    badge: 'PHASE 01 // AUDIT & TRANSIT',
+  },
+  {
+    main: '/images/process/02. SECURE.webp',
+    icon: '/images/process/02. SECURE-1.webp',
+    badge: 'PHASE 02 // CUSTODY & CONTAINMENT',
+  },
+  {
+    main: '/images/process/03. PROCESS.webp',
+    icon: '/images/process/03. PROCESS-1.webp',
+    badge: 'PHASE 03 // DATA SANITISATION',
+  },
+  {
+    main: '/images/process/04. RECOVER.webp',
+    icon: '/images/process/04. RECOVER-1.webp',
+    badge: 'PHASE 04 // VALUE RECOVERY',
+  },
+  {
+    main: '/images/process/RECYCLE.webp',
+    icon: '/images/process/RECYCLE-1.webp',
+    badge: 'PHASE 05 // ZERO LANDFILL RECYCLING',
+  },
 ];
 
-const normalizedSteps: Step[] = rawSteps.map((step: any, idx: number) => {
-  const defaultPair = fallbackImages[idx % fallbackImages.length];
-  const stepNum = step.stepNumber || step.number || String(idx + 1).padStart(2, '0');
-  const formattedNum = String(stepNum).replace(/[^0-9]/g, '').padStart(2, '0') || String(idx + 1).padStart(2, '0');
+const normalizedSteps: Step[] = rawSteps.map(
+  (step: any, idx: number) => {
+    const defaultPair =
+      fallbackImages[idx % fallbackImages.length];
 
-  let mainImg = defaultPair.main;
-  if (typeof step.image === 'string' && step.image) {
-    mainImg = step.image;
-  } else if (step.imageUrl) {
-    mainImg = step.imageUrl;
-  } else if (step.image?.asset?.url) {
-    mainImg = step.image.asset.url;
+    const stepNum =
+      step.stepNumber ||
+      step.number ||
+      String(idx + 1).padStart(2, '0');
+
+    const formattedNum =
+      String(stepNum)
+        .replace(/[^0-9]/g, '')
+        .padStart(2, '0') ||
+      String(idx + 1).padStart(2, '0');
+
+    let mainImg = defaultPair.main;
+
+    if (typeof step.image === 'string' && step.image) {
+      mainImg = step.image;
+    } else if (step.imageUrl) {
+      mainImg = step.imageUrl;
+    } else if (step.image?.asset?.url) {
+      mainImg = step.image.asset.url;
+    }
+
+    let iconImg = defaultPair.icon;
+
+    if (typeof step.iconImage === 'string' && step.iconImage) {
+      iconImg = step.iconImage;
+    } else if (step.iconImageUrl) {
+      iconImg = step.iconImageUrl;
+    } else if (step.iconImage?.asset?.url) {
+      iconImg = step.iconImage.asset.url;
+    }
+
+    return {
+      stepNumber: formattedNum,
+      number: step.number || idx + 1,
+      title: (
+        step.title ||
+        `STEP ${formattedNum}`
+      ).toUpperCase(),
+      headline:
+        step.headline ||
+        step.shortDesc ||
+        step.title ||
+        `Phase ${formattedNum}`,
+      shortDesc:
+        step.shortDesc ||
+        step.headline ||
+        '',
+      description:
+        step.description ||
+        step.lead ||
+        '',
+      badge:
+        step.badge ||
+        defaultPair.badge,
+      image: mainImg,
+      iconImage: iconImg,
+      imageAlt:
+        step.imageAlt ||
+        `${step.title || 'Process Step'} - Techsteps Certified Lifecycle`,
+    };
   }
+);
 
-  let iconImg = defaultPair.icon;
-  if (typeof step.iconImage === 'string' && step.iconImage) {
-    iconImg = step.iconImage;
-  } else if (step.iconImageUrl) {
-    iconImg = step.iconImageUrl;
-  } else if (step.iconImage?.asset?.url) {
-    iconImg = step.iconImage.asset.url;
-  }
-
-  return {
-    stepNumber: formattedNum,
-    number: step.number || idx + 1,
-    title: (step.title || `STEP ${formattedNum}`).toUpperCase(),
-    headline: step.headline || step.shortDesc || step.title || `Phase ${formattedNum}`,
-    shortDesc: step.shortDesc || step.headline || '',
-    description: step.description || step.lead || '',
-    badge: step.badge || defaultPair.badge,
-    image: mainImg,
-    iconImage: iconImg,
-    imageAlt: step.imageAlt || `${step.title || 'Process Step'} - Techsteps Certified Lifecycle`,
-  };
-});
-
-const initialStep = normalizedSteps[0] || fallbackDefaultSteps[0];
+const initialStep =
+  normalizedSteps[0] ||
+  fallbackDefaultSteps[0];
 ---
 
-<section class="w-full select-none font-sans" id="hero-section-41-lifecycle">
-  <!-- Section Header (Centered) -->
-  <div class="text-center w-full max-w-[1240px] mx-auto space-y-2.5">
-    <h2 class="text-3xl font-extrabold font-display text-brand-navy tracking-tight sm:text-4xl lg:text-5xl">
+<section
+  class="w-full select-none font-sans"
+  id="hero-section-41-lifecycle"
+>
+  <!-- =====================================================
+       SECTION HEADER
+       ===================================================== -->
+  <div
+    class="text-center w-full max-w-[1240px] mx-auto space-y-2.5"
+  >
+    <h2
+      class="text-3xl font-extrabold font-display text-brand-navy tracking-tight sm:text-4xl lg:text-5xl"
+    >
       {sectionTitle}
     </h2>
-    <p class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl mx-auto font-medium">
+
+    <p
+      class="text-base sm:text-lg text-slate-700 leading-relaxed max-w-xl mx-auto font-medium"
+    >
       {sectionSubtitle}
     </p>
   </div>
 
-  <!-- Single grid: Left = text + thumbnails | Right = image only -->
+  <!-- =====================================================
+       MAIN GRID
+       LEFT = TEXT + SCROLLING STEPS
+       RIGHT = LARGE IMAGE
+       ===================================================== -->
   <div class="mx-auto w-full max-w-7xl">
-    <div class="grid grid-cols-1 lg:grid-cols-12 items-center gap-4 lg:gap-6">
+    <div
+      class="grid grid-cols-1 lg:grid-cols-12 items-center gap-4 lg:gap-6"
+    >
 
-      <!-- ═══════════════════════════════════════════════
-           LEFT COLUMN: Step info + Pedestal thumbnails
-           ═══════════════════════════════════════════════ -->
-      <div class="flex flex-col gap-2 lg:col-span-5 max-lg:items-center max-lg:text-center">
+      <!-- =================================================
+           LEFT COLUMN
+           ================================================= -->
+      <div
+        class="flex flex-col gap-2 lg:col-span-5 max-lg:items-center max-lg:text-center"
+      >
 
         <!-- Step badge -->
         <div
@@ -187,24 +282,45 @@ const initialStep = normalizedSteps[0] || fallbackDefaultSteps[0];
           {initialStep.description}
         </p>
 
-        <!-- ─── Pedestal Thumbnail Row (inside left col) ─── -->
-        <div class="relative w-full mt-8 sm:mt-10 lg:mt-14 overflow-hidden" role="region" aria-roledescription="carousel">
+        <!-- =================================================
+             SCROLLING STEP NAVIGATION
+             ================================================= -->
+        <div
+          class="relative w-full mt-8 sm:mt-10 lg:mt-14 overflow-hidden"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Lifecycle process steps"
+        >
+
           <!-- Fade masks -->
-          <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-white to-transparent"></div>
-          <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-white to-transparent"></div>
+          <div
+            class="pointer-events-none absolute inset-y-0 left-0 z-20 w-8 bg-gradient-to-r from-white to-transparent"
+          ></div>
+
+          <div
+            class="pointer-events-none absolute inset-y-0 right-0 z-20 w-8 bg-gradient-to-l from-white to-transparent"
+          ></div>
 
           <!-- Track viewport -->
-          <div class="overflow-hidden w-full" id="hero41-thumb-viewport">
-            <div class="flex items-end transition-transform duration-500 ease-out" id="hero41-thumb-track">
+          <div
+            class="overflow-hidden w-full"
+            id="hero41-thumb-viewport"
+          >
+            <div
+              class="flex items-end transition-transform duration-500 ease-out"
+              id="hero41-thumb-track"
+            >
+
               {normalizedSteps.map((step, idx) => {
                 const isFirst = idx === 0;
+
                 return (
                   <div
                     role="button"
                     tabindex="0"
                     aria-label={`Select Step ${step.stepNumber}: ${step.title}`}
                     aria-selected={isFirst ? 'true' : 'false'}
-                    class={`hero41-thumb-item min-w-0 shrink-0 grow-0 basis-1/3 cursor-pointer px-1 flex items-end justify-center ${
+                    class={`hero41-thumb-item min-w-0 shrink-0 grow-0 basis-1/3 cursor-pointer px-1 flex flex-col items-center justify-end ${
                       isFirst ? 'active' : ''
                     }`}
                     data-thumb-index={idx}
@@ -216,14 +332,49 @@ const initialStep = normalizedSteps[0] || fallbackDefaultSteps[0];
                     data-icon={step.iconImage}
                     data-short={step.shortDesc}
                   >
-                    <div class="relative flex h-24 items-end justify-center w-full group">
+
+                    <!-- =====================================
+                         STEP NUMBER + NAME
+                         ===================================== -->
+                    <div
+                      class="hero41-thumb-label relative z-20 mb-2 text-center whitespace-nowrap transition-all duration-300"
+                    >
+                      <span
+                        class="hero41-thumb-number font-extrabold text-xs sm:text-sm tracking-[0.12em]"
+                      >
+                        {step.stepNumber}
+                      </span>
+
+                      {/*<span
+                        class="hero41-thumb-title font-extrabold text-xs sm:text-sm uppercase tracking-[0.10em]"
+                      >
+                        {step.title}
+                      </span>*/}
+                    </div>
+
+                    <!-- =====================================
+                         PEDESTAL + ICON
+                         ===================================== -->
+                    <div
+                      class="relative flex h-24 items-end justify-center w-full group"
+                    >
+
                       <!-- SVG Pedestal -->
                       <div
-                        class={`hero41-pedestal-svg absolute bottom-0 w-full flex justify-center transition-colors duration-300 ${
-                          isFirst ? 'text-[#146B5C]' : 'text-slate-200 group-hover:text-slate-300'
+                        class={`hero41-pedestal-svg absolute bottom-0 w-full flex justify-center transition-all duration-300 ${
+                          isFirst
+                            ? 'text-[#146B5C]'
+                            : 'text-slate-200 group-hover:text-slate-300'
                         }`}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="161" height="92" viewBox="0 0 161 92" fill="none" class="w-full max-w-[110px] sm:max-w-[130px] h-auto">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="161"
+                          height="92"
+                          viewBox="0 0 161 92"
+                          fill="none"
+                          class="w-full max-w-[110px] sm:max-w-[130px] h-auto"
+                        >
                           <path
                             d="M0.682517 80.6118L0.501193 39.6946C0.480127 34.9409 3.80852 30.8294 8.46241 29.8603L148.426 0.713985C154.636 -0.579105 160.465 4.16121 160.465 10.504V80.7397C160.465 86.2674 155.98 90.7465 150.453 90.7397L10.6701 90.5674C5.16936 90.5607 0.706893 86.1125 0.682517 80.6118Z"
                             stroke="currentColor"
@@ -231,38 +382,47 @@ const initialStep = normalizedSteps[0] || fallbackDefaultSteps[0];
                           ></path>
                         </svg>
                       </div>
+
                       <!-- Icon -->
                       <img
                         src={step.iconImage}
                         alt={step.title}
                         class={`hero41-thumb-img size-14 sm:size-16 object-contain transition-all duration-300 relative z-10 group-hover:scale-110 ${
-                          isFirst ? 'scale-105 opacity-100 drop-shadow-md' : 'scale-95 opacity-70'
+                          isFirst
+                            ? 'scale-105 opacity-100 drop-shadow-md'
+                            : 'scale-95 opacity-70'
                         }`}
                         loading="lazy"
                         decoding="async"
                       />
+
                     </div>
                   </div>
                 );
               })}
+
             </div>
           </div>
         </div>
-        <!-- ─── End Thumbnail Row ─── -->
 
       </div>
 
-      <!-- ═══════════════════════════════════════════════
-           RIGHT COLUMN: Large lifecycle image only
-           ═══════════════════════════════════════════════ -->
+      <!-- =================================================
+           RIGHT COLUMN
+           ================================================= -->
       <div
         class="relative w-full lg:col-span-7 flex items-center justify-center"
         role="region"
         aria-roledescription="carousel"
+        aria-label="Lifecycle process images"
       >
-        <div class="relative w-full h-[260px] sm:h-[340px] md:h-[380px] lg:h-[420px] xl:h-[460px] flex items-center justify-center">
+        <div
+          class="relative w-full h-[260px] sm:h-[340px] md:h-[380px] lg:h-[420px] xl:h-[460px] flex items-center justify-center"
+        >
+
           {normalizedSteps.map((step, idx) => {
             const isFirst = idx === 0;
+
             return (
               <div
                 class={`hero41-main-slide absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-500 ease-out ${
@@ -282,6 +442,7 @@ const initialStep = normalizedSteps[0] || fallbackDefaultSteps[0];
               </div>
             );
           })}
+
         </div>
       </div>
 
@@ -289,75 +450,262 @@ const initialStep = normalizedSteps[0] || fallbackDefaultSteps[0];
   </div>
 </section>
 
-<!-- Auto-Scroll Engine & Synchronization Script (Matching Hero Section 41 Delay: 3000ms) -->
+<!-- =====================================================
+     ACTIVE STEP HIGHLIGHT STYLES
+     ===================================================== -->
+<style>
+  .hero41-thumb-item {
+    position: relative;
+    transition:
+      transform 300ms ease,
+      opacity 300ms ease;
+  }
+
+  /* Default step label */
+  .hero41-thumb-label {
+    color: #94a3b8;
+    opacity: 0.7;
+    transform: translateY(2px);
+  }
+
+  .hero41-thumb-number,
+  .hero41-thumb-title {
+    color: #94a3b8;
+    transition:
+      color 300ms ease,
+      opacity 300ms ease;
+  }
+
+  /* Active step */
+  .hero41-thumb-item.active {
+    transform: translateY(-2px);
+  }
+
+  .hero41-thumb-item.active .hero41-thumb-label {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hero41-thumb-item.active .hero41-thumb-number,
+  .hero41-thumb-item.active .hero41-thumb-title {
+    color: #146b5c;
+  }
+
+  /* Active label underline/highlight */
+  .hero41-thumb-item.active .hero41-thumb-label::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 3px;
+    margin: 5px auto 0;
+    border-radius: 999px;
+    background: #146b5c;
+  }
+
+  /* Active icon */
+  .hero41-thumb-item.active .hero41-thumb-img {
+    filter: drop-shadow(0 5px 10px rgba(20, 107, 92, 0.25));
+  }
+
+  /* Hover */
+  .hero41-thumb-item:hover .hero41-thumb-number,
+  .hero41-thumb-item:hover .hero41-thumb-title {
+    color: #146b5c;
+  }
+
+  /* Keyboard focus */
+  .hero41-thumb-item:focus-visible {
+    outline: 2px solid #146b5c;
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+</style>
+
+<!-- =====================================================
+     AUTO-SCROLL ENGINE
+     ===================================================== -->
 <script is:inline>
   (() => {
     const initHero41Lifecycle = () => {
-      const container = document.getElementById('hero-section-41-lifecycle');
+      const container = document.getElementById(
+        'hero-section-41-lifecycle'
+      );
+
       if (!container) return;
 
-      const mainSlides = container.querySelectorAll('.hero41-main-slide');
-      const thumbItems = container.querySelectorAll('.hero41-thumb-item');
-      const thumbTrack = document.getElementById('hero41-thumb-track');
-      const thumbViewport = document.getElementById('hero41-thumb-viewport');
+      const mainSlides =
+        container.querySelectorAll('.hero41-main-slide');
 
-      const stepBadgeEl = document.getElementById('hero41-step-badge');
-      const headlineEl = document.getElementById('hero41-step-headline');
-      const descEl = document.getElementById('hero41-step-desc');
+      const thumbItems =
+        container.querySelectorAll('.hero41-thumb-item');
+
+      const thumbTrack =
+        document.getElementById('hero41-thumb-track');
+
+      const thumbViewport =
+        document.getElementById('hero41-thumb-viewport');
+
+      const stepBadgeEl =
+        document.getElementById('hero41-step-badge');
+
+      const headlineEl =
+        document.getElementById('hero41-step-headline');
+
+      const descEl =
+        document.getElementById('hero41-step-desc');
 
       const totalItems = thumbItems.length;
+
       if (totalItems === 0) return;
 
       let currentIndex = 0;
       let autoplayTimer = null;
-      const AUTO_SCROLL_DELAY = 3000; // Exact delay from Hero Section 41 reference
 
+      const AUTO_SCROLL_DELAY = 3000;
+
+      /* =================================================
+         KEEP EXISTING HORIZONTAL SCROLLING
+         ================================================= */
       const updateThumbTrackPosition = (index) => {
-        if (!thumbTrack || !thumbViewport || !thumbItems[index]) return;
+        if (
+          !thumbTrack ||
+          !thumbViewport ||
+          !thumbItems[index]
+        ) {
+          return;
+        }
+
         const targetItem = thumbItems[index];
+
         const itemWidth = targetItem.offsetWidth;
-        const viewportWidth = thumbViewport.offsetWidth;
 
-        // Center the active thumbnail item in the track
-        const targetLeft = targetItem.offsetLeft;
-        const centerOffset = targetLeft - (viewportWidth / 2) + (itemWidth / 2);
-        const maxScroll = Math.max(0, thumbTrack.scrollWidth - viewportWidth);
-        const clampedOffset = Math.max(0, Math.min(centerOffset, maxScroll));
+        const viewportWidth =
+          thumbViewport.offsetWidth;
 
-        thumbTrack.style.transform = `translateX(-${clampedOffset}px)`;
+        const targetLeft =
+          targetItem.offsetLeft;
+
+        const centerOffset =
+          targetLeft -
+          viewportWidth / 2 +
+          itemWidth / 2;
+
+        const maxScroll = Math.max(
+          0,
+          thumbTrack.scrollWidth -
+            viewportWidth
+        );
+
+        const clampedOffset = Math.max(
+          0,
+          Math.min(
+            centerOffset,
+            maxScroll
+          )
+        );
+
+        thumbTrack.style.transform =
+          `translateX(-${clampedOffset}px)`;
       };
 
-      const selectStep = (index, userInitiated = false) => {
-        currentIndex = (index + totalItems) % totalItems;
-        const activeItem = thumbItems[currentIndex];
+      /* =================================================
+         SELECT STEP
+         ================================================= */
+      const selectStep = (
+        index,
+        userInitiated = false
+      ) => {
+        currentIndex =
+          (index + totalItems) %
+          totalItems;
+
+        const activeItem =
+          thumbItems[currentIndex];
+
         if (!activeItem) return;
 
-        // 1. Update Main Slides
-        mainSlides.forEach((slide, idx) => {
-          if (idx === currentIndex) {
-            slide.classList.remove('opacity-0', 'scale-95', 'translate-x-8', 'pointer-events-none', 'z-0');
-            slide.classList.add('opacity-100', 'scale-100', 'translate-x-0', 'pointer-events-auto', 'z-10');
-          } else {
-            slide.classList.remove('opacity-100', 'scale-100', 'translate-x-0', 'pointer-events-auto', 'z-10');
-            slide.classList.add('opacity-0', 'scale-95', 'translate-x-8', 'pointer-events-none', 'z-0');
-          }
-        });
+        /* ===============================================
+           1. UPDATE RIGHT-SIDE IMAGE
+           =============================================== */
+        mainSlides.forEach(
+          (slide, idx) => {
+            if (idx === currentIndex) {
+              slide.classList.remove(
+                'opacity-0',
+                'scale-95',
+                'translate-x-8',
+                'pointer-events-none',
+                'z-0'
+              );
 
-        // 2. Update Left Narrative Content with subtle 120ms cross-fade
-        if (headlineEl && descEl && stepBadgeEl) {
+              slide.classList.add(
+                'opacity-100',
+                'scale-100',
+                'translate-x-0',
+                'pointer-events-auto',
+                'z-10'
+              );
+            } else {
+              slide.classList.remove(
+                'opacity-100',
+                'scale-100',
+                'translate-x-0',
+                'pointer-events-auto',
+                'z-10'
+              );
+
+              slide.classList.add(
+                'opacity-0',
+                'scale-95',
+                'translate-x-8',
+                'pointer-events-none',
+                'z-0'
+              );
+            }
+          }
+        );
+
+        /* ===============================================
+           2. UPDATE LEFT CONTENT
+           =============================================== */
+        if (
+          headlineEl &&
+          descEl &&
+          stepBadgeEl
+        ) {
           headlineEl.style.opacity = '0';
           descEl.style.opacity = '0';
           stepBadgeEl.style.opacity = '0';
 
           setTimeout(() => {
-            const num = activeItem.getAttribute('data-number') || '';
-            const title = activeItem.getAttribute('data-title') || '';
-            const headline = activeItem.getAttribute('data-headline') || '';
-            const desc = activeItem.getAttribute('data-desc') || '';
+            const num =
+              activeItem.getAttribute(
+                'data-number'
+              ) || '';
 
-            stepBadgeEl.textContent = `${num}. ${title}`;
-            headlineEl.textContent = headline;
-            descEl.textContent = desc;
+            const title =
+              activeItem.getAttribute(
+                'data-title'
+              ) || '';
+
+            const headline =
+              activeItem.getAttribute(
+                'data-headline'
+              ) || '';
+
+            const desc =
+              activeItem.getAttribute(
+                'data-desc'
+              ) || '';
+
+            stepBadgeEl.textContent =
+              `${num}. ${title}`;
+
+            headlineEl.textContent =
+              headline;
+
+            descEl.textContent =
+              desc;
 
             headlineEl.style.opacity = '1';
             descEl.style.opacity = '1';
@@ -365,53 +713,177 @@ const initialStep = normalizedSteps[0] || fallbackDefaultSteps[0];
           }, 120);
         }
 
-        // 3. Update Pedestal Thumbnails & SVGs
-        thumbItems.forEach((item, idx) => {
-          const isActive = idx === currentIndex;
-          item.setAttribute('aria-selected', isActive ? 'true' : 'false');
-          const svgEl = item.querySelector('.hero41-pedestal-svg');
-          const imgEl = item.querySelector('.hero41-thumb-img');
+        /* ===============================================
+           3. HIGHLIGHT THE STEP MATCHING RIGHT IMAGE
+           =============================================== */
+        thumbItems.forEach(
+          (item, idx) => {
+            const isActive =
+              idx === currentIndex;
 
-          if (isActive) {
-            item.classList.add('active');
-            if (svgEl) {
-              svgEl.classList.remove('text-slate-200', 'group-hover:text-slate-300');
-              svgEl.classList.add('text-[#146B5C]');
-            }
-            if (imgEl) {
-              imgEl.classList.remove('scale-95', 'opacity-80');
-              imgEl.classList.add('scale-105', 'opacity-100', 'drop-shadow-md');
-            }
-          } else {
-            item.classList.remove('active');
-            if (svgEl) {
-              svgEl.classList.remove('text-[#146B5C]');
-              svgEl.classList.add('text-slate-200', 'group-hover:text-slate-300');
-            }
-            if (imgEl) {
-              imgEl.classList.remove('scale-105', 'opacity-100', 'drop-shadow-md');
-              imgEl.classList.add('scale-95', 'opacity-80');
+            item.setAttribute(
+              'aria-selected',
+              isActive
+                ? 'true'
+                : 'false'
+            );
+
+            const svgEl =
+              item.querySelector(
+                '.hero41-pedestal-svg'
+              );
+
+            const imgEl =
+              item.querySelector(
+                '.hero41-thumb-img'
+              );
+
+            const labelEl =
+              item.querySelector(
+                '.hero41-thumb-label'
+              );
+
+            const numberEl =
+              item.querySelector(
+                '.hero41-thumb-number'
+              );
+
+            const titleEl =
+              item.querySelector(
+                '.hero41-thumb-title'
+              );
+
+            if (isActive) {
+              /* -----------------------------------------
+                 ACTIVE STEP
+                 ----------------------------------------- */
+              item.classList.add(
+                'active'
+              );
+
+              if (svgEl) {
+                svgEl.classList.remove(
+                  'text-slate-200',
+                  'group-hover:text-slate-300'
+                );
+
+                svgEl.classList.add(
+                  'text-[#146B5C]'
+                );
+              }
+
+              if (imgEl) {
+                imgEl.classList.remove(
+                  'scale-95',
+                  'opacity-80',
+                  'opacity-70'
+                );
+
+                imgEl.classList.add(
+                  'scale-105',
+                  'opacity-100',
+                  'drop-shadow-md'
+                );
+              }
+
+              /* Keep active text green */
+              if (labelEl) {
+                labelEl.style.opacity = '1';
+              }
+
+              if (numberEl) {
+                numberEl.style.color =
+                  '#146B5C';
+              }
+
+              if (titleEl) {
+                titleEl.style.color =
+                  '#146B5C';
+              }
+
+            } else {
+              /* -----------------------------------------
+                 INACTIVE STEP
+                 ----------------------------------------- */
+              item.classList.remove(
+                'active'
+              );
+
+              if (svgEl) {
+                svgEl.classList.remove(
+                  'text-[#146B5C]'
+                );
+
+                svgEl.classList.add(
+                  'text-slate-200',
+                  'group-hover:text-slate-300'
+                );
+              }
+
+              if (imgEl) {
+                imgEl.classList.remove(
+                  'scale-105',
+                  'opacity-100',
+                  'drop-shadow-md'
+                );
+
+                imgEl.classList.add(
+                  'scale-95',
+                  'opacity-70'
+                );
+              }
+
+              if (labelEl) {
+                labelEl.style.opacity =
+                  '0.7';
+              }
+
+              if (numberEl) {
+                numberEl.style.color =
+                  '#94A3B8';
+              }
+
+              if (titleEl) {
+                titleEl.style.color =
+                  '#94A3B8';
+              }
             }
           }
-        });
+        );
 
-        // 4. Scroll Pedestal Track
-        updateThumbTrackPosition(currentIndex);
+        /* ===============================================
+           4. KEEP THE EXISTING SCROLLING BEHAVIOR
+           =============================================== */
+        updateThumbTrackPosition(
+          currentIndex
+        );
 
-        // 5. Reset Autoplay Cycle
+        /* ===============================================
+           5. RESET AUTOPLAY
+           =============================================== */
         resetAutoplay();
       };
 
+      /* =================================================
+         AUTOPLAY
+         ================================================= */
       const startAutoplay = () => {
         stopAutoplay();
-        autoplayTimer = setInterval(() => {
-          selectStep(currentIndex + 1);
-        }, AUTO_SCROLL_DELAY);
+
+        autoplayTimer =
+          setInterval(() => {
+            selectStep(
+              currentIndex + 1
+            );
+          }, AUTO_SCROLL_DELAY);
       };
 
       const stopAutoplay = () => {
         if (autoplayTimer) {
-          clearInterval(autoplayTimer);
+          clearInterval(
+            autoplayTimer
+          );
+
           autoplayTimer = null;
         }
       };
@@ -421,45 +893,117 @@ const initialStep = normalizedSteps[0] || fallbackDefaultSteps[0];
         startAutoplay();
       };
 
-      // Event listeners for thumbnails
-      thumbItems.forEach((item, idx) => {
-        item.addEventListener('click', () => {
-          selectStep(idx, true);
-        });
+      /* =================================================
+         CLICK + KEYBOARD
+         ================================================= */
+      thumbItems.forEach(
+        (item, idx) => {
+          item.addEventListener(
+            'click',
+            () => {
+              selectStep(
+                idx,
+                true
+              );
+            }
+          );
 
-        item.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            selectStep(idx, true);
-          } else if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            const next = (idx + 1) % totalItems;
-            thumbItems[next]?.focus();
-            selectStep(next, true);
-          } else if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            const prev = (idx - 1 + totalItems) % totalItems;
-            thumbItems[prev]?.focus();
-            selectStep(prev, true);
-          }
-        });
-      });
+          item.addEventListener(
+            'keydown',
+            (e) => {
+              if (
+                e.key === 'Enter' ||
+                e.key === ' '
+              ) {
+                e.preventDefault();
 
-      // Window resize re-centering
-      window.addEventListener('resize', () => {
-        updateThumbTrackPosition(currentIndex);
-      });
+                selectStep(
+                  idx,
+                  true
+                );
 
-      // Initialize active position and start autoplay
+              } else if (
+                e.key ===
+                'ArrowRight'
+              ) {
+                e.preventDefault();
+
+                const next =
+                  (idx + 1) %
+                  totalItems;
+
+                thumbItems[
+                  next
+                ]?.focus();
+
+                selectStep(
+                  next,
+                  true
+                );
+
+              } else if (
+                e.key ===
+                'ArrowLeft'
+              ) {
+                e.preventDefault();
+
+                const prev =
+                  (idx - 1 +
+                    totalItems) %
+                  totalItems;
+
+                thumbItems[
+                  prev
+                ]?.focus();
+
+                selectStep(
+                  prev,
+                  true
+                );
+              }
+            }
+          );
+        }
+      );
+
+      /* =================================================
+         RESIZE
+         ================================================= */
+      window.addEventListener(
+        'resize',
+        () => {
+          updateThumbTrackPosition(
+            currentIndex
+          );
+        }
+      );
+
+      /* =================================================
+         INITIALIZE
+         ================================================= */
       updateThumbTrackPosition(0);
-      startAutoplay();
+
+      /* Make sure first step is highlighted */
+      selectStep(0);
+
+      /* selectStep already starts autoplay */
     };
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initHero41Lifecycle);
+    if (
+      document.readyState ===
+      'loading'
+    ) {
+      document.addEventListener(
+        'DOMContentLoaded',
+        initHero41Lifecycle
+      );
     } else {
       initHero41Lifecycle();
     }
-    document.addEventListener('astro:page-load', initHero41Lifecycle);
+
+    document.addEventListener(
+      'astro:page-load',
+      initHero41Lifecycle
+    );
   })();
 </script>

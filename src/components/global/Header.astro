@@ -132,7 +132,7 @@ const navItems = [
   <MobileDrawer />
 </header>
 
-<script>
+{/*<script>
   function initScrollNavbar() {
     const header = document.getElementById('site-header');
     if (!header) return;
@@ -165,4 +165,109 @@ const navItems = [
 
   initScrollNavbar();
   document.addEventListener('astro:page-load', initScrollNavbar);
+</script>*/}
+<script>
+  function initScrollNavbar() {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+
+    const SCROLL_THRESHOLD = 120;
+    const DIRECTION_THRESHOLD = 4;
+
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const show = () => {
+      header.classList.remove(
+        '-translate-y-full',
+        'opacity-0',
+        'pointer-events-none'
+      );
+
+      header.classList.add(
+        'translate-y-0',
+        'opacity-100',
+        'pointer-events-auto'
+      );
+    };
+
+    const hide = () => {
+      header.classList.add(
+        '-translate-y-full',
+        'opacity-0',
+        'pointer-events-none'
+      );
+
+      header.classList.remove(
+        'translate-y-0',
+        'opacity-100',
+        'pointer-events-auto'
+      );
+    };
+
+    const updateNavbar = () => {
+      const currentScrollY = window.scrollY;
+      const difference = currentScrollY - lastScrollY;
+
+      /* =========================
+         AT TOP OF PAGE
+      ========================= */
+      if (currentScrollY <= SCROLL_THRESHOLD) {
+        hide();
+
+        lastScrollY = currentScrollY;
+        ticking = false;
+        return;
+      }
+
+      /* Ignore very small scroll movements */
+      if (Math.abs(difference) < DIRECTION_THRESHOLD) {
+        ticking = false;
+        return;
+      }
+
+      /* =========================
+         SCROLLING DOWN
+         → HIDE NAVBAR
+      ========================= */
+      if (difference > 0) {
+        hide();
+      }
+
+      /* =========================
+         SCROLLING UP
+         → SHOW NAVBAR
+      ========================= */
+      else if (difference < 0) {
+        show();
+      }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, {
+      passive: true
+    });
+
+    /* Set correct initial state */
+    if (window.scrollY <= SCROLL_THRESHOLD) {
+      hide();
+    } else {
+      hide();
+    }
+  }
+
+  initScrollNavbar();
+
+  document.addEventListener('astro:page-load', () => {
+    initScrollNavbar();
+  });
 </script>

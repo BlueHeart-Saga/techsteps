@@ -81,11 +81,36 @@ const fallbackTestimonials: TestimonialItem[] = [
   },
 ];
 
-const sourceList: TestimonialItem[] = (customTestimonials && customTestimonials.length > 0)
+const distinctAvatars: Record<string, string> = {
+  'David Miller': '/images/testimonials/avatar-1.jpg',
+  'Sarah Jenkins': '/images/testimonials/avatar-2.jpg',
+  'James Roberts': '/images/testimonials/avatar-3.jpg',
+  'Eleanor Vance': '/images/testimonials/avatar-4.jpg',
+  'Prof. Marcus Thorne': '/images/testimonials/avatar-5.jpg',
+  'Rachel Adams': '/images/testimonials/avatar-6.jpg',
+};
+
+const rawSourceList: TestimonialItem[] = (customTestimonials && customTestimonials.length > 0)
   ? customTestimonials
   : (sanityTestimonials && sanityTestimonials.length > 0)
     ? sanityTestimonials
     : fallbackTestimonials;
+
+// Ensure each of the 6 testimonials uses a distinct, non-duplicated professional headshot
+const seenAvatars = new Set<string>();
+const sourceList: TestimonialItem[] = rawSourceList.map((item, index) => {
+  const fallbackAvatar = distinctAvatars[item.author] || `/images/testimonials/avatar-${(index % 6) + 1}.jpg`;
+  let avatar = item.avatar || fallbackAvatar;
+  // If duplicate avatar is detected from source or Sanity, ensure each card gets its designated distinct headshot
+  if (seenAvatars.has(avatar)) {
+    avatar = fallbackAvatar;
+  }
+  seenAvatars.add(avatar);
+  return {
+    ...item,
+    avatar,
+  };
+});
 
 const sectionEyebrow = customEyebrow || 'Client testimonials';
 const sectionHeading = customHeading || 'What our clients say';
@@ -126,13 +151,13 @@ const uniqueCount = sourceList.length;
     </div>
 
     <!-- Eyebrow: Small uppercase green eyebrow with short lines either side -->
-    <div class="inline-flex items-center justify-center gap-3 mb-3">
+    {/*<div class="inline-flex items-center justify-center gap-3 mb-3">
       <span class="w-7 sm:w-10 h-[1.5px] bg-[#0F623A]/40" aria-hidden="true"></span>
       <span class="text-xs sm:text-[13px] font-mono font-bold tracking-[0.22em] text-[#0F623A] uppercase">
         {sectionEyebrow}
       </span>
       <span class="w-7 sm:w-10 h-[1.5px] bg-[#0F623A]/40" aria-hidden="true"></span>
-    </div>
+    </div>*/}
 
     <!-- Heading: Sentence-case, existing heading text -->
     <h2
@@ -238,13 +263,13 @@ const uniqueCount = sourceList.length;
                   >
                     {item.author}
                   </h3>
-                  <p
+                  {/*<p
                     class={`text-[13px] leading-snug mt-0.5 ${
                       isDark ? 'text-emerald-100/85' : 'text-slate-600'
                     }`}
                   >
                     {item.role}{item.company ? ` • ${item.company}` : ''}
-                  </p>
+                  </p>*/}
                 </div>
               </div>
             </div>
