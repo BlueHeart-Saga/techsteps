@@ -683,188 +683,305 @@ const aboutPageSchema = {
   min-width: 3.2ch;
 }
 
+
 /* =========================================================
-   TIMELINE — DESKTOP (> 900px)
-   4-column horizontal, node → stem → label below,
-   connecting line drawn via ::after pseudo-element on .st
+   TIMELINE — DESKTOP
+   New alternating photo timeline
+   Existing typography and animation preserved
 ========================================================= */
+
 .tl-track {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   position: relative;
+  min-height: 500px;
+  padding: 0;
+  margin: 0;
+  isolation: isolate;
 }
 
-/* Each step is a positioned column */
-.st {
+/* Each milestone */
+.tl-track .st {
   position: relative;
-  padding-top: 0;
+  min-width: 0;
+  min-height: 500px;
+  padding: 0;
 }
 
-/* Circle node: fixed 46×46px, dark green fill */
-.nd {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: #1f6b45;
-  display: grid;
-  place-items: center;
-  position: relative;
-  z-index: 2;
-  flex-shrink: 0;
-  transform-origin: center;
-}
-
-/* Icon inside node: MUST be exactly 24px, never grow */
-.nd img,
-.nd svg {
-  width: 24px;
-  height: 24px;
-  max-width: none;
-  flex: none;
-  display: block;
-}
-
-/* Horizontal connecting line: drawn as ::after on .st */
-/* Runs from the right edge of this node to the left edge of the next node */
-.st::after {
+/* Horizontal timeline line */
+.tl-track .st::after {
   content: "";
   position: absolute;
-  left: 46px;
-  right: 0;
-  top: 22px;
+  top: 250px;
+  left: 50%;
+  right: -50%;
   height: 2px;
-  background: #3a3f3d;
-  transform-origin: left;
+  background: #176b57;
+  transform-origin: left center;
   z-index: 1;
 }
 
-/* Last step has no outgoing line */
-.st:last-child::after {
-  display: none;
+/* Extend the line to the end of the timeline */
+.tl-track .st:last-child::after {
+  display: block;
+  right: 0;
 }
 
-/* Short vertical stem below node */
-.stem {
+/* Small circular milestone point on the line */
+.tl-track .st::before {
+  content: "";
   position: absolute;
-  left: 22px;
-  top: 46px;
-  width: 1px;
-  height: 38px;
-  background: #3a3f3d;
+  z-index: 3;
+  top: 241px;
+  left: calc(50% - 9px);
+  width: 18px;
+  height: 18px;
+  border: 5px solid #176b57;
+  border-radius: 50%;
+  background: #fff;
+  box-sizing: border-box;
 }
 
-/* Text block: sits below stem (top offset = node 46px + stem 38px + gap) */
-.lb {
-  margin-top: 90px;
+/* Circular milestone photographs */
+.tl-track .nd {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  width: 42%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: visible;
+  display: block;
+  background: #dcebe2;
+  transform-origin: center;
+}
+
+/* Preserve image proportions and create green tint */
+.tl-track .nd img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  filter: grayscale(100%) sepia(18%) hue-rotate(95deg)
+    saturate(75%) brightness(0.9);
+}
+
+/* Decorative outline around each photo */
+.tl-track .nd::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border: 1px solid #176b57;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Top milestones: photo and copy above the line */
+.tl-track .st:nth-child(odd) .nd {
+  top: 22px;
+}
+
+.tl-track .st:nth-child(odd) .lb {
+  top: 55px;
+}
+
+/* Bottom milestones: photo and copy below the line */
+.tl-track .st:nth-child(even) .nd {
+  top: 285px;
+}
+
+.tl-track .st:nth-child(even) .lb {
+  top: 315px;
+}
+
+/* Dotted connector between content and timeline */
+.tl-track .stem {
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 55px;
+  border-left: 3px dotted #176b57;
+  background: transparent;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.tl-track .st:nth-child(odd) .stem {
+  top: 185px;
+}
+
+.tl-track .st:nth-child(even) .stem {
+  top: 260px;
+}
+
+/* Milestone labels — retain your existing font settings */
+.tl-track .lb {
+  position: absolute;
+  left: 45%;
+  right: 0;
+  margin: 0;
+  padding: 0 4px 0 8px;
   transform-origin: top left;
+  min-width: 0;
 }
 
-.lb h3 {
+.tl-track .lb h3 {
   font-size: 18px;
   font-weight: 600;
-  color: #0f172a;
+  color: #145b49;
   margin: 0 0 6px;
   line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
-.lb p {
+.tl-track .lb p {
   font-size: 15px;
-  color: #3c4a43;
-  max-width: 190px;
-  line-height: 1.55;
+  color: #222;
+  max-width: 215px;
+  line-height: 1.5;
   margin: 0;
-}
-@media (min-width: 901px) {
-  /* 1. icon fills the whole circle; the empty padding in the file then leaves a ~26px symbol */
-  .tl-track .nd { width: 46px; height: 46px; }
-  .tl-track .nd img { width: 100%; height: 100%; max-width: none; object-fit: contain; }
-
-  /* 2. line continues past the last circle to the right edge */
-  .tl-track .st:last-child::after { display: block; left: 46px; right: 0; }
-
-  /* 3. shorter stem, tighter gap to the title */
-  .tl-track .stem { height: 24px; }
-  .tl-track .lb { margin-top: 46px; }
-
-  /* 4. align with the heading: remove any left padding/margin on the track */
-  .tl-track { padding-left: 0; margin-left: 0; }
-
-  /* 5. wider text column, reference text sizes */
-  .tl-track .lb h3 { font-size: 17px; font-weight: 600; }
-  .tl-track .lb p  { font-size: 16px; line-height: 1.5; max-width: 215px; color: #222; }
+  overflow-wrap: anywhere;
 }
 
 /* =========================================================
-   TIMELINE — MOBILE (<= 900px)
-   Vertical list: node left, text right, line runs down
+   TABLET AND MOBILE
+   Vertical timeline with circular photographs
 ========================================================= */
+
 @media (max-width: 900px) {
   .tl-track {
     display: flex;
     flex-direction: column;
     gap: 0;
+    min-height: 0;
+    padding-left: 0;
   }
 
-  .st {
+  .tl-track .st {
     display: flex;
-    flex-direction: row;
     align-items: flex-start;
-    padding-bottom: 2.5rem;
+    min-height: 0;
+    padding: 0 0 36px 0;
     position: relative;
   }
 
-  .st:last-child {
+  .tl-track .st:last-child {
     padding-bottom: 0;
   }
 
-  /* Node stays 46px, no changes */
-  .nd {
-    flex-shrink: 0;
-  }
-
-  /* Vertical line: runs downward from bottom of node to next item */
-  .st::after {
+  /* Vertical connecting line */
+  .tl-track .st::after {
     left: 22px;
     right: auto;
     top: 46px;
     bottom: 0;
     width: 2px;
     height: auto;
-    transform-origin: top;
+    transform-origin: top center;
+    background: #176b57;
   }
 
-  /* Hide last item's line on mobile */
-  .st:last-child::after {
+  .tl-track .st:last-child::after {
     display: none;
   }
 
-  /* Hide horizontal stems on mobile */
-  .stem {
+  /* Small node on the vertical line */
+  .tl-track .st::before {
+    top: 14px;
+    left: 14px;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Keep the photo and copy in a mobile row */
+  .tl-track .nd,
+  .tl-track .st:nth-child(odd) .nd,
+  .tl-track .st:nth-child(even) .nd {
+    position: relative;
+    top: auto;
+    left: auto;
+    flex: 0 0 100px;
+    width: 100px;
+    height: 100px;
+    aspect-ratio: 1;
+    margin-left: 52px;
+    overflow: visible;
+  }
+
+  .tl-track .nd img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .tl-track .stem {
     display: none;
   }
 
-  /* Text to the right of node */
-  .lb {
-    margin-top: 0;
-    padding-left: 1.5rem;
+  .tl-track .lb,
+  .tl-track .st:nth-child(odd) .lb,
+  .tl-track .st:nth-child(even) .lb {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
     flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 5px 0 0 18px;
+    transform-origin: top left;
   }
 
-  .lb h3 {
-    font-size: 16px;
-    margin-top: 6px;
+  .tl-track .lb h3 {
+    margin-top: 0;
   }
 
-  .lb p {
-    font-size: 14px;
+  .tl-track .lb p {
+    max-width: none;
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+  .tl-track .st {
+    padding-bottom: 30px;
+  }
+
+  .tl-track .nd,
+  .tl-track .st:nth-child(odd) .nd,
+  .tl-track .st:nth-child(even) .nd {
+    flex-basis: 76px;
+    width: 76px;
+    height: 76px;
+    margin-left: 42px;
+  }
+
+  .tl-track .st::after {
+    left: 22px;
+  }
+
+  .tl-track .st::before {
+    left: 14px;
+  }
+
+  .tl-track .lb,
+  .tl-track .st:nth-child(odd) .lb,
+  .tl-track .st:nth-child(even) .lb {
+    padding-left: 13px;
   }
 }
 
 /* =========================================================
-   ANIMATION — initial hidden states (only under .js class)
-   All scoped to .tl-track so short class names are safe
-   No layout properties changed — only opacity + transform
+   TIMELINE ANIMATION — RESTORED
+   Preserves the existing design and staggered sequence
 ========================================================= */
+
+/* Initial states: hidden until the timeline starts */
 :global(html.js) .tl-track .nd {
   opacity: 0;
   transform: scale(0.3);
@@ -883,61 +1000,78 @@ const aboutPageSchema = {
   transform: translateY(12px);
 }
 
-/* Mobile vertical line starts scaleY(0) */
+/* Mobile connector draws vertically */
 @media (max-width: 900px) {
   :global(html.js) .tl-track .st::after {
     transform: scaleY(0);
   }
 }
 
-/* Animations play once when .go is added to .tl-track */
+/* Circle pop-in */
 :global(html.js) .tl-track.go .nd {
   animation: tlPop 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) forwards;
   animation-delay: calc(var(--i) * 1.35s);
 }
 
+/* Dotted stem fade-in */
 :global(html.js) .tl-track.go .stem {
   animation: tlFade 0.4s ease forwards;
   animation-delay: calc(var(--i) * 1.35s + 0.25s);
 }
 
+/* Milestone text rises into view */
 :global(html.js) .tl-track.go .lb {
   animation: tlRise 0.55s ease forwards;
   animation-delay: calc(var(--i) * 1.35s + 0.35s);
 }
 
+/* Connecting line draws across */
 :global(html.js) .tl-track.go .st::after {
   animation: tlDrawX 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   animation-delay: calc(var(--i) * 1.35s + 0.65s);
 }
 
+/* Vertical drawing animation on mobile */
 @media (max-width: 900px) {
   :global(html.js) .tl-track.go .st::after {
     animation-name: tlDrawY;
   }
 }
 
+/* Animation keyframes */
 @keyframes tlPop {
-  to { opacity: 1; transform: none; }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes tlFade {
-  to { opacity: 1; }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes tlRise {
-  to { opacity: 1; transform: none; }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes tlDrawX {
-  to { transform: scaleX(1); }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 @keyframes tlDrawY {
-  to { transform: scaleY(1); }
+  to {
+    transform: scaleY(1);
+  }
 }
 
-/* Reduced motion: skip animation, show everything immediately */
+/* Accessibility: respect reduced-motion preferences */
 @media (prefers-reduced-motion: reduce) {
   :global(html.js) .tl-track .nd,
   :global(html.js) .tl-track .stem,
@@ -946,11 +1080,13 @@ const aboutPageSchema = {
     transform: none !important;
     animation: none !important;
   }
+
   :global(html.js) .tl-track .st::after {
     transform: none !important;
     animation: none !important;
   }
 }
+
 
 /* =========================================================
    PROTECTED CTA & CORE SHARED STYLES

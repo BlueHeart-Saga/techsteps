@@ -99,27 +99,6 @@ export default defineType({
                     type: 'text',
                     rows: 6,
                 }),
-
-                defineField({
-                    name: 'highlightOne',
-                    title: 'Highlighted Text 1',
-                    type: 'string',
-                    description: 'Example: IT asset disposal',
-                }),
-
-                defineField({
-                    name: 'highlightTwo',
-                    title: 'Highlighted Text 2',
-                    type: 'string',
-                    description: 'Example: secure IT asset disposition services',
-                }),
-
-                defineField({
-                    name: 'highlightThree',
-                    title: 'Highlighted Text 3',
-                    type: 'string',
-                    description: 'Example: GDPR compliance',
-                }),
             ],
         }),
 
@@ -357,13 +336,6 @@ export default defineType({
                                 }),
 
                                 defineField({
-                                    name: 'lead',
-                                    title: 'Lead Summary',
-                                    type: 'text',
-                                    rows: 2,
-                                }),
-
-                                defineField({
                                     name: 'description',
                                     title: 'Full Description',
                                     type: 'text',
@@ -395,13 +367,6 @@ export default defineType({
                                     title: 'Phase Badge',
                                     type: 'string',
                                     description: 'Example: PHASE 01 // AUDIT',
-                                }),
-
-                                defineField({
-                                    name: 'tag',
-                                    title: 'Compliance Tag',
-                                    type: 'string',
-                                    description: 'Example: ISO 27001 & NIST 800-88 Auditing',
                                 }),
                             ],
 

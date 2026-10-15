@@ -100,39 +100,10 @@ export default {
       of: [{ type: 'string' }],
     },
     {
-      name: 'process',
-      title: 'Certified Process Steps (Legacy)',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'stepNumber', title: 'Step Number', type: 'number' },
-            { name: 'title', title: 'Step Title', type: 'string' },
-            { name: 'description', title: 'Step Description', type: 'text', rows: 2 },
-          ],
-        },
-      ],
-    },
-    {
       name: 'capabilities',
       title: 'Operational Capabilities & Accreditations',
       type: 'array',
       of: [{ type: 'string' }],
-    },
-    {
-      name: 'deliverables',
-      title: 'Service Deliverables & Documentation',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'title', title: 'Deliverable Title', type: 'string' },
-            { name: 'description', title: 'Description', type: 'text', rows: 2 },
-          ],
-        },
-      ],
     },
     {
       name: 'faqs',

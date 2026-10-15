@@ -6,9 +6,15 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'seo',
-      title: 'SEO Metadata',
-      type: 'seo',
+      name: 'metaTitle',
+      title: 'SEO Meta Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'SEO Meta Description',
+      type: 'text',
+      rows: 3,
     }),
     defineField({
       name: 'hero',
@@ -16,7 +22,7 @@ export default defineType({
       type: 'object',
       fields: [
         defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string', initialValue: 'SUSTAINABILITY & ESG' }),
-        defineField({ name: 'title', title: 'Title', type: 'string', initialValue: 'Circular IT & Zero Landfill Commitment' }),
+        defineField({ name: 'title', title: 'Title', type: 'string', initialValue: 'A Smarter Lifecycle for Every Asset.' }),
         defineField({ name: 'subheading', title: 'Subheading', type: 'text', rows: 3 }),
         defineField({ name: 'bgImage', title: 'Background Image', type: 'image', options: { hotspot: true } }),
       ],
@@ -29,12 +35,51 @@ export default defineType({
         {
           type: 'object',
           fields: [
-            defineField({ name: 'value', title: 'Metric Value', type: 'string' }),
-            defineField({ name: 'suffix', title: 'Suffix', type: 'string' }),
-            defineField({ name: 'label', title: 'Label', type: 'string' }),
-            defineField({ name: 'description', title: 'Context / Subtext', type: 'string' }),
+            defineField({ name: 'number', title: 'Metric Value / Number', type: 'string' }),
+            defineField({ name: 'suffix', title: 'Suffix (e.g. %)', type: 'string' }),
+            defineField({ name: 'label', title: 'Metric Label', type: 'string' }),
+            defineField({ name: 'note', title: 'Context / Note', type: 'string' }),
           ],
+          preview: {
+            select: { title: 'label', subtitle: 'number' },
+          },
         },
+      ],
+    }),
+    defineField({
+      name: 'approach',
+      title: 'Approach Section',
+      type: 'object',
+      fields: [
+        defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string' }),
+        defineField({ name: 'heading', title: 'Heading', type: 'string' }),
+        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+        defineField({
+          name: 'steps',
+          title: 'Approach Steps',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'step', title: 'Step Number', type: 'string' }),
+                defineField({ name: 'title', title: 'Step Title', type: 'string' }),
+                defineField({ name: 'badge', title: 'Badge Label', type: 'string' }),
+                defineField({ name: 'desc', title: 'Short Description', type: 'text', rows: 3 }),
+              ],
+            },
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: 'lifecycleSection',
+      title: 'Lifecycle Overview Header',
+      type: 'object',
+      fields: [
+        defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string' }),
+        defineField({ name: 'heading', title: 'Heading', type: 'string' }),
+        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
       ],
     }),
     defineField({
@@ -86,17 +131,16 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'cta',
+      name: 'bottomCta',
       title: 'Bottom CTA Section',
       type: 'object',
       fields: [
-        defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string' }),
-        defineField({ name: 'headline', title: 'Headline', type: 'string' }),
+        defineField({ name: 'heading', title: 'Heading', type: 'string' }),
         defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
-        defineField({ name: 'primaryButtonLabel', title: 'Primary Button Label', type: 'string' }),
-        defineField({ name: 'primaryButtonUrl', title: 'Primary Button URL', type: 'string' }),
-        defineField({ name: 'secondaryButtonLabel', title: 'Secondary Button Label', type: 'string' }),
-        defineField({ name: 'secondaryButtonUrl', title: 'Secondary Button URL', type: 'string' }),
+        defineField({ name: 'primaryButtonText', title: 'Primary Button Text', type: 'string' }),
+        defineField({ name: 'primaryButtonLink', title: 'Primary Button Link', type: 'string' }),
+        defineField({ name: 'secondaryButtonText', title: 'Secondary Button Text', type: 'string' }),
+        defineField({ name: 'secondaryButtonLink', title: 'Secondary Button Link', type: 'string' }),
       ],
     }),
   ],

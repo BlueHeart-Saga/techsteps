@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import { EnumChangefreq } from 'sitemap';
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 
@@ -68,13 +69,13 @@ export default defineConfig({
       serialize(item) {
         const path = item.url.replace(productionSite, '').replace('https://techsteps.co.uk', '');
         if (path === '' || path === '/') {
-          item.changefreq = 'daily';
+          item.changefreq = EnumChangefreq.DAILY;
           item.priority = 1.0;
         } else if (path.startsWith('/services') || path.startsWith('/sectors')) {
-          item.changefreq = 'weekly';
+          item.changefreq = EnumChangefreq.WEEKLY;
           item.priority = 0.9;
         } else if (path.startsWith('/insights') || path.startsWith('/case-studies')) {
-          item.changefreq = 'weekly';
+          item.changefreq = EnumChangefreq.WEEKLY;
           item.priority = 0.8;
         } else if (
           path === '/about-us' ||
@@ -83,7 +84,7 @@ export default defineConfig({
           path === '/request-a-quote' ||
           path === '/investors'
         ) {
-          item.changefreq = 'weekly';
+          item.changefreq = EnumChangefreq.WEEKLY;
           item.priority = 0.8;
         } else if (
           path === '/privacy-policy' ||
@@ -94,10 +95,10 @@ export default defineConfig({
           path === '/environmental-policy' ||
           path === '/information-security-policy'
         ) {
-          item.changefreq = 'monthly';
+          item.changefreq = EnumChangefreq.MONTHLY;
           item.priority = 0.4;
         } else {
-          item.changefreq = 'monthly';
+          item.changefreq = EnumChangefreq.MONTHLY;
           item.priority = 0.7;
         }
         return item;

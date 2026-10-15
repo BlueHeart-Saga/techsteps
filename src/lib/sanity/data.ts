@@ -1770,7 +1770,7 @@ export const defaultAboutPage: AboutPageData = {
   },
 
   cta: {
-    heading: "Let's Build a More Responsible Technology Future",
+    headline: "Let's Build a More Responsible Technology Future",
     description:
       'Talk to our team about secure, sustainable and responsible IT asset management.',
     primaryButtonText: 'Talk to Our Team',
@@ -2759,9 +2759,6 @@ export const defaultHomePageData: HomePageData = {
   intro: {
     heading: 'Trusted ITAD Services Across the UK',
     description: "Techsteps delivers secure, GDPR-compliant IT asset disposal and responsible recycling for UK businesses across the hardware lifecycle.",
-    highlightOne: '100% Zero-Landfill Environmental Guarantee',
-    highlightTwo: 'ADISA Certified Data Erasure & Shredding',
-    highlightThree: 'GPS-Tracked Dedicated Chain of Custody',
   },
   statistics: [
     { number: '100', suffix: '%', label: 'Secure Disposal' },

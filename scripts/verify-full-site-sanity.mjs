@@ -53,7 +53,7 @@ async function main() {
     { url: 'http://localhost:3000/sustainability', check: 'Zero-Landfill Guarantee', desc: 'Sustainability circular steps' },
     { url: 'http://localhost:3000/investors', check: 'Environmental Stewardship', desc: 'Investors ESG pillar' },
     { url: 'http://localhost:3000/privacy-policy', check: 'Categories of Information We Collect', desc: 'Privacy Policy Sanity section' },
-    { url: 'http://localhost:3000/terms-and-conditions', check: 'Scope & Application of Terms', desc: 'Terms & Conditions Sanity section' },
+    { url: 'http://localhost:3000/terms-and-conditions', check: 'Scope &amp; Application of Terms', desc: 'Terms & Conditions Sanity section' },
     { url: 'http://localhost:3000/it-lifecycle-services-destruction', check: 'Sustainable, Secure IT Asset Management', desc: 'IT Lifecycle division page' },
     { url: 'http://localhost:3000/services/it-lifecycle', check: 'Sustainable, Secure IT Asset Management', desc: 'IT Lifecycle services route' },
     { url: `http://localhost:3000/services/${sampleSrv.slug.current}`, check: sampleSrv.title, desc: 'Service detail page' },

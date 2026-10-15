@@ -318,13 +318,6 @@ export default defineType({
       ],
     }),
 
-    // Legacy fields preserved for schema stability
-    defineField({ name: 'hero', title: 'Legacy Hero', type: 'object', hidden: true, fields: [{ name: 'headline', type: 'string' }] }),
-    defineField({ name: 'whoWeAre', title: 'Legacy Who We Are', type: 'object', hidden: true, fields: [{ name: 'headline', type: 'string' }] }),
-    defineField({ name: 'whatWeDo', title: 'Legacy What We Do', type: 'object', hidden: true, fields: [{ name: 'eyebrow', type: 'string' }] }),
-    defineField({ name: 'approach', title: 'Legacy Approach', type: 'object', hidden: true, fields: [{ name: 'headline', type: 'string' }] }),
-    defineField({ name: 'capabilities', title: 'Legacy Capabilities', type: 'object', hidden: true, fields: [{ name: 'eyebrow', type: 'string' }] }),
-    defineField({ name: 'statistics', title: 'Legacy Statistics', type: 'array', hidden: true, of: [{ type: 'object', fields: [{ name: 'label', type: 'string' }] }] }),
   ],
 
   preview: {

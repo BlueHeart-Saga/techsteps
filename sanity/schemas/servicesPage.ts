@@ -6,9 +6,21 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'metaTitle',
+      title: 'SEO Meta Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'SEO Meta Description',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
       name: 'seo',
-      title: 'SEO Metadata',
+      title: 'SEO Metadata (Legacy)',
       type: 'seo',
+      hidden: true,
     }),
     defineField({
       name: 'hero',

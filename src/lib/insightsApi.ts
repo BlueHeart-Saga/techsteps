@@ -306,11 +306,11 @@ class InsightsApiService {
       if (!response || !response.items) return [];
 
       const validItems = response.items.filter(isPublishedPost);
-      const posts = validItems.map((item: any) =>
+      const posts: TransformedPost[] = validItems.map((item: any) =>
         this.transformContent(item, { slug: sectionSlug })
       );
       return posts
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .sort((a: TransformedPost, b: TransformedPost) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, limit);
     } catch (err) {
       console.error(`Error fetching section posts for ${sectionSlug}:`, err);

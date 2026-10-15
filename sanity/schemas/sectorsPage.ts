@@ -6,9 +6,21 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'metaTitle',
+      title: 'SEO Meta Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'SEO Meta Description',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
       name: 'seo',
-      title: 'SEO Metadata',
+      title: 'SEO Metadata (Legacy)',
       type: 'seo',
+      hidden: true,
     }),
     defineField({
       name: 'hero',
@@ -45,6 +57,31 @@ export default defineType({
         defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string', initialValue: 'Industries' }),
         defineField({ name: 'heading', title: 'Heading', type: 'string', initialValue: 'Sectors We Serve' }),
         defineField({ name: 'description', title: 'Description', type: 'text', rows: 2 }),
+      ],
+    }),
+    defineField({
+      name: 'lifecycle',
+      title: 'Lifecycle Process Section',
+      type: 'object',
+      fields: [
+        defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string', initialValue: 'Our Process' }),
+        defineField({ name: 'heading', title: 'Heading', type: 'string', initialValue: 'Certified Information & Technology Lifecycles' }),
+        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+        defineField({
+          name: 'steps',
+          title: 'Steps',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'step', title: 'Step Name (e.g. Collect)', type: 'string' }),
+                defineField({ name: 'desc', title: 'Step Description', type: 'text', rows: 2 }),
+                defineField({ name: 'image', title: 'Image URL or Asset', type: 'string' }),
+              ],
+            },
+          ],
+        }),
       ],
     }),
     defineField({

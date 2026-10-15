@@ -31,6 +31,7 @@ export default defineType({
       fields: [
         defineField({ name: 'linkedin', title: 'LinkedIn URL', type: 'url' }),
         defineField({ name: 'twitter', title: 'X (Twitter) URL', type: 'url' }),
+        defineField({ name: 'instagram', title: 'Instagram URL', type: 'url' }),
       ],
     }),
     defineField({ name: 'defaultMetaTitle', title: 'Default Meta Title', type: 'string' }),

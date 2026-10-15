@@ -86,7 +86,8 @@ const rawSanityClient = projectId
 // High-performance in-memory cache & request deduplication to make page navigation instant
 const sanityCache = new Map<string, { data: any; expiry: number }>();
 const inFlightRequests = new Map<string, Promise<any>>();
-const SANITY_CACHE_TTL = 60 * 1000; // 60s cache in memory
+const isDev = Boolean(env.DEV || (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production'));
+const SANITY_CACHE_TTL = isDev ? 1000 : 60 * 1000;
 
 export const sanityClient = rawSanityClient
   ? new Proxy(rawSanityClient, {
@@ -152,10 +153,7 @@ export async function getHomePage(): Promise<HomePageData | null> {
 
           intro{
             heading,
-            description,
-            highlightOne,
-            highlightTwo,
-            highlightThree
+            description
           },
 
           statistics[]{
@@ -202,10 +200,8 @@ export async function getHomePage(): Promise<HomePageData | null> {
               title,
               headline,
               shortDesc,
-              lead,
               description,
               badge,
-              tag,
               image{
                 asset->{
                   _id,
@@ -368,10 +364,15 @@ export async function getDivisions(): Promise<Division[]> {
         "heroImage": coalesce(heroImage.asset->url, heroImage)
       } | order(order asc)`);
       if (data && data.length > 0) {
-        return data.map((d: any) => ({
-          ...d,
-          slug: normalizeSlug(d.slug),
-        }));
+        return data.map((d: any) => {
+          const normSlug = normalizeSlug(d.slug);
+          const fallback = divisions.find((f) => f.slug === normSlug || f.id === d._id || f.id === d.id);
+          return {
+            ...fallback,
+            ...d,
+            slug: normSlug,
+          };
+        });
       }
     } catch {
       // Fallback
@@ -394,10 +395,15 @@ export async function getServices(): Promise<Service[]> {
         "divisionTitle": coalesce(division->title, divisionTitle)
       }`);
       if (data && data.length > 0) {
-        return data.map((s: any) => ({
-          ...s,
-          slug: normalizeSlug(s.slug),
-        }));
+        return data.map((s: any) => {
+          const normSlug = normalizeSlug(s.slug);
+          const fallback = services.find((f) => f.slug === normSlug || f.id === s._id || f.id === s.id);
+          return {
+            ...fallback,
+            ...s,
+            slug: normSlug,
+          };
+        });
       }
     } catch {
       // Fallback
@@ -513,10 +519,13 @@ export async function getSectors(): Promise<Sector[]> {
       }`);
 
       if (data && data.length > 0) {
-        sanitySectors = data.map((sec: any) => ({
-          ...sec,
-
-          slug: normalizeSlug(sec.slug),
+        sanitySectors = data.map((sec: any) => {
+          const normSlug = normalizeSlug(sec.slug);
+          const fallback = sectors.find((f) => f.slug === normSlug || f.id === sec._id || f.id === sec.id);
+          return {
+            ...fallback,
+            ...sec,
+            slug: normSlug,
 
           challengesSection: sec.challengesSection || {},
 
@@ -559,7 +568,8 @@ export async function getSectors(): Promise<Sector[]> {
             : [],
 
           cta: sec.cta || {},
-        }));
+        };
+      });
       }
     } catch (error) {
       console.error('Failed to fetch Sectors from Sanity:', error);
@@ -1371,12 +1381,6 @@ export async function getFaqPage(): Promise<FaqPageData> {
         *[_type == "faqPage" && (_id == "faqPage" || !(_id in path("drafts.**")))] | order((_id == "faqPage") desc, _updatedAt desc)[0]{
           metaTitle,
           metaDescription,
-          hero{
-            eyebrow,
-            title,
-            subheading,
-            "bgImage": coalesce(bgImage.asset->url, "/images/brand/about-hero-bg.jpg")
-          },
           categories[]{
             id,
             name,
@@ -1586,12 +1590,6 @@ export async function getContactPage(): Promise<ContactPageData> {
           formSection{
             heading,
             "image": coalesce(image.asset->url, "/images/contact/contact-consultation.jpg")
-          },
-          directLines[]{
-            title,
-            description,
-            phone,
-            email
           }
         }
       `);
@@ -1621,11 +1619,6 @@ export async function getRequestCollectionPage(): Promise<RequestCollectionPageD
           hero{
             title,
             description
-          },
-          slaGuarantees[]{
-            title,
-            description,
-            icon
           }
         }
       `);

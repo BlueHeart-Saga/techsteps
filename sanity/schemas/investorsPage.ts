@@ -6,9 +6,15 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'seo',
-      title: 'SEO Metadata',
-      type: 'seo',
+      name: 'metaTitle',
+      title: 'SEO Meta Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'SEO Meta Description',
+      type: 'text',
+      rows: 3,
     }),
     defineField({
       name: 'hero',
@@ -57,16 +63,18 @@ export default defineType({
     }),
     defineField({
       name: 'investmentCase',
-      title: 'Investment Highlights',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({ name: 'title', title: 'Highlight Title', type: 'string' }),
-            defineField({ name: 'description', title: 'Highlight Description', type: 'text', rows: 3 }),
-          ],
-        },
+      title: 'Investment Thesis & Highlights',
+      type: 'object',
+      fields: [
+        defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string' }),
+        defineField({ name: 'heading', title: 'Heading', type: 'string' }),
+        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+        defineField({
+          name: 'bulletPoints',
+          title: 'Bullet Points',
+          type: 'array',
+          of: [{ type: 'string' }],
+        }),
       ],
     }),
     defineField({
@@ -74,10 +82,12 @@ export default defineType({
       title: 'Investor Relations Contact Info',
       type: 'object',
       fields: [
-        defineField({ name: 'title', title: 'Title', type: 'string' }),
+        defineField({ name: 'heading', title: 'Heading', type: 'string' }),
+        defineField({ name: 'description', title: 'Description', type: 'text', rows: 2 }),
+        defineField({ name: 'name', title: 'Contact / Desk Name', type: 'string' }),
+        defineField({ name: 'role', title: 'Role Title', type: 'string' }),
         defineField({ name: 'email', title: 'IR Email', type: 'string' }),
         defineField({ name: 'phone', title: 'IR Phone', type: 'string' }),
-        defineField({ name: 'address', title: 'Corporate Registrar Address', type: 'text', rows: 2 }),
       ],
     }),
     defineField({

@@ -86,7 +86,6 @@ export interface Service {
   keyBenefits: string[];
   process: ServiceProcessStep[];
   capabilities: string[];
-  deliverables?: { title: string; description?: string }[];
   faqs: FAQItem[];
   relatedServices?: string[]; // service slugs
   relatedSectors?: string[];  // sector slugs
@@ -462,9 +461,6 @@ export interface HomePageHero {
 export interface HomePageIntro {
   heading?: string;
   description?: string;
-  highlightOne?: string;
-  highlightTwo?: string;
-  highlightThree?: string;
 }
 
 export interface HomePageStatistic {
@@ -498,10 +494,8 @@ export interface HomePageLifecycleStep {
   title?: string;
   headline?: string;
   shortDesc?: string;
-  lead?: string;
   description?: string;
   badge?: string;
-  tag?: string;
   image?: any;
   imageUrl?: string;
   iconImage?: any;
@@ -568,6 +562,7 @@ export interface LeadershipLeader {
   background?: string;
   imageUrl?: string;
   imageAlt?: string;
+  linkedin?: string;
 }
 
 export interface LeadershipPrinciple {
@@ -584,65 +579,6 @@ export interface LeadershipCommitmentCard {
   isFeatured?: boolean;
 }
 
-export interface LeadershipPageData {
-  metaTitle?: string;
-  metaDescription?: string;
-  hero?: {
-    eyebrow?: string;
-    title?: string;
-    highlightedTitle?: string;
-    subtitle?: string;
-    imageUrl?: string;
-    imageAlt?: string;
-  };
-  intro?: {
-    label?: string;
-    title?: string;
-    highlightedTitle?: string;
-    paragraphs?: string[];
-  };
-  team?: {
-    label?: string;
-    title?: string;
-    highlightedTitle?: string;
-    subtitle?: string;
-    members?: LeadershipLeader[];
-  };
-  principles?: {
-    eyebrow?: string;
-    title?: string;
-    highlightedTitle?: string;
-    description?: string;
-    items?: LeadershipPrinciple[];
-  };
-  action?: {
-    eyebrow?: string;
-    title?: string;
-    highlightedTitle?: string;
-    badgeNumber?: string;
-    badgeText?: string;
-    imageUrl?: string;
-    imageAlt?: string;
-    paragraphs?: string[];
-    linkText?: string;
-    linkUrl?: string;
-  };
-  commitment?: {
-    label?: string;
-    title?: string;
-    highlightedTitle?: string;
-    description?: string;
-    cards?: LeadershipCommitmentCard[];
-  };
-  cta?: {
-    title?: string;
-    description?: string;
-    primaryText?: string;
-    primaryHref?: string;
-    secondaryText?: string;
-    secondaryHref?: string;
-  };
-}
 
 export interface FaqCategoryItem {
   id: string;

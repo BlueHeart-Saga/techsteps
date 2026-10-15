@@ -6,19 +6,15 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'seo',
-      title: 'SEO Metadata',
-      type: 'seo',
+      name: 'metaTitle',
+      title: 'SEO Meta Title',
+      type: 'string',
     }),
     defineField({
-      name: 'hero',
-      title: 'Hero Section',
-      type: 'object',
-      fields: [
-        defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string', initialValue: 'FAQ' }),
-        defineField({ name: 'title', title: 'Title', type: 'string', initialValue: 'Frequently Asked Questions' }),
-        defineField({ name: 'subheading', title: 'Subheading', type: 'text', rows: 2 }),
-      ],
+      name: 'metaDescription',
+      title: 'SEO Meta Description',
+      type: 'text',
+      rows: 3,
     }),
     defineField({
       name: 'categories',
@@ -63,14 +59,14 @@ export default defineType({
       fields: [
         defineField({ name: 'heading', title: 'Card Heading', type: 'string' }),
         defineField({ name: 'description', title: 'Card Description', type: 'text', rows: 2 }),
-        defineField({ name: 'buttonLabel', title: 'Button Label', type: 'string' }),
-        defineField({ name: 'buttonUrl', title: 'Button URL', type: 'string' }),
+        defineField({ name: 'buttonText', title: 'Button Text', type: 'string' }),
+        defineField({ name: 'buttonLink', title: 'Button Link', type: 'string' }),
       ],
     }),
   ],
   preview: {
     select: {
-      title: 'hero.title',
+      title: 'metaTitle',
     },
     prepare({ title }) {
       return {
