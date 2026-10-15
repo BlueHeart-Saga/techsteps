@@ -113,44 +113,48 @@ const serviceMappings = (sector.challenges || []).map((challenge, idx) => {
 
 // Fallback sector images
 const sectorFallbackImages: Record<string, string> = {
-  defence: '/images/sectors/defence.webp',
+  defence: '/images/sectors/defence(1).webp',
   nhs: '/images/sectors/healthcare.webp',
   healthcare: '/images/sectors/healthcare.webp',
-  finance: '/images/sectors/collection services.webp',
-  'financial-services': '/images/sectors/collection services.webp',
-  'central-government': '/images/sectors/central.webp',
-  government: '/images/sectors/central.webp',
-  'education-universities': '/images/sectors/Education.webp',
-  education: '/images/sectors/Education.webp',
-  'legal-professional-services': '/images/sectors/corporate.webp',
-  legal: '/images/sectors/corporate.webp',
-  'manufacturing-engineering': '/images/sectors/manufacturing.webp',
-  manufacturing: '/images/sectors/manufacturing.webp',
-  'it-technology': '/images/sectors/technology.webp',
-  technology: '/images/sectors/technology.webp',
+  finance: '/images/sectors/finance.webp',
+  'financial-services': '/images/sectors/finance.webp',
+  'central-government': '/images/sectors/government.webp',
+  government: '/images/sectors/government.webp',
+  'education-universities': '/images/sectors/education(1).webp',
+  education: '/images/sectors/education(1).webp',
+  'legal-professional-services': '/images/sectors/corporate(1).webp',
+  'legal-professional-sector': '/images/sectors/corporate(1).webp',
+  legal: '/images/sectors/corporate(1).webp',
+  corporate: '/images/sectors/corporate(1).webp',
+  'manufacturing-engineering': '/images/sectors/manufacturing(1).webp',
+  manufacturing: '/images/sectors/manufacturing(1).webp',
+  'it-technology': '/images/sectors/It.webp',
+  technology: '/images/sectors/It.webp',
 };
 
 const sectorDeliveryImages: Record<string, string> = {
-  defence: '/images/sectors/defence.webp',
+  defence: '/images/sectors/defence(1).webp',
   nhs: '/images/sectors/healthcare.webp',
   healthcare: '/images/sectors/healthcare.webp',
-  finance: '/images/sectors/collection services.webp',
-  'financial-services': '/images/sectors/collection services.webp',
-  'central-government': '/images/sectors/central.webp',
+  finance: '/images/sectors/finance.webp',
+  'financial-services': '/images/sectors/finance.webp',
+  'central-government': '/images/sectors/government.webp',
   government: '/images/sectors/government.webp',
-  'education-universities': '/images/sectors/Education.webp',
-  education: '/images/sectors/Education.webp',
-  'legal-professional-services': '/images/sectors/corporate.webp',
-  legal: '/images/sectors/corporate.webp',
-  'manufacturing-engineering': '/images/sectors/manufacturing.webp',
-  manufacturing: '/images/sectors/manufacturing.webp',
-  'it-technology': '/images/sectors/technology.webp',
-  technology: '/images/sectors/technology.webp',
+  'education-universities': '/images/sectors/education(1).webp',
+  education: '/images/sectors/education(1).webp',
+  'legal-professional-services': '/images/sectors/corporate(1).webp',
+  'legal-professional-sector': '/images/sectors/corporate(1).webp',
+  legal: '/images/sectors/corporate(1).webp',
+  corporate: '/images/sectors/corporate(1).webp',
+  'manufacturing-engineering': '/images/sectors/manufacturing(1).webp',
+  manufacturing: '/images/sectors/manufacturing(1).webp',
+  'it-technology': '/images/sectors/It.webp',
+  technology: '/images/sectors/It.webp',
 };
 
 const deliveryImage =
   sectorDeliveryImages[sector.slug] ||
-  '/images/sectors/corporate.webp';
+  '/images/sectors/corporate(1).webp';
 
 // Strictly sector-specific verified case study
 const matchingCaseStudy = (caseStudies || []).find((c) => {

@@ -283,24 +283,25 @@ const column3 = [
 
 
   /* =========================================================
-     SCROLL NAV GLASS
+     SCROLL NAV GLASS (EXACT SAME AS SCROLLING NAVBAR)
   ========================================================= */
 
-  #sectors-dropdown-panel .sectors-dropdown-card.scroll-glass-active {
-    background: rgba(255, 255, 255, 0.58) !important;
+  #sectors-dropdown-panel .sectors-dropdown-card.scroll-glass-active,
+  #sectors-dropdown-card.scroll-glass-active {
+    background: rgba(250, 246, 238, 0.60) !important;
+    background-color: rgba(250, 246, 238, 0.60) !important;
 
     -webkit-backdrop-filter:
-      blur(22px) saturate(140%) !important;
+      blur(12px) !important;
 
     backdrop-filter:
-      blur(22px) saturate(140%) !important;
+      blur(12px) !important;
 
-    border-color:
-      rgba(255, 255, 255, 0.65) !important;
+    border:
+      1px solid rgba(0, 0, 0, 0.10) !important;
 
     box-shadow:
-      0 24px 60px rgba(0, 0, 0, 0.12),
-      0 8px 24px rgba(0, 0, 0, 0.06) !important;
+      0 16px 40px -10px rgba(0, 0, 0, 0.08) !important;
   }
 
 
@@ -392,31 +393,37 @@ const column3 = [
 
         card.style.setProperty(
           'background',
-          'rgba(255, 255, 255, 0.58)',
+          'rgba(250, 246, 238, 0.60)',
+          'important'
+        );
+
+        card.style.setProperty(
+          'background-color',
+          'rgba(250, 246, 238, 0.60)',
           'important'
         );
 
         card.style.setProperty(
           '-webkit-backdrop-filter',
-          'blur(22px) saturate(140%)',
+          'blur(12px)',
           'important'
         );
 
         card.style.setProperty(
           'backdrop-filter',
-          'blur(22px) saturate(140%)',
+          'blur(12px)',
           'important'
         );
 
         card.style.setProperty(
           'border',
-          '1px solid rgba(255, 255, 255, 0.65)',
+          '1px solid rgba(0, 0, 0, 0.10)',
           'important'
         );
 
         card.style.setProperty(
           'box-shadow',
-          '0 24px 60px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.06)',
+          '0 16px 40px -10px rgba(0, 0, 0, 0.08)',
           'important'
         );
 
@@ -428,6 +435,10 @@ const column3 = [
 
         card.style.removeProperty(
           'background'
+        );
+
+        card.style.removeProperty(
+          'background-color'
         );
 
         card.style.removeProperty(

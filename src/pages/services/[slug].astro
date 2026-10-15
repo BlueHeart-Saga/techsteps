@@ -269,15 +269,15 @@ const processSubtitle = detail?.processSubtitle?.trim() || processFallback.subti
 
 // BUSINESS NEEDS section (expanding image panels)
 const sectorImages: Record<string, string> = {
-  legal: '/images/sectors/legal.jpg',
-  health: '/images/sectors/nhs.jpg',
-  finance: '/images/sectors/finance.jpg',
-  corporate: '/images/sectors/corporate.jpg',
-  public: '/images/sectors/government.jpg',
-  business: '/images/sectors/technology.jpg',
-  tech: '/images/sectors/technology.jpg',
-  defence: '/images/sectors/defence.jpg',
-  education: '/images/sectors/education.jpg',
+  legal: '/images/sectors/corporate(1).webp',
+  health: '/images/sectors/healthcare.webp',
+  finance: '/images/sectors/finance.webp',
+  corporate: '/images/sectors/corporate(1).webp',
+  public: '/images/sectors/government.webp',
+  business: '/images/sectors/It.webp',
+  tech: '/images/sectors/It.webp',
+  defence: '/images/sectors/defence(1).webp',
+  education: '/images/sectors/education(1).webp',
 };
 const needsIconPaths: Record<string, string> = {
   legal:
@@ -404,35 +404,57 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
 // Dedicated images for the About / Introduction section
 // =====================================================
 const serviceAboutImages: Record<string, string> = {
+  // Information Management
   'digital-mailroom': '/images/services/digital mailroom.webp',
   'document-scanning': '/images/services/document scanning.webp',
   'document-management': '/images/services/document management.webp',
   'document-storage': '/images/services/Secure Document Storage.webp',
   'tape-media-storage': '/images/services/Tape and Media Storage.webp',
+  'tape-storage': '/images/services/Tape and Media Storage.webp',
   'heritage-storage': '/images/services/Heritage Storage Services.webp',
   'vault-storage': '/images/services/Vault Storage.webp',
 
+  // IT Lifecycle Services
   'secure-it-disposal': '/images/services/secure-it-disposal.webp',
-  'secure-collection-services': '/images/services/secure-collection-services.webp',
-  'it-asset-disposition-services': '/images/services/it-asset-disposition-services.webp',
-  'it-asset-tracking-services': '/images/services/it-asset-tracking-services.webp',
+  'secure-collection-services': '/images/services/secure-collection-services(!).webp',
+  'secure-collection': '/images/services/secure-collection-services(!).webp',
+  'it-asset-disposition-services': '/images/services/it-asset-disposition-services(1).webp',
+  'it-asset-disposition': '/images/services/it-asset-disposition-services(1).webp',
+  'itad': '/images/services/it-asset-disposition-services(1).webp',
+  'it-asset-tracking-services': '/images/services/it-asset-tracking-services(1).webp',
+  'it-asset-tracking': '/images/services/it-asset-tracking-services(1).webp',
+  'it-asset-management-services': '/images/services/it-asset-tracking-services(1).webp',
+  'itam': '/images/services/it-asset-tracking-services(1).webp',
+  'itat': '/images/services/it-asset-tracking-services(1).webp',
   'remarketing-recycling': '/images/services/remarketing-recycling.webp',
+  'remarketing': '/images/services/remarketing-recycling.webp',
   'ultra-secure-hard-drive-destruction': '/images/services/ultra-secure-hard-drive-destruction.webp',
+  'hard-drive-destruction': '/images/services/ultra-secure-hard-drive-destruction.webp',
 
+  // Secure Shredding & Simpler Recycling
   'home-shredding': '/images/services/home-shredding.webp',
   'on-site-shredding': '/images/services/on-site-shredding.webp',
+  'onsite-shredding': '/images/services/on-site-shredding.webp',
   'off-site-shredding': '/images/services/off-site-shredding.webp',
+  'offsite-shredding': '/images/services/off-site-shredding.webp',
   'product-shredding': '/images/services/product-shredding.webp',
   'simpler-recycling-services': '/images/services/simpler-recycling.webp',
+  'simpler-recycling': '/images/services/simpler-recycling.webp',
   'disposal-services': '/images/services/disposal-services.webp',
+  'disposal': '/images/services/disposal-services.webp',
   'cardboard-recycling': '/images/services/cardboard-recycling.webp',
   'dry-mixed-recycling': '/images/services/dry-mixed-recycling.webp',
 
+  // Moving & Relocation
   'business-relocations': '/images/services/business-relocations.webp',
   'laboratory-relocations-storage': '/images/services/laboratory-relocations-storage.webp',
+  'laboratory-relocations': '/images/services/laboratory-relocations-storage.webp',
   'heritage-relocations-storage': '/images/services/heritage-relocations-storage.webp',
+  'heritage-relocations': '/images/services/heritage-relocations-storage.webp',
   'europe-international-domestic-moves': '/images/services/europe-international-domestic-moves.webp',
+  'international-moves': '/images/services/europe-international-domestic-moves.webp',
   'it-relocations-specialist': '/images/services/it-relocations-specialist.webp',
+  'it-relocations': '/images/services/it-relocations-specialist.webp',
   'project-management': '/images/services/project-management.webp',
 };
 
@@ -441,10 +463,26 @@ const normalizedServiceSlug = (service.slug || '')
   .toLowerCase()
   .replace(/-(uk|services|services-uk)$/, '');
 
-// Prioritize Sanity aboutImage, then verified local webp mapping, then fallback detail
+// Resolve verified local webp about image with full alias fallback support
 const serviceAboutImage =
-  service.aboutImage ||
+  serviceAboutImages[cleanSlug] ||
   serviceAboutImages[normalizedServiceSlug] ||
+  serviceAboutImages[service.slug?.toLowerCase() || ''] ||
+  (isSecureItDisposal ? '/images/services/secure-it-disposal.webp' : '') ||
+  (isSecureCollection ? '/images/services/secure-collection-services(!).webp' : '') ||
+  (isItad ? '/images/services/it-asset-disposition-services(1).webp' : '') ||
+  (isItam ? '/images/services/it-asset-tracking-services(1).webp' : '') ||
+  (isRemarketingRecycling ? '/images/services/remarketing-recycling.webp' : '') ||
+  (isHardDriveDestruction ? '/images/services/ultra-secure-hard-drive-destruction.webp' : '') ||
+  (isHomeShredding ? '/images/services/home-shredding.webp' : '') ||
+  (isOnsiteShredding ? '/images/services/on-site-shredding.webp' : '') ||
+  (isOffsiteShredding ? '/images/services/off-site-shredding.webp' : '') ||
+  (isProductShredding ? '/images/services/product-shredding.webp' : '') ||
+  (isSimplerRecycling ? '/images/services/simpler-recycling.webp' : '') ||
+  (isDisposalServices ? '/images/services/disposal-services.webp' : '') ||
+  (isCardboardRecycling ? '/images/services/cardboard-recycling.webp' : '') ||
+  (isDryMixedRecycling ? '/images/services/dry-mixed-recycling.webp' : '') ||
+  service.aboutImage ||
   detail.aboutImage;
 
 ---

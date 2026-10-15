@@ -49,6 +49,26 @@ export const deskStructure: StructureResolver = (S) =>
         ),
 
       S.listItem()
+        .title('Global Presence Page')
+        .id('globalPresencePage')
+        .child(
+          S.document()
+            .schemaType('globalPresencePage')
+            .documentId('globalPresencePage')
+            .title('Global Presence & Cross-Border Logistics')
+        ),
+
+      S.listItem()
+        .title('Our People & Culture Page')
+        .id('peopleCulturePage')
+        .child(
+          S.document()
+            .schemaType('peopleCulturePage')
+            .documentId('peopleCulturePage')
+            .title('Our People, Culture & Growth')
+        ),
+
+      S.listItem()
         .title('Services Main Page')
         .id('servicesPage')
         .child(

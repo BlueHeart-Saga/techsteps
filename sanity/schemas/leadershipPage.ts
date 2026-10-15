@@ -71,6 +71,8 @@ export default defineType({
                 defineField({ name: 'name', title: 'Leader Name', type: 'string', initialValue: 'Leadership Name' }),
                 defineField({ name: 'role', title: 'Role / Title', type: 'string' }),
                 defineField({ name: 'bio', title: 'Bio Description', type: 'text', rows: 3 }),
+                defineField({ name: 'background', title: 'Professional Background', type: 'string' }),
+                defineField({ name: 'linkedin', title: 'LinkedIn Profile URL', type: 'url' }),
                 defineField({ name: 'imageUrl', title: 'Photo URL', type: 'string' }),
                 defineField({ name: 'image', title: 'Photo (Upload)', type: 'image', options: { hotspot: true } }),
                 defineField({ name: 'imageAlt', title: 'Photo Alt Text', type: 'string' }),

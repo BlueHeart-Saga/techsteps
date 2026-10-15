@@ -25,7 +25,7 @@ const defaultSectorItems: SectorItem[] = [
     title: 'NHS & Healthcare',
     slug: 'nhs',
     category: 'Healthcare & Trusts',
-    image: '/images/sectors/nhs.jpg',
+    image: '/images/sectors/healthcare.webp',
     icon: '/icons/NHS & Healthcare.svg',
     description: 'Caldicott-compliant patient records vaulting, BS 10008 legal scanning, emergency 1-hour recall, and hospital ward IT decommissioning.',
   },
@@ -35,7 +35,7 @@ const defaultSectorItems: SectorItem[] = [
     title: 'Financial Services',
     slug: 'finance',
     category: 'Banking & Finance',
-    image: '/images/sectors/finance.jpg',
+    image: '/images/sectors/finance.webp',
     icon: '/icons/Financial Services.svg',
     description: 'FCA & PRA aligned governance, trading floor relocations, PCI-DSS compliance, and ADISA-certified sanitisation.',
   },
@@ -45,7 +45,7 @@ const defaultSectorItems: SectorItem[] = [
     title: 'Defence & Aerospace',
     slug: 'defence',
     category: 'Defence & Security',
-    image: '/images/sectors/defence.jpg',
+    image: '/images/sectors/defence(1).webp',
     icon: '/icons/Defence & Aerospace.svg',
     description: 'JSP 440 security-cleared personnel, on-site mobile DIN 66399 shredding, SC/DV vetted logistics, and classified plant disposal.',
   },
@@ -55,7 +55,7 @@ const defaultSectorItems: SectorItem[] = [
     title: 'Central Government & Public Sector',
     slug: 'central-government',
     category: 'Public Sector',
-    image: '/images/sectors/government.jpg',
+    image: '/images/sectors/government.webp',
     icon: '/icons/Central Government.svg',
     description: 'Crown Commercial Service frameworks, Greening Government Commitments (GGC), zero landfill ITAD, and public records governance.',
   },
@@ -65,7 +65,7 @@ const defaultSectorItems: SectorItem[] = [
     title: 'Legal & Professional Services',
     slug: 'legal-professional-services',
     category: 'Legal & Corporate',
-    image: '/images/sectors/legal.jpg',
+    image: '/images/sectors/corporate(1).webp',
     icon: '/icons/Corporate & Legal.svg',
     description: 'SRA-aligned confidentiality, litigation bundle digitization, deep vault storage, and on-site hardware sanitisation.',
   },
@@ -75,7 +75,7 @@ const defaultSectorItems: SectorItem[] = [
     title: 'Education & Universities',
     slug: 'education-universities',
     category: 'Higher Education',
-    image: '/images/sectors/education.jpg',
+    image: '/images/sectors/education(1).webp',
     icon: '/icons/Education & Universities.svg',
     description: 'Secure campus IT retirement, academic research archive digitization, and climate-monitored lab instrument relocations.',
   },
@@ -85,7 +85,7 @@ const defaultSectorItems: SectorItem[] = [
     title: 'Manufacturing & Engineering',
     slug: 'manufacturing-engineering',
     category: 'Advanced Industry',
-    image: '/images/sectors/manufacturing.jpg',
+    image: '/images/sectors/manufacturing(1).webp',
     icon: '/icons/Manufacturing & Engineering.svg',
     description: 'CAD/CAM blueprint protection, industrial control ITAD, prototype destruction, and clean production lab relocations.',
   },
@@ -95,11 +95,37 @@ const defaultSectorItems: SectorItem[] = [
     title: 'IT & Technology',
     slug: 'it-technology',
     category: 'Technology & Cloud',
-    image: '/images/sectors/technology.jpg',
+    image: '/images/sectors/It.webp',
     icon: '/icons/IT & Technology.svg',
     description: 'Hyperscale data centre de-racking, NIST 800-88 certified mass erasure, zero landfill asset lifecycle, and server remarketing.',
   },
 ];
+
+const sectorCardImages: Record<string, string> = {
+  'sec-defence': '/images/sectors/defence(1).webp',
+  'defence': '/images/sectors/defence(1).webp',
+  'sec-nhs': '/images/sectors/healthcare.webp',
+  'nhs': '/images/sectors/healthcare.webp',
+  'sec-finance': '/images/sectors/finance.webp',
+  'finance': '/images/sectors/finance.webp',
+  'sec-government': '/images/sectors/government.webp',
+  'central-government': '/images/sectors/government.webp',
+  'government': '/images/sectors/government.webp',
+  'sec-legal': '/images/sectors/corporate(1).webp',
+  'legal-professional-services': '/images/sectors/corporate(1).webp',
+  'legal-professional-sector': '/images/sectors/corporate(1).webp',
+  'legal': '/images/sectors/corporate(1).webp',
+  'corporate': '/images/sectors/corporate(1).webp',
+  'sec-education': '/images/sectors/education(1).webp',
+  'education-universities': '/images/sectors/education(1).webp',
+  'education': '/images/sectors/education(1).webp',
+  'sec-manufacturing': '/images/sectors/manufacturing(1).webp',
+  'manufacturing-engineering': '/images/sectors/manufacturing(1).webp',
+  'manufacturing': '/images/sectors/manufacturing(1).webp',
+  'sec-technology': '/images/sectors/It.webp',
+  'it-technology': '/images/sectors/It.webp',
+  'technology': '/images/sectors/It.webp',
+};
 
 const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
   ? defaultSectorItems.map((defaultItem) => {
@@ -111,14 +137,16 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
                (s.slug === 'technology' && defaultItem.slug === 'it-technology')
       );
 
-      if (!match) return defaultItem;
+      const resolvedImage = sectorCardImages[defaultItem.slug] || sectorCardImages[defaultItem.id] || match?.heroImage || defaultItem.image;
+
+      if (!match) return { ...defaultItem, image: resolvedImage };
 
       return {
         ...defaultItem,
         title: match.title || defaultItem.title,
         slug: defaultItem.slug,
         description: match.summary || match.tagline || defaultItem.description,
-        image: match.heroImage || defaultItem.image,
+        image: resolvedImage,
       };
     })
   : defaultSectorItems;

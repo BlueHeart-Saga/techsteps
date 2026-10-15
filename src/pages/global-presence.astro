@@ -1,0 +1,773 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import HeroHeader from '../components/global/HeroHeader.astro';
+import CTA from '../components/global/cta.astro';
+import { getGlobalPresencePage, getSiteSettings, getContactPage } from '../lib/sanity/client';
+import { defaultGlobalPresencePageData } from '../lib/sanity/data';
+
+const [pageDataRaw, siteSettings, contactPage] = await Promise.all([
+  getGlobalPresencePage(),
+  getSiteSettings(),
+  getContactPage(),
+]);
+
+const pageData = pageDataRaw || defaultGlobalPresencePageData;
+const canonicalUrl = 'https://techsteps.co.uk/global-presence';
+
+// Verified contact addresses directly sourced from the Contact page / SiteSettings source of truth
+const ukAddress1 = {
+  line1: 'Unit B, Roebuck road',
+  line2: 'Hainault business park, IG6 3UF',
+  city: 'London / Essex',
+  postcode: 'IG6 3UF',
+  country: 'United Kingdom',
+  mapUrl: 'https://www.google.com/maps/search/?api=1&query=Unit+B+Roebuck+road+Hainault+business+park+IG6+3UF',
+};
+
+const ukAddress2 = {
+  line1: 'Rickerscote Hall Ln',
+  line2: 'Stafford ST17 4HF',
+  city: 'Stafford',
+  postcode: 'ST17 4HF',
+  country: 'United Kingdom',
+  mapUrl: 'https://www.google.com/maps/search/?api=1&query=Rickerscote+Hall+Ln+Stafford+ST17+4HF',
+};
+
+const ukPhone = siteSettings?.phone || '020 8501 5050';
+const freephone = '0800 083 4700';
+const primaryEmail = siteSettings?.email || 'info@techsteps.co.uk';
+
+const globalPresenceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: pageData?.metaTitle || 'Global Presence | TechSteps UK',
+  description:
+    pageData?.metaDescription ||
+    'Supporting organisations across key markets with secure, responsible and sustainable technology asset management.',
+  mainEntity: {
+    '@id': 'https://techsteps.co.uk/#organization',
+  },
+};
+---
+
+<BaseLayout
+  title={pageData?.metaTitle || "Global Presence | TechSteps UK"}
+  description={pageData?.metaDescription || "Supporting organisations across key markets with secure, responsible and sustainable technology asset management."}
+  canonicalUrl={canonicalUrl}
+  jsonLd={globalPresenceSchema}
+  hasHeroHeader={true}
+>
+  <HeroHeader isHome={false} />
+
+  <main class="global-presence-page bg-white text-slate-900 selection:bg-[#0F623A] selection:text-white">
+
+    <!-- =====================================================
+         1. HERO SECTION
+    ====================================================== -->
+    <section class="relative min-h-[500px] sm:min-h-[560px] lg:min-h-[620px] bg-[#0c1f17] text-white flex items-center overflow-hidden">
+      <!-- Background Image with Curated Deep Emerald Wash -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src={pageData?.hero?.imageUrl || "/images/hero/Europe & International Domestic Moves.webp"}
+          alt={pageData?.hero?.imageAlt || "TechSteps international presence and secure technology asset management"}
+          class="w-full h-full object-cover object-center opacity-30 mix-blend-luminosity scale-105"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0c1f17]/95 via-[#0c1f17]/85 to-[#0c1f17]/50"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0c1f17] via-transparent to-transparent"></div>
+      </div>
+
+      <Container class="relative z-10 py-20 lg:py-28 w-full">
+        <div class="max-w-3xl">
+          <!-- Breadcrumb Navigation -->
+          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-300 mb-6">
+            <a href="/" class="text-slate-300 hover:text-[#3FB33D] transition-colors underline-offset-4 hover:underline">
+              Home
+            </a>
+            <span class="text-[#3FB33D] font-bold" aria-hidden="true">›</span>
+            <a href="/about-us" class="text-slate-300 hover:text-[#3FB33D] transition-colors underline-offset-4 hover:underline">
+              About Us
+            </a>
+            <span class="text-[#3FB33D] font-bold" aria-hidden="true">›</span>
+            <span class="text-white font-bold">Global Presence</span>
+          </nav>
+
+          <!-- Eyebrow Pill -->
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#3FB33D]/20 text-[#3FB33D] text-xs font-bold tracking-widest uppercase mb-5 border border-[#3FB33D]/30 backdrop-blur-sm font-mono">
+            INTERNATIONAL PRESENCE
+          </span>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-white mb-6 leading-[1.1]">
+            Global Presence
+          </h1>
+
+          <p class="text-lg sm:text-xl lg:text-[21px] text-slate-200 font-sans leading-relaxed max-w-2xl font-normal">
+            Supporting organisations across key markets with secure, responsible and sustainable technology asset management.
+          </p>
+
+          <!-- Quick Strategic Hub Badges -->
+          <div class="mt-8 pt-6 border-t border-white/15 flex flex-wrap items-center gap-4 text-xs sm:text-sm font-medium text-slate-300">
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-xs text-white border border-white/10">
+              <span class="w-2 h-2 rounded-full bg-[#3FB33D]"></span>
+              United Kingdom
+            </span>
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-xs text-white border border-white/10">
+              <span class="w-2 h-2 rounded-full bg-[#3FB33D]"></span>
+              India
+            </span>
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-xs text-white border border-white/10">
+              <span class="w-2 h-2 rounded-full bg-[#3FB33D]"></span>
+              United States
+            </span>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <!-- =====================================================
+         2. INTRODUCTION SECTION
+    ====================================================== -->
+    <section class="py-16 sm:py-24 bg-white border-b border-slate-100">
+      <Container>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          
+          <div class="lg:col-span-5 space-y-3">
+            <span class="text-xs font-bold font-mono tracking-widest text-[#0F623A] uppercase block">
+              INTERNATIONAL REACH · LOCAL AGILITY
+            </span>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-slate-900 tracking-tight leading-[1.12]">
+              Connected Globally.
+              <span class="text-[#0F623A] block">Supporting Locally.</span>
+            </h2>
+          </div>
+
+          <div class="lg:col-span-7 space-y-6">
+            <p class="text-lg sm:text-xl text-slate-700 leading-relaxed font-sans text-justify">
+              TechSteps brings together international reach with local expertise, helping organisations securely manage, recover and responsibly recycle their technology assets across key markets.
+            </p>
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-sans text-justify">
+              From high-density corporate data centres to nationwide corporate branch networks, we combine rigorous compliance governance with certified physical chain-of-custody protocols—ensuring data confidentiality and certified zero-landfill diversion across every border.
+            </p>
+
+            <!-- 3 High-Level Proof Metrics -->
+            <div class="pt-6 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div class="space-y-1">
+                <span class="text-3xl lg:text-4xl font-bold font-display text-[#0F623A]">3</span>
+                <p class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">Key Global Hubs</p>
+                <p class="text-xs text-slate-600">UK · India · USA</p>
+              </div>
+              <div class="space-y-1">
+                <span class="text-3xl lg:text-4xl font-bold font-display text-[#0F623A]">100%</span>
+                <p class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">Chain of Custody</p>
+                <p class="text-xs text-slate-600">Audited transit manifests</p>
+              </div>
+              <div class="space-y-1">
+                <span class="text-3xl lg:text-4xl font-bold font-display text-[#0F623A]">0%</span>
+                <p class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">Landfill Diversion</p>
+                <p class="text-xs text-slate-600">Circular economy compliance</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </Container>
+    </section>
+
+    <!-- =====================================================
+         3. STRATEGIC GEOGRAPHIC SHOWCASE (WORLD MAP VISUAL)
+    ====================================================== -->
+    <section class="py-16 sm:py-20 bg-[#F8FAF9] border-b border-slate-200/80 relative overflow-hidden">
+      <!-- World Dots Subtle Pattern -->
+      <div class="absolute inset-0 opacity-[0.06] pointer-events-none flex items-center justify-center select-none" aria-hidden="true">
+        <img
+          src="/images/brand/world-dots.svg"
+          alt=""
+          class="w-full max-w-6xl h-auto object-contain"
+        />
+      </div>
+
+      <Container class="relative z-10">
+        <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
+          <span class="text-xs font-bold font-mono tracking-widest text-[#0F623A] uppercase block mb-2.5">
+            WHERE WE OPERATE
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold font-display text-slate-900 tracking-tight leading-tight mb-3">
+            Strategic International Hubs
+          </h2>
+          <p class="text-base sm:text-lg text-slate-600 font-sans">
+            Delivering seamless technology lifecycle assurance across the United Kingdom, India, and the United States.
+          </p>
+        </div>
+
+        <!-- Clean Interactive Vector Map Representation -->
+        <div class="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-10 lg:p-12 relative overflow-hidden">
+          
+          <!-- Vector Map Canvas (Clean Stylized Global Representation with 3 Animated Nodes) -->
+          <div class="relative w-full aspect-[2/1] min-h-[300px] sm:min-h-[380px] bg-[#0A331E] rounded-2xl overflow-hidden flex items-center justify-center text-white">
+            <!-- Background Map Image Pattern -->
+            <img
+              src="/images/brand/world-dots.svg"
+              alt="World Locations Graphic"
+              class="absolute inset-0 w-full h-full object-cover opacity-20 filter invert pointer-events-none select-none"
+            />
+            
+            <!-- Subtle Radial Gradient Depth -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(63,179,61,0.12),transparent_70%)] pointer-events-none"></div>
+
+            <!-- Hub 1: UNITED KINGDOM PIN -->
+            <div class="absolute top-[28%] left-[47%] -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-10">
+              <a href="#location-uk" class="flex flex-col items-center focus:outline-none" aria-label="Jump to United Kingdom location">
+                <span class="relative flex h-5 w-5 items-center justify-center">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3FB33D] opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-[#3FB33D] border-2 border-white shadow-md"></span>
+                </span>
+                <span class="mt-1.5 px-2.5 py-0.5 rounded-full bg-black/75 backdrop-blur-sm border border-emerald-400/40 text-[11px] sm:text-xs font-bold text-white shadow-sm transition-transform group-hover:scale-105 whitespace-nowrap">
+                  United Kingdom (HQ)
+                </span>
+              </a>
+            </div>
+
+            <!-- Hub 2: INDIA PIN -->
+            <div class="absolute top-[52%] left-[69%] -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-10">
+              <a href="#location-india" class="flex flex-col items-center focus:outline-none" aria-label="Jump to India location">
+                <span class="relative flex h-5 w-5 items-center justify-center">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3FB33D] opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-[#3FB33D] border-2 border-white shadow-md"></span>
+                </span>
+                <span class="mt-1.5 px-2.5 py-0.5 rounded-full bg-black/75 backdrop-blur-sm border border-emerald-400/40 text-[11px] sm:text-xs font-bold text-white shadow-sm transition-transform group-hover:scale-105 whitespace-nowrap">
+                  India
+                </span>
+              </a>
+            </div>
+
+            <!-- Hub 3: UNITED STATES PIN -->
+            <div class="absolute top-[37%] left-[25%] -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-10">
+              <a href="#location-usa" class="flex flex-col items-center focus:outline-none" aria-label="Jump to United States location">
+                <span class="relative flex h-5 w-5 items-center justify-center">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3FB33D] opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-[#3FB33D] border-2 border-white shadow-md"></span>
+                </span>
+                <span class="mt-1.5 px-2.5 py-0.5 rounded-full bg-black/75 backdrop-blur-sm border border-emerald-400/40 text-[11px] sm:text-xs font-bold text-white shadow-sm transition-transform group-hover:scale-105 whitespace-nowrap">
+                  United States
+                </span>
+              </a>
+            </div>
+
+            <!-- Connection Arcs (Subtle Decorative Dashed Curves) -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-40" viewBox="0 0 1000 500" fill="none">
+              <!-- US to UK curve -->
+              <path d="M 250 185 Q 360 110, 470 140" stroke="#3FB33D" stroke-width="1.5" stroke-dasharray="4 4" />
+              <!-- UK to India curve -->
+              <path d="M 470 140 Q 580 180, 690 260" stroke="#3FB33D" stroke-width="1.5" stroke-dasharray="4 4" />
+            </svg>
+          </div>
+
+          <!-- Bottom Navigation Tabs to jump directly to locations -->
+          <div class="mt-6 pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
+              Browse Locations:
+            </span>
+            <div class="flex flex-wrap gap-2.5">
+              <a href="#location-india" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 hover:bg-[#0F623A] hover:text-white transition-all text-slate-800">
+                1. India →
+              </a>
+              <a href="#location-uk" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#0F623A]/10 text-[#0F623A] hover:bg-[#0F623A] hover:text-white transition-all font-bold">
+                2. United Kingdom (HQ) →
+              </a>
+              <a href="#location-usa" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 hover:bg-[#0F623A] hover:text-white transition-all text-slate-800">
+                3. United States →
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </Container>
+    </section>
+
+    <!-- =====================================================
+         4. GLOBAL LOCATIONS: THREE DEDICATED SECTIONS (ALTERNATING STORY)
+    ====================================================== -->
+
+    <!-- =====================================================
+         LOCATION 1: INDIA (Image Left, Information Right)
+    ====================================================== -->
+    <section id="location-india" class="py-20 lg:py-28 bg-white border-b border-slate-200/80 scroll-mt-24">
+      <Container>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          <!-- LEFT: Large Visual Area -->
+          <div class="lg:col-span-6 order-2 lg:order-1">
+            <div class="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-md group">
+              <img
+                src="/images/about/Partnered.webp"
+                alt="TechSteps India technology operations and global asset coordination"
+                class="w-full h-[380px] sm:h-[460px] lg:h-[500px] object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              
+              <!-- Location Badge Overlay -->
+              <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white">
+                <div>
+                  <span class="text-xs font-mono uppercase tracking-widest text-[#3FB33D] font-bold block">Regional Hub</span>
+                  <span class="text-lg font-bold font-display">Technology & Support Desk</span>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 text-xs font-mono font-bold">
+                  Asia-Pacific
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Location Information -->
+          <div class="lg:col-span-6 order-1 lg:order-2 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
+              01 · GLOBAL HUB
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-slate-900 tracking-tight leading-tight">
+              India
+            </h2>
+
+            <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-sans text-justify">
+              Our presence in India strengthens TechSteps’ international delivery model, providing agile technical coordination, technology asset tracking management, and client support across multi-timezone operations.
+            </p>
+
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-sans text-justify">
+              Working in coordination with our UK sovereign processing facilities, the India hub supports continuous asset tracking workflows, administrative compliance registers, and seamless client assistance for multinational organisations.
+            </p>
+
+            <!-- Address / Official Presence Details Card -->
+            <div class="bg-[#F8FAF9] rounded-2xl border border-slate-200/90 p-6 space-y-4">
+              <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-[#0F623A] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="text-base sm:text-lg font-bold font-display text-slate-900">
+                    TechSteps India Operations
+                  </h3>
+                  <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+                    Regional Technology Support & Global Coordination Hub
+                  </p>
+                  <p class="text-xs sm:text-sm text-slate-500 font-mono pt-1">
+                    Enquiries & Direct Liaison: <a href={`mailto:${primaryEmail}`} class="text-[#0F623A] hover:underline font-bold">{primaryEmail}</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key Capabilities List -->
+            <div class="pt-2">
+              <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 block mb-3">
+                Operational Highlights:
+              </span>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm font-medium text-slate-700">
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#3FB33D] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <span>24/7 Global Asset Tracking</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#3FB33D] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <span>International Liaison Desk</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#3FB33D] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <span>Multi-Timezone Coverage</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#3FB33D] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <span>Centralized Data Integrity</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="pt-4 flex items-center gap-4">
+              <a
+                href="/contact"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                <span>Contact Regional Team</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </Container>
+    </section>
+
+    <!-- =====================================================
+         LOCATION 2: UNITED KINGDOM (Information Left, Image Right)
+    ====================================================== -->
+    <section id="location-uk" class="py-20 lg:py-28 bg-[#F8FAF9] border-b border-slate-200/80 scroll-mt-24">
+      <Container>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          <!-- LEFT: Location Information -->
+          <div class="lg:col-span-6 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
+              02 · GLOBAL HEADQUARTERS
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-slate-900 tracking-tight leading-tight">
+              United Kingdom
+            </h2>
+
+            <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-sans text-justify">
+              The sovereign operational core of TechSteps. From our audited headquarters and high-security regional facilities in Hainault and Stafford, we direct nationwide collections, ADISA-certified sanitisation, and accredited zero-landfill electronic recycling.
+            </p>
+
+            <!-- Verified Contact Page Addresses (Source of Truth) -->
+            <div class="space-y-4 pt-2">
+              
+              <!-- Address 1: Hainault Facility -->
+              <div class="bg-white rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-xs hover:border-[#0F623A]/40 transition-colors">
+                <div class="flex items-start justify-between gap-3 mb-2">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#0F623A]"></span>
+                    <h3 class="text-base sm:text-lg font-bold font-display text-slate-900">
+                      Address 1 · Hainault Facility (Head Office & Hub)
+                    </h3>
+                  </div>
+                  <span class="text-xs font-mono font-bold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-600">
+                    London / Essex
+                  </span>
+                </div>
+                <p class="text-sm sm:text-base text-slate-800 font-medium leading-relaxed pl-5">
+                  {ukAddress1.line1}<br />
+                  {ukAddress1.line2}
+                </p>
+                <div class="mt-3 pl-5 pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <span class="text-xs text-slate-500 font-sans">Primary Processing & Executive HQ</span>
+                  <a
+                    href={ukAddress1.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0F623A] hover:text-[#0c4e2e] transition-colors"
+                  >
+                    <span>View on map</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Address 2: Stafford Facility -->
+              <div class="bg-white rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-xs hover:border-[#0F623A]/40 transition-colors">
+                <div class="flex items-start justify-between gap-3 mb-2">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#0F623A]"></span>
+                    <h3 class="text-base sm:text-lg font-bold font-display text-slate-900">
+                      Address 2 · Stafford Facility
+                    </h3>
+                  </div>
+                  <span class="text-xs font-mono font-bold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-600">
+                    Midlands
+                  </span>
+                </div>
+                <p class="text-sm sm:text-base text-slate-800 font-medium leading-relaxed pl-5">
+                  {ukAddress2.line1}, {ukAddress2.line2}
+                </p>
+                <div class="mt-3 pl-5 pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <span class="text-xs text-slate-500 font-sans">Regional Operations & Heavy Logistics Hub</span>
+                  <a
+                    href={ukAddress2.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0F623A] hover:text-[#0c4e2e] transition-colors"
+                  >
+                    <span>View on map</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Direct Contact Numbers -->
+            <div class="pt-2 flex flex-wrap items-center gap-6 text-sm text-slate-700">
+              <div>
+                <span class="text-xs font-mono uppercase text-slate-500 block">Phone</span>
+                <a href={`tel:${ukPhone.replace(/[^0-9+]/g, '')}`} class="font-bold text-slate-900 hover:text-[#0F623A]">{ukPhone}</a>
+              </div>
+              <div class="h-8 w-px bg-slate-200"></div>
+              <div>
+                <span class="text-xs font-mono uppercase text-slate-500 block">Freephone</span>
+                <a href="tel:08000834700" class="font-bold text-slate-900 hover:text-[#0F623A]">{freephone}</a>
+              </div>
+              <div class="h-8 w-px bg-slate-200"></div>
+              <div>
+                <span class="text-xs font-mono uppercase text-slate-500 block">Email</span>
+                <a href={`mailto:${primaryEmail}`} class="font-bold text-slate-900 hover:text-[#0F623A]">{primaryEmail}</a>
+              </div>
+            </div>
+
+            <div class="pt-4 flex items-center gap-4">
+              <a
+                href="/request-a-collection"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                <span>Request a Collection</span>
+                <span aria-hidden="true">→</span>
+              </a>
+              <a
+                href="/contact"
+                class="inline-flex items-center justify-center px-5 py-3.5 bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 text-sm sm:text-base font-semibold rounded-xl transition-colors"
+              >
+                Contact Headquarters
+              </a>
+            </div>
+          </div>
+
+          <!-- RIGHT: Large Visual Area -->
+          <div class="lg:col-span-6">
+            <div class="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-md group">
+              <img
+                src="/images/contact/Contact hero.webp"
+                alt="TechSteps UK Headquarters and sovereign processing centre"
+                class="w-full h-[380px] sm:h-[460px] lg:h-[500px] object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              
+              <!-- Location Badge Overlay -->
+              <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white">
+                <div>
+                  <span class="text-xs font-mono uppercase tracking-widest text-[#3FB33D] font-bold block">Sovereign Processing Hub</span>
+                  <span class="text-lg font-bold font-display">Dartford · Hainault · Stafford</span>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 text-xs font-mono font-bold">
+                  United Kingdom
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </Container>
+    </section>
+
+    <!-- =====================================================
+         LOCATION 3: UNITED STATES (Image Left, Information Right)
+    ====================================================== -->
+    <section id="location-usa" class="py-20 lg:py-28 bg-white border-b border-slate-200/80 scroll-mt-24">
+      <Container>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          <!-- LEFT: Large Visual Area -->
+          <div class="lg:col-span-6 order-2 lg:order-1">
+            <div class="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-md group">
+              <img
+                src="/images/hero/Europe & International Domestic Moves.webp"
+                alt="TechSteps North America operations and transatlantic asset management"
+                class="w-full h-[380px] sm:h-[460px] lg:h-[500px] object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              
+              <!-- Location Badge Overlay -->
+              <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white">
+                <div>
+                  <span class="text-xs font-mono uppercase tracking-widest text-[#3FB33D] font-bold block">Regional Partner Hub</span>
+                  <span class="text-lg font-bold font-display">North America Client Operations</span>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 text-xs font-mono font-bold">
+                  United States
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Location Information -->
+          <div class="lg:col-span-6 order-1 lg:order-2 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
+              03 · TRANSATLANTIC REACH
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-slate-900 tracking-tight leading-tight">
+              United States
+            </h2>
+
+            <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-sans text-justify">
+              Our United States presence facilitates multinational corporate relocations, cross-border technology disposition, and unified governance for transatlantic enterprise organisations.
+            </p>
+
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-sans text-justify">
+              By aligning North American corporate operations with TechSteps’ UK sovereign security standards, we provide enterprise clients with unbroken physical custody, consistent environmental accounting, and unified data protection governance across the Atlantic.
+            </p>
+
+            <!-- Address / Official Presence Details Card -->
+            <div class="bg-[#F8FAF9] rounded-2xl border border-slate-200/90 p-6 space-y-4">
+              <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-[#0F623A] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <div class="space-y-1">
+                  <h3 class="text-base sm:text-lg font-bold font-display text-slate-900">
+                    TechSteps US Partner Facility & Regional Liaison
+                  </h3>
+                  <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+                    Transatlantic Corporate Operations & Asset Disposition Liaison
+                  </p>
+                  <p class="text-xs sm:text-sm text-slate-500 font-mono pt-1">
+                    Direct Liaison: <a href={`mailto:${primaryEmail}`} class="text-[#0F623A] hover:underline font-bold">{primaryEmail}</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key Capabilities List -->
+            <div class="pt-2">
+              <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 block mb-3">
+                Operational Highlights:
+              </span>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm font-medium text-slate-700">
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#3FB33D] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <span>Transatlantic Asset Relocation</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#3FB33D] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <span>Unified Scope 3 Carbon Reporting</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#3FB33D] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <span>Standardized Asset Registers</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#3FB33D] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <span>Enterprise Account Coordination</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="pt-4 flex items-center gap-4">
+              <a
+                href="/contact"
+                class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold rounded-xl shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                <span>Inquire About US Services</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </Container>
+    </section>
+
+    <!-- =====================================================
+         5. BRANDED GLOBAL STATEMENT
+    ====================================================== -->
+    <section class="py-20 lg:py-28 bg-[#0A331E] relative overflow-hidden text-white border-b border-emerald-950">
+      <!-- Ambient Depth & Watermark -->
+      <div class="absolute inset-0 bg-gradient-to-br from-[#136b41]/30 via-transparent to-[#072415]/60 pointer-events-none"></div>
+      <img
+        src="/images/brand/cta-watermark-alpha.png"
+        alt=""
+        aria-hidden="true"
+        class="absolute right-0 bottom-0 h-full w-auto max-w-[40%] object-contain object-right-bottom opacity-10 pointer-events-none select-none hidden lg:block"
+      />
+
+      <Container class="relative z-10">
+        <div class="max-w-3xl mx-auto text-center space-y-6">
+          <span class="text-xs font-mono font-bold tracking-widest text-[#3FB33D] uppercase block">
+            OUR COMMITMENT
+          </span>
+
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-display tracking-tight text-white leading-tight">
+            One Global Approach. Local Expertise.
+          </h2>
+
+          <p class="text-lg sm:text-xl lg:text-[22px] text-emerald-100/90 leading-relaxed font-sans max-w-2xl mx-auto font-normal">
+            Across every market, our approach remains the same: protect what matters, recover what has value and manage technology responsibly.
+          </p>
+
+          <div class="pt-8 border-t border-emerald-500/20 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
+            <div class="p-6 rounded-2xl bg-white/[0.05] border border-white/10 space-y-2">
+              <span class="text-xs font-mono font-bold uppercase text-[#3FB33D] block">01 · SECURITY FIRST</span>
+              <h3 class="text-base font-bold font-display text-white">Unbroken Custody</h3>
+              <p class="text-xs sm:text-sm text-emerald-100/70 font-sans leading-relaxed">
+                BS 7858 vetted personnel, tamper-evident seals, and satellite telematics tracking on every consignment.
+              </p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white/[0.05] border border-white/10 space-y-2">
+              <span class="text-xs font-mono font-bold uppercase text-[#3FB33D] block">02 · CIRCULAR VALUE</span>
+              <h3 class="text-base font-bold font-display text-white">Zero Landfill</h3>
+              <p class="text-xs sm:text-sm text-emerald-100/70 font-sans leading-relaxed">
+                Environment Agency licensed recycling pathways ensuring 100% electronic component diversion and ethical recovery.
+              </p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white/[0.05] border border-white/10 space-y-2">
+              <span class="text-xs font-mono font-bold uppercase text-[#3FB33D] block">03 · COMPLIANCE DEFENSE</span>
+              <h3 class="text-base font-bold font-display text-white">Defensible Audit</h3>
+              <p class="text-xs sm:text-sm text-emerald-100/70 font-sans leading-relaxed">
+                ISO 27001, ADISA 8.0 and UK GDPR compliance documentation and certificates generated automatically.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <!-- =====================================================
+         6. COMPLIANCE STANDARDS (REUSING SANITY DATA)
+    ====================================================== -->
+    {pageData?.standards?.items && pageData.standards.items.length > 0 && (
+      <section class="py-16 sm:py-20 bg-white border-b border-slate-200/80">
+        <Container>
+          <div class="max-w-3xl mb-12">
+            <span class="text-xs font-bold font-mono tracking-widest text-[#0F623A] uppercase block mb-2">
+              {pageData?.standards?.label || "COMPLIANCE & GOVERNANCE"}
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-bold font-display text-slate-900 tracking-tight leading-tight">
+              {pageData?.standards?.title || "Certified standards for"}{" "}
+              <span class="text-[#0F623A]">{pageData?.standards?.highlightedTitle || "total peace of mind."}</span>
+            </h2>
+            <p class="mt-2 text-base sm:text-lg text-slate-600 font-sans">
+              {pageData?.standards?.description || "Every facility, vehicle, and partner adheres to the most stringent international compliance benchmarks."}
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {pageData.standards.items.map((std) => (
+              <div class="p-6 rounded-2xl border border-slate-200/90 bg-[#F8FAF9] hover:border-[#0F623A]/40 hover:bg-white hover:shadow-md transition-all duration-300">
+                <span class="text-xs font-mono font-bold text-[#0F623A] px-2.5 py-1 rounded bg-[#0F623A]/10 inline-block mb-3">
+                  {std.code}
+                </span>
+                <h3 class="text-base sm:text-lg font-bold font-display text-slate-900 mb-2">
+                  {std.name}
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+                  {std.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+    )}
+
+    <!-- =====================================================
+         7. CALL TO ACTION (EXISTING SHARED CTA)
+    ====================================================== -->
+    <CTA
+      title={pageData?.cta?.title || "Connect With Our Global Logistics Specialists"}
+      subtitle={pageData?.cta?.description || "Whether you require secure UK ITAD collection or cross-border asset transfers across Europe and beyond, our team is ready to assist."}
+      primaryBtnText={pageData?.cta?.primaryText || "Speak to a Specialist"}
+      primaryBtnUrl={pageData?.cta?.primaryHref || "/contact"}
+      secondaryBtnText={pageData?.cta?.secondaryText || "Request a Collection"}
+      secondaryBtnUrl={pageData?.cta?.secondaryHref || "/request-a-collection"}
+    />
+
+  </main>
+</BaseLayout>

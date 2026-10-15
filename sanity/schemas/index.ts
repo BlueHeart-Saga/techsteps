@@ -9,6 +9,8 @@ import caseStudy from './caseStudy';
 import article from './article';
 import aboutPage from './aboutPage';
 import leadershipPage from './leadershipPage';
+import globalPresencePage from './globalPresencePage';
+import peopleCulturePage from './peopleCulturePage';
 import homePage from './homePage';
 import faqPage from './faqPage';
 import sustainabilityPage from './sustainabilityPage';
@@ -32,6 +34,8 @@ export const schemaTypes = [
   homePage,
   aboutPage,
   leadershipPage,
+  globalPresencePage,
+  peopleCulturePage,
   servicesPage,
   sectorsPage,
   faqPage,

@@ -227,6 +227,7 @@ const navItems = [
               currentPath === '/about-us' ||
               currentPath.startsWith('/leadership') ||
               currentPath.startsWith('/people-culture') ||
+              currentPath.startsWith('/our-people-culture') ||
               currentPath.startsWith('/global-presence');
 
             return (
@@ -303,7 +304,7 @@ const navItems = [
                   </a>
 
                   <a
-                    href="/people-culture"
+                    href="/our-people-culture"
                     class="block px-5 py-3 text-sm text-slate-700 transition-colors"
                   >
                     Our People &amp; Culture
@@ -874,8 +875,8 @@ const navItems = [
          0 16px 40px -10px rgba(0,0,0,0.08)
     ====================================================== */
 
-    #services-megamenu-panel,
-    #sectors-dropdown-panel,
+    :global(#services-megamenu-card.scroll-glass-active),
+    :global(#sectors-dropdown-card.scroll-glass-active),
     #about-dropdown-panel {
 
       /* EXACT NAVBAR COLOR */

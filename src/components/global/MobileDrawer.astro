@@ -104,10 +104,25 @@ const currentPath = Astro.url.pathname;
         Insights
       </a>
 
-      <!-- 5. About Link -->
-      <a href="/about-us" class="block py-2.5 text-[15px] font-medium text-slate-900 hover:text-[#0F623A]">
-        About
-      </a>
+      <!-- 5. About Accordion -->
+      <div class="pb-1">
+        <button
+          type="button"
+          class="mobile-accordion-btn w-full flex items-center justify-between py-2.5 text-[15px] font-medium text-slate-900 hover:text-[#0F623A] transition-colors"
+          aria-expanded="false"
+        >
+          <span>About Us</span>
+          <svg class="w-4 h-4 text-slate-400 transition-transform duration-200 accordion-caret" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="mobile-accordion-content hidden space-y-2 pl-3 pt-2 text-[14px]">
+          <a href="/about-us" class="block font-medium text-slate-700 hover:text-[#0F623A]">Overview &amp; Values</a>
+          <a href="/leadership" class="block font-medium text-slate-700 hover:text-[#0F623A]">Leadership</a>
+          <a href="/our-people-culture" class="block font-medium text-slate-700 hover:text-[#0F623A]">Our People &amp; Culture</a>
+          <a href="/global-presence" class="block font-medium text-slate-700 hover:text-[#0F623A]">Global Presence</a>
+        </div>
+      </div>
     </div>
 
     <!-- Commercial Action Footer -->

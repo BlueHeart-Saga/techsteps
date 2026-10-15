@@ -9,6 +9,8 @@ import {
   articles,
   defaultAboutPage,
   defaultLeadershipPageData,
+  defaultGlobalPresencePageData,
+  defaultPeopleCulturePageData,
   defaultFaqPage,
   defaultSustainabilityPage,
   defaultInvestorsPage,
@@ -29,6 +31,8 @@ import type {
   Article,
   AboutPageData,
   LeadershipPageData,
+  GlobalPresencePageData,
+  PeopleCulturePageData,
   HomePageData,
   FaqPageData,
   SustainabilityPageData,
@@ -41,34 +45,32 @@ import type {
   LegalPageData,
 } from './types';
 
+const env = (typeof import.meta !== 'undefined' && import.meta.env) ? import.meta.env : (typeof process !== 'undefined' ? process.env : {} as any);
 const projectId =
-  import.meta.env.PUBLIC_SANITY_PROJECT_ID ||
-  import.meta.env.SANITY_PROJECT_ID ||
+  env.PUBLIC_SANITY_PROJECT_ID ||
+  env.SANITY_PROJECT_ID ||
   'zjv69ibt';
 const dataset =
-  import.meta.env.PUBLIC_SANITY_DATASET ||
-  import.meta.env.SANITY_DATASET ||
+  env.PUBLIC_SANITY_DATASET ||
+  env.SANITY_DATASET ||
   'techsteps';
 const apiVersion =
-  import.meta.env.PUBLIC_SANITY_API_VERSION ||
-  import.meta.env.SANITY_API_VERSION ||
+  env.PUBLIC_SANITY_API_VERSION ||
+  env.SANITY_API_VERSION ||
   '2026-03-01';
 // In static Astro generation, useCdn: false ensures the current published content is fetched
 const useCdn = false;
 
 // Ensure IPv4 first on Node environments to prevent dual-stack DNS lag
 if (typeof process !== 'undefined' && typeof process.versions?.node !== 'undefined') {
-  try {
-    const dns = await import('node:dns');
-    dns.setDefaultResultOrder?.('ipv4first');
-  } catch {
-    // browser or edge environment
-  }
+  import('node:dns')
+    .then((dns) => dns.setDefaultResultOrder?.('ipv4first'))
+    .catch(() => {});
 }
 
 const token =
-  import.meta.env.SANITY_API_TOKEN ||
-  import.meta.env.SANITY_TOKEN ||
+  env.SANITY_API_TOKEN ||
+  env.SANITY_TOKEN ||
   (typeof process !== 'undefined' ? (process.env.SANITY_API_TOKEN || process.env.SANITY_TOKEN) : undefined);
 
 const rawSanityClient = projectId
@@ -970,6 +972,8 @@ export async function getLeadershipPage(): Promise<LeadershipPageData> {
               role,
               name,
               bio,
+              background,
+              linkedin,
               imageUrl,
               "image": image.asset->url,
               imageAlt
@@ -1083,6 +1087,281 @@ export async function getLeadershipPage(): Promise<LeadershipPageData> {
     }
   }
   return defaultLeadershipPageData;
+}
+
+export async function getGlobalPresencePage(): Promise<GlobalPresencePageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`
+        *[_type == "globalPresencePage" && (_id == "globalPresencePage" || !(_id in path("drafts.**")))] | order((_id == "globalPresencePage") desc, _updatedAt desc)[0]{
+          metaTitle,
+          metaDescription,
+          hero{
+            eyebrow,
+            title,
+            highlightedTitle,
+            subtitle,
+            imageUrl,
+            "image": image.asset->url,
+            imageAlt
+          },
+          intro{
+            label,
+            title,
+            highlightedTitle,
+            paragraphs
+          },
+          regions{
+            eyebrow,
+            title,
+            highlightedTitle,
+            subtitle,
+            locations[]{
+              name,
+              type,
+              location,
+              description,
+              coverage,
+              features
+            }
+          },
+          capabilities{
+            label,
+            title,
+            highlightedTitle,
+            description,
+            items[]{
+              number,
+              title,
+              description,
+              badge,
+              linkUrl
+            }
+          },
+          standards{
+            label,
+            title,
+            highlightedTitle,
+            description,
+            items[]{
+              code,
+              name,
+              description
+            }
+          },
+          cta{
+            title,
+            description,
+            primaryText,
+            primaryHref,
+            secondaryText,
+            secondaryHref
+          }
+        }
+      `);
+
+      if (data) {
+        return {
+          ...defaultGlobalPresencePageData,
+          ...data,
+          hero: {
+            ...defaultGlobalPresencePageData.hero,
+            ...(data.hero || {}),
+            imageUrl: data.hero?.image || data.hero?.imageUrl || defaultGlobalPresencePageData.hero?.imageUrl,
+          },
+          intro: {
+            ...defaultGlobalPresencePageData.intro,
+            ...(data.intro || {}),
+            paragraphs: (Array.isArray(data.intro?.paragraphs) && data.intro.paragraphs.length > 0)
+              ? data.intro.paragraphs
+              : defaultGlobalPresencePageData.intro?.paragraphs,
+          },
+          regions: {
+            ...defaultGlobalPresencePageData.regions,
+            ...(data.regions || {}),
+            locations: (Array.isArray(data.regions?.locations) && data.regions.locations.length > 0)
+              ? data.regions.locations
+              : defaultGlobalPresencePageData.regions?.locations,
+          },
+          capabilities: {
+            ...defaultGlobalPresencePageData.capabilities,
+            ...(data.capabilities || {}),
+            items: (Array.isArray(data.capabilities?.items) && data.capabilities.items.length > 0)
+              ? data.capabilities.items
+              : defaultGlobalPresencePageData.capabilities?.items,
+          },
+          standards: {
+            ...defaultGlobalPresencePageData.standards,
+            ...(data.standards || {}),
+            items: (Array.isArray(data.standards?.items) && data.standards.items.length > 0)
+              ? data.standards.items
+              : defaultGlobalPresencePageData.standards?.items,
+          },
+          cta: {
+            ...defaultGlobalPresencePageData.cta,
+            ...(data.cta || {}),
+          },
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Global Presence Page from Sanity:', err);
+    }
+  }
+  return defaultGlobalPresencePageData;
+}
+
+export async function getPeopleCulturePage(): Promise<PeopleCulturePageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`
+        *[_type == "peopleCulturePage" && (_id == "peopleCulturePage" || !(_id in path("drafts.**")))] | order((_id == "peopleCulturePage") desc, _updatedAt desc)[0]{
+          metaTitle,
+          metaDescription,
+          hero{
+            eyebrow,
+            title,
+            highlightedTitle,
+            subtitle,
+            imageUrl,
+            "image": image.asset->url,
+            imageAlt
+          },
+          people{
+            label,
+            title,
+            highlightedTitle,
+            paragraphs,
+            stats[]{
+              number,
+              label,
+              subtext
+            },
+            imageUrl,
+            "image": image.asset->url,
+            imageAlt
+          },
+          culture{
+            label,
+            title,
+            highlightedTitle,
+            subtitle,
+            pillars[]{
+              number,
+              title,
+              description,
+              icon
+            }
+          },
+          howWeWork{
+            label,
+            title,
+            highlightedTitle,
+            description,
+            steps[]{
+              stepNumber,
+              title,
+              description,
+              badge
+            }
+          },
+          learningDevelopment{
+            label,
+            title,
+            highlightedTitle,
+            description,
+            items[]{
+              title,
+              description,
+              badge
+            }
+          },
+          peoplePlanetProgress{
+            label,
+            title,
+            highlightedTitle,
+            paragraphs,
+            metrics[]{
+              number,
+              label
+            },
+            imageUrl,
+            "image": image.asset->url,
+            imageAlt
+          },
+          cta{
+            title,
+            description,
+            primaryText,
+            primaryHref,
+            secondaryText,
+            secondaryHref
+          }
+        }
+      `);
+
+      if (data) {
+        return {
+          ...defaultPeopleCulturePageData,
+          ...data,
+          hero: {
+            ...defaultPeopleCulturePageData.hero,
+            ...(data.hero || {}),
+            imageUrl: data.hero?.image || data.hero?.imageUrl || defaultPeopleCulturePageData.hero?.imageUrl,
+          },
+          people: {
+            ...defaultPeopleCulturePageData.people,
+            ...(data.people || {}),
+            imageUrl: data.people?.image || data.people?.imageUrl || defaultPeopleCulturePageData.people?.imageUrl,
+            paragraphs: (Array.isArray(data.people?.paragraphs) && data.people.paragraphs.length > 0)
+              ? data.people.paragraphs
+              : defaultPeopleCulturePageData.people?.paragraphs,
+            stats: (Array.isArray(data.people?.stats) && data.people.stats.length > 0)
+              ? data.people.stats
+              : defaultPeopleCulturePageData.people?.stats,
+          },
+          culture: {
+            ...defaultPeopleCulturePageData.culture,
+            ...(data.culture || {}),
+            pillars: (Array.isArray(data.culture?.pillars) && data.culture.pillars.length > 0)
+              ? data.culture.pillars
+              : defaultPeopleCulturePageData.culture?.pillars,
+          },
+          howWeWork: {
+            ...defaultPeopleCulturePageData.howWeWork,
+            ...(data.howWeWork || {}),
+            steps: (Array.isArray(data.howWeWork?.steps) && data.howWeWork.steps.length > 0)
+              ? data.howWeWork.steps
+              : defaultPeopleCulturePageData.howWeWork?.steps,
+          },
+          learningDevelopment: {
+            ...defaultPeopleCulturePageData.learningDevelopment,
+            ...(data.learningDevelopment || {}),
+            items: (Array.isArray(data.learningDevelopment?.items) && data.learningDevelopment.items.length > 0)
+              ? data.learningDevelopment.items
+              : defaultPeopleCulturePageData.learningDevelopment?.items,
+          },
+          peoplePlanetProgress: {
+            ...defaultPeopleCulturePageData.peoplePlanetProgress,
+            ...(data.peoplePlanetProgress || {}),
+            imageUrl: data.peoplePlanetProgress?.image || data.peoplePlanetProgress?.imageUrl || defaultPeopleCulturePageData.peoplePlanetProgress?.imageUrl,
+            paragraphs: (Array.isArray(data.peoplePlanetProgress?.paragraphs) && data.peoplePlanetProgress.paragraphs.length > 0)
+              ? data.peoplePlanetProgress.paragraphs
+              : defaultPeopleCulturePageData.peoplePlanetProgress?.paragraphs,
+            metrics: (Array.isArray(data.peoplePlanetProgress?.metrics) && data.peoplePlanetProgress.metrics.length > 0)
+              ? data.peoplePlanetProgress.metrics
+              : defaultPeopleCulturePageData.peoplePlanetProgress?.metrics,
+          },
+          cta: {
+            ...defaultPeopleCulturePageData.cta,
+            ...(data.cta || {}),
+          },
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch People & Culture Page from Sanity:', err);
+    }
+  }
+  return defaultPeopleCulturePageData;
 }
 
 export async function getFaqPage(): Promise<FaqPageData> {

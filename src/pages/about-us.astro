@@ -420,10 +420,10 @@ const aboutPageSchema = {
             <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
               {about?.journey?.heading ? (
                 about.journey.heading.includes('Idea') ? (
-                  <>{about.journey.heading.split('Idea')[0]}<br />Idea to a Bigger<br />Impact.</>
+                  <>{about.journey.heading.split('Idea')[0]}<br />Idea to a Lasting<br />Impact.</>
                 ) : about.journey.heading
               ) : (
-                <>From a Simple<br />Idea to a Bigger<br />Impact.</>
+                <>From a Simple<br />Idea to a Lasting<br />Impact.</>
               )}
             </h2>
           </div>
@@ -437,53 +437,100 @@ const aboutPageSchema = {
         <!-- Horizontal Timeline -->
         <div class="mt-8 sm:mt-10 mx-auto max-w-6xl">
           <div class="tl-track" id="tl-track">
-            <!-- Step 0: Founded -->
-            <div class="st" style="--i:0">
-              <div class="nd" aria-hidden="false">
-                <img src={about?.journey?.milestones?.[0]?.imageUrl || "/images/about/Founded.webp"} alt="" />
-              </div>
-              <div class="stem" aria-hidden="true"></div>
-              <div class="lb">
-                <h3>{about?.journey?.milestones?.[0]?.title || "Founded"}</h3>
-                <p>{about?.journey?.milestones?.[0]?.description || "With a vision for responsible IT disposal."}</p>
-              </div>
-            </div>
+<!-- Step 0: Founded -->
+<div class="st" style="--i:0">
+  <div class="nd" aria-hidden="false">
+    <img
+      src={about?.journey?.milestones?.[0]?.imageUrl || "/images/about/Founded.webp"}
+      alt=""
+    />
+  </div>
 
-            <!-- Step 1: Expanded -->
-            <div class="st" style="--i:1">
-              <div class="nd" aria-hidden="false">
-                <img src={about?.journey?.milestones?.[1]?.imageUrl || "/images/about/Expanded.webp"} alt="" />
-              </div>
-              <div class="stem" aria-hidden="true"></div>
-              <div class="lb">
-                <h3>{about?.journey?.milestones?.[1]?.title || "Expanded"}</h3>
-                <p>{about?.journey?.milestones?.[1]?.description || "Our recycling capabilities."}</p>
-              </div>
-            </div>
+  <div class="stem" aria-hidden="true"></div>
 
-            <!-- Step 2: Partnered -->
-            <div class="st" style="--i:2">
-              <div class="nd" aria-hidden="false">
-                <img src={about?.journey?.milestones?.[2]?.imageUrl || "/images/about/Partnered.webp"} alt="" />
-              </div>
-              <div class="stem" aria-hidden="true"></div>
-              <div class="lb">
-                <h3>{about?.journey?.milestones?.[2]?.title || "Partnered"}</h3>
-                <p>{about?.journey?.milestones?.[2]?.description || "With businesses across the UK."}</p>
-              </div>
-            </div>
+  <div class="lb">
+    <h3>
+      {about?.journey?.milestones?.[0]?.title || "Founded"}
+    </h3>
 
-            <!-- Step 3: Driving -->
-            <div class="st" style="--i:3">
-              <div class="nd" aria-hidden="false">
-                <img src={about?.journey?.milestones?.[3]?.imageUrl || "/images/about/Driving.webp"} alt="" />
-              </div>
-              <div class="stem" aria-hidden="true"></div>
-              <div class="lb">
-                <h3>{about?.journey?.milestones?.[3]?.title || "Driving"}</h3>
-                <p>{about?.journey?.milestones?.[3]?.description || "Long-term environmental and economic impact."}</p>
-              </div>
-            </div>
+    <p>
+      {about?.journey?.milestones?.[0]?.description ||
+        "TechSteps began with a simple idea: retired technology should be handled securely, responsibly, and with greater value recovered from every device."}
+    </p>
+  </div>
+</div>
+
+
+<!-- Step 1: Expanded -->
+<div class="st" style="--i:1">
+  <div class="nd" aria-hidden="false">
+    <img
+      src={about?.journey?.milestones?.[1]?.imageUrl || "/images/about/Expanded.webp"}
+      alt=""
+    />
+  </div>
+
+  <div class="stem" aria-hidden="true"></div>
+
+  <div class="lb">
+    <h3>
+      {about?.journey?.milestones?.[1]?.title || "Expanded"}
+    </h3>
+
+    <p>
+      {about?.journey?.milestones?.[1]?.description ||
+        "As demand grew, our capabilities expanded beyond secure disposal to include refurbishment, data destruction, asset recovery, recycling, and responsible IT asset management."}
+    </p>
+  </div>
+</div>
+
+
+<!-- Step 2: Partnered -->
+<div class="st" style="--i:2">
+  <div class="nd" aria-hidden="false">
+    <img
+      src={about?.journey?.milestones?.[2]?.imageUrl || "/images/about/Partnered.webp"}
+      alt=""
+    />
+  </div>
+
+  <div class="stem" aria-hidden="true"></div>
+
+  <div class="lb">
+    <h3>
+      {about?.journey?.milestones?.[2]?.title || "Partnered"}
+    </h3>
+
+    <p>
+      {about?.journey?.milestones?.[2]?.description ||
+        "We began working with businesses across the UK, helping organisations manage their technology securely while maintaining clear documentation, compliance, and environmental responsibility."}
+    </p>
+  </div>
+</div>
+
+
+<!-- Step 3: Driving -->
+<div class="st" style="--i:3">
+  <div class="nd" aria-hidden="false">
+    <img
+      src={about?.journey?.milestones?.[3]?.imageUrl || "/images/about/Driving.webp"}
+      alt=""
+    />
+  </div>
+
+  <div class="stem" aria-hidden="true"></div>
+
+  <div class="lb">
+    <h3>
+      {about?.journey?.milestones?.[3]?.title || "Driving"}
+    </h3>
+
+    <p>
+      {about?.journey?.milestones?.[3]?.description ||
+        "Today, TechSteps continues to help businesses turn end-of-life technology into recovered value while reducing unnecessary waste and supporting a more circular technology economy."}
+    </p>
+  </div>
+</div>
           </div>
         </div>
 

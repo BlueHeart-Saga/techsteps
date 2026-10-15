@@ -341,6 +341,9 @@ export interface AboutCTA {
   eyebrow?: string;
   headline?: string;
   description?: string;
+  title?: string;
+  buttonText?: string;
+  buttonLink?: string;
   image?: string;
   imageAlt?: string;
   primaryButtonText?: string;
@@ -562,6 +565,7 @@ export interface LeadershipLeader {
   name: string;
   role: string;
   bio: string;
+  background?: string;
   imageUrl?: string;
   imageAlt?: string;
 }
@@ -935,5 +939,284 @@ export interface SectorsPageData {
     primaryButtonLink?: string;
     secondaryButtonText?: string;
     secondaryButtonLink?: string;
+  };
+}
+
+// ============================================================================
+// LEADERSHIP PAGE TYPES
+// ============================================================================
+
+export interface LeadershipMember {
+  name: string;
+  role: string;
+  bio: string;
+  background?: string;
+  linkedin?: string;
+  imageUrl?: string;
+  image?: string;
+  imageAlt?: string;
+}
+
+export interface LeadershipHero {
+  eyebrow?: string;
+  title?: string;
+  highlightedTitle?: string;
+  subtitle?: string;
+  imageUrl?: string;
+  image?: string;
+  imageAlt?: string;
+}
+
+export interface LeadershipIntro {
+  label?: string;
+  title?: string;
+  highlightedTitle?: string;
+  paragraphs?: string[];
+}
+
+export interface LeadershipTeam {
+  label?: string;
+  title?: string;
+  highlightedTitle?: string;
+  subtitle?: string;
+  members: LeadershipMember[];
+}
+
+export interface LeadershipPrincipleItem {
+  number: string;
+  title: string;
+  description: string;
+}
+
+export interface LeadershipPrinciples {
+  eyebrow?: string;
+  title?: string;
+  highlightedTitle?: string;
+  description?: string;
+  items: LeadershipPrincipleItem[];
+}
+
+export interface LeadershipAction {
+  eyebrow?: string;
+  title?: string;
+  highlightedTitle?: string;
+  badgeNumber?: string;
+  badgeText?: string;
+  imageUrl?: string;
+  image?: string;
+  imageAlt?: string;
+  paragraphs?: string[];
+  linkText?: string;
+  linkUrl?: string;
+}
+
+export interface LeadershipCommitmentCard {
+  number: string;
+  icon: string;
+  title: string;
+  description: string;
+  isFeatured?: boolean;
+}
+
+export interface LeadershipCommitment {
+  label?: string;
+  title?: string;
+  highlightedTitle?: string;
+  description?: string;
+  cards: LeadershipCommitmentCard[];
+}
+
+export interface LeadershipCta {
+  title?: string;
+  description?: string;
+  primaryText?: string;
+  primaryHref?: string;
+  secondaryText?: string;
+  secondaryHref?: string;
+}
+
+export interface LeadershipPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  hero?: LeadershipHero;
+  intro?: LeadershipIntro;
+  team?: LeadershipTeam;
+  principles?: LeadershipPrinciples;
+  action?: LeadershipAction;
+  commitment?: LeadershipCommitment;
+  cta?: LeadershipCta;
+}
+
+// ============================================================================
+// GLOBAL PRESENCE PAGE TYPES
+// ============================================================================
+
+export interface GlobalPresenceLocation {
+  name: string;
+  type: string;
+  location: string;
+  description: string;
+  coverage: string;
+  features?: string[];
+}
+
+export interface GlobalPresenceCapability {
+  number: string;
+  title: string;
+  description: string;
+  badge?: string;
+  linkUrl?: string;
+}
+
+export interface GlobalPresenceStandard {
+  code: string;
+  name: string;
+  description: string;
+}
+
+export interface GlobalPresencePageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  hero?: {
+    eyebrow?: string;
+    title?: string;
+    highlightedTitle?: string;
+    subtitle?: string;
+    imageUrl?: string;
+    image?: string;
+    imageAlt?: string;
+  };
+  intro?: {
+    label?: string;
+    title?: string;
+    highlightedTitle?: string;
+    paragraphs?: string[];
+  };
+  regions?: {
+    eyebrow?: string;
+    title?: string;
+    highlightedTitle?: string;
+    subtitle?: string;
+    locations: GlobalPresenceLocation[];
+  };
+  capabilities?: {
+    label?: string;
+    title?: string;
+    highlightedTitle?: string;
+    description?: string;
+    items: GlobalPresenceCapability[];
+  };
+  standards?: {
+    label?: string;
+    title?: string;
+    highlightedTitle?: string;
+    description?: string;
+    items: GlobalPresenceStandard[];
+  };
+  cta?: {
+    title?: string;
+    description?: string;
+    primaryText?: string;
+    primaryHref?: string;
+    secondaryText?: string;
+    secondaryHref?: string;
+  };
+}
+
+// ============================================================================
+// OUR PEOPLE & CULTURE PAGE TYPES
+// ============================================================================
+
+export interface PeopleCultureStat {
+  number: string;
+  label: string;
+  subtext?: string;
+}
+
+export interface PeopleCulturePillar {
+  number: string;
+  title: string;
+  description: string;
+  icon?: string;
+}
+
+export interface PeopleCultureStep {
+  stepNumber: string;
+  title: string;
+  description: string;
+  badge?: string;
+}
+
+export interface PeopleCultureProgram {
+  title: string;
+  description: string;
+  badge?: string;
+}
+
+export interface PeopleCultureMetric {
+  number: string;
+  label: string;
+}
+
+export interface PeopleCulturePageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  hero?: {
+    eyebrow?: string;
+    title?: string;
+    highlightedTitle?: string;
+    subtitle?: string;
+    imageUrl?: string;
+    image?: string;
+    imageAlt?: string;
+  };
+  people?: {
+    label?: string;
+    title?: string;
+    highlightedTitle?: string;
+    paragraphs?: string[];
+    stats?: PeopleCultureStat[];
+    imageUrl?: string;
+    image?: string;
+    imageAlt?: string;
+  };
+  culture?: {
+    label?: string;
+    title?: string;
+    highlightedTitle?: string;
+    subtitle?: string;
+    pillars: PeopleCulturePillar[];
+  };
+  howWeWork?: {
+    label?: string;
+    title?: string;
+    highlightedTitle?: string;
+    description?: string;
+    steps: PeopleCultureStep[];
+  };
+  learningDevelopment?: {
+    label?: string;
+    title?: string;
+    highlightedTitle?: string;
+    description?: string;
+    items: PeopleCultureProgram[];
+  };
+  peoplePlanetProgress?: {
+    label?: string;
+    title?: string;
+    highlightedTitle?: string;
+    paragraphs?: string[];
+    metrics?: PeopleCultureMetric[];
+    imageUrl?: string;
+    image?: string;
+    imageAlt?: string;
+  };
+  cta?: {
+    title?: string;
+    description?: string;
+    primaryText?: string;
+    primaryHref?: string;
+    secondaryText?: string;
+    secondaryHref?: string;
   };
 }
