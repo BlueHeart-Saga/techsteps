@@ -8,6 +8,7 @@ import {
   caseStudies,
   articles,
   defaultAboutPage,
+  defaultLeadershipPageData,
   defaultFaqPage,
   defaultSustainabilityPage,
   defaultInvestorsPage,
@@ -27,6 +28,7 @@ import type {
   CaseStudy,
   Article,
   AboutPageData,
+  LeadershipPageData,
   HomePageData,
   FaqPageData,
   SustainabilityPageData,
@@ -220,6 +222,25 @@ export async function getHomePage(): Promise<HomePageData | null> {
             }
           },
 
+          whyChoose{
+            eyebrow,
+            heading,
+            description,
+            features[]{
+              number,
+              title,
+              description
+            },
+            imageUrl,
+            "image": image.asset->url,
+            imageAlt
+          },
+
+          sectorsSection{
+            heading,
+            description
+          },
+
           cta{
             heading,
             description,
@@ -257,6 +278,18 @@ export async function getHomePage(): Promise<HomePageData | null> {
             steps: (Array.isArray(data.lifecycle?.steps) && data.lifecycle.steps.length > 0)
               ? data.lifecycle.steps
               : defaultHomePageData.lifecycle?.steps,
+          },
+          whyChoose: {
+            ...defaultHomePageData.whyChoose,
+            ...(data.whyChoose || {}),
+            imageUrl: data.whyChoose?.image || data.whyChoose?.imageUrl || defaultHomePageData.whyChoose?.imageUrl,
+            features: (Array.isArray(data.whyChoose?.features) && data.whyChoose.features.length > 0)
+              ? data.whyChoose.features
+              : defaultHomePageData.whyChoose?.features,
+          },
+          sectorsSection: {
+            ...defaultHomePageData.sectorsSection,
+            ...(data.sectorsSection || {}),
           },
           cta: {
             ...defaultHomePageData.cta,
@@ -612,7 +645,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | undefine
   return all.find((a) => a.slug === slug);
 }
 
-export async function getAboutPage(): Promise<any> {
+export async function getAboutPage(): Promise<AboutPageData> {
   if (!sanityClient) {
     return defaultAboutPage || {};
   }
@@ -623,6 +656,83 @@ export async function getAboutPage(): Promise<any> {
         metaTitle,
         metaDescription,
 
+        buildingHero{
+          imageUrl,
+          imageAlt,
+          "image": image.asset->url
+        },
+
+        cleanerSmarter{
+          heading,
+          paragraphs,
+          values[]{
+            title,
+            icon
+          }
+        },
+
+        technologyPurpose{
+          heading,
+          description,
+          imageUrl,
+          imageAlt,
+          "image": image.asset->url
+        },
+
+        nationwideNetwork{
+          heading,
+          description,
+          imageUrl,
+          imageAlt,
+          "image": image.asset->url
+        },
+
+        trustAndImpact{
+          heading,
+          description,
+          cards[]{
+            title,
+            imageUrl,
+            imageAlt
+          }
+        },
+
+        sustainabilityCommitment{
+          heading,
+          description,
+          imageUrl,
+          imageAlt,
+          "image": image.asset->url,
+          metrics[]{
+            value,
+            label
+          }
+        },
+
+        journey{
+          heading,
+          description,
+          milestones[]{
+            step,
+            title,
+            description,
+            imageUrl
+          }
+        },
+
+        cta{
+          title,
+          description,
+          buttonText,
+          buttonLink,
+          secondaryButtonText,
+          secondaryButtonLink,
+          // Legacy cta fields
+          primaryButtonText,
+          primaryButtonLink
+        },
+
+        // Legacy fields for backwards compatibility
         hero{
           eyebrow,
           headline,
@@ -631,24 +741,20 @@ export async function getAboutPage(): Promise<any> {
           imageAlt,
           badge
         },
-
         whoWeAre{
           eyebrow,
           headline,
           description,
           "image": image.asset->url,
           imageAlt,
-
           highlights[]{
             title,
             description,
             icon
           }
         },
-
         whatWeDo{
           eyebrow,
-
           items[]{
             number,
             title,
@@ -660,12 +766,10 @@ export async function getAboutPage(): Promise<any> {
             buttonLink
           }
         },
-
         approach{
           eyebrow,
           headline,
           description,
-
           steps[]{
             number,
             title,
@@ -673,39 +777,18 @@ export async function getAboutPage(): Promise<any> {
             icon
           }
         },
-
         capabilities{
           eyebrow,
-
           items[]{
             title,
             description,
             icon
           }
         },
-
         statistics[]{
           number,
           suffix,
           label
-        },
-
-        cta{
-          eyebrow,
-          headline,
-          description,
-          "image": image.asset->url,
-          imageAlt,
-
-          primaryButtonText,
-          primaryButtonLink,
-
-          secondaryButtonText,
-          secondaryButtonLink,
-
-          phone,
-          email,
-          hours
         }
       }
     `);
@@ -714,13 +797,84 @@ export async function getAboutPage(): Promise<any> {
       return defaultAboutPage || {};
     }
 
-    /*
-     * Map Sanity field names to the names used
-     * by the About Us Astro page.
-     */
-    return {
-      ...data,
+    const buildingHero = {
+      ...defaultAboutPage.buildingHero,
+      ...(data.buildingHero || {}),
+      imageUrl: data.buildingHero?.image || data.buildingHero?.imageUrl || defaultAboutPage.buildingHero?.imageUrl,
+    };
 
+    const cleanerSmarter = {
+      ...defaultAboutPage.cleanerSmarter,
+      ...(data.cleanerSmarter || {}),
+      paragraphs: (Array.isArray(data.cleanerSmarter?.paragraphs) && data.cleanerSmarter.paragraphs.length > 0)
+        ? data.cleanerSmarter.paragraphs
+        : defaultAboutPage.cleanerSmarter?.paragraphs,
+      values: (Array.isArray(data.cleanerSmarter?.values) && data.cleanerSmarter.values.length > 0)
+        ? data.cleanerSmarter.values
+        : defaultAboutPage.cleanerSmarter?.values,
+    };
+
+    const technologyPurpose = {
+      ...defaultAboutPage.technologyPurpose,
+      ...(data.technologyPurpose || {}),
+      imageUrl: data.technologyPurpose?.image || data.technologyPurpose?.imageUrl || defaultAboutPage.technologyPurpose?.imageUrl,
+    };
+
+    const nationwideNetwork = {
+      ...defaultAboutPage.nationwideNetwork,
+      ...(data.nationwideNetwork || {}),
+      imageUrl: data.nationwideNetwork?.image || data.nationwideNetwork?.imageUrl || defaultAboutPage.nationwideNetwork?.imageUrl,
+    };
+
+    const trustAndImpact = {
+      ...defaultAboutPage.trustAndImpact,
+      ...(data.trustAndImpact || {}),
+      cards: (Array.isArray(data.trustAndImpact?.cards) && data.trustAndImpact.cards.length > 0)
+        ? data.trustAndImpact.cards
+        : defaultAboutPage.trustAndImpact?.cards,
+    };
+
+    const sustainabilityCommitment = {
+      ...defaultAboutPage.sustainabilityCommitment,
+      ...(data.sustainabilityCommitment || {}),
+      imageUrl: data.sustainabilityCommitment?.image || data.sustainabilityCommitment?.imageUrl || defaultAboutPage.sustainabilityCommitment?.imageUrl,
+      metrics: (Array.isArray(data.sustainabilityCommitment?.metrics) && data.sustainabilityCommitment.metrics.length > 0)
+        ? data.sustainabilityCommitment.metrics
+        : defaultAboutPage.sustainabilityCommitment?.metrics,
+    };
+
+    const journey = {
+      ...defaultAboutPage.journey,
+      ...(data.journey || {}),
+      milestones: (Array.isArray(data.journey?.milestones) && data.journey.milestones.length > 0)
+        ? data.journey.milestones
+        : defaultAboutPage.journey?.milestones,
+    };
+
+    const cta = {
+      ...defaultAboutPage.cta,
+      ...(data.cta || {}),
+      buttonText: data.cta?.buttonText || data.cta?.primaryButtonText || defaultAboutPage.cta?.buttonText,
+      buttonLink: data.cta?.buttonLink || data.cta?.primaryButtonLink || defaultAboutPage.cta?.buttonLink,
+    };
+
+    return {
+      ...defaultAboutPage,
+      ...data,
+      buildingHero,
+      cleanerSmarter,
+      technologyPurpose,
+      nationwideNetwork,
+      brighterFuture: nationwideNetwork,
+      trustAndImpact,
+      trustImpact: trustAndImpact,
+      sustainabilityCommitment,
+      peoplePlanetProgress: sustainabilityCommitment,
+      journey,
+      journeyMilestones: journey,
+      cta,
+
+      // Legacy field fallbacks for backwards compatibility
       hero: data.hero
         ? {
           ...data.hero,
@@ -749,18 +903,6 @@ export async function getAboutPage(): Promise<any> {
         ? {
           ...data.approach,
           title: data.approach.headline,
-        }
-        : null,
-
-      cta: data.cta
-        ? {
-          ...data.cta,
-          title: "Let's Talk About",
-          highlightedTitle: 'What Comes Next.',
-          buttonText: data.cta.primaryButtonText,
-          buttonLink: data.cta.primaryButtonLink,
-          secondaryButtonText: data.cta.secondaryButtonText,
-          secondaryButtonLink: data.cta.secondaryButtonLink,
         }
         : null,
 
@@ -795,6 +937,152 @@ export async function getAboutPage(): Promise<any> {
     console.error('Failed to fetch About Page from Sanity:', error);
     return defaultAboutPage || {};
   }
+}
+
+export async function getLeadershipPage(): Promise<LeadershipPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(`
+        *[_type == "leadershipPage" && (_id == "leadershipPage" || !(_id in path("drafts.**")))] | order((_id == "leadershipPage") desc, _updatedAt desc)[0]{
+          metaTitle,
+          metaDescription,
+          hero{
+            eyebrow,
+            title,
+            highlightedTitle,
+            subtitle,
+            imageUrl,
+            "image": image.asset->url,
+            imageAlt
+          },
+          intro{
+            label,
+            title,
+            highlightedTitle,
+            paragraphs
+          },
+          team{
+            label,
+            title,
+            highlightedTitle,
+            subtitle,
+            members[]{
+              role,
+              name,
+              bio,
+              imageUrl,
+              "image": image.asset->url,
+              imageAlt
+            }
+          },
+          principles{
+            eyebrow,
+            title,
+            highlightedTitle,
+            description,
+            items[]{
+              number,
+              title,
+              description
+            }
+          },
+          action{
+            eyebrow,
+            title,
+            highlightedTitle,
+            badgeNumber,
+            badgeText,
+            imageUrl,
+            "image": image.asset->url,
+            imageAlt,
+            paragraphs,
+            linkText,
+            linkUrl
+          },
+          commitment{
+            label,
+            title,
+            highlightedTitle,
+            description,
+            cards[]{
+              number,
+              icon,
+              title,
+              description,
+              isFeatured
+            }
+          },
+          cta{
+            title,
+            description,
+            primaryText,
+            primaryHref,
+            secondaryText,
+            secondaryHref
+          }
+        }
+      `);
+
+      if (data) {
+        return {
+          ...defaultLeadershipPageData,
+          ...data,
+          hero: {
+            ...defaultLeadershipPageData.hero,
+            ...(data.hero || {}),
+            imageUrl: data.hero?.image || data.hero?.imageUrl || defaultLeadershipPageData.hero?.imageUrl,
+          },
+          intro: {
+            ...defaultLeadershipPageData.intro,
+            ...(data.intro || {}),
+            paragraphs: (Array.isArray(data.intro?.paragraphs) && data.intro.paragraphs.length > 0)
+              ? data.intro.paragraphs
+              : defaultLeadershipPageData.intro?.paragraphs,
+          },
+          team: {
+            ...defaultLeadershipPageData.team,
+            ...(data.team || {}),
+            members: (Array.isArray(data.team?.members) && data.team.members.length > 0)
+              ? data.team.members.map((m: any, idx: number) => ({
+                ...defaultLeadershipPageData.team?.members?.[idx],
+                ...m,
+                imageUrl: m.image || m.imageUrl || defaultLeadershipPageData.team?.members?.[idx]?.imageUrl,
+              }))
+              : defaultLeadershipPageData.team?.members,
+          },
+          principles: {
+            ...defaultLeadershipPageData.principles,
+            ...(data.principles || {}),
+            items: (Array.isArray(data.principles?.items) && data.principles.items.length > 0)
+              ? data.principles.items
+              : defaultLeadershipPageData.principles?.items,
+          },
+          action: {
+            ...defaultLeadershipPageData.action,
+            ...(data.action || {}),
+            imageUrl: data.action?.image || data.action?.imageUrl || defaultLeadershipPageData.action?.imageUrl,
+            paragraphs: (Array.isArray(data.action?.paragraphs) && data.action.paragraphs.length > 0)
+              ? data.action.paragraphs
+              : defaultLeadershipPageData.action?.paragraphs,
+          },
+          commitment: {
+            ...defaultLeadershipPageData.commitment,
+            ...(data.commitment || {}),
+            cards: (Array.isArray(data.commitment?.cards) && data.commitment.cards.length > 0)
+              ? data.commitment.cards
+              : defaultLeadershipPageData.commitment?.cards,
+          },
+          cta: {
+            ...defaultLeadershipPageData.cta,
+            ...(data.cta || {}),
+          },
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Leadership Page from Sanity:', err);
+    }
+  }
+  return defaultLeadershipPageData;
 }
 
 export async function getFaqPage(): Promise<FaqPageData> {

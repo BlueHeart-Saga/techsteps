@@ -52,7 +52,7 @@ const column3 = [
 
 <!-- =========================================================
      SECTORS DROPDOWN PANEL
-     ========================================================= -->
+========================================================= -->
 <div
   id="sectors-dropdown-panel"
   class="fixed top-[82px] inset-x-0 z-[998] hidden opacity-0 -translate-y-1 transition-[opacity,transform] duration-150 ease-out pointer-events-none before:absolute before:-top-10 before:inset-x-0 before:h-10 before:content-[''] before:pointer-events-auto"
@@ -67,9 +67,10 @@ const column3 = [
       id="sectors-dropdown-card"
       class="sectors-dropdown-card bg-white rounded-[12px] border border-slate-200/80 shadow-[0_16px_48px_rgba(0,0,0,0.08)] pointer-events-auto p-4 sm:p-5 flex items-stretch w-full min-h-[322px] box-border"
     >
+
       <!-- =====================================================
            LEFT: INDUSTRIES WE SERVE
-           ===================================================== -->
+      ====================================================== -->
       <div
         class="flex-1 flex flex-col pt-6 pb-5 pl-2 sm:pl-3 pr-4 sm:pr-8"
       >
@@ -80,6 +81,7 @@ const column3 = [
         <div
           class="grid grid-cols-1 md:grid-cols-3 gap-x-6 xl:gap-x-12 gap-y-2.5"
         >
+
           <!-- Column 1 -->
           <div class="flex flex-col space-y-2.5">
             {column1.map((item) => (
@@ -155,12 +157,14 @@ const column3 = [
               </a>
             ))}
           </div>
+
         </div>
       </div>
 
+
       <!-- =====================================================
            RIGHT: INVESTORS
-           ===================================================== -->
+      ====================================================== -->
       <div
         class="sectors-right-col w-[280px] shrink-0 pt-6 pb-[13px] pr-8 flex flex-col ml-8 xl:ml-12"
       >
@@ -189,6 +193,7 @@ const column3 = [
           class="investors-link mt-[36px] inline-flex items-center gap-1.5 font-sans text-[16px] font-semibold text-[#171717] hover:text-[#07572F] transition-colors group"
         >
           <span>Visit</span>
+
           <span
             class="font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           >
@@ -196,14 +201,16 @@ const column3 = [
           </span>
         </a>
       </div>
+
     </div>
   </div>
 </div>
 
+
 <style>
   /* =========================================================
      CONTAINER
-     ========================================================= */
+  ========================================================= */
 
   #sectors-dropdown-panel .sectors-dropdown-card {
     width: 100%;
@@ -223,9 +230,10 @@ const column3 = [
     box-sizing: border-box;
   }
 
+
   /* =========================================================
      TYPOGRAPHY
-     ========================================================= */
+  ========================================================= */
 
   #sectors-dropdown-panel .sectors-heading,
   #sectors-dropdown-panel .sectors-right-heading {
@@ -245,9 +253,10 @@ const column3 = [
     text-decoration: none;
   }
 
+
   /* =========================================================
      ACTIVE / HOVER
-     ========================================================= */
+  ========================================================= */
 
   #sectors-dropdown-panel .sector-link.active-sector {
     background-color: #bce6ce;
@@ -259,34 +268,48 @@ const column3 = [
     color: #0f172a;
   }
 
+
   /* =========================================================
      VISIT LINK
-     ========================================================= */
+  ========================================================= */
 
   #sectors-dropdown-panel .investors-link {
     font-family: var(--font-sans) !important;
     font-size: 16px;
     font-weight: 600;
     letter-spacing: -0.01em;
-    line-height: 0.1 !important;
+    line-height: 1.4 !important;
   }
 
+
   /* =========================================================
-     SCROLL NAV GLASS FALLBACK
-     The actual state is controlled directly by JS.
-     ========================================================= */
+     SCROLL NAV GLASS
+  ========================================================= */
 
   #sectors-dropdown-panel .sectors-dropdown-card.scroll-glass-active {
     background: rgba(255, 255, 255, 0.58) !important;
-    -webkit-backdrop-filter: blur(22px) saturate(140%) !important;
-    backdrop-filter: blur(22px) saturate(140%) !important;
-    border-color: rgba(255, 255, 255, 0.65) !important;
+
+    -webkit-backdrop-filter:
+      blur(22px) saturate(140%) !important;
+
+    backdrop-filter:
+      blur(22px) saturate(140%) !important;
+
+    border-color:
+      rgba(255, 255, 255, 0.65) !important;
+
     box-shadow:
       0 24px 60px rgba(0, 0, 0, 0.12),
       0 8px 24px rgba(0, 0, 0, 0.06) !important;
   }
 
+
+  /* =========================================================
+     RESPONSIVE
+  ========================================================= */
+
   @media (max-width: 1024px) {
+
     #sectors-dropdown-panel .sectors-dropdown-card {
       height: auto;
       min-height: 0;
@@ -300,41 +323,72 @@ const column3 = [
       padding-top: 1rem;
       border-top: 1px solid #f1f5f9;
       width: 100%;
+      min-width: 100%;
+      max-width: 100%;
     }
+
   }
 </style>
 
+
 <script>
   function setupSectorsMegaMenu() {
-    const panel = document.getElementById('sectors-dropdown-panel');
+
+    const panel =
+      document.getElementById(
+        'sectors-dropdown-panel'
+      );
+
     if (!panel) return;
 
-    if (panel.dataset.navInitialized === 'true') return;
+    if (
+      panel.dataset.navInitialized === 'true'
+    ) {
+      return;
+    }
+
     panel.dataset.navInitialized = 'true';
 
-    const triggers = document.querySelectorAll<HTMLElement>(
-      '#sectors-menu-trigger, .sectors-dropdown-toggle'
-    );
+
+    const triggers =
+      document.querySelectorAll<HTMLElement>(
+        '#sectors-menu-trigger, .sectors-dropdown-toggle'
+      );
 
     if (triggers.length === 0) return;
 
-    let closeTimeout: any = null;
-    let hideTimeout: any = null;
+
+    let closeTimeout: ReturnType<typeof setTimeout> | null = null;
+    let hideTimeout: ReturnType<typeof setTimeout> | null = null;
+
 
     const sectorLinks =
-      panel.querySelectorAll<HTMLElement>('.sector-link');
+      panel.querySelectorAll<HTMLElement>(
+        '.sector-link'
+      );
+
 
     /* =========================================================
        GLASS STATE
-       ========================================================= */
+    ========================================================= */
 
-    const setScrollGlass = (active: boolean) => {
-      const card = document.getElementById('sectors-dropdown-card');
+    const setScrollGlass = (
+      active: boolean
+    ) => {
+
+      const card =
+        document.getElementById(
+          'sectors-dropdown-card'
+        );
 
       if (!card) return;
 
+
       if (active) {
-        card.classList.add('scroll-glass-active');
+
+        card.classList.add(
+          'scroll-glass-active'
+        );
 
         card.style.setProperty(
           'background',
@@ -365,170 +419,345 @@ const column3 = [
           '0 24px 60px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.06)',
           'important'
         );
-      } else {
-        card.classList.remove('scroll-glass-active');
 
-        card.style.removeProperty('background');
-        card.style.removeProperty('-webkit-backdrop-filter');
-        card.style.removeProperty('backdrop-filter');
-        card.style.removeProperty('border');
-        card.style.removeProperty('box-shadow');
+      } else {
+
+        card.classList.remove(
+          'scroll-glass-active'
+        );
+
+        card.style.removeProperty(
+          'background'
+        );
+
+        card.style.removeProperty(
+          '-webkit-backdrop-filter'
+        );
+
+        card.style.removeProperty(
+          'backdrop-filter'
+        );
+
+        card.style.removeProperty(
+          'border'
+        );
+
+        card.style.removeProperty(
+          'box-shadow'
+        );
+
       }
+
     };
+
 
     /* =========================================================
        POSITION + NAV STATE
-       ========================================================= */
+    ========================================================= */
 
     const updatePosition = () => {
-      const siteHeader = document.getElementById('site-header');
-      const heroHeader = document.getElementById('hero-header');
-      const card = document.getElementById('sectors-dropdown-card');
-      const wrapper = document.getElementById('sectors-dropdown-wrapper');
+
+      const siteHeader =
+        document.getElementById(
+          'site-header'
+        );
+
+      const heroHeader =
+        document.getElementById(
+          'hero-header'
+        );
+
+      const card =
+        document.getElementById(
+          'sectors-dropdown-card'
+        );
+
+      const wrapper =
+        document.getElementById(
+          'sectors-dropdown-wrapper'
+        );
+
 
       const isScrollNavActive =
         !!siteHeader &&
-        !siteHeader.classList.contains('opacity-0') &&
-        !siteHeader.classList.contains('-translate-y-full');
+        !siteHeader.classList.contains(
+          'opacity-0'
+        ) &&
+        !siteHeader.classList.contains(
+          '-translate-y-full'
+        );
 
-      /* -----------------------------------------
+
+      /* =====================================================
          SCROLLING NAVBAR
-         ----------------------------------------- */
+      ===================================================== */
 
-      if (isScrollNavActive && siteHeader) {
+      if (
+        isScrollNavActive &&
+        siteHeader
+      ) {
+
         setScrollGlass(true);
 
+
         const maxWrap =
-          siteHeader.querySelector<HTMLElement>(':scope > div');
+          siteHeader.querySelector<HTMLElement>(
+            ':scope > div'
+          );
 
         const floatingBar =
-          maxWrap?.querySelector<HTMLElement>(':scope > div');
+          maxWrap?.querySelector<HTMLElement>(
+            ':scope > div'
+          );
 
-        const ref = floatingBar ?? siteHeader;
-        const rect = ref.getBoundingClientRect();
+        const ref =
+          floatingBar ?? siteHeader;
 
-        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
-        panel.style.left = `${Math.round(rect.left)}px`;
-        panel.style.right = 'auto';
-        panel.style.width = `${Math.round(rect.width)}px`;
+        const rect =
+          ref.getBoundingClientRect();
+
+
+        panel.style.top =
+          `${Math.round(rect.bottom + 8)}px`;
+
+        panel.style.left =
+          `${Math.round(rect.left)}px`;
+
+        panel.style.right =
+          'auto';
+
+        panel.style.width =
+          `${Math.round(rect.width)}px`;
+
 
         if (wrapper) {
-          wrapper.classList.add('scroll-dropdown-wrapper');
+          wrapper.classList.add(
+            'scroll-dropdown-wrapper'
+          );
         }
+
 
         if (card) {
-          card.style.width = `${Math.round(rect.width)}px`;
-          card.style.maxWidth = `${Math.round(rect.width)}px`;
+
+          card.style.width =
+            `${Math.round(rect.width)}px`;
+
+          card.style.maxWidth =
+            `${Math.round(rect.width)}px`;
+
         }
+
       }
 
-      /* -----------------------------------------
+
+      /* =====================================================
          NORMAL / HERO NAVBAR
-         ----------------------------------------- */
+      ===================================================== */
 
       else if (heroHeader) {
+
         setScrollGlass(false);
 
-        const rect = heroHeader.getBoundingClientRect();
 
-        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
-        panel.style.left = '';
-        panel.style.right = '';
-        panel.style.width = '';
+        const rect =
+          heroHeader.getBoundingClientRect();
+
+
+        panel.style.top =
+          `${Math.round(rect.bottom + 8)}px`;
+
+        panel.style.left =
+          '';
+
+        panel.style.right =
+          '';
+
+        panel.style.width =
+          '';
+
 
         if (card) {
-          card.style.width = '';
-          card.style.maxWidth = '';
+
+          card.style.width =
+            '';
+
+          card.style.maxWidth =
+            '';
+
         }
 
+
         if (wrapper) {
-          wrapper.classList.remove('scroll-dropdown-wrapper');
+
+          wrapper.classList.remove(
+            'scroll-dropdown-wrapper'
+          );
+
         }
+
       }
+
     };
+
 
     /* =========================================================
        BACKDROP
-       ========================================================= */
+    ========================================================= */
 
     const updateBackdrop = () => {
-      const backdrop = document.getElementById('dropdown-backdrop');
+
+      const backdrop =
+        document.getElementById(
+          'dropdown-backdrop'
+        );
 
       if (!backdrop) return;
 
+
       const servicesPanel =
-        document.getElementById('services-megamenu-panel');
+        document.getElementById(
+          'services-megamenu-panel'
+        );
+
 
       const isServicesOpen =
         servicesPanel &&
-        !servicesPanel.classList.contains('hidden') &&
-        !servicesPanel.classList.contains('opacity-0');
+        !servicesPanel.classList.contains(
+          'hidden'
+        ) &&
+        !servicesPanel.classList.contains(
+          'opacity-0'
+        );
+
 
       const isSectorsOpen =
-        !panel.classList.contains('hidden') &&
-        !panel.classList.contains('opacity-0');
+        !panel.classList.contains(
+          'hidden'
+        ) &&
+        !panel.classList.contains(
+          'opacity-0'
+        );
 
-      if (isServicesOpen || isSectorsOpen) {
-        backdrop.classList.add('active');
+
+      if (
+        isServicesOpen ||
+        isSectorsOpen
+      ) {
+
+        backdrop.classList.add(
+          'active'
+        );
+
       } else {
-        backdrop.classList.remove('active');
+
+        backdrop.classList.remove(
+          'active'
+        );
+
       }
+
     };
+
 
     /* =========================================================
        CANCEL CLOSE
-       ========================================================= */
+    ========================================================= */
 
     const cancelClose = () => {
+
       if (closeTimeout) {
-        clearTimeout(closeTimeout);
+
+        clearTimeout(
+          closeTimeout
+        );
+
         closeTimeout = null;
+
       }
 
+
       if (hideTimeout) {
-        clearTimeout(hideTimeout);
+
+        clearTimeout(
+          hideTimeout
+        );
+
         hideTimeout = null;
+
       }
+
     };
+
 
     /* =========================================================
        SECTOR HOVER
-       ========================================================= */
+    ========================================================= */
 
-    sectorLinks.forEach((link) => {
-      link.addEventListener('mouseenter', () => {
-        sectorLinks.forEach((l) => {
-          l.classList.remove(
-            'active-sector',
-            'bg-[#BCE6CE]'
-          );
-        });
+    sectorLinks.forEach(
+      (link) => {
 
-        link.classList.add(
-          'active-sector',
-          'bg-[#BCE6CE]'
+        link.addEventListener(
+          'mouseenter',
+          () => {
+
+            sectorLinks.forEach(
+              (l) => {
+
+                l.classList.remove(
+                  'active-sector',
+                  'bg-[#BCE6CE]'
+                );
+
+              }
+            );
+
+
+            link.classList.add(
+              'active-sector',
+              'bg-[#BCE6CE]'
+            );
+
+          }
         );
-      });
-    });
+
+      }
+    );
+
 
     /* =========================================================
        OPEN
-       ========================================================= */
+    ========================================================= */
 
     const openMenu = () => {
+
       cancelClose();
 
+
       window.dispatchEvent(
-        new CustomEvent('techsteps:close-services', {
-          detail: { immediate: true },
-        })
+        new CustomEvent(
+          'techsteps:close-services',
+          {
+            detail: {
+              immediate: true
+            }
+          }
+        )
       );
+      window.dispatchEvent(
+  new CustomEvent('techsteps:close-about')
+);
+
 
       updatePosition();
 
-      panel.classList.remove('hidden');
+
+      panel.classList.remove(
+        'hidden'
+      );
+
 
       void panel.offsetHeight;
+
 
       panel.classList.remove(
         'opacity-0',
@@ -536,36 +765,62 @@ const column3 = [
         'pointer-events-none'
       );
 
+
       panel.classList.add(
         'opacity-100',
         'translate-y-0',
         'pointer-events-auto'
       );
 
-      triggers.forEach((t) => {
-        t.setAttribute('aria-expanded', 'true');
 
-        const caret = t.querySelector('.caret-icon');
+      triggers.forEach(
+        (trigger) => {
 
-        if (caret) {
-          caret.classList.add('rotate-180');
+          trigger.setAttribute(
+            'aria-expanded',
+            'true'
+          );
+
+
+          const caret =
+            trigger.querySelector(
+              '.caret-icon'
+            );
+
+
+          if (caret) {
+
+            caret.classList.add(
+              'rotate-180'
+            );
+
+          }
+
         }
-      });
+      );
+
 
       updateBackdrop();
+
     };
+
 
     /* =========================================================
        CLOSE
-       ========================================================= */
+    ========================================================= */
 
-    const closeMenu = (immediate = false) => {
+    const closeMenu = (
+      immediate = false
+    ) => {
+
       const doClose = () => {
+
         panel.classList.remove(
           'opacity-100',
           'translate-y-0',
           'pointer-events-auto'
         );
+
 
         panel.classList.add(
           'opacity-0',
@@ -573,228 +828,350 @@ const column3 = [
           'pointer-events-none'
         );
 
-        triggers.forEach((t) => {
-          t.setAttribute('aria-expanded', 'false');
 
-          const caret = t.querySelector('.caret-icon');
+        triggers.forEach(
+          (trigger) => {
 
-          if (caret) {
-            caret.classList.remove('rotate-180');
+            trigger.setAttribute(
+              'aria-expanded',
+              'false'
+            );
+
+
+            const caret =
+              trigger.querySelector(
+                '.caret-icon'
+              );
+
+
+            if (caret) {
+
+              caret.classList.remove(
+                'rotate-180'
+              );
+
+            }
+
           }
-        });
+        );
+
 
         updateBackdrop();
 
+
         if (hideTimeout) {
-          clearTimeout(hideTimeout);
+
+          clearTimeout(
+            hideTimeout
+          );
+
         }
+
 
         if (immediate) {
-          if (panel.classList.contains('opacity-0')) {
-            panel.classList.add('hidden');
-          }
-        } else {
-          hideTimeout = setTimeout(() => {
-            if (panel.classList.contains('opacity-0')) {
-              panel.classList.add('hidden');
-            }
 
-            hideTimeout = null;
-          }, 160);
+          panel.classList.add(
+            'hidden'
+          );
+
+        } else {
+
+          hideTimeout =
+            setTimeout(
+              () => {
+
+                if (
+                  panel.classList.contains(
+                    'opacity-0'
+                  )
+                ) {
+
+                  panel.classList.add(
+                    'hidden'
+                  );
+
+                }
+
+                hideTimeout = null;
+
+              },
+              160
+            );
+
         }
+
       };
+
 
       cancelClose();
 
+
       if (immediate) {
+
         doClose();
+
       } else {
-        closeTimeout = setTimeout(doClose, 280);
+
+        closeTimeout =
+          setTimeout(
+            doClose,
+            280
+          );
+
       }
+
     };
 
+
     /* =========================================================
-       TRIGGERS
-       ========================================================= */
+       TRIGGER EVENTS
 
-    {/*triggers.forEach((t) => {
-      const parentWrap =
-        t.closest('.nav-menu-trigger-wrap') as HTMLElement | null;
+       IMPORTANT:
+       The parent of the arrow contains BOTH:
+       - Sectors text
+       - Sectors arrow
 
-      const hoverTarget = parentWrap || t;
+       Therefore hovering either one opens the menu.
+    ========================================================= */
 
-      hoverTarget.addEventListener('mouseenter', openMenu);
+    triggers.forEach(
+      (trigger) => {
 
-      hoverTarget.addEventListener('mouseleave', () =>
-        closeMenu(false)
-      );
+        const hoverTarget =
+          trigger.parentElement as HTMLElement | null;
 
-      t.addEventListener('click', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
+        if (!hoverTarget) return;
 
-        const isExpanded =
-          t.getAttribute('aria-expanded') === 'true';
 
-        if (isExpanded) {
-          closeMenu(true);
-        } else {
-          openMenu();
-        }
-      });
+        /*
+         * Hovering Sectors text OR arrow
+         * opens the dropdown.
+         */
+        hoverTarget.addEventListener(
+          'mouseenter',
+          openMenu
+        );
 
-      t.addEventListener('focus', openMenu);
-    });*/}
-    /* =========================================================
-   TRIGGERS
-   ========================================================= */
 
-triggers.forEach((t) => {
-  const parentWrap =
-    t.closest('.nav-menu-trigger-wrap') as HTMLElement | null;
+        /*
+         * Do NOT close on mouseleave.
+         *
+         * The menu stays open until:
+         * - outside click
+         * - arrow click
+         * - Escape
+         * - another dropdown opens
+         */
+        trigger.addEventListener(
+          'click',
+          (event) => {
 
-  const hoverTarget = parentWrap || t;
+            event.stopPropagation();
+            event.preventDefault();
 
-  /*
-   * Hovering Sectors text or arrow opens
-   * the dropdown.
-   */
-  hoverTarget.addEventListener(
-    'mouseenter',
-    openMenu
-  );
 
-  /*
-   * Do NOT close when mouse leaves the navbar.
-   * The dropdown stays open until the user
-   * clicks somewhere else.
-   */
+            const isExpanded =
+              trigger.getAttribute(
+                'aria-expanded'
+              ) === 'true';
 
-  t.addEventListener('click', (e) => {
-    e.stopPropagation();
-    e.preventDefault();
 
-    const isExpanded =
-      t.getAttribute('aria-expanded') === 'true';
+            if (isExpanded) {
 
-    if (isExpanded) {
-      closeMenu(true);
-    } else {
-      openMenu();
-    }
-  });
+              closeMenu(true);
 
-  /*
-   * Keyboard accessibility
-   */
-  t.addEventListener(
-    'focus',
-    openMenu
-  );
-});
+            } else {
+
+              openMenu();
+
+            }
+
+          }
+        );
+
+
+        /*
+         * Keyboard accessibility.
+         */
+        trigger.addEventListener(
+          'focus',
+          openMenu
+        );
+
+      }
+    );
+
 
     /* =========================================================
        PANEL HOVER
-       ========================================================= */
+    ========================================================= */
 
-    {/*panel.addEventListener('mouseenter', cancelClose);
+    panel.addEventListener(
+      'mouseenter',
+      cancelClose
+    );
 
-    panel.addEventListener('mouseleave', () =>
-      closeMenu(false)
-    );*/}
-    /* =========================================================
-   PANEL HOVER
-   ========================================================= */
-
-panel.addEventListener(
-  'mouseenter',
-  cancelClose
-);
 
     /* =========================================================
        CROSS MENU CLOSE
-       ========================================================= */
+    ========================================================= */
 
     window.addEventListener(
       'techsteps:close-sectors',
-      (e: any) => {
-        closeMenu(e.detail?.immediate ?? true);
+      (event: Event) => {
+
+        const customEvent =
+          event as CustomEvent;
+
+        closeMenu(
+          customEvent.detail?.immediate ?? true
+        );
+
       }
     );
+
 
     /* =========================================================
        ESCAPE
-       ========================================================= */
+    ========================================================= */
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeMenu(true);
+    document.addEventListener(
+      'keydown',
+      (event) => {
+
+        if (
+          event.key === 'Escape'
+        ) {
+
+          closeMenu(true);
+
+        }
+
       }
-    });
+    );
+
 
     /* =========================================================
        OUTSIDE CLICK
-       ========================================================= */
+    ========================================================= */
 
-    document.addEventListener('click', (e) => {
-      let inside = false;
+    document.addEventListener(
+      'click',
+      (event) => {
 
-      triggers.forEach((t) => {
-        if (t.contains(e.target as Node)) {
-          inside = true;
+        const target =
+          event.target as Node;
+
+
+        let insideTrigger =
+          false;
+
+
+        triggers.forEach(
+          (trigger) => {
+
+            if (
+              trigger.contains(target) ||
+              trigger.parentElement?.contains(target)
+            ) {
+
+              insideTrigger = true;
+
+            }
+
+          }
+        );
+
+
+        if (
+          !panel.contains(target) &&
+          !insideTrigger
+        ) {
+
+          closeMenu(true);
+
         }
-      });
 
-      if (!panel.contains(e.target as Node) && !inside) {
-        closeMenu(true);
       }
-    });
+    );
+
 
     /* =========================================================
        BACKDROP CLICK
-       ========================================================= */
+    ========================================================= */
 
     const backdrop =
-      document.getElementById('dropdown-backdrop');
+      document.getElementById(
+        'dropdown-backdrop'
+      );
 
-    backdrop?.addEventListener('click', () =>
-      closeMenu(true)
+
+    backdrop?.addEventListener(
+      'click',
+      () => closeMenu(true)
     );
+
 
     /* =========================================================
        LINK CLICK
-       ========================================================= */
+    ========================================================= */
 
-    panel.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () =>
-        closeMenu(true)
+    panel
+      .querySelectorAll('a')
+      .forEach(
+        (link) => {
+
+          link.addEventListener(
+            'click',
+            () => closeMenu(true)
+          );
+
+        }
       );
-    });
+
 
     /* =========================================================
        RESIZE / SCROLL
-       ========================================================= */
+    ========================================================= */
 
     window.addEventListener(
       'resize',
       updatePosition,
-      { passive: true }
+      {
+        passive: true
+      }
     );
+
 
     window.addEventListener(
       'scroll',
       updatePosition,
-      { passive: true }
+      {
+        passive: true
+      }
     );
+
   }
+
 
   setupSectorsMegaMenu();
 
-  document.addEventListener('astro:page-load', () => {
-    document
-      .getElementById('dropdown-backdrop')
-      ?.classList.remove('active');
 
-    setupSectorsMegaMenu();
-  });
+  document.addEventListener(
+    'astro:page-load',
+    () => {
+
+      document
+        .getElementById(
+          'dropdown-backdrop'
+        )
+        ?.classList.remove(
+          'active'
+        );
+
+
+      setupSectorsMegaMenu();
+
+    }
+  );
 </script>

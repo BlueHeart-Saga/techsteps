@@ -39,6 +39,16 @@ export const deskStructure: StructureResolver = (S) =>
         ),
 
       S.listItem()
+        .title('Leadership Page')
+        .id('leadershipPage')
+        .child(
+          S.document()
+            .schemaType('leadershipPage')
+            .documentId('leadershipPage')
+            .title('Leadership Team & Commitment')
+        ),
+
+      S.listItem()
         .title('Services Main Page')
         .id('servicesPage')
         .child(

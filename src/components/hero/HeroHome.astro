@@ -63,7 +63,15 @@ const hero = homePage?.hero;
                  leading-[1.12] sm:leading-[1.1]
                  max-w-xl"
         >
-          Creating Value<br class="hidden sm:inline" /> From Each Device
+          {hero?.heading ? (
+            hero.heading === 'Creating Value From Each Device' ? (
+              <>Creating Value<br class="hidden sm:inline" /> From Each Device</>
+            ) : (
+              hero.heading
+            )
+          ) : (
+            <>Creating Value<br class="hidden sm:inline" /> From Each Device</>
+          )}
         </h1>
 
 <!-- Description -->

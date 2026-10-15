@@ -1,0 +1,1074 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroHeader from '../components/global/HeroHeader.astro';
+import CTA from '../components/global/cta.astro';
+import { getLeadershipPage } from '../lib/sanity/client';
+
+const leadership = await getLeadershipPage();
+
+const canonicalUrl = 'https://techsteps.co.uk/leadership';
+
+const leadershipPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: leadership?.metaTitle || 'Leadership — TechSteps',
+  description:
+    leadership?.metaDescription ||
+    'Meet the leadership team behind TechSteps and our commitment to secure, responsible and sustainable IT asset management.',
+  mainEntity: {
+    '@id': 'https://techsteps.co.uk/#organization',
+  },
+};
+---
+
+<BaseLayout
+  title={leadership?.metaTitle || "Leadership — TechSteps"}
+  description={leadership?.metaDescription || "Meet the leadership team behind TechSteps and our commitment to secure, responsible and sustainable IT asset management."}
+  canonicalUrl={canonicalUrl}
+  jsonLd={leadershipPageSchema}
+  hasHeroHeader={true}
+>
+  <HeroHeader isHome={false} />
+
+  <main class="leadership-page">
+
+    <section class="leadership-hero">
+  <div class="leadership-hero-image">
+    <img
+      src={leadership?.hero?.imageUrl || "/images/leadership/leadership-hero.png"}
+      alt={leadership?.hero?.imageAlt || "TechSteps leadership team"}
+    />
+  </div>
+
+  <div class="leadership-hero-overlay"></div>
+
+  <div class="leadership-hero-container">
+    <div class="leadership-hero-content">
+      <span class="leadership-eyebrow">{leadership?.hero?.eyebrow || "OUR LEADERSHIP"}</span>
+
+      <h1>
+        {leadership?.hero?.title || "Leadership with"}
+        <span>{leadership?.hero?.highlightedTitle || "purpose."}</span>
+      </h1>
+
+      <p>
+        {leadership?.hero?.subtitle || "Guiding TechSteps with integrity, innovation and a commitment to creating a more responsible technology lifecycle."}
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="leadership-intro">
+  <div class="leadership-intro-container">
+
+    <div class="leadership-intro-label">
+      <span>{leadership?.intro?.label || "OUR APPROACH"}</span>
+    </div>
+
+    <div class="leadership-intro-content">
+      <h2>
+        {leadership?.intro?.title || "Leadership that puts"}
+        <span>{leadership?.intro?.highlightedTitle || "responsibility into action."}</span>
+      </h2>
+
+      <p>
+        {leadership?.intro?.paragraphs?.[0] || "At TechSteps, leadership is about more than setting direction. It is about creating trust, making responsible decisions and building a business that delivers lasting value for our people, our customers and the planet."}
+      </p>
+
+      <p>
+        {leadership?.intro?.paragraphs?.[1] || "Our leadership team brings together experience across technology, operations and responsible asset management, with a shared focus on creating a more secure and sustainable technology lifecycle."}
+      </p>
+    </div>
+
+  </div>
+</section>
+<section class="leadership-team">
+  <div class="leadership-team-container">
+
+    <div class="leadership-team-heading">
+      <div class="leadership-section-label">
+        <span>{leadership?.team?.label || "THE PEOPLE BEHIND TECHSTEPS"}</span>
+      </div>
+
+      <h2>
+        {leadership?.team?.title || "Experience that"}
+        <span>{leadership?.team?.highlightedTitle || "moves us forward."}</span>
+      </h2>
+
+      <p>
+        {leadership?.team?.subtitle || "Our leadership team brings together experience, expertise and a shared commitment to responsible technology management."}
+      </p>
+    </div>
+
+    <div class="leadership-team-grid">
+
+      <article class="leader-card">
+        <div class="leader-image">
+          <img
+            src={leadership?.team?.members?.[0]?.imageUrl || "/images/leadership/leader-1.webp"}
+            alt={leadership?.team?.members?.[0]?.imageAlt || "TechSteps leadership team member"}
+          />
+        </div>
+
+        <div class="leader-info">
+          <span class="leader-role">{leadership?.team?.members?.[0]?.role || "CHIEF EXECUTIVE OFFICER"}</span>
+          <h3>{leadership?.team?.members?.[0]?.name || "Leadership Name"}</h3>
+          <p>
+            {leadership?.team?.members?.[0]?.bio || "Driving the vision and long-term direction of TechSteps, with a focus on responsible growth and customer trust."}
+          </p>
+        </div>
+      </article>
+
+      <article class="leader-card">
+        <div class="leader-image">
+          <img
+            src={leadership?.team?.members?.[1]?.imageUrl || "/images/leadership/leader-2.webp"}
+            alt={leadership?.team?.members?.[1]?.imageAlt || "TechSteps leadership team member"}
+          />
+        </div>
+
+        <div class="leader-info">
+          <span class="leader-role">{leadership?.team?.members?.[1]?.role || "OPERATIONS DIRECTOR"}</span>
+          <h3>{leadership?.team?.members?.[1]?.name || "Leadership Name"}</h3>
+          <p>
+            {leadership?.team?.members?.[1]?.bio || "Leading operational excellence and ensuring every stage of the technology lifecycle is managed responsibly."}
+          </p>
+        </div>
+      </article>
+
+      <article class="leader-card">
+        <div class="leader-image">
+          <img
+            src={leadership?.team?.members?.[2]?.imageUrl || "/images/leadership/leader-3.webp"}
+            alt={leadership?.team?.members?.[2]?.imageAlt || "TechSteps leadership team member"}
+          />
+        </div>
+
+        <div class="leader-info">
+          <span class="leader-role">{leadership?.team?.members?.[2]?.role || "COMMERCIAL DIRECTOR"}</span>
+          <h3>{leadership?.team?.members?.[2]?.name || "Leadership Name"}</h3>
+          <p>
+            {leadership?.team?.members?.[2]?.bio || "Building strong partnerships and creating solutions that deliver measurable value for our customers."}
+          </p>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+<section class="leadership-principles">
+  <div class="principles-container">
+
+    <div class="principles-intro">
+      <span class="principles-eyebrow">{leadership?.principles?.eyebrow || "WHAT GUIDES US"}</span>
+
+      <h2>
+        {leadership?.principles?.title || "Principles that"}
+        <span>{leadership?.principles?.highlightedTitle || "shape our leadership."}</span>
+      </h2>
+
+      <p>
+        {leadership?.principles?.description || "The way we lead is grounded in clear principles that influence how we work, make decisions and create value for our customers, people and planet."}
+      </p>
+    </div>
+
+    <div class="principles-list">
+
+      <div class="principle-item">
+        <div class="principle-number">{leadership?.principles?.items?.[0]?.number || "01"}</div>
+        <div class="principle-content">
+          <h3>{leadership?.principles?.items?.[0]?.title || "Integrity"}</h3>
+          <p>
+            {leadership?.principles?.items?.[0]?.description || "We act with honesty and transparency, building relationships based on trust and accountability."}
+          </p>
+        </div>
+        <div class="principle-icon">↗</div>
+      </div>
+
+      <div class="principle-item">
+        <div class="principle-number">{leadership?.principles?.items?.[1]?.number || "02"}</div>
+        <div class="principle-content">
+          <h3>{leadership?.principles?.items?.[1]?.title || "Responsibility"}</h3>
+          <p>
+            {leadership?.principles?.items?.[1]?.description || "We take responsibility for the technology we manage and the environmental impact of every decision we make."}
+          </p>
+        </div>
+        <div class="principle-icon">↗</div>
+      </div>
+
+      <div class="principle-item">
+        <div class="principle-number">{leadership?.principles?.items?.[2]?.number || "03"}</div>
+        <div class="principle-content">
+          <h3>{leadership?.principles?.items?.[2]?.title || "Innovation"}</h3>
+          <p>
+            {leadership?.principles?.items?.[2]?.description || "We continuously improve our processes and technology to create smarter, safer and more sustainable solutions."}
+          </p>
+        </div>
+        <div class="principle-icon">↗</div>
+      </div>
+
+      <div class="principle-item">
+        <div class="principle-number">{leadership?.principles?.items?.[3]?.number || "04"}</div>
+        <div class="principle-content">
+          <h3>{leadership?.principles?.items?.[3]?.title || "Long-term thinking"}</h3>
+          <p>
+            {leadership?.principles?.items?.[3]?.description || "We focus on creating lasting value rather than short-term solutions, for our customers, people and the planet."}
+          </p>
+        </div>
+        <div class="principle-icon">↗</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<section class="leadership-action">
+  <div class="leadership-action-container">
+
+    <div class="leadership-action-image">
+      <img
+        src={leadership?.action?.imageUrl || "/images/leadership/leadership-action.webp"}
+        alt={leadership?.action?.imageAlt || "TechSteps team working together"}
+      />
+
+      <div class="leadership-action-badge">
+        <strong>{leadership?.action?.badgeNumber || "01"}</strong>
+        <span>ONE TEAM<br />ONE PURPOSE</span>
+      </div>
+    </div>
+
+    <div class="leadership-action-content">
+      <span class="action-eyebrow">{leadership?.action?.eyebrow || "LEADERSHIP IN ACTION"}</span>
+
+      <h2>
+        {leadership?.action?.title || "Turning responsible"}
+        <span>{leadership?.action?.highlightedTitle || "ideas into action."}</span>
+      </h2>
+
+      <p>
+        {leadership?.action?.paragraphs?.[0] || "Great leadership is measured by what it enables people and organisations to achieve. At TechSteps, our leaders work closely with teams and customers to turn responsible technology management into measurable outcomes."}
+      </p>
+
+      <p>
+        {leadership?.action?.paragraphs?.[1] || "From secure data handling and IT asset recovery to reuse, refurbishment and responsible recycling, we focus on creating value at every stage of the technology lifecycle."}
+      </p>
+
+      <a href={leadership?.action?.linkUrl || "/contact"} class="action-link">
+        {leadership?.action?.linkText || "Talk to our team"}
+        <span>↗</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<section class="leadership-commitment">
+  <div class="commitment-container">
+
+    <div class="commitment-heading">
+      <span>{leadership?.commitment?.label || "OUR COMMITMENT"}</span>
+
+      <h2>
+        {leadership?.commitment?.title || "Leading with a focus on"}
+        <span>{leadership?.commitment?.highlightedTitle || "what matters most."}</span>
+      </h2>
+
+      <p>
+        {leadership?.commitment?.description || "Responsible leadership means considering the wider impact of every decision. We bring people, technology and sustainability together to create a better future for the technology lifecycle."}
+      </p>
+    </div>
+
+    <div class="commitment-grid">
+
+      <article class="commitment-card">
+        <div class="commitment-number">{leadership?.commitment?.cards?.[0]?.number || "01"}</div>
+
+        <div class="commitment-icon">
+          <span>{leadership?.commitment?.cards?.[0]?.icon || "♧"}</span>
+        </div>
+
+        <h3>{leadership?.commitment?.cards?.[0]?.title || "People"}</h3>
+
+        <p>
+          {leadership?.commitment?.cards?.[0]?.description || "Creating a culture where people can contribute, grow and make a meaningful difference."}
+        </p>
+      </article>
+
+      <article class="commitment-card commitment-card-featured">
+        <div class="commitment-number">{leadership?.commitment?.cards?.[1]?.number || "02"}</div>
+
+        <div class="commitment-icon">
+          <span>{leadership?.commitment?.cards?.[1]?.icon || "◌"}</span>
+        </div>
+
+        <h3>{leadership?.commitment?.cards?.[1]?.title || "Planet"}</h3>
+
+        <p>
+          {leadership?.commitment?.cards?.[1]?.description || "Making responsible choices that reduce waste, extend asset lifecycles and support a circular technology economy."}
+        </p>
+      </article>
+
+      <article class="commitment-card">
+        <div class="commitment-number">{leadership?.commitment?.cards?.[2]?.number || "03"}</div>
+
+        <div class="commitment-icon">
+          <span>{leadership?.commitment?.cards?.[2]?.icon || "⌁"}</span>
+        </div>
+
+        <h3>{leadership?.commitment?.cards?.[2]?.title || "Technology"}</h3>
+
+        <p>
+          {leadership?.commitment?.cards?.[2]?.description || "Using expertise and innovation to make technology management more secure, efficient and sustainable."}
+        </p>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+  </main>
+
+  <CTA
+    title={leadership?.cta?.title || "Let's Build a More Responsible Technology Future"}
+    description={leadership?.cta?.description || "Talk to our team about secure, sustainable and responsible IT asset management."}
+    primaryText={leadership?.cta?.primaryText || "Talk to Our Team"}
+    primaryHref={leadership?.cta?.primaryHref || "/contact"}
+    secondaryText={leadership?.cta?.secondaryText || "Request a Collection"}
+    secondaryHref={leadership?.cta?.secondaryHref || "/request-a-collection"}
+  />
+</BaseLayout>
+
+<style>
+.leadership-hero {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #0f623a;
+}
+
+.leadership-hero-image {
+  position: absolute;
+  inset: 0;
+}
+
+.leadership-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.leadership-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(15, 98, 58, 0.96) 0%,
+    rgba(15, 98, 58, 0.82) 38%,
+    rgba(15, 98, 58, 0.35) 70%,
+    rgba(15, 98, 58, 0.08) 100%
+  );
+}
+
+.leadership-hero-container {
+  position: relative;
+  z-index: 2;
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.leadership-hero-content {
+  max-width: 650px;
+  padding: 110px 0;
+  color: white;
+}
+
+.leadership-eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #9ee49c;
+}
+
+.leadership-hero h1 {
+  margin: 0;
+  font-size: clamp(48px, 6vw, 78px);
+  line-height: 0.98;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.leadership-hero h1 span {
+  display: block;
+  color: #9ee49c;
+}
+
+.leadership-hero p {
+  max-width: 570px;
+  margin-top: 28px;
+  font-size: 19px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 768px) {
+  .leadership-hero {
+    min-height: 520px;
+  }
+
+  .leadership-hero-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(15, 98, 58, 0.94),
+      rgba(15, 98, 58, 0.65)
+    );
+  }
+
+  .leadership-hero-content {
+    padding: 90px 0 70px;
+  }
+
+  .leadership-hero h1 {
+    font-size: clamp(42px, 12vw, 60px);
+  }
+
+  .leadership-hero p {
+    font-size: 17px;
+  }
+}
+.leadership-intro {
+  background: #ffffff;
+  padding: 110px 0;
+}
+
+.leadership-intro-container {
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.7fr 1.8fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.leadership-intro-label {
+  padding-top: 12px;
+}
+
+.leadership-intro-label span {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #0f623a;
+}
+
+.leadership-intro-label span::before {
+  content: "";
+  width: 32px;
+  height: 2px;
+  background: #3fb33d;
+}
+
+.leadership-intro-content {
+  max-width: 800px;
+}
+
+.leadership-intro-content h2 {
+  margin: 0 0 30px;
+  font-size: clamp(38px, 4.5vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  color: #0f623a;
+}
+
+.leadership-intro-content h2 span {
+  display: block;
+  color: #17251e;
+}
+
+.leadership-intro-content p {
+  max-width: 760px;
+  margin: 0 0 18px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #52615a;
+}
+
+@media (max-width: 768px) {
+  .leadership-intro {
+    padding: 75px 0;
+  }
+
+  .leadership-intro-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .leadership-intro-content h2 {
+    font-size: 40px;
+  }
+
+  .leadership-intro-content p {
+    font-size: 16px;
+  }
+}
+.leadership-team {
+  background: #f4f7f5;
+  padding: 110px 0 120px;
+}
+
+.leadership-team-container {
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.leadership-team-heading {
+  max-width: 760px;
+  margin-bottom: 65px;
+}
+
+.leadership-section-label {
+  margin-bottom: 18px;
+}
+
+.leadership-section-label span {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #0f623a;
+}
+
+.leadership-team-heading h2 {
+  margin: 0 0 22px;
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #17251e;
+}
+
+.leadership-team-heading h2 span {
+  color: #0f623a;
+}
+
+.leadership-team-heading p {
+  max-width: 650px;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.75;
+  color: #5b6962;
+}
+
+.leadership-team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.leader-card {
+  background: #ffffff;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.leader-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(15, 98, 58, 0.12);
+}
+
+.leader-image {
+  aspect-ratio: 0.88;
+  overflow: hidden;
+  background: #dce8e0;
+}
+
+.leader-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.leader-card:hover .leader-image img {
+  transform: scale(1.04);
+}
+
+.leader-info {
+  padding: 30px 30px 34px;
+}
+
+.leader-role {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #3fb33d;
+}
+
+.leader-info h3 {
+  margin: 0 0 12px;
+  font-size: 27px;
+  line-height: 1.15;
+  color: #0f623a;
+}
+
+.leader-info p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #64716b;
+}
+
+@media (max-width: 900px) {
+  .leadership-team-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .leadership-team {
+    padding: 75px 0;
+  }
+
+  .leadership-team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .leadership-team-heading h2 {
+    font-size: 42px;
+  }
+}
+.leadership-principles {
+  background: #0f623a;
+  color: #ffffff;
+  padding: 120px 0;
+}
+
+.principles-container {
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.principles-intro {
+  max-width: 720px;
+  margin-bottom: 70px;
+}
+
+.principles-eyebrow {
+  display: block;
+  margin-bottom: 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #9ee49c;
+}
+
+.principles-intro h2 {
+  margin: 0 0 25px;
+  font-size: clamp(42px, 5vw, 66px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.principles-intro h2 span {
+  color: #9ee49c;
+}
+
+.principles-intro p {
+  margin: 0;
+  max-width: 650px;
+  font-size: 18px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.principles-list {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.principle-item {
+  display: grid;
+  grid-template-columns: 90px 1fr 60px;
+  align-items: center;
+  gap: 30px;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: padding 0.3s ease;
+}
+
+.principle-item:hover {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.principle-number {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9ee49c;
+}
+
+.principle-content {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.principle-content h3 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.principle-content p {
+  max-width: 600px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.principle-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  font-size: 20px;
+  transition: all 0.3s ease;
+}
+
+.principle-item:hover .principle-icon {
+  background: #9ee49c;
+  color: #0f623a;
+  border-color: #9ee49c;
+  transform: rotate(45deg);
+}
+
+@media (max-width: 800px) {
+  .leadership-principles {
+    padding: 80px 0;
+  }
+
+  .principle-item {
+    grid-template-columns: 50px 1fr 45px;
+    gap: 15px;
+  }
+
+  .principle-content {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .principle-content h3 {
+    font-size: 23px;
+  }
+}
+
+@media (max-width: 520px) {
+  .principle-item {
+    grid-template-columns: 35px 1fr;
+  }
+
+  .principle-icon {
+    display: none;
+  }
+}
+.leadership-action {
+  background: #ffffff;
+  padding: 120px 0;
+}
+
+.leadership-action-container {
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 90px;
+  align-items: center;
+}
+
+.leadership-action-image {
+  position: relative;
+  min-height: 620px;
+  overflow: hidden;
+  background: #dce8e0;
+}
+
+.leadership-action-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 620px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.leadership-action-badge {
+  position: absolute;
+  left: 28px;
+  bottom: 28px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 22px;
+  background: #0f623a;
+  color: #ffffff;
+}
+
+.leadership-action-badge strong {
+  margin-bottom: 8px;
+  font-size: 38px;
+  line-height: 1;
+  color: #9ee49c;
+}
+
+.leadership-action-badge span {
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.13em;
+  font-weight: 700;
+}
+
+.leadership-action-content {
+  max-width: 560px;
+}
+
+.action-eyebrow {
+  display: block;
+  margin-bottom: 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #3fb33d;
+}
+
+.leadership-action-content h2 {
+  margin: 0 0 28px;
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #17251e;
+}
+
+.leadership-action-content h2 span {
+  display: block;
+  color: #0f623a;
+}
+
+.leadership-action-content p {
+  margin: 0 0 18px;
+  font-size: 17px;
+  line-height: 1.8;
+  color: #5d6963;
+}
+
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #3fb33d;
+  color: #0f623a;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.action-link span {
+  font-size: 20px;
+  transition: transform 0.25s ease;
+}
+
+.action-link:hover span {
+  transform: translate(4px, -4px);
+}
+
+@media (max-width: 900px) {
+  .leadership-action {
+    padding: 80px 0;
+  }
+
+  .leadership-action-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .leadership-action-image,
+  .leadership-action-image img {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  .leadership-action-image,
+  .leadership-action-image img {
+    min-height: 420px;
+  }
+
+  .leadership-action-badge {
+    width: 125px;
+    height: 125px;
+    left: 18px;
+    bottom: 18px;
+  }
+
+  .leadership-action-content h2 {
+    font-size: 42px;
+  }
+}
+.leadership-commitment {
+  background: #f4f7f5;
+  padding: 120px 0;
+}
+
+.commitment-container {
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.commitment-heading {
+  max-width: 780px;
+  margin-bottom: 65px;
+}
+
+.commitment-heading > span {
+  display: block;
+  margin-bottom: 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #0f623a;
+}
+
+.commitment-heading h2 {
+  margin: 0 0 25px;
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #17251e;
+}
+
+.commitment-heading h2 span {
+  color: #0f623a;
+}
+
+.commitment-heading p {
+  max-width: 680px;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.75;
+  color: #5d6963;
+}
+
+.commitment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.commitment-card {
+  position: relative;
+  min-height: 360px;
+  padding: 35px;
+  background: #ffffff;
+  border: 1px solid #e0e8e3;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.commitment-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 20px 45px rgba(15, 98, 58, 0.1);
+}
+
+.commitment-card-featured {
+  background: #0f623a;
+  border-color: #0f623a;
+  color: #ffffff;
+}
+
+.commitment-number {
+  font-size: 13px;
+  font-weight: 700;
+  color: #3fb33d;
+}
+
+.commitment-icon {
+  width: 58px;
+  height: 58px;
+  margin: 60px 0 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #cbdad1;
+  border-radius: 50%;
+  font-size: 27px;
+  color: #0f623a;
+}
+
+.commitment-card-featured .commitment-icon {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #9ee49c;
+}
+
+.commitment-card h3 {
+  margin: 0 0 15px;
+  font-size: 30px;
+  color: #0f623a;
+}
+
+.commitment-card-featured h3 {
+  color: #ffffff;
+}
+
+.commitment-card p {
+  max-width: 320px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #68756f;
+}
+
+.commitment-card-featured p {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+@media (max-width: 850px) {
+  .commitment-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .commitment-card {
+    min-height: auto;
+  }
+
+  .commitment-icon {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .leadership-commitment {
+    padding: 80px 0;
+  }
+
+  .commitment-heading h2 {
+    font-size: 42px;
+  }
+}
+</style>

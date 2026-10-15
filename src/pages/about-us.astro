@@ -40,38 +40,23 @@ const aboutPageSchema = {
   <div class="about-page-wrapper bg-white text-slate-900 selection:bg-[#0F623A] selection:text-white">
 
     <!-- =====================================================
-         1. SECTION 1 — TECHNOLOGY WITH A PURPOSE (HERO)
+         1. SECTION 1 — BUILDING HERO
     ====================================================== -->
-    <section id="technology-purpose" class="relative bg-white pt-8 sm:pt-12 lg:pt-14 pb-0 overflow-hidden min-h-[596px] flex items-center">
-      <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
-
-          <!-- Left: Heading and Supporting Text -->
-          <div class="lg:col-span-4 xl:col-span-4 text-left">
-            <h1 class="text-4xl sm:text-5xl lg:text-[54px] font-semibold text-slate-900 tracking-tight leading-[1.08] font-display">
-              Technology<br />With a Purpose
-            </h1>
-            <p class="mt-6 text-black text-lg sm:text-xl leading-relaxed max-w-sm">
-              We give businesses a smarter way to manage their IT assets securely, responsibly, and sustainably.
-            </p>
-          </div>
-
-          <!-- Center: Technician Worker Image -->
-          <div class="lg:col-span-8 xl:col-span-8 flex justify-center items-center relative mt-6 mb-0 lg:my-0">
-            <div class="relative w-full max-w-[771px] h-[596px] flex justify-center items-center mx-auto">
-              <img
-                src="/images/about/about hero.webp"
-                alt="TechSteps technician wearing branded uniform"
-                class="w-full h-full max-w-[771px] max-h-[596px] object-contain object-bottom drop-shadow-sm select-none mx-auto"
-                width="771"
-                height="596"
-                loading="eager"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<section
+  id="about-building-hero"
+  class="relative bg-white overflow-hidden"
+>
+  <div class="relative w-full flex justify-center">
+    <img
+      src={about?.buildingHero?.imageUrl || "/images/about/building (1).webp"}
+      alt={about?.buildingHero?.imageAlt || "TechSteps secure IT disposal and recycling facility"}
+      class="block w-[1380px] max-w-none h-auto object-contain object-center"
+      width="1600"
+      height="650"
+      loading="eager"
+    />
+  </div>
+</section>
 
 
     <!-- =====================================================
@@ -80,27 +65,41 @@ const aboutPageSchema = {
     <section id="cleaner-smarter" class="bg-white pt-4 sm:pt-6 lg:pt-6 pb-10 sm:pb-12 lg:pb-14">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- Centered Heading & Description -->
-        <div class="text-center max-w-3xl mx-auto">
-          <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold text-slate-900 tracking-tight font-display leading-tight">
-            Driving a Cleaner, Smarter Tomorrow.
-          </h2>
-          <p class="mt-3.5 text-black text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-We are one of the UK’s leading providers of secure and confidential shredding services. With years of experience in the industry, we have built an extensive customer base spanning all industries, public sectors, and sizes of businesses across the country.          </p>
-        </div>
+<!-- Heading & Description -->
+<div class="w-full text-left">
+  <h2
+    class="w-full max-w-none text-2xl sm:text-4xl lg:text-[34px] font-semibold text-slate-900 tracking-tight font-display leading-tight text-justify"
+  >
+    {about?.cleanerSmarter?.heading || "We are one of the UK’s leading providers of secure and confidential shredding services. With years of experience in the industry, we have built an extensive customer base spanning all industries, public sectors, and sizes of businesses across the country."}
+  </h2>
+
+  <div class="mt-14 space-y-8">
+    <p
+      class="text-black text-lg sm:text-xl lg:text-[22px] leading-relaxed"
+    >
+      {about?.cleanerSmarter?.paragraphs?.[0] || "We offer recycling and shredding for paper, plastics, textiles and digital media in highly secure environments so that you meet your data protection compliance requirements and can rest easy knowing that you are preventing fraud, identity and intellectual property theft with trusted experts."}
+    </p>
+
+    <p
+      class="text-black text-lg sm:text-xl lg:text-[22px] leading-relaxed"
+    >
+      {about?.cleanerSmarter?.paragraphs?.[1] || "We have a breadth of knowledge and experience in the secure destruction of confidential waste. Our team is friendly, knowledgeable, and always looking for ways to help you."}
+    </p>
+  </div>
+</div>
 
         <!-- Three Horizontally Aligned Value Indicators -->
         <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 lg:gap-14 mt-8 sm:mt-10">
           <!-- 1. Secure Handling -->
           <div class="flex flex-col items-center text-center px-4">
             <img
-              src="/images/about/Secure Handling.svg"
-              alt="Secure Handling icon"
+              src={about?.cleanerSmarter?.values?.[0]?.icon || "/images/about/Secure Handling.svg"}
+              alt={`${about?.cleanerSmarter?.values?.[0]?.title || 'Secure Handling'} icon`}
               class="w-10 h-10 object-contain mx-auto"
               loading="lazy"
             />
             <span class="mt-2 text-sm sm:text-base font-semibold text-slate-900">
-              Secure Handling
+              {about?.cleanerSmarter?.values?.[0]?.title || "Secure Handling"}
             </span>
           </div>
 
@@ -109,13 +108,13 @@ We are one of the UK’s leading providers of secure and confidential shredding 
           <!-- 2. Recover Value -->
           <div class="flex flex-col items-center text-center px-4">
             <img
-              src="/images/about/Recover Value.svg"
-              alt="Recover Value icon"
+              src={about?.cleanerSmarter?.values?.[1]?.icon || "/images/about/Recover Value.svg"}
+              alt={`${about?.cleanerSmarter?.values?.[1]?.title || 'Recover Value'} icon`}
               class="w-10 h-10 object-contain mx-auto"
               loading="lazy"
             />
             <span class="mt-2 text-sm sm:text-base font-semibold text-slate-900">
-              Recover Value
+              {about?.cleanerSmarter?.values?.[1]?.title || "Recover Value"}
             </span>
           </div>
 
@@ -124,56 +123,63 @@ We are one of the UK’s leading providers of secure and confidential shredding 
           <!-- 3. Sustainable Impact -->
           <div class="flex flex-col items-center text-center px-4">
             <img
-              src="/images/about/Sustainable Impact.svg"
-              alt="Sustainable Impact icon"
+              src={about?.cleanerSmarter?.values?.[2]?.icon || "/images/about/Sustainable Impact.svg"}
+              alt={`${about?.cleanerSmarter?.values?.[2]?.title || 'Sustainable Impact'} icon`}
               class="w-10 h-10 object-contain mx-auto"
               loading="lazy"
             />
             <span class="mt-2 text-sm sm:text-base font-semibold text-slate-900">
-              Sustainable Impact
+              {about?.cleanerSmarter?.values?.[2]?.title || "Sustainable Impact"}
             </span>
           </div>
         </div>
 
-        <!-- Prominent Building Image -->
-        <div class="mt-8 sm:mt-10 max-w-5xl mx-auto overflow-hidden">
-          <img
-            src="/images/about/building.webp"
-            alt="TechSteps secure IT disposal and recycling facility"
-            class="w-full h-auto object-contain mx-auto"
-            loading="lazy"
-          />
-        </div>
-
       </div>
     </section>
 
 
     <!-- =====================================================
-         3. SECTION 3 — MORE THAN RECYCLING. A BRIGHTER FUTURE.
+         3. SECTION 3 — TECHNOLOGY WITH A PURPOSE
+         Moved below the main content, replacing the old building-image position
     ====================================================== -->
-    <section id="brighter-future" class="bg-white py-10 sm:py-12 lg:py-14 border-t border-slate-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <section
+      id="technology-purpose"
+      class="relative bg-white pt-8 sm:pt-12 lg:pt-14 pb-0 overflow-hidden min-h-[596px] flex items-center"
+    >
+      <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
 
-          <!-- Left Column: Heading and Editorial Description -->
-          <div class="lg:col-span-7">
-            <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-              More Than<br />Recycling.<br />A Brighter Future.
-            </h2>
-            <p class="mt-4 sm:mt-5 text-black text-lg sm:text-xl leading-relaxed max-w-xl">
-              We believe technology can create a better future — especially when it's handled responsibly. Our mission is to make IT asset management simple, secure, and sustainable for every business, helping you protect data and protect the planet.
+          <!-- Left: Heading and Supporting Text -->
+          <div class="lg:col-span-4 xl:col-span-4 text-left">
+            <h1
+              class="text-4xl sm:text-5xl lg:text-[54px] font-semibold text-slate-900 tracking-tight leading-[1.08] font-display"
+            >
+              {about?.technologyPurpose?.heading ? (
+                about.technologyPurpose.heading.includes('With') ? (
+                  <>{about.technologyPurpose.heading.split('With')[0]}<br />With{about.technologyPurpose.heading.split('With').slice(1).join('With')}</>
+                ) : about.technologyPurpose.heading
+              ) : (
+                <>Technology<br />With a Purpose</>
+              )}
+            </h1>
+
+            <p class="mt-6 text-black text-lg sm:text-xl leading-relaxed max-w-sm">
+              {about?.technologyPurpose?.description || "We give businesses a smarter way to manage their IT assets securely, responsibly, and sustainably."}
             </p>
           </div>
 
-          <!-- Right Column: Hand holding recovered IT hardware -->
-          <div class="lg:col-span-5 flex justify-center lg:justify-end">
-            <img
-              src="/images/about/More Than Recycling. A Brighter Future. (1).webp"
-              alt="Hand holding recovered IT components and hardware"
-              class="w-full max-w-md h-auto object-contain rounded-2xl"
-              loading="lazy"
-            />
+          <!-- Right: Technician Worker Image -->
+          <div class="lg:col-span-8 xl:col-span-8 flex justify-center items-center relative mt-6 mb-0 lg:my-0">
+            <div class="relative w-full max-w-[771px] h-[596px] flex justify-center items-center mx-auto">
+              <img
+                src={about?.technologyPurpose?.imageUrl || "/images/about/about hero.webp"}
+                alt={about?.technologyPurpose?.imageAlt || "TechSteps technician wearing branded uniform"}
+                class="w-full h-full max-w-[771px] max-h-[596px] object-contain object-bottom drop-shadow-sm select-none mx-auto"
+                width="771"
+                height="596"
+                loading="eager"
+              />
+            </div>
           </div>
 
         </div>
@@ -182,7 +188,47 @@ We are one of the UK’s leading providers of secure and confidential shredding 
 
 
     <!-- =====================================================
-         4. SECTION 4 — BUILT ON TRUST. DRIVEN BY IMPACT.
+         4. SECTION 4 — MORE THAN RECYCLING. A BRIGHTER FUTURE.
+    ====================================================== -->
+<section
+  id="brighter-future"
+  class="bg-white py-10 sm:py-12 lg:py-14"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-center">
+
+      <!-- Left Column -->
+      <div class="lg:col-span-7">
+        <h2
+          class="text-3xl sm:text-4xl lg:text-[46px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]"
+        >
+          {about?.nationwideNetwork?.heading || "Nationwide network, local expertise"}
+        </h2>
+
+        <p
+          class="mt-4 sm:mt-5 text-black text-lg sm:text-xl leading-relaxed max-w-none text-justify"
+        >
+          {about?.nationwideNetwork?.description || "Restore Datashred boasts a robust network spanning the entire UK. With strategically located facilities, we ensure efficient and timely service, no matter where your business is located. With our local reach, we can tailor a service plan to perfectly suit your volume and frequency of document shredding, while our national presence guarantees the security and compliance expertise you expect for any data disposal needs, from paper shredding to hard drive destruction."}
+        </p>
+      </div>
+
+      <!-- Right Column -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-end">
+        <img
+          src={about?.nationwideNetwork?.imageUrl || "/images/about/More Than Recycling. A Brighter Future. (1).webp"}
+          alt={about?.nationwideNetwork?.imageAlt || "Hand holding recovered IT components and hardware"}
+          class="w-full max-w-md h-auto object-contain rounded-2xl"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+    <!-- =====================================================
+         5. SECTION 5 — BUILT ON TRUST. DRIVEN BY IMPACT.
     ====================================================== -->
     <section id="trust-impact" class="bg-white py-10 sm:py-12 lg:py-14 border-t border-slate-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -191,12 +237,18 @@ We are one of the UK’s leading providers of secure and confidential shredding 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-10 items-center">
           <div class="lg:col-span-6">
             <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-              Built on Trust.<br />Driven by Impact.
+              {about?.trustAndImpact?.heading ? (
+                about.trustAndImpact.heading.includes('.') ? (
+                  <>{about.trustAndImpact.heading.split('.')[0]}.<br />{about.trustAndImpact.heading.split('.').slice(1).join('.').trim()}</>
+                ) : about.trustAndImpact.heading
+              ) : (
+                <>Built on Trust.<br />Driven by Impact.</>
+              )}
             </h2>
           </div>
           <div class="lg:col-span-6">
             <p class="text-black text-lg sm:text-xl leading-relaxed max-w-lg lg:ml-auto">
-              Our values guide everything we do — from how we handle your data and technology to the environmental impact of our operations.
+              {about?.trustAndImpact?.description || "Our values guide everything we do — from how we handle your data and technology to the environmental impact of our operations."}
             </p>
           </div>
         </div>
@@ -206,8 +258,8 @@ We are one of the UK’s leading providers of secure and confidential shredding 
           <!-- Card 1: Security First -->
           <div class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
             <img
-              src="/images/about/Card 1_ Security First (Deep Forest Slate Theme).webp"
-              alt="Security First: secure asset handling and compliance dashboard"
+              src={about?.trustAndImpact?.cards?.[0]?.imageUrl || "/images/about/Card 1_ Security First (Deep Forest Slate Theme).webp"}
+              alt={about?.trustAndImpact?.cards?.[0]?.imageAlt || "Security First: secure asset handling and compliance dashboard"}
               class="w-full h-auto object-contain"
               loading="lazy"
             />
@@ -216,8 +268,8 @@ We are one of the UK’s leading providers of secure and confidential shredding 
           <!-- Card 2: Environmental Responsibility -->
           <div class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
             <img
-              src="/images/about/Card 2_ Environmental Responsibility (Emerald Green Theme).webp"
-              alt="Environmental Responsibility: recycling and responsible material recovery dashboard"
+              src={about?.trustAndImpact?.cards?.[1]?.imageUrl || "/images/about/Card 2_ Environmental Responsibility (Emerald Green Theme).webp"}
+              alt={about?.trustAndImpact?.cards?.[1]?.imageAlt || "Environmental Responsibility: recycling and responsible material recovery dashboard"}
               class="w-full h-auto object-contain"
               loading="lazy"
             />
@@ -226,8 +278,8 @@ We are one of the UK’s leading providers of secure and confidential shredding 
           <!-- Card 3: Customer Focus -->
           <div class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
             <img
-              src="/images/about/card 3.webp"
-              alt="Customer Focus: transparency, service quality, and reliability dashboard"
+              src={about?.trustAndImpact?.cards?.[2]?.imageUrl || "/images/about/card 3.webp"}
+              alt={about?.trustAndImpact?.cards?.[2]?.imageAlt || "Customer Focus: transparency, service quality, and reliability dashboard"}
               class="w-full h-auto object-contain"
               loading="lazy"
             />
@@ -236,8 +288,8 @@ We are one of the UK’s leading providers of secure and confidential shredding 
           <!-- Card 4: Continuous Improvement -->
           <div class="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
             <img
-              src="/images/about/card-4 Deep Forest Theme.webp"
-              alt="Continuous Improvement: circular economy and performance metrics dashboard"
+              src={about?.trustAndImpact?.cards?.[3]?.imageUrl || "/images/about/card-4 Deep Forest Theme.webp"}
+              alt={about?.trustAndImpact?.cards?.[3]?.imageAlt || "Continuous Improvement: circular economy and performance metrics dashboard"}
               class="w-full h-auto object-contain"
               loading="lazy"
             />
@@ -249,87 +301,115 @@ We are one of the UK’s leading providers of secure and confidential shredding 
 
 
     <!-- =====================================================
-         5. SECTION 5 — PEOPLE. PLANET. PROGRESS.
+         6. SECTION 6 — PEOPLE. PLANET. PROGRESS.
     ====================================================== -->
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
 
-    <section id="people-planet-progress" class="bg-white py-10 sm:py-12 lg:py-14 border-t border-slate-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+   <section
+  id="people-planet-progress"
+  class="bg-white py-10 sm:py-12 lg:py-14 border-t border-slate-100"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-center">
 
-          <!-- Left Column: Hand holding plant in soil -->
-          <div class="lg:col-span-5 flex justify-center lg:justify-start">
-            <img
-              src="/images/about/People. Planet. Progress. (1).webp"
-              alt="Hand holding plant seedling in soil"
-              class="w-full max-w-md h-auto object-contain rounded-2xl"
-              loading="lazy"
-            />
+      <!-- Left Column: Hand holding plant in soil -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-start">
+        <img
+          src={about?.sustainabilityCommitment?.imageUrl || "/images/about/People. Planet. Progress. (1).webp"}
+          alt={about?.sustainabilityCommitment?.imageAlt || "Hand holding plant seedling in soil"}
+          class="w-full max-w-md h-auto object-contain rounded-2xl"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Right Column: Heading, Paragraph, and Three Metrics -->
+      <div class="lg:col-span-7">
+        <h2
+          class="text-3xl sm:text-4xl lg:text-[46px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]"
+        >
+          {about?.sustainabilityCommitment?.heading || "Committed to sustainability: 0% landfill shredding"}
+        </h2>
+
+        <p
+          class="mt-4 sm:mt-5 text-black text-lg sm:text-xl leading-relaxed max-w-none text-justify"
+        >
+          {about?.sustainabilityCommitment?.description || "Restore Datashred isn’t just about secure data destruction; we’re also passionate about protecting the environment. As a leading recycling business, we’re proud to work towards being Net Zero from our shredding activities by 2035 – a commitment our customers truly value. Furthermore, we are fully authorised by the Environment Agency to handle, transport, and recycle your company’s confidential materials. Choose Restore Datashred for peace of mind on both data security and environmental responsibility."}
+        </p>
+
+        <!-- Three Horizontally Aligned Metrics -->
+        <div
+          id="stats-counter-block"
+          class="mt-7 sm:mt-9 flex flex-wrap items-center gap-6 sm:gap-8 lg:gap-10"
+        >
+          <div
+            class="stat-item flex-1 min-w-[120px] sm:min-w-0"
+            aria-label={`${about?.sustainabilityCommitment?.metrics?.[0]?.value || '100K+'} ${about?.sustainabilityCommitment?.metrics?.[0]?.label || 'Devices Processed'}`}
+          >
+            <span
+              class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+              aria-hidden="true"
+            >
+              {about?.sustainabilityCommitment?.metrics?.[0]?.value || "100K+"}
+            </span>
+
+            <span class="block mt-2 text-sm sm:text-base font-medium text-black">
+              {about?.sustainabilityCommitment?.metrics?.[0]?.label || "Devices Processed"}
+            </span>
           </div>
 
-          <!-- Right Column: Heading, Paragraph, and Three Metrics -->
-          <div class="lg:col-span-7">
-            <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-              People. Planet.<br />Progress.
-            </h2>
-            <p class="mt-4 sm:mt-5 text-black text-lg sm:text-xl leading-relaxed max-w-xl">
-              We're committed to creating positive change through responsible IT asset recycling, reducing environmental impact, and supporting a circular economy.
-            </p>
+          <div
+            class="hidden sm:block w-px h-10 bg-slate-200"
+            aria-hidden="true"
+          ></div>
 
-            <!-- Three Horizontally Aligned Metrics -->
-            <div id="stats-counter-block" class="mt-7 sm:mt-9 flex flex-wrap items-center gap-6 sm:gap-8 lg:gap-10">
-              <div class="stat-item flex-1 min-w-[120px] sm:min-w-0" aria-label="100K+ Devices Processed">
-                <span
-                  class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
-                  aria-hidden="true"
-                >
-                  100K+
-                </span>
-                <span class="block mt-2 text-sm sm:text-base font-medium text-black">
-                  Devices Processed
-                </span>
-              </div>
+          <div
+            class="stat-item flex-1 min-w-[120px] sm:min-w-0"
+            aria-label={`${about?.sustainabilityCommitment?.metrics?.[1]?.value || '500+'} ${about?.sustainabilityCommitment?.metrics?.[1]?.label || 'Businesses Served'}`}
+          >
+            <span
+              class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+              aria-hidden="true"
+            >
+              {about?.sustainabilityCommitment?.metrics?.[1]?.value || "500+"}
+            </span>
 
-              <div class="hidden sm:block w-px h-10 bg-slate-200" aria-hidden="true"></div>
-
-              <div class="stat-item flex-1 min-w-[120px] sm:min-w-0" aria-label="500+ Businesses Served">
-                <span
-                  class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
-                  aria-hidden="true"
-                >
-                  500+
-                </span>
-                <span class="block mt-2 text-sm sm:text-base font-medium text-black">
-                  Businesses Served
-                </span>
-              </div>
-
-              <div class="hidden sm:block w-px h-10 bg-slate-200" aria-hidden="true"></div>
-
-              <div class="stat-item flex-1 min-w-[120px] sm:min-w-0" aria-label="0% To Landfill (Recoverable)">
-                <span
-                  class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
-                  aria-hidden="true"
-                >
-                  0%
-                </span>
-                <span class="block mt-2 text-sm sm:text-base font-medium text-black">
-                  To Landfill (Recoverable)
-                </span>
-              </div>
-            </div>
-
+            <span class="block mt-2 text-sm sm:text-base font-medium text-black">
+              {about?.sustainabilityCommitment?.metrics?.[1]?.label || "Businesses Served"}
+            </span>
           </div>
 
+          <div
+            class="hidden sm:block w-px h-10 bg-slate-200"
+            aria-hidden="true"
+          ></div>
+
+          <div
+            class="stat-item flex-1 min-w-[120px] sm:min-w-0"
+            aria-label={`${about?.sustainabilityCommitment?.metrics?.[2]?.value || '0%'} ${about?.sustainabilityCommitment?.metrics?.[2]?.label || 'To Landfill (Recoverable)'}`}
+          >
+            <span
+              class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+              aria-hidden="true"
+            >
+              {about?.sustainabilityCommitment?.metrics?.[2]?.value || "0%"}
+            </span>
+
+            <span class="block mt-2 text-sm sm:text-base font-medium text-black">
+              {about?.sustainabilityCommitment?.metrics?.[2]?.label || "To Landfill (Recoverable)"}
+            </span>
+          </div>
         </div>
       </div>
-    </section>
+
+    </div>
+  </div>
+</section>
 
 
     <!-- =====================================================
-         6. SECTION 6 — FROM A SIMPLE IDEA TO A BIGGER IMPACT.
+         7. SECTION 7 — FROM A SIMPLE IDEA TO A BIGGER IMPACT.
     ====================================================== -->
     <section id="journey-milestones" class="bg-white py-10 sm:py-12 lg:py-14 border-t border-slate-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -338,12 +418,18 @@ We are one of the UK’s leading providers of secure and confidential shredding 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-10 items-center">
           <div class="lg:col-span-6">
             <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-              From a Simple<br />Idea to a Bigger<br />Impact.
+              {about?.journey?.heading ? (
+                about.journey.heading.includes('Idea') ? (
+                  <>{about.journey.heading.split('Idea')[0]}<br />Idea to a Bigger<br />Impact.</>
+                ) : about.journey.heading
+              ) : (
+                <>From a Simple<br />Idea to a Bigger<br />Impact.</>
+              )}
             </h2>
           </div>
           <div class="lg:col-span-6">
             <p class="text-black text-lg sm:text-xl leading-relaxed max-w-lg lg:ml-auto">
-              What started as a vision to make IT disposal more responsible and secure has grown into a trusted service for businesses across the UK. Today, we continue to expand our impact, helping organisations turn retired technology into new opportunities.
+              {about?.journey?.description || "What started as a vision to make IT disposal more responsible and secure has grown into a trusted service for businesses across the UK. Today, we continue to expand our impact, helping organisations turn retired technology into new opportunities."}
             </p>
           </div>
         </div>
@@ -354,48 +440,48 @@ We are one of the UK’s leading providers of secure and confidential shredding 
             <!-- Step 0: Founded -->
             <div class="st" style="--i:0">
               <div class="nd" aria-hidden="false">
-                <img src="/images/about/Founded.webp" alt="" />
+                <img src={about?.journey?.milestones?.[0]?.imageUrl || "/images/about/Founded.webp"} alt="" />
               </div>
               <div class="stem" aria-hidden="true"></div>
               <div class="lb">
-                <h3>Founded</h3>
-                <p>With a vision for responsible IT disposal.</p>
+                <h3>{about?.journey?.milestones?.[0]?.title || "Founded"}</h3>
+                <p>{about?.journey?.milestones?.[0]?.description || "With a vision for responsible IT disposal."}</p>
               </div>
             </div>
 
             <!-- Step 1: Expanded -->
             <div class="st" style="--i:1">
               <div class="nd" aria-hidden="false">
-                <img src="/images/about/Expanded.webp" alt="" />
+                <img src={about?.journey?.milestones?.[1]?.imageUrl || "/images/about/Expanded.webp"} alt="" />
               </div>
               <div class="stem" aria-hidden="true"></div>
               <div class="lb">
-                <h3>Expanded</h3>
-                <p>Our recycling capabilities.</p>
+                <h3>{about?.journey?.milestones?.[1]?.title || "Expanded"}</h3>
+                <p>{about?.journey?.milestones?.[1]?.description || "Our recycling capabilities."}</p>
               </div>
             </div>
 
             <!-- Step 2: Partnered -->
             <div class="st" style="--i:2">
               <div class="nd" aria-hidden="false">
-                <img src="/images/about/Partnered.webp" alt="" />
+                <img src={about?.journey?.milestones?.[2]?.imageUrl || "/images/about/Partnered.webp"} alt="" />
               </div>
               <div class="stem" aria-hidden="true"></div>
               <div class="lb">
-                <h3>Partnered</h3>
-                <p>With businesses across the UK.</p>
+                <h3>{about?.journey?.milestones?.[2]?.title || "Partnered"}</h3>
+                <p>{about?.journey?.milestones?.[2]?.description || "With businesses across the UK."}</p>
               </div>
             </div>
 
             <!-- Step 3: Driving -->
             <div class="st" style="--i:3">
               <div class="nd" aria-hidden="false">
-                <img src="/images/about/Driving.webp" alt="" />
+                <img src={about?.journey?.milestones?.[3]?.imageUrl || "/images/about/Driving.webp"} alt="" />
               </div>
               <div class="stem" aria-hidden="true"></div>
               <div class="lb">
-                <h3>Driving</h3>
-                <p>Long-term environmental and economic impact.</p>
+                <h3>{about?.journey?.milestones?.[3]?.title || "Driving"}</h3>
+                <p>{about?.journey?.milestones?.[3]?.description || "Long-term environmental and economic impact."}</p>
               </div>
             </div>
           </div>
@@ -406,11 +492,11 @@ We are one of the UK’s leading providers of secure and confidential shredding 
 
 
     <!-- =====================================================
-         7. COMMON CTA SECTION
+         8. COMMON CTA SECTION
     ====================================================== -->
     <CTA
-      title={cta?.title ? `${cta.title} ${cta?.highlightedTitle || ''}`.trim() : undefined}
-      description={cta?.description}
+      title={cta?.title || "Let's Build a More Responsible Technology Future"}
+      description={cta?.description || "Talk to our team about secure, sustainable and responsible IT asset management."}
       primaryText={cta?.buttonText || "Talk to Our Team"}
       primaryHref={cta?.buttonLink || "/contact"}
       secondaryText={cta?.secondaryButtonText || "Request a Collection"}

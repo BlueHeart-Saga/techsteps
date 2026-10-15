@@ -35,10 +35,10 @@ const {
 } = Astro.props;
 
 const fallbackImages = [
-  '/images/services/1.jpg',
-  '/images/services/2.jpg',
-  '/images/services/3.jpg',
-  '/images/services/4.jpg',
+  '/images/services/1.webp',
+  '/images/services/2.webp',
+  '/images/services/3.webp',
+  '/images/services/4.webp',
 ];
 
 const formatServiceNumber = (numStr?: string, fallback = '01') => {
@@ -257,7 +257,7 @@ const items = services
                 decoding="async"
                 width="600"
                 height="400"
-                onerror={`this.onerror=null; this.src='/images/services/${idx + 1}.jpg';`}
+                onerror={`this.onerror=null; this.src='/images/services/${idx + 1}.webp';`}
               />
             </div>
 

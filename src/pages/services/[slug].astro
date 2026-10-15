@@ -398,6 +398,55 @@ const relatedServices = (resolvedRelatedServices.length >= 2
 
 // FAQS: Strictly 4 to 6 concise questions
 const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slice(0, 5) : [];
+
+// =====================================================
+// SERVICE ABOUT IMAGES
+// Dedicated images for the About / Introduction section
+// =====================================================
+const serviceAboutImages: Record<string, string> = {
+  'digital-mailroom': '/images/services/digital mailroom.webp',
+  'document-scanning': '/images/services/document scanning.webp',
+  'document-management': '/images/services/document management.webp',
+  'document-storage': '/images/services/Secure Document Storage.webp',
+  'tape-media-storage': '/images/services/Tape and Media Storage.webp',
+  'heritage-storage': '/images/services/Heritage Storage Services.webp',
+  'vault-storage': '/images/services/Vault Storage.webp',
+
+  'secure-it-disposal': '/images/services/secure-it-disposal.webp',
+  'secure-collection-services': '/images/services/secure-collection-services.webp',
+  'it-asset-disposition-services': '/images/services/it-asset-disposition-services.webp',
+  'it-asset-tracking-services': '/images/services/it-asset-tracking-services.webp',
+  'remarketing-recycling': '/images/services/remarketing-recycling.webp',
+  'ultra-secure-hard-drive-destruction': '/images/services/ultra-secure-hard-drive-destruction.webp',
+
+  'home-shredding': '/images/services/home-shredding.webp',
+  'on-site-shredding': '/images/services/on-site-shredding.webp',
+  'off-site-shredding': '/images/services/off-site-shredding.webp',
+  'product-shredding': '/images/services/product-shredding.webp',
+  'simpler-recycling-services': '/images/services/simpler-recycling.webp',
+  'disposal-services': '/images/services/disposal-services.webp',
+  'cardboard-recycling': '/images/services/cardboard-recycling.webp',
+  'dry-mixed-recycling': '/images/services/dry-mixed-recycling.webp',
+
+  'business-relocations': '/images/services/business-relocations.webp',
+  'laboratory-relocations-storage': '/images/services/laboratory-relocations-storage.webp',
+  'heritage-relocations-storage': '/images/services/heritage-relocations-storage.webp',
+  'europe-international-domestic-moves': '/images/services/europe-international-domestic-moves.webp',
+  'it-relocations-specialist': '/images/services/it-relocations-specialist.webp',
+  'project-management': '/images/services/project-management.webp',
+};
+
+// Normalize service slug before matching
+const normalizedServiceSlug = (service.slug || '')
+  .toLowerCase()
+  .replace(/-(uk|services|services-uk)$/, '');
+
+// Prioritize Sanity aboutImage, then verified local webp mapping, then fallback detail
+const serviceAboutImage =
+  service.aboutImage ||
+  serviceAboutImages[normalizedServiceSlug] ||
+  detail.aboutImage;
+
 ---
 
 <BaseLayout
@@ -518,19 +567,15 @@ const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slic
     <Container>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
         <!-- Left Side: Service Photo -->
-        <div class="lg:col-span-5 relative">
-          <div class="relative rounded-2xl overflow-hidden shadow-md border border-slate-200/90 bg-slate-100 group">
-            <div class="relative h-[380px] sm:h-[440px] lg:h-[480px] w-full overflow-hidden">
-              <img
-                src={detail.aboutImage}
-                alt={detail.aboutImageAlt}
-                class="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500"
-                loading="eager"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent pointer-events-none"></div>
-            </div>
-          </div>
-        </div>
+<!-- Left Side: Service Image -->
+<div class="lg:col-span-5">
+  <img
+    src={serviceAboutImage}
+    alt={detail.aboutImageAlt}
+    class="w-full h-[380px] sm:h-[440px] lg:h-[480px] object-cover object-center"
+    loading="eager"
+  />
+</div>
 
         <!-- Right Side: Editorial Content with 3 Key Benefits -->
         <div class="lg:col-span-7 space-y-6">

@@ -1,7 +1,13 @@
 ---
-import { getDivisions, getServices } from '../../lib/sanity/client';
+import {
+  getDivisions,
+  getServices
+} from '../../lib/sanity/client';
 
-const [divisionsData, servicesData] = await Promise.all([
+const [
+  divisionsData,
+  servicesData
+] = await Promise.all([
   getDivisions(),
   getServices(),
 ]);
@@ -13,166 +19,324 @@ const defaultPillars = [
     slug: 'information-management',
     icon: '/icons/Information%20Management.svg',
     subLinks: [
-      { name: 'Digital Mailroom', slug: 'digital-mailroom' },
-      { name: 'Document Management', slug: 'document-management' },
-      { name: 'Document Scanning', slug: 'document-scanning' },
-      { name: 'Document Storage', slug: 'document-storage' },
-      { name: 'Heritage Storage', slug: 'heritage-storage' },
-      { name: 'Tape & Media Storage', slug: 'tape-media-storage' },
-      { name: 'Vault Storage', slug: 'vault-storage' },
+      {
+        name: 'Digital Mailroom',
+        slug: 'digital-mailroom'
+      },
+      {
+        name: 'Document Management',
+        slug: 'document-management'
+      },
+      {
+        name: 'Document Scanning',
+        slug: 'document-scanning'
+      },
+      {
+        name: 'Document Storage',
+        slug: 'document-storage'
+      },
+      {
+        name: 'Heritage Storage',
+        slug: 'heritage-storage'
+      },
+      {
+        name: 'Tape & Media Storage',
+        slug: 'tape-media-storage'
+      },
+      {
+        name: 'Vault Storage',
+        slug: 'vault-storage'
+      },
     ],
   },
+
   {
     id: 'it-lifecycle',
     title: 'IT Lifecycle & Destruction',
     slug: 'it-lifecycle-services-destruction',
     icon: '/icons/IT%20Lifecycle%20&%20Destruction.svg',
     subLinks: [
-      { name: 'IT Asset Disposition Services (ITAD)', slug: 'it-asset-disposition-services' },
-      { name: 'IT Asset Management Services (ITAM)', slug: 'it-asset-management-services' },
-      { name: 'Remarketing & Recycling', slug: 'remarketing-recycling' },
-      { name: 'Secure Collection Services', slug: 'secure-collection-services' },
-      { name: 'Secure IT Disposal', slug: 'secure-it-disposal' },
-      { name: 'Ultra Secure Hard Drive Destruction', slug: 'ultra-secure-hard-drive-destruction' },
+      {
+        name: 'IT Asset Disposition Services (ITAD)',
+        slug: 'it-asset-disposition-services'
+      },
+      {
+        name: 'IT Asset Management Services (ITAM)',
+        slug: 'it-asset-management-services'
+      },
+      {
+        name: 'Remarketing & Recycling',
+        slug: 'remarketing-recycling'
+      },
+      {
+        name: 'Secure Collection Services',
+        slug: 'secure-collection-services'
+      },
+      {
+        name: 'Secure IT Disposal',
+        slug: 'secure-it-disposal'
+      },
+      {
+        name: 'Ultra Secure Hard Drive Destruction',
+        slug: 'ultra-secure-hard-drive-destruction'
+      },
     ],
   },
+
   {
     id: 'secure-shredding',
     title: 'Secure Shredding & Integrity',
     slug: 'secure-shredding-document-integrity',
     icon: '/icons/Secure%20Shredding%20&%20Integrity.svg',
     subLinks: [
-      { name: 'Cardboard Recycling', slug: 'cardboard-recycling' },
-      { name: 'Disposal Services', slug: 'disposal-services' },
-      { name: 'Dry Mixed Recycling (DMR)', slug: 'dry-mixed-recycling' },
-      { name: 'Home Shredding', slug: 'home-shredding' },
-      { name: 'Off-Site Shredding', slug: 'off-site-shredding' },
-      { name: 'On-Site Shredding', slug: 'on-site-shredding' },
-      { name: 'Product Shredding', slug: 'product-shredding' },
-      { name: 'Simpler Recycling Services', slug: 'simpler-recycling-services' },
+      {
+        name: 'Cardboard Recycling',
+        slug: 'cardboard-recycling'
+      },
+      {
+        name: 'Disposal Services',
+        slug: 'disposal-services'
+      },
+      {
+        name: 'Dry Mixed Recycling (DMR)',
+        slug: 'dry-mixed-recycling'
+      },
+      {
+        name: 'Home Shredding',
+        slug: 'home-shredding'
+      },
+      {
+        name: 'Off-Site Shredding',
+        slug: 'off-site-shredding'
+      },
+      {
+        name: 'On-Site Shredding',
+        slug: 'on-site-shredding'
+      },
+      {
+        name: 'Product Shredding',
+        slug: 'product-shredding'
+      },
+      {
+        name: 'Simpler Recycling Services',
+        slug: 'simpler-recycling-services'
+      },
     ],
   },
+
   {
     id: 'moving-relocation',
     title: 'Moving & Relocation Services',
     slug: 'moving-relocation-services',
     icon: '/icons/Moving%20&%20Relocation%20Services.svg',
     subLinks: [
-      { name: 'Business Relocations', slug: 'business-relocations' },
-      { name: 'Europe & International Domestic Moves', slug: 'europe-international-domestic-moves' },
-      { name: 'Heritage Relocations & Storage', slug: 'heritage-relocations-storage' },
-      { name: 'IT Relocations Specialist', slug: 'it-relocations-specialist' },
-      { name: 'Laboratory Relocations & Storage', slug: 'laboratory-relocations-storage' },
-      { name: 'Project Management', slug: 'project-management' },
+      {
+        name: 'Business Relocations',
+        slug: 'business-relocations'
+      },
+      {
+        name: 'Europe & International Domestic Moves',
+        slug: 'europe-international-domestic-moves'
+      },
+      {
+        name: 'Heritage Relocations & Storage',
+        slug: 'heritage-relocations-storage'
+      },
+      {
+        name: 'IT Relocations Specialist',
+        slug: 'it-relocations-specialist'
+      },
+      {
+        name: 'Laboratory Relocations & Storage',
+        slug: 'laboratory-relocations-storage'
+      },
+      {
+        name: 'Project Management',
+        slug: 'project-management'
+      },
     ],
   },
 ];
 
-// Combine dynamic Sanity data with fallback structure
-const servicePillars = defaultPillars.map((pillar) => {
-  if (servicesData && servicesData.length > 0) {
-    const matching = servicesData.filter((s: any) =>
-      s.divisionSlug === pillar.slug ||
-      s.divisionSlug === pillar.id ||
-      s.divisionTitle?.toLowerCase() === pillar.title.toLowerCase()
-    );
 
-    if (matching.length > 0) {
-      const sorted = [...matching].sort((a: any, b: any) =>
-        (a.title || a.name || '').localeCompare(b.title || b.name || '')
-      );
+/* =========================================================
+   COMBINE SANITY DATA WITH FALLBACK STRUCTURE
+========================================================= */
 
-      return {
-        ...pillar,
-        subLinks: sorted.map((s: any) => ({
-          name: s.title || s.name,
-          slug: s.slug,
-        })),
-      };
+const servicePillars =
+  defaultPillars.map((pillar) => {
+
+    if (
+      servicesData &&
+      servicesData.length > 0
+    ) {
+
+      const matching =
+        servicesData.filter(
+          (service: any) =>
+            service.divisionSlug ===
+              pillar.slug ||
+            service.divisionSlug ===
+              pillar.id ||
+            service.divisionTitle
+              ?.toLowerCase() ===
+              pillar.title.toLowerCase()
+        );
+
+
+      if (matching.length > 0) {
+
+        const sorted =
+          [...matching].sort(
+            (a: any, b: any) =>
+              (
+                a.title ||
+                a.name ||
+                ''
+              ).localeCompare(
+                b.title ||
+                b.name ||
+                ''
+              )
+          );
+
+
+        return {
+          ...pillar,
+
+          subLinks:
+            sorted.map(
+              (service: any) => ({
+                name:
+                  service.title ||
+                  service.name,
+
+                slug:
+                  service.slug,
+              })
+            ),
+        };
+
+      }
+
     }
-  }
 
-  return pillar;
-});
+
+    return pillar;
+
+  });
 ---
 
-<!-- Services Mega Menu Panel -->
+
+<!-- =========================================================
+     SERVICES MEGA MENU PANEL
+========================================================= -->
+
 <div
   id="services-megamenu-panel"
   class="fixed top-[82px] inset-x-0 z-[998] hidden opacity-0 -translate-y-1 transition-[opacity,transform] duration-150 ease-out pointer-events-none before:absolute before:-top-10 before:inset-x-0 before:h-10 before:content-[''] before:pointer-events-auto"
   role="region"
   aria-label="Services Mega Menu"
 >
+
   <div
     id="services-megamenu-wrapper"
     class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
   >
+
     <div
       id="services-megamenu-card"
       class="services-dropdown-card bg-white rounded-[12px] border border-slate-200/80 shadow-[0_16px_48px_rgba(0,0,0,0.08)] pointer-events-auto p-4 sm:p-5 flex items-stretch w-full min-h-[322px] box-border"
     >
 
       <!-- =====================================================
-           LEFT: SERVICES COLUMN
-           ===================================================== -->
+           LEFT: SERVICES
+      ====================================================== -->
+
       <div
         class="services-left-col w-[350px] xl:w-[370px] mr-12 xl:mr-16 shrink-0 rounded-[12px] px-5 pb-5 pt-6 flex flex-col justify-between box-border"
       >
+
         <div>
+
           <h3 class="text-[#5A6874] mb-3.5 px-2">
             Services
           </h3>
 
-          <div class="space-y-1.5">
-            {servicePillars.map((pillar, idx) => (
-              <a
-                href={`/${pillar.slug}`}
-                data-service-tab={pillar.id}
-                data-pillar-title={pillar.title}
-                class={`service-tab-btn group w-full text-left flex items-center gap-3.5 px-3.5 py-2.5 rounded-[8px] transition-all duration-150 cursor-pointer ${
-                  idx === 0
-                    ? 'active-tab bg-[#BCE6CE] text-[#0F172A]'
-                    : 'text-[#1E293B] hover:bg-[#E0F2E7]'
-                }`}
-              >
-                <span class="shrink-0 flex items-center justify-center w-5 h-5">
-                  <img
-                    src={pillar.icon}
-                    alt=""
-                    class="w-5 h-5 object-contain"
-                    width="20"
-                    height="20"
-                  />
-                </span>
 
-                <span class="pillar-label leading-snug">
-                  {pillar.title}
-                </span>
-              </a>
-            ))}
+          <div class="space-y-1.5">
+
+            {servicePillars.map(
+              (pillar, idx) => (
+
+                <a
+                  href={`/${pillar.slug}`}
+                  data-service-tab={pillar.id}
+                  data-pillar-title={pillar.title}
+                  class={`service-tab-btn group w-full text-left flex items-center gap-3.5 px-3.5 py-2.5 rounded-[8px] transition-all duration-150 cursor-pointer ${
+                    idx === 0
+                      ? 'active-tab bg-[#BCE6CE] text-[#0F172A]'
+                      : 'text-[#1E293B] hover:bg-[#E0F2E7]'
+                  }`}
+                >
+
+                  <span
+                    class="shrink-0 flex items-center justify-center w-5 h-5"
+                  >
+                    <img
+                      src={pillar.icon}
+                      alt=""
+                      class="w-5 h-5 object-contain"
+                      width="20"
+                      height="20"
+                    />
+                  </span>
+
+
+                  <span class="pillar-label leading-snug">
+                    {pillar.title}
+                  </span>
+
+                </a>
+
+              )
+            )}
+
           </div>
+
         </div>
 
-        <!-- All services overview -->
+
+        <!-- ALL SERVICES -->
+
         <a
           href="/services"
           class="all-services-link mt-auto pt-6 px-2 inline-flex items-center gap-1.5 text-[#171717] hover:text-[#07572F] transition-colors group"
         >
-          <span>All services overview</span>
 
-          <span class="text-sm font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+          <span>
+            All services overview
+          </span>
+
+          <span
+            class="text-sm font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          >
             ↗
           </span>
+
         </a>
+
       </div>
 
 
       <!-- =====================================================
            MIDDLE: DYNAMIC SERVICES
-           ===================================================== -->
+      ====================================================== -->
+
       <div
         class="services-middle-col flex-1 pt-6 flex flex-col justify-start relative"
       >
+
         <h3
           id="active-pillar-title"
           class="services-middle-heading text-[#5A6874] mb-3.5 transition-colors"
@@ -180,68 +344,110 @@ const servicePillars = defaultPillars.map((pillar) => {
           {servicePillars[0].title}
         </h3>
 
-        {servicePillars.map((pillar, idx) => {
-          const col1 = pillar.subLinks.filter((_, i) => i % 2 === 0);
-          const col2 = pillar.subLinks.filter((_, i) => i % 2 === 1);
 
-          return (
-            <div
-              id={`tab-panel-${pillar.id}`}
-              class={`service-tab-panel absolute top-[62px] inset-x-0 transition-opacity duration-150 ${
-                idx === 0
-                  ? 'opacity-100 pointer-events-auto'
-                  : 'opacity-0 pointer-events-none'
-              }`}
-            >
-              <div class="grid grid-cols-2 gap-x-16 xl:gap-x-24 gap-y-4 pt-0.5">
+        {servicePillars.map(
+          (pillar, idx) => {
 
-                <div class="space-y-4">
-                  {col1.map((link) => (
-                    <a
-                      href={`/services/${link.slug}`}
-                      class="block text-[#171717] hover:text-[#07572F] transition-colors leading-[1.45]"
-                    >
-                      {link.name}
-                    </a>
-                  ))}
-                </div>
+            const col1 =
+              pillar.subLinks.filter(
+                (_, i) =>
+                  i % 2 === 0
+              );
 
-                <div class="space-y-4">
-                  {col2.map((link) => (
-                    <a
-                      href={`/services/${link.slug}`}
-                      class="block text-[#171717] hover:text-[#07572F] transition-colors leading-[1.45]"
-                    >
-                      {link.name}
-                    </a>
-                  ))}
+            const col2 =
+              pillar.subLinks.filter(
+                (_, i) =>
+                  i % 2 === 1
+              );
+
+
+            return (
+
+              <div
+                id={`tab-panel-${pillar.id}`}
+                class={`service-tab-panel absolute top-[62px] inset-x-0 transition-opacity duration-150 ${
+                  idx === 0
+                    ? 'opacity-100 pointer-events-auto'
+                    : 'opacity-0 pointer-events-none'
+                }`}
+              >
+
+                <div
+                  class="grid grid-cols-2 gap-x-16 xl:gap-x-24 gap-y-4 pt-0.5"
+                >
+
+                  <div class="space-y-4">
+
+                    {col1.map(
+                      (link) => (
+
+                        <a
+                          href={`/services/${link.slug}`}
+                          class="block text-[#171717] hover:text-[#07572F] transition-colors leading-[1.45]"
+                        >
+                          {link.name}
+                        </a>
+
+                      )
+                    )}
+
+                  </div>
+
+
+                  <div class="space-y-4">
+
+                    {col2.map(
+                      (link) => (
+
+                        <a
+                          href={`/services/${link.slug}`}
+                          class="block text-[#171717] hover:text-[#07572F] transition-colors leading-[1.45]"
+                        >
+                          {link.name}
+                        </a>
+
+                      )
+                    )}
+
+                  </div>
+
                 </div>
 
               </div>
-            </div>
-          );
-        })}
+
+            );
+
+          }
+        )}
+
       </div>
 
 
       <!-- =====================================================
            RIGHT: SUSTAINABILITY
-           ===================================================== -->
+      ====================================================== -->
+
       <div
         class="services-right-col w-[280px] shrink-0 pt-6 pb-[13px] pr-8 flex flex-col ml-8 xl:ml-12"
       >
-        <h3 class="services-right-heading text-[#5A6874] mb-5">
+
+        <h3
+          class="services-right-heading text-[#5A6874] mb-5"
+        >
           Sustainability
         </h3>
+
 
         <a
           href="/sustainability"
           class="group block shrink-0"
         >
+
           <div
             class="rounded-xl overflow-hidden shadow-xs border border-slate-200/60 bg-slate-100"
             style="width: 248px; height: 164.96px;"
           >
+
             <img
               src="/images/brand/sustainability.webp"
               alt="Sustainability"
@@ -250,38 +456,53 @@ const servicePillars = defaultPillars.map((pillar) => {
               width="248"
               height="165"
             />
+
           </div>
+
         </a>
+
 
         <a
           href="/sustainability"
           class="sustainability-link mt-[36px] inline-flex items-center gap-1.5 font-sans text-[16px] font-semibold text-[#171717] hover:text-[#07572F] transition-colors group"
         >
-          <span>Visit</span>
 
-          <span class="font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+          <span>
+            Visit
+          </span>
+
+          <span
+            class="font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          >
             ↗
           </span>
+
         </a>
+
       </div>
 
     </div>
+
   </div>
+
 </div>
 
 
 <style>
+
   /* =========================================================
      BASE DROPDOWN
-     ========================================================= */
+  ========================================================= */
 
-  #services-megamenu-panel .services-dropdown-card {
+  #services-megamenu-panel
+    .services-dropdown-card {
+
     width: 100%;
     min-height: 322px;
     box-sizing: border-box;
 
-    /* Normal navbar */
-    background: rgba(255, 255, 255, 0.98);
+    background:
+      rgba(255, 255, 255, 0.98);
 
     border-radius: 12px;
 
@@ -291,18 +512,22 @@ const servicePillars = defaultPillars.map((pillar) => {
       -webkit-backdrop-filter 220ms ease,
       box-shadow 220ms ease,
       border-color 220ms ease;
+
   }
 
 
   /* =========================================================
      LEFT SERVICES PANEL
-     NORMAL NAVBAR
-     ========================================================= */
+  ========================================================= */
 
-  #services-megamenu-panel .services-left-col {
-    background: #EEF7F2;
+  #services-megamenu-panel
+    .services-left-col {
 
-    border: 1px solid transparent;
+    background:
+      #EEF7F2;
+
+    border:
+      1px solid transparent;
 
     transition:
       background 220ms ease,
@@ -310,47 +535,52 @@ const servicePillars = defaultPillars.map((pillar) => {
       -webkit-backdrop-filter 220ms ease,
       border-color 220ms ease,
       box-shadow 220ms ease;
+
   }
 
 
   /* =========================================================
-     SCROLL NAVBAR
-     MAIN DROPDOWN GLASS
-     ========================================================= */
+     SCROLL NAVBAR GLASS
+  ========================================================= */
 
-  #services-megamenu-wrapper.scroll-dropdown-wrapper
-    .services-dropdown-card {
+  #services-megamenu-wrapper
+    .services-dropdown-card.scroll-glass-active {
 
-    background: rgba(255, 255, 255, 0.68) !important;
+    background:
+      rgba(255, 255, 255, 0.68) !important;
 
-    -webkit-backdrop-filter: blur(24px) saturate(125%);
-    backdrop-filter: blur(24px) saturate(125%);
+    -webkit-backdrop-filter:
+      blur(24px) saturate(125%);
 
-    border: 1px solid rgba(255, 255, 255, 0.65) !important;
+    backdrop-filter:
+      blur(24px) saturate(125%);
+
+    border:
+      1px solid rgba(255, 255, 255, 0.65) !important;
 
     box-shadow:
       0 22px 55px rgba(0, 0, 0, 0.12),
       0 8px 28px rgba(0, 0, 0, 0.06);
 
-    transition:
-      background 220ms ease,
-      backdrop-filter 220ms ease,
-      -webkit-backdrop-filter 220ms ease,
-      box-shadow 220ms ease,
-      border-color 220ms ease;
   }
 
 
   /* =========================================================
-     SCROLL NAVBAR
-     LEFT GREEN SERVICES PANEL
-     
-     IMPORTANT:
-     This overrides the Tailwind bg-[#EEF7F2] class.
-     
-     It keeps the GREEN appearance but makes it translucent
-     so the background behind the dropdown can show through.
-     ========================================================= */
+     SCROLL NAVBAR LEFT GREEN GLASS
+  ========================================================= */
+
+  #services-megamenu-wrapper
+    .services-left-col {
+
+    transition:
+      background 220ms ease,
+      backdrop-filter 220ms ease,
+      -webkit-backdrop-filter 220ms ease,
+      border-color 220ms ease,
+      box-shadow 220ms ease;
+
+  }
+
 
   #services-megamenu-wrapper.scroll-dropdown-wrapper
     .services-left-col {
@@ -362,271 +592,422 @@ const servicePillars = defaultPillars.map((pillar) => {
         rgba(215, 240, 226, 0.64)
       ) !important;
 
-    -webkit-backdrop-filter: blur(24px) saturate(135%);
-    backdrop-filter: blur(24px) saturate(135%);
+    -webkit-backdrop-filter:
+      blur(24px) saturate(135%);
 
-    border: 1px solid rgba(188, 230, 206, 0.72) !important;
+    backdrop-filter:
+      blur(24px) saturate(135%);
+
+    border:
+      1px solid rgba(188, 230, 206, 0.72) !important;
 
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.60),
-      inset 0 -1px 0 rgba(15, 98, 58, 0.04),
-      inset 0 0 35px rgba(188, 230, 206, 0.14),
-      0 8px 24px rgba(15, 98, 58, 0.06);
+      inset 0 1px 0
+      rgba(255, 255, 255, 0.60),
 
-    transition:
-      background 220ms ease,
-      backdrop-filter 220ms ease,
-      -webkit-backdrop-filter 220ms ease,
-      box-shadow 220ms ease,
-      border-color 220ms ease;
+      inset 0 -1px 0
+      rgba(15, 98, 58, 0.04),
+
+      inset 0 0 35px
+      rgba(188, 230, 206, 0.14),
+
+      0 8px 24px
+      rgba(15, 98, 58, 0.06);
+
   }
 
 
   /* =========================================================
-     ACTIVE SERVICE ITEM
-     
-     Keep the selected service clearly green.
-     ========================================================= */
+     ACTIVE SERVICE
+  ========================================================= */
 
   #services-megamenu-panel
     .service-tab-btn.active-tab {
 
-    background-color: #BCE6CE !important;
-    color: #0F172A !important;
+    background-color:
+      #BCE6CE !important;
+
+    color:
+      #0F172A !important;
+
   }
 
 
   /* =========================================================
-     SCROLL NAVBAR ACTIVE ITEM
-     
-     Slight transparency so it belongs to the glass design
-     while remaining clearly visible.
-     ========================================================= */
+     SCROLL NAV ACTIVE SERVICE
+  ========================================================= */
 
   #services-megamenu-wrapper.scroll-dropdown-wrapper
     .service-tab-btn.active-tab {
 
-    background: rgba(188, 230, 206, 0.90) !important;
+    background:
+      rgba(188, 230, 206, 0.90) !important;
 
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      inset 0 1px 0
+      rgba(255, 255, 255, 0.35);
+
   }
 
 
   /* =========================================================
-     HOVER SERVICE ITEM
-     ========================================================= */
+     HOVER SERVICE
+  ========================================================= */
 
   #services-megamenu-panel
     .service-tab-btn:not(.active-tab):hover {
 
-    background-color: #E0F2E7;
-    color: #0F172A;
+    background-color:
+      #E0F2E7;
+
+    color:
+      #0F172A;
+
   }
 
-
-  /* =========================================================
-     SCROLL NAVBAR HOVER SERVICE ITEM
-     ========================================================= */
 
   #services-megamenu-wrapper.scroll-dropdown-wrapper
     .service-tab-btn:not(.active-tab):hover {
 
-    background: rgba(224, 242, 231, 0.78) !important;
+    background:
+      rgba(224, 242, 231, 0.78) !important;
+
   }
 
 
   /* =========================================================
      TYPOGRAPHY
-     ========================================================= */
+  ========================================================= */
 
-  #services-megamenu-panel .services-left-col h3,
-  #services-megamenu-panel .services-middle-heading,
-  #services-megamenu-panel .services-right-heading {
+  #services-megamenu-panel
+    .services-left-col h3,
 
-    font-family: var(--font-sans) !important;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    line-height: 1.4;
+  #services-megamenu-panel
+    .services-middle-heading,
+
+  #services-megamenu-panel
+    .services-right-heading {
+
+    font-family:
+      var(--font-sans) !important;
+
+    font-size:
+      16px;
+
+    font-weight:
+      500;
+
+    letter-spacing:
+      -0.01em;
+
+    line-height:
+      1.4;
+
   }
 
 
-  #services-megamenu-panel .service-tab-btn {
+  #services-megamenu-panel
+    .service-tab-btn {
 
-    font-family: var(--font-sans) !important;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    line-height: 1.45;
+    font-family:
+      var(--font-sans) !important;
+
+    font-size:
+      16px;
+
+    font-weight:
+      500;
+
+    letter-spacing:
+      -0.01em;
+
+    line-height:
+      1.45;
+
   }
 
 
-  #services-megamenu-panel .service-tab-panel a {
+  #services-megamenu-panel
+    .service-tab-panel a {
 
-    font-family: var(--font-sans) !important;
-    font-size: 16px;
-    font-weight: 400;
+    font-family:
+      var(--font-sans) !important;
+
+    font-size:
+      16px;
+
+    font-weight:
+      400;
+
   }
 
 
   /* =========================================================
      ALL SERVICES LINK
-     ========================================================= */
+  ========================================================= */
 
-  #services-megamenu-panel .all-services-link {
+  #services-megamenu-panel
+    .all-services-link {
 
-    font-family: var(--font-sans) !important;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.4;
+    font-family:
+      var(--font-sans) !important;
+
+    font-size:
+      16px;
+
+    font-weight:
+      600;
+
+    line-height:
+      1.4;
+
   }
 
 
   /* =========================================================
-     VISIT LINK
-     ========================================================= */
+     SUSTAINABILITY LINK
+  ========================================================= */
 
-  #services-megamenu-panel .sustainability-link {
+  #services-megamenu-panel
+    .sustainability-link {
 
-    font-family: var(--font-sans) !important;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.4 !important;
+    font-family:
+      var(--font-sans) !important;
+
+    font-size:
+      16px;
+
+    font-weight:
+      600;
+
+    letter-spacing:
+      -0.01em;
+
+    line-height:
+      1.4 !important;
+
   }
 
 
   /* =========================================================
      RIGHT COLUMN
-     ========================================================= */
+  ========================================================= */
 
-  #services-megamenu-panel .services-right-col {
+  #services-megamenu-panel
+    .services-right-col {
 
-    width: 280px;
-    min-width: 280px;
-    max-width: 280px;
+    width:
+      280px;
 
-    box-sizing: border-box;
+    min-width:
+      280px;
+
+    max-width:
+      280px;
+
+    box-sizing:
+      border-box;
+
   }
 
 
   /* =========================================================
      RESPONSIVE
-     ========================================================= */
+  ========================================================= */
 
   @media (max-width: 1024px) {
 
-    #services-megamenu-panel .services-dropdown-card {
+    #services-megamenu-panel
+      .services-dropdown-card {
 
-      height: auto;
-      min-height: 0;
-      max-height: none;
+      height:
+        auto;
 
-      flex-direction: column;
+      min-height:
+        0;
+
+      max-height:
+        none;
+
+      flex-direction:
+        column;
+
     }
 
 
-    #services-megamenu-panel .services-left-col {
+    #services-megamenu-panel
+      .services-left-col {
 
-      width: 100%;
-      margin-right: 0;
-      margin-bottom: 1.5rem;
+      width:
+        100%;
+
+      margin-right:
+        0;
+
+      margin-bottom:
+        1.5rem;
+
     }
 
 
-    #services-megamenu-panel .services-right-col {
+    #services-megamenu-panel
+      .services-right-col {
 
-      margin-left: 0;
-      margin-top: 1.5rem;
+      margin-left:
+        0;
 
-      padding-top: 1rem;
+      margin-top:
+        1.5rem;
 
-      border-top: 1px solid #f1f5f9;
+      padding-top:
+        1rem;
 
-      width: 100%;
-      min-width: 100%;
-      max-width: 100%;
+      border-top:
+        1px solid #f1f5f9;
+
+      width:
+        100%;
+
+      min-width:
+        100%;
+
+      max-width:
+        100%;
+
     }
+
   }
+
 </style>
 
 
 <script>
+
   function setupServicesMegaMenu() {
-    const panel = document.getElementById('services-megamenu-panel');
+
+    const panel =
+      document.getElementById(
+        'services-megamenu-panel'
+      );
 
     if (!panel) return;
 
-    if (panel.dataset.navInitialized === 'true') return;
 
-    panel.dataset.navInitialized = 'true';
+    if (
+      panel.dataset.navInitialized === 'true'
+    ) {
+      return;
+    }
 
-    const triggers = document.querySelectorAll<HTMLElement>(
-      '#services-menu-trigger, .services-megamenu-toggle'
-    );
 
-    if (triggers.length === 0) return;
+    panel.dataset.navInitialized =
+      'true';
 
-    let closeTimeout: any = null;
-    let hideTimeout: any = null;
+
+    const triggers =
+      document.querySelectorAll<HTMLElement>(
+        '#services-menu-trigger, .services-megamenu-toggle'
+      );
+
+
+    if (
+      triggers.length === 0
+    ) {
+      return;
+    }
+
+
+    let closeTimeout:
+      ReturnType<typeof setTimeout> | null =
+        null;
+
+    let hideTimeout:
+      ReturnType<typeof setTimeout> | null =
+        null;
+
 
     const tabBtns =
-      panel.querySelectorAll<HTMLElement>('.service-tab-btn');
+      panel.querySelectorAll<HTMLElement>(
+        '.service-tab-btn'
+      );
+
 
     const tabPanels =
-      panel.querySelectorAll<HTMLElement>('.service-tab-panel');
+      panel.querySelectorAll<HTMLElement>(
+        '.service-tab-panel'
+      );
+
 
     const activeTitle =
-      panel.querySelector<HTMLElement>('#active-pillar-title');
+      panel.querySelector<HTMLElement>(
+        '#active-pillar-title'
+      );
 
 
     /* =========================================================
-       UPDATE POSITION + SCROLL NAV GLASS STATE
-       ========================================================= */
+       POSITION + SCROLL NAV GLASS
+    ========================================================= */
 
     const updatePosition = () => {
 
       const siteHeader =
-        document.getElementById('site-header');
+        document.getElementById(
+          'site-header'
+        );
+
 
       const heroHeader =
-        document.getElementById('hero-header');
+        document.getElementById(
+          'hero-header'
+        );
+
 
       const card =
-        document.getElementById('services-megamenu-card');
+        document.getElementById(
+          'services-megamenu-card'
+        );
+
 
       const wrapper =
-        document.getElementById('services-megamenu-wrapper');
+        document.getElementById(
+          'services-megamenu-wrapper'
+        );
 
 
       const isScrollNavActive =
         !!siteHeader &&
-        !siteHeader.classList.contains('opacity-0') &&
-        !siteHeader.classList.contains('-translate-y-full');
+        !siteHeader.classList.contains(
+          'opacity-0'
+        ) &&
+        !siteHeader.classList.contains(
+          '-translate-y-full'
+        );
 
 
       /* =====================================================
-         SCROLLING NAVBAR ACTIVE
-         ===================================================== */
+         SCROLL NAVBAR
+      ===================================================== */
 
-      if (isScrollNavActive && siteHeader) {
+      if (
+        isScrollNavActive &&
+        siteHeader
+      ) {
 
-        /*
-         * Add the glass state directly to the card.
-         * This also activates the green glass on the
-         * left Services panel through CSS.
-         */
         if (card) {
-          card.classList.add('scroll-glass-active');
+
+          card.classList.add(
+            'scroll-glass-active'
+          );
+
         }
 
 
-        /*
-         * Add wrapper state.
-         */
         if (wrapper) {
-          wrapper.classList.add('scroll-dropdown-wrapper');
+
+          wrapper.classList.add(
+            'scroll-dropdown-wrapper'
+          );
+
         }
 
 
@@ -635,54 +1016,82 @@ const servicePillars = defaultPillars.map((pillar) => {
             ':scope > div'
           );
 
+
         const floatingBar =
           maxWrap?.querySelector<HTMLElement>(
             ':scope > div'
           );
 
+
         const ref =
-          floatingBar ?? siteHeader;
+          floatingBar ??
+          siteHeader;
+
 
         const rect =
           ref.getBoundingClientRect();
 
 
         panel.style.top =
-          `${Math.round(rect.bottom + 8)}px`;
+          `${Math.round(
+            rect.bottom + 8
+          )}px`;
+
 
         panel.style.left =
-          `${Math.round(rect.left)}px`;
+          `${Math.round(
+            rect.left
+          )}px`;
+
 
         panel.style.right =
           'auto';
 
+
         panel.style.width =
-          `${Math.round(rect.width)}px`;
+          `${Math.round(
+            rect.width
+          )}px`;
 
 
         if (card) {
 
           card.style.width =
-            `${Math.round(rect.width)}px`;
+            `${Math.round(
+              rect.width
+            )}px`;
 
           card.style.maxWidth =
-            `${Math.round(rect.width)}px`;
+            `${Math.round(
+              rect.width
+            )}px`;
+
         }
 
+      }
 
-      } else if (heroHeader) {
 
-        /* ===================================================
-           NORMAL HERO NAVBAR
-           Remove ALL glass states.
-           =================================================== */
+      /* =====================================================
+         NORMAL / HERO NAVBAR
+      ===================================================== */
+
+      else if (heroHeader) {
 
         if (card) {
-          card.classList.remove('scroll-glass-active');
+
+          card.classList.remove(
+            'scroll-glass-active'
+          );
+
         }
 
+
         if (wrapper) {
-          wrapper.classList.remove('scroll-dropdown-wrapper');
+
+          wrapper.classList.remove(
+            'scroll-dropdown-wrapper'
+          );
+
         }
 
 
@@ -691,13 +1100,18 @@ const servicePillars = defaultPillars.map((pillar) => {
 
 
         panel.style.top =
-          `${Math.round(rect.bottom + 8)}px`;
+          `${Math.round(
+            rect.bottom + 8
+          )}px`;
+
 
         panel.style.left =
           '';
 
+
         panel.style.right =
           '';
+
 
         panel.style.width =
           '';
@@ -710,177 +1124,263 @@ const servicePillars = defaultPillars.map((pillar) => {
 
           card.style.maxWidth =
             '';
+
         }
+
       }
+
     };
 
 
     /* =========================================================
        BACKDROP
-       ========================================================= */
+    ========================================================= */
 
     const updateBackdrop = () => {
 
       const backdrop =
-        document.getElementById('dropdown-backdrop');
+        document.getElementById(
+          'dropdown-backdrop'
+        );
+
 
       if (!backdrop) return;
 
+
       const sectorsPanel =
-        document.getElementById('sectors-dropdown-panel');
+        document.getElementById(
+          'sectors-dropdown-panel'
+        );
+
 
       const isServicesOpen =
-        !panel.classList.contains('hidden') &&
-        !panel.classList.contains('opacity-0');
+        !panel.classList.contains(
+          'hidden'
+        ) &&
+        !panel.classList.contains(
+          'opacity-0'
+        );
+
 
       const isSectorsOpen =
         sectorsPanel &&
-        !sectorsPanel.classList.contains('hidden') &&
-        !sectorsPanel.classList.contains('opacity-0');
+        !sectorsPanel.classList.contains(
+          'hidden'
+        ) &&
+        !sectorsPanel.classList.contains(
+          'opacity-0'
+        );
 
 
-      if (isServicesOpen || isSectorsOpen) {
-        backdrop.classList.add('active');
+      if (
+        isServicesOpen ||
+        isSectorsOpen
+      ) {
+
+        backdrop.classList.add(
+          'active'
+        );
+
       } else {
-        backdrop.classList.remove('active');
+
+        backdrop.classList.remove(
+          'active'
+        );
+
       }
+
     };
 
 
     /* =========================================================
        CANCEL CLOSE
-       ========================================================= */
+    ========================================================= */
 
     const cancelClose = () => {
 
       if (closeTimeout) {
-        clearTimeout(closeTimeout);
-        closeTimeout = null;
+
+        clearTimeout(
+          closeTimeout
+        );
+
+        closeTimeout =
+          null;
+
       }
 
+
       if (hideTimeout) {
-        clearTimeout(hideTimeout);
-        hideTimeout = null;
+
+        clearTimeout(
+          hideTimeout
+        );
+
+        hideTimeout =
+          null;
+
       }
+
     };
 
 
     /* =========================================================
        SWITCH SERVICE TAB
-       ========================================================= */
+    ========================================================= */
 
     const switchTab = (
       tabId: string,
       pillarTitle?: string
     ) => {
 
-      tabBtns.forEach((btn) => {
+      tabBtns.forEach(
+        (btn) => {
 
-        const isTarget =
-          btn.getAttribute('data-service-tab') === tabId;
+          const isTarget =
+            btn.getAttribute(
+              'data-service-tab'
+            ) === tabId;
 
-        if (isTarget) {
 
-          btn.classList.add(
-            'active-tab',
-            'bg-[#BCE6CE]',
-            'text-[#0F172A]'
-          );
+          if (isTarget) {
 
-          btn.classList.remove(
-            'text-[#1E293B]',
-            'hover:bg-[#E0F2E7]'
-          );
+            btn.classList.add(
+              'active-tab',
+              'bg-[#BCE6CE]',
+              'text-[#0F172A]'
+            );
 
-        } else {
 
-          btn.classList.remove(
-            'active-tab',
-            'bg-[#BCE6CE]',
-            'text-[#0F172A]'
-          );
+            btn.classList.remove(
+              'text-[#1E293B]',
+              'hover:bg-[#E0F2E7]'
+            );
 
-          btn.classList.add(
-            'text-[#1E293B]',
-            'hover:bg-[#E0F2E7]'
-          );
+          } else {
+
+            btn.classList.remove(
+              'active-tab',
+              'bg-[#BCE6CE]',
+              'text-[#0F172A]'
+            );
+
+
+            btn.classList.add(
+              'text-[#1E293B]',
+              'hover:bg-[#E0F2E7]'
+            );
+
+          }
+
         }
-      });
+      );
 
 
-      if (activeTitle && pillarTitle) {
-        activeTitle.textContent = pillarTitle;
+      if (
+        activeTitle &&
+        pillarTitle
+      ) {
+
+        activeTitle.textContent =
+          pillarTitle;
+
       }
 
 
-      tabPanels.forEach((p) => {
+      tabPanels.forEach(
+        (panelItem) => {
 
-        if (p.id === `tab-panel-${tabId}`) {
+          if (
+            panelItem.id ===
+            `tab-panel-${tabId}`
+          ) {
 
-          p.classList.remove(
-            'opacity-0',
-            'pointer-events-none'
-          );
+            panelItem.classList.remove(
+              'opacity-0',
+              'pointer-events-none'
+            );
 
-          p.classList.add(
-            'opacity-100',
-            'pointer-events-auto'
-          );
 
-        } else {
+            panelItem.classList.add(
+              'opacity-100',
+              'pointer-events-auto'
+            );
 
-          p.classList.add(
-            'opacity-0',
-            'pointer-events-none'
-          );
+          } else {
 
-          p.classList.remove(
-            'opacity-100',
-            'pointer-events-auto'
-          );
+            panelItem.classList.add(
+              'opacity-0',
+              'pointer-events-none'
+            );
+
+
+            panelItem.classList.remove(
+              'opacity-100',
+              'pointer-events-auto'
+            );
+
+          }
+
         }
-      });
+      );
+
     };
 
 
     /* =========================================================
        TAB EVENTS
-       ========================================================= */
+    ========================================================= */
 
-    tabBtns.forEach((btn) => {
+    tabBtns.forEach(
+      (btn) => {
 
-      const tabId =
-        btn.getAttribute('data-service-tab');
+        const tabId =
+          btn.getAttribute(
+            'data-service-tab'
+          );
 
-      const title =
-        btn.getAttribute('data-pillar-title') || '';
 
-      if (!tabId) return;
+        const title =
+          btn.getAttribute(
+            'data-pillar-title'
+          ) || '';
 
-      btn.addEventListener(
-        'mouseenter',
-        () => switchTab(tabId, title)
-      );
 
-      btn.addEventListener(
-        'focus',
-        () => switchTab(tabId, title)
-      );
-    });
+        if (!tabId) return;
+
+
+        btn.addEventListener(
+          'mouseenter',
+          () =>
+            switchTab(
+              tabId,
+              title
+            )
+        );
+
+
+        btn.addEventListener(
+          'focus',
+          () =>
+            switchTab(
+              tabId,
+              title
+            )
+        );
+
+      }
+    );
 
 
     /* =========================================================
        OPEN MENU
-       ========================================================= */
+    ========================================================= */
 
     const openMenu = () => {
 
       cancelClose();
 
 
-      /*
-       * Close Sectors immediately.
-       */
       window.dispatchEvent(
         new CustomEvent(
           'techsteps:close-sectors',
@@ -891,22 +1391,18 @@ const servicePillars = defaultPillars.map((pillar) => {
           }
         )
       );
+window.dispatchEvent(
+  new CustomEvent('techsteps:close-about')
+);
 
-
-      /*
-       * IMPORTANT:
-       * Determine whether we are on the scrolling navbar
-       * BEFORE showing the dropdown.
-       */
       updatePosition();
 
 
-      panel.classList.remove('hidden');
+      panel.classList.remove(
+        'hidden'
+      );
 
 
-      /*
-       * Force browser reflow.
-       */
       void panel.offsetHeight;
 
 
@@ -916,6 +1412,7 @@ const servicePillars = defaultPillars.map((pillar) => {
         'pointer-events-none'
       );
 
+
       panel.classList.add(
         'opacity-100',
         'translate-y-0',
@@ -923,29 +1420,41 @@ const servicePillars = defaultPillars.map((pillar) => {
       );
 
 
-      triggers.forEach((t) => {
+      triggers.forEach(
+        (trigger) => {
 
-        t.setAttribute(
-          'aria-expanded',
-          'true'
-        );
+          trigger.setAttribute(
+            'aria-expanded',
+            'true'
+          );
 
-        const caret =
-          t.querySelector('.caret-icon');
 
-        if (caret) {
-          caret.classList.add('rotate-180');
+          const caret =
+            trigger.querySelector(
+              '.caret-icon'
+            );
+
+
+          if (caret) {
+
+            caret.classList.add(
+              'rotate-180'
+            );
+
+          }
+
         }
-      });
+      );
 
 
       updateBackdrop();
+
     };
 
 
     /* =========================================================
        CLOSE MENU
-       ========================================================= */
+    ========================================================= */
 
     const closeMenu = (
       immediate = false
@@ -959,6 +1468,7 @@ const servicePillars = defaultPillars.map((pillar) => {
           'pointer-events-auto'
         );
 
+
         panel.classList.add(
           'opacity-0',
           '-translate-y-1',
@@ -966,57 +1476,79 @@ const servicePillars = defaultPillars.map((pillar) => {
         );
 
 
-        triggers.forEach((t) => {
+        triggers.forEach(
+          (trigger) => {
 
-          t.setAttribute(
-            'aria-expanded',
-            'false'
-          );
+            trigger.setAttribute(
+              'aria-expanded',
+              'false'
+            );
 
-          const caret =
-            t.querySelector('.caret-icon');
 
-          if (caret) {
-            caret.classList.remove('rotate-180');
+            const caret =
+              trigger.querySelector(
+                '.caret-icon'
+              );
+
+
+            if (caret) {
+
+              caret.classList.remove(
+                'rotate-180'
+              );
+
+            }
+
           }
-        });
+        );
 
 
         updateBackdrop();
 
 
         if (hideTimeout) {
-          clearTimeout(hideTimeout);
+
+          clearTimeout(
+            hideTimeout
+          );
+
         }
 
 
         if (immediate) {
 
-          if (
-            panel.classList.contains(
-              'opacity-0'
-            )
-          ) {
-            panel.classList.add('hidden');
-          }
+          panel.classList.add(
+            'hidden'
+          );
 
         } else {
 
           hideTimeout =
-            setTimeout(() => {
+            setTimeout(
+              () => {
 
-              if (
-                panel.classList.contains(
-                  'opacity-0'
-                )
-              ) {
-                panel.classList.add('hidden');
-              }
+                if (
+                  panel.classList.contains(
+                    'opacity-0'
+                  )
+                ) {
 
-              hideTimeout = null;
+                  panel.classList.add(
+                    'hidden'
+                  );
 
-            }, 160);
+                }
+
+
+                hideTimeout =
+                  null;
+
+              },
+              160
+            );
+
         }
+
       };
 
 
@@ -1024,7 +1556,9 @@ const servicePillars = defaultPillars.map((pillar) => {
 
 
       if (immediate) {
+
         doClose();
+
       } else {
 
         closeTimeout =
@@ -1032,272 +1566,252 @@ const servicePillars = defaultPillars.map((pillar) => {
             doClose,
             280
           );
+
       }
+
     };
 
 
     /* =========================================================
        TRIGGER EVENTS
-       ========================================================= */
 
-    {/*triggers.forEach((t) => {
+       IMPORTANT:
+       The parent contains BOTH:
+       - Services text
+       - Services arrow
 
-      const parentWrap =
-        t.closest(
-          '.nav-menu-trigger-wrap'
-        ) as HTMLElement | null;
+       So hovering either one opens
+       the dropdown.
+    ========================================================= */
 
-      const hoverTarget =
-        parentWrap || t;
+    triggers.forEach(
+      (trigger) => {
 
-
-      hoverTarget.addEventListener(
-        'mouseenter',
-        openMenu
-      );
-
-      hoverTarget.addEventListener(
-        'mouseleave',
-        () => closeMenu(false)
-      );
+        const hoverTarget =
+          trigger.parentElement as HTMLElement | null;
 
 
-      t.addEventListener(
-        'click',
-        (e) => {
+        if (!hoverTarget) return;
 
-          e.stopPropagation();
-          e.preventDefault();
 
-          const isExpanded =
-            t.getAttribute(
-              'aria-expanded'
-            ) === 'true';
+        /*
+         * Hover Services text OR arrow.
+         */
+        hoverTarget.addEventListener(
+          'mouseenter',
+          openMenu
+        );
 
-          if (isExpanded) {
-            closeMenu(true);
-          } else {
-            openMenu();
+
+        /*
+         * No mouseleave close.
+         *
+         * Dropdown remains open until:
+         * - outside click
+         * - arrow click
+         * - Escape
+         * - Sectors opens
+         */
+        trigger.addEventListener(
+          'click',
+          (event) => {
+
+            event.stopPropagation();
+            event.preventDefault();
+
+
+            const isExpanded =
+              trigger.getAttribute(
+                'aria-expanded'
+              ) === 'true';
+
+
+            if (isExpanded) {
+
+              closeMenu(true);
+
+            } else {
+
+              openMenu();
+
+            }
+
           }
-        }
-      );
+        );
 
 
-      t.addEventListener(
-        'focus',
-        openMenu
-      );
-    });*/}
-    /* =========================================================
-   TRIGGER EVENTS
-   ========================================================= */
+        /*
+         * Keyboard accessibility.
+         */
+        trigger.addEventListener(
+          'focus',
+          openMenu
+        );
 
-triggers.forEach((t) => {
-
-  const parentWrap =
-    t.closest(
-      '.nav-menu-trigger-wrap'
-    ) as HTMLElement | null;
-
-  const hoverTarget =
-    parentWrap || t;
-
-
-  /*
-   * Hovering the Services text OR arrow
-   * opens the dropdown.
-   *
-   * IMPORTANT:
-   * We intentionally do NOT close the menu
-   * when the mouse leaves the navbar item.
-   */
-  hoverTarget.addEventListener(
-    'mouseenter',
-    openMenu
-  );
-
-
-  /*
-   * Arrow click:
-   * toggle the dropdown.
-   *
-   * The Services text is now a normal <a>
-   * and will navigate to /services.
-   */
-  t.addEventListener(
-    'click',
-    (e) => {
-
-      e.stopPropagation();
-      e.preventDefault();
-
-      const isExpanded =
-        t.getAttribute(
-          'aria-expanded'
-        ) === 'true';
-
-      if (isExpanded) {
-        closeMenu(true);
-      } else {
-        openMenu();
       }
-    }
-  );
-
-
-  /*
-   * Keyboard accessibility
-   */
-  t.addEventListener(
-    'focus',
-    openMenu
-  );
-});
+    );
 
 
     /* =========================================================
        PANEL HOVER
-       ========================================================= */
+    ========================================================= */
 
-    {/*panel.addEventListener(
+    panel.addEventListener(
       'mouseenter',
       cancelClose
     );
 
-    panel.addEventListener(
-      'mouseleave',
-      () => closeMenu(false)
-    );*/}
-    /* =========================================================
-   PANEL HOVER
-   ========================================================= */
-
-/*
- * Keep the dropdown open while the mouse
- * is anywhere inside the dropdown.
- *
- * We intentionally do NOT close it on mouseleave.
- */
-panel.addEventListener(
-  'mouseenter',
-  cancelClose
-);
-
 
     /* =========================================================
        CLOSE SERVICES EVENT
-       ========================================================= */
+    ========================================================= */
 
     window.addEventListener(
       'techsteps:close-services',
-      (e: any) => {
+      (event: Event) => {
+
+        const customEvent =
+          event as CustomEvent;
+
+
         closeMenu(
-          e.detail?.immediate ?? true
+          customEvent.detail?.immediate ??
+          true
         );
+
       }
     );
 
 
     /* =========================================================
        ESCAPE
-       ========================================================= */
+    ========================================================= */
 
     document.addEventListener(
       'keydown',
-      (e) => {
+      (event) => {
 
-        if (e.key === 'Escape') {
+        if (
+          event.key === 'Escape'
+        ) {
+
           closeMenu(true);
+
         }
+
       }
     );
 
 
     /* =========================================================
        OUTSIDE CLICK
-       ========================================================= */
+    ========================================================= */
 
     document.addEventListener(
       'click',
-      (e) => {
+      (event) => {
 
-        let inside = false;
+        const target =
+          event.target as Node;
 
-        triggers.forEach((t) => {
 
-          if (
-            t.contains(
-              e.target as Node
-            )
-          ) {
-            inside = true;
+        let insideTrigger =
+          false;
+
+
+        triggers.forEach(
+          (trigger) => {
+
+            if (
+              trigger.contains(target) ||
+              trigger.parentElement?.contains(target)
+            ) {
+
+              insideTrigger =
+                true;
+
+            }
+
           }
-        });
+        );
 
 
         if (
-          !panel.contains(
-            e.target as Node
-          ) &&
-          !inside
+          !panel.contains(target) &&
+          !insideTrigger
         ) {
+
           closeMenu(true);
+
         }
+
       }
     );
 
 
     /* =========================================================
        BACKDROP CLICK
-       ========================================================= */
+    ========================================================= */
 
     const backdrop =
       document.getElementById(
         'dropdown-backdrop'
       );
 
+
     backdrop?.addEventListener(
       'click',
-      () => closeMenu(true)
+      () =>
+        closeMenu(true)
     );
 
 
     /* =========================================================
        LINK CLICK
-       ========================================================= */
+    ========================================================= */
 
-    panel.querySelectorAll('a').forEach(
-      (link) => {
+    panel
+      .querySelectorAll('a')
+      .forEach(
+        (link) => {
 
-        link.addEventListener(
-          'click',
-          () => closeMenu(true)
-        );
-      }
-    );
+          link.addEventListener(
+            'click',
+            () =>
+              closeMenu(true)
+          );
+
+        }
+      );
 
 
     /* =========================================================
        RESIZE + SCROLL
-       ========================================================= */
+    ========================================================= */
 
     window.addEventListener(
       'resize',
       updatePosition,
-      { passive: true }
+      {
+        passive: true
+      }
     );
+
 
     window.addEventListener(
       'scroll',
       updatePosition,
-      { passive: true }
+      {
+        passive: true
+      }
     );
+
   }
 
 
   /* =========================================================
      INITIALIZE
-     ========================================================= */
+  ========================================================= */
 
   setupServicesMegaMenu();
 
@@ -1310,9 +1824,14 @@ panel.addEventListener(
         .getElementById(
           'dropdown-backdrop'
         )
-        ?.classList.remove('active');
+        ?.classList.remove(
+          'active'
+        );
+
 
       setupServicesMegaMenu();
+
     }
   );
+
 </script>

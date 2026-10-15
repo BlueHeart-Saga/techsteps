@@ -352,23 +352,97 @@ export interface AboutCTA {
   hours?: string;
 }
 
+export interface AboutBuildingHero {
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+export interface AboutCleanerSmarterValue {
+  title: string;
+  icon: string;
+}
+
+export interface AboutCleanerSmarter {
+  heading?: string;
+  paragraphs?: string[];
+  values?: AboutCleanerSmarterValue[];
+}
+
+export interface AboutTechnologyPurpose {
+  heading?: string;
+  description?: string;
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+export interface AboutBrighterFuture {
+  heading?: string;
+  description?: string;
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+export interface AboutTrustImpactCard {
+  title: string;
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+export interface AboutTrustImpact {
+  heading?: string;
+  description?: string;
+  cards?: AboutTrustImpactCard[];
+}
+
+export interface AboutPeoplePlanetProgressMetric {
+  value: string;
+  label: string;
+}
+
+export interface AboutPeoplePlanetProgress {
+  heading?: string;
+  description?: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  metrics?: AboutPeoplePlanetProgressMetric[];
+}
+
+export interface AboutJourneyMilestone {
+  step: number;
+  title: string;
+  description: string;
+  imageUrl?: string;
+}
+
+export interface AboutJourneyMilestones {
+  heading?: string;
+  description?: string;
+  milestones?: AboutJourneyMilestone[];
+}
+
 export interface AboutPageData {
   metaTitle?: string;
   metaDescription?: string;
 
   hero?: AboutHero;
-
   whoWeAre?: AboutWhoWeAre;
-
   whatWeDo?: AboutWhatWeDo;
-
   approach?: AboutApproach;
-
   capabilities?: AboutCapabilities;
-
   statistics?: AboutStatistic[];
-
   cta?: AboutCTA;
+
+  buildingHero?: AboutBuildingHero;
+  cleanerSmarter?: AboutCleanerSmarter;
+  technologyPurpose?: AboutTechnologyPurpose;
+  nationwideNetwork?: AboutBrighterFuture;
+  brighterFuture?: AboutBrighterFuture;
+  trustAndImpact?: AboutTrustImpact;
+  trustImpact?: AboutTrustImpact;
+  sustainabilityCommitment?: AboutPeoplePlanetProgress;
+  peoplePlanetProgress?: AboutPeoplePlanetProgress;
+  journey?: AboutJourneyMilestones;
+  journeyMilestones?: AboutJourneyMilestones;
 }
 
 export interface HomePageHero {
@@ -442,6 +516,26 @@ export interface HomePageLifecycle {
   steps?: HomePageLifecycleStep[];
 }
 
+export interface HomePageWhyChooseFeature {
+  number?: string;
+  title?: string;
+  description?: string;
+}
+
+export interface HomePageWhyChoose {
+  eyebrow?: string;
+  heading?: string;
+  description?: string;
+  features?: HomePageWhyChooseFeature[];
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+export interface HomePageSectorsSection {
+  heading?: string;
+  description?: string;
+}
+
 export interface HomePageCTA {
   heading?: string;
   description?: string;
@@ -459,7 +553,91 @@ export interface HomePageData {
   statistics?: HomePageStatistic[];
   services?: HomePageServices;
   lifecycle?: HomePageLifecycle;
+  whyChoose?: HomePageWhyChoose;
+  sectorsSection?: HomePageSectorsSection;
   cta?: HomePageCTA;
+}
+
+export interface LeadershipLeader {
+  name: string;
+  role: string;
+  bio: string;
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+export interface LeadershipPrinciple {
+  number: string;
+  title: string;
+  description: string;
+}
+
+export interface LeadershipCommitmentCard {
+  number: string;
+  icon: string;
+  title: string;
+  description: string;
+  isFeatured?: boolean;
+}
+
+export interface LeadershipPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  hero?: {
+    eyebrow?: string;
+    title?: string;
+    highlightedTitle?: string;
+    subtitle?: string;
+    imageUrl?: string;
+    imageAlt?: string;
+  };
+  intro?: {
+    label?: string;
+    title?: string;
+    highlightedTitle?: string;
+    paragraphs?: string[];
+  };
+  team?: {
+    label?: string;
+    title?: string;
+    highlightedTitle?: string;
+    subtitle?: string;
+    members?: LeadershipLeader[];
+  };
+  principles?: {
+    eyebrow?: string;
+    title?: string;
+    highlightedTitle?: string;
+    description?: string;
+    items?: LeadershipPrinciple[];
+  };
+  action?: {
+    eyebrow?: string;
+    title?: string;
+    highlightedTitle?: string;
+    badgeNumber?: string;
+    badgeText?: string;
+    imageUrl?: string;
+    imageAlt?: string;
+    paragraphs?: string[];
+    linkText?: string;
+    linkUrl?: string;
+  };
+  commitment?: {
+    label?: string;
+    title?: string;
+    highlightedTitle?: string;
+    description?: string;
+    cards?: LeadershipCommitmentCard[];
+  };
+  cta?: {
+    title?: string;
+    description?: string;
+    primaryText?: string;
+    primaryHref?: string;
+    secondaryText?: string;
+    secondaryHref?: string;
+  };
 }
 
 export interface FaqCategoryItem {

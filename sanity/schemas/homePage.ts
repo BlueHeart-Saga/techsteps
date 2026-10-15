@@ -425,6 +425,93 @@ export default defineType({
         }),
 
         // =========================================================
+        // WHY CHOOSE TECHSTEPS SECTION
+        // =========================================================
+        defineField({
+            name: 'whyChoose',
+            title: 'Why Choose Section',
+            type: 'object',
+            fields: [
+                defineField({
+                    name: 'eyebrow',
+                    title: 'Eyebrow',
+                    type: 'string',
+                    initialValue: 'PROVEN EXCELLENCE',
+                }),
+                defineField({
+                    name: 'heading',
+                    title: 'Heading',
+                    type: 'string',
+                    initialValue: 'Why Choose TechSteps?',
+                }),
+                defineField({
+                    name: 'description',
+                    title: 'Description Paragraph',
+                    type: 'text',
+                    rows: 3,
+                    initialValue: 'TechSteps combines secure handling, reliable service, complete lifecycle solutions, and sustainability to deliver dependable IT asset management for organisations across the UK.',
+                }),
+                defineField({
+                    name: 'features',
+                    title: 'Feature Points',
+                    type: 'array',
+                    of: [
+                        {
+                            type: 'object',
+                            fields: [
+                                defineField({ name: 'number', title: 'Index Number', type: 'string' }),
+                                defineField({ name: 'title', title: 'Feature Title', type: 'string' }),
+                                defineField({ name: 'description', title: 'Feature Description', type: 'text', rows: 2 }),
+                            ],
+                        },
+                    ],
+                }),
+                defineField({
+                    name: 'imageUrl',
+                    title: 'Image URL',
+                    type: 'string',
+                    initialValue: '/images/services/why choose us.webp',
+                }),
+                defineField({
+                    name: 'image',
+                    title: 'Image (Upload)',
+                    type: 'image',
+                    options: { hotspot: true },
+                }),
+                defineField({
+                    name: 'imageAlt',
+                    title: 'Image Alt Text',
+                    type: 'string',
+                    initialValue: 'TechSteps team collaborating on certified IT lifecycle and compliance solutions',
+                }),
+            ],
+        }),
+
+        // =========================================================
+        // SECTORS SECTION
+        // =========================================================
+        defineField({
+            name: 'sectorsSection',
+            title: 'Sectors We Serve Section',
+            type: 'object',
+            fields: [
+                defineField({
+                    name: 'heading',
+                    title: 'Heading',
+                    type: 'string',
+                    initialValue: 'Supporting Businesses Across Every Sector',
+                }),
+                defineField({
+                    name: 'description',
+                    title: 'Description',
+                    type: 'text',
+                    rows: 3,
+                    initialValue: 'TechSteps provides secure, sustainable, and reliable IT asset lifecycle, certified data destruction, and compliance-driven solutions across different industries.',
+                }),
+            ],
+        }),
+
+        // =========================================================
         // CTA SECTION
         // =========================================================
         defineField({

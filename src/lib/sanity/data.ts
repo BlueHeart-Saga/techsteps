@@ -7,6 +7,7 @@ import type {
   CaseStudy,
   Article,
   AboutPageData,
+  LeadershipPageData,
   FaqPageData,
   SustainabilityPageData,
   InvestorsPageData,
@@ -1577,194 +1578,347 @@ export const articles: Article[] = [
 ];
 
 export const defaultAboutPage: AboutPageData = {
-  metaTitle: 'About Techsteps — Managing What Matters',
+  metaTitle: 'About Us — Techsteps',
   metaDescription:
-    'We look after the assets that carry the most risk when a business changes — data, records, equipment and premises. Handled securely, recorded end to end, and returned to value wherever it can be.',
+    'TechSteps is an IT asset recovery and responsible recycling company. We partner with businesses to securely manage their retired technology.',
 
-  hero: {
-    eyebrow: 'About Techsteps',
-    headline: 'Managing What Matters. Protecting What Comes Next.',
+  buildingHero: {
+    imageUrl: '/images/about/building (1).webp',
+    imageAlt: 'TechSteps secure IT disposal and recycling facility',
+  },
+
+  cleanerSmarter: {
+    heading:
+      'We are one of the UK’s leading providers of secure and confidential shredding services. With years of experience in the industry, we have built an extensive customer base spanning all industries, public sectors, and sizes of businesses across the country.',
+    paragraphs: [
+      'We offer recycling and shredding for paper, plastics, textiles and digital media in highly secure environments so that you meet your data protection compliance requirements and can rest easy knowing that you are preventing fraud, identity and intellectual property theft with trusted experts.',
+      'We have a breadth of knowledge and experience in the secure destruction of confidential waste. Our team is friendly, knowledgeable, and always looking for ways to help you.',
+    ],
+    values: [
+      { title: 'Secure Handling', icon: '/images/about/Secure Handling.svg' },
+      { title: 'Recover Value', icon: '/images/about/Recover Value.svg' },
+      { title: 'Sustainable Impact', icon: '/images/about/Sustainable Impact.svg' },
+    ],
+  },
+
+  technologyPurpose: {
+    heading: 'Technology With a Purpose',
     description:
-      "We protect your business's critical assets — data, records, and hardware — handled securely and returned to value.",
-    image: '/images/hero/about-hero-technicians.jpg',
-    imageAlt: 'Techsteps technicians in secure facility',
-    badge: 'CHAIN OF CUSTODY',
+      'We give businesses a smarter way to manage their IT assets securely, responsibly, and sustainably.',
+    imageUrl: '/images/about/about hero.webp',
+    imageAlt: 'TechSteps technician wearing branded uniform',
   },
 
-  whoWeAre: {
-    eyebrow: 'WHO WE ARE',
-    headline: 'Technology With Purpose',
+  nationwideNetwork: {
+    heading: 'Nationwide network, local expertise',
     description:
-      'Techsteps helps businesses manage the complete lifecycle of their IT and information assets — from secure collection and data destruction to remarketing, recycling and responsible recovery.\n\nOur approach combines security, sustainability and value recovery to help organisations handle retired assets with confidence.',
-    image: '/images/about/who-we-are-technician.png',
-    imageAlt:
-      'Techsteps certified technician inspecting refurbished hardware',
-
-    highlights: [
-      {
-        title: 'Secure Asset Handling',
-        description: 'Protecting your data and your business.',
-        icon: 'shield',
-      },
-      {
-        title: 'Responsible Recovery',
-        description: 'Reducing e-waste, protecting the planet.',
-        icon: 'leaf',
-      },
-      {
-        title: 'Value From Retirements',
-        description: 'Giving IT assets a second life.',
-        icon: 'recycle',
-      },
-    ],
+      'Restore Datashred boasts a robust network spanning the entire UK. With strategically located facilities, we ensure efficient and timely service, no matter where your business is located. With our local reach, we can tailor a service plan to perfectly suit your volume and frequency of document shredding, while our national presence guarantees the security and compliance expertise you expect for any data disposal needs, from paper shredding to hard drive destruction.',
+    imageUrl: '/images/about/More Than Recycling. A Brighter Future. (1).webp',
+    imageAlt: 'Hand holding recovered IT components and hardware',
   },
-
-  whatWeDo: {
-    eyebrow: 'What we do',
-
-    items: [
-      {
-        number: '01',
-        title: 'IT Lifecycle Services',
-        description:
-          'Secure IT disposal, collection, ITAD, asset management, remarketing and recycling — with certified erasure and a full audit trail.',
-        image: '/images/services/process-step-2-secure.jpg',
-        imageAlt: 'IT Lifecycle asset processing',
-        badge: 'Asset processing line',
-        buttonText: 'Explore services →',
-        buttonLink: '/it-lifecycle-services-destruction',
-      },
-      {
-        number: '02',
-        title: 'Information Management',
-        description:
-          'Document storage, scanning, digital mailroom, document management and media storage for organisations that must keep the record.',
-        image: '/images/services/process-step-3-sanitise.jpg',
-        imageAlt: 'Records storage and scanning',
-        badge: 'Records storage and scanning',
-        buttonText: 'Explore services →',
-        buttonLink: '/information-management',
-      },
-      {
-        number: '03',
-        title: 'Moving & Relocation',
-        description:
-          'Business relocation, IT relocation, heritage relocation and specialist storage, planned and crewed to keep you operating.',
-        image: '/images/services/process-step-1-collect.jpg',
-        imageAlt: 'Relocation crew on site',
-        badge: 'Relocation crew on site',
-        buttonText: 'Explore services →',
-        buttonLink: '/moving-relocation-services',
-      },
-    ],
-  },
-
-  approach: {
-    eyebrow: 'Our approach',
-    headline: 'Every job runs the same four ways.',
+  brighterFuture: {
+    heading: 'Nationwide network, local expertise',
     description:
-      'Different services, one method. It is what lets us give you a single line of accountability from the first survey to the final certificate.',
+      'Restore Datashred boasts a robust network spanning the entire UK. With strategically located facilities, we ensure efficient and timely service, no matter where your business is located. With our local reach, we can tailor a service plan to perfectly suit your volume and frequency of document shredding, while our national presence guarantees the security and compliance expertise you expect for any data disposal needs, from paper shredding to hard drive destruction.',
+    imageUrl: '/images/about/More Than Recycling. A Brighter Future. (1).webp',
+    imageAlt: 'Hand holding recovered IT components and hardware',
+  },
 
-    steps: [
+  trustAndImpact: {
+    heading: 'Built on Trust. Driven by Impact.',
+    description:
+      'Our values guide everything we do — from how we handle your data and technology to the environmental impact of our operations.',
+    cards: [
       {
-        number: '01',
-        title: 'Secure',
-        description:
-          'Vetted crews, tracked vehicles, controlled facilities. Custody recorded at every handover.',
-        icon: 'shield',
+        title: 'Security First',
+        imageUrl: '/images/about/Card 1_ Security First (Deep Forest Slate Theme).webp',
+        imageAlt: 'Security First: secure asset handling and compliance dashboard',
       },
       {
-        number: '02',
-        title: 'Smart',
-        description:
-          'We survey before we lift. The plan is built around your operation, not our schedule.',
-        icon: 'lightbulb',
+        title: 'Environmental Responsibility',
+        imageUrl: '/images/about/Card 2_ Environmental Responsibility (Emerald Green Theme).webp',
+        imageAlt: 'Environmental Responsibility: recycling and responsible material recovery dashboard',
       },
       {
-        number: '03',
-        title: 'Responsible',
-        description:
-          'Reuse before recycling, zero to landfill, data destroyed to standard with evidence to match.',
-        icon: 'recycle',
+        title: 'Customer Focus',
+        imageUrl: '/images/about/card 3.webp',
+        imageAlt: 'Customer Focus: transparency, service quality, and reliability dashboard',
       },
       {
-        number: '04',
-        title: 'Value-focused',
-        description:
-          'Working assets are refurbished and remarketed, and the recovered value comes back to you.',
-        icon: 'chart',
+        title: 'Continuous Improvement',
+        imageUrl: '/images/about/card-4 Deep Forest Theme.webp',
+        imageAlt: 'Continuous Improvement: circular economy and performance metrics dashboard',
+      },
+    ],
+  },
+  trustImpact: {
+    heading: 'Built on Trust. Driven by Impact.',
+    description:
+      'Our values guide everything we do — from how we handle your data and technology to the environmental impact of our operations.',
+    cards: [
+      {
+        title: 'Security First',
+        imageUrl: '/images/about/Card 1_ Security First (Deep Forest Slate Theme).webp',
+        imageAlt: 'Security First: secure asset handling and compliance dashboard',
+      },
+      {
+        title: 'Environmental Responsibility',
+        imageUrl: '/images/about/Card 2_ Environmental Responsibility (Emerald Green Theme).webp',
+        imageAlt: 'Environmental Responsibility: recycling and responsible material recovery dashboard',
+      },
+      {
+        title: 'Customer Focus',
+        imageUrl: '/images/about/card 3.webp',
+        imageAlt: 'Customer Focus: transparency, service quality, and reliability dashboard',
+      },
+      {
+        title: 'Continuous Improvement',
+        imageUrl: '/images/about/card-4 Deep Forest Theme.webp',
+        imageAlt: 'Continuous Improvement: circular economy and performance metrics dashboard',
       },
     ],
   },
 
-  capabilities: {
-    eyebrow: 'Our capabilities',
-
-    items: [
-      {
-        title: 'Specialist people',
-        description:
-          'Vetted, trained crews who handle complex projects — live data centres, occupied buildings, fragile heritage collections.',
-        icon: 'people',
-      },
-      {
-        title: 'Secure facilities',
-        description:
-          'Alarmed, access-controlled and CCTV-monitored premises with segregated areas for data-bearing media.',
-        icon: 'shield',
-      },
-      {
-        title: 'End-to-end service',
-        description:
-          'Collection, processing, erasure, reporting, resale and recycling — handled in house, not passed down a chain.',
-        icon: 'truck',
-      },
-      {
-        title: 'Business coverage',
-        description:
-          'UK-wide collections and relocations, with regional teams for multi-site programmes and rolling refresh cycles.',
-        icon: 'globe',
-      },
+  sustainabilityCommitment: {
+    heading: 'Committed to sustainability: 0% landfill shredding',
+    description:
+      'Restore Datashred isn’t just about secure data destruction; we’re also passionate about protecting the environment. As a leading recycling business, we’re proud to work towards being Net Zero from our shredding activities by 2035 – a commitment our customers truly value. Furthermore, we are fully authorised by the Environment Agency to handle, transport, and recycle your company’s confidential materials. Choose Restore Datashred for peace of mind on both data security and environmental responsibility.',
+    imageUrl: '/images/about/People. Planet. Progress. (1).webp',
+    imageAlt: 'Hand holding plant seedling in soil',
+    metrics: [
+      { value: '100K+', label: 'Devices Processed' },
+      { value: '500+', label: 'Businesses Served' },
+      { value: '0%', label: 'To Landfill (Recoverable)' },
+    ],
+  },
+  peoplePlanetProgress: {
+    heading: 'Committed to sustainability: 0% landfill shredding',
+    description:
+      'Restore Datashred isn’t just about secure data destruction; we’re also passionate about protecting the environment. As a leading recycling business, we’re proud to work towards being Net Zero from our shredding activities by 2035 – a commitment our customers truly value. Furthermore, we are fully authorised by the Environment Agency to handle, transport, and recycle your company’s confidential materials. Choose Restore Datashred for peace of mind on both data security and environmental responsibility.',
+    imageUrl: '/images/about/People. Planet. Progress. (1).webp',
+    imageAlt: 'Hand holding plant seedling in soil',
+    metrics: [
+      { value: '100K+', label: 'Devices Processed' },
+      { value: '500+', label: 'Businesses Served' },
+      { value: '0%', label: 'To Landfill (Recoverable)' },
     ],
   },
 
-  statistics: [
-    {
-      number: '20',
-      suffix: '+',
-      label: 'Years handling secure disposal and relocation',
-    },
-    {
-      number: '500k',
-      suffix: '+',
-      label: 'Assets processed and reported on',
-    },
-    {
-      number: '98',
-      suffix: '%',
-      label: 'Diverted from landfill through reuse and recycling',
-    },
-    {
-      number: 'UK',
-      suffix: '',
-      label: 'Nationwide collection and service coverage',
-    },
-  ],
+  journey: {
+    heading: 'From a Simple Idea to a Bigger Impact.',
+    description:
+      'What started as a vision to make IT disposal more responsible and secure has grown into a trusted service for businesses across the UK. Today, we continue to expand our impact, helping organisations turn retired technology into new opportunities.',
+    milestones: [
+      {
+        step: 0,
+        title: 'Founded',
+        description: 'With a vision for responsible IT disposal.',
+        imageUrl: '/images/about/Founded.webp',
+      },
+      {
+        step: 1,
+        title: 'Expanded',
+        description: 'Our recycling capabilities.',
+        imageUrl: '/images/about/Expanded.webp',
+      },
+      {
+        step: 2,
+        title: 'Partnered',
+        description: 'With businesses across the UK.',
+        imageUrl: '/images/about/Partnered.webp',
+      },
+      {
+        step: 3,
+        title: 'Driving',
+        description: 'Long-term environmental and economic impact.',
+        imageUrl: '/images/about/Driving.webp',
+      },
+    ],
+  },
+  journeyMilestones: {
+    heading: 'From a Simple Idea to a Bigger Impact.',
+    description:
+      'What started as a vision to make IT disposal more responsible and secure has grown into a trusted service for businesses across the UK. Today, we continue to expand our impact, helping organisations turn retired technology into new opportunities.',
+    milestones: [
+      {
+        step: 0,
+        title: 'Founded',
+        description: 'With a vision for responsible IT disposal.',
+        imageUrl: '/images/about/Founded.webp',
+      },
+      {
+        step: 1,
+        title: 'Expanded',
+        description: 'Our recycling capabilities.',
+        imageUrl: '/images/about/Expanded.webp',
+      },
+      {
+        step: 2,
+        title: 'Partnered',
+        description: 'With businesses across the UK.',
+        imageUrl: '/images/about/Partnered.webp',
+      },
+      {
+        step: 3,
+        title: 'Driving',
+        description: 'Long-term environmental and economic impact.',
+        imageUrl: '/images/about/Driving.webp',
+      },
+    ],
+  },
 
   cta: {
-    eyebrow: 'Get in touch with Techsteps',
-    headline: "Let's Talk About What Comes Next.",
+    title: "Let's Build a More Responsible Technology Future",
     description:
-      'Whether you need secure IT disposal, information management or relocation support, speak with the Techsteps team. We will survey, scope and quote before anything moves.',
-    image: '/images/services/process-step-1-collect.jpg',
-    imageAlt: 'Techsteps fleet and collection team on site',
+      'Talk to our team about secure, sustainable and responsible IT asset management.',
     primaryButtonText: 'Talk to Our Team',
     primaryButtonLink: '/contact',
     secondaryButtonText: 'Request a Collection',
     secondaryButtonLink: '/request-a-collection',
-    phone: '+44 (0) 20 7946 0888',
-    email: 'hello@techsteps.co.uk',
-    hours: 'Mon–Fri, 8am–6pm',
+  },
+};
+
+export const defaultLeadershipPageData: LeadershipPageData = {
+  metaTitle: 'Leadership — TechSteps',
+  metaDescription:
+    'Meet the leadership team behind TechSteps and our commitment to secure, responsible and sustainable IT asset management.',
+  hero: {
+    eyebrow: 'OUR LEADERSHIP',
+    title: 'Leadership with',
+    highlightedTitle: 'purpose.',
+    subtitle:
+      'Guiding TechSteps with integrity, innovation and a commitment to creating a more responsible technology lifecycle.',
+    imageUrl: '/images/leadership/leadership-hero.png',
+    imageAlt: 'TechSteps leadership team',
+  },
+  intro: {
+    label: 'OUR APPROACH',
+    title: 'Leadership that puts',
+    highlightedTitle: 'responsibility into action.',
+    paragraphs: [
+      'At TechSteps, leadership is about more than setting direction. It is about creating trust, making responsible decisions and building a business that delivers lasting value for our people, our customers and the planet.',
+      'Our leadership team brings together experience across technology, operations and responsible asset management, with a shared focus on creating a more secure and sustainable technology lifecycle.',
+    ],
+  },
+  team: {
+    label: 'THE PEOPLE BEHIND TECHSTEPS',
+    title: 'Experience that',
+    highlightedTitle: 'moves us forward.',
+    subtitle:
+      'Our leadership team brings together experience, expertise and a shared commitment to responsible technology management.',
+    members: [
+      {
+        role: 'CHIEF EXECUTIVE OFFICER',
+        name: 'Leadership Name',
+        bio: 'Driving the vision and long-term direction of TechSteps, with a focus on responsible growth and customer trust.',
+        imageUrl: '/images/leadership/leader-1.webp',
+        imageAlt: 'TechSteps Chief Executive Officer',
+      },
+      {
+        role: 'OPERATIONS DIRECTOR',
+        name: 'Leadership Name',
+        bio: 'Leading operational excellence and ensuring every stage of the technology lifecycle is managed responsibly.',
+        imageUrl: '/images/leadership/leader-2.webp',
+        imageAlt: 'TechSteps Operations Director',
+      },
+      {
+        role: 'COMMERCIAL DIRECTOR',
+        name: 'Leadership Name',
+        bio: 'Building strong partnerships and creating solutions that deliver measurable value for our customers.',
+        imageUrl: '/images/leadership/leader-3.webp',
+        imageAlt: 'TechSteps Commercial Director',
+      },
+    ],
+  },
+  principles: {
+    eyebrow: 'WHAT GUIDES US',
+    title: 'Principles that',
+    highlightedTitle: 'shape our leadership.',
+    description:
+      'The way we lead is grounded in clear principles that influence how we work, make decisions and create value for our customers, people and planet.',
+    items: [
+      {
+        number: '01',
+        title: 'Integrity',
+        description:
+          'We act with honesty and transparency, building relationships based on trust and accountability.',
+      },
+      {
+        number: '02',
+        title: 'Responsibility',
+        description:
+          'We take responsibility for the technology we manage and the environmental impact of every decision we make.',
+      },
+      {
+        number: '03',
+        title: 'Innovation',
+        description:
+          'We continuously improve our processes and technology to create smarter, safer and more sustainable solutions.',
+      },
+      {
+        number: '04',
+        title: 'Long-term thinking',
+        description:
+          'We focus on creating lasting value rather than short-term solutions, for our customers, people and the planet.',
+      },
+    ],
+  },
+  action: {
+    eyebrow: 'LEADERSHIP IN ACTION',
+    title: 'Turning responsible',
+    highlightedTitle: 'ideas into action.',
+    badgeNumber: '01',
+    badgeText: 'ONE TEAM\nONE PURPOSE',
+    imageUrl: '/images/leadership/leadership-action.webp',
+    imageAlt: 'TechSteps team working together',
+    paragraphs: [
+      'Great leadership is measured by what it enables people and organisations to achieve. At TechSteps, our leaders work closely with teams and customers to turn responsible technology management into measurable outcomes.',
+      'From secure data handling and IT asset recovery to reuse, refurbishment and responsible recycling, we focus on creating value at every stage of the technology lifecycle.',
+    ],
+    linkText: 'Talk to our team',
+    linkUrl: '/contact',
+  },
+  commitment: {
+    label: 'OUR COMMITMENT',
+    title: 'Leading with a focus on',
+    highlightedTitle: 'what matters most.',
+    description:
+      'Responsible leadership means considering the wider impact of every decision. We bring people, technology and sustainability together to create a better future for the technology lifecycle.',
+    cards: [
+      {
+        number: '01',
+        icon: '♧',
+        title: 'People',
+        description:
+          'Creating a culture where people can contribute, grow and make a meaningful difference.',
+        isFeatured: false,
+      },
+      {
+        number: '02',
+        icon: '◌',
+        title: 'Planet',
+        description:
+          'Making responsible choices that reduce waste, extend asset lifecycles and support a circular technology economy.',
+        isFeatured: true,
+      },
+      {
+        number: '03',
+        icon: '⌁',
+        title: 'Technology',
+        description:
+          'Using expertise and innovation to make technology management more secure, efficient and sustainable.',
+        isFeatured: false,
+      },
+    ],
+  },
+  cta: {
+    title: "Let's Build a More Responsible Technology Future",
+    description:
+      'Talk to our team about secure, sustainable and responsible IT asset management.',
+    primaryText: 'Talk to Our Team',
+    primaryHref: '/contact',
+    secondaryText: 'Request a Collection',
+    secondaryHref: '/request-a-collection',
   },
 };
 
@@ -2176,8 +2330,8 @@ export const defaultHomePageData: HomePageData = {
   metaDescription: 'Techsteps delivers audited technology lifecycle solutions across the UK: high-security IT asset disposition (ITAD), climate-controlled records management, DIN 66399 mobile shredding, and specialist data centre relocations.',
   hero: {
     eyebrow: 'SUSTAINABLE IT RECYCLING',
-    heading: 'Giving Technology A Second Life',
-    description: 'Audited IT lifecycle solutions from accredited facilities across the UK. Zero-landfill guaranteed e-waste recycling, secure ADISA-certified data destruction, and compliant asset disposition.',
+    heading: 'Creating Value From Each Device',
+    description: 'Techsteps securely reuse and recycle retired IT assets, reducing waste while recovering maximum value responsibly.',
     imageAlt: 'IT recycling technician inspecting motherboards and electronic components',
     buttonText: 'Request a Collection',
     buttonLink: '/request-a-quote',
@@ -2305,6 +2459,39 @@ export const defaultHomePageData: HomePageData = {
         imageAlt: 'Zero-landfill closed-loop sorting and responsible component recycling',
       },
     ],
+  },
+  whyChoose: {
+    eyebrow: 'PROVEN EXCELLENCE',
+    heading: 'Why Choose TechSteps?',
+    description: 'TechSteps combines secure handling, reliable service, complete lifecycle solutions, and sustainability to deliver dependable IT asset management for organisations across the UK.',
+    features: [
+      {
+        number: '01',
+        title: 'Security & Compliance',
+        description: 'Secure handling of IT assets and sensitive information, supported by responsible processes and appropriate documentation.',
+      },
+      {
+        number: '02',
+        title: 'Complete Lifecycle Solutions',
+        description: 'Integrated IT asset management, collection, and end-of-life services through a coordinated approach.',
+      },
+      {
+        number: '03',
+        title: 'Sustainable Outcomes',
+        description: 'Promote responsible reuse, recycling, and resource management to support more sustainable business operations.',
+      },
+      {
+        number: '04',
+        title: 'Reliable Service',
+        description: 'Dependable collection coordination, clear communication, and traceable processes with completion records where applicable.',
+      },
+    ],
+    imageUrl: '/images/services/why choose us.webp',
+    imageAlt: 'TechSteps team collaborating on certified IT lifecycle and compliance solutions',
+  },
+  sectorsSection: {
+    heading: 'Supporting Businesses Across Every Sector',
+    description: 'TechSteps provides secure, sustainable, and reliable IT asset lifecycle, certified data destruction, and compliance-driven solutions across different industries.',
   },
   cta: {
     heading: 'Ready to Elevate Your IT Asset Strategy?',

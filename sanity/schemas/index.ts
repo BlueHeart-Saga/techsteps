@@ -8,6 +8,7 @@ import stat from './stat';
 import caseStudy from './caseStudy';
 import article from './article';
 import aboutPage from './aboutPage';
+import leadershipPage from './leadershipPage';
 import homePage from './homePage';
 import faqPage from './faqPage';
 import sustainabilityPage from './sustainabilityPage';
@@ -30,6 +31,7 @@ export const schemaTypes = [
   // Documents - Pages
   homePage,
   aboutPage,
+  leadershipPage,
   servicesPage,
   sectorsPage,
   faqPage,
