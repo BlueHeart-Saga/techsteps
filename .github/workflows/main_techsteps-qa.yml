@@ -64,4 +64,4 @@ jobs:
           package: './dist'
           clean: true
           restart: true
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BAD4B77916DC477A9755990070DE196F }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_QA || secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BAD4B77916DC477A9755990070DE196F }}
