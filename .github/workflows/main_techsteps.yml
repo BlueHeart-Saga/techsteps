@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   build-and-deploy:
+    if: github.repository == 'Devopstrio/techsteps'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
