@@ -1,0 +1,67 @@
+name: Build and deploy Astro to Azure - TECHSTEPS-QA
+
+on:
+  push:
+    branches:
+      - main
+      - qa
+  workflow_dispatch:
+  repository_dispatch:
+    types: [sanity-publish, sanity]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Astro
+        run: npm run build
+        env:
+          NODE_ENV: production
+          PUBLIC_SANITY_PROJECT_ID: ${{ secrets.PUBLIC_SANITY_PROJECT_ID || 'zjv69ibt' }}
+          PUBLIC_SANITY_DATASET: ${{ secrets.PUBLIC_SANITY_DATASET || 'techsteps' }}
+          SANITY_PROJECT_ID: ${{ secrets.PUBLIC_SANITY_PROJECT_ID || secrets.SANITY_PROJECT_ID || 'zjv69ibt' }}
+          SANITY_DATASET: ${{ secrets.PUBLIC_SANITY_DATASET || secrets.SANITY_DATASET || 'techsteps' }}
+
+      - name: Install production dependencies in dist
+        run: |
+          cd dist
+          npm install --omit=dev
+
+      - name: Verify Astro output
+        run: |
+          echo "Checking Astro build..."
+          test -f dist/index.html
+          test -f dist/server.js
+          test -f dist/package.json
+          test -d dist/node_modules
+          test -d dist/node_modules/dotenv
+          test -d dist/node_modules/nodemailer
+          echo "dist/index.html and Azure server runner files exist"
+          echo "Production dependencies installed successfully"
+          echo "Build output:"
+          find dist -maxdepth 2 -type f | head -50
+
+      - name: Deploy to Azure Web App (QA)
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'TECHSTEPS-QA'
+          slot-name: 'Production'
+          package: './dist'
+          clean: true
+          restart: true
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_QA || secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}

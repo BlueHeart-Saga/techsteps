@@ -48,22 +48,21 @@ async function main() {
   const about = await client.fetch('*[_id == "aboutPage"][0]');
   console.log('3. About Us Page (documentId: "aboutPage")');
   console.log(`   Meta Title: "${about.metaTitle}"`);
-  console.log(`   Hero Headline: "${about.hero?.headline}"`);
-  console.log(`   Hero Description: "${about.hero?.description?.slice(0, 60)}..."`);
-  console.log(`   Who We Are Headline: "${about.whoWeAre?.headline}" | Highlights: ${about.whoWeAre?.highlights?.length}`);
-  console.log(`   What We Do Items: ${about.whatWeDo?.items?.length} (${about.whatWeDo?.items?.map(i => i.title).join(', ')})`);
-  console.log(`   Approach Steps: ${about.approach?.steps?.length} (${about.approach?.steps?.map(s => s.title).join(', ')})`);
-  console.log(`   Capabilities Items: ${about.capabilities?.items?.length}`);
-  console.log(`   Statistics: ${about.statistics?.length} items`);
-  console.log(`   CTA Headline: "${about.cta?.headline}" | Phone: "${about.cta?.phone}"\n`);
+  console.log(`   Building Hero Image URL: "${about.buildingHero?.imageUrl}"`);
+  console.log(`   Building Hero Alt: "${about.buildingHero?.imageAlt}"`);
+  console.log(`   Cleaner Smarter Heading: "${about.cleanerSmarter?.heading?.slice(0, 60)}..."`);
+  console.log(`   Cleaner Smarter Values: ${about.cleanerSmarter?.values?.length} items`);
+  console.log(`   Technology Purpose Heading: "${about.technologyPurpose?.heading}"`);
+  console.log(`   CTA Heading: "${about.cta?.heading}" | Button: "${about.cta?.buttonText}"\n`);
 
   // 4. FAQ Page
   const faq = await client.fetch('*[_id == "faqPage"][0]');
   console.log('4. FAQ Page (documentId: "faqPage")');
-  console.log(`   Hero Title: "${faq.hero?.title}" | Subheading: "${faq.hero?.subheading?.slice(0, 60)}..."`);
+  console.log(`   Meta Title: "${faq.metaTitle}"`);
   console.log(`   Categories (${faq.categories?.length}): ${faq.categories?.map(c => c.name).join(', ')}`);
   console.log(`   Items: ${faq.items?.length} questions & answers populated`);
-  console.log(`   Sample Q1: "${faq.items?.[0]?.question}"\n`);
+  console.log(`   Sample Q1: "${faq.items?.[0]?.question}"`);
+  console.log(`   Contact Card Heading: "${faq.contactCard?.heading}" | Button: "${faq.contactCard?.buttonText}"\n`);
 
   // 5. Sustainability Page
   const sust = await client.fetch('*[_id == "sustainabilityPage"][0]');
@@ -84,14 +83,16 @@ async function main() {
   // 7. Contact Page
   const contact = await client.fetch('*[_id == "contactPage"][0]');
   console.log('7. Contact Page (documentId: "contactPage")');
-  console.log(`   Hero Title: "${contact.hero?.title}" | Form Heading: "${contact.formSection?.heading}"`);
-  console.log(`   Direct Lines (${contact.directLines?.length}): ${contact.directLines?.map(d => `${d.title} (${d.phone})`).join(', ')}\n`);
+  console.log(`   Hero Title: "${contact.hero?.title}" | Subheading: "${contact.hero?.subheading}"`);
+  console.log(`   Phone: "${contact.contactInfo?.phone}" | Freephone: "${contact.contactInfo?.freephone}" | Email: "${contact.contactInfo?.email}"`);
+  console.log(`   Address 1: "${contact.contactInfo?.address1?.address?.replace(/\n/g, ', ')}"`);
+  console.log(`   Form Heading: "${contact.formSection?.heading}"\n`);
 
   // 8. Request Collection Page
   const reqCol = await client.fetch('*[_id == "requestCollectionPage"][0]');
   console.log('8. Request Collection Page (documentId: "requestCollectionPage")');
-  console.log(`   Hero Title: "${reqCol.hero?.title}" | Description: "${reqCol.hero?.description?.slice(0, 60)}..."`);
-  console.log(`   SLA Guarantees (${reqCol.slaGuarantees?.length}): ${reqCol.slaGuarantees?.map(s => s.title).join(', ')}\n`);
+  console.log(`   Top Hero Heading: "${reqCol.hero?.topHeading}"`);
+  console.log(`   Booking Form Heading: "${reqCol.hero?.title}" | Description: "${reqCol.hero?.description?.slice(0, 60)}..."\n`);
 
   // 9. Operational Divisions (4)
   const divs = await client.fetch('*[_type == "division"] | order(order asc){ _id, title, "slug": slug.current, headline }');
@@ -149,6 +150,31 @@ async function main() {
   for (const st of stats) {
     console.log(`   • ${st.prefix}${st.value}${st.suffix} — ${st.label}`);
   }
+  console.log();
+
+  // 16. New Corporate Singletons
+  const leader = await client.fetch('*[_id == "leadershipPage"][0]');
+  console.log('16. Leadership Page (documentId: "leadershipPage")');
+  console.log(`   Meta Title: "${leader?.metaTitle}" | Hero Title: "${leader?.hero?.title}"`);
+  console.log(`   Leaders Count: ${leader?.leaders?.length || 0}\n`);
+
+  const globalPres = await client.fetch('*[_id == "globalPresencePage"][0]');
+  console.log('17. Global Presence Page (documentId: "globalPresencePage")');
+  console.log(`   Meta Title: "${globalPres?.metaTitle}" | Hero Title: "${globalPres?.hero?.title}"`);
+  console.log(`   Hubs Count: ${globalPres?.network?.hubs?.length || 0}\n`);
+
+  const culture = await client.fetch('*[_id == "peopleCulturePage"][0]');
+  console.log('18. People & Culture Page (documentId: "peopleCulturePage")');
+  console.log(`   Meta Title: "${culture?.metaTitle}" | Hero Title: "${culture?.hero?.title}"`);
+  console.log(`   Values Count: ${culture?.values?.length || 0}\n`);
+
+  const srvPage = await client.fetch('*[_id == "servicesPage"][0]');
+  console.log('19. Services Index Page (documentId: "servicesPage")');
+  console.log(`   Meta Title: "${srvPage?.metaTitle || 'Default'}" | Hero Heading: "${srvPage?.hero?.heading || srvPage?.hero?.title || 'Default'}"\n`);
+
+  const secPage = await client.fetch('*[_id == "sectorsPage"][0]');
+  console.log('20. Sectors Index Page (documentId: "sectorsPage")');
+  console.log(`   Meta Title: "${secPage?.metaTitle || 'Default'}" | Hero Heading: "${secPage?.hero?.heading || secPage?.hero?.title || 'Default'}"\n`);
 }
 
 main().catch(console.error);
