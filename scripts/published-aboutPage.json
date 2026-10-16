@@ -1,0 +1,158 @@
+{
+  "_createdAt": "2026-09-11T19:54:54Z",
+  "_id": "aboutPage",
+  "_rev": "NyG03ViBUHEzKjPoe8li46",
+  "_system": {
+    "base": {
+      "id": "aboutPage",
+      "rev": "hlh1vcrzg3ToE6vxAfiHxG"
+    }
+  },
+  "_type": "aboutPage",
+  "_updatedAt": "2026-10-15T11:47:00Z",
+  "buildingHero": {
+    "_type": "object",
+    "imageAlt": "TechSteps secure IT disposal and recycling facility",
+    "imageUrl": "/images/about/building (1).webp"
+  },
+  "cleanerSmarter": {
+    "_type": "object",
+    "heading": "We are one of the UK’s leading providers of secure and confidential shredding services. With years of experience in the industry, we have built an extensive customer base spanning all industries, public sectors, and sizes of businesses across the country.",
+    "paragraphs": [
+      "We offer recycling and shredding for paper, plastics, textiles and digital media in highly secure environments so that you meet your data protection compliance requirements and can rest easy knowing that you are preventing fraud, identity and intellectual property theft with trusted experts.",
+      "We have a breadth of knowledge and experience in the secure destruction of confidential waste. Our team is friendly, knowledgeable, and always looking for ways to help you."
+    ],
+    "values": [
+      {
+        "_key": "v1",
+        "icon": "/images/about/Secure Handling.svg",
+        "title": "Secure Handling"
+      },
+      {
+        "_key": "v2",
+        "icon": "/images/about/Recover Value.svg",
+        "title": "Recover Value"
+      },
+      {
+        "_key": "v3",
+        "icon": "/images/about/Sustainable Impact.svg",
+        "title": "Sustainable Impact"
+      }
+    ]
+  },
+  "cta": {
+    "_type": "object",
+    "buttonLink": "/contact",
+    "buttonText": "Talk to Our Team",
+    "description": "Talk to our team about secure, sustainable and responsible IT asset management.",
+    "secondaryButtonLink": "/request-a-collection",
+    "secondaryButtonText": "Request a Collection",
+    "title": "Let's Build a More Responsible Technology Future"
+  },
+  "journey": {
+    "_type": "object",
+    "description": "What started as a vision to make IT disposal more responsible and secure has grown into a trusted service for businesses across the UK. Today, we continue to expand our impact, helping organisations turn retired technology into new opportunities.",
+    "heading": "From a Simple Idea to a Bigger Impact.",
+    "milestones": [
+      {
+        "_key": "j0",
+        "description": "With a vision for responsible IT disposal.",
+        "imageUrl": "/images/about/Founded.webp",
+        "step": 0,
+        "title": "Founded"
+      },
+      {
+        "_key": "j1",
+        "description": "Our recycling capabilities.",
+        "imageUrl": "/images/about/Expanded.webp",
+        "step": 1,
+        "title": "Expanded"
+      },
+      {
+        "_key": "j2",
+        "description": "With businesses across the UK.",
+        "imageUrl": "/images/about/Partnered.webp",
+        "step": 2,
+        "title": "Partnered"
+      },
+      {
+        "_key": "j3",
+        "description": "Long-term environmental and economic impact.",
+        "imageUrl": "/images/about/Driving.webp",
+        "step": 3,
+        "title": "Driving"
+      }
+    ]
+  },
+  "metaDescription": "TechSteps is an IT asset recovery and responsible recycling company. We partner with businesses to securely manage their retired technology.",
+  "metaTitle": "About Us — Techsteps",
+  "nationwideNetwork": {
+    "_type": "object",
+    "description": "Restore Datashred boasts a robust network spanning the entire UK. With strategically located facilities, we ensure efficient and timely service, no matter where your business is located. With our local reach, we can tailor a service plan to perfectly suit your volume and frequency of document shredding, while our national presence guarantees the security and compliance expertise you expect for any data disposal needs, from paper shredding to hard drive destruction.",
+    "heading": "Nationwide network, local expertise",
+    "imageAlt": "Hand holding recovered IT components and hardware",
+    "imageUrl": "/images/about/More Than Recycling. A Brighter Future. (1).webp"
+  },
+  "sustainabilityCommitment": {
+    "_type": "object",
+    "description": "Restore Datashred isn’t just about secure data destruction; we’re also passionate about protecting the environment. As a leading recycling business, we’re proud to work towards being Net Zero from our shredding activities by 2035 – a commitment our customers truly value. Furthermore, we are fully authorised by the Environment Agency to handle, transport, and recycle your company’s confidential materials. Choose Restore Datashred for peace of mind on both data security and environmental responsibility.",
+    "heading": "Committed to sustainability: 0% landfill shredding",
+    "imageAlt": "Hand holding plant seedling in soil",
+    "imageUrl": "/images/about/People. Planet. Progress. (1).webp",
+    "metrics": [
+      {
+        "_key": "m1",
+        "label": "Devices Processed",
+        "value": "100K+"
+      },
+      {
+        "_key": "m2",
+        "label": "Businesses Served",
+        "value": "500+"
+      },
+      {
+        "_key": "m3",
+        "label": "To Landfill (Recoverable)",
+        "value": "0%"
+      }
+    ]
+  },
+  "technologyPurpose": {
+    "_type": "object",
+    "description": "We give businesses a smarter way to manage their IT assets securely, responsibly, and sustainably.",
+    "heading": "Technology With a Purpose",
+    "imageAlt": "TechSteps technician wearing branded uniform",
+    "imageUrl": "/images/about/about hero.webp"
+  },
+  "trustAndImpact": {
+    "_type": "object",
+    "cards": [
+      {
+        "_key": "c1",
+        "imageAlt": "Security First: secure asset handling and compliance dashboard",
+        "imageUrl": "/images/about/Card 1_ Security First (Deep Forest Slate Theme).webp",
+        "title": "Security First"
+      },
+      {
+        "_key": "c2",
+        "imageAlt": "Environmental Responsibility: recycling and responsible material recovery dashboard",
+        "imageUrl": "/images/about/Card 2_ Environmental Responsibility (Emerald Green Theme).webp",
+        "title": "Environmental Responsibility"
+      },
+      {
+        "_key": "c3",
+        "imageAlt": "Customer Focus: transparency, service quality, and reliability dashboard",
+        "imageUrl": "/images/about/card 3.webp",
+        "title": "Customer Focus"
+      },
+      {
+        "_key": "c4",
+        "imageAlt": "Continuous Improvement: circular economy and performance metrics dashboard",
+        "imageUrl": "/images/about/card-4 Deep Forest Theme.webp",
+        "title": "Continuous Improvement"
+      }
+    ],
+    "description": "Our values guide everything we do — from how we handle your data and technology to the environmental impact of our operations.",
+    "heading": "Built on Trust. Driven by Impact."
+  }
+}

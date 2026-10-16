@@ -94,6 +94,57 @@ export default {
     { name: 'faqSubtitle', title: 'FAQ Subtitle', type: 'text', rows: 2 },
 
     {
+      name: 'deliversSection',
+      title: 'What the Service Delivers Section',
+      type: 'object',
+      fields: [
+        { name: 'title', title: 'Section Title', type: 'string', initialValue: 'What the Service Delivers for Your Business' },
+        { name: 'subtitle', title: 'Section Subtitle', type: 'text', rows: 2, initialValue: 'Consolidated risk reduction, streamlined operations, and certified documentation for total peace of mind.' },
+        {
+          name: 'benefits',
+          title: 'Deliverable Benefit Cards',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                { name: 'tag', title: 'Badge / Tag', type: 'string' },
+                { name: 'title', title: 'Title', type: 'string' },
+                { name: 'description', title: 'Description', type: 'text', rows: 2 },
+                { name: 'deliverable', title: 'Deliverable Note', type: 'string' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      name: 'securitySection',
+      title: 'Enterprise Security Section',
+      type: 'object',
+      fields: [
+        { name: 'title', title: 'Section Title', type: 'string', initialValue: 'Enterprise Security Built into Every Step' },
+        { name: 'subtitle', title: 'Section Subtitle', type: 'text', rows: 2, initialValue: 'Rigorous vetting, certified information governance, and unbroken chain of custody protecting your assets nationwide.' },
+        {
+          name: 'pillars',
+          title: 'Trust & Security Pillars',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                { name: 'number', title: 'Pillar Number (e.g. 01)', type: 'string' },
+                { name: 'title', title: 'Pillar Title', type: 'string' },
+                { name: 'description', title: 'Pillar Description', type: 'text', rows: 2 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    {
       name: 'keyBenefits',
       title: 'Key Benefits',
       type: 'array',

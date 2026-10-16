@@ -659,10 +659,10 @@ const serviceAboutImage =
           KEY ADVANTAGES
         </span>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-          What the Service Delivers for Your Business
+          {service.deliversSection?.heading || "What the Service Delivers for Your Business"}
         </h2>
         <p class="mt-3 text-base sm:text-lg lg:text-[19px] text-black leading-relaxed font-normal">
-          Consolidated risk reduction, streamlined operations, and certified documentation for total peace of mind.
+          {service.deliversSection?.description || "Consolidated risk reduction, streamlined operations, and certified documentation for total peace of mind."}
         </p>
       </div>
 
@@ -767,10 +767,10 @@ const serviceAboutImage =
           SECURITY & TRUST
         </span>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
-          Enterprise Security Built into Every Step
+          {service.securitySection?.heading || "Enterprise Security Built into Every Step"}
         </h2>
         <p class="mt-3 text-base sm:text-lg text-emerald-100/90 leading-relaxed font-sans font-normal max-w-2xl">
-          Rigorous vetting, certified information governance, and unbroken chain of custody protecting your assets nationwide.
+          {service.securitySection?.description || "Rigorous vetting, certified information governance, and unbroken chain of custody protecting your assets nationwide."}
         </p>
       </div>
 

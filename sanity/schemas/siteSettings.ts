@@ -32,8 +32,13 @@ export default defineType({
         defineField({ name: 'linkedin', title: 'LinkedIn URL', type: 'url' }),
         defineField({ name: 'twitter', title: 'X (Twitter) URL', type: 'url' }),
         defineField({ name: 'instagram', title: 'Instagram URL', type: 'url' }),
+        defineField({ name: 'facebook', title: 'Facebook URL', type: 'url' }),
       ],
     }),
+    defineField({ name: 'headerContactButtonText', title: 'Header Contact Button Text', type: 'string', initialValue: 'Contact Us' }),
+    defineField({ name: 'headerContactButtonLink', title: 'Header Contact Button Link', type: 'string', initialValue: '/contact' }),
+    defineField({ name: 'headerRequestButtonText', title: 'Header Request Button Text', type: 'string', initialValue: 'Request a Collection' }),
+    defineField({ name: 'headerRequestButtonLink', title: 'Header Request Button Link', type: 'string', initialValue: '/request-a-quote' }),
     defineField({ name: 'defaultMetaTitle', title: 'Default Meta Title', type: 'string' }),
     defineField({ name: 'defaultMetaDescription', title: 'Default Meta Description', type: 'text', rows: 3 }),
 

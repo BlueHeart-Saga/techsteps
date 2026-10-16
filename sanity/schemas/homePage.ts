@@ -75,6 +75,34 @@ export default defineType({
                     title: 'Button Link',
                     type: 'string',
                 }),
+
+                defineField({
+                    name: 'secondaryButtonText',
+                    title: 'Secondary Button Text',
+                    type: 'string',
+                    initialValue: 'Contact Us',
+                }),
+
+                defineField({
+                    name: 'secondaryButtonLink',
+                    title: 'Secondary Button Link',
+                    type: 'string',
+                    initialValue: '/contact',
+                }),
+
+                defineField({
+                    name: 'bgImageUrl',
+                    title: 'Hero Desktop Background Image URL',
+                    type: 'string',
+                    initialValue: '/images/brand/hero section.webp',
+                }),
+
+                defineField({
+                    name: 'mobileWorkerImageUrl',
+                    title: 'Hero Mobile Worker Image URL',
+                    type: 'string',
+                    initialValue: '/images/brand/hero-worker-mobile.webp',
+                }),
             ],
         }),
 

@@ -24,6 +24,11 @@ export default defineType({
         defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string', initialValue: 'SUSTAINABILITY & ESG' }),
         defineField({ name: 'title', title: 'Title', type: 'string', initialValue: 'A Smarter Lifecycle for Every Asset.' }),
         defineField({ name: 'subheading', title: 'Subheading', type: 'text', rows: 3 }),
+        defineField({ name: 'buttonText', title: 'Primary Button Text', type: 'string', initialValue: 'Explore Our Approach' }),
+        defineField({ name: 'buttonLink', title: 'Primary Button Link', type: 'string', initialValue: '#our-approach' }),
+        defineField({ name: 'secondaryButtonText', title: 'Secondary Button Text', type: 'string', initialValue: 'Contact Our Team' }),
+        defineField({ name: 'secondaryButtonLink', title: 'Secondary Button Link', type: 'string', initialValue: '/contact' }),
+        defineField({ name: 'imageUrl', title: 'Hero Graphic URL', type: 'string', initialValue: '/images/sustainability/Sustainability hero.webp' }),
         defineField({ name: 'bgImage', title: 'Background Image', type: 'image', options: { hotspot: true } }),
       ],
     }),
@@ -128,6 +133,33 @@ export default defineType({
             defineField({ name: 'tag', title: 'Badge / Tag', type: 'string' }),
           ],
         },
+      ],
+    }),
+    defineField({
+      name: 'prioritisingLongevity',
+      title: 'Prioritising Longevity Section (Reuse Before Recycle)',
+      type: 'object',
+      fields: [
+        defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string', initialValue: 'PRIORITISING LONGEVITY' }),
+        defineField({ name: 'heading', title: 'Heading', type: 'string', initialValue: 'Reuse Before Recycle.' }),
+        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3, initialValue: 'Not every device needs to become waste. Where possible, we extend the life of technology, recover value and only recycle when it’s the right option.' }),
+        defineField({ name: 'imageUrl', title: 'Hardware Graphic URL', type: 'string', initialValue: '/images/sustainability/image.webp' }),
+        defineField({ name: 'imageAlt', title: 'Hardware Graphic Alt Text', type: 'string', initialValue: 'Enterprise IT Hardware Refurbishment and Remarketing Stack' }),
+        defineField({
+          name: 'steps',
+          title: 'Longevity Flow Steps',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'step', title: 'Step Identifier (e.g. 01 / REUSE)', type: 'string' }),
+                defineField({ name: 'title', title: 'Step Title', type: 'string' }),
+                defineField({ name: 'desc', title: 'Step Description', type: 'text', rows: 2 }),
+              ],
+            },
+          ],
+        }),
       ],
     }),
     defineField({

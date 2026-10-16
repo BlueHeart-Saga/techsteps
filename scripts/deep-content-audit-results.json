@@ -1,424 +1,3088 @@
-{
-  "Home": {
-    "docId": "homePage",
-    "fieldsChecked": {
-      "hero.heading": "GIVING TECHNOLOGY A SECOND LIFE",
-      "hero.eyebrow": "SUSTAINABLE IT RECYCLING",
-      "hero.description": "We responsibly recycle and remarket retired IT equipment, ensuring zero landfill and maximum value recovery.",
-      "intro.heading": "Secure ITAD Services in the UK",
-      "intro.description": "TechSteps provides a fully accredited IT disposal company framework designed for modern UK enterprises. We simplify the ITAD process by combining logistics with maximum security, helping you retire hardware without risk. From single-site pickups to complex IT asset disposal projects, our team ensures your redundant equipment is handled according to the highest environmental standards. By choosing our secure IT asset disposition services, you gain a partner dedicated to protecting your brand and achieving full GDPR compliance throughout the hardware lifecycle.",
-      "services.heading": "SOLUTIONS FOR THE COMPLETE BUSINESS LIFECYCLE",
-      "services.cards_count": 4,
-      "lifecycle.steps_count": 5,
-      "cta.heading": "Ready to manage your technology lifecycle more responsibly?"
-    }
-  },
-  "About Us": {
-    "docId": "aboutPage",
-    "fieldsChecked": {
-      "hero.eyebrow": "About Techsteps",
-      "whatWeDo.items_count": 3,
-      "approach.steps_count": 4,
-      "capabilities.items_count": 4,
-      "statistics_count": 4,
-      "metaTitle": "About Techsteps — Managing What Matters",
-      "metaDescription": "We look after the assets that carry the most risk when a business changes — data, records, equipment and premises. Handled securely, recorded end to end, and returned to value wherever it can be."
-    }
-  },
-  "Divisions": [
-    {
-      "id": "div-im",
-      "title": "Information Management",
-      "slug": "information-management",
-      "summary": "Climate-controlled physical document storage, accredited high-speed scanning, digital mailrooms, and secure media vaulting tailored for strict regulatory compliance.",
-      "headline": "Preserving, Digitising & Governing Corporate Information Lifecycles"
-    },
-    {
-      "id": "div-it",
-      "title": "IT Lifecycle Services & Destruction",
-      "slug": "it-lifecycle-services-destruction",
-      "summary": "End-to-end ITAD, tracked GPS logistics, verified data sanitisation (ADISA compliant), hardware refurbishment, and zero-landfill electronic recycling.",
-      "headline": "Secure IT Asset Disposition, Remarketing & High-Torque Destruction"
-    },
-    {
-      "id": "div-mv",
-      "title": "Moving & Relocation Services",
-      "slug": "moving-relocation-services",
-      "summary": "Specialist IT relocation, laboratory migration, delicate museum archives, commercial office moves, and turnkey logistics project management.",
-      "headline": "Mission-Critical Business, Data Centre & Heritage Relocations"
-    },
-    {
-      "id": "div-sh",
-      "title": "Secure Shredding & Document Integrity",
-      "slug": "secure-shredding-document-integrity",
-      "summary": "BS EN 15713 accredited mobile cross-cut shredding, secure consoles, product and prototype destruction, and commercial recycling streams.",
-      "headline": "Certified On-Site & Off-Site Destruction for Data Protection Compliance"
-    }
-  ],
-  "Services": {
-    "total": 27,
-    "list": [
+[
+  {
+    "file": "src/pages/404.astro",
+    "headings": [
       {
-        "id": "srv-business-relocations",
-        "title": "Business Relocations",
-        "slug": "business-relocations",
-        "summary": "Turnkey commercial office relocations, crate hire, weekend t",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
+        "tag": "h1",
+        "text": "Page Not Found"
       },
       {
-        "id": "srv-cardboard-recycling",
-        "title": "Cardboard Recycling",
-        "slug": "cardboard-recycling",
-        "summary": "Commercial baling, scheduled collections, and closed-loop pa",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-digital-mailroom",
-        "title": "Digital Mailroom",
-        "slug": "digital-mailroom",
-        "summary": "Inbound post intake, same-day scanning, intelligent classifi",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-disposal-services",
-        "title": "Disposal Services",
-        "slug": "disposal-services",
-        "summary": "Safe, ethical clearances of non-hazardous and specialized co",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-document-management",
-        "title": "Document Management",
-        "slug": "document-management",
-        "summary": "Enterprise document lifecycle strategies, retention scheduli",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-document-scanning",
-        "title": "Document Scanning",
-        "slug": "document-scanning",
-        "summary": "High-volume production optical digitization, automated OCR i",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-document-storage",
-        "title": "Document Storage",
-        "slug": "document-storage",
-        "summary": "Barcoded, climate-controlled off-site archive storage ensuri",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-dry-mixed-recycling",
-        "title": "Dry Mixed Recycling (DMR)",
-        "slug": "dry-mixed-recycling",
-        "summary": "Single-stream workplace recycling for clean paper, cardboard",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-europe-international-domestic-moves",
-        "title": "Europe & International Domestic Moves",
-        "slug": "europe-international-domestic-moves",
-        "summary": "Cross-border enterprise logistics, customs clearance documen",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-heritage-relocations-storage",
-        "title": "Heritage Relocations & Storage",
-        "slug": "heritage-relocations-storage",
-        "summary": "White-glove museum, gallery, and historic artifact transport",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-heritage-storage",
-        "title": "Heritage Storage",
-        "slug": "heritage-storage",
-        "summary": "Conservation-grade archival storage engineered for national ",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-home-shredding",
-        "title": "Home Shredding",
-        "slug": "home-shredding",
-        "summary": "Tamper-evident confidential waste postal sacks and doorstep ",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-it-asset-disposition-services",
-        "title": "IT Asset Disposition Services (ITAD)",
-        "slug": "it-asset-disposition-services",
-        "summary": "Comprehensive enterprise ITAD programs combining risk mitiga",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-it-asset-management-services",
-        "title": "IT Asset Management Services (ITAM)",
-        "slug": "it-asset-management-services",
-        "summary": "End-to-end hardware tracking, inventory reconciliation, buff",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-it-relocations-specialist",
-        "title": "IT Relocations Specialist",
-        "slug": "it-relocations-specialist",
-        "summary": "Data centre migrations, server rack de-installation, SAN sto",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-laboratory-relocations-storage",
-        "title": "Laboratory Relocations & Storage",
-        "slug": "laboratory-relocations-storage",
-        "summary": "Temperature-controlled specimen transit (-80°C to +4°C), act",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-off-site-shredding",
-        "title": "Off-Site Shredding",
-        "slug": "off-site-shredding",
-        "summary": "High-volume, cost-effective destruction at our secure high-c",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-on-site-shredding",
-        "title": "On-Site Shredding",
-        "slug": "on-site-shredding",
-        "summary": "Mobile industrial cross-cut shredding trucks destroying conf",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-product-shredding",
-        "title": "Product Shredding",
-        "slug": "product-shredding",
-        "summary": "Destruction of counterfeit goods, obsolete uniforms, branded",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-project-management",
-        "title": "Project Management",
-        "slug": "project-management",
-        "summary": "Dedicated PRINCE2 and PMP logistics directors overseeing com",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-remarketing-recycling",
-        "title": "Remarketing & Recycling",
-        "slug": "remarketing-recycling",
-        "summary": "Hardware refurbishment, component harvesting, certified prec",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-secure-collection-services",
-        "title": "Secure Collection Services",
-        "slug": "secure-collection-services",
-        "summary": "GPS-monitored secure transit vehicles, BS 7858 security-clea",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-secure-it-disposal",
-        "title": "Secure IT Disposal",
-        "slug": "secure-it-disposal",
-        "summary": "Certified IT asset disposal, full WEEE compliance, serialize",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-simpler-recycling-services",
-        "title": "Simpler Recycling Services",
-        "slug": "simpler-recycling-services",
-        "summary": "Turnkey workplace waste segregation solutions aligning with ",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-tape-media-storage",
-        "title": "Tape & Media Storage",
-        "slug": "tape-media-storage",
-        "summary": "Specialist vaulting and scheduled rotational transit for mag",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-ultra-secure-hard-drive-destruction",
-        "title": "Ultra Secure Hard Drive Destruction",
-        "slug": "ultra-secure-hard-drive-destruction",
-        "summary": "On-site mobile high-torque shredding down to 6mm particles, ",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
-      },
-      {
-        "id": "srv-vault-storage",
-        "title": "Vault Storage",
-        "slug": "vault-storage",
-        "summary": "Maximum-security biometric vaults designed for high-value in",
-        "hasBenefits": true,
-        "hasProcess": true,
-        "hasFaqs": true
+        "tag": "h3",
+        "text": "Jump Directly to Our Operational Divisions:"
       }
-    ]
-  },
-  "Sectors": {
-    "total": 8,
-    "list": [
+    ],
+    "paragraphs": [
       {
-        "id": "sec-central-government",
-        "title": "Central Government & Public Sector",
-        "slug": "central-government",
-        "tagline": "Crown Commercial Service Frameworks, Greening Government Commitments & National Archives",
-        "challenges_count": 3,
-        "solutions_count": 3
-      },
-      {
-        "id": "sec-defence",
-        "title": "Defence & Aerospace",
-        "slug": "defence",
-        "tagline": "JSP 440 Aligned Security, Vetted Logistics & On-Site Data Destruction",
-        "challenges_count": 3,
-        "solutions_count": 3
-      },
-      {
-        "id": "sec-education",
-        "title": "Education & Universities",
-        "slug": "education-universities",
-        "tagline": "Campus-Wide IT Refresh, Secure Student Data Purging & Research Archive Digitization",
-        "challenges_count": 3,
-        "solutions_count": 3
-      },
-      {
-        "id": "sec-finance",
-        "title": "Financial & Banking Institutions",
-        "slug": "finance",
-        "tagline": "FCA & PRA Aligned Governance, PCI-DSS Data Sanitisation & Trading Floor Relocations",
-        "challenges_count": 3,
-        "solutions_count": 3
-      },
-      {
-        "id": "sec-legal",
-        "title": "Legal & Professional Services",
-        "slug": "legal-professional-services",
-        "tagline": "SRA Aligned Confidentiality, BS 10008 Legal Scanning & Ultra-Secure Partner Hard Drive Destruction",
-        "challenges_count": 3,
-        "solutions_count": 3
-      },
-      {
-        "id": "sec-manufacturing",
-        "title": "Manufacturing & Engineering",
-        "slug": "manufacturing-engineering",
-        "tagline": "Protecting Proprietary CAD/CAM IP, Industrial Control ITAD & Clean Production Relocations",
-        "challenges_count": 3,
-        "solutions_count": 3
-      },
-      {
-        "id": "sec-nhs",
-        "title": "NHS & Healthcare Trusts",
-        "slug": "nhs",
-        "tagline": "Caldicott Aligned, BS 10008 Legal Scanning & Confidential Patient Record Protection",
-        "challenges_count": 3,
-        "solutions_count": 3
-      },
-      {
-        "id": "sec-technology",
-        "title": "IT & Technology",
-        "slug": "it-technology",
-        "tagline": "Hyperscale Data Centre Decommissioning, Zero-Landfill ITAD & Enterprise Server Remarketing",
-        "challenges_count": 3,
-        "solutions_count": 3
+        "text": "The resource you requested may have moved as part of our website rebuild, or the address may have been typed incorrectly."
       }
-    ]
+    ],
+    "buttons": [
+      {
+        "href": "/",
+        "text": "Return to Homepage"
+      },
+      {
+        "href": "/request-a-quote",
+        "text": "Request a Collection"
+      }
+    ],
+    "hardcodedArrays": []
   },
-  "Investors": {
-    "docId": "investorsPage",
-    "fieldsChecked": {
-      "hero.title": "Market leadership in essential lifecycle services.",
-      "hero.subheading": "Techsteps delivers vital business lifecycle services across document management, IT asset disposition, secure destruction, and commercial relocation.",
-      "stats_count": 4,
-      "strategicPillars_count": 3,
-      "irContact.name": "Investor Relations Desk"
-    }
+  {
+    "file": "src/pages/accessibility.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "1. Our Accessibility Commitment"
+      },
+      {
+        "tag": "h2",
+        "text": "2. Technical Specifications &amp; Features"
+      },
+      {
+        "tag": "h3",
+        "text": "A. Semantic Document Hierarchy"
+      },
+      {
+        "tag": "h3",
+        "text": "B. High Contrast Typography &amp; Scalability"
+      },
+      {
+        "tag": "h3",
+        "text": "C. Complete Keyboard Navigation &amp; Focus Indicators"
+      },
+      {
+        "tag": "h3",
+        "text": "D. Screen Reader Optimization &amp; ARIA Attributes"
+      },
+      {
+        "tag": "h2",
+        "text": "3. Assistive Technology Testing Environment"
+      },
+      {
+        "tag": "h2",
+        "text": "4. Known Limitations &amp; Continuous Improvement"
+      },
+      {
+        "tag": "h2",
+        "text": "5. Accessible Feedback &amp; Contact Channels"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "To fulfill this commitment, we adhere as strictly as possible to the World Wide Web Consortium’s (W3C) Web Content Accessibility Guidelines 2.1 (WCAG 2.1) at the <strong>Level AA</strong> success criteria. These guidelines explain how to make web content more usable and accessible for individuals with sensory, cognitive, and mobility impairments."
+      },
+      {
+        "text": "Accessibility is built directly into our design system and frontend implementation through the following core techniques:"
+      },
+      {
+        "text": "Every page features semantic HTML5 landmarks (<code class=\"text-xs font-mono\">&lt;header&gt;</code>, <code class=\"text-xs font-mono\">&lt;main&gt;</code>, <code class=\"text-xs font-mono\">&lt;nav&gt;</code>, <code class=\"text-xs font-mono\">&lt;section&gt;</code>, <code class=\"text-xs font-mono\">&lt;footer&gt;</code>), ensuring screen readers can navigate directly between major landmarks without obstruction. Only a single <code class=\"text-xs font-mono\">&lt;h1&gt;</code> is rendered per page."
+      },
+      {
+        "text": "Color palettes meet or exceed the required minimum contrast ratio of <strong>4.5:1</strong> for normal body text and <strong>3:1</strong> for large headings against their background. Typography dynamically scales up to 200% via standard browser zoom without truncation or horizontal scrolling loss."
+      },
+      {
+        "text": "All interactive elements—including mega menus, dropdown toggles, modal dialogues, tab filters, and quote calculation forms—are fully operable via standard keyboard (<kbd class=\"px-1.5 py-0.5 rounded bg-slate-100 border text-xs font-mono\">Tab</kbd>, <kbd class=\"px-1.5 py-0.5 rounded bg-slate-100 border text-xs font-mono\">Enter</kbd>, <kbd class=\"px-1.5 py-0.5 rounded bg-slate-100 border text-xs font-mono\">Space</kbd>, and arrow keys). Focus states feature high-visibility emerald focus rings."
+      },
+      {
+        "text": "Images feature descriptive alternative text (<code class=\"text-xs font-mono\">alt=\"...\"</code>) or are explicitly marked decorative (<code class=\"text-xs font-mono\">aria-hidden=\"true\"</code>). Complex interactive widgets utilize appropriate WAI-ARIA states (<code class=\"text-xs font-mono\">aria-expanded</code>, <code class=\"text-xs font-mono\">aria-controls</code>, <code class=\"text-xs font-mono\">role=\"region\"</code>)."
+      },
+      {
+        "text": "Our digital assets undergo routine accessibility auditing and manual validation using representative assistive technologies, including:"
+      },
+      {
+        "text": "While we strive for comprehensive accessibility across every digital asset, some older historical PDF archives or third-party mapping widgets may not yet fully conform to WCAG 2.1 AA standards. We are actively working to remediate these assets or provide accessible plain-text equivalents upon request."
+      },
+      {
+        "text": "We welcome your feedback on the accessibility of Techsteps. If you encounter accessibility barriers, require documentation in alternative formats (such as large print, accessible PDF, or plain text), or need assistance booking a service, please contact our Accessibility Officer:"
+      },
+      {
+        "text": "If you are not satisfied with how we respond to your complaint, you can contact the Equality Advisory and Support Service (EASS) at <a href=\"https://www.equalityadvisoryservice.com\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-emerald-700 underline\">equalityadvisoryservice.com</a>."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "mailto:accessibility@techsteps.co.uk",
+        "text": "accessibility@techsteps.co.uk"
+      },
+      {
+        "href": "https://www.equalityadvisoryservice.com",
+        "text": "equalityadvisoryservice.com"
+      }
+    ],
+    "hardcodedArrays": []
   },
-  "Sustainability": {
-    "docId": "sustainabilityPage",
-    "fieldsChecked": {
-      "hero.title": "A Smarter Lifecycle for Every Asset.",
-      "hero.subheading": "We help organisations extend the life of technology, recover value from IT assets and responsibly manage equipment that reaches the end of its useful life.",
-      "metrics_count": 4,
-      "approach.steps_count": 6,
-      "esgPillars_count": 2
-    }
+  {
+    "file": "src/pages/case-studies/index.astro",
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Verified Case Studies"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Explore how Techsteps resolves high-stakes compliance, data sanitisation, and migration challenges for enterprise and public sector organisations."
+      }
+    ],
+    "buttons": [],
+    "hardcodedArrays": []
   },
-  "Contact": {
-    "docId": "contactPage",
-    "fieldsChecked": {
-      "hero.title": "Contact us",
-      "hero.subheading": "Techsteps is ready to provide the right solution according to your needs",
-      "formSection.heading": "Send us a message",
-      "directLines_count": 2
-    }
+  {
+    "file": "src/pages/case-studies/[slug].astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "The Challenge"
+      },
+      {
+        "tag": "h2",
+        "text": "Our Engineering Solution"
+      },
+      {
+        "tag": "h2",
+        "text": "Key Measurable Outcomes"
+      },
+      {
+        "tag": "h3",
+        "text": "Services Deployed in This Engagement:"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Documented Engagement &bull; Verified Deployment"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/case-studies",
+        "text": "&larr; Back to Case Studies"
+      },
+      {
+        "href": "/request-a-quote",
+        "text": "Scope a Similar Project"
+      }
+    ],
+    "hardcodedArrays": []
   },
-  "FAQ": {
-    "docId": "faqPage",
-    "fieldsChecked": {
-      "hero.title": "FREQUENTLY ASKED QUESTIONS",
-      "categories_count": 7,
-      "items_count": 25
-    }
+  {
+    "file": "src/pages/contact.astro",
+    "headings": [
+      {
+        "tag": "h3",
+        "text": "Address 1"
+      },
+      {
+        "tag": "h3",
+        "text": "Address 2"
+      },
+      {
+        "tag": "h3",
+        "text": "Email Us"
+      },
+      {
+        "tag": "h3",
+        "text": "Call Us"
+      },
+      {
+        "tag": "h4",
+        "text": "Follow our social media"
+      },
+      {
+        "tag": "h2",
+        "text": "Your Information. Handled Responsibly."
+      },
+      {
+        "tag": "h3",
+        "text": "SECURE"
+      },
+      {
+        "tag": "h3",
+        "text": "CONFIDENTIAL"
+      },
+      {
+        "tag": "h3",
+        "text": "ACCOUNTABLE"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Reach our UK sovereign headquarters or speak directly with our logistics dispatch and compliance teams."
+      },
+      {
+        "text": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 11a3 3 0 11-6 0 3 3 0 016 0z\" /> </svg> </div> <div class=\"space-y-1\"> <h3 class=\"text-lg sm:text-xl font-bold font-display text-slate-900 group-hover:text-[#146B5C] transition-colors tracking-tight\"> Address 1 </h3> <p class=\"text-sm sm:text-base lg:text-[16px] text-black font-medium leading-relaxed\"> Unit B, Roebuck road<br /> Hainault business park, IG6 3UF"
+      },
+      {
+        "text": "</svg> </div> <div class=\"space-y-1\"> <h3 class=\"text-lg sm:text-xl font-bold font-display text-slate-900 group-hover:text-[#146B5C] transition-colors tracking-tight\"> Address 2 </h3> <p class=\"text-sm sm:text-base lg:text-[16px] text-black font-medium leading-relaxed\"> Rickerscote Hall Ln, Stafford ST17 4HF"
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-xs sm:text-sm font-semibold font-mono tracking-widest text-[#146B5C] uppercase\"> SECURE </h3> <p class=\"text-base text-slate-800 font-semibold leading-relaxed\"> Your enquiry is handled responsibly."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-xs sm:text-sm font-semibold font-mono tracking-widest text-[#146B5C] uppercase\"> CONFIDENTIAL </h3> <p class=\"text-base text-slate-800 font-semibold leading-relaxed\"> Project information is treated appropriately."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-xs sm:text-sm font-semibold font-mono tracking-widest text-[#146B5C] uppercase\"> ACCOUNTABLE </h3> <p class=\"text-base text-slate-800 font-semibold leading-relaxed\"> Clear communication from enquiry to delivery."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "tel:08000834700",
+        "text": "0800 083 4700"
+      }
+    ],
+    "hardcodedArrays": []
   },
-  "SiteSettings": {
-    "docId": "siteSettings",
-    "fieldsChecked": {
-      "companyName": "Techsteps",
-      "phone": "+44 (0) 20 7946 0888",
-      "email": "enquiries@techsteps.co.uk",
-      "mainNav_count": 5,
-      "footerServices_count": 5,
-      "footerSectors_count": 5,
-      "footerLegal_count": 7
-    }
+  {
+    "file": "src/pages/cookie-policy.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "1. What Are Cookies?"
+      },
+      {
+        "tag": "h2",
+        "text": "2. Cookie Categories We Deploy"
+      },
+      {
+        "tag": "h3",
+        "text": "A. Strictly Necessary / Essential Cookies"
+      },
+      {
+        "tag": "h3",
+        "text": "B. Preference &amp; Functionality Cookies"
+      },
+      {
+        "tag": "h3",
+        "text": "C. Privacy-Conscious Performance &amp; Analytics Cookies"
+      },
+      {
+        "tag": "h2",
+        "text": "3. Detailed Cookie Inventory Table"
+      },
+      {
+        "tag": "h2",
+        "text": "4. Managing &amp; Disabling Cookies"
+      },
+      {
+        "tag": "h2",
+        "text": "5. Updates to This Cookie Policy"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Cookies are small alphanumeric text files stored directly in your web browser or local device storage when you visit websites. They enable digital platforms to identify your browser, remember session states (such as active quote requests and navigation preferences), and generate aggregate performance analytics."
+      },
+      {
+        "text": "Under the Privacy and Electronic Communications Regulations (PECR) and the UK GDPR, we are legally required to inform you regarding the cookies we deploy, their functional purpose, and obtain your explicit consent for any non-essential technologies."
+      },
+      {
+        "text": "Our digital architecture strictly minimizes tracking. We categorize cookies into three clear operational classifications:"
+      },
+      {
+        "text": "Essential cookies are technically required for core website functionality, security, network routing, and accessibility. They allow you to navigate pages securely, submit interactive quote request forms, verify anti-CSRF tokens, and save your legal consent choices. You cannot disable these cookies in our settings without impairing website security."
+      },
+      {
+        "text": "These cookies enable our website to remember choices you make (such as your chosen division or preferred quote contact method) and provide enhanced, personalized navigational efficiency across visits."
+      },
+      {
+        "text": "We use privacy-respecting aggregated analytics to assess website traffic patterns, popular service pages, and system load times. All telemetry is aggregated and anonymized; we do not build cross-site behavioural profiles, monetize browsing data, or sell data to third-party advertising brokers."
+      },
+      {
+        "text": "You maintain full autonomy over the storage of cookies on your device:"
+      },
+      {
+        "text": "We review our cookie inventory annually or upon deploying new digital client services. Any updates will be published on this page with an updated revision date."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "mailto:privacy@techsteps.co.uk",
+        "text": "privacy@techsteps.co.uk"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/environmental-policy.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "1. Environmental Commitment &amp; Vision"
+      },
+      {
+        "tag": "h2",
+        "text": "2. The Circular Waste Hierarchy Framework"
+      },
+      {
+        "tag": "h3",
+        "text": "Prevention &amp; Asset Life Extension"
+      },
+      {
+        "tag": "h3",
+        "text": "Direct Hardware Reuse &amp; Remarketing"
+      },
+      {
+        "tag": "h3",
+        "text": "Component Harvesting &amp; Secondary Refining"
+      },
+      {
+        "tag": "h3",
+        "text": "Zero Direct to Landfill Guarantee"
+      },
+      {
+        "tag": "h2",
+        "text": "3. Regulatory Compliance: WEEE &amp; Simpler Recycling"
+      },
+      {
+        "tag": "h2",
+        "text": "4. Scope 1, 2, and 3 Carbon Reduction Targets"
+      },
+      {
+        "tag": "h2",
+        "text": "5. Environmental Governance &amp; Auditing"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "We operate a formal Environmental Management System (EMS) certified to <strong>ISO 14001:2015</strong>, ensuring systematic compliance with environmental legislation and continuous operational improvement across all corporate operations."
+      },
+      {
+        "text": "Techsteps strictly enforces the UK Waste Hierarchy established under Regulation 12 of the Waste (England and Wales) Regulations 2011:"
+      },
+      {
+        "text": "Assisting enterprise clients with component maintenance, firmware upgrades, and warranty repairs to extend hardware lifespans before considering retirement."
+      },
+      {
+        "text": "Fully sanitised laptops, servers, and networking gear are refurbished and remarketed into legitimate secondary markets, preserving up to 80% of the hardware’s embodied carbon footprint."
+      },
+      {
+        "text": "Irreparable hardware is disassembled down to base fractions (printed circuit boards, copper heat pipes, aluminium chassis, rare-earth magnets) for domestic secondary raw material smelting."
+      },
+      {
+        "text": "100% of material collected by Techsteps is diverted from landfill. Unusable non-metallic residues are directed to certified high-efficiency Energy from Waste (EfW) facilities."
+      },
+      {
+        "text": "We operate in strict conformity with all statutory UK environmental directives:"
+      },
+      {
+        "text": "We have established science-based decarbonisation targets targeting Net Zero operational emissions by 2035:"
+      },
+      {
+        "text": "100% Euro 6 clean diesel fleet with phased transition to electric collection vans by 2028."
+      },
+      {
+        "text": "Certified renewable electricity powering all archival vaults and processing centres."
+      },
+      {
+        "text": "Delivering verified Scope 3 GHG avoidance certificates for every refurbished client asset."
+      },
+      {
+        "text": "Our Environmental Policy is reviewed annually by our Executive Leadership Team and audited bi-annually by UKAS-accredited certification bodies."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "mailto:sustainability@techsteps.co.uk",
+        "text": "sustainability@techsteps.co.uk"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/faq.astro",
+    "headings": [
+      {
+        "tag": "h3",
+        "text": "Categories"
+      },
+      {
+        "tag": "h3",
+        "text": "No matching questions found"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg font-semibold text-slate-900\">No matching questions found</h3> <p class=\"text-base text-black max-w-md mx-auto\"> We couldn't find any questions matching your search keywords. Try searching for broader terms like \"data\", \"shredding\", \"retrieval\", or \"ISO\"."
+      }
+    ],
+    "buttons": [],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/global-presence.astro",
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Global Presence"
+      },
+      {
+        "tag": "h2",
+        "text": "Connected Globally. <span class=\"text-[#0F623A] block\">Supporting Locally.</span>"
+      },
+      {
+        "tag": "h2",
+        "text": "Strategic International Hubs"
+      },
+      {
+        "tag": "h2",
+        "text": "India"
+      },
+      {
+        "tag": "h3",
+        "text": "TechSteps India Operations"
+      },
+      {
+        "tag": "h2",
+        "text": "United Kingdom"
+      },
+      {
+        "tag": "h3",
+        "text": "Address 1 · Hainault Facility (Head Office & Hub)"
+      },
+      {
+        "tag": "h3",
+        "text": "Address 2 · Stafford Facility"
+      },
+      {
+        "tag": "h2",
+        "text": "United States"
+      },
+      {
+        "tag": "h3",
+        "text": "TechSteps US Partner Facility & Regional Liaison"
+      },
+      {
+        "tag": "h2",
+        "text": "One Global Approach. Local Expertise."
+      },
+      {
+        "tag": "h3",
+        "text": "Unbroken Custody"
+      },
+      {
+        "tag": "h3",
+        "text": "Zero Landfill"
+      },
+      {
+        "tag": "h3",
+        "text": "Defensible Audit"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Supporting organisations across key markets with secure, responsible and sustainable technology asset management."
+      },
+      {
+        "text": "TechSteps brings together international reach with local expertise, helping organisations securely manage, recover and responsibly recycle their technology assets across key markets."
+      },
+      {
+        "text": "From high-density corporate data centres to nationwide corporate branch networks, we combine rigorous compliance governance with certified physical chain-of-custody protocols—ensuring data confidentiality and certified zero-landfill diversion across every border."
+      },
+      {
+        "text": "Key Global Hubs"
+      },
+      {
+        "text": "UK · India · USA"
+      },
+      {
+        "text": "Chain of Custody"
+      },
+      {
+        "text": "Audited transit manifests"
+      },
+      {
+        "text": "Landfill Diversion"
+      },
+      {
+        "text": "Circular economy compliance"
+      },
+      {
+        "text": "Delivering seamless technology lifecycle assurance across the United Kingdom, India, and the United States."
+      },
+      {
+        "text": "Working in coordination with our UK sovereign processing facilities, the India hub supports continuous asset tracking workflows, administrative compliance registers, and seamless client assistance for multinational organisations."
+      },
+      {
+        "text": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 11a3 3 0 11-6 0 3 3 0 016 0z\" /> </svg> </div> <div class=\"space-y-1\"> <h3 class=\"text-base sm:text-lg font-bold font-display text-slate-900\"> TechSteps India Operations </h3> <p class=\"text-sm sm:text-base text-slate-600 leading-relaxed font-sans\"> Regional Technology Support & Global Coordination Hub"
+      },
+      {
+        "text": "</svg> <span>24/7 Global Asset Tracking</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>International Liaison Desk</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Multi-Timezone Coverage</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Centralized Data Integrity</span> </li> </ul> </div> <div class=\"pt-4 flex items-center gap-4\"> <a href=\"/contact\" class=\"inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold rounded-xl shadow-sm hover:shadow-md transition-all duration-200\" > <span>Contact Regional Team</span> <span aria-hidden=\"true\">→</span> </a> </div> </div> </div> </Container> </section> <!-- ===================================================== LOCATION 2: UNITED KINGDOM (Information Left, Image Right) ====================================================== --> <section id=\"location-uk\" class=\"py-20 lg:py-28 bg-[#F8FAF9] border-b border-slate-200/80 scroll-mt-24\"> <Container> <div class=\"grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center\"> <!-- LEFT: Location Information --> <div class=\"lg:col-span-6 space-y-6\"> <div class=\"inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono\"> 02 · GLOBAL HEADQUARTERS </div> <h2 class=\"text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-slate-900 tracking-tight leading-tight\"> United Kingdom </h2> <p class=\"text-base sm:text-lg text-slate-700 leading-relaxed font-sans text-justify\"> The sovereign operational core of TechSteps. From our audited headquarters and high-security regional facilities in Hainault and Stafford, we direct nationwide collections, ADISA-certified sanitisation, and accredited zero-landfill electronic recycling."
+      },
+      {
+        "text": "Our United States presence facilitates multinational corporate relocations, cross-border technology disposition, and unified governance for transatlantic enterprise organisations."
+      },
+      {
+        "text": "By aligning North American corporate operations with TechSteps’ UK sovereign security standards, we provide enterprise clients with unbroken physical custody, consistent environmental accounting, and unified data protection governance across the Atlantic."
+      },
+      {
+        "text": "</svg> </div> <div class=\"space-y-1\"> <h3 class=\"text-base sm:text-lg font-bold font-display text-slate-900\"> TechSteps US Partner Facility & Regional Liaison </h3> <p class=\"text-sm sm:text-base text-slate-600 leading-relaxed font-sans\"> Transatlantic Corporate Operations & Asset Disposition Liaison"
+      },
+      {
+        "text": "</svg> <span>Transatlantic Asset Relocation</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Unified Scope 3 Carbon Reporting</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Standardized Asset Registers</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Enterprise Account Coordination</span> </li> </ul> </div> <div class=\"pt-4 flex items-center gap-4\"> <a href=\"/contact\" class=\"inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold rounded-xl shadow-sm hover:shadow-md transition-all duration-200\" > <span>Inquire About US Services</span> <span aria-hidden=\"true\">→</span> </a> </div> </div> </div> </Container> </section> <!-- ===================================================== 5. BRANDED GLOBAL STATEMENT ====================================================== --> <section class=\"py-20 lg:py-28 bg-[#0A331E] relative overflow-hidden text-white border-b border-emerald-950\"> <!-- Ambient Depth & Watermark --> <div class=\"absolute inset-0 bg-gradient-to-br from-[#136b41]/30 via-transparent to-[#072415]/60 pointer-events-none\"></div> <img src=\"/images/brand/cta-watermark-alpha.png\" alt=\"\" aria-hidden=\"true\" class=\"absolute right-0 bottom-0 h-full w-auto max-w-[40%] object-contain object-right-bottom opacity-10 pointer-events-none select-none hidden lg:block\" /> <Container class=\"relative z-10\"> <div class=\"max-w-3xl mx-auto text-center space-y-6\"> <span class=\"text-xs font-mono font-bold tracking-widest text-[#3FB33D] uppercase block\"> OUR COMMITMENT </span> <h2 class=\"text-3xl sm:text-4xl lg:text-5xl font-bold font-display tracking-tight text-white leading-tight\"> One Global Approach. Local Expertise. </h2> <p class=\"text-lg sm:text-xl lg:text-[22px] text-emerald-100/90 leading-relaxed font-sans max-w-2xl mx-auto font-normal\"> Across every market, our approach remains the same: protect what matters, recover what has value and manage technology responsibly."
+      },
+      {
+        "text": "BS 7858 vetted personnel, tamper-evident seals, and satellite telematics tracking on every consignment."
+      },
+      {
+        "text": "Environment Agency licensed recycling pathways ensuring 100% electronic component diversion and ethical recovery."
+      },
+      {
+        "text": "ISO 27001, ADISA 8.0 and UK GDPR compliance documentation and certificates generated automatically."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/",
+        "text": "Home"
+      },
+      {
+        "href": "/about-us",
+        "text": "About Us"
+      },
+      {
+        "href": "#location-uk",
+        "text": "<span class=\"relative flex h-5 w-5 items-center justify-center\"> <span class=\"animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3FB33D] opacity-75\"></span> <span class=\"relative inline-flex rounded-full h-3.5 w-3.5 bg-[#3FB33D] border-2 border-white shadow-md\"></span> </span> <span class=\"mt-1.5 px-2.5 py-0.5 rounded-full bg-black/75 backdrop-blur-sm border border-emerald-400/40 text-[11px] sm:text-xs font-bold text-white shadow-sm transition-transform group-hover:scale-105 whitespace-nowrap\"> United Kingdom (HQ) </span>"
+      },
+      {
+        "href": "#location-india",
+        "text": "<span class=\"relative flex h-5 w-5 items-center justify-center\"> <span class=\"animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3FB33D] opacity-75\"></span> <span class=\"relative inline-flex rounded-full h-3.5 w-3.5 bg-[#3FB33D] border-2 border-white shadow-md\"></span> </span> <span class=\"mt-1.5 px-2.5 py-0.5 rounded-full bg-black/75 backdrop-blur-sm border border-emerald-400/40 text-[11px] sm:text-xs font-bold text-white shadow-sm transition-transform group-hover:scale-105 whitespace-nowrap\"> India </span>"
+      },
+      {
+        "href": "#location-usa",
+        "text": "<span class=\"relative flex h-5 w-5 items-center justify-center\"> <span class=\"animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3FB33D] opacity-75\"></span> <span class=\"relative inline-flex rounded-full h-3.5 w-3.5 bg-[#3FB33D] border-2 border-white shadow-md\"></span> </span> <span class=\"mt-1.5 px-2.5 py-0.5 rounded-full bg-black/75 backdrop-blur-sm border border-emerald-400/40 text-[11px] sm:text-xs font-bold text-white shadow-sm transition-transform group-hover:scale-105 whitespace-nowrap\"> United States </span>"
+      },
+      {
+        "href": "#location-india",
+        "text": "1. India →"
+      },
+      {
+        "href": "#location-uk",
+        "text": "2. United Kingdom (HQ) →"
+      },
+      {
+        "href": "#location-usa",
+        "text": "3. United States →"
+      },
+      {
+        "href": "/contact",
+        "text": "<span>Contact Regional Team</span> <span aria-hidden=\"true\">→</span>"
+      },
+      {
+        "href": "/request-a-collection",
+        "text": "<span>Request a Collection</span> <span aria-hidden=\"true\">→</span>"
+      },
+      {
+        "href": "/contact",
+        "text": "Contact Headquarters"
+      },
+      {
+        "href": "/contact",
+        "text": "<span>Inquire About US Services</span> <span aria-hidden=\"true\">→</span>"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/index.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Waste Solutions For Brighter Tomorrow"
+      },
+      {
+        "tag": "h2",
+        "text": "Expert Help Every Step of the Way"
+      },
+      {
+        "tag": "h4",
+        "text": "Tailored Governance"
+      },
+      {
+        "tag": "h4",
+        "text": "Rapid Dispatch SLA"
+      },
+      {
+        "tag": "h3",
+        "text": "Risk Assessment"
+      },
+      {
+        "tag": "h3",
+        "text": "Chain of Custody"
+      },
+      {
+        "tag": "h3",
+        "text": "Certified Processing"
+      },
+      {
+        "tag": "h3",
+        "text": "Defensible Closeout"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "We provide accredited waste management and sustainable IT disposal solutions. From collection to recycling, we ensure responsible disposal that protects your brand and the environment."
+      },
+      {
+        "text": "Navigating the intersection of UK GDPR, WEEE directives, Environment Agency permits, and operational relocations requires specialist competence. Techsteps pairs dedicated logistics directors with your IT, compliance, and facilities teams to eliminate operational blindspots."
+      },
+      {
+        "text": "Bespoke SLAs configured to your exact internal security classification mandates."
+      },
+      {
+        "text": "Nationwide tracked fleet capable of executing urgent emergency collections."
+      },
+      {
+        "text": "Full audit of hardware models, data sensitivities, and logistics access prior to scheduling."
+      },
+      {
+        "text": "Tamper-evident barcode seals applied on-site with dual signature verification."
+      },
+      {
+        "text": "ADISA Standard 8.0 sanitisation or DIN 66399 micro-granulation."
+      },
+      {
+        "text": "Itemized certificates of destruction and corporate ESG rebate returns."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/request-a-quote",
+        "text": "<span>Request a Collection</span>"
+      },
+      {
+        "href": "/about-us",
+        "text": "<span>Our Heritage &rarr;</span>"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/information-management.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Why Effective Information Management Matters"
+      },
+      {
+        "tag": "h3",
+        "text": "Protect Critical Information"
+      },
+      {
+        "tag": "h3",
+        "text": "Improve Information Access"
+      },
+      {
+        "tag": "h3",
+        "text": "Support Compliance"
+      },
+      {
+        "tag": "h3",
+        "text": "Reduce Storage Pressure"
+      },
+      {
+        "tag": "h2",
+        "text": "Our Information Management Process"
+      },
+      {
+        "tag": "h3",
+        "text": "Assess"
+      },
+      {
+        "tag": "h3",
+        "text": "Collect & Prepare"
+      },
+      {
+        "tag": "h3",
+        "text": "Store & Manage"
+      },
+      {
+        "tag": "h3",
+        "text": "Access & Retrieve"
+      },
+      {
+        "tag": "h2",
+        "text": "One Partner for Physical & Digital Information"
+      },
+      {
+        "tag": "h3",
+        "text": "Physical Information"
+      },
+      {
+        "tag": "h3",
+        "text": "Digital Information"
+      },
+      {
+        "tag": "h2",
+        "text": "Built for Regulated Organisations"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Every organisation holds information it cannot afford to lose: contracts, client files, employee records, backup media and historic collections. Information management is the discipline of keeping all of it under control, whether it sits in a box, on a tape or in a digital system."
+      },
+      {
+        "text": "We help UK businesses manage their records through three connected services: secure off-site document storage in purpose-built facilities, accredited document scanning to bring paperwork into digital workflows, and digital mailroom operations to process inbound post before it reaches an office."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Protect Critical Information </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Keep important business records secure and accessible."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Improve Information Access </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Find the information your teams need faster."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Support Compliance </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Maintain appropriate controls around sensitive and regulated information."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Reduce Storage Pressure </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Move physical records and media away from valuable office space."
+      },
+      {
+        "text": "A structured, secure end-to-end framework to audit, transition, safeguard and retrieve your organization's records."
+      },
+      {
+        "text": "Understand your information, storage requirements and business needs."
+      },
+      {
+        "text": "Securely collect, catalogue and prepare records or media."
+      },
+      {
+        "text": "Store information in the appropriate physical or digital environment."
+      },
+      {
+        "text": "Provide controlled access, retrieval and ongoing management when required."
+      },
+      {
+        "text": "Explore →"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/services",
+        "text": "Services"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/information-security-policy.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "1. Policy Objectives &amp; Executive Mandate"
+      },
+      {
+        "tag": "h2",
+        "text": "2. Security Accreditations &amp; Standards Matrix"
+      },
+      {
+        "tag": "h3",
+        "text": "ISO/IEC 27001:2022"
+      },
+      {
+        "tag": "h3",
+        "text": "ADISA Standard 8.0"
+      },
+      {
+        "tag": "h3",
+        "text": "Cyber Essentials Plus"
+      },
+      {
+        "tag": "h3",
+        "text": "BS 10012 &amp; BS 7858"
+      },
+      {
+        "tag": "h2",
+        "text": "3. Physical &amp; Environmental Protection Controls"
+      },
+      {
+        "tag": "h2",
+        "text": "4. Digital Media Sanitisation Protocols"
+      },
+      {
+        "tag": "h4",
+        "text": "A. NIST SP 800-88 Rev. 1 Guidelines for Media Sanitization"
+      },
+      {
+        "tag": "h4",
+        "text": "B. DIN 66399 High-Torque Physical Shredding"
+      },
+      {
+        "tag": "h4",
+        "text": "C. DIPCOG Certified Destruction for Defence Clients"
+      },
+      {
+        "tag": "h2",
+        "text": "5. Security Incident Management &amp; Breach Response"
+      },
+      {
+        "tag": "h2",
+        "text": "6. Information Security Governance Contact"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Our Information Security Management System (ISMS) is certified to <strong>ISO/IEC 27001:2022</strong> and validated through annual third-party UKAS audits. The objective of this policy is to safeguard the <strong>Confidentiality, Integrity, and Availability (CIA)</strong> of all client and corporate data under our custody."
+      },
+      {
+        "text": "We validate our operational security through continuous independent accreditations:"
+      },
+      {
+        "text": "Enterprise Information Security Management System covering all sites, transport fleets, and software infrastructure."
+      },
+      {
+        "text": "Asset Disposal &amp; Information Security Alliance standard governing chain of custody, data sanitisation, and forensic unannounced audits."
+      },
+      {
+        "text": "Technical vulnerability verification, endpoint hardening, firewall controls, and multi-factor authentication enforcement."
+      },
+      {
+        "text": "Personal Information Management Systems and mandatory security screening of 100% of staff prior to handling client records."
+      },
+      {
+        "text": "Client hardware and confidential archives are safeguarded within purpose-built, high-security facilities:"
+      },
+      {
+        "text": "Techsteps enforces strict technical specifications for digital media sanitisation:"
+      },
+      {
+        "text": "Executing Clear, Purge, and Destroy states utilizing cryptographically verified wiping software. Each serialized asset receives an immutable digital sanitisation certificate."
+      },
+      {
+        "text": "For failed or physically damaged drives, magnetic platter and flash memory disintegration is performed to DIN 66399 Level H-5 (&le; 320mm² particle size) or Level H-6 (&le; 10mm² particle size)."
+      },
+      {
+        "text": "Dedicated mobile and static destruction processes compliant with Defence Info-structure Protective Security Group (DIPCOG) and HMG Infosec Standard 5."
+      },
+      {
+        "text": "We maintain a documented Security Incident Response Plan aligned with ISO 27001 and UK GDPR requirements:"
+      },
+      {
+        "text": "For enterprise vendor risk assessments, third-party security audits, or security questionnaire requests, please contact our Chief Information Security Officer (CISO):"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "mailto:infosec@techsteps.co.uk",
+        "text": "infosec@techsteps.co.uk"
+      },
+      {
+        "href": "mailto:ciso@techsteps.co.uk",
+        "text": "ciso@techsteps.co.uk"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/insights/index.astro",
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "TechSteps Insights &amp; Research Hub - Ideas for a Smarter Technology Lifecycle"
+      },
+      {
+        "tag": "h2",
+        "text": "Latest Insights"
+      },
+      {
+        "tag": "h3",
+        "text": "No Insights Published Yet"
+      },
+      {
+        "tag": "h2",
+        "text": "Explore Our Insights"
+      },
+      {
+        "tag": "h2",
+        "text": "Stay Ahead of UK Compliance."
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Explore verified analysis on IT asset management, military-grade data sanitisation, BS 10008 document integrity, and circular ESG metrics."
+      },
+      {
+        "text": "</svg> </span> </div> </div> </div> </a> </Container> </section> )} <!-- ===== 4. ALL INSIGHTS GRID ===== --> <section id=\"all-insights\" class=\"bg-[#fafbf9] py-8 lg:py-10 border-t border-slate-200\"> <Container> <div class=\"flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4\"> <div> <span class=\"text-xs font-bold uppercase tracking-widest text-[#2D6A4F] block mb-2\"> Research &amp; Publications </span> <h2 class=\"text-3xl font-semibold text-slate-900\">Latest Insights</h2> <p class=\"text-sm text-slate-500 mt-1\"> Browse all certified analyses, whitepapers, and operational reports."
+      },
+      {
+        "text": "</svg> </span> </div> </div> </a> ))} </div> ) : ( <div class=\"max-w-xl mx-auto bg-white rounded-3xl p-10 border border-slate-200 text-center shadow-sm my-6\"> <div class=\"h-16 w-16 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex items-center justify-center mx-auto mb-5 text-[#2D6A4F]\"> <svg class=\"w-8 h-8\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z\" /> </svg> </div> <h3 class=\"text-xl font-semibold text-slate-900 mb-2\"> No Insights Published Yet </h3> <p class=\"text-base text-black mb-8 leading-relaxed\"> Our team is currently preparing verified case studies, compliance briefs, and whitepapers for TechSteps. Check back soon or contact our advisory team directly."
+      },
+      {
+        "text": "Dive into our verified industry research, client reviews, and environmental impact data."
+      },
+      {
+        "text": "Receive our quarterly digest covering ADISA audits, Scope 3 IT recycling metrics, and BS 10008 legal precedents directly to your inbox."
+      },
+      {
+        "text": "Zero spam. Unsubscribe at any time. Protected under UK GDPR."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/",
+        "text": "Home"
+      },
+      {
+        "href": "/contact",
+        "text": "Speak to Our Team"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/insights/[categorySlug]/index.astro",
+    "headings": [
+      {
+        "tag": "h3",
+        "text": "Publications Coming Soon"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Join UK IT directors, compliance officers, and sustainability heads receiving TechSteps quarterly reports."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/insights",
+        "text": "&larr; Back to All Insights"
+      },
+      {
+        "href": "/insights",
+        "text": "All Insights"
+      },
+      {
+        "href": "/insights",
+        "text": "Browse All Insights"
+      },
+      {
+        "href": "/contact",
+        "text": "Request Custom Whitepaper"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/insights/[categorySlug]/[postId].astro",
+    "headings": [
+      {
+        "tag": "h3",
+        "text": "Official Downloadable Documents"
+      },
+      {
+        "tag": "h4",
+        "text": "Discuss your enterprise ITAD &amp; storage sanitisation."
+      },
+      {
+        "tag": "h2",
+        "text": "Related Research &amp; Articles"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "</svg> </div> <p class=\"text-xs font-bold uppercase tracking-widest text-emerald-400 mb-2\"> TechSteps Verified Publication"
+      },
+      {
+        "text": "ADISA 8.0 &bull; BS 10008 &bull; Scope 3 ITAD"
+      },
+      {
+        "text": "</svg> </div> <div> <h3 class=\"text-base font-semibold text-slate-900\">Official Downloadable Documents</h3> <p class=\"text-xs text-slate-500\">Verified cryptographic whitepapers &amp; audit checklists"
+      },
+      {
+        "text": "Did you find this analysis helpful?"
+      },
+      {
+        "text": "Share your feedback or save it to your compliance records."
+      },
+      {
+        "text": "Specialising in ADISA standard compliance, chain of custody auditing, and zero-landfill electronic lifecycle strategies at TechSteps."
+      },
+      {
+        "text": "Connect directly with our certified technical assurance engineers to schedule an on-site audit."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/insights",
+        "text": "All Insights Hub &rarr;"
+      },
+      {
+        "href": "/contact",
+        "text": "Speak to Our Specialists &rarr;"
+      },
+      {
+        "href": "/insights",
+        "text": "All Insights &rarr;"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/insights/[slug].astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Key Takeaways"
+      },
+      {
+        "tag": "h2",
+        "text": "Related Insights"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Related Techsteps Services"
+      },
+      {
+        "text": "</svg> </a> ))} </div> </div> <!-- Back / Forward nav --> <div class=\"mt-12 pt-8 border-t border-slate-200 flex items-center justify-between\"> <a href=\"/insights\" class=\"inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-[#2D6A4F] transition-colors\" > <svg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" viewBox=\"0 0 24 24\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7 16l-4-4m0 0l4-4m-4 4h18\"/> </svg> All Insights </a> <a href=\"/request-a-quote\" class=\"inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm\" > Speak to Our Team → </a> </div> </div> <!-- Sidebar --> <aside class=\"hidden lg:block space-y-6 sticky top-24\"> <!-- Author card --> <div class=\"bg-[#f7f8f5] rounded-2xl p-6 border border-slate-200\"> <p class=\"text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4\">Written by"
+      },
+      {
+        "text": "Expert in information security and technology lifecycle compliance at Techsteps UK."
+      },
+      {
+        "text": "Article Details"
+      },
+      {
+        "text": "Need Expert Help?"
+      },
+      {
+        "text": "Talk to our team about how Techsteps can support your organisation."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/request-a-quote",
+        "text": "Speak to Our Team →"
+      },
+      {
+        "href": "/contact",
+        "text": "Get in Touch →"
+      },
+      {
+        "href": "/insights",
+        "text": "View all →"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/investors.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "We provide secure and sustainable business services for data, information, communications and assets."
+      },
+      {
+        "tag": "h2",
+        "text": "Techsteps plc has four businesses providing leading services in the management of data."
+      },
+      {
+        "tag": "h2",
+        "text": "Four Businesses,<br class=\"hidden sm:block\" /> One Techsteps plc"
+      },
+      {
+        "tag": "h2",
+        "text": "Restoring our World<br class=\"hidden sm:block\" /> <span class=\"text-[#0F623A]\">– Our ESG strategy</span>"
+      },
+      {
+        "tag": "h2",
+        "text": "Committed to Transparent Corporate Governance"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Techsteps plc has four businesses, who work together to offer organisations a holistic approach to the management of their data, information, communications and assets."
+      },
+      {
+        "text": "Techsteps plc maintains rigorous oversight of cyber risk, chain-of-custody security, health &amp; safety compliance, and environmental stewardship. For investor relations queries, financial disclosures, or governance mandates, please contact our corporate affairs team."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "#strategic-pillars",
+        "text": "Investment Strategy"
+      },
+      {
+        "href": "/contact",
+        "text": "<span>Get In Touch</span> <span class=\"ml-2\">&rarr;</span>"
+      },
+      {
+        "href": "/request-a-quote",
+        "text": "<span>Request a Collection</span>"
+      },
+      {
+        "href": "/contact",
+        "text": "<span>Get In Touch</span> <span class=\"ml-2\">&rarr;</span>"
+      },
+      {
+        "href": "/sustainability",
+        "text": "<span>Explore ESG &amp; Sustainability</span> <span class=\"ml-2\">&rarr;</span>"
+      },
+      {
+        "href": "/contact",
+        "text": "<span>Get In Touch</span>"
+      },
+      {
+        "href": "/contact",
+        "text": "Contact Investor Relations &rarr;"
+      },
+      {
+        "href": "/sustainability",
+        "text": "Review ESG Disclosures"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/it-lifecycle-services-destruction.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Why Proactive IT Lifecycle Management Matters"
+      },
+      {
+        "tag": "h3",
+        "text": "Eliminate Data Breach Risks"
+      },
+      {
+        "tag": "h3",
+        "text": "Recover Maximum Asset Value"
+      },
+      {
+        "tag": "h3",
+        "text": "Zero-Landfill Circular Economy"
+      },
+      {
+        "tag": "h3",
+        "text": "Auditable ESG Compliance"
+      },
+      {
+        "tag": "h2",
+        "text": "Our IT Lifecycle & Disposition Process"
+      },
+      {
+        "tag": "h3",
+        "text": "Collect & Secure"
+      },
+      {
+        "tag": "h3",
+        "text": "Audit & Ingest"
+      },
+      {
+        "tag": "h3",
+        "text": "Sanitise & Grade"
+      },
+      {
+        "tag": "h3",
+        "text": "Remarket or Recycle"
+      },
+      {
+        "tag": "h2",
+        "text": "One Partner for ITAD, Data Erasure & Circular Recycling"
+      },
+      {
+        "tag": "h3",
+        "text": "Asset Disposition & ITAM"
+      },
+      {
+        "tag": "h3",
+        "text": "Sanitisation & Circular Value"
+      },
+      {
+        "tag": "h2",
+        "text": "Built for Regulated Organisations"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "As enterprise technology rapidly evolves, organisations accumulate redundant workstations, servers, mobile devices, and data storage arrays. IT lifecycle management ensures every retired asset is handled with absolute security, audited transparency, and environmental accountability — protecting your sensitive data while driving sustainable circular economy outcomes."
+      },
+      {
+        "text": "From BS 7858 vetted collection in GPS-tracked vehicles to ADISA-certified data sanitisation and certified WEEE recycling, Techsteps provides an unbroken chain of custody. We maximise residual asset value through expert refurbishment and remarketing, while guaranteeing zero electronic waste reaches landfill."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Eliminate Data Breach Risks </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> ADISA-certified sanitisation ensures sensitive corporate data is permanently destroyed."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Recover Maximum Asset Value </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Expert refurbishment and global remarketing return residual revenue to your organisation."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Zero-Landfill Circular Economy </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> 100% compliant WEEE recycling ensures obsolete hardware is refined into secondary commodities."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Auditable ESG Compliance </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Detailed serialised asset reporting and certified destruction simplify regulatory disclosures."
+      },
+      {
+        "text": "A structured, secure end-to-end framework to collect, audit, sanitise and remarket or recycle technology assets."
+      },
+      {
+        "text": "GPS-tracked vehicles and vetted personnel collect hardware with full chain of custody."
+      },
+      {
+        "text": "Every unit is barcoded, scanned, and logged by serial number into our secure portal."
+      },
+      {
+        "text": "ADISA-certified data sanitisation and comprehensive hardware functionality grading."
+      },
+      {
+        "text": "Recover value through refurbishment or process end-of-life items via zero-landfill WEEE streams."
+      },
+      {
+        "text": "Explore →"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/services",
+        "text": "Services"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/leadership.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "People. Experience. Purpose."
+      },
+      {
+        "tag": "h2",
+        "text": "Experience That Moves Us Forward"
+      },
+      {
+        "tag": "h2",
+        "text": "Leading With Purpose"
+      },
+      {
+        "tag": "h3",
+        "text": "Security &amp; Governance"
+      },
+      {
+        "tag": "h3",
+        "text": "Lifecycle Value Recovery"
+      },
+      {
+        "tag": "h3",
+        "text": "Circular Sustainability"
+      },
+      {
+        "tag": "h2",
+        "text": "Building a Better Technology Lifecycle"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "At TechSteps, leadership is built around experience, responsibility and a clear commitment to helping organisations manage technology securely and sustainably."
+      },
+      {
+        "text": "Our team brings together the expertise needed to protect data, recover value from technology and support businesses through every stage of the IT asset lifecycle."
+      },
+      {
+        "text": "Our leadership team brings together experience, expertise and a shared commitment to responsible technology management."
+      },
+      {
+        "text": "</svg> <span class=\"underline-offset-4 group-hover:underline\">LinkedIn Profile</span> <svg class=\"w-3.5 h-3.5 text-slate-400 group-hover:text-[#0F623A] transition-transform duration-200 group-hover:translate-x-0.5\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M14 5l7 7m0 0l-7 7m7-7H3\" /> </svg> </a> </div> )} </div> </div> </article> ); })} </div> </div> </section> <!-- ======================================================== 4. SUPPORTING LEADERSHIP MESSAGE / GUIDING VALUES Integrated editorial presentation native to the visual rhythm (Replaces generic 3-card layout with clean editorial columns) ======================================================== --> <section class=\"bg-[#F8FAF9] py-20 sm:py-24 lg:py-28 border-t border-b border-slate-200/80\"> <div class=\"w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12\"> <!-- Section Lead Header --> <div class=\"max-w-3xl mb-14 sm:mb-16 lg:mb-20 text-left\"> <h2 class=\"text-3xl sm:text-4xl lg:text-[40px] font-semibold text-slate-900 tracking-tight font-display leading-[1.18]\"> Leading With Purpose </h2> <p class=\"mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-sans\"> The principles that guide our leadership team in delivering security, value recovery, and genuine environmental accountability."
+      },
+      {
+        "text": "Protecting information and ensuring technology assets are handled responsibly across every touchpoint."
+      },
+      {
+        "text": "Upholding uncompromised physical chain-of-custody, BS 7858 vetted personnel, and DIN 66399 / NIST 800-88 sanitisation protocols so client information remains secure at every stage."
+      },
+      {
+        "text": "Creating greater value from technology through reuse, refurbishment and responsible recovery."
+      },
+      {
+        "text": "Applying technical precision to test, refurbish, and remarket enterprise equipment, returning financial capital to client budgets while extending hardware lifecycles."
+      },
+      {
+        "text": "Helping businesses reduce electronic waste and support an auditable circular economy."
+      },
+      {
+        "text": "Operating under strict Environment Agency AATF licenses to divert 100% of non-reusable electronics from landfill and deliver measurable Scope 3 carbon reduction."
+      },
+      {
+        "text": "Building the next chapter of responsible technology."
+      },
+      {
+        "text": "Our leadership team is focused on building trusted partnerships, delivering responsible technology solutions and helping organisations create greater value from every stage of the IT asset lifecycle."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/",
+        "text": "Home"
+      },
+      {
+        "href": "/about-us",
+        "text": "About Us"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/modern-slavery-statement.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "1. Organizational Stance &amp; Policy Scope"
+      },
+      {
+        "tag": "h2",
+        "text": "2. Business Structure &amp; Supply Chain Overview"
+      },
+      {
+        "tag": "h2",
+        "text": "3. Strict Recruitment &amp; Employee Vetting Standards"
+      },
+      {
+        "tag": "h4",
+        "text": "Mandatory BS 7858 Screening"
+      },
+      {
+        "tag": "h4",
+        "text": "Real Living Wage Employer"
+      },
+      {
+        "tag": "h4",
+        "text": "Direct Employment Priority"
+      },
+      {
+        "tag": "h4",
+        "text": "Right to Work Verification"
+      },
+      {
+        "tag": "h2",
+        "text": "4. Downstream Supplier Due Diligence &amp; Audits"
+      },
+      {
+        "tag": "h2",
+        "text": "5. Whistleblowing &amp; Anonymous Reporting"
+      },
+      {
+        "tag": "h2",
+        "text": "6. Board Approval &amp; Executive Sign-Off"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Techsteps maintains a definitive zero-tolerance policy towards all forms of modern slavery, servitude, forced or compulsory labour, and human trafficking across our direct workforce, subcontracted logistics, and global material supply chains. We are firmly committed to acting ethically, transparently, and with integrity in all commercial transactions."
+      },
+      {
+        "text": "Techsteps operates nationwide across the United Kingdom, delivering mission-critical Information Management, IT Lifecycle Services &amp; Disposition (ITAD), Secure Destruction, and Commercial Relocations."
+      },
+      {
+        "text": "Our supply chain encompasses:"
+      },
+      {
+        "text": "Because our operatives handle confidential data-bearing hardware and government archives, we enforce the most rigorous employment screening in the UK industry:"
+      },
+      {
+        "text": "100% of employees undergo comprehensive 5-year employment verification, financial probity checks, and enhanced criminal record checks prior to commencing work."
+      },
+      {
+        "text": "We are committed to paying all employees at or above the independently calculated Real Living Wage, mitigating the financial vulnerability that can lead to worker exploitation."
+      },
+      {
+        "text": "We prioritize direct permanent employment contracts over agency temporary labour, ensuring transparent working conditions and statutory employment rights."
+      },
+      {
+        "text": "Robust physical and Home Office digital share-code right-to-work verification is conducted for every candidate without exception."
+      },
+      {
+        "text": "Given that the global electronics and precious metal refining sector can present inherent supply chain risks, Techsteps mitigates exposure through strict due diligence:"
+      },
+      {
+        "text": "Techsteps actively encourages all employees, agency contractors, and supply chain partners to report any suspicion of modern slavery, human exploitation, or unfair labor practices without fear of retaliation."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "mailto:whistleblowing@techsteps.co.uk",
+        "text": "whistleblowing@techsteps.co.uk"
+      },
+      {
+        "href": "https://www.modernslaveryhelpline.org",
+        "text": "modernslaveryhelpline.org"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/moving-relocation-services.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Why Specialist Relocation Expertise Matters"
+      },
+      {
+        "tag": "h3",
+        "text": "Zero Unplanned Downtime"
+      },
+      {
+        "tag": "h3",
+        "text": "Specialist Transit Protection"
+      },
+      {
+        "tag": "h3",
+        "text": "Turnkey Project Management"
+      },
+      {
+        "tag": "h3",
+        "text": "Total Chain of Custody"
+      },
+      {
+        "tag": "h2",
+        "text": "Our Relocation & Migration Process"
+      },
+      {
+        "tag": "h3",
+        "text": "Audit & Strategy"
+      },
+      {
+        "tag": "h3",
+        "text": "De-rack & Protect"
+      },
+      {
+        "tag": "h3",
+        "text": "Dedicated Transit"
+      },
+      {
+        "tag": "h3",
+        "text": "Re-install & Test"
+      },
+      {
+        "tag": "h2",
+        "text": "One Partner for Technology, Business & Specialist Relocations"
+      },
+      {
+        "tag": "h3",
+        "text": "IT & Technology Relocations"
+      },
+      {
+        "tag": "h3",
+        "text": "Specialist Logistics"
+      },
+      {
+        "tag": "h2",
+        "text": "Built for Regulated Organisations"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Relocating complex enterprise technology, specialized scientific laboratories, or historic cultural collections requires far more than conventional removals. It demands meticulous engineering, specialized protective packaging, air-ride suspension logistics, and seasoned project managers who understand the absolute value of uninterrupted business continuity."
+      },
+      {
+        "text": "Techsteps delivers complete end-to-end relocation solutions across the UK and internationally. From de-racking, cable-mapping, and re-commissioning high-density server racks to transporting temperature-sensitive laboratory reagents and priceless heritage archives, we execute every phase with pinpoint precision and full transit insurance."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Zero Unplanned Downtime </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Rigorous pre-move staging and weekend execution ensure your business is fully operational Monday morning."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Specialist Transit Protection </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Custom flight cases, anti-static wrapping, and air-ride fleet minimize shock, vibration, and thermal shifts."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Turnkey Project Management </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Dedicated single-point-of-contact project managers oversee timing, risk mitigation, and facilities."
+      },
+      {
+        "text": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 11a3 3 0 11-6 0 3 3 0 016 0z\" /> </svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Total Chain of Custody </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Itemized asset manifests, condition tagging, and GPS-monitored direct point-to-point transit."
+      },
+      {
+        "text": "A methodical 4-stage logistics protocol engineered to ensure flawless continuity and immediate operational sign-off."
+      },
+      {
+        "text": "Comprehensive site survey, rack mapping, power/cooling analysis, and contingency planning."
+      },
+      {
+        "text": "Port-by-port cable labelling, anti-static packaging, and custom padded flight cases."
+      },
+      {
+        "text": "Direct GPS-monitored vehicle transport with hydraulic tail-lifts and air-ride suspension."
+      },
+      {
+        "text": "Precision re-racking, structured patching, power-up testing, and final inventory sign-off."
+      },
+      {
+        "text": "Explore →"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/services",
+        "text": "Services"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/our-people-culture.astro",
+    "headings": [],
+    "paragraphs": [
+      {
+        "text": "All personnel security-cleared to BS7858 standards with full biometric audit tracking."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/",
+        "text": "Home"
+      },
+      {
+        "href": "/about-us",
+        "text": "About Us"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/privacy-policy.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "1. Introduction &amp; Data Controller"
+      },
+      {
+        "tag": "h2",
+        "text": "2. Categories of Information We Collect"
+      },
+      {
+        "tag": "h3",
+        "text": "A. Business Contact &amp; Account Data"
+      },
+      {
+        "tag": "h3",
+        "text": "B. Operational Logistics &amp; Site Access Information"
+      },
+      {
+        "tag": "h3",
+        "text": "C. Asset Tracking &amp; Chain-of-Custody Documentation"
+      },
+      {
+        "tag": "h3",
+        "text": "D. Technical &amp; Diagnostic Browsing Data"
+      },
+      {
+        "tag": "h2",
+        "text": "3. Lawful Bases for Processing Under UK GDPR"
+      },
+      {
+        "tag": "h2",
+        "text": "4. Data Security &amp; Protective Safeguards"
+      },
+      {
+        "tag": "h2",
+        "text": "5. Data Retention Schedules"
+      },
+      {
+        "tag": "h2",
+        "text": "6. Your Statutory Rights Under UK GDPR"
+      },
+      {
+        "tag": "h2",
+        "text": "7. Contacting the Data Protection Officer &amp; Escalations"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Depending on how you interact with Techsteps, we collect and process several categories of information:"
+      },
+      {
+        "text": "Full name, corporate email address, business telephone number, organizational title, company name, registered business number, and VAT registration identifiers."
+      },
+      {
+        "text": "Collection and delivery site addresses, building security contact details, site access permits, vehicle height/loading constraints, and visitor clearance data required for our BS 7858 security-screened operatives."
+      },
+      {
+        "text": "Hardware serial numbers, asset tag IDs, barcode records, Waste Transfer Notes (WTNs), Hazardous Waste Consignment Notes, and joint sign-off digital signatures."
+      },
+      {
+        "text": "IP addresses, browser type, operating system, page performance metrics, and consent logs collected via privacy-preserving telemetry without cross-site tracking."
+      },
+      {
+        "text": "In compliance with Article 6 of the UK GDPR, we only process personal information where a valid lawful basis applies:"
+      },
+      {
+        "text": "We deploy multi-layered organizational and technical controls aligned with our ISO 27001 and Cyber Essentials Plus accreditations:"
+      },
+      {
+        "text": "100% of staff undergo mandatory BS 7858 security screening and criminal record checks prior to handling client records."
+      },
+      {
+        "text": "Live GPS tracking, geo-fenced routes, and deadlocked solid-sided vehicles for all physical media transfers."
+      },
+      {
+        "text": "All digital systems utilize AES-256 encryption at rest and TLS 1.3 encryption in transit."
+      },
+      {
+        "text": "24/7 RedCare-monitored CCTV, biometric access airlocks, and dual-custody vault protocols."
+      },
+      {
+        "text": "We retain personal data strictly for as long as necessary to fulfill the purposes for which it was gathered and to satisfy UK statutory obligations:"
+      },
+      {
+        "text": "As an individual whose personal data is processed by Techsteps, you hold enforceable rights under UK data protection law:"
+      },
+      {
+        "text": "We respond to all verified statutory rights requests within one calendar month without charging a fee, as mandated by the UK GDPR."
+      },
+      {
+        "text": "To exercise your data protection rights, report an inquiry, or raise questions regarding our handling of your information, please contact our appointed Data Protection Officer:"
+      },
+      {
+        "text": "If you remain dissatisfied with our response, you maintain the right to lodge a formal complaint with the UK supervisory authority: Information Commissioner's Office (ICO), Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF (<a href=\"https://ico.org.uk\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-emerald-700 underline\">ico.org.uk</a>)."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "mailto:dpo@techsteps.co.uk",
+        "text": "dpo@techsteps.co.uk"
+      },
+      {
+        "href": "mailto:compliance@techsteps.co.uk",
+        "text": "compliance@techsteps.co.uk"
+      },
+      {
+        "href": "https://ico.org.uk",
+        "text": "ico.org.uk"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/request-a-quote.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Collection Request Received! Reference: <span id=\"booking-ref-number\" class=\"font-mono underline font-extrabold text-[#0F5A47]\"></span>"
+      },
+      {
+        "tag": "h2",
+        "text": "DEVICES &amp; IT ASSETS"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Our logistics team will review your quantities and contact you with a formal confirmation and collection window within two working days."
+      },
+      {
+        "text": "</svg> </div> </div> </div> <div class=\"space-y-1.5\"> <label for=\"collectionDate\" class=\"block text-xs sm:text-[13px] font-semibold text-slate-800\"> Preferred collection date </label> <input type=\"date\" id=\"collectionDate\" name=\"collectionDate\" placeholder=\"dd-mm-yyyy\" class=\"w-full bg-[#F1F3EE] border border-slate-200/90 rounded-lg px-4 py-3 text-slate-900 text-sm sm:text-base focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all font-sans\" /> </div> </div> <!-- Section: DEVICES & IT ASSETS --> <div class=\"pt-3\"> <h2 class=\"text-xs font-semibold uppercase tracking-[0.18em] text-[#0F623A] mb-4 font-sans\"> DEVICES &amp; IT ASSETS </h2> <div class=\"space-y-3.5\"> <!-- Laptops --> <div class=\"flex items-center gap-4\"> <input type=\"number\" min=\"0\" value=\"0\" id=\"device_laptops\" name=\"device_laptops\" class=\"w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans\" /> <label for=\"device_laptops\" class=\"font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none\"> Laptops </label> </div> <!-- Chromebooks --> <div class=\"flex items-center gap-4\"> <input type=\"number\" min=\"0\" value=\"0\" id=\"device_chromebooks\" name=\"device_chromebooks\" class=\"w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans\" /> <label for=\"device_chromebooks\" class=\"font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none\"> Chromebooks </label> </div> <!-- Tablets --> <div class=\"flex items-center gap-4\"> <input type=\"number\" min=\"0\" value=\"0\" id=\"device_tablets\" name=\"device_tablets\" class=\"w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans\" /> <label for=\"device_tablets\" class=\"font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none\"> Tablets </label> </div> <!-- IT Assets (Desktops, Servers, Networking) --> <div class=\"flex items-center gap-4\"> <input type=\"number\" min=\"0\" value=\"0\" id=\"device_it_assets\" name=\"device_it_assets\" class=\"w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans\" /> <label for=\"device_it_assets\" class=\"font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none\"> IT Assets (Desktops, Servers &amp; Networking) </label> </div> <!-- Chargers & Accessories --> <div class=\"flex items-center gap-4\"> <input type=\"number\" min=\"0\" value=\"0\" id=\"device_accessories\" name=\"device_accessories\" class=\"w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-lg text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans\" /> <label for=\"device_accessories\" class=\"font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none\"> Chargers &amp; accessories </label> </div> <!-- Other Assets with Text Input --> <div class=\"flex flex-col sm:flex-row sm:items-center gap-3 pt-1\"> <label for=\"device_other_text\" class=\"font-medium text-slate-800 text-sm sm:text-base cursor-pointer select-none shrink-0 w-20\"> Other </label> <input type=\"text\" id=\"device_other_text\" name=\"device_other_text\" placeholder=\"Enter other asset details (e.g. Monitors, Printers, Hard Drives, Racks...)\" class=\"w-full sm:flex-1 bg-[#F1F3EE] border border-slate-200/90 rounded-lg px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans\" /> </div> </div> </div> <!-- Section: Notes --> <div class=\"space-y-1.5 pt-3\"> <label for=\"notes\" class=\"block text-xs sm:text-[13px] font-semibold text-slate-800\"> Notes (damage, swollen batteries, access instructions) </label> <textarea id=\"notes\" name=\"notes\" rows=\"4\" placeholder=\"e.g. one laptop won't power on; building has a loading bay at the rear\" class=\"w-full bg-[#F1F3EE] border border-slate-200/90 rounded-lg px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all resize-y font-sans\" ></textarea> </div> <!-- Bottom Row: Disclaimer & Submit Button --> <div class=\"border-t border-dashed border-slate-200 pt-6 mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6\"> <p class=\"text-xs sm:text-[13px] text-slate-500 max-w-sm sm:max-w-md leading-relaxed font-normal font-sans\"> Your collection booking request will be securely transmitted directly to our UK operations desk for priority scheduling."
+      }
+    ],
+    "buttons": [],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/sectors/index.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Security Is Part of Every Lifecycle"
+      },
+      {
+        "tag": "h2",
+        "text": "Specialist Services for Your Requirements"
+      },
+      {
+        "tag": "h2",
+        "text": "Aligned with Us."
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Whatever your sector, our approach is built around three consistent principles."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/",
+        "text": "Home"
+      },
+      {
+        "href": "/service",
+        "text": "<span>Explore Services</span> <span>&rarr;</span>"
+      },
+      {
+        "href": "/contact",
+        "text": "<span>Contact Us</span>"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/sectors/[slug].astro",
+    "headings": [
+      {
+        "tag": "h3",
+        "text": "Enterprise Lifecycle Management in Action"
+      },
+      {
+        "tag": "h2",
+        "text": "Security Built into Every Step"
+      },
+      {
+        "tag": "h3",
+        "text": "Operational Security Controls"
+      },
+      {
+        "tag": "h3",
+        "text": "Governing Standards &amp; Chips"
+      },
+      {
+        "tag": "h4",
+        "text": "Verified Project Results"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Strict BS 7858 vetted personnel, biometric facility access, and tamper-evident container manifests."
+      },
+      {
+        "text": "Every procedure is executed under verified quality, security, and statutory data protection frameworks."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "#challenges-solutions",
+        "text": "<span>View Tailored Service Pathways ↓</span>"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/secure-shredding-document-integrity.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Why Certified Shredding & Destruction Matters"
+      },
+      {
+        "tag": "h3",
+        "text": "Ensure UK GDPR Compliance"
+      },
+      {
+        "tag": "h3",
+        "text": "Irreversible Shredding"
+      },
+      {
+        "tag": "h3",
+        "text": "100% Recycled Paper Stream"
+      },
+      {
+        "tag": "h3",
+        "text": "Auditable Certificates"
+      },
+      {
+        "tag": "h2",
+        "text": "Our Secure Destruction Process"
+      },
+      {
+        "tag": "h3",
+        "text": "Contain & Deposit"
+      },
+      {
+        "tag": "h3",
+        "text": "Vetted Collection"
+      },
+      {
+        "tag": "h3",
+        "text": "Certified Shredding"
+      },
+      {
+        "tag": "h3",
+        "text": "Certify & Recycle"
+      },
+      {
+        "tag": "h2",
+        "text": "One Partner for Document, Media & Commercial Shredding"
+      },
+      {
+        "tag": "h3",
+        "text": "Confidential Paper Shredding"
+      },
+      {
+        "tag": "h3",
+        "text": "Media, Products & Recycling"
+      },
+      {
+        "tag": "h2",
+        "text": "Built for Regulated Organisations"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Sensitive business intelligence, financial accounts, personnel records, and discarded hard drives represent severe security risks if disposed of through standard waste streams. Techsteps delivers certified, auditable destruction services that guarantee complete irreversible disposal of physical and digital records."
+      },
+      {
+        "text": "Whether you require scheduled locked consoles in corporate offices, bulk archive clearances, or mobile cross-cut shredding vehicles operating at your facility under direct observation, our BS 7858 vetted personnel provide an unbroken chain of custody. Every destruction event concludes with a formal Certificate of Destruction."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Ensure UK GDPR Compliance </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Comply strictly with Data Protection Act 2018 standards, eliminating privacy breach liabilities."
+      },
+      {
+        "text": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4 12h5m6 0h5M12 4v5m0 6v5\" /> </svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Irreversible Shredding </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> High-torque cross-cut shredders reduce papers, tapes, and hard drives to unrecoverable particles."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> 100% Recycled Paper Stream </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> 100% of shredded confidential paper is baled and recycled into secondary paper products in UK mills."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Auditable Certificates </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Tamper-evident locked consoles and formal Certificates of Destruction provide foolproof audit proof."
+      },
+      {
+        "text": "A secure, verifiable 4-step destruction framework engineered to maintain confidentiality from collection to final recycling."
+      },
+      {
+        "text": "Place confidential documents or digital media into tamper-proof locked office consoles or sacks."
+      },
+      {
+        "text": "BS 7858 security-cleared personnel collect and transfer materials under verified custody."
+      },
+      {
+        "text": "Mobile on-site shredder or secure facility cross-cuts material to BS EN 15713 standards."
+      },
+      {
+        "text": "Receive serialized Certificate of Destruction while shredded paper and metals are 100% recycled."
+      },
+      {
+        "text": "Explore →"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/services",
+        "text": "Services"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/services/index.astro",
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Services That Move<br class=\"hidden sm:inline\" /> Your Business<br class=\"hidden sm:inline\" /> Forward"
+      },
+      {
+        "tag": "h2",
+        "text": "The Right Expertise, All in One Place"
+      },
+      {
+        "tag": "h2",
+        "text": "From Physical Records to Digital Clarity"
+      },
+      {
+        "tag": "h2",
+        "text": "Give Technology a Responsible Next Chapter"
+      },
+      {
+        "tag": "h2",
+        "text": "Confidential Today. Securely Disposed Tomorrow."
+      },
+      {
+        "tag": "h2",
+        "text": "Every Move, Carefully Managed"
+      },
+      {
+        "tag": "h2",
+        "text": "More Than Individual Services. A Connected Approach."
+      },
+      {
+        "tag": "h2",
+        "text": "Built Around What Matters to Your Business"
+      },
+      {
+        "tag": "h2",
+        "text": "Solutions for Complex Business Environments"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Explore practical, secure, and responsible solutions for managing institutional information, technology assets, and mission-critical business operations throughout their lifecycle."
+      },
+      {
+        "text": "From physical documents to end-of-life technology, our services help businesses manage essential assets with greater control, security, and efficiency."
+      },
+      {
+        "text": "Keep business information organised, accessible and protected through high-security document warehousing, scanning, digital mailroom automation, and enterprise document management systems."
+      },
+      {
+        "text": "</svg> </span> <span>BS 10008 Evidential Weight Certification</span> </div> <br class=\"hidden sm:inline\" /> <div class=\"inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium\"> <span class=\"w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0\" aria-hidden=\"true\"> <svg class=\"w-2.5 h-2.5\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"3\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5 13l4 4L19 7\" /> </svg> </span> <span>Deep-Tier Secure Climate-Controlled Warehousing</span> </div> </div> <!-- CTA Button --> <div class=\"pt-3\"> <a href=\"/services/information-management\" class=\"w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2\" > <span>Explore Information Management</span> <span aria-hidden=\"true\">&rarr;</span> </a> </div> </div> <!-- Image Column (Desktop Right / Mobile 1st) - Clean image, no shadow band --> <div class=\"lg:col-span-5 order-1 lg:order-2 flex justify-center items-center\"> <div class=\"relative w-full max-w-[420px] lg:max-w-[460px]\"> <img src=\"/images/services/From Physical Records to Digital Clarity.webp\" alt=\"Female document management specialist organizing physical records and digital transitions\" width=\"1543\" height=\"1924\" class=\"w-full h-auto object-contain select-none\" loading=\"lazy\" decoding=\"async\" /> </div> </div> </div> </Container> </section> <!-- 4b. IT Lifecycle (Image Left, Text Right) --> <section id=\"it-lifecycle\" class=\"scroll-mt-24 sm:scroll-mt-28 py-10 sm:py-12 lg:py-16 border-t border-slate-100\"> <Container size=\"normal\"> <div class=\"grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center\"> <!-- Image Column (Desktop Left / Mobile 1st) - Clean image, no shadow band --> <div class=\"lg:col-span-5 order-1 lg:order-1 flex justify-center items-center\"> <div class=\"relative w-full max-w-[420px] lg:max-w-[460px]\"> <img src=\"/images/services/Give Technology a Responsible Next Chapter.webp\" alt=\"Recovered electronic technology hardware components prepared for secure remarketing and zero-waste recycling\" width=\"1758\" height=\"1272\" class=\"w-full h-auto object-contain select-none\" loading=\"lazy\" decoding=\"async\" /> </div> </div> <!-- Text Column (Desktop Right / Mobile 2nd) --> <div class=\"lg:col-span-7 order-2 lg:order-2 space-y-5 sm:space-y-6\"> <h2 class=\"text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.18]\"> Give Technology a Responsible Next Chapter </h2> <p class=\"text-lg sm:text-xl text-black leading-relaxed font-normal\"> From collecting retired IT equipment to secure data sanitization, asset remarketing, and compliant e-waste recovery, help your organisation extract value while meeting ESG commitments."
+      },
+      {
+        "text": "Protect sensitive business records and hard drives through controlled, on-site or off-site destruction procedures compliant with British and European standards."
+      },
+      {
+        "text": "</svg> </span> <span>BS EN 15713 Level 4 to Level 6 Security Standards</span> </div> <br class=\"hidden sm:inline\" /> <div class=\"inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium\"> <span class=\"w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0\" aria-hidden=\"true\"> <svg class=\"w-2.5 h-2.5\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"3\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5 13l4 4L19 7\" /> </svg> </span> <span>100% Closed-Loop Recycled Paper Stream</span> </div> </div> <!-- CTA Button --> <div class=\"pt-3\"> <a href=\"/services/secure-destruction\" class=\"w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2\" > <span>Explore Secure Shredding</span> <span aria-hidden=\"true\">&rarr;</span> </a> </div> </div> <!-- Image Column (Desktop Right / Mobile 1st) - Clean image, no shadow band --> <div class=\"lg:col-span-5 order-1 lg:order-2 flex justify-center items-center\"> <div class=\"relative w-full max-w-[400px] lg:max-w-[440px]\"> <img src=\"/images/services/Confidential Today. Securely Disposed Tomorrow..webp\" alt=\"High-security confidential document shredding machinery and securely cross-cut recycled paper\" width=\"1584\" height=\"1394\" class=\"w-full h-auto object-contain select-none\" loading=\"lazy\" decoding=\"async\" /> </div> </div> </div> </Container> </section> <!-- 4d. Relocation (Image Left, Text Right) --> <section id=\"relocation\" class=\"scroll-mt-24 sm:scroll-mt-28 py-10 sm:py-12 lg:py-16 border-t border-slate-100\"> <Container size=\"normal\"> <div class=\"grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center\"> <!-- Image Column (Desktop Left / Mobile 1st) - Clean image, no shadow band --> <div class=\"lg:col-span-5 order-1 lg:order-1 flex justify-center items-center\"> <div class=\"relative w-full max-w-[420px] lg:max-w-[460px]\"> <img src=\"/images/services/Every Move, Carefully Managed.webp\" alt=\"Professional relocation technicians handling precision data centre hardware and protective logistics\" width=\"1410\" height=\"1338\" class=\"w-full h-auto object-contain select-none\" loading=\"lazy\" decoding=\"async\" /> </div> </div> <!-- Text Column (Desktop Right / Mobile 2nd) --> <div class=\"lg:col-span-7 order-2 lg:order-2 space-y-5 sm:space-y-6\"> <h2 class=\"text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.18]\"> Every Move, Carefully Managed </h2> <p class=\"text-lg sm:text-xl text-black leading-relaxed font-normal\"> Support corporate relocations with structured logistics planning and coordinated handling of archives, server racks, desktop fleets, and delicate equipment."
+      },
+      {
+        "text": "</svg> </span> <span>Dedicated Project Management & Chain of Custody</span> </div> <br class=\"hidden sm:inline\" /> <div class=\"inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium\"> <span class=\"w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0\" aria-hidden=\"true\"> <svg class=\"w-2.5 h-2.5\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"3\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5 13l4 4L19 7\" /> </svg> </span> <span>Air-Ride Logistics & Sensitive Equipment Handling</span> </div> </div> <!-- CTA Button --> <div class=\"pt-3\"> <a href=\"/services/relocation\" class=\"w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2\" > <span>Explore Relocation Services</span> <span aria-hidden=\"true\">&rarr;</span> </a> </div> </div> </div> </Container> </section> </div> <!-- ===================================================== 5. \"MORE THAN INDIVIDUAL SERVICES. A CONNECTED APPROACH.\" FOUR SOFT SAGE STEP CARDS ===================================================== --> <section class=\"bg-white py-10 sm:py-12 lg:py-16 border-t border-slate-100\"> <Container size=\"normal\"> <!-- Section Header --> <div class=\"text-left max-w-3xl mb-8 sm:mb-10\"> <h2 class=\"text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.15]\"> More Than Individual Services. A Connected Approach. </h2> <p class=\"text-lg sm:text-xl text-black leading-relaxed font-normal mt-3\"> Every organisation maintains different regulatory parameters. TechSteps helps align the appropriate sequence of disciplines so no asset falls outside auditable governance."
+      },
+      {
+        "text": "Our operational framework is engineered around core principles of data protection, regulatory compliance, environmental sustainability, and dedicated partnership."
+      },
+      {
+        "text": "Tailored lifecycle and information management solutions designed for the regulatory, security, and operational demands of distinct industries."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/contact",
+        "text": "<span>Talk to Our Team</span> <span class=\"text-lg leading-none\" aria-hidden=\"true\">&rarr;</span>"
+      },
+      {
+        "href": "/services/information-management",
+        "text": "<span>Explore Information Management</span> <span aria-hidden=\"true\">&rarr;</span>"
+      },
+      {
+        "href": "/contact",
+        "text": "<span>Discuss Your Requirements</span> <span class=\"text-base leading-none\" aria-hidden=\"true\">&rarr;</span>"
+      },
+      {
+        "href": "/services/secure-destruction",
+        "text": "<span>Explore Secure Shredding</span> <span aria-hidden=\"true\">&rarr;</span>"
+      },
+      {
+        "href": "/services/relocation",
+        "text": "<span>Explore Relocation Services</span> <span aria-hidden=\"true\">&rarr;</span>"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/services/information-management.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Why Effective Information Management Matters"
+      },
+      {
+        "tag": "h3",
+        "text": "Protect Critical Information"
+      },
+      {
+        "tag": "h3",
+        "text": "Improve Information Access"
+      },
+      {
+        "tag": "h3",
+        "text": "Support Compliance"
+      },
+      {
+        "tag": "h3",
+        "text": "Reduce Storage Pressure"
+      },
+      {
+        "tag": "h2",
+        "text": "Our Information Management Process"
+      },
+      {
+        "tag": "h3",
+        "text": "Assess"
+      },
+      {
+        "tag": "h3",
+        "text": "Collect & Prepare"
+      },
+      {
+        "tag": "h3",
+        "text": "Store & Manage"
+      },
+      {
+        "tag": "h3",
+        "text": "Access & Retrieve"
+      },
+      {
+        "tag": "h2",
+        "text": "One Partner for Physical & Digital Information"
+      },
+      {
+        "tag": "h3",
+        "text": "Physical Information"
+      },
+      {
+        "tag": "h3",
+        "text": "Digital Information"
+      },
+      {
+        "tag": "h2",
+        "text": "Built for Regulated Organisations."
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "At Techsteps, we provide intelligent, secure, and compliant information management solutions that give organizations complete visibility and control over their physical and digital records throughout their lifecycle."
+      },
+      {
+        "text": "From climate-controlled archive storage and high-speed legal-grade digitisation to automated retention scheduling and certified destruction, we ensure your vital records are accessible, protected, and fully compliant with UK data protection laws."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Protect Critical Information </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Keep important business records secure and accessible."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Improve Information Access </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Find the information your teams need faster."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Support Compliance </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Maintain appropriate controls around sensitive and regulated information."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Reduce Storage Pressure </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Move physical records and media away from valuable office space."
+      },
+      {
+        "text": "A structured, secure end-to-end framework to audit, transition, safeguard and retrieve your organization's records."
+      },
+      {
+        "text": "Understand your information, storage requirements and business needs."
+      },
+      {
+        "text": "Securely collect, catalogue and prepare records or media."
+      },
+      {
+        "text": "Store information in the appropriate physical or digital environment."
+      },
+      {
+        "text": "Provide controlled access, retrieval and ongoing management when required."
+      },
+      {
+        "text": "Explore →"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/services",
+        "text": "Services"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/services/it-lifecycle.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Why Proactive IT Lifecycle Management Matters"
+      },
+      {
+        "tag": "h3",
+        "text": "Eliminate Data Breach Risks"
+      },
+      {
+        "tag": "h3",
+        "text": "Recover Maximum Asset Value"
+      },
+      {
+        "tag": "h3",
+        "text": "Zero-Landfill Circular Economy"
+      },
+      {
+        "tag": "h3",
+        "text": "Auditable ESG Compliance"
+      },
+      {
+        "tag": "h2",
+        "text": "Our IT Lifecycle & Disposition Process"
+      },
+      {
+        "tag": "h3",
+        "text": "Collect & Secure"
+      },
+      {
+        "tag": "h3",
+        "text": "Audit & Ingest"
+      },
+      {
+        "tag": "h3",
+        "text": "Sanitise & Grade"
+      },
+      {
+        "tag": "h3",
+        "text": "Remarket or Recycle"
+      },
+      {
+        "tag": "h2",
+        "text": "One Partner for ITAD, Data Erasure & Circular Recycling"
+      },
+      {
+        "tag": "h3",
+        "text": "Asset Disposition & ITAM"
+      },
+      {
+        "tag": "h3",
+        "text": "Sanitisation & Circular Value"
+      },
+      {
+        "tag": "h2",
+        "text": "Built for Regulated Organisations"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "As enterprise technology rapidly evolves, organisations accumulate redundant workstations, servers, mobile devices, and data storage arrays. IT lifecycle management ensures every retired asset is handled with absolute security, audited transparency, and environmental accountability — protecting your sensitive data while driving sustainable circular economy outcomes."
+      },
+      {
+        "text": "From BS 7858 vetted collection in GPS-tracked vehicles to ADISA-certified data sanitisation and certified WEEE recycling, Techsteps provides an unbroken chain of custody. We maximise residual asset value through expert refurbishment and remarketing, while guaranteeing zero electronic waste reaches landfill."
+      },
+      {
+        "text": "</svg> </a> </div> </div> <!-- Right Side: Service Graphic --> <div class=\"lg:col-span-5 relative flex items-center justify-center\"> <img src=\"/images/services/About our services 2.webp\" alt=\"Techsteps IT Lifecycle and Hardware Disposition Specialists\" class=\"w-full max-w-[420px] lg:max-w-[460px] h-auto object-contain mx-auto select-none drop-shadow-md hover:scale-[1.02] transition-transform duration-300\" loading=\"lazy\" decoding=\"async\" /> </div> </div> </Container> </section> <!-- ===== 2.5 SERVICES / CORE DIVISIONS ===== --> <ServicesCardGrid /> <!-- ===== WHY PROACTIVE IT LIFECYCLE MATTERS (GREEN THEME) ===== --> <section class=\"bg-[#0A331E] py-8 sm:py-10 lg:py-12 border-b border-emerald-900/50 relative overflow-hidden\"> <div class=\"absolute inset-0 bg-radial-[ellipse_at_top_right] from-emerald-500/10 via-transparent to-transparent pointer-events-none\"></div> <Container> <div class=\"grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start\"> <!-- Left Column: Title & Intro --> <div class=\"lg:col-span-5 space-y-5\"> <div class=\"inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-mono font-medium uppercase tracking-wider\"> <span class=\"w-1.5 h-1.5 rounded-full bg-emerald-400\"></span> Strategic Value </div> <h2 class=\"text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]\"> Why Proactive IT Lifecycle Management Matters </h2> <p class=\"text-base sm:text-lg text-emerald-100/80 leading-relaxed font-normal\"> Mitigate data exposure, recover capital value, and meet stringent circular economy standards."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Eliminate Data Breach Risks </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> ADISA-certified sanitisation ensures sensitive corporate data is permanently destroyed."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Recover Maximum Asset Value </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Expert refurbishment and global remarketing return residual revenue to your organisation."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Zero-Landfill Circular Economy </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> 100% compliant WEEE recycling ensures obsolete hardware is refined into secondary commodities."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Auditable ESG Compliance </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Detailed serialised asset reporting and certified destruction simplify regulatory disclosures."
+      },
+      {
+        "text": "A structured, secure end-to-end framework to collect, audit, sanitise and remarket or recycle technology assets."
+      },
+      {
+        "text": "GPS-tracked vehicles and vetted personnel collect hardware with full chain of custody."
+      },
+      {
+        "text": "Every unit is barcoded, scanned, and logged by serial number into our secure portal."
+      },
+      {
+        "text": "ADISA-certified data sanitisation and comprehensive hardware functionality grading."
+      },
+      {
+        "text": "Recover value through refurbishment or process end-of-life items via zero-landfill WEEE streams."
+      },
+      {
+        "text": "Explore →"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/services",
+        "text": "Services"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/services/relocation.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Why Specialist Relocation Expertise Matters"
+      },
+      {
+        "tag": "h3",
+        "text": "Zero Unplanned Downtime"
+      },
+      {
+        "tag": "h3",
+        "text": "Specialist Transit Protection"
+      },
+      {
+        "tag": "h3",
+        "text": "Turnkey Project Management"
+      },
+      {
+        "tag": "h3",
+        "text": "Total Chain of Custody"
+      },
+      {
+        "tag": "h2",
+        "text": "Our Relocation & Migration Process"
+      },
+      {
+        "tag": "h3",
+        "text": "Audit & Strategy"
+      },
+      {
+        "tag": "h3",
+        "text": "De-rack & Protect"
+      },
+      {
+        "tag": "h3",
+        "text": "Dedicated Transit"
+      },
+      {
+        "tag": "h3",
+        "text": "Re-install & Test"
+      },
+      {
+        "tag": "h2",
+        "text": "One Partner for Technology, Business & Specialist Relocations"
+      },
+      {
+        "tag": "h3",
+        "text": "IT & Technology Relocations"
+      },
+      {
+        "tag": "h3",
+        "text": "Specialist Logistics"
+      },
+      {
+        "tag": "h2",
+        "text": "Built for Regulated Organisations"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Relocating complex enterprise technology, specialized scientific laboratories, or historic cultural collections requires far more than conventional removals. It demands meticulous engineering, specialized protective packaging, air-ride suspension logistics, and seasoned project managers who understand the absolute value of uninterrupted business continuity."
+      },
+      {
+        "text": "Techsteps delivers complete end-to-end relocation solutions across the UK and internationally. From de-racking, cable-mapping, and re-commissioning high-density server racks to transporting temperature-sensitive laboratory reagents and priceless heritage archives, we execute every phase with pinpoint precision and full transit insurance."
+      },
+      {
+        "text": "</svg> </a> </div> </div> <!-- Right Side: Relocation Illustration --> <div class=\"lg:col-span-5 relative flex items-center justify-center\"> <img src=\"/images/services/About services-4.webp\" alt=\"Techsteps Technology and Infrastructure Relocation Specialists\" class=\"w-full max-w-[420px] lg:max-w-[460px] h-auto object-contain mx-auto select-none drop-shadow-md hover:scale-[1.02] transition-transform duration-300\" loading=\"lazy\" decoding=\"async\" /> </div> </div> </Container> </section> <!-- ===== 2.5 SERVICES / CORE DIVISIONS ===== --> <ServicesCardGrid /> <!-- ===== WHY SPECIALIST RELOCATION MATTERS (GREEN THEME) ===== --> <section class=\"bg-[#0A331E] py-8 sm:py-10 lg:py-12 border-b border-emerald-900/50 relative overflow-hidden\"> <div class=\"absolute inset-0 bg-radial-[ellipse_at_top_right] from-emerald-500/10 via-transparent to-transparent pointer-events-none\"></div> <Container> <div class=\"grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start\"> <!-- Left Column: Title & Intro --> <div class=\"lg:col-span-5 space-y-5\"> <div class=\"inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-mono font-medium uppercase tracking-wider\"> <span class=\"w-1.5 h-1.5 rounded-full bg-emerald-400\"></span> Strategic Value </div> <h2 class=\"text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]\"> Why Specialist Relocation Expertise Matters </h2> <p class=\"text-base sm:text-lg text-emerald-100/80 leading-relaxed font-normal\"> Mitigate operational downtime, protect delicate infrastructure assets, and ensure seamless continuity."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Zero Unplanned Downtime </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Rigorous pre-move staging and weekend execution ensure your business is fully operational Monday morning."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Specialist Transit Protection </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Custom flight cases, anti-static wrapping, and air-ride fleet minimize shock, vibration, and thermal shifts."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Turnkey Project Management </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Dedicated single-point-of-contact project managers oversee timing, risk mitigation, and facilities."
+      },
+      {
+        "text": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 11a3 3 0 11-6 0 3 3 0 016 0z\" /> </svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Total Chain of Custody </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Itemized asset manifests, condition tagging, and GPS-monitored direct point-to-point transit."
+      },
+      {
+        "text": "A methodical 4-stage logistics protocol engineered to ensure flawless continuity and immediate operational sign-off."
+      },
+      {
+        "text": "Comprehensive site survey, rack mapping, power/cooling analysis, and contingency planning."
+      },
+      {
+        "text": "Port-by-port cable labelling, anti-static packaging, and custom padded flight cases."
+      },
+      {
+        "text": "Direct GPS-monitored vehicle transport with hydraulic tail-lifts and air-ride suspension."
+      },
+      {
+        "text": "Precision re-racking, structured patching, power-up testing, and final inventory sign-off."
+      },
+      {
+        "text": "Explore →"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/services",
+        "text": "Services"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/services/secure-destruction.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Why Certified Shredding & Destruction Matters"
+      },
+      {
+        "tag": "h3",
+        "text": "Ensure UK GDPR Compliance"
+      },
+      {
+        "tag": "h3",
+        "text": "Irreversible Shredding"
+      },
+      {
+        "tag": "h3",
+        "text": "100% Recycled Paper Stream"
+      },
+      {
+        "tag": "h3",
+        "text": "Auditable Certificates"
+      },
+      {
+        "tag": "h2",
+        "text": "Our Secure Destruction Process"
+      },
+      {
+        "tag": "h3",
+        "text": "Contain & Deposit"
+      },
+      {
+        "tag": "h3",
+        "text": "Vetted Collection"
+      },
+      {
+        "tag": "h3",
+        "text": "Certified Shredding"
+      },
+      {
+        "tag": "h3",
+        "text": "Certify & Recycle"
+      },
+      {
+        "tag": "h2",
+        "text": "One Partner for Document, Media & Commercial Shredding"
+      },
+      {
+        "tag": "h3",
+        "text": "Confidential Paper Shredding"
+      },
+      {
+        "tag": "h3",
+        "text": "Media, Products & Recycling"
+      },
+      {
+        "tag": "h2",
+        "text": "Built for Regulated Organisations"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Sensitive business intelligence, financial accounts, personnel records, and discarded hard drives represent severe security risks if disposed of through standard waste streams. Techsteps delivers certified, auditable destruction services that guarantee complete irreversible disposal of physical and digital records."
+      },
+      {
+        "text": "Whether you require scheduled locked consoles in corporate offices, bulk archive clearances, or mobile cross-cut shredding vehicles operating at your facility under direct observation, our BS 7858 vetted personnel provide an unbroken chain of custody. Every destruction event concludes with a formal Certificate of Destruction."
+      },
+      {
+        "text": "</svg> </a> </div> </div> <!-- Right Side: Shredding / Destruction Illustration --> <div class=\"lg:col-span-5 relative flex items-center justify-center\"> <img src=\"/images/services/About our services -3.webp\" alt=\"Techsteps Secure Shredding and Destruction Specialist\" class=\"w-full max-w-[420px] lg:max-w-[460px] h-auto object-contain mx-auto select-none drop-shadow-md hover:scale-[1.02] transition-transform duration-300\" loading=\"lazy\" decoding=\"async\" /> </div> </div> </Container> </section> <!-- ===== 2.5 SERVICES / CORE DIVISIONS ===== --> <ServicesCardGrid /> <!-- ===== WHY CERTIFIED SHREDDING MATTERS (GREEN THEME) ===== --> <section class=\"bg-[#0A331E] py-8 sm:py-10 lg:py-12 border-b border-emerald-900/50 relative overflow-hidden\"> <div class=\"absolute inset-0 bg-radial-[ellipse_at_top_right] from-emerald-500/10 via-transparent to-transparent pointer-events-none\"></div> <Container> <div class=\"grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start\"> <!-- Left Column: Title & Intro --> <div class=\"lg:col-span-5 space-y-5\"> <div class=\"inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-mono font-medium uppercase tracking-wider\"> <span class=\"w-1.5 h-1.5 rounded-full bg-emerald-400\"></span> Strategic Value </div> <h2 class=\"text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]\"> Why Certified Shredding & Destruction Matters </h2> <p class=\"text-base sm:text-lg text-emerald-100/80 leading-relaxed font-normal\"> Guard against data breaches, corporate espionage, and regulatory penalties while driving circular recycling."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Ensure UK GDPR Compliance </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Comply strictly with Data Protection Act 2018 standards, eliminating privacy breach liabilities."
+      },
+      {
+        "text": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4 12h5m6 0h5M12 4v5m0 6v5\" /> </svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Irreversible Shredding </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> High-torque cross-cut shredders reduce papers, tapes, and hard drives to unrecoverable particles."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> 100% Recycled Paper Stream </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> 100% of shredded confidential paper is baled and recycled into secondary paper products in UK mills."
+      },
+      {
+        "text": "</svg> </div> <h3 class=\"text-lg sm:text-xl font-semibold text-white tracking-tight leading-snug\"> Auditable Certificates </h3> <p class=\"text-sm text-emerald-100/75 leading-relaxed font-normal\"> Tamper-evident locked consoles and formal Certificates of Destruction provide foolproof audit proof."
+      },
+      {
+        "text": "A secure, verifiable 4-step destruction framework engineered to maintain confidentiality from collection to final recycling."
+      },
+      {
+        "text": "Place confidential documents or digital media into tamper-proof locked office consoles or sacks."
+      },
+      {
+        "text": "BS 7858 security-cleared personnel collect and transfer materials under verified custody."
+      },
+      {
+        "text": "Mobile on-site shredder or secure facility cross-cuts material to BS EN 15713 standards."
+      },
+      {
+        "text": "Receive serialized Certificate of Destruction while shredded paper and metals are 100% recycled."
+      },
+      {
+        "text": "Explore →"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/services",
+        "text": "Services"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/services/[slug].astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "What the Service Delivers for Your Business"
+      },
+      {
+        "tag": "h2",
+        "text": "Enterprise Security Built into Every Step"
+      },
+      {
+        "tag": "h3",
+        "text": "Vetted Logistics & Fleet"
+      },
+      {
+        "tag": "h3",
+        "text": "ISO 27001 & UK GDPR"
+      },
+      {
+        "tag": "h3",
+        "text": "Traceable Chain of Custody"
+      },
+      {
+        "tag": "h3",
+        "text": "Zero-Landfill ESG Defence"
+      },
+      {
+        "tag": "h4",
+        "text": "Verified Project Results"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Rigorous vetting, certified information governance, and unbroken chain of custody protecting your assets nationwide."
+      },
+      {
+        "text": "BS 7858 security-vetted drivers, dedicated GPS-tracked vehicles, panic alarms, and numbered tamper-evident seals."
+      },
+      {
+        "text": "Certified data handling controls, strict confidentiality agreements, and statutory compliance with UK data protection laws."
+      },
+      {
+        "text": "Barcoded inventory intake, real-time tracking, and Blancco-sanitised / DIN 66399 particle destruction verification."
+      },
+      {
+        "text": "100% circular diversion pathways, Environment Agency AATF carrier licences, and full statutory waste transfer notes."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/contact",
+        "text": "Contact Specialist"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/sustainability.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Every Asset. A Smarter Journey."
+      },
+      {
+        "tag": "h2",
+        "text": "Reuse Before<br /> <span class=\"text-[#146B5C]\">Recycle.</span>"
+      },
+      {
+        "tag": "h3",
+        "text": "REUSE"
+      },
+      {
+        "tag": "h3",
+        "text": "REMARKET"
+      },
+      {
+        "tag": "h3",
+        "text": "RECYCLE"
+      },
+      {
+        "tag": "h2",
+        "text": "Responsible at End of Life."
+      },
+      {
+        "tag": "h2",
+        "text": "Meaningful Impact. Measurable Results."
+      },
+      {
+        "tag": "h2",
+        "text": "Sustainability With Accountability."
+      },
+      {
+        "tag": "h2",
+        "text": "Sustainability Across the Lifecycle"
+      },
+      {
+        "tag": "h2",
+        "text": "Better Decisions. Better Outcomes."
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Not every device needs to become waste. Where possible, we extend the life of technology, recover value and only recycle when it’s the right option."
+      },
+      {
+        "text": "</svg> </div> <div class=\"space-y-1\"> <h3 class=\"text-lg sm:text-xl font-semibold font-display text-slate-900 tracking-tight\"> REUSE </h3> <p class=\"text-sm sm:text-base text-slate-700 font-semibold leading-relaxed max-w-[240px]\"> Extend the useful life of equipment."
+      },
+      {
+        "text": "</svg> </div> <!-- Step 2: REMARKET --> <div class=\"flex items-center gap-4 sm:gap-5 flex-1\"> <div class=\"w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E4F2E7] flex items-center justify-center shrink-0 text-[#146B5C] shadow-xs\"> <svg class=\"w-8 h-8 sm:w-10 sm:h-10\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.8\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\" /> </svg> </div> <div class=\"space-y-1\"> <h3 class=\"text-lg sm:text-xl font-semibold font-display text-slate-900 tracking-tight\"> REMARKET </h3> <p class=\"text-sm sm:text-base text-slate-700 font-semibold leading-relaxed max-w-[240px]\"> Recover value from suitable technology."
+      },
+      {
+        "text": "</svg> </div> <!-- Step 3: RECYCLE --> <div class=\"flex items-center gap-4 sm:gap-5 flex-1\"> <div class=\"w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E4F2E7] flex items-center justify-center shrink-0 text-[#146B5C] shadow-xs\"> <svg class=\"w-8 h-8 sm:w-10 sm:h-10\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.8\" d=\"M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15\" /> </svg> </div> <div class=\"space-y-1\"> <h3 class=\"text-lg sm:text-xl font-semibold font-display text-slate-900 tracking-tight\"> RECYCLE </h3> <p class=\"text-sm sm:text-base text-slate-700 font-semibold leading-relaxed max-w-[240px]\"> Responsibly process assets that can no longer be reused."
+      },
+      {
+        "text": "Responsible IT lifecycle management isn't only about where equipment ends up; organisations also need visibility into what happened to their assets."
+      },
+      {
+        "text": "Sustainability isn't a single step in the technology lifecycle. It's a consideration at every stage — from collection and data security to reuse, recovery and responsible recycling."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/",
+        "text": "Home"
+      },
+      {
+        "href": "/contact",
+        "text": "Contact Our Team"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/pages/terms-and-conditions.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "1. Scope &amp; Application of Terms"
+      },
+      {
+        "tag": "h2",
+        "text": "2. Quotations, Bookings &amp; Contract Formation"
+      },
+      {
+        "tag": "h2",
+        "text": "3. Chain of Custody &amp; Asset Handover"
+      },
+      {
+        "tag": "h2",
+        "text": "4. Data Sanitisation &amp; Destruction Warranties"
+      },
+      {
+        "tag": "h4",
+        "text": "A. ADISA 8.0 &amp; NIST 800-88 Rev 1 Software Overwriting"
+      },
+      {
+        "tag": "h4",
+        "text": "B. Physical Destruction to DIN 66399 Security Levels"
+      },
+      {
+        "tag": "h4",
+        "text": "C. Certificate of Destruction (CoD)"
+      },
+      {
+        "tag": "h2",
+        "text": "5. Environmental Compliance (WEEE &amp; Duty of Care)"
+      },
+      {
+        "tag": "h2",
+        "text": "6. Invoicing, Payment Terms &amp; Value Recovery"
+      },
+      {
+        "tag": "h2",
+        "text": "7. Limitation of Liability &amp; Insurance"
+      },
+      {
+        "tag": "h2",
+        "text": "8. Governing Law &amp; Jurisdiction"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Our services encompass four specialised operational divisions:"
+      },
+      {
+        "text": "All written quotations provided by Techsteps remain valid for thirty (30) calendar days from the date of issue unless explicitly stated otherwise. A legally binding contract comes into existence upon the earliest of: (a) Client issuing a written purchase order, (b) Client digitally accepting a service proposal, or (c) Techsteps dispatching logistics vehicles pursuant to Client instructions."
+      },
+      {
+        "text": "Any modifications, special service level agreements (SLAs), or deviations from these Standard Terms must be agreed in writing and signed by an authorized Director of Techsteps."
+      },
+      {
+        "text": "Legal and physical chain of custody transfers to Techsteps at the exact point when a joint Asset Handover Manifest or Waste Transfer Note is countersigned by our BS 7858 security-screened operative and the Client’s authorized site representative."
+      },
+      {
+        "text": "Techsteps warrants that all digital media, data-bearing devices, and confidential physical archives accepted for sanitisation or destruction will be processed strictly in accordance with client-specified service levels:"
+      },
+      {
+        "text": "Cryptographic erasure and multi-pass magnetic overwriting verifying 100% sector sanitisation with cryptographically signed tamper-proof audit trails for each individual device serial number."
+      },
+      {
+        "text": "Mechanical shredding, degaussing, and disintegration achieving particle standards from Level P-4 to P-7 (paper) and Level H-5 to H-7 (hard drives/SSDs)."
+      },
+      {
+        "text": "A legally binding Certificate of Destruction and Asset Reconciliation Report will be issued within five (5) working days following completed processing."
+      },
+      {
+        "text": "Techsteps operates under full waste carrier licensing granted by the Environment Agency. We legally warrant that:"
+      },
+      {
+        "text": "Standard commercial payment terms are thirty (30) calendar days from invoice date for approved corporate account holders, unless alternative credit terms are agreed in writing. Value recovery rebates (yielded from enterprise ITAD hardware remarketing) will be credited against collection invoices or remitted to the Client’s nominated corporate account within 30 days of inventory liquidation."
+      },
+      {
+        "text": "Nothing in these Terms limits or excludes liability for death or personal injury caused by negligence, fraud, or any matter where it is unlawful under English law to exclude liability."
+      },
+      {
+        "text": "Techsteps maintains comprehensive commercial insurances:"
+      },
+      {
+        "text": "These Terms and Conditions, and any dispute or claim arising out of or in connection with their subject matter or formation (including non-contractual disputes), shall be governed by and construed in accordance with the laws of England and Wales. The parties irrevocably agree that the courts of England and Wales shall have exclusive jurisdiction."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "mailto:legal@techsteps.co.uk",
+        "text": "legal@techsteps.co.uk"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/content/TrustBadges.astro",
+    "headings": [
+      {
+        "tag": "h3",
+        "text": "Audited to the Highest Industry Standards"
+      }
+    ],
+    "paragraphs": [],
+    "buttons": [],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/forms/ContactForm.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Get In Touch !"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Have a question regarding our certifications, UK collections, or existing contracts? Fill out the form below and our team will respond within 2 business hours."
+      },
+      {
+        "text": "<label>Don't fill this out if you're human: <input name=\"bot-field\" /></label>"
+      }
+    ],
+    "buttons": [],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/forms/QuoteForm.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Request a Confidential Quote"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Complete the details below to receive a formal proposal, schedule an asset collection, or arrange a secure on-site audit."
+      },
+      {
+        "text": "<label>Don't fill this out if you're human: <input name=\"bot-field\" /></label>"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/privacy-policy",
+        "text": "Privacy Policy"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/global/CookieConsent.astro",
+    "headings": [
+      {
+        "tag": "h3",
+        "text": "Privacy &amp; Cookie Consent"
+      }
+    ],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/cookie-policy",
+        "text": "Cookie Policy"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/global/Footer.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Footer"
+      },
+      {
+        "tag": "h3",
+        "text": "Services"
+      },
+      {
+        "tag": "h3",
+        "text": "Industries"
+      },
+      {
+        "tag": "h3",
+        "text": "Company"
+      }
+    ],
+    "paragraphs": [],
+    "buttons": [],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/global/Header.astro",
+    "headings": [],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/about-us",
+        "text": "About Us"
+      },
+      {
+        "href": "/leadership",
+        "text": "Leadership"
+      },
+      {
+        "href": "/our-people-culture",
+        "text": "Our People &amp; Culture"
+      },
+      {
+        "href": "/global-presence",
+        "text": "Global Presence"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/global/HeroHeader.astro",
+    "headings": [],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/services",
+        "text": "Services"
+      },
+      {
+        "href": "/sectors",
+        "text": "Sectors"
+      },
+      {
+        "href": "/insights",
+        "text": "Insights"
+      },
+      {
+        "href": "/about-us",
+        "text": "About Us"
+      },
+      {
+        "href": "/contact",
+        "text": "Contact Us"
+      },
+      {
+        "href": "/request-a-quote",
+        "text": "Request a Collection"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/global/InsightsMegaMenu.astro",
+    "headings": [],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/insights",
+        "text": "<span>Explore All Insights</span> <span>&rarr;</span>"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/global/MegaMenu.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Every asset. Every record. Every outcome."
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Navigate Techsteps"
+      },
+      {
+        "text": "Company"
+      },
+      {
+        "text": "Our divisions"
+      },
+      {
+        "text": "Sectors"
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/request-a-quote",
+        "text": "Request a Collection &rarr;"
+      },
+      {
+        "href": "/contact",
+        "text": "Contact our team &rarr;"
+      },
+      {
+        "href": "/",
+        "text": "Home"
+      },
+      {
+        "href": "/about-us",
+        "text": "About us"
+      },
+      {
+        "href": "/sustainability",
+        "text": "Sustainability"
+      },
+      {
+        "href": "/insights",
+        "text": "Insights"
+      },
+      {
+        "href": "/investors",
+        "text": "Investors"
+      },
+      {
+        "href": "/services",
+        "text": "All services &rarr;"
+      },
+      {
+        "href": "tel:+442079460888",
+        "text": "+44 (0) 20 7946 0888"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/global/MobileDrawer.astro",
+    "headings": [],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/information-management",
+        "text": "Information Management"
+      },
+      {
+        "href": "/it-lifecycle-services-destruction",
+        "text": "IT Lifecycle & Destruction"
+      },
+      {
+        "href": "/secure-shredding-document-integrity",
+        "text": "Secure Shredding"
+      },
+      {
+        "href": "/moving-relocation-services",
+        "text": "Moving & Relocation"
+      },
+      {
+        "href": "/services",
+        "text": "View all 27 certified services &rarr;"
+      },
+      {
+        "href": "/sectors/nhs",
+        "text": "NHS & Healthcare"
+      },
+      {
+        "href": "/sectors/finance",
+        "text": "Financial Services"
+      },
+      {
+        "href": "/sectors/central-government",
+        "text": "Central Government"
+      },
+      {
+        "href": "/sectors/defence",
+        "text": "Defence & Aerospace"
+      },
+      {
+        "href": "/sectors/legal-professional-services",
+        "text": "Corporate & Legal"
+      },
+      {
+        "href": "/sectors/education-universities",
+        "text": "Education & Universities"
+      },
+      {
+        "href": "/sectors/manufacturing-engineering",
+        "text": "Manufacturing & Engineering"
+      },
+      {
+        "href": "/sectors/it-technology",
+        "text": "IT & Technology"
+      },
+      {
+        "href": "/sectors",
+        "text": "Explore all sectors &rarr;"
+      },
+      {
+        "href": "/sustainability",
+        "text": "Sustainability"
+      },
+      {
+        "href": "/insights",
+        "text": "Insights"
+      },
+      {
+        "href": "/about-us",
+        "text": "Overview &amp; Values"
+      },
+      {
+        "href": "/leadership",
+        "text": "Leadership"
+      },
+      {
+        "href": "/our-people-culture",
+        "text": "Our People &amp; Culture"
+      },
+      {
+        "href": "/global-presence",
+        "text": "Global Presence"
+      },
+      {
+        "href": "/request-a-collection",
+        "text": "Request a Collection"
+      },
+      {
+        "href": "/request-a-quote",
+        "text": "Get a Quote"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/global/SectorsDropdown.astro",
+    "headings": [
+      {
+        "tag": "h3",
+        "text": "Industries We Serve"
+      },
+      {
+        "tag": "h3",
+        "text": "Investors"
+      }
+    ],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/investors",
+        "text": "<span>Visit</span> <span class=\"font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5\" > ↗ </span>"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/global/ServicesMegaMenu.astro",
+    "headings": [
+      {
+        "tag": "h3",
+        "text": "Services"
+      },
+      {
+        "tag": "h3",
+        "text": "Sustainability"
+      }
+    ],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/services",
+        "text": "<span> All services overview </span> <span class=\"text-sm font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5\" > ↗ </span>"
+      },
+      {
+        "href": "/sustainability",
+        "text": "<span> Visit </span> <span class=\"font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5\" > ↗ </span>"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/hero/HeroDivision.astro",
+    "headings": [],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/request-a-quote",
+        "text": "Request Division Consultation"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/hero/HeroHome.astro",
+    "headings": [],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/contact",
+        "text": "Contact Us"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/hero/HeroSector.astro",
+    "headings": [],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/sectors",
+        "text": "Sectors UK"
+      },
+      {
+        "href": "/services",
+        "text": "Explore Services"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/hero/HeroService.astro",
+    "headings": [
+      {
+        "tag": "h3",
+        "text": "Compliance &amp; Delivery SLA"
+      }
+    ],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/contact",
+        "text": "Speak to a Specialist"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/hero/PageHero.astro",
+    "headings": [],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "/contact",
+        "text": "Speak to an Expert"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/hero/RequestCollectionHero.astro",
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Book Your IT Asset <br class=\"hidden sm:inline\" /> Collection"
+      }
+    ],
+    "paragraphs": [
+      {
+        "text": "Arrange a secure, reliable collection of your IT equipment with TechSteps. Tell us what you need collected and our team will coordinate the next steps."
+      }
+    ],
+    "buttons": [
+      {
+        "href": "/contact",
+        "text": "Contact Us"
+      }
+    ],
+    "hardcodedArrays": []
+  },
+  {
+    "file": "src/components/legal/LegalPageLayout.astro",
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Corporate Governance Directory"
+      }
+    ],
+    "paragraphs": [],
+    "buttons": [
+      {
+        "href": "mailto:compliance@techsteps.co.uk",
+        "text": "compliance@techsteps.co.uk"
+      }
+    ],
+    "hardcodedArrays": []
   }
-}
+]

@@ -216,11 +216,11 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
           </div>
 
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
-            Why Certified Shredding & Destruction Matters
+            {division?.strategicValue?.heading || "Why Certified Shredding & Destruction Matters"}
           </h2>
 
           <p class="text-base sm:text-lg text-emerald-100/80 leading-relaxed font-normal">
-            Guard against data breaches, corporate espionage, and regulatory penalties while driving circular recycling.
+            {division?.strategicValue?.description || "Guard against data breaches, corporate espionage, and regulatory penalties while driving circular recycling."}
           </p>
         </div>
 
@@ -303,10 +303,10 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
             Workflow & Execution
           </div>
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display">
-            Our Secure Destruction Process
+            {division?.customerJourney?.heading || "Our Secure Destruction Process"}
           </h2>
           <p class="mt-3 text-lg sm:text-xl text-black font-normal">
-            A secure, verifiable 4-step destruction framework engineered to maintain confidentiality from collection to final recycling.
+            {division?.customerJourney?.description || "A secure, verifiable 4-step destruction framework engineered to maintain confidentiality from collection to final recycling."}
           </p>
         </div>
 

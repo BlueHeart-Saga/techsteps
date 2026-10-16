@@ -26,7 +26,12 @@ export interface SiteSettings {
     instagram?: string;
     twitter?: string;
     youtube?: string;
+    facebook?: string;
   };
+  headerContactButtonText?: string;
+  headerContactButtonLink?: string;
+  headerRequestButtonText?: string;
+  headerRequestButtonLink?: string;
   defaultMetaTitle: string;
   defaultMetaDescription: string;
   mainNav?: CustomLink[];
@@ -35,6 +40,7 @@ export interface SiteSettings {
   footerCompany?: CustomLink[];
   footerLegal?: CustomLink[];
   footerCopyright?: string;
+  accreditationBadges?: { name?: string; label?: string; tag?: string }[];
 }
 
 export interface Division {
@@ -54,6 +60,16 @@ export interface Division {
   aboutBadge?: string;
   aboutTitle?: string;
   aboutParagraphs?: string[];
+  strategicValue?: {
+    heading?: string;
+    description?: string;
+    pillars?: { icon?: string; title?: string; description?: string }[];
+  };
+  customerJourney?: {
+    heading?: string;
+    description?: string;
+    steps?: { number?: string; title?: string; desc?: string }[];
+  };
   lifecycleStages?: { id: string; number: string; label: string; desc: string }[];
   faqs?: FAQItem[];
   metaTitle?: string;
@@ -116,6 +132,16 @@ export interface Service {
   faqBadge?: string;
   faqTitle?: string;
   faqSubtitle?: string;
+  deliversSection?: {
+    title?: string;
+    subtitle?: string;
+    benefits?: { tag?: string; title?: string; description?: string; deliverable?: string }[];
+  };
+  securitySection?: {
+    title?: string;
+    subtitle?: string;
+    pillars?: { number?: string; title?: string; description?: string }[];
+  };
 }
 
 export interface SectorChallenge {
@@ -456,6 +482,10 @@ export interface HomePageHero {
   imageAlt?: string;
   buttonText?: string;
   buttonLink?: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+  bgImageUrl?: string;
+  mobileWorkerImageUrl?: string;
 }
 
 export interface HomePageIntro {
@@ -622,6 +652,9 @@ export interface SustainabilityPageData {
     bgImage?: string;
     buttonText?: string;
     buttonLink?: string;
+    secondaryButtonText?: string;
+    secondaryButtonLink?: string;
+    imageUrl?: string;
   };
   metrics?: {
     number: string;
@@ -645,6 +678,18 @@ export interface SustainabilityPageData {
     eyebrow?: string;
     heading?: string;
     description?: string;
+  };
+  prioritisingLongevity?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+    imageUrl?: string;
+    imageAlt?: string;
+    steps?: {
+      step: string;
+      title: string;
+      desc: string;
+    }[];
   };
   esgPillars?: {
     title: string;
@@ -749,6 +794,15 @@ export interface ContactPageData {
     title?: string;
     subheading?: string;
     bgImage?: string;
+    heroImage?: string;
+  };
+  contactInfo?: {
+    address1?: { title?: string; address?: string };
+    address2?: { title?: string; address?: string };
+    email?: string;
+    phone?: string;
+    freephone?: string;
+    socialHeading?: string;
   };
   formSection?: {
     heading?: string;
@@ -768,6 +822,15 @@ export interface RequestCollectionPageData {
   hero?: {
     title?: string;
     description?: string;
+    topHeading?: string;
+    topDescription?: string;
+    topButtonText?: string;
+    topButtonLink?: string;
+    topSecondaryButtonText?: string;
+    topSecondaryButtonLink?: string;
+    topImageUrl?: string;
+    topMobileImageUrl?: string;
+    topImageAlt?: string;
   };
   slaGuarantees?: {
     title: string;

@@ -35,7 +35,7 @@ const currentYear = new Date().getFullYear();
 
   <!-- LinkedIn -->
   <a
-    href="https://www.linkedin.com/company/techsteps-uk/posts/?feedView=all"
+    href={siteSettings.socialLinks?.linkedin || "https://www.linkedin.com/company/techsteps-uk/posts/?feedView=all"}
     target="_blank"
     rel="noopener noreferrer"
     class="group flex items-center justify-center
@@ -57,7 +57,7 @@ const currentYear = new Date().getFullYear();
 
   <!-- Instagram -->
   <a
-    href="https://www.instagram.com/techsteps_official/"
+    href={siteSettings.socialLinks?.instagram || "https://www.instagram.com/techsteps_official/"}
     target="_blank"
     rel="noopener noreferrer"
     class="group flex items-center justify-center

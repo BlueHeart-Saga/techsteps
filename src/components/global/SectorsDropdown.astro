@@ -1,52 +1,33 @@
 ---
+import { getSectors } from '../../lib/sanity/client';
+
+const sanitySectors = await getSectors();
+
+const findSector = (slug: string, defaultTitle: string, defaultIcon: string, active?: boolean) => {
+  const found = sanitySectors.find((s) => s.slug === slug);
+  return {
+    title: found?.title || defaultTitle,
+    slug,
+    icon: defaultIcon,
+    ...(active ? { active: true } : {}),
+  };
+};
+
 const column1 = [
-  {
-    title: 'NHS & Healthcare',
-    slug: 'nhs',
-    icon: '/icons/NHS%20&%20Healthcare.svg',
-    active: true,
-  },
-  {
-    title: 'Defence & Aerospace',
-    slug: 'defence',
-    icon: '/icons/Defence%20&%20Aerospace.svg',
-  },
-  {
-    title: 'Manufacturing & Engineering',
-    slug: 'manufacturing-engineering',
-    icon: '/icons/Manufacturing%20&%20Engineering.svg',
-  },
+  findSector('nhs', 'NHS & Healthcare', '/icons/NHS%20&%20Healthcare.svg', true),
+  findSector('defence', 'Defence & Aerospace', '/icons/Defence%20&%20Aerospace.svg'),
+  findSector('manufacturing-engineering', 'Manufacturing & Engineering', '/icons/Manufacturing%20&%20Engineering.svg'),
 ];
 
 const column2 = [
-  {
-    title: 'Financial Services',
-    slug: 'finance',
-    icon: '/icons/Financial%20Services.svg',
-  },
-  {
-    title: 'Corporate & Legal',
-    slug: 'legal-professional-services',
-    icon: '/icons/Corporate%20&%20Legal.svg',
-  },
-  {
-    title: 'IT & Technology',
-    slug: 'it-technology',
-    icon: '/icons/IT%20&%20Technology.svg',
-  },
+  findSector('finance', 'Financial Services', '/icons/Financial%20Services.svg'),
+  findSector('legal-professional-services', 'Corporate & Legal', '/icons/Corporate%20&%20Legal.svg'),
+  findSector('it-technology', 'IT & Technology', '/icons/IT%20&%20Technology.svg'),
 ];
 
 const column3 = [
-  {
-    title: 'Central Government',
-    slug: 'central-government',
-    icon: '/icons/Central%20Government.svg',
-  },
-  {
-    title: 'Education & Universities',
-    slug: 'education-universities',
-    icon: '/icons/Education%20&%20Universities.svg',
-  },
+  findSector('central-government', 'Central Government', '/icons/Central%20Government.svg'),
+  findSector('education-universities', 'Education & Universities', '/icons/Education%20&%20Universities.svg'),
 ];
 ---
 

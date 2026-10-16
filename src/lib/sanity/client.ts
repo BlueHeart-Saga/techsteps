@@ -1,3 +1,7 @@
+import dns from 'node:dns';
+try {
+  dns.setDefaultResultOrder?.('ipv4first');
+} catch {}
 import { createClient } from '@sanity/client';
 import {
   siteSettings,
@@ -148,7 +152,11 @@ export async function getHomePage(): Promise<HomePageData | null> {
             },
             imageAlt,
             buttonText,
-            buttonLink
+            buttonLink,
+            secondaryButtonText,
+            secondaryButtonLink,
+            bgImageUrl,
+            mobileWorkerImageUrl
           },
 
           intro{
@@ -258,6 +266,12 @@ export async function getHomePage(): Promise<HomePageData | null> {
             ...defaultHomePageData.hero,
             ...(data.hero || {}),
             imageUrl: data.hero?.image?.asset?.url || data.hero?.imageUrl || defaultHomePageData.hero?.imageUrl,
+            buttonText: data.hero?.buttonText || defaultHomePageData.hero?.buttonText,
+            buttonLink: data.hero?.buttonLink || defaultHomePageData.hero?.buttonLink,
+            secondaryButtonText: data.hero?.secondaryButtonText || defaultHomePageData.hero?.secondaryButtonText,
+            secondaryButtonLink: data.hero?.secondaryButtonLink || defaultHomePageData.hero?.secondaryButtonLink,
+            bgImageUrl: data.hero?.bgImageUrl || defaultHomePageData.hero?.bgImageUrl,
+            mobileWorkerImageUrl: data.hero?.mobileWorkerImageUrl || defaultHomePageData.hero?.mobileWorkerImageUrl,
           },
           intro: {
             ...defaultHomePageData.intro,
@@ -342,6 +356,17 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         return {
           ...siteSettings,
           ...data,
+          socialLinks: {
+            ...siteSettings.socialLinks,
+            ...(data.socialLinks || {}),
+          },
+          headerContactButtonText: data.headerContactButtonText || siteSettings.headerContactButtonText,
+          headerContactButtonLink: data.headerContactButtonLink || siteSettings.headerContactButtonLink,
+          headerRequestButtonText: data.headerRequestButtonText || siteSettings.headerRequestButtonText,
+          headerRequestButtonLink: data.headerRequestButtonLink || siteSettings.headerRequestButtonLink,
+          accreditationBadges: (Array.isArray(data.accreditationBadges) && data.accreditationBadges.length > 0)
+            ? data.accreditationBadges
+            : siteSettings.accreditationBadges,
           mainNav: (Array.isArray(data.mainNav) && data.mainNav.length > 0) ? data.mainNav : siteSettings.mainNav,
           footerServices: (Array.isArray(data.footerServices) && data.footerServices.length > 0) ? data.footerServices : siteSettings.footerServices,
           footerSectors: (Array.isArray(data.footerSectors) && data.footerSectors.length > 0) ? data.footerSectors : siteSettings.footerSectors,
@@ -371,6 +396,20 @@ export async function getDivisions(): Promise<Division[]> {
             ...fallback,
             ...d,
             slug: normSlug,
+            strategicValue: {
+              ...fallback?.strategicValue,
+              ...(d.strategicValue || {}),
+              pillars: (Array.isArray(d.strategicValue?.pillars) && d.strategicValue.pillars.length > 0)
+                ? d.strategicValue.pillars
+                : fallback?.strategicValue?.pillars,
+            },
+            customerJourney: {
+              ...fallback?.customerJourney,
+              ...(d.customerJourney || {}),
+              steps: (Array.isArray(d.customerJourney?.steps) && d.customerJourney.steps.length > 0)
+                ? d.customerJourney.steps
+                : fallback?.customerJourney?.steps,
+            },
           };
         });
       }
@@ -402,6 +441,20 @@ export async function getServices(): Promise<Service[]> {
             ...fallback,
             ...s,
             slug: normSlug,
+            deliversSection: {
+              ...fallback?.deliversSection,
+              ...(s.deliversSection || {}),
+              benefits: (Array.isArray(s.deliversSection?.benefits) && s.deliversSection.benefits.length > 0)
+                ? s.deliversSection.benefits
+                : fallback?.deliversSection?.benefits,
+            },
+            securitySection: {
+              ...fallback?.securitySection,
+              ...(s.securitySection || {}),
+              pillars: (Array.isArray(s.securitySection?.pillars) && s.securitySection.pillars.length > 0)
+                ? s.securitySection.pillars
+                : fallback?.securitySection?.pillars,
+            },
           };
         });
       }
@@ -1430,7 +1483,10 @@ export async function getSustainabilityPage(): Promise<SustainabilityPageData> {
             subheading,
             "bgImage": coalesce(bgImage.asset->url, "/images/services/remarketing.jpg"),
             buttonText,
-            buttonLink
+            buttonLink,
+            secondaryButtonText,
+            secondaryButtonLink,
+            "imageUrl": coalesce(imageUrl, "/images/sustainability/Sustainability hero.webp")
           },
           metrics[]{
             number,
@@ -1454,6 +1510,18 @@ export async function getSustainabilityPage(): Promise<SustainabilityPageData> {
             eyebrow,
             heading,
             description
+          },
+          prioritisingLongevity{
+            eyebrow,
+            heading,
+            description,
+            imageUrl,
+            imageAlt,
+            steps[]{
+              step,
+              title,
+              desc
+            }
           },
           esgPillars[]{
             title,
@@ -1485,6 +1553,7 @@ export async function getSustainabilityPage(): Promise<SustainabilityPageData> {
             steps: (data.approach?.steps && data.approach.steps.length > 0) ? data.approach.steps : defaultSustainabilityPage.approach?.steps,
           },
           lifecycleSection: { ...defaultSustainabilityPage.lifecycleSection, ...data.lifecycleSection },
+          prioritisingLongevity: { ...defaultSustainabilityPage.prioritisingLongevity, ...data.prioritisingLongevity },
           esgPillars: (Array.isArray(data.esgPillars) && data.esgPillars.length > 0) ? data.esgPillars : defaultSustainabilityPage.esgPillars,
           bottomCta: { ...defaultSustainabilityPage.bottomCta, ...data.bottomCta },
         };
@@ -1585,7 +1654,16 @@ export async function getContactPage(): Promise<ContactPageData> {
             eyebrow,
             title,
             subheading,
-            "bgImage": coalesce(bgImage.asset->url, "/images/brand/contact-hero-bg.jpg")
+            "bgImage": coalesce(bgImage.asset->url, "/images/brand/contact-hero-bg.jpg"),
+            "heroImage": coalesce(heroImage, "/images/contact/Contact hero.webp")
+          },
+          contactInfo{
+            address1{ title, address },
+            address2{ title, address },
+            email,
+            phone,
+            freephone,
+            socialHeading
           },
           formSection{
             heading,
@@ -1598,6 +1676,7 @@ export async function getContactPage(): Promise<ContactPageData> {
           ...defaultContactPage,
           ...data,
           hero: { ...defaultContactPage.hero, ...data.hero },
+          contactInfo: { ...defaultContactPage.contactInfo, ...(data.contactInfo || {}) },
           formSection: { ...defaultContactPage.formSection, ...data.formSection },
           directLines: (Array.isArray(data.directLines) && data.directLines.length > 0) ? data.directLines : defaultContactPage.directLines,
         };
@@ -1618,7 +1697,16 @@ export async function getRequestCollectionPage(): Promise<RequestCollectionPageD
           metaDescription,
           hero{
             title,
-            description
+            description,
+            topHeading,
+            topDescription,
+            topButtonText,
+            topButtonLink,
+            topSecondaryButtonText,
+            topSecondaryButtonLink,
+            topImageUrl,
+            topMobileImageUrl,
+            topImageAlt
           }
         }
       `);
@@ -1626,7 +1714,7 @@ export async function getRequestCollectionPage(): Promise<RequestCollectionPageD
         return {
           ...defaultRequestCollectionPage,
           ...data,
-          hero: { ...defaultRequestCollectionPage.hero, ...data.hero },
+          hero: { ...defaultRequestCollectionPage.hero, ...(data.hero || {}) },
           slaGuarantees: (Array.isArray(data.slaGuarantees) && data.slaGuarantees.length > 0) ? data.slaGuarantees : defaultRequestCollectionPage.slaGuarantees,
         };
       }

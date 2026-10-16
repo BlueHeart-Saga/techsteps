@@ -47,6 +47,56 @@ export default {
     },
 
     {
+      name: 'strategicValue',
+      title: 'Why This Matters / Strategic Value Section',
+      type: 'object',
+      fields: [
+        { name: 'heading', title: 'Section Heading', type: 'string' },
+        { name: 'description', title: 'Section Subtitle / Description', type: 'text', rows: 2 },
+        {
+          name: 'pillars',
+          title: 'Strategic Value Pillars',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                { name: 'icon', title: 'Icon Identifier / SVG keyword', type: 'string' },
+                { name: 'title', title: 'Pillar Title', type: 'string' },
+                { name: 'description', title: 'Pillar Description', type: 'text', rows: 2 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      name: 'customerJourney',
+      title: 'Division Process / Customer Journey',
+      type: 'object',
+      fields: [
+        { name: 'heading', title: 'Process Heading', type: 'string' },
+        { name: 'description', title: 'Process Subtitle', type: 'text', rows: 2 },
+        {
+          name: 'steps',
+          title: 'Journey Steps',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                { name: 'number', title: 'Step Number (e.g. 01)', type: 'string' },
+                { name: 'title', title: 'Step Title', type: 'string' },
+                { name: 'desc', title: 'Step Description', type: 'text', rows: 2 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    {
       name: 'faqs',
       title: 'Division FAQs',
       type: 'array',

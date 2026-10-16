@@ -1,0 +1,4526 @@
+{
+  "aboutPage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "buildingHero",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cleanerSmarter",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "paragraphs",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "values",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "icon",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "technologyPurpose",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "nationwideNetwork",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "trustAndImpact",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cards",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "sustainabilityCommitment",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metrics",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "value",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "journey",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "milestones",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "step",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cta",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "buttonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "buttonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "article.ts": [
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "slug",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "summary",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "featuredImage",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "author",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "authorRole",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "publishedDate",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "category",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "readTime",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "body",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "caseStudy.ts": [
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "slug",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "clientIndustry",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "challenge",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "solution",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "results",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "servicesUsed",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "publishedAt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "contactPage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "hero",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subheading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "formSection",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "division.ts": [
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "slug",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "headline",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "summary",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "icon",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "order",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "accreditation",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cardImage",
+      "inClient": false,
+      "inTypes": false,
+      "inData": false
+    },
+    {
+      "field": "cardImageAlt",
+      "inClient": false,
+      "inTypes": false,
+      "inData": false
+    },
+    {
+      "field": "heroImage",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heroTitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "heroDescription",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "heroCtaText",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "heroCtaLink",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "aboutBadge",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "aboutTitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "aboutParagraphs",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "lifecycleStages",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "id",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "desc",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "faqs",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "question",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "answer",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "faqPage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "categories",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "id",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "name",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "items",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "id",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "category",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "question",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "answer",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "contactCard",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "buttonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "buttonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "globalPresencePage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "hero",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subtitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "intro",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "paragraphs",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "regions",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subtitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "locations",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "name",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "type",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "location",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "coverage",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "features",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "capabilities",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "items",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "badge",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "linkUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "standards",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "items",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "code",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "name",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cta",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryHref",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryHref",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "homePage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "hero",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "buttonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "buttonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "intro",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "statistics",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "stat",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "suffix",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "services",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cards",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "card",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "divisionNumber",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "buttonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "link",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "viewAllText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "viewAllLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "lifecycle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "steps",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "step",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "stepNumber",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "headline",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "iconImage",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "badge",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "whyChoose",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "features",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "sectorsSection",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cta",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "investorsPage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "hero",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subheading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "bgImage",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "stats",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "prefix",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "value",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "suffix",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "desc",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "strategicPillars",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "headline",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "desc",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "detail",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "investmentCase",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "bulletPoints",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "irContact",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "name",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "role",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "email",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "phone",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "businesses",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "division",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "name",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "tagline",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "link",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "accreditations",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "esgPillars",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "badge",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "desc",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "leadershipPage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "hero",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subtitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "intro",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "paragraphs",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "team",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subtitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "members",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "name",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "role",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "bio",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "background",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "linkedin",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "principles",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "items",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "action",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "badgeNumber",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "badgeText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "paragraphs",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "linkText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "linkUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "commitment",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cards",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "icon",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "isFeatured",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cta",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryHref",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryHref",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "legalPage.ts": [
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "slug",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subheading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "complianceBadge",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "lastUpdated",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "sections",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "body",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "callout",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "items",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "value",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cards",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "listItems",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "text",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "peopleCulturePage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "hero",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subtitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "people",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "paragraphs",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "stats",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subtext",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "culture",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subtitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "pillars",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "icon",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "howWeWork",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "steps",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "stepNumber",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "badge",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "learningDevelopment",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "items",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "badge",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "peoplePlanetProgress",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "highlightedTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "paragraphs",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metrics",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageUrl",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cta",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryHref",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryHref",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "requestCollectionPage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "hero",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "sector.ts": [
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "slug",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "tagline",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "summary",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heroImage",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heroAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heroActions",
+      "inClient": false,
+      "inTypes": false,
+      "inData": false
+    },
+    {
+      "field": "primaryText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryLink",
+      "inClient": false,
+      "inTypes": false,
+      "inData": false
+    },
+    {
+      "field": "secondaryText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryLink",
+      "inClient": false,
+      "inTypes": false,
+      "inData": false
+    },
+    {
+      "field": "whoWeSupport",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "name",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "challengesSection",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "challenges",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "solutionsSection",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "howTechstepsHelps",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "solutions",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "securitySection",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "standardsLabel",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "securityConsiderations",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "complianceStandards",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "benefitsSection",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "keyBenefits",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "caseStudySection",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "linkText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "caseStudy",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "relevantServices",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "faqSection",
+      "inClient": true,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "faqs",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "question",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "answer",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "cta",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "sectorsPage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "seo",
+      "inClient": true,
+      "inTypes": false,
+      "inData": true
+    },
+    {
+      "field": "hero",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subheading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "bgImage",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "intro",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "badge",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "buttonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "buttonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "sectorsSection",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "lifecycle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "steps",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "step",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "desc",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "philosophy",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "principles",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "desc",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "bottomCta",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "service.ts": [
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "slug",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "division",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heroImage",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heroAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "summary",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "customerProblem",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "solution",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heroTag",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "heroTitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "heroDescription",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "aboutBadge",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "aboutTitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "aboutParagraphs",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "aboutBullets",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "aboutImage",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "aboutImageAlt",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "whyTitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "whySubtitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "whyPoints",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "processBadge",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "processTitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "processSubtitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "processSteps",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "stepNumber",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "businessNeedsTitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "businessNeedsSubtitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "businessNeedsCards",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "icon",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "faqBadge",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "faqTitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "faqSubtitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    },
+    {
+      "field": "keyBenefits",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "capabilities",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "faqs",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "question",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "answer",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "tag",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "relatedServices",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "relatedSectors",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "noIndex",
+      "inClient": false,
+      "inTypes": true,
+      "inData": false
+    }
+  ],
+  "servicesPage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "seo",
+      "inClient": true,
+      "inTypes": false,
+      "inData": true
+    },
+    {
+      "field": "hero",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subheading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "bgImage",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "divisionsShowcase",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "lifecycle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "steps",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "step",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "desc",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "pillars",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "items",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "desc",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "icon",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "bottomCta",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "siteSettings.ts": [
+    {
+      "field": "companyName",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "legalName",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "registrationNumber",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "vatNumber",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "address",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "street",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "city",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "county",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "postcode",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "country",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "phone",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "email",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "operatingHours",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "socialLinks",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "linkedin",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "twitter",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "instagram",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "defaultMetaTitle",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "defaultMetaDescription",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "mainNav",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "footerServices",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "footerSectors",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "footerCompany",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "footerLegal",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "footerCopyright",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "accreditationBadges",
+      "inClient": false,
+      "inTypes": false,
+      "inData": false
+    },
+    {
+      "field": "name",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "tag",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "stat.ts": [
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "value",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "prefix",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "suffix",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "displayOrder",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "isVisible",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "contextNote",
+      "inClient": false,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "sustainabilityPage.ts": [
+    {
+      "field": "metaTitle",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metaDescription",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "hero",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "subheading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "bgImage",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metrics",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "number",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "suffix",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "label",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "note",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "approach",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "steps",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "step",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "badge",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "desc",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "lifecycleSection",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "eyebrow",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "lifecycleSteps",
+      "inClient": false,
+      "inTypes": false,
+      "inData": false
+    },
+    {
+      "field": "step",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "badge",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "desc",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "features",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "image",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "imageAlt",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "details",
+      "inClient": false,
+      "inTypes": false,
+      "inData": false
+    },
+    {
+      "field": "headline",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "bulletPoints",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metric",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "metricLabel",
+      "inClient": false,
+      "inTypes": false,
+      "inData": false
+    },
+    {
+      "field": "esgPillars",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "title",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "tag",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "bottomCta",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "heading",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "description",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "primaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonText",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "secondaryButtonLink",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ],
+  "testimonial.ts": [
+    {
+      "field": "quote",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "author",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "role",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "company",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "industry",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "rating",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "avatar",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    },
+    {
+      "field": "order",
+      "inClient": true,
+      "inTypes": true,
+      "inData": true
+    }
+  ]
+}

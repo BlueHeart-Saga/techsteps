@@ -1,5 +1,9 @@
 ---
 import HeroHeader from '../global/HeroHeader.astro';
+import { getRequestCollectionPage } from '../../lib/sanity/client';
+
+const pageData = await getRequestCollectionPage();
+const hero = pageData?.hero;
 ---
 
 <section
@@ -16,7 +20,7 @@ import HeroHeader from '../global/HeroHeader.astro';
       <!-- Request Collection Hero Image (ends at right edge of header container) -->
       <div class="absolute inset-y-0 right-0 w-full lg:w-[62%] overflow-hidden pointer-events-none select-none z-0">
         <img
-          src="/images/hero/Request a collection.webp"
+          src={hero?.topImageUrl || "/images/hero/Request a collection.webp"}
           alt=""
           aria-hidden="true"
           class="w-full h-full object-cover object-right pointer-events-none select-none"
@@ -73,9 +77,15 @@ import HeroHeader from '../global/HeroHeader.astro';
                  leading-[1.12] sm:leading-[1.1]
                  max-w-xl"
         >
-          Book Your IT Asset
-          <br class="hidden sm:inline" />
-          Collection
+          {hero?.topHeading ? (
+            hero.topHeading === 'Book Your IT Asset Collection' ? (
+              <>Book Your IT Asset<br class="hidden sm:inline" /> Collection</>
+            ) : (
+              hero.topHeading
+            )
+          ) : (
+            <>Book Your IT Asset<br class="hidden sm:inline" /> Collection</>
+          )}
         </h1>
 
         <!-- Description -->
@@ -87,9 +97,8 @@ import HeroHeader from '../global/HeroHeader.astro';
                  leading-relaxed
                  font-sans font-normal"
         >
-          Arrange a secure, reliable collection of your IT equipment
-          with TechSteps. Tell us what you need collected and our team
-          will coordinate the next steps.
+          {hero?.topDescription ||
+            "Arrange a secure, reliable collection of your IT equipment with TechSteps. Tell us what you need collected and our team will coordinate the next steps."}
         </p>
 
         <!-- CTA Buttons -->
@@ -102,7 +111,7 @@ import HeroHeader from '../global/HeroHeader.astro';
 
           <!-- Schedule Collection -->
           <a
-            href="#collection-booking-form"
+            href={hero?.topButtonLink || "#collection-booking-form"}
             class="inline-flex items-center justify-center
                    gap-2.5
                    px-6 sm:px-7
@@ -120,7 +129,7 @@ import HeroHeader from '../global/HeroHeader.astro';
                    focus:ring-2
                    focus:ring-[#0F623A]"
           >
-            <span>Schedule Collection</span>
+            <span>{hero?.topButtonText || "Schedule Collection"}</span>
 
             <svg
               class="w-4 h-4 text-white"
@@ -139,7 +148,7 @@ import HeroHeader from '../global/HeroHeader.astro';
 
           <!-- Contact Us -->
           <a
-            href="/contact"
+            href={hero?.topSecondaryButtonLink || "/contact"}
             class="inline-flex items-center justify-center
                    px-6 sm:px-7
                    py-3 sm:py-3.5
@@ -160,7 +169,7 @@ import HeroHeader from '../global/HeroHeader.astro';
                    focus:ring-2
                    focus:ring-[#0F623A]"
           >
-            Contact Us
+            {hero?.topSecondaryButtonText || "Contact Us"}
           </a>
 
         </div>
@@ -174,8 +183,8 @@ import HeroHeader from '../global/HeroHeader.astro';
         >
           <div class="relative w-full max-w-[520px]">
             <img
-              src="/images/hero/Request a collection hero.webp"
-              alt="TechSteps IT asset collection"
+              src={hero?.topMobileImageUrl || "/images/hero/Request a collection hero.webp"}
+              alt={hero?.topImageAlt || "TechSteps IT asset collection"}
               class="w-full h-auto object-contain
                      select-none mx-auto block"
               loading="eager"

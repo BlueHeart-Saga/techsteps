@@ -203,7 +203,7 @@ const serviceCards = [
             </a>
 
             <a
-              href="/contact"
+              href={pageData.hero?.secondaryButtonLink || "/contact"}
               class="inline-flex items-center justify-center
                      px-6 sm:px-7
                      py-3 sm:py-3.5
@@ -218,7 +218,7 @@ const serviceCards = [
                      shadow-xs
                      focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
             >
-              Contact Our Team
+              {pageData.hero?.secondaryButtonText || "Contact Our Team"}
             </a>
           </div>
 
@@ -226,7 +226,7 @@ const serviceCards = [
           <div class="lg:hidden w-full flex justify-center items-center mt-8 sm:mt-10">
             <div class="relative w-full max-w-[460px]">
               <img
-                src="/images/sustainability/Sustainability hero.webp"
+                src={pageData.hero?.imageUrl || "/images/sustainability/Sustainability hero.webp"}
                 alt="Sustainability and Circular IT Lifecycle - TechSteps UK"
                 class="w-full h-auto object-contain drop-shadow-md select-none mx-auto block rounded-2xl"
                 loading="eager"
@@ -375,20 +375,27 @@ const serviceCards = [
               </div>*/}
 
               <h2 class="text-4xl sm:text-5xl lg:text-6xl font-semibold font-display text-slate-900 tracking-tight leading-[1.1]">
-                Reuse Before<br />
-                <span class="text-[#146B5C]">Recycle.</span>
+                {pageData.prioritisingLongevity?.heading ? (
+                  pageData.prioritisingLongevity.heading === 'Reuse Before Recycle.' ? (
+                    <>Reuse Before<br /><span class="text-[#146B5C]">Recycle.</span></>
+                  ) : (
+                    pageData.prioritisingLongevity.heading
+                  )
+                ) : (
+                  <>Reuse Before<br /><span class="text-[#146B5C]">Recycle.</span></>
+                )}
               </h2>
 
               <p class="text-lg sm:text-xl text-slate-700 leading-relaxed font-medium max-w-xl">
-                Not every device needs to become waste. Where possible, we extend the life of technology, recover value and only recycle when it’s the right option.
+                {pageData.prioritisingLongevity?.description || "Not every device needs to become waste. Where possible, we extend the life of technology, recover value and only recycle when it’s the right option."}
               </p>
             </div>
 
             <!-- Right Image Area (Image Only) -->
             <div class="lg:col-span-6 flex items-center justify-center">
               <img
-                src="/images/sustainability/image.webp"
-                alt="Enterprise IT Hardware Refurbishment and Remarketing Stack"
+                src={pageData.prioritisingLongevity?.imageUrl || "/images/sustainability/image.webp"}
+                alt={pageData.prioritisingLongevity?.imageAlt || "Enterprise IT Hardware Refurbishment and Remarketing Stack"}
                 class="w-full h-auto object-contain max-h-[500px]"
               />
             </div>

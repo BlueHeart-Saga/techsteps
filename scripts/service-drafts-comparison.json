@@ -1,0 +1,662 @@
+{
+  "srv-disposal-services": {
+    "draftUpdatedAt": "2026-09-30T06:53:03Z",
+    "publishedUpdatedAt": "2026-10-15T06:24:54Z",
+    "totalDiffFields": 15,
+    "fieldComparisons": [
+      {
+        "key": "aboutBullets",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": [
+          "Reliable collection and responsible disposal of general business waste",
+          "Food waste managed through appropriate recycling and processing routes",
+          "Practical disposal solutions tailored to your organisation’s waste requirements"
+        ],
+        "publishedValue": [
+          "Complete clearance leaving floors vacuum-clean and ready for landlord handover",
+          "Charity redistribution networks donating usable furniture to schools and social causes",
+          "Comprehensive Waste Transfer Notes providing full legal protection from fly-tipping liability"
+        ]
+      },
+      {
+        "key": "aboutImage",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "/images/services/disposal-services.jpg",
+        "publishedValue": "/images/services/disposal-services.webp"
+      },
+      {
+        "key": "aboutParagraphs",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": [
+          "Managing general and food waste requires organised collection, responsible handling, and disposal processes suited to your business requirements.",
+          "Our business waste disposal services UK support businesses with general waste collection, non-recyclable waste disposal,  through practical and responsible solutions.",
+          "Our services focus on responsible waste handling and appropriate disposal practices, helping businesses manage their waste efficiently while supporting environmental and regulatory requirements."
+        ],
+        "publishedValue": [
+          "Office relocations or lease terminations leave behind massive volumes of mixed furniture, partition screens, and miscellaneous commercial debris.",
+          "Full-service sustainable facility clearance: we dismantle, sort, donate, and recycle with zero reliance on open skip hire or landfill disposal.",
+          "Every operation is conducted under strict quality and information security management systems (ISO 9001, ISO 27001, and ISO 14001), giving your organization complete transparency and end-to-end accountability."
+        ]
+      },
+      {
+        "key": "businessNeedsTitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Business Disposal Services for Different Business Needs",
+        "publishedValue": "Disposal Services for Different Business Needs"
+      },
+      {
+        "key": "faqSubtitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Practical, transparent answers about how our disposal services uk operates, our accreditations, and service level commitments.",
+        "publishedValue": "Practical, transparent answers about how our disposal services service operates, our accreditations, and service level commitments."
+      },
+      {
+        "key": "faqTitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Questions About Our Disposal Service in uk",
+        "publishedValue": "Questions About Our Disposal Services Service"
+      },
+      {
+        "key": "faqs",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": [
+          {
+            "_key": "faq_1",
+            "answer": "Business waste disposal services UK help organisations manage the collection, handling, recycling, and responsible disposal of their business waste.",
+            "question": "What are business waste disposal services UK?",
+            "tag": "Service Scope"
+          },
+          {
+            "_key": "faq_2",
+            "answer": "Our services cover general non-recyclable business waste and food waste, with handling based on the waste stream and disposal requirements.",
+            "question": "What types of business waste can you manage?",
+            "tag": "Security & Accreditations"
+          },
+          {
+            "_key": "faq_3",
+            "answer": "Yes. Collection schedules can be arranged around your organisation’s waste volumes and operational requirements.",
+            "question": "Do you provide regular waste collections?",
+            "tag": "Logistics & Coverage"
+          },
+          {
+            "_key": "faq_4",
+            "answer": "Food waste is collected separately and directed through appropriate recycling or processing routes where available.",
+            "question": "How is food waste handled?",
+            "tag": "Audit Documentation"
+          },
+          {
+            "_key": "faq_5",
+            "answer": "Yes. Business waste disposal services can be arranged according to your waste types, volumes, collection needs, and workplace requirements.",
+            "question": "Can disposal services be tailored to my business?",
+            "tag": "Deployment Timelines"
+          }
+        ],
+        "publishedValue": [
+          {
+            "_key": "faq_1",
+            "answer": "Usable items are catalogued and offered to our partner community charities and educational institutions. Broken furniture is dismantled for metal and wood chip recovery.",
+            "question": "What happens to commercial office desks and chairs?",
+            "tag": "Service Scope"
+          },
+          {
+            "_key": "faq_2",
+            "answer": "Our operations are certified under ISO 27001 (Information Security), ISO 9001 (Quality Management), and ISO 14001 (Environmental Management). All personnel are security-vetted to BS 7858 standards with enhanced DBS checks.",
+            "question": "What standards and certifications govern Techsteps' disposal services service?",
+            "tag": "Security & Accreditations"
+          },
+          {
+            "_key": "faq_3",
+            "answer": "Yes, we operate an owned fleet of satellite-tracked, alarmed vehicles providing scheduled collections and responsive dispatch across England, Scotland, and Wales, including emergency rapid response options.",
+            "question": "Do you provide UK-wide coverage for disposal services?",
+            "tag": "Logistics & Coverage"
+          },
+          {
+            "_key": "faq_4",
+            "answer": "Every service event generates an itemized chain-of-custody log, digital asset inventory register, and official regulatory compliance certificates for your internal and external audit records.",
+            "question": "What documentation and certificates do we receive upon service completion?",
+            "tag": "Audit Documentation"
+          },
+          {
+            "_key": "faq_5",
+            "answer": "Standard deployments can be scheduled within 48 to 72 hours of initial scope agreement, with same-day emergency response available for urgent operational or compliance deadlines.",
+            "question": "How quickly can Techsteps deploy this service for our organisation?",
+            "tag": "Deployment Timelines"
+          }
+        ]
+      },
+      {
+        "key": "heroDescription",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Safe, responsible clearance of non-hazardous commercial waste, obsolete furniture, and redundant business assets.",
+        "publishedValue": "Safe, ethical clearances of non-hazardous and specialized commercial waste, obsolete furniture, and redundant assets."
+      },
+      {
+        "key": "heroTitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Business Waste Disposal Services UK",
+        "publishedValue": "Disposal Services Services UK"
+      },
+      {
+        "key": "processSteps",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": [
+          {
+            "_key": "ps_1",
+            "description": "We assess your general and food waste requirements to determine suitable collection arrangements.",
+            "stepNumber": "01",
+            "title": "Waste Assessment"
+          },
+          {
+            "_key": "ps_2",
+            "description": "Business waste is collected through organised schedules suited to your operational requirements.",
+            "stepNumber": "02",
+            "title": "Waste Collection"
+          },
+          {
+            "_key": "ps_3",
+            "description": "Collected waste is directed through appropriate disposal, recycling, or processing routes.",
+            "stepNumber": "03",
+            "title": "Responsible Processing"
+          },
+          {
+            "_key": "ps_4",
+            "description": "Relevant records provide visibility across waste collection and disposal activities.",
+            "stepNumber": "04",
+            "title": "Disposal Documentation"
+          }
+        ],
+        "publishedValue": [
+          {
+            "_key": "ps_1",
+            "description": "Survey of items to establish reuse potential, scrap values, and logistics access.",
+            "stepNumber": "01",
+            "title": "Site Survey & Estimation"
+          },
+          {
+            "_key": "ps_2",
+            "description": "Skilled crews dismantle furniture and separate materials (metals, wood, textiles).",
+            "stepNumber": "02",
+            "title": "Dismantling & Categorization"
+          },
+          {
+            "_key": "ps_3",
+            "description": "Quality assets delivered to registered charities; raw metals routed to recyclers.",
+            "stepNumber": "03",
+            "title": "Donation & Smelting"
+          },
+          {
+            "_key": "ps_4",
+            "description": "Final sweep and handover inspection matching lease surrender covenants.",
+            "stepNumber": "04",
+            "title": "Landlord Sign-Off"
+          }
+        ]
+      },
+      {
+        "key": "processSubtitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "A clear, structured four-step workflow supporting responsible collection, handling, and disposal of business waste.",
+        "publishedValue": "A disciplined, transparent four-step workflow delivering total compliance and peace of mind at every phase."
+      },
+      {
+        "key": "slug",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": {
+          "_type": "slug",
+          "current": "business-waste-disposal-services"
+        },
+        "publishedValue": {
+          "_type": "slug",
+          "current": "disposal-services"
+        }
+      },
+      {
+        "key": "title",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Business Waste Disposal Services",
+        "publishedValue": "Disposal Services"
+      },
+      {
+        "key": "whyPoints",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": [
+          {
+            "_key": "wp_1",
+            "description": "General business waste is collected and handled through appropriate disposal routes.",
+            "number": "01",
+            "title": "Responsible Waste Handling"
+          },
+          {
+            "_key": "wp_2",
+            "description": "Organised waste collection helps businesses manage general and food waste efficiently.",
+            "number": "02",
+            "title": "Efficient Waste Management"
+          },
+          {
+            "_key": "wp_3",
+            "description": "Collection arrangements can be tailored to your organisation’s waste volumes and requirements.",
+            "number": "03",
+            "title": "Flexible Collection Services"
+          },
+          {
+            "_key": "wp_4",
+            "description": "Clear processes support responsible handling and better visibility across your waste disposal activities.",
+            "number": "04",
+            "title": "Transparent Waste Management"
+          }
+        ],
+        "publishedValue": [
+          {
+            "_key": "wp_1",
+            "description": "Complete clearance leaving floors vacuum-clean and ready for landlord handover",
+            "number": "01",
+            "title": "Guaranteed Compliance & Security"
+          },
+          {
+            "_key": "wp_2",
+            "description": "Charity redistribution networks donating usable furniture to schools and social causes",
+            "number": "02",
+            "title": "Operational Cost Efficiency"
+          },
+          {
+            "_key": "wp_3",
+            "description": "Comprehensive Waste Transfer Notes providing full legal protection from fly-tipping liability",
+            "number": "03",
+            "title": "Rapid Turnaround & Agility"
+          },
+          {
+            "_key": "wp_4",
+            "description": "Rapid turnaround teams capable of executing weekend or out-of-hours clearances",
+            "number": "04",
+            "title": "End-to-End Audit Visibility"
+          }
+        ]
+      },
+      {
+        "key": "whySubtitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Managing business waste requires organised collection, responsible handling, and disposal processes suited to different waste streams. Our business waste disposal services UK support practical.",
+        "publishedValue": "Managing disposal services requires specialized infrastructure, rigorous compliance controls, and certified audit trails. Our solution delivers proven reliability and cost savings."
+      }
+    ]
+  },
+  "srv-it-relocations-specialist": {
+    "draftUpdatedAt": "2026-09-28T05:40:37Z",
+    "publishedUpdatedAt": "2026-10-15T06:25:03Z",
+    "totalDiffFields": 1,
+    "fieldComparisons": [
+      {
+        "key": "aboutImage",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "/images/services/it-relocations.jpg",
+        "publishedValue": "/images/services/it-relocations-specialist.webp"
+      }
+    ]
+  },
+  "srv-ultra-secure-hard-drive-destruction": {
+    "draftUpdatedAt": "2026-09-29T09:16:24Z",
+    "publishedUpdatedAt": "2026-10-15T06:25:14Z",
+    "totalDiffFields": 21,
+    "fieldComparisons": [
+      {
+        "key": "aboutBullets",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": [
+          "Witnessed physical destruction allowing authorised security teams to verify the destruction process",
+          "DIN 66399-compliant destruction for secure processing of data-bearing media",
+          "High-power 10,000+ Gauss degaussers completely wiping magnetic domains prior to shredding"
+        ],
+        "publishedValue": [
+          "Complete physical destruction witnessable by your security officers in real time",
+          "DIN 66399 Level H-5 / H-6 compliance reducing platters to tiny fragments",
+          "High-power 10,000+ Gauss degaussers completely wiping magnetic domains prior to shredding"
+        ]
+      },
+      {
+        "key": "aboutImage",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "/images/services/hard-drive-destruction.jpg",
+        "publishedValue": "/images/services/ultra-secure-hard-drive-destruction.webp"
+      },
+      {
+        "key": "aboutParagraphs",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": [
+          "Sensitive business data must be securely destroyed before hard drives and other data-bearing devices leave your control.",
+          "TechSteps provides controlled hard drive destruction through secure collection, helping organisations prevent unauthorised access to data stored on retired devices.",
+          "Every operation is conducted under strict quality and information security management systems (ISO 9001, ISO 27001, and ISO 14001), giving your organization complete transparency and end-to-end accountability."
+        ],
+        "publishedValue": [
+          "Sensitive defence data, customer payment records, or national security files cannot leave premises in readable form, even if encrypted.",
+          "High-torque hydraulic shredding and electromagnetic pulse degaussing performed in our specialized vehicles right outside your building.",
+          "Every operation is conducted under strict quality and information security management systems (ISO 9001, ISO 27001, and ISO 14001), giving your organization complete transparency and end-to-end accountability."
+        ]
+      },
+      {
+        "key": "aboutTitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Hard Drive Destruction Services UK for Your Organisation",
+        "publishedValue": "Ultra Secure Hard Drive Destruction for Your Organisation"
+      },
+      {
+        "key": "businessNeedsSubtitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Different organisations have different data security and compliance requirements. Our hard drive destruction services adapt to each business’s needs.",
+        "publishedValue": "Every sector has unique regulatory mandates and operational requirements. Here is how we tailor our services."
+      },
+      {
+        "key": "businessNeedsTitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": " Hard Drive Destruction Services for Different Business Needs",
+        "publishedValue": "Ultra Secure Hard Drive Destruction for Different Business Needs"
+      },
+      {
+        "key": "faqSubtitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Practical, transparent answers about how our hard drive destruction service uk operates, our accreditations, and service level commitments.",
+        "publishedValue": "Practical, transparent answers about how our ultra secure hard drive destruction service operates, our accreditations, and service level commitments."
+      },
+      {
+        "key": "faqTitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Questions About Our Hard Drive Destruction Service uk",
+        "publishedValue": "Questions About Our Ultra Secure Hard Drive Destruction Service"
+      },
+      {
+        "key": "faqs",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": [
+          {
+            "_key": "faq_1",
+            "answer": "Hard drive destruction is the physical destruction of storage devices to prevent data from being recovered or accessed after the equipment is retired.",
+            "question": "What is hard drive destruction?",
+            "tag": "Service Scope"
+          },
+          {
+            "_key": "faq_2",
+            "answer": "Hard drives are identified, securely processed, and physically destroyed using specialist shredding equipment. Where required, magnetic drives can also undergo degaussing.",
+            "question": "How does hard drive destruction work?",
+            "tag": "Compliance & Standards"
+          },
+          {
+            "_key": "faq_3",
+            "answer": "Physical destruction removes the storage media itself, making the data inaccessible through normal recovery methods. The appropriate method depends on the type of device and data security requirements.",
+            "question": "Is hard drive destruction more secure than data deletion?",
+            "tag": "Security & Accreditations"
+          },
+          {
+            "_key": "faq_4",
+            "answer": "Yes, we operate an owned fleet of satellite-tracked, alarmed vehicles providing scheduled collections and responsive dispatch across England, Scotland, and Wales, including emergency rapid response options.",
+            "question": "Do you provide UK-wide coverage for ultra secure hard drive destruction?",
+            "tag": "Logistics & Coverage"
+          },
+          {
+            "_key": "faq_5",
+            "answer": "Every service event generates an itemized chain-of-custody log, digital asset inventory register, and official regulatory compliance certificates for your internal and external audit records.",
+            "question": "What documentation and certificates do we receive upon service completion?",
+            "tag": "Audit Documentation"
+          },
+          {
+            "_key": "faq_6",
+            "answer": "Yes. A Certificate of Destruction can provide documented evidence that the specified storage devices have been processed and destroyed.",
+            "question": " Do you provide a Certificate of Destruction?",
+            "tag": "Deployment Timelines"
+          }
+        ],
+        "publishedValue": [
+          {
+            "_key": "faq_1",
+            "answer": "Yes. Our mobile destruction vehicles feature an external inspection window or high-definition camera monitor so you can witness every drive enter the shredder.",
+            "question": "Can we watch the destruction process?",
+            "tag": "Service Scope"
+          },
+          {
+            "_key": "faq_2",
+            "answer": "No. SSDs use flash memory chips rather than magnetic platters. SSDs are destroyed using specialized high-density 2mm cross-cut granulators that fracture every silicon memory die.",
+            "question": "Can solid-state drives (SSDs) be degaussed?",
+            "tag": "Compliance & Standards"
+          },
+          {
+            "_key": "faq_3",
+            "answer": "Our operations are certified under ISO 27001 (Information Security), ISO 9001 (Quality Management), and ISO 14001 (Environmental Management). All personnel are security-vetted to BS 7858 standards with enhanced DBS checks.",
+            "question": "What standards and certifications govern Techsteps' ultra secure hard drive destruction service?",
+            "tag": "Security & Accreditations"
+          },
+          {
+            "_key": "faq_4",
+            "answer": "Yes, we operate an owned fleet of satellite-tracked, alarmed vehicles providing scheduled collections and responsive dispatch across England, Scotland, and Wales, including emergency rapid response options.",
+            "question": "Do you provide UK-wide coverage for ultra secure hard drive destruction?",
+            "tag": "Logistics & Coverage"
+          },
+          {
+            "_key": "faq_5",
+            "answer": "Every service event generates an itemized chain-of-custody log, digital asset inventory register, and official regulatory compliance certificates for your internal and external audit records.",
+            "question": "What documentation and certificates do we receive upon service completion?",
+            "tag": "Audit Documentation"
+          },
+          {
+            "_key": "faq_6",
+            "answer": "Standard deployments can be scheduled within 48 to 72 hours of initial scope agreement, with same-day emergency response available for urgent operational or compliance deadlines.",
+            "question": "How quickly can Techsteps deploy this service for our organisation?",
+            "tag": "Deployment Timelines"
+          }
+        ]
+      },
+      {
+        "key": "heroDescription",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Secure destruction of hard drives and data-bearing devices through controlled on-site shredding, degaussing, and compliant physical destruction processes",
+        "publishedValue": "On-site mobile high-torque shredding down to 6mm particles, degaussing to 10,000+ Gauss, and DIN 66399 H-5 certification."
+      },
+      {
+        "key": "heroTitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Hard Drive Destruction Services UK",
+        "publishedValue": "Ultra Secure Hard Drive Destruction Services UK"
+      },
+      {
+        "key": "metaDescription",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Secure Hard Drive Destruction Services UK for physical data destruction, degaussing, shredding, asset tracking, and certified destruction records.",
+        "publishedValue": "Ultra-secure hard drive destruction and degaussing. Mobile on-site shredding to DIN 66399 Level H-5 with witnessed serial-level certification."
+      },
+      {
+        "key": "metaTitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Hard Drive Destruction Services UK | TechSteps",
+        "publishedValue": "Hard Drive Shredding UK | On-Site DIN 66399 Destruction | Techsteps"
+      },
+      {
+        "key": "processSteps",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": [
+          {
+            "_key": "ps_1",
+            "description": "Every hard drive and SSD is scanned and validated against your manifest.",
+            "stepNumber": "01",
+            "title": "Asset Identification & Scanning"
+          },
+          {
+            "_key": "ps_2",
+            "description": "Where applicable, magnetic media undergoes controlled degaussing before physical destruction.",
+            "stepNumber": "02",
+            "title": "Secure Data Sanitisation"
+          },
+          {
+            "_key": "ps_3",
+            "description": "Hard drives are processed through industrial shredding equipment to physically destroy the storage media.",
+            "stepNumber": "03",
+            "title": "Mechanical Destruction"
+          },
+          {
+            "_key": "ps_4",
+            "description": "A destruction record is provided with relevant asset details to support your audit and chain-of-custody requirements.\n",
+            "stepNumber": "04",
+            "title": "Certificate of Destruction"
+          }
+        ],
+        "publishedValue": [
+          {
+            "_key": "ps_1",
+            "description": "Every hard drive and SSD is scanned and validated against your manifest.",
+            "stepNumber": "01",
+            "title": "Serial Number Barcode Scan"
+          },
+          {
+            "_key": "ps_2",
+            "description": "Magnetic media is passed through our ultra-high coercivity degausser.",
+            "stepNumber": "02",
+            "title": "Electromagnetic Degaussing"
+          },
+          {
+            "_key": "ps_3",
+            "description": "Drives are fed through counter-rotating shredder blades reducing them to granules.",
+            "stepNumber": "03",
+            "title": "Mechanical Shredding"
+          },
+          {
+            "_key": "ps_4",
+            "description": "Instant generation of digital and signed physical Certificate of Destruction.",
+            "stepNumber": "04",
+            "title": "Certificate Delivery"
+          }
+        ]
+      },
+      {
+        "key": "processSubtitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "A clear four-step workflow for secure identification, destruction, and documented data disposal.",
+        "publishedValue": "A disciplined, transparent four-step workflow delivering total compliance and peace of mind at every phase."
+      },
+      {
+        "key": "processTitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Our Hard Drive Destruction services Process",
+        "publishedValue": "Our Ultra Secure Hard Drive Destruction Process"
+      },
+      {
+        "key": "slug",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": {
+          "_type": "slug",
+          "current": "hard-drive-destruction-services"
+        },
+        "publishedValue": {
+          "_type": "slug",
+          "current": "ultra-secure-hard-drive-destruction"
+        }
+      },
+      {
+        "key": "title",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Hard Drive Destruction Services ",
+        "publishedValue": "Ultra Secure Hard Drive Destruction"
+      },
+      {
+        "key": "whyPoints",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": [
+          {
+            "_key": "wp_1",
+            "description": "Hard drives are physically destroyed so data cannot be recovered from the storage media.",
+            "number": "01",
+            "title": "Physical Data Destruction"
+          },
+          {
+            "_key": "wp_2",
+            "description": "Destruction can be carried out at your premises, allowing authorised personnel to witness the process.",
+            "number": "02",
+            "title": "Secure On-Site Destruction"
+          },
+          {
+            "_key": "wp_3",
+            "description": "Processes can follow applicable data destruction including DIN 66399 requirements where relevant.",
+            "number": "03",
+            "title": "Certified Destruction Standards"
+          },
+          {
+            "_key": "wp_4",
+            "description": "Serial numbers can be recorded during collection and destruction, with documentation provided to support",
+            "number": "04",
+            "title": "Complete Audit Trail"
+          }
+        ],
+        "publishedValue": [
+          {
+            "_key": "wp_1",
+            "description": "Complete physical destruction witnessable by your security officers in real time",
+            "number": "01",
+            "title": "Guaranteed Compliance & Security"
+          },
+          {
+            "_key": "wp_2",
+            "description": "DIN 66399 Level H-5 / H-6 compliance reducing platters to tiny fragments",
+            "number": "02",
+            "title": "Operational Cost Efficiency"
+          },
+          {
+            "_key": "wp_3",
+            "description": "High-power 10,000+ Gauss degaussers completely wiping magnetic domains prior to shredding",
+            "number": "03",
+            "title": "Rapid Turnaround & Agility"
+          },
+          {
+            "_key": "wp_4",
+            "description": "Immediate serial number barcode scanning with on-site certificate sign-off",
+            "number": "04",
+            "title": "End-to-End Audit Visibility"
+          }
+        ]
+      },
+      {
+        "key": "whySubtitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Secure hard drive destruction requires controlled processes, specialist equipment, and clear records from collection through final destruction.",
+        "publishedValue": "Managing ultra secure hard drive destruction requires specialized infrastructure, rigorous compliance controls, and certified audit trails. Our solution delivers proven reliability and cost savings."
+      },
+      {
+        "key": "whyTitle",
+        "inDraft": true,
+        "inPub": true,
+        "draftValue": "Why Businesses Choose Our Hard Drive Destruction Services",
+        "publishedValue": "Why Businesses Choose Our Ultra Secure Hard Drive Destruction"
+      }
+    ]
+  }
+}
