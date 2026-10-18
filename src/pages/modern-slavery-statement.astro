@@ -28,7 +28,7 @@ const [siteSettings, legalData] = await Promise.all([
         )}
         {sec.body && <p class="text-slate-700 leading-relaxed">{sec.body}</p>}
         {sec.callout && (
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
+          <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
             {sec.callout.title && <div class="font-bold text-slate-900 mb-1">{sec.callout.title}</div>}
             {sec.callout.items?.map((item) => (
               <div><strong>{item.label}:</strong> {item.value}</div>
@@ -38,7 +38,7 @@ const [siteSettings, legalData] = await Promise.all([
         {sec.cards && sec.cards.length > 0 && (
           <div class="space-y-3">
             {sec.cards.map((c) => (
-              <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+              <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs">
                 <h3 class="font-semibold text-slate-900 text-base">{c.title}</h3>
                 <p class="text-sm sm:text-base text-black mt-1">{c.description}</p>
               </div>
@@ -86,19 +86,19 @@ const [siteSettings, legalData] = await Promise.all([
       Because our operatives handle confidential data-bearing hardware and government archives, we enforce the most rigorous employment screening in the UK industry:
     </p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90">
         <h4 class="font-semibold text-slate-900 text-sm">Mandatory BS 7858 Screening</h4>
         <p class="text-sm text-black mt-1">100% of employees undergo comprehensive 5-year employment verification, financial probity checks, and enhanced criminal record checks prior to commencing work.</p>
       </div>
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90">
         <h4 class="font-semibold text-slate-900 text-sm">Real Living Wage Employer</h4>
         <p class="text-sm text-black mt-1">We are committed to paying all employees at or above the independently calculated Real Living Wage, mitigating the financial vulnerability that can lead to worker exploitation.</p>
       </div>
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90">
         <h4 class="font-semibold text-slate-900 text-sm">Direct Employment Priority</h4>
         <p class="text-sm text-black mt-1">We prioritize direct permanent employment contracts over agency temporary labour, ensuring transparent working conditions and statutory employment rights.</p>
       </div>
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90">
         <h4 class="font-semibold text-slate-900 text-sm">Right to Work Verification</h4>
         <p class="text-sm text-black mt-1">Robust physical and Home Office digital share-code right-to-work verification is conducted for every candidate without exception.</p>
       </div>
@@ -132,7 +132,7 @@ const [siteSettings, legalData] = await Promise.all([
     <p>
       Techsteps actively encourages all employees, agency contractors, and supply chain partners to report any suspicion of modern slavery, human exploitation, or unfair labor practices without fear of retaliation.
     </p>
-    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm font-mono">
+    <div class="p-5 rounded-[12px] bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm font-mono">
       <div><strong>Confidential Whistleblowing Line:</strong> <a href="mailto:whistleblowing@techsteps.co.uk" class="text-emerald-700 hover:underline">whistleblowing@techsteps.co.uk</a></div>
       <div><strong>Compliance Director:</strong> Direct confidential phone line available via {siteSettings.phone}</div>
       <div><strong>UK Modern Slavery Helpline:</strong> 08000 121 700 (<a href="https://www.modernslaveryhelpline.org" target="_blank" rel="noopener noreferrer" class="text-emerald-700 underline">modernslaveryhelpline.org</a>)</div>
@@ -146,7 +146,7 @@ const [siteSettings, legalData] = await Promise.all([
     <p>
       This statement has been formally reviewed and approved by the Board of Directors of {siteSettings.legalName} and will be updated annually in accordance with UK statutory reporting requirements.
     </p>
-    <div class="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs sm:text-sm font-mono space-y-1">
+    <div class="p-4 rounded-[12px] bg-slate-100 border border-slate-200 text-xs sm:text-sm font-mono space-y-1">
       <div><strong>Approved by:</strong> Board of Directors, {siteSettings.legalName}</div>
       <div><strong>Date of Board Sign-off:</strong> 1st February 2026</div>
       <div><strong>Registered Office:</strong> {siteSettings.address.street}, {siteSettings.address.city}, {siteSettings.address.postcode}</div>

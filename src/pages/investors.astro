@@ -217,7 +217,7 @@ const fallbackImages = [
                    gap-2.5
                    px-6 sm:px-7
                    py-3 sm:py-3.5
-                   rounded-none
+                   rounded-[12px]
                    bg-[#0F623A] hover:bg-[#0c4e2e]
                    text-white
                    text-sm sm:text-base
@@ -248,7 +248,7 @@ const fallbackImages = [
             class="inline-flex items-center justify-center
                    px-6 sm:px-7
                    py-3 sm:py-3.5
-                   rounded-none
+                   rounded-[12px]
                    bg-white hover:bg-slate-50
                    border-2 border-[#0F623A] hover:border-[#0c4e2e]
                    text-[#0F623A] hover:text-[#0c4e2e]
@@ -337,14 +337,14 @@ const fallbackImages = [
           <div class="pt-4 flex flex-wrap items-center gap-4">
             <a
               href="/contact"
-              class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+              class="inline-flex items-center justify-center px-7 py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
             >
               <span>Get In Touch</span>
               <span class="ml-2">&rarr;</span>
             </a>
             <a
               href="/request-a-quote"
-              class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300 text-sm sm:text-base font-bold transition-all duration-200"
+              class="inline-flex items-center justify-center px-7 py-3.5 rounded-[12px] bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300 text-sm sm:text-base font-bold transition-all duration-200"
             >
               <span>Request a Collection</span>
             </a>
@@ -386,7 +386,7 @@ const fallbackImages = [
           const isFeatured = idx === 1;
           return (
             <div
-              class={`relative rounded-3xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 group overflow-hidden
+              class={`relative rounded-[16px] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 group overflow-hidden
                 ${isFeatured
                   ? 'lg:col-span-4 bg-[#0A331E] text-white shadow-2xl'
                   : 'lg:col-span-4 bg-white border border-slate-200 hover:shadow-xl hover:border-[#0F623A]/30'}
@@ -403,7 +403,7 @@ const fallbackImages = [
                   <span class={`font-mono font-bold text-sm tracking-[0.3em] ${isFeatured ? 'text-emerald-400' : 'text-slate-400'}`}>
                     {pillar.number}
                   </span>
-                  <span class={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors duration-200
+                  <span class={`w-12 h-12 rounded-[12px] flex items-center justify-center transition-colors duration-200
                     ${isFeatured
                       ? 'bg-emerald-400/15 text-emerald-300'
                       : 'bg-emerald-50 text-[#0F623A] group-hover:bg-[#0F623A] group-hover:text-white'}`}>
@@ -448,7 +448,7 @@ const fallbackImages = [
       </div>
 
       <div class="shrink-0">
-        <a href="/contact" class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200">
+        <a href="/contact" class="inline-flex items-center justify-center px-7 py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200">
           <span>Get In Touch</span>
           <span class="ml-2">&rarr;</span>
         </a>
@@ -483,13 +483,13 @@ const fallbackImages = [
         const imgSrc = resolveImage(biz.image) || fallbackImages[shape];
         return (
           <article
-            class="biz-card group relative flex flex-col rounded-[20px] bg-white border border-slate-200/90 hover:border-[#0F623A]/40 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 ease-out h-[470px] select-none"
+            class="biz-card group relative flex flex-col rounded-[16px] bg-white border border-slate-200/90 hover:border-[#0F623A]/40 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 ease-out h-[470px] select-none"
             tabindex="0"
             aria-labelledby={`biz-title-${idx}`}
             role="region"
           >
             <!-- UPPER PORTION: framed, asymmetric image -->
-            <div class="relative w-full h-[340px] overflow-hidden rounded-t-[20px] shrink-0 bg-slate-100">
+            <div class="relative w-full h-[340px] overflow-hidden rounded-t-[16px] shrink-0 bg-slate-100">
 
               <!-- Brand-coloured shape behind the image -->
               <div class="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
@@ -543,7 +543,7 @@ const fallbackImages = [
             </div>
 
             <!-- LOWER PORTION: title by default, details on hover / focus / tap -->
-            <div class="biz-content-panel absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-md p-5 sm:p-6 rounded-b-[20px] border-t border-slate-100 flex flex-col justify-end transition-all duration-500 ease-out">
+            <div class="biz-content-panel absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-md p-5 sm:p-6 rounded-b-[16px] border-t border-slate-100 flex flex-col justify-end transition-all duration-500 ease-out">
 
               <div class="space-y-2">
                 <!-- Existing division label (delete this block if you don't want it on the card) -->
@@ -648,11 +648,11 @@ const fallbackImages = [
           </div>
 
           <div class="flex flex-wrap items-center gap-4 pt-2">
-            <a href="/sustainability" class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200">
+            <a href="/sustainability" class="inline-flex items-center justify-center px-7 py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200">
               <span>Explore ESG &amp; Sustainability</span>
               <span class="ml-2">&rarr;</span>
             </a>
-            <a href="/contact" class="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 text-sm sm:text-base font-bold shadow-xs hover:shadow-md transition-all duration-200">
+            <a href="/contact" class="inline-flex items-center justify-center px-7 py-3.5 rounded-[12px] bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 text-sm sm:text-base font-bold shadow-xs hover:shadow-md transition-all duration-200">
               <span>Get In Touch</span>
             </a>
           </div>
@@ -694,7 +694,7 @@ const fallbackImages = [
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 text-xs text-left">
 
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="p-4 rounded-[16px] bg-slate-50 border border-slate-200">
             <span class="text-slate-500 block mb-1">
               Corporate Entity
             </span>
@@ -703,7 +703,7 @@ const fallbackImages = [
             </span>
           </div>
 
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="p-4 rounded-[16px] bg-slate-50 border border-slate-200">
             <span class="text-slate-500 block mb-1">
               Registration Jurisdiction
             </span>
@@ -712,7 +712,7 @@ const fallbackImages = [
             </span>
           </div>
 
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="p-4 rounded-[16px] bg-slate-50 border border-slate-200">
             <span class="text-slate-500 block mb-1">
               Core Standard
             </span>
@@ -721,7 +721,7 @@ const fallbackImages = [
             </span>
           </div>
 
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="p-4 rounded-[16px] bg-slate-50 border border-slate-200">
             <span class="text-slate-500 block mb-1">
               ESG Target
             </span>
@@ -735,14 +735,14 @@ const fallbackImages = [
         <div class="pt-6 flex flex-wrap justify-center gap-4">
           <a
             href="/contact"
-            class="px-8 py-3.5 rounded-full bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
+            class="px-8 py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
           >
             Contact Investor Relations &rarr;
           </a>
 
           <a
             href="/sustainability"
-            class="px-8 py-3.5 rounded-full bg-slate-100 hover:bg-slate-200 text-[#0F623A] text-sm font-bold border border-slate-200 transition-all duration-200"
+            class="px-8 py-3.5 rounded-[12px] bg-slate-100 hover:bg-slate-200 text-[#0F623A] text-sm font-bold border border-slate-200 transition-all duration-200"
           >
             Review ESG Disclosures
           </a>

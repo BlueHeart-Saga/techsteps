@@ -87,7 +87,7 @@ const faqPageSchema = {
   <div class="bg-[#F8FAF9] min-h-screen text-[#0F172A] font-sans pb-24">
     <!-- 2. Search Bar Capsule (Floating Over Hero Boundary) -->
     <div class="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:-mt-12 mb-12 sm:mb-16">
-      <div class="relative bg-white rounded-2xl sm:rounded-3xl p-2.5 sm:p-3 shadow-xl border border-slate-200/90 backdrop-blur-sm">
+      <div class="relative bg-white rounded-[20px] p-2.5 sm:p-3 shadow-xl border border-slate-200/90 backdrop-blur-sm">
         <div class="relative flex items-center">
           <div class="absolute inset-y-0 left-0 pl-4 sm:pl-5 flex items-center pointer-events-none text-slate-400">
             <svg class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -98,7 +98,7 @@ const faqPageSchema = {
             type="search"
             id="faq-search"
             placeholder="Search by keyword (e.g. GDPR, shredding, ITAD, certificate, retrieval, ISO)..."
-            class="w-full pl-12 sm:pl-14 pr-12 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-200 focus:border-[#0F623A] focus:ring-4 focus:ring-[#0F623A]/15 text-slate-900 placeholder-slate-400 text-sm sm:text-base font-sans transition-all outline-none"
+            class="w-full pl-12 sm:pl-14 pr-12 py-3.5 sm:py-4 rounded-[8px] bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-200 focus:border-[#0F623A] focus:ring-4 focus:ring-[#0F623A]/15 text-slate-900 placeholder-slate-400 text-sm sm:text-base font-sans transition-all outline-none"
           />
           <button
             type="button"
@@ -120,7 +120,7 @@ const faqPageSchema = {
         
         <!-- Left Sidebar: Sticky Category Navigation (Like Chalky Info) -->
         <aside class="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-32 space-y-3 z-10">
-          <div class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-sm space-y-3">
+          <div class="bg-white rounded-[16px] p-5 sm:p-6 border border-slate-200 shadow-sm space-y-3">
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                 Categories
@@ -137,7 +137,7 @@ const faqPageSchema = {
                   data-category={cat.id}
                   role="tab"
                   aria-selected={idx === 0 ? 'true' : 'false'}
-                  class={`faq-nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-left text-xs sm:text-sm font-semibold transition-all duration-200 group ${
+                  class={`faq-nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-[12px] text-left text-xs sm:text-sm font-semibold transition-all duration-200 group ${
                     idx === 0
                       ? 'bg-[#0F623A] text-white shadow-md shadow-[#0F623A]/20'
                       : 'text-slate-700 hover:bg-slate-50 hover:text-[#0F623A]'
@@ -174,7 +174,7 @@ const faqPageSchema = {
               <!-- Category Header with Icon Badge -->
               <div class="flex items-center justify-between pb-4 border-b border-slate-200">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0">
+                  <div class="w-10 h-10 rounded-[12px] bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d={catData.icon} />
                     </svg>
@@ -194,7 +194,7 @@ const faqPageSchema = {
               <div class="space-y-4">
                 {catData.items.map((item) => (
                   <article
-                    class="faq-card bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-200 p-6 sm:p-7 space-y-3.5"
+                    class="faq-card bg-white rounded-[16px] border border-slate-200/90 shadow-xs hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-200 p-6 sm:p-7 space-y-3.5"
                     data-card-category={catId}
                     data-keywords={`${item.question} ${item.answer} ${catData.title}`.toLowerCase()}
                   >
@@ -219,7 +219,7 @@ const faqPageSchema = {
           ))}
 
           <!-- Empty State (Shows when Search yields 0 matches) -->
-          <div id="faq-empty-state" class="hidden text-center py-16 px-6 bg-white rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <div id="faq-empty-state" class="hidden text-center py-16 px-6 bg-white rounded-[16px] border border-slate-200 shadow-sm space-y-4">
             <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
               <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -232,14 +232,14 @@ const faqPageSchema = {
             <button
               type="button"
               id="faq-reset-btn"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0F623A] hover:bg-[#0A331E] text-white text-xs font-bold transition-all shadow-xs"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0A331E] text-white text-xs font-bold transition-all shadow-xs"
             >
               <span>Reset Search &amp; Show All</span>
             </button>
           </div>
 
           <!-- Bottom Assistance Banner -->
-          <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div class="bg-white rounded-[24px] p-8 sm:p-10 border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
             <div class="space-y-1.5 text-center sm:text-left">
               <h3 class="text-lg sm:text-xl font-semibold text-slate-900">
                 {faqPage.contactCard?.heading || "Still can't find what you're looking for?"}
@@ -251,7 +251,7 @@ const faqPageSchema = {
             <div class="flex items-center gap-3 shrink-0">
               <a
                 href={faqPage.contactCard?.buttonLink || "/contact"}
-                class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#0F623A] hover:bg-[#0A331E] text-white text-sm font-bold shadow-md transition-all"
+                class="inline-flex items-center justify-center px-6 py-3 rounded-[12px] bg-[#0F623A] hover:bg-[#0A331E] text-white text-sm font-bold shadow-md transition-all"
               >
                 {faqPage.contactCard?.buttonText || "Contact Us"}
               </a>

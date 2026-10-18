@@ -1,0 +1,662 @@
+---
+/**
+ * AboutMegaMenu.astro
+ * Balanced 3-column + 25% featured card mega menu for "About TechSteps"
+ * Organised into Company (3 links), Impact (2 links), and Trust (2 links).
+ */
+
+const currentPath = Astro.url.pathname;
+
+const companyLinks = [
+  {
+    title: 'About Us',
+    href: '/about-us',
+    icon: '/icons/about-us.svg',
+    active: currentPath === '/about-us' || currentPath === '/about-us/',
+  },
+  {
+    title: 'Our People & Culture',
+    href: '/our-people-culture',
+    icon: '/icons/our-people-culture.svg',
+    active: currentPath === '/our-people-culture' || currentPath === '/our-people-culture/',
+  },
+  {
+    title: 'Leadership',
+    href: '/leadership',
+    icon: '/icons/leadership.svg',
+    active: currentPath === '/leadership' || currentPath === '/leadership/',
+  },
+];
+
+const impactLinks = [
+  {
+    title: 'Global Presence',
+    href: '/global-presence',
+    icon: '/icons/global-presence.svg',
+    active: currentPath === '/global-presence' || currentPath === '/global-presence/',
+  },
+  {
+    title: 'Sustainability',
+    href: '/sustainability',
+    icon: '/icons/sustainability.svg',
+    active: currentPath === '/sustainability' || currentPath === '/sustainability/',
+  },
+];
+
+const trustLinks = [
+  {
+    title: 'Certifications & Accreditations',
+    href: '/certifications',
+    icon: '/icons/certifications.svg',
+    active: currentPath === '/certifications' || currentPath === '/certifications/' || currentPath.startsWith('/certifications-accreditations'),
+  },
+  {
+    title: 'Partners & Associations',
+    href: '/partners',
+    icon: '/icons/partners.svg',
+    active: currentPath === '/partners' || currentPath === '/partners/' || currentPath.startsWith('/partners-associations'),
+  },
+];
+
+// If none is currently active, default the first one to active
+const hasActive =
+  companyLinks.some((item) => item.active) ||
+  impactLinks.some((item) => item.active) ||
+  trustLinks.some((item) => item.active);
+
+if (!hasActive) {
+  companyLinks[0].active = true;
+}
+---
+
+<!-- =========================================================
+     ABOUT DROPDOWN PANEL
+========================================================= -->
+<div
+  id="about-megamenu-panel"
+  class="fixed top-[82px] inset-x-0 z-[998] hidden opacity-0 -translate-y-1 transition-[opacity,transform] duration-150 ease-out pointer-events-none before:absolute before:-top-10 before:inset-x-0 before:h-10 before:content-[''] before:pointer-events-auto"
+  role="region"
+  aria-label="About Us Menu"
+>
+  <div
+    id="about-megamenu-wrapper"
+    class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+  >
+    <div
+      id="about-megamenu-card"
+      class="about-dropdown-card bg-white rounded-[20px] border border-slate-200/80 shadow-[0_20px_50px_rgba(0,0,0,0.08)] pointer-events-auto p-6 sm:p-7 lg:p-8 flex flex-col lg:flex-row items-stretch justify-between gap-8 xl:gap-10 w-full box-border"
+    >
+
+      <!-- =====================================================
+           LEFT: NAVIGATION AREA (75%)
+      ====================================================== -->
+      <div class="flex-1 w-full flex flex-col min-w-0">
+        <!-- Main Section Header -->
+        <div class="mb-4 pb-2.5 border-b border-slate-100 flex items-center justify-between">
+          <h3 class="about-heading text-xs font-bold uppercase tracking-wider text-[#5A6874]">
+            About TechSteps
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 flex-1">
+          <!-- Column 1: Company -->
+          <div class="about-menu-column flex flex-col">
+            <span class="about-col-label text-[11px] font-bold uppercase tracking-wider text-[#5A6874] mb-2 px-2">
+              Company
+            </span>
+            <div class="flex flex-col space-y-1.5">
+              {companyLinks.map((item) => (
+                <a
+                  href={item.href}
+                  class={`about-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${
+                    item.active
+                      ? 'active-about bg-[#BCE6CE] text-[#0F172A] font-semibold'
+                      : 'text-[#101E2C] hover:bg-[#E0F2E7]'
+                  }`}
+                >
+                  <span class="shrink-0 flex items-center justify-center w-5 h-5">
+                    <img
+                      src={item.icon}
+                      alt=""
+                      class="w-5 h-5 object-contain"
+                      width="20"
+                      height="20"
+                    />
+                  </span>
+                  <span class="about-label text-[15px] leading-snug">
+                    {item.title}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Column 2: Impact -->
+          <div class="about-menu-column flex flex-col">
+            <span class="about-col-label text-[11px] font-bold uppercase tracking-wider text-[#5A6874] mb-2 px-2">
+              Impact
+            </span>
+            <div class="flex flex-col space-y-1.5">
+              {impactLinks.map((item) => (
+                <a
+                  href={item.href}
+                  class={`about-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${
+                    item.active
+                      ? 'active-about bg-[#BCE6CE] text-[#0F172A] font-semibold'
+                      : 'text-[#101E2C] hover:bg-[#E0F2E7]'
+                  }`}
+                >
+                  <span class="shrink-0 flex items-center justify-center w-5 h-5">
+                    <img
+                      src={item.icon}
+                      alt=""
+                      class="w-5 h-5 object-contain"
+                      width="20"
+                      height="20"
+                    />
+                  </span>
+                  <span class="about-label text-[15px] leading-snug">
+                    {item.title}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Column 3: Trust -->
+          <div class="about-menu-column flex flex-col">
+            <span class="about-col-label text-[11px] font-bold uppercase tracking-wider text-[#5A6874] mb-2 px-2">
+              Trust
+            </span>
+            <div class="flex flex-col space-y-1.5">
+              {trustLinks.map((item) => (
+                <a
+                  href={item.href}
+                  class={`about-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${
+                    item.active
+                      ? 'active-about bg-[#BCE6CE] text-[#0F172A] font-semibold'
+                      : 'text-[#101E2C] hover:bg-[#E0F2E7]'
+                  }`}
+                >
+                  <span class="shrink-0 flex items-center justify-center w-5 h-5">
+                    <img
+                      src={item.icon}
+                      alt=""
+                      class="w-5 h-5 object-contain"
+                      width="20"
+                      height="20"
+                    />
+                  </span>
+                  <span class="about-label text-[15px] leading-snug">
+                    {item.title}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           RIGHT: FEATURED AREA (25%)
+      ====================================================== -->
+      <div
+        class="about-featured-col w-full lg:w-[240px] xl:w-[260px] shrink-0 flex flex-col lg:pl-8 lg:border-l lg:border-slate-100 justify-between"
+      >
+        <div class="w-full">
+          <div class="mb-4 pb-2.5 border-b border-slate-100 hidden lg:block">
+            <span class="about-right-heading text-xs font-bold uppercase tracking-wider text-[#5A6874]">
+              Featured
+            </span>
+          </div>
+
+          <a
+            href="/about-us"
+            class="about-featured-card group block w-full rounded-[16px] overflow-hidden border border-slate-200/80 bg-slate-50 transition-all duration-200 hover:border-[#07572F]/40 hover:shadow-md"
+          >
+            <div class="w-full aspect-[16/10] overflow-hidden bg-slate-100">
+              <img
+                src="/images/brand/sustainability.webp"
+                alt="About TechSteps"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+                width="260"
+                height="162"
+              />
+            </div>
+
+            <div class="p-3.5 flex items-center justify-between bg-white group-hover:bg-[#F2F8F5] transition-colors">
+              <span class="font-sans text-[14px] font-semibold text-[#101E2C] group-hover:text-[#07572F] transition-colors">
+                Explore Our Story
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  /* =========================================================
+     CONTAINER & CARD
+  ========================================================= */
+  #about-megamenu-panel .about-dropdown-card {
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    border-radius: 20px !important;
+    box-sizing: border-box;
+  }
+
+  /* =========================================================
+     TYPOGRAPHY
+  ========================================================= */
+  #about-megamenu-panel .about-heading,
+  #about-megamenu-panel .about-right-heading,
+  #about-megamenu-panel .about-col-label {
+    font-family: var(--font-sans) !important;
+    letter-spacing: 0.05em;
+  }
+
+  #about-megamenu-panel .about-link {
+    font-family: var(--font-sans) !important;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+
+  /* =========================================================
+     ACTIVE / HOVER
+  ========================================================= */
+  #about-megamenu-panel .about-link.active-about {
+    background-color: #bce6ce;
+    color: #0f172a;
+  }
+
+  #about-megamenu-panel .about-link:not(.active-about):hover {
+    background-color: #e0f2e7;
+    color: #0f172a;
+  }
+
+  /* =========================================================
+     SCROLL NAV GLASS (EXACT SAME AS SCROLLING NAVBAR)
+  ========================================================= */
+  #about-megamenu-panel .about-dropdown-card.scroll-glass-active,
+  #about-megamenu-card.scroll-glass-active {
+    background: rgba(250, 246, 238, 0.60) !important;
+    background-color: rgba(250, 246, 238, 0.60) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.10) !important;
+    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  /* =========================================================
+     RESPONSIVE
+  ========================================================= */
+  @media (max-width: 1024px) {
+    #about-megamenu-panel .about-dropdown-card {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    #about-megamenu-panel .about-featured-col {
+      border-left: none;
+      border-top: 1px solid #f1f5f9;
+      padding-left: 0;
+      padding-top: 1.5rem;
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  function setupAboutDropdown() {
+    const panel = document.getElementById('about-megamenu-panel');
+    if (!panel) return;
+
+    if (panel.dataset.navInitialized === 'true') {
+      return;
+    }
+    panel.dataset.navInitialized = 'true';
+
+    const triggers = document.querySelectorAll<HTMLElement>(
+      '#about-menu-trigger, .about-megamenu-toggle, .about-dropdown-toggle'
+    );
+
+    if (triggers.length === 0) {
+      return;
+    }
+
+    let closeTimeout: ReturnType<typeof setTimeout> | null = null;
+    let hideTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    const aboutLinks = panel.querySelectorAll<HTMLElement>('.about-link');
+
+    /* =========================================================
+       GLASS CONTROLLER
+    ========================================================= */
+    const setScrollGlass = (active: boolean) => {
+      const card = document.getElementById('about-megamenu-card');
+      if (!card) return;
+
+      if (active) {
+        card.classList.add('scroll-glass-active');
+        card.style.setProperty('background', 'rgba(250, 246, 238, 0.60)', 'important');
+        card.style.setProperty('background-color', 'rgba(250, 246, 238, 0.60)', 'important');
+        card.style.setProperty('-webkit-backdrop-filter', 'blur(12px)', 'important');
+        card.style.setProperty('backdrop-filter', 'blur(12px)', 'important');
+        card.style.setProperty('border', '1px solid rgba(0, 0, 0, 0.10)', 'important');
+        card.style.setProperty('box-shadow', '0 16px 40px -10px rgba(0, 0, 0, 0.08)', 'important');
+      } else {
+        card.classList.remove('scroll-glass-active');
+        card.style.removeProperty('background');
+        card.style.removeProperty('background-color');
+        card.style.removeProperty('-webkit-backdrop-filter');
+        card.style.removeProperty('backdrop-filter');
+        card.style.removeProperty('border');
+        card.style.removeProperty('box-shadow');
+      }
+    };
+
+    /* =========================================================
+       POSITION + NAV STATE
+    ========================================================= */
+    const updatePosition = () => {
+      const siteHeader = document.getElementById('site-header');
+      const heroHeader = document.getElementById('hero-header');
+      const card = document.getElementById('about-megamenu-card');
+      const wrapper = document.getElementById('about-megamenu-wrapper');
+
+      const isScrollNavActive =
+        !!siteHeader &&
+        !siteHeader.classList.contains('opacity-0') &&
+        !siteHeader.classList.contains('-translate-y-full');
+
+      /* =====================================================
+         SCROLLING NAVBAR
+      ===================================================== */
+      if (isScrollNavActive && siteHeader) {
+        setScrollGlass(true);
+
+        const maxWrap = siteHeader.querySelector<HTMLElement>(':scope > div');
+        const floatingBar = maxWrap?.querySelector<HTMLElement>(':scope > div');
+        const ref = floatingBar ?? siteHeader;
+        const rect = ref.getBoundingClientRect();
+
+        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
+        panel.style.left = `${Math.round(rect.left)}px`;
+        panel.style.right = 'auto';
+        panel.style.width = `${Math.round(rect.width)}px`;
+
+        if (wrapper) {
+          wrapper.classList.add('scroll-dropdown-wrapper');
+        }
+
+        if (card) {
+          card.style.width = `${Math.round(rect.width)}px`;
+          card.style.maxWidth = `${Math.round(rect.width)}px`;
+        }
+      }
+
+      /* =====================================================
+         NORMAL / HERO NAVBAR
+      ===================================================== */
+      else if (heroHeader) {
+        setScrollGlass(false);
+
+        const rect = heroHeader.getBoundingClientRect();
+
+        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
+        panel.style.left = '';
+        panel.style.right = '';
+        panel.style.width = '';
+
+        if (card) {
+          card.style.width = '';
+          card.style.maxWidth = '';
+        }
+
+        if (wrapper) {
+          wrapper.classList.remove('scroll-dropdown-wrapper');
+        }
+      }
+    };
+
+    /* =========================================================
+       BACKDROP
+    ========================================================= */
+    const updateBackdrop = () => {
+      const backdrop = document.getElementById('dropdown-backdrop');
+      if (!backdrop) return;
+
+      const servicesPanel = document.getElementById('services-megamenu-panel');
+      const sectorsPanel = document.getElementById('sectors-dropdown-panel');
+
+      const isAboutOpen =
+        !panel.classList.contains('hidden') &&
+        !panel.classList.contains('opacity-0');
+
+      const isServicesOpen =
+        servicesPanel &&
+        !servicesPanel.classList.contains('hidden') &&
+        !servicesPanel.classList.contains('opacity-0');
+
+      const isSectorsOpen =
+        sectorsPanel &&
+        !sectorsPanel.classList.contains('hidden') &&
+        !sectorsPanel.classList.contains('opacity-0');
+
+      if (isAboutOpen || isServicesOpen || isSectorsOpen) {
+        backdrop.classList.add('active');
+      } else {
+        backdrop.classList.remove('active');
+      }
+    };
+
+    /* =========================================================
+       CANCEL CLOSE
+    ========================================================= */
+    const cancelClose = () => {
+      if (closeTimeout) {
+        clearTimeout(closeTimeout);
+        closeTimeout = null;
+      }
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+        hideTimeout = null;
+      }
+    };
+
+    /* =========================================================
+       LINK HOVER ACTIVE EFFECT
+    ========================================================= */
+    aboutLinks.forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        aboutLinks.forEach((l) => {
+          l.classList.remove('active-about', 'bg-[#BCE6CE]', 'font-semibold');
+        });
+        link.classList.add('active-about', 'bg-[#BCE6CE]', 'font-semibold');
+      });
+    });
+
+    /* =========================================================
+       OPEN MENU
+    ========================================================= */
+    const openMenu = () => {
+      cancelClose();
+
+      window.dispatchEvent(
+        new CustomEvent('techsteps:close-services', {
+          detail: { immediate: true }
+        })
+      );
+      window.dispatchEvent(
+        new CustomEvent('techsteps:close-sectors', {
+          detail: { immediate: true }
+        })
+      );
+
+      updatePosition();
+
+      panel.classList.remove('hidden');
+      void panel.offsetHeight;
+
+      panel.classList.remove('opacity-0', '-translate-y-1', 'pointer-events-none');
+      panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+
+      triggers.forEach((trigger) => {
+        trigger.setAttribute('aria-expanded', 'true');
+        trigger.classList.add('active');
+      });
+
+      updateBackdrop();
+    };
+
+    /* =========================================================
+       CLOSE MENU (WITH 200ms DELAY)
+    ========================================================= */
+    const closeMenu = (immediate = false) => {
+      const doClose = () => {
+        panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        panel.classList.add('opacity-0', '-translate-y-1', 'pointer-events-none');
+
+        triggers.forEach((trigger) => {
+          trigger.setAttribute('aria-expanded', 'false');
+          if (trigger.getAttribute('data-route-active') !== 'true') {
+            trigger.classList.remove('active');
+          }
+        });
+
+        updateBackdrop();
+
+        if (hideTimeout) {
+          clearTimeout(hideTimeout);
+        }
+
+        if (immediate) {
+          panel.classList.add('hidden');
+        } else {
+          hideTimeout = setTimeout(() => {
+            if (panel.classList.contains('opacity-0')) {
+              panel.classList.add('hidden');
+            }
+            hideTimeout = null;
+          }, 160);
+        }
+      };
+
+      cancelClose();
+
+      if (immediate) {
+        doClose();
+      } else {
+        closeTimeout = setTimeout(doClose, 200);
+      }
+    };
+
+    /* =========================================================
+       TRIGGER EVENTS (HOVER OPEN + DELAYED LEAVE)
+    ========================================================= */
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('mouseenter', openMenu);
+      trigger.addEventListener('mouseleave', () => closeMenu(false));
+      trigger.addEventListener('focus', openMenu);
+
+      trigger.addEventListener('keydown', (event) => {
+        if (event.key === ' ' || event.key === 'ArrowDown') {
+          event.preventDefault();
+          openMenu();
+        }
+      });
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+          closeMenu(true);
+        } else {
+          openMenu();
+        }
+      });
+    });
+
+    /* =========================================================
+       PANEL HOVER & LEAVE
+    ========================================================= */
+    panel.addEventListener('mouseenter', cancelClose);
+    panel.addEventListener('mouseleave', () => closeMenu(false));
+
+    /* =========================================================
+       CLOSE ABOUT EVENT
+    ========================================================= */
+    window.addEventListener('techsteps:close-about', (event: Event) => {
+      const customEvent = event as CustomEvent;
+      closeMenu(customEvent.detail?.immediate ?? true);
+    });
+
+    /* =========================================================
+       ESCAPE
+    ========================================================= */
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeMenu(true);
+      }
+    });
+
+    /* =========================================================
+       OUTSIDE CLICK
+    ========================================================= */
+    document.addEventListener('click', (event) => {
+      const target = event.target as Node;
+      let insideTrigger = false;
+
+      triggers.forEach((trigger) => {
+        if (
+          trigger.contains(target) ||
+          trigger.parentElement?.contains(target)
+        ) {
+          insideTrigger = true;
+        }
+      });
+
+      if (!panel.contains(target) && !insideTrigger) {
+        closeMenu(true);
+      }
+    });
+
+    /* =========================================================
+       BACKDROP CLICK
+    ========================================================= */
+    const backdrop = document.getElementById('dropdown-backdrop');
+    backdrop?.addEventListener('click', () => closeMenu(true));
+
+    /* =========================================================
+       LINK CLICK
+    ========================================================= */
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => closeMenu(true));
+    });
+
+    /* =========================================================
+       RESIZE + SCROLL
+    ========================================================= */
+    window.addEventListener('resize', updatePosition, { passive: true });
+    window.addEventListener('scroll', updatePosition, { passive: true });
+  }
+
+  /* =========================================================
+     INITIALIZE
+  ========================================================= */
+  setupAboutDropdown();
+
+  document.addEventListener('astro:page-load', () => {
+    document.getElementById('dropdown-backdrop')?.classList.remove('active');
+    setupAboutDropdown();
+  });
+</script>

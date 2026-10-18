@@ -1,6 +1,22 @@
 @import "tailwindcss";
 
 @theme {
+  /* Global Border-Radius Design Tokens */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+
+  --radius-navbar: 16px;
+  --radius-dropdown: 20px;
+  --radius-card: 16px;
+  --radius-button: 12px;
+  --radius-input: 8px;
+  --radius-hover: 12px;
+  --radius-featured: 24px;
+
   /* A deliberately small, editorial colour system. */
   --color-paper: #F1F4EF;
   --color-surface: #FFFFFF;
@@ -77,6 +93,23 @@
   --text-6xl--line-height: 1.08;
   --text-7xl: 5.25rem;
   --text-7xl--line-height: 1.05;
+}
+
+:root {
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+
+  --radius-navbar: var(--radius-lg);
+  --radius-dropdown: var(--radius-xl);
+  --radius-card: var(--radius-lg);
+  --radius-button: var(--radius-md);
+  --radius-input: var(--radius-sm);
+  --radius-hover: var(--radius-md);
+  --radius-featured: var(--radius-2xl);
 }
 
 @layer base {
@@ -393,92 +426,185 @@ div[class*="uppercase"][class*="text-xs"] {
   border-color: #054324 !important;
 }
 
-/* 4. SERVICES DROPDOWN - EXACT CONTAINER DIMENSIONS */
+/* 4. ABOUT, SECTORS & SERVICES DROPDOWN - CONTENT-BASED BALANCED HEIGHT */
+#about-megamenu-panel .about-dropdown-card,
+#sectors-dropdown-panel .sectors-dropdown-card,
 #services-megamenu-panel .services-dropdown-card {
   width: 100% !important;
-  height: 322px !important;
-  min-height: 322px !important;
-  max-height: 322px !important;
-  border-radius: 12px !important;
-  box-sizing: border-box !important;
-  padding: 8px !important;
-}
-
-#services-megamenu-panel .services-left-col {
-  width: 400px !important;
-  min-width: 400px !important;
-  max-width: 400px !important;
-  height: 306px !important;
-  min-height: 306px !important;
-  max-height: 306px !important;
-  border-radius: 12px !important;
-  margin-right: 64px !important;
-  box-sizing: border-box !important;
-}
-
-#services-megamenu-panel .services-right-col,
-#sectors-dropdown-panel .sectors-right-col {
-  width: 280px !important;
-  min-width: 280px !important;
-  max-width: 280px !important;
-  padding-right: 32px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  border-radius: 20px !important;
   box-sizing: border-box !important;
 }
 
 /* 5. SERVICES DROPDOWN - LEFT COLUMN */
-#services-megamenu-panel .services-left-col,
-#services-megamenu-panel .services-left-col *,
-#services-megamenu-panel .services-left-col h3,
-#services-megamenu-panel .services-left-col .service-tab-btn,
-#services-megamenu-panel .services-left-col .service-tab-btn span,
-#services-megamenu-panel .services-left-col .pillar-label,
+#services-megamenu-panel .services-left-col {
+  background-color: #F3F7F5 !important;
+  border-radius: 16px !important;
+  border: none !important;
+}
+
+#services-megamenu-panel .services-left-col .service-tab-btn {
+  font-family: var(--font-sans) !important;
+  font-size: 14.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.35 !important;
+  border-radius: 12px !important;
+}
+
+#services-megamenu-panel .services-left-col .pillar-label {
+  font-family: var(--font-sans) !important;
+  font-size: 14.5px !important;
+  line-height: 1.35 !important;
+}
+
 #services-megamenu-panel .services-left-col .all-services-link,
 #services-megamenu-panel .services-left-col .all-services-link span {
   font-family: var(--font-sans) !important;
-  font-size: 16px !important;
+  font-size: 14px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
   line-height: 1.4 !important;
 }
 
-/* 6. SERVICES DROPDOWN - CENTER & RIGHT COLUMN HEADINGS */
+/* 6. SERVICES, SECTORS & ABOUT DROPDOWN HEADINGS */
+#services-megamenu-panel .services-left-heading,
 #services-megamenu-panel .services-middle-heading,
 #services-megamenu-panel .services-right-heading {
   font-family: var(--font-sans) !important;
-  font-size: 16px !important;
-  font-weight: 500 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: #5A6874 !important;
+  line-height: 1.4 !important;
+}
+
+#sectors-dropdown-panel .sectors-heading,
+#sectors-dropdown-panel .sectors-right-heading,
+#about-megamenu-panel .about-heading,
+#about-megamenu-panel .about-right-heading {
+  font-family: var(--font-sans) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
   letter-spacing: -0.01em !important;
   line-height: 1.4 !important;
 }
 
-/* 7. SERVICES DROPDOWN - CENTER SERVICE ITEMS */
-#services-megamenu-panel .service-tab-panel a,
-#services-megamenu-panel .service-tab-panel span {
+/* 7. SERVICES CENTER ITEMS & SECTORS/ABOUT SIMPLE LINKS */
+#services-megamenu-panel .service-link,
+#services-megamenu-panel .service-tab-panel a {
   font-family: var(--font-sans) !important;
-  font-size: 16px !important;
-  font-weight: 400 !important;
+  font-size: 14.5px !important;
+  font-weight: 500 !important;
   letter-spacing: -0.01em !important;
-  line-height: 1.5 !important;
+  line-height: 1.35 !important;
+  text-decoration: none !important;
+  color: #1E293B !important;
 }
 
-/* 8. SERVICES DROPDOWN - RIGHT "VISIT" */
-#services-megamenu-panel .sustainability-link,
-#services-megamenu-panel .sustainability-link span {
+#services-megamenu-panel .service-link:hover,
+#services-megamenu-panel .service-tab-panel a:hover {
+  color: #0F623A !important;
+}
+
+#sectors-dropdown-panel .sector-link,
+#about-megamenu-panel .about-link {
   font-family: var(--font-sans) !important;
-  font-size: 16px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.4 !important;
+  text-decoration: none !important;
+}
+
+/* 8. RIGHT "VISIT" LINKS */
+#services-megamenu-panel .sustainability-link,
+#services-megamenu-panel .sustainability-link span,
+#sectors-dropdown-panel .investors-link,
+#sectors-dropdown-panel .investors-link span,
+#about-megamenu-panel .about-story-link,
+#about-megamenu-panel .about-story-link span {
+  font-family: var(--font-sans) !important;
+  font-size: 15px !important;
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
-  line-height: 0.1 !important;
+  line-height: 1.4 !important;
 }
 
-/* Selected active pill styling in left column */
+/* Active & hover pill styling */
 #services-megamenu-panel .service-tab-btn.active-tab {
+  background-color: #C3E8D5 !important;
+  color: #0F172A !important;
+  font-weight: 600 !important;
+}
+
+#services-megamenu-panel .service-tab-btn:not(.active-tab):hover {
+  background-color: #E4EFE9 !important;
+  color: #0F172A !important;
+}
+
+#sectors-dropdown-panel .sector-link.active-sector,
+#about-megamenu-panel .about-link.active-about {
   background-color: #BCE6CE !important;
   color: #0F172A !important;
 }
 
-#services-megamenu-panel .service-tab-btn:not(.active-tab):hover {
+#sectors-dropdown-panel .sector-link:not(.active-sector):hover,
+#about-megamenu-panel .about-link:not(.active-about):hover {
   background-color: #E0F2E7 !important;
+  color: #0F172A !important;
+}
+
+/* =========================================================
+   PREMIUM NAVIGATION LINKS (NO CHEVRONS + ANIMATED UNDERLINE)
+========================================================= */
+.nav-link {
+  position: relative !important;
+  color: #172638;
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+  cursor: pointer;
+}
+
+/* Animated underline */
+.nav-link::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  bottom: -6px !important;
+  width: 100% !important;
+  height: 2px !important;
+  background-color: #07572F !important;
+  border-radius: 2px !important;
+  transform: scaleX(0) !important;
+  transform-origin: left !important;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible,
+.nav-link.active,
+.nav-link[aria-expanded="true"] {
+  color: #07572F !important;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.active::after,
+.nav-link[aria-expanded="true"]::after {
+  transform: scaleX(1) !important;
+}
+
+/* Hide all dropdown chevrons / caret icons */
+.nav-dropdown-chevron,
+.caret-icon {
+  display: none !important;
 }
 
 .brand-logo-text,
@@ -563,9 +689,12 @@ samp {
 }
 
 /* Editorial finishing: one quiet line, one restrained shadow, no inflated corners. */
-:where(.rounded, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl) {
-  border-radius: 3px;
-}
+/* Standardised border-radius tokens mapped to utility classes */
+:where(.rounded-sm) { border-radius: var(--radius-sm); }
+:where(.rounded-md) { border-radius: var(--radius-md); }
+:where(.rounded-lg) { border-radius: var(--radius-lg); }
+:where(.rounded-xl) { border-radius: var(--radius-xl); }
+:where(.rounded-2xl) { border-radius: var(--radius-2xl); }
 
 :where(.shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl, .shadow-xs) {
   box-shadow: 0 1px 0 rgba(18, 24, 26, 0.04);
@@ -735,7 +864,8 @@ address {
 }
 
 #services-megamenu-wrapper.scroll-dropdown-wrapper,
-#sectors-dropdown-wrapper.scroll-dropdown-wrapper {
+#sectors-dropdown-wrapper.scroll-dropdown-wrapper,
+#about-megamenu-wrapper.scroll-dropdown-wrapper {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }

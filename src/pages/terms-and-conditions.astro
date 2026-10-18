@@ -28,7 +28,7 @@ const [siteSettings, legalData] = await Promise.all([
         )}
         {sec.body && <p class="text-slate-700 leading-relaxed">{sec.body}</p>}
         {sec.callout && (
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
+          <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
             {sec.callout.title && <div class="font-bold text-slate-900 mb-1">{sec.callout.title}</div>}
             {sec.callout.items?.map((item) => (
               <div><strong>{item.label}:</strong> {item.value}</div>
@@ -38,7 +38,7 @@ const [siteSettings, legalData] = await Promise.all([
         {sec.cards && sec.cards.length > 0 && (
           <div class="space-y-3">
             {sec.cards.map((c) => (
-              <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+              <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs">
                 <h3 class="font-semibold text-slate-900 text-base">{c.title}</h3>
                 <p class="text-sm sm:text-base text-black mt-1">{c.description}</p>
               </div>
@@ -106,19 +106,19 @@ const [siteSettings, legalData] = await Promise.all([
       Techsteps warrants that all digital media, data-bearing devices, and confidential physical archives accepted for sanitisation or destruction will be processed strictly in accordance with client-specified service levels:
     </p>
     <div class="space-y-3">
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90">
         <h4 class="font-semibold text-slate-900 text-sm">A. ADISA 8.0 &amp; NIST 800-88 Rev 1 Software Overwriting</h4>
         <p class="text-sm text-black mt-1">
           Cryptographic erasure and multi-pass magnetic overwriting verifying 100% sector sanitisation with cryptographically signed tamper-proof audit trails for each individual device serial number.
         </p>
       </div>
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90">
         <h4 class="font-semibold text-slate-900 text-sm">B. Physical Destruction to DIN 66399 Security Levels</h4>
         <p class="text-sm text-black mt-1">
           Mechanical shredding, degaussing, and disintegration achieving particle standards from Level P-4 to P-7 (paper) and Level H-5 to H-7 (hard drives/SSDs).
         </p>
       </div>
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90">
         <h4 class="font-semibold text-slate-900 text-sm">C. Certificate of Destruction (CoD)</h4>
         <p class="text-sm text-black mt-1">
           A legally binding Certificate of Destruction and Asset Reconciliation Report will be issued within five (5) working days following completed processing.
@@ -161,7 +161,7 @@ const [siteSettings, legalData] = await Promise.all([
     <p>
       Techsteps maintains comprehensive commercial insurances:
     </p>
-    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-mono space-y-1">
+    <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200 text-xs sm:text-sm font-mono space-y-1">
       <div>&bull; <strong>Employer's Liability:</strong> £10,000,000</div>
       <div>&bull; <strong>Public &amp; Products Liability:</strong> £10,000,000</div>
       <div>&bull; <strong>Professional Indemnity / Cyber Liability:</strong> £5,000,000</div>
@@ -176,7 +176,7 @@ const [siteSettings, legalData] = await Promise.all([
     <p>
       These Terms and Conditions, and any dispute or claim arising out of or in connection with their subject matter or formation (including non-contractual disputes), shall be governed by and construed in accordance with the laws of England and Wales. The parties irrevocably agree that the courts of England and Wales shall have exclusive jurisdiction.
     </p>
-    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-mono">
+    <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200 text-xs sm:text-sm font-mono">
       <div><strong>Legal Inquiries:</strong> <a href="mailto:legal@techsteps.co.uk" class="text-emerald-700 hover:underline">legal@techsteps.co.uk</a></div>
       <div><strong>Contract Management:</strong> {siteSettings.phone}</div>
     </div>

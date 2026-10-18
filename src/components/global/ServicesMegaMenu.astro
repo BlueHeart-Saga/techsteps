@@ -1,15 +1,24 @@
 ---
-import {
-  getDivisions,
-  getServices
-} from '../../lib/sanity/client';
+/**
+ * ServicesMegaMenu.astro
+ * Premium compact 3-column mega-menu for "Services" matching reference style
+ * - Reduced padding and gaps for a snug, premium enterprise feel
+ * - Left: Soft-green panel with service categories (~250-265px)
+ * - Middle: Clean 2-column subservice links with compact row spacing
+ * - Right: Borderless sustainability feature panel showing the full image (496x330)
+ *
+ * Radius System:
+ * - Outer dropdown: 20px
+ * - Left inner panel: 16px
+ * - Active service item: 10px - 12px
+ * - Feature image: 12px - 14px
+ */
 
-const [
-  divisionsData,
-  servicesData
-] = await Promise.all([
-  getDivisions(),
-  getServices(),
+import { getDivisions, getServices } from '../../lib/sanity/client';
+
+const [divisionsData, servicesData] = await Promise.all([
+  getDivisions().catch(() => []),
+  getServices().catch(() => []),
 ]);
 
 const defaultPillars = [
@@ -19,270 +28,111 @@ const defaultPillars = [
     slug: 'information-management',
     icon: '/icons/Information%20Management.svg',
     subLinks: [
-      {
-        name: 'Digital Mailroom',
-        slug: 'digital-mailroom'
-      },
-      {
-        name: 'Document Management',
-        slug: 'document-management'
-      },
-      {
-        name: 'Document Scanning',
-        slug: 'document-scanning'
-      },
-      {
-        name: 'Document Storage',
-        slug: 'document-storage'
-      },
-      {
-        name: 'Heritage Storage',
-        slug: 'heritage-storage'
-      },
-      {
-        name: 'Tape & Media Storage',
-        slug: 'tape-media-storage'
-      },
-      {
-        name: 'Vault Storage',
-        slug: 'vault-storage'
-      },
+      { name: 'Digital Mailroom', slug: 'digital-mailroom' },
+      { name: 'Document Management', slug: 'document-management' },
+      { name: 'Document Scanning', slug: 'document-scanning' },
+      { name: 'Document Storage', slug: 'document-storage' },
+      { name: 'Heritage Storage', slug: 'heritage-storage' },
+      { name: 'Tape & Media Storage', slug: 'tape-media-storage' },
+      { name: 'Vault Storage', slug: 'vault-storage' },
     ],
   },
-
   {
     id: 'it-lifecycle',
     title: 'IT Lifecycle & Destruction',
     slug: 'it-lifecycle-services-destruction',
     icon: '/icons/IT%20Lifecycle%20&%20Destruction.svg',
     subLinks: [
-      {
-        name: 'IT Asset Disposition Services (ITAD)',
-        slug: 'it-asset-disposition-services'
-      },
-      {
-        name: 'IT Asset Management Services (ITAM)',
-        slug: 'it-asset-management-services'
-      },
-      {
-        name: 'Remarketing & Recycling',
-        slug: 'remarketing-recycling'
-      },
-      {
-        name: 'Secure Collection Services',
-        slug: 'secure-collection-services'
-      },
-      {
-        name: 'Secure IT Disposal',
-        slug: 'secure-it-disposal'
-      },
-      {
-        name: 'Ultra Secure Hard Drive Destruction',
-        slug: 'ultra-secure-hard-drive-destruction'
-      },
+      { name: 'IT Asset Disposition (ITAD)', slug: 'it-asset-disposition-services' },
+      { name: 'IT Asset Management (ITAM)', slug: 'it-asset-management-services' },
+      { name: 'Remarketing & Recycling', slug: 'remarketing-recycling' },
+      { name: 'Secure Collections', slug: 'secure-collection-services' },
+      { name: 'Secure IT Disposal', slug: 'secure-it-disposal' },
+      { name: 'Hard Drive Destruction', slug: 'ultra-secure-hard-drive-destruction' },
     ],
   },
-
   {
     id: 'secure-shredding',
     title: 'Secure Shredding & Integrity',
     slug: 'secure-shredding-document-integrity',
     icon: '/icons/Secure%20Shredding%20&%20Integrity.svg',
     subLinks: [
-      {
-        name: 'Cardboard Recycling',
-        slug: 'cardboard-recycling'
-      },
-      {
-        name: 'Disposal Services',
-        slug: 'disposal-services'
-      },
-      {
-        name: 'Dry Mixed Recycling (DMR)',
-        slug: 'dry-mixed-recycling'
-      },
-      {
-        name: 'Home Shredding',
-        slug: 'home-shredding'
-      },
-      {
-        name: 'Off-Site Shredding',
-        slug: 'off-site-shredding'
-      },
-      {
-        name: 'On-Site Shredding',
-        slug: 'on-site-shredding'
-      },
-      {
-        name: 'Product Shredding',
-        slug: 'product-shredding'
-      },
-      {
-        name: 'Simpler Recycling Services',
-        slug: 'simpler-recycling-services'
-      },
+      { name: 'Cardboard Recycling', slug: 'cardboard-recycling' },
+      { name: 'Disposal Services', slug: 'disposal-services' },
+      { name: 'Dry Mixed Recycling (DMR)', slug: 'dry-mixed-recycling' },
+      { name: 'Home Shredding', slug: 'home-shredding' },
+      { name: 'Off-Site Shredding', slug: 'off-site-shredding' },
+      { name: 'On-Site Shredding', slug: 'on-site-shredding' },
+      { name: 'Product Shredding', slug: 'product-shredding' },
+      { name: 'Simpler Recycling', slug: 'simpler-recycling-services' },
     ],
   },
-
   {
     id: 'moving-relocation',
     title: 'Moving & Relocation Services',
     slug: 'moving-relocation-services',
     icon: '/icons/Moving%20&%20Relocation%20Services.svg',
     subLinks: [
-      {
-        name: 'Business Relocations',
-        slug: 'business-relocations'
-      },
-      {
-        name: 'Europe & International Domestic Moves',
-        slug: 'europe-international-domestic-moves'
-      },
-      {
-        name: 'Heritage Relocations & Storage',
-        slug: 'heritage-relocations-storage'
-      },
-      {
-        name: 'IT Relocations Specialist',
-        slug: 'it-relocations-specialist'
-      },
-      {
-        name: 'Laboratory Relocations & Storage',
-        slug: 'laboratory-relocations-storage'
-      },
-      {
-        name: 'Project Management',
-        slug: 'project-management'
-      },
+      { name: 'Business Relocations', slug: 'business-relocations' },
+      { name: 'International Moves', slug: 'europe-international-domestic-moves' },
+      { name: 'Heritage Relocations', slug: 'heritage-relocations-storage' },
+      { name: 'Domestic Moves', slug: 'europe-international-domestic-moves' },
+      { name: 'Laboratory Relocations', slug: 'laboratory-relocations-storage' },
+      { name: 'IT Relocations', slug: 'it-relocations-specialist' },
+      { name: 'Project Management', slug: 'project-management' },
     ],
   },
 ];
 
-
-/* =========================================================
-   COMBINE SANITY DATA WITH FALLBACK STRUCTURE
-========================================================= */
-
-const servicePillars =
-  defaultPillars.map((pillar) => {
-
-    if (
-      servicesData &&
-      servicesData.length > 0
-    ) {
-
-      const matching =
-        servicesData.filter(
-          (service: any) =>
-            service.divisionSlug ===
-              pillar.slug ||
-            service.divisionSlug ===
-              pillar.id ||
-            service.divisionTitle
-              ?.toLowerCase() ===
-              pillar.title.toLowerCase()
-        );
-
-
-      if (matching.length > 0) {
-
-        const sorted =
-          [...matching].sort(
-            (a: any, b: any) =>
-              (
-                a.title ||
-                a.name ||
-                ''
-              ).localeCompare(
-                b.title ||
-                b.name ||
-                ''
-              )
-          );
-
-
-        return {
-          ...pillar,
-
-          subLinks:
-            sorted.map(
-              (service: any) => ({
-                name:
-                  service.title ||
-                  service.name,
-
-                slug:
-                  service.slug,
-              })
-            ),
-        };
-
-      }
-
-    }
-
-
-    return pillar;
-
-  });
+const servicePillars = defaultPillars;
+const defaultActiveId = 'it-lifecycle';
+const defaultPillar = servicePillars.find(p => p.id === defaultActiveId) || servicePillars[0];
 ---
-
 
 <!-- =========================================================
      SERVICES MEGA MENU PANEL
 ========================================================= -->
-
 <div
   id="services-megamenu-panel"
-  class="fixed top-[82px] inset-x-0 z-[998] hidden opacity-0 -translate-y-1 transition-[opacity,transform] duration-150 ease-out pointer-events-none before:absolute before:-top-10 before:inset-x-0 before:h-10 before:content-[''] before:pointer-events-auto"
+  class="fixed top-[80px] inset-x-0 z-[998] hidden opacity-0 -translate-y-1 transition-[opacity,transform] duration-150 ease-out pointer-events-none before:absolute before:-top-10 before:inset-x-0 before:h-10 before:content-[''] before:pointer-events-auto"
   role="region"
   aria-label="Services Mega Menu"
 >
-
   <div
     id="services-megamenu-wrapper"
     class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
   >
-
     <div
       id="services-megamenu-card"
-      class="services-dropdown-card bg-white rounded-[12px] border border-slate-200/80 shadow-[0_16px_48px_rgba(0,0,0,0.08)] pointer-events-auto p-4 sm:p-5 flex items-stretch w-full min-h-[322px] box-border"
+      class="services-dropdown-card bg-white rounded-[20px] border border-slate-200/80 shadow-[0_16px_40px_rgba(0,0,0,0.07)] pointer-events-auto p-4 sm:p-5 lg:p-5.5 flex flex-col lg:flex-row items-start justify-between gap-5 lg:gap-7 xl:gap-8 w-full box-border"
     >
 
       <!-- =====================================================
-           LEFT: SERVICES
+           LEFT: SERVICE CATEGORIES PANEL (SOFT GREEN, 16px RADIUS)
       ====================================================== -->
-
       <div
-        class="services-left-col w-[350px] xl:w-[370px] mr-12 xl:mr-16 shrink-0 rounded-[12px] px-5 pb-5 pt-6 flex flex-col justify-between box-border"
+        class="services-left-col w-full lg:w-[280px] xl:w-[295px] shrink-0 rounded-[16px] p-3.5 sm:p-4 flex flex-col justify-between box-border bg-[#F3F7F5]"
       >
-
         <div>
-
-          <h3 class="text-[#5A6874] mb-3.5 px-2">
-            Services
+          <h3 class="services-left-heading text-xs font-bold uppercase tracking-wider text-[#5A6874] mb-2.5">
+            OUR SERVICES
           </h3>
 
-
-          <div class="space-y-1.5">
-
-            {servicePillars.map(
-              (pillar, idx) => (
-
+          <div class="space-y-1">
+            {servicePillars.map((pillar) => {
+              const isActive = pillar.id === defaultActiveId;
+              return (
                 <a
                   href={`/${pillar.slug}`}
                   data-service-tab={pillar.id}
                   data-pillar-title={pillar.title}
-                  class={`service-tab-btn group w-full text-left flex items-center gap-3.5 px-3.5 py-2.5 rounded-[8px] transition-all duration-150 cursor-pointer ${
-                    idx === 0
-                      ? 'active-tab bg-[#BCE6CE] text-[#0F172A]'
-                      : 'text-[#1E293B] hover:bg-[#E0F2E7]'
+                  class={`service-tab-btn group w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-[10px] transition-all duration-150 cursor-pointer min-h-[38px] ${
+                    isActive
+                      ? 'active-tab bg-[#C3E8D5] text-[#0F172A] font-semibold'
+                      : 'text-[#1E293B] hover:bg-[#E4EFE9]'
                   }`}
                 >
-
-                  <span
-                    class="shrink-0 flex items-center justify-center w-5 h-5"
-                  >
+                  <span class="shrink-0 flex items-center justify-center w-5 h-5">
                     <img
                       src={pillar.icon}
                       alt=""
@@ -292,1609 +142,605 @@ const servicePillars =
                     />
                   </span>
 
-
-                  <span class="pillar-label leading-snug">
+                  <span class="pillar-label text-[14.5px] font-medium leading-snug">
                     {pillar.title}
                   </span>
-
                 </a>
-
-              )
-            )}
-
+              );
+            })}
           </div>
-
         </div>
 
-
-        <!-- ALL SERVICES -->
-
-        <a
-          href="/services"
-          class="all-services-link mt-auto pt-6 px-2 inline-flex items-center gap-1.5 text-[#171717] hover:text-[#07572F] transition-colors group"
-        >
-
-          <span>
-            All services overview
-          </span>
-
-          <span
-            class="text-sm font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        <!-- ALL SERVICES OVERVIEW LINK -->
+        <div class="mt-4 pt-1">
+          <a
+            href="/services"
+            class="all-services-link group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-[#0F623A] hover:text-[#0A331E] transition-colors font-semibold text-[13.5px]"
           >
-            ↗
-          </span>
-
-        </a>
-
+            <span>All Services Overview</span>
+            <span class="text-xs transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
 
-
       <!-- =====================================================
-           MIDDLE: DYNAMIC SERVICES
+           MIDDLE: DYNAMIC SUBSERVICE LINKS (COMPACT 2-COLUMN GRID)
       ====================================================== -->
-
       <div
-        class="services-middle-col flex-1 pt-6 flex flex-col justify-start relative"
+        class="services-middle-col flex-1 min-w-0 flex flex-col justify-start pt-4"
       >
+        <div class="mb-3.5 flex items-center justify-between">
+          <h3
+            id="active-pillar-title"
+            class="services-middle-heading text-xs font-bold uppercase tracking-wider text-[#5A6874] transition-colors"
+          >
+            {defaultPillar.title.toUpperCase()}
+          </h3>
+        </div>
 
-        <h3
-          id="active-pillar-title"
-          class="services-middle-heading text-[#5A6874] mb-3.5 transition-colors"
-        >
-          {servicePillars[0].title}
-        </h3>
-
-
-        {servicePillars.map(
-          (pillar, idx) => {
-
-            const col1 =
-              pillar.subLinks.filter(
-                (_, i) =>
-                  i % 2 === 0
-              );
-
-            const col2 =
-              pillar.subLinks.filter(
-                (_, i) =>
-                  i % 2 === 1
-              );
-
-
+        <!-- DYNAMIC PANELS CONTAINER -->
+        <div class="services-panels-container relative flex-1">
+          {servicePillars.map((pillar) => {
+            const isActive = pillar.id === defaultActiveId;
             return (
-
               <div
                 id={`tab-panel-${pillar.id}`}
-                class={`service-tab-panel absolute top-[62px] inset-x-0 transition-opacity duration-150 ${
-                  idx === 0
-                    ? 'opacity-100 pointer-events-auto'
-                    : 'opacity-0 pointer-events-none'
+                class={`service-tab-panel transition-opacity duration-150 ${
+                  isActive ? 'block opacity-100' : 'hidden opacity-0'
                 }`}
               >
-
-                <div
-                  class="grid grid-cols-2 gap-x-16 xl:gap-x-24 gap-y-4 pt-0.5"
-                >
-
-                  <div class="space-y-4">
-
-                    {col1.map(
-                      (link) => (
-
-                        <a
-                          href={`/services/${link.slug}`}
-                          class="block text-[#171717] hover:text-[#07572F] transition-colors leading-[1.45]"
-                        >
-                          {link.name}
-                        </a>
-
-                      )
-                    )}
-
-                  </div>
-
-
-                  <div class="space-y-4">
-
-                    {col2.map(
-                      (link) => (
-
-                        <a
-                          href={`/services/${link.slug}`}
-                          class="block text-[#171717] hover:text-[#07572F] transition-colors leading-[1.45]"
-                        >
-                          {link.name}
-                        </a>
-
-                      )
-                    )}
-
-                  </div>
-
+                <div class="services-submenu grid grid-cols-1 md:grid-cols-2 gap-x-6 lg:gap-x-8 xl:gap-x-10 gap-y-3 lg:gap-y-3.5">
+                  {pillar.subLinks.map((link) => (
+                    <a
+                      href={`/services/${link.slug}`}
+                      class="service-link group flex flex-col justify-start py-0.5 text-[#1E293B] hover:text-[#0F623A] transition-colors duration-150 cursor-pointer"
+                    >
+                      <span class="text-[14.5px] lg:text-[15px] font-medium leading-normal whitespace-nowrap group-hover:text-[#0F623A] transition-colors">
+                        {link.name}
+                      </span>
+                    </a>
+                  ))}
                 </div>
-
               </div>
-
             );
-
-          }
-        )}
-
+          })}
+        </div>
       </div>
 
-
       <!-- =====================================================
-           RIGHT: SUSTAINABILITY
+           RIGHT: SUSTAINABILITY FEATURED PANEL (BORDERLESS, FULL IMAGE)
       ====================================================== -->
-
       <div
-        class="services-right-col w-[280px] shrink-0 pt-6 pb-[13px] pr-8 flex flex-col ml-8 xl:ml-12"
+        class="services-right-col w-full lg:w-[220px] xl:w-[240px] shrink-0 flex flex-col justify-start pt-4"
       >
-
-        <h3
-          class="services-right-heading text-[#5A6874] mb-5"
-        >
-          Sustainability
-        </h3>
-
+        <div class="mb-3.5 flex items-center justify-between">
+          <h3 class="services-right-heading text-xs font-bold uppercase tracking-wider text-[#5A6874]">
+            SUSTAINABILITY
+          </h3>
+        </div>
 
         <a
           href="/sustainability"
-          class="group block shrink-0"
+          class="services-featured-card group block w-full bg-transparent transition-all duration-200"
         >
-
-          <div
-            class="rounded-xl overflow-hidden shadow-xs border border-slate-200/60 bg-slate-100"
-            style="width: 248px; height: 164.96px;"
-          >
-
+          <!-- FULL IMAGE CONTAINER (EXACT 496:330 NATURAL PROPORTIONS, NO BORDERLINE) -->
+          <div class="w-full aspect-[496/330] overflow-hidden rounded-[12px] bg-slate-50">
             <img
               src="/images/brand/sustainability.webp"
-              alt="Sustainability"
-              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              alt="Responsible Technology. Sustainable Future."
+              class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
               loading="lazy"
-              width="248"
-              height="165"
+              width="496"
+              height="330"
             />
-
           </div>
 
+          <div class="pt-2.5 pb-0 px-0 flex flex-col gap-1">
+            <p class="font-sans text-[13px] font-semibold text-[#0F172A] leading-snug">
+              Responsible Technology.
+            </p>
+            <span class="inline-flex items-center gap-1 text-[#0F623A] group-hover:text-[#0A331E] font-bold text-[13px] mt-0.5 transition-colors">
+              <span>Explore Sustainability</span>
+              <span class="text-xs transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true">↗</span>
+            </span>
+          </div>
         </a>
-
-
-        <a
-          href="/sustainability"
-          class="sustainability-link mt-[36px] inline-flex items-center gap-1.5 font-sans text-[16px] font-semibold text-[#171717] hover:text-[#07572F] transition-colors group"
-        >
-
-          <span>
-            Visit
-          </span>
-
-          <span
-            class="font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-          >
-            ↗
-          </span>
-
-        </a>
-
       </div>
 
     </div>
-
   </div>
-
 </div>
 
-
 <style>
-
   /* =========================================================
-     BASE DROPDOWN
+     CONTAINER & CARD
   ========================================================= */
-
-  #services-megamenu-panel
-    .services-dropdown-card {
-
+  #services-megamenu-panel .services-dropdown-card {
     width: 100%;
-    min-height: 322px;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    border-radius: 20px !important;
     box-sizing: border-box;
-
-    background:
-      rgba(255, 255, 255, 0.98);
-
-    border-radius: 12px;
-
-    transition:
-      background 220ms ease,
-      backdrop-filter 220ms ease,
-      -webkit-backdrop-filter 220ms ease,
-      box-shadow 220ms ease,
-      border-color 220ms ease;
-
   }
 
-
   /* =========================================================
-     LEFT SERVICES PANEL
+     LEFT SERVICES PANEL (16px RADIUS, SOFT GREEN BG)
   ========================================================= */
-
-  #services-megamenu-panel
-    .services-left-col {
-
-    background:
-      #EEF7F2;
-
-    border:
-      1px solid transparent;
-
-    transition:
-      background 220ms ease,
-      backdrop-filter 220ms ease,
-      -webkit-backdrop-filter 220ms ease,
-      border-color 220ms ease,
-      box-shadow 220ms ease;
-
+  #services-megamenu-panel .services-left-col {
+    background-color: #F3F7F5 !important;
+    border-radius: 16px !important;
+    border: none !important;
+    box-shadow: none !important;
+    transition: background 220ms ease;
   }
 
+  /* =========================================================
+     TYPOGRAPHY & HEADINGS
+  ========================================================= */
+  #services-megamenu-panel .services-left-heading,
+  #services-megamenu-panel .services-middle-heading,
+  #services-megamenu-panel .services-right-heading {
+    font-family: var(--font-sans) !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: #5A6874 !important;
+  }
+
+  #services-megamenu-panel .service-tab-btn {
+    font-family: var(--font-sans) !important;
+    font-size: 14.5px !important;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+    border-radius: 10px !important;
+  }
+
+  #services-megamenu-panel .service-link {
+    font-family: var(--font-sans) !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.01em !important;
+    line-height: 1.4 !important;
+    text-decoration: none !important;
+    color: #1E293B !important;
+    white-space: nowrap !important;
+  }
+
+  #services-megamenu-panel .service-link:hover {
+    color: #0F623A !important;
+  }
+
+  #services-megamenu-panel .all-services-link {
+    font-family: var(--font-sans) !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    color: #0F623A !important;
+  }
+
+  #services-megamenu-panel .all-services-link:hover {
+    color: #0A331E !important;
+  }
 
   /* =========================================================
-     SCROLL NAVBAR GLASS (EXACT SAME AS SCROLLING NAVBAR)
+     ACTIVE / HOVER PILLS (10px RADIUS)
   ========================================================= */
+  #services-megamenu-panel .service-tab-btn.active-tab {
+    background-color: #C3E8D5 !important;
+    color: #0F172A !important;
+    font-weight: 600 !important;
+  }
 
-  #services-megamenu-wrapper
-    .services-dropdown-card.scroll-glass-active,
+  #services-megamenu-panel .service-tab-btn:not(.active-tab):hover {
+    background-color: #E4EFE9 !important;
+    color: #0F172A !important;
+  }
+
+  /* =========================================================
+     SUSTAINABILITY CARD (BORDERLESS, NO BORDERLINE)
+  ========================================================= */
+  #services-megamenu-panel .services-featured-card {
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+  }
+
+  /* =========================================================
+     SCROLL NAV GLASS (MATCHING FLOATING NAVBAR)
+  ========================================================= */
+  #services-megamenu-wrapper .services-dropdown-card.scroll-glass-active,
   #services-megamenu-card.scroll-glass-active {
-
-    background:
-      rgba(250, 246, 238, 0.60) !important;
-
-    background-color:
-      rgba(250, 246, 238, 0.60) !important;
-
-    -webkit-backdrop-filter:
-      blur(12px) !important;
-
-    backdrop-filter:
-      blur(12px) !important;
-
-    border:
-      1px solid rgba(0, 0, 0, 0.10) !important;
-
-    box-shadow:
-      0 16px 40px -10px rgba(0, 0, 0, 0.08) !important;
-
+    background: rgba(250, 246, 238, 0.60) !important;
+    background-color: rgba(250, 246, 238, 0.60) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.10) !important;
+    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.08) !important;
   }
 
-
-  /* =========================================================
-     SCROLL NAVBAR LEFT GREEN GLASS
-  ========================================================= */
-
-  #services-megamenu-wrapper
-    .services-left-col {
-
-    transition:
-      background 220ms ease,
-      backdrop-filter 220ms ease,
-      -webkit-backdrop-filter 220ms ease,
-      border-color 220ms ease,
-      box-shadow 220ms ease;
-
+  #services-megamenu-wrapper.scroll-dropdown-wrapper .services-left-col {
+    background: rgba(243, 247, 245, 0.75) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(12px) !important;
+    border: none !important;
   }
-
-
-  #services-megamenu-wrapper.scroll-dropdown-wrapper
-    .services-left-col {
-
-    background:
-      linear-gradient(
-        135deg,
-        rgba(238, 247, 242, 0.65),
-        rgba(215, 240, 226, 0.50)
-      ) !important;
-
-    -webkit-backdrop-filter:
-      blur(12px) !important;
-
-    backdrop-filter:
-      blur(12px) !important;
-
-    border:
-      1px solid rgba(188, 230, 206, 0.50) !important;
-
-    box-shadow:
-      inset 0 1px 0
-      rgba(255, 255, 255, 0.50),
-
-      inset 0 -1px 0
-      rgba(15, 98, 58, 0.04),
-
-      inset 0 0 35px
-      rgba(188, 230, 206, 0.10),
-
-      0 8px 24px
-      rgba(15, 98, 58, 0.04);
-
-  }
-
-
-  /* =========================================================
-     ACTIVE SERVICE
-  ========================================================= */
-
-  #services-megamenu-panel
-    .service-tab-btn.active-tab {
-
-    background-color:
-      #BCE6CE !important;
-
-    color:
-      #0F172A !important;
-
-  }
-
-
-  /* =========================================================
-     SCROLL NAV ACTIVE SERVICE
-  ========================================================= */
-
-  #services-megamenu-wrapper.scroll-dropdown-wrapper
-    .service-tab-btn.active-tab {
-
-    background:
-      rgba(188, 230, 206, 0.90) !important;
-
-    box-shadow:
-      inset 0 1px 0
-      rgba(255, 255, 255, 0.35);
-
-  }
-
-
-  /* =========================================================
-     HOVER SERVICE
-  ========================================================= */
-
-  #services-megamenu-panel
-    .service-tab-btn:not(.active-tab):hover {
-
-    background-color:
-      #E0F2E7;
-
-    color:
-      #0F172A;
-
-  }
-
-
-  #services-megamenu-wrapper.scroll-dropdown-wrapper
-    .service-tab-btn:not(.active-tab):hover {
-
-    background:
-      rgba(224, 242, 231, 0.78) !important;
-
-  }
-
-
-  /* =========================================================
-     TYPOGRAPHY
-  ========================================================= */
-
-  #services-megamenu-panel
-    .services-left-col h3,
-
-  #services-megamenu-panel
-    .services-middle-heading,
-
-  #services-megamenu-panel
-    .services-right-heading {
-
-    font-family:
-      var(--font-sans) !important;
-
-    font-size:
-      16px;
-
-    font-weight:
-      500;
-
-    letter-spacing:
-      -0.01em;
-
-    line-height:
-      1.4;
-
-  }
-
-
-  #services-megamenu-panel
-    .service-tab-btn {
-
-    font-family:
-      var(--font-sans) !important;
-
-    font-size:
-      16px;
-
-    font-weight:
-      500;
-
-    letter-spacing:
-      -0.01em;
-
-    line-height:
-      1.45;
-
-  }
-
-
-  #services-megamenu-panel
-    .service-tab-panel a {
-
-    font-family:
-      var(--font-sans) !important;
-
-    font-size:
-      16px;
-
-    font-weight:
-      400;
-
-  }
-
-
-  /* =========================================================
-     ALL SERVICES LINK
-  ========================================================= */
-
-  #services-megamenu-panel
-    .all-services-link {
-
-    font-family:
-      var(--font-sans) !important;
-
-    font-size:
-      16px;
-
-    font-weight:
-      600;
-
-    line-height:
-      1.4;
-
-  }
-
-
-  /* =========================================================
-     SUSTAINABILITY LINK
-  ========================================================= */
-
-  #services-megamenu-panel
-    .sustainability-link {
-
-    font-family:
-      var(--font-sans) !important;
-
-    font-size:
-      16px;
-
-    font-weight:
-      600;
-
-    letter-spacing:
-      -0.01em;
-
-    line-height:
-      1.4 !important;
-
-  }
-
-
-  /* =========================================================
-     RIGHT COLUMN
-  ========================================================= */
-
-  #services-megamenu-panel
-    .services-right-col {
-
-    width:
-      280px;
-
-    min-width:
-      280px;
-
-    max-width:
-      280px;
-
-    box-sizing:
-      border-box;
-
-  }
-
 
   /* =========================================================
      RESPONSIVE
   ========================================================= */
-
   @media (max-width: 1024px) {
-
-    #services-megamenu-panel
-      .services-dropdown-card {
-
-      height:
-        auto;
-
-      min-height:
-        0;
-
-      max-height:
-        none;
-
-      flex-direction:
-        column;
-
+    #services-megamenu-panel .services-dropdown-card {
+      flex-direction: column;
+      gap: 1.25rem;
     }
 
-
-    #services-megamenu-panel
-      .services-left-col {
-
-      width:
-        100%;
-
-      margin-right:
-        0;
-
-      margin-bottom:
-        1.5rem;
-
+    #services-megamenu-panel .services-middle-col,
+    #services-megamenu-panel .services-right-col {
+      padding-top: 0;
+      width: 100%;
     }
-
-
-    #services-megamenu-panel
-      .services-right-col {
-
-      margin-left:
-        0;
-
-      margin-top:
-        1.5rem;
-
-      padding-top:
-        1rem;
-
-      border-top:
-        1px solid #f1f5f9;
-
-      width:
-        100%;
-
-      min-width:
-        100%;
-
-      max-width:
-        100%;
-
-    }
-
   }
-
 </style>
 
-
 <script>
-
   function setupServicesMegaMenu() {
-
-    const panel =
-      document.getElementById(
-        'services-megamenu-panel'
-      );
-
+    const panel = document.getElementById('services-megamenu-panel');
     if (!panel) return;
 
-
-    if (
-      panel.dataset.navInitialized === 'true'
-    ) {
+    if (panel.dataset.navInitialized === 'true') {
       return;
     }
+    panel.dataset.navInitialized = 'true';
 
+    const triggers = document.querySelectorAll<HTMLElement>(
+      '#services-menu-trigger, .services-megamenu-toggle'
+    );
 
-    panel.dataset.navInitialized =
-      'true';
+    if (triggers.length === 0) return;
 
+    let closeTimeout: ReturnType<typeof setTimeout> | null = null;
+    let hideTimeout: ReturnType<typeof setTimeout> | null = null;
 
-    const triggers =
-      document.querySelectorAll<HTMLElement>(
-        '#services-menu-trigger, .services-megamenu-toggle'
-      );
-
-
-    if (
-      triggers.length === 0
-    ) {
-      return;
-    }
-
-
-    let closeTimeout:
-      ReturnType<typeof setTimeout> | null =
-        null;
-
-    let hideTimeout:
-      ReturnType<typeof setTimeout> | null =
-        null;
-
-
-    const tabBtns =
-      panel.querySelectorAll<HTMLElement>(
-        '.service-tab-btn'
-      );
-
-
-    const tabPanels =
-      panel.querySelectorAll<HTMLElement>(
-        '.service-tab-panel'
-      );
-
-
-    const activeTitle =
-      panel.querySelector<HTMLElement>(
-        '#active-pillar-title'
-      );
-
+    const tabBtns = panel.querySelectorAll<HTMLElement>('.service-tab-btn');
+    const tabPanels = panel.querySelectorAll<HTMLElement>('.service-tab-panel');
+    const activeTitle = panel.querySelector<HTMLElement>('#active-pillar-title');
 
     /* =========================================================
        POSITION + SCROLL NAV GLASS
     ========================================================= */
-
     const updatePosition = () => {
-
-      const siteHeader =
-        document.getElementById(
-          'site-header'
-        );
-
-
-      const heroHeader =
-        document.getElementById(
-          'hero-header'
-        );
-
-
-      const card =
-        document.getElementById(
-          'services-megamenu-card'
-        );
-
-
-      const wrapper =
-        document.getElementById(
-          'services-megamenu-wrapper'
-        );
-
+      const siteHeader = document.getElementById('site-header');
+      const heroHeader = document.getElementById('hero-header');
+      const card = document.getElementById('services-megamenu-card');
+      const wrapper = document.getElementById('services-megamenu-wrapper');
 
       const isScrollNavActive =
         !!siteHeader &&
-        !siteHeader.classList.contains(
-          'opacity-0'
-        ) &&
-        !siteHeader.classList.contains(
-          '-translate-y-full'
-        );
+        !siteHeader.classList.contains('opacity-0') &&
+        !siteHeader.classList.contains('-translate-y-full');
 
-
-      /* =====================================================
-         SCROLL NAVBAR
-      ===================================================== */
-
-      if (
-        isScrollNavActive &&
-        siteHeader
-      ) {
-
+      if (isScrollNavActive && siteHeader) {
         if (card) {
-
-          card.classList.add(
-            'scroll-glass-active'
-          );
-
-          card.style.setProperty(
-            'background',
-            'rgba(250, 246, 238, 0.60)',
-            'important'
-          );
-
-          card.style.setProperty(
-            'background-color',
-            'rgba(250, 246, 238, 0.60)',
-            'important'
-          );
-
-          card.style.setProperty(
-            '-webkit-backdrop-filter',
-            'blur(12px)',
-            'important'
-          );
-
-          card.style.setProperty(
-            'backdrop-filter',
-            'blur(12px)',
-            'important'
-          );
-
-          card.style.setProperty(
-            'border',
-            '1px solid rgba(0, 0, 0, 0.10)',
-            'important'
-          );
-
-          card.style.setProperty(
-            'box-shadow',
-            '0 16px 40px -10px rgba(0, 0, 0, 0.08)',
-            'important'
-          );
-
+          card.classList.add('scroll-glass-active');
+          card.style.setProperty('background', 'rgba(250, 246, 238, 0.60)', 'important');
+          card.style.setProperty('background-color', 'rgba(250, 246, 238, 0.60)', 'important');
+          card.style.setProperty('-webkit-backdrop-filter', 'blur(12px)', 'important');
+          card.style.setProperty('backdrop-filter', 'blur(12px)', 'important');
+          card.style.setProperty('border', '1px solid rgba(0, 0, 0, 0.10)', 'important');
+          card.style.setProperty('box-shadow', '0 16px 40px -10px rgba(0, 0, 0, 0.08)', 'important');
         }
-
 
         if (wrapper) {
-
-          wrapper.classList.add(
-            'scroll-dropdown-wrapper'
-          );
-
+          wrapper.classList.add('scroll-dropdown-wrapper');
         }
 
+        const maxWrap = siteHeader.querySelector<HTMLElement>(':scope > div');
+        const floatingBar = maxWrap?.querySelector<HTMLElement>(':scope > div');
+        const ref = floatingBar ?? siteHeader;
+        const rect = ref.getBoundingClientRect();
 
-        const maxWrap =
-          siteHeader.querySelector<HTMLElement>(
-            ':scope > div'
-          );
-
-
-        const floatingBar =
-          maxWrap?.querySelector<HTMLElement>(
-            ':scope > div'
-          );
-
-
-        const ref =
-          floatingBar ??
-          siteHeader;
-
-
-        const rect =
-          ref.getBoundingClientRect();
-
-
-        panel.style.top =
-          `${Math.round(
-            rect.bottom + 8
-          )}px`;
-
-
-        panel.style.left =
-          `${Math.round(
-            rect.left
-          )}px`;
-
-
-        panel.style.right =
-          'auto';
-
-
-        panel.style.width =
-          `${Math.round(
-            rect.width
-          )}px`;
-
+        panel.style.top = `${Math.round(rect.bottom + 6)}px`;
+        panel.style.left = `${Math.round(rect.left)}px`;
+        panel.style.right = 'auto';
+        panel.style.width = `${Math.round(rect.width)}px`;
 
         if (card) {
-
-          card.style.width =
-            `${Math.round(
-              rect.width
-            )}px`;
-
-          card.style.maxWidth =
-            `${Math.round(
-              rect.width
-            )}px`;
-
+          card.style.width = `${Math.round(rect.width)}px`;
+          card.style.maxWidth = `${Math.round(rect.width)}px`;
         }
-
-      }
-
-
-      /* =====================================================
-         NORMAL / HERO NAVBAR
-      ===================================================== */
-
-      else if (heroHeader) {
-
+      } else if (heroHeader) {
         if (card) {
-
-          card.classList.remove(
-            'scroll-glass-active'
-          );
-
-          card.style.removeProperty(
-            'background'
-          );
-
-          card.style.removeProperty(
-            'background-color'
-          );
-
-          card.style.removeProperty(
-            '-webkit-backdrop-filter'
-          );
-
-          card.style.removeProperty(
-            'backdrop-filter'
-          );
-
-          card.style.removeProperty(
-            'border'
-          );
-
-          card.style.removeProperty(
-            'box-shadow'
-          );
-
+          card.classList.remove('scroll-glass-active');
+          card.style.removeProperty('background');
+          card.style.removeProperty('background-color');
+          card.style.removeProperty('-webkit-backdrop-filter');
+          card.style.removeProperty('backdrop-filter');
+          card.style.removeProperty('border');
+          card.style.removeProperty('box-shadow');
         }
-
 
         if (wrapper) {
-
-          wrapper.classList.remove(
-            'scroll-dropdown-wrapper'
-          );
-
+          wrapper.classList.remove('scroll-dropdown-wrapper');
         }
 
+        const rect = heroHeader.getBoundingClientRect();
 
-        const rect =
-          heroHeader.getBoundingClientRect();
-
-
-        panel.style.top =
-          `${Math.round(
-            rect.bottom + 8
-          )}px`;
-
-
-        panel.style.left =
-          '';
-
-
-        panel.style.right =
-          '';
-
-
-        panel.style.width =
-          '';
-
+        panel.style.top = `${Math.round(rect.bottom + 6)}px`;
+        panel.style.left = '';
+        panel.style.right = '';
+        panel.style.width = '';
 
         if (card) {
-
-          card.style.width =
-            '';
-
-          card.style.maxWidth =
-            '';
-
+          card.style.width = '';
+          card.style.maxWidth = '';
         }
-
       }
-
     };
-
 
     /* =========================================================
        BACKDROP
     ========================================================= */
-
     const updateBackdrop = () => {
-
-      const backdrop =
-        document.getElementById(
-          'dropdown-backdrop'
-        );
-
-
+      const backdrop = document.getElementById('dropdown-backdrop');
       if (!backdrop) return;
 
-
-      const sectorsPanel =
-        document.getElementById(
-          'sectors-dropdown-panel'
-        );
-
+      const sectorsPanel = document.getElementById('sectors-dropdown-panel');
+      const aboutPanel = document.getElementById('about-megamenu-panel');
 
       const isServicesOpen =
-        !panel.classList.contains(
-          'hidden'
-        ) &&
-        !panel.classList.contains(
-          'opacity-0'
-        );
-
+        !panel.classList.contains('hidden') &&
+        !panel.classList.contains('opacity-0');
 
       const isSectorsOpen =
         sectorsPanel &&
-        !sectorsPanel.classList.contains(
-          'hidden'
-        ) &&
-        !sectorsPanel.classList.contains(
-          'opacity-0'
-        );
+        !sectorsPanel.classList.contains('hidden') &&
+        !sectorsPanel.classList.contains('opacity-0');
 
+      const isAboutOpen =
+        aboutPanel &&
+        !aboutPanel.classList.contains('hidden') &&
+        !aboutPanel.classList.contains('opacity-0');
 
-      if (
-        isServicesOpen ||
-        isSectorsOpen
-      ) {
-
-        backdrop.classList.add(
-          'active'
-        );
-
+      if (isServicesOpen || isSectorsOpen || isAboutOpen) {
+        backdrop.classList.add('active');
       } else {
-
-        backdrop.classList.remove(
-          'active'
-        );
-
+        backdrop.classList.remove('active');
       }
-
     };
-
 
     /* =========================================================
        CANCEL CLOSE
     ========================================================= */
-
     const cancelClose = () => {
-
       if (closeTimeout) {
-
-        clearTimeout(
-          closeTimeout
-        );
-
-        closeTimeout =
-          null;
-
+        clearTimeout(closeTimeout);
+        closeTimeout = null;
       }
-
-
       if (hideTimeout) {
-
-        clearTimeout(
-          hideTimeout
-        );
-
-        hideTimeout =
-          null;
-
+        clearTimeout(hideTimeout);
+        hideTimeout = null;
       }
-
     };
-
 
     /* =========================================================
-       SWITCH SERVICE TAB
+       SWITCH SERVICE TAB (DYNAMIC HEADING & PANEL)
     ========================================================= */
-
-    const switchTab = (
-      tabId: string,
-      pillarTitle?: string
-    ) => {
-
-      tabBtns.forEach(
-        (btn) => {
-
-          const isTarget =
-            btn.getAttribute(
-              'data-service-tab'
-            ) === tabId;
-
-
-          if (isTarget) {
-
-            btn.classList.add(
-              'active-tab',
-              'bg-[#BCE6CE]',
-              'text-[#0F172A]'
-            );
-
-
-            btn.classList.remove(
-              'text-[#1E293B]',
-              'hover:bg-[#E0F2E7]'
-            );
-
-          } else {
-
-            btn.classList.remove(
-              'active-tab',
-              'bg-[#BCE6CE]',
-              'text-[#0F172A]'
-            );
-
-
-            btn.classList.add(
-              'text-[#1E293B]',
-              'hover:bg-[#E0F2E7]'
-            );
-
-          }
-
+    const switchTab = (tabId: string, pillarTitle?: string) => {
+      tabBtns.forEach((btn) => {
+        const isTarget = btn.getAttribute('data-service-tab') === tabId;
+        if (isTarget) {
+          btn.classList.add('active-tab', 'bg-[#C3E8D5]', 'text-[#0F172A]', 'font-semibold');
+          btn.classList.remove('text-[#1E293B]', 'hover:bg-[#E4EFE9]');
+        } else {
+          btn.classList.remove('active-tab', 'bg-[#C3E8D5]', 'text-[#0F172A]', 'font-semibold');
+          btn.classList.add('text-[#1E293B]', 'hover:bg-[#E4EFE9]');
         }
-      );
+      });
 
-
-      if (
-        activeTitle &&
-        pillarTitle
-      ) {
-
-        activeTitle.textContent =
-          pillarTitle;
-
+      if (activeTitle && pillarTitle) {
+        activeTitle.textContent = pillarTitle.toUpperCase();
       }
 
-
-      tabPanels.forEach(
-        (panelItem) => {
-
-          if (
-            panelItem.id ===
-            `tab-panel-${tabId}`
-          ) {
-
-            panelItem.classList.remove(
-              'opacity-0',
-              'pointer-events-none'
-            );
-
-
-            panelItem.classList.add(
-              'opacity-100',
-              'pointer-events-auto'
-            );
-
-          } else {
-
-            panelItem.classList.add(
-              'opacity-0',
-              'pointer-events-none'
-            );
-
-
-            panelItem.classList.remove(
-              'opacity-100',
-              'pointer-events-auto'
-            );
-
-          }
-
+      tabPanels.forEach((panelItem) => {
+        if (panelItem.id === `tab-panel-${tabId}`) {
+          panelItem.classList.remove('hidden');
+          void panelItem.offsetHeight;
+          panelItem.classList.remove('opacity-0');
+          panelItem.classList.add('opacity-100');
+        } else {
+          panelItem.classList.add('hidden', 'opacity-0');
+          panelItem.classList.remove('opacity-100');
         }
-      );
-
+      });
     };
-
 
     /* =========================================================
        TAB EVENTS
     ========================================================= */
+    tabBtns.forEach((btn) => {
+      const tabId = btn.getAttribute('data-service-tab');
+      const title = btn.getAttribute('data-pillar-title') || '';
+      if (!tabId) return;
 
-    tabBtns.forEach(
-      (btn) => {
-
-        const tabId =
-          btn.getAttribute(
-            'data-service-tab'
-          );
-
-
-        const title =
-          btn.getAttribute(
-            'data-pillar-title'
-          ) || '';
-
-
-        if (!tabId) return;
-
-
-        btn.addEventListener(
-          'mouseenter',
-          () =>
-            switchTab(
-              tabId,
-              title
-            )
-        );
-
-
-        btn.addEventListener(
-          'focus',
-          () =>
-            switchTab(
-              tabId,
-              title
-            )
-        );
-
-      }
-    );
-
+      btn.addEventListener('mouseenter', () => switchTab(tabId, title));
+      btn.addEventListener('focus', () => switchTab(tabId, title));
+    });
 
     /* =========================================================
        OPEN MENU
     ========================================================= */
-
     const openMenu = () => {
-
       cancelClose();
 
-
       window.dispatchEvent(
-        new CustomEvent(
-          'techsteps:close-sectors',
-          {
-            detail: {
-              immediate: true
-            }
-          }
-        )
+        new CustomEvent('techsteps:close-sectors', {
+          detail: { immediate: true },
+        })
       );
-window.dispatchEvent(
-  new CustomEvent('techsteps:close-about')
-);
+      window.dispatchEvent(
+        new CustomEvent('techsteps:close-about', {
+          detail: { immediate: true },
+        })
+      );
 
       updatePosition();
 
-
-      panel.classList.remove(
-        'hidden'
-      );
-
-
+      panel.classList.remove('hidden');
       void panel.offsetHeight;
 
+      panel.classList.remove('opacity-0', '-translate-y-1', 'pointer-events-none');
+      panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
 
-      panel.classList.remove(
-        'opacity-0',
-        '-translate-y-1',
-        'pointer-events-none'
-      );
-
-
-      panel.classList.add(
-        'opacity-100',
-        'translate-y-0',
-        'pointer-events-auto'
-      );
-
-
-      triggers.forEach(
-        (trigger) => {
-
-          trigger.setAttribute(
-            'aria-expanded',
-            'true'
-          );
-
-
-          const caret =
-            trigger.querySelector(
-              '.caret-icon'
-            );
-
-
-          if (caret) {
-
-            caret.classList.add(
-              'rotate-180'
-            );
-
-          }
-
-        }
-      );
-
+      triggers.forEach((trigger) => {
+        trigger.setAttribute('aria-expanded', 'true');
+        trigger.classList.add('active');
+      });
 
       updateBackdrop();
-
     };
 
-
     /* =========================================================
-       CLOSE MENU
+       CLOSE MENU (WITH 200ms DELAY)
     ========================================================= */
-
-    const closeMenu = (
-      immediate = false
-    ) => {
-
+    const closeMenu = (immediate = false) => {
       const doClose = () => {
+        panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        panel.classList.add('opacity-0', '-translate-y-1', 'pointer-events-none');
 
-        panel.classList.remove(
-          'opacity-100',
-          'translate-y-0',
-          'pointer-events-auto'
-        );
-
-
-        panel.classList.add(
-          'opacity-0',
-          '-translate-y-1',
-          'pointer-events-none'
-        );
-
-
-        triggers.forEach(
-          (trigger) => {
-
-            trigger.setAttribute(
-              'aria-expanded',
-              'false'
-            );
-
-
-            const caret =
-              trigger.querySelector(
-                '.caret-icon'
-              );
-
-
-            if (caret) {
-
-              caret.classList.remove(
-                'rotate-180'
-              );
-
-            }
-
+        triggers.forEach((trigger) => {
+          trigger.setAttribute('aria-expanded', 'false');
+          if (trigger.getAttribute('data-route-active') !== 'true') {
+            trigger.classList.remove('active');
           }
-        );
-
+        });
 
         updateBackdrop();
 
-
         if (hideTimeout) {
-
-          clearTimeout(
-            hideTimeout
-          );
-
+          clearTimeout(hideTimeout);
         }
-
 
         if (immediate) {
-
-          panel.classList.add(
-            'hidden'
-          );
-
+          panel.classList.add('hidden');
         } else {
-
-          hideTimeout =
-            setTimeout(
-              () => {
-
-                if (
-                  panel.classList.contains(
-                    'opacity-0'
-                  )
-                ) {
-
-                  panel.classList.add(
-                    'hidden'
-                  );
-
-                }
-
-
-                hideTimeout =
-                  null;
-
-              },
-              160
-            );
-
+          hideTimeout = setTimeout(() => {
+            if (panel.classList.contains('opacity-0')) {
+              panel.classList.add('hidden');
+            }
+            hideTimeout = null;
+          }, 160);
         }
-
       };
-
 
       cancelClose();
 
-
       if (immediate) {
-
         doClose();
-
       } else {
-
-        closeTimeout =
-          setTimeout(
-            doClose,
-            280
-          );
-
+        closeTimeout = setTimeout(doClose, 200);
       }
-
     };
 
+    /* =========================================================
+       TRIGGER EVENTS (HOVER OPEN + DELAYED LEAVE)
+    ========================================================= */
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('mouseenter', openMenu);
+      trigger.addEventListener('mouseleave', () => closeMenu(false));
+      trigger.addEventListener('focus', openMenu);
+
+      trigger.addEventListener('keydown', (event) => {
+        if (event.key === ' ' || event.key === 'ArrowDown') {
+          event.preventDefault();
+          openMenu();
+        }
+      });
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+          closeMenu(true);
+        } else {
+          openMenu();
+        }
+      });
+    });
 
     /* =========================================================
-       TRIGGER EVENTS
-
-       IMPORTANT:
-       The parent contains BOTH:
-       - Services text
-       - Services arrow
-
-       So hovering either one opens
-       the dropdown.
+       PANEL HOVER & LEAVE
     ========================================================= */
-
-    triggers.forEach(
-      (trigger) => {
-
-        const hoverTarget =
-          trigger.parentElement as HTMLElement | null;
-
-
-        if (!hoverTarget) return;
-
-
-        /*
-         * Hover Services text OR arrow.
-         */
-        hoverTarget.addEventListener(
-          'mouseenter',
-          openMenu
-        );
-
-
-        /*
-         * No mouseleave close.
-         *
-         * Dropdown remains open until:
-         * - outside click
-         * - arrow click
-         * - Escape
-         * - Sectors opens
-         */
-        trigger.addEventListener(
-          'click',
-          (event) => {
-
-            event.stopPropagation();
-            event.preventDefault();
-
-
-            const isExpanded =
-              trigger.getAttribute(
-                'aria-expanded'
-              ) === 'true';
-
-
-            if (isExpanded) {
-
-              closeMenu(true);
-
-            } else {
-
-              openMenu();
-
-            }
-
-          }
-        );
-
-
-        /*
-         * Keyboard accessibility.
-         */
-        trigger.addEventListener(
-          'focus',
-          openMenu
-        );
-
-      }
-    );
-
+    panel.addEventListener('mouseenter', cancelClose);
+    panel.addEventListener('mouseleave', () => closeMenu(false));
 
     /* =========================================================
-       PANEL HOVER
+       CROSS MENU CLOSE
     ========================================================= */
-
-    panel.addEventListener(
-      'mouseenter',
-      cancelClose
-    );
-
-
-    /* =========================================================
-       CLOSE SERVICES EVENT
-    ========================================================= */
-
-    window.addEventListener(
-      'techsteps:close-services',
-      (event: Event) => {
-
-        const customEvent =
-          event as CustomEvent;
-
-
-        closeMenu(
-          customEvent.detail?.immediate ??
-          true
-        );
-
-      }
-    );
-
+    window.addEventListener('techsteps:close-services', (event: Event) => {
+      const customEvent = event as CustomEvent;
+      closeMenu(customEvent.detail?.immediate ?? true);
+    });
 
     /* =========================================================
        ESCAPE
     ========================================================= */
-
-    document.addEventListener(
-      'keydown',
-      (event) => {
-
-        if (
-          event.key === 'Escape'
-        ) {
-
-          closeMenu(true);
-
-        }
-
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeMenu(true);
       }
-    );
-
+    });
 
     /* =========================================================
        OUTSIDE CLICK
     ========================================================= */
+    document.addEventListener('click', (event) => {
+      const target = event.target as Node;
+      let insideTrigger = false;
 
-    document.addEventListener(
-      'click',
-      (event) => {
-
-        const target =
-          event.target as Node;
-
-
-        let insideTrigger =
-          false;
-
-
-        triggers.forEach(
-          (trigger) => {
-
-            if (
-              trigger.contains(target) ||
-              trigger.parentElement?.contains(target)
-            ) {
-
-              insideTrigger =
-                true;
-
-            }
-
-          }
-        );
-
-
+      triggers.forEach((trigger) => {
         if (
-          !panel.contains(target) &&
-          !insideTrigger
+          trigger.contains(target) ||
+          trigger.parentElement?.contains(target)
         ) {
-
-          closeMenu(true);
-
+          insideTrigger = true;
         }
+      });
 
+      if (!panel.contains(target) && !insideTrigger) {
+        closeMenu(true);
       }
-    );
-
+    });
 
     /* =========================================================
        BACKDROP CLICK
     ========================================================= */
-
-    const backdrop =
-      document.getElementById(
-        'dropdown-backdrop'
-      );
-
-
-    backdrop?.addEventListener(
-      'click',
-      () =>
-        closeMenu(true)
-    );
-
+    const backdrop = document.getElementById('dropdown-backdrop');
+    backdrop?.addEventListener('click', () => closeMenu(true));
 
     /* =========================================================
        LINK CLICK
     ========================================================= */
-
-    panel
-      .querySelectorAll('a')
-      .forEach(
-        (link) => {
-
-          link.addEventListener(
-            'click',
-            () =>
-              closeMenu(true)
-          );
-
-        }
-      );
-
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => closeMenu(true));
+    });
 
     /* =========================================================
        RESIZE + SCROLL
     ========================================================= */
-
-    window.addEventListener(
-      'resize',
-      updatePosition,
-      {
-        passive: true
-      }
-    );
-
-
-    window.addEventListener(
-      'scroll',
-      updatePosition,
-      {
-        passive: true
-      }
-    );
-
+    window.addEventListener('resize', updatePosition, { passive: true });
+    window.addEventListener('scroll', updatePosition, { passive: true });
   }
-
 
   /* =========================================================
      INITIALIZE
   ========================================================= */
-
   setupServicesMegaMenu();
 
-
-  document.addEventListener(
-    'astro:page-load',
-    () => {
-
-      document
-        .getElementById(
-          'dropdown-backdrop'
-        )
-        ?.classList.remove(
-          'active'
-        );
-
-
-      setupServicesMegaMenu();
-
-    }
-  );
-
+  document.addEventListener('astro:page-load', () => {
+    document.getElementById('dropdown-backdrop')?.classList.remove('active');
+    setupServicesMegaMenu();
+  });
 </script>

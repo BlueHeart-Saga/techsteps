@@ -44,7 +44,7 @@ const navItems = [
     type: 'about'
   },
   {
-    label: 'Contact',
+    label: 'Contact Us',
     url: '/contact',
     hasDropdown: false
   },
@@ -63,7 +63,7 @@ const navItems = [
     ====================================================== -->
 
     <div
-      class="relative flex items-center justify-between h-16 sm:h-[72px] px-3.5 sm:px-6 bg-[#FAF6EE]/60 backdrop-blur-md rounded-none border border-black/10 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300"
+      class="relative flex items-center justify-between h-16 sm:h-[72px] px-3.5 sm:px-6 bg-[#FAF6EE]/60 backdrop-blur-md rounded-[16px] border border-black/10 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300"
       style="background-color: rgba(250, 246, 238, 0.60); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);"
     >
 
@@ -98,13 +98,8 @@ const navItems = [
       >
 
         {navItems.map((item) => {
-
-          /* ===================================================
-             SERVICES
-          =================================================== */
-
+          /* SERVICES */
           if (item.type === 'services') {
-
             const isActive =
               currentPath.startsWith('/services') ||
               currentPath === '/information-management' ||
@@ -113,235 +108,83 @@ const navItems = [
               currentPath === '/moving-relocation-services';
 
             return (
-              <div class="flex items-center">
-
-                <!-- Services text navigates to Services page -->
-
-                <a
-                  href="/services"
-                  class={`py-1.5 px-1 transition-colors ${
-                    isActive
-                      ? 'text-[#0F623A]'
-                      : 'text-slate-800 hover:text-[#0F623A]'
-                  }`}
-                >
-                  {item.label}
-                </a>
-
-
-                <!-- Arrow only opens dropdown -->
-
-                <button
-                  type="button"
-                  id="services-menu-trigger"
-                  class="services-megamenu-toggle inline-flex items-center justify-center p-1 transition-all duration-200 cursor-pointer focus:outline-none"
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  aria-controls="services-megamenu-panel"
-                  aria-label="Open Services menu"
-                >
-                  <svg
-                    class="h-4 w-4 text-slate-600 transition-all duration-200 caret-icon shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-
-              </div>
+              <a
+                href="javascript:void(0)"
+                id="services-menu-trigger"
+                data-route-active={isActive ? "true" : "false"}
+                class={`nav-link services-megamenu-toggle py-1.5 px-0 transition-colors cursor-pointer focus:outline-none ${
+                  isActive ? 'active' : ''
+                }`}
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls="services-megamenu-panel"
+                role="button"
+              >
+                {item.label}
+              </a>
             );
           }
 
-
-          /* ===================================================
-             SECTORS
-          =================================================== */
-
+          /* SECTORS */
           if (item.type === 'sectors') {
-
-            const isActive =
-              currentPath.startsWith('/sectors');
-
+            const isActive = currentPath.startsWith('/sectors');
             return (
-              <div class="flex items-center">
-
-                <!-- Sectors text navigates to Sectors page -->
-
-                <a
-                  href="/sectors"
-                  class={`py-1.5 px-1 transition-colors ${
-                    isActive
-                      ? 'text-[#0F623A]'
-                      : 'text-slate-800 hover:text-[#0F623A]'
-                  }`}
-                >
-                  {item.label}
-                </a>
-
-
-                <!-- Arrow only opens dropdown -->
-
-                <button
-                  type="button"
-                  id="sectors-menu-trigger"
-                  class="sectors-dropdown-toggle inline-flex items-center justify-center p-1 transition-all duration-200 cursor-pointer focus:outline-none"
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  aria-controls="sectors-dropdown-panel"
-                  aria-label="Open Sectors menu"
-                >
-                  <svg
-                    class="h-4 w-4 text-slate-600 transition-all duration-200 caret-icon shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-
-              </div>
+              <a
+                href="javascript:void(0)"
+                id="sectors-menu-trigger"
+                data-route-active={isActive ? "true" : "false"}
+                class={`nav-link sectors-dropdown-toggle py-1.5 px-0 transition-colors cursor-pointer focus:outline-none ${
+                  isActive ? 'active' : ''
+                }`}
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls="sectors-dropdown-panel"
+                role="button"
+              >
+                {item.label}
+              </a>
             );
           }
 
-
-          /* ===================================================
-             ABOUT US
-          =================================================== */
-
+          /* ABOUT US */
           if (item.type === 'about') {
-
             const isActive =
               currentPath === '/about-us' ||
               currentPath.startsWith('/leadership') ||
-              currentPath.startsWith('/people-culture') ||
               currentPath.startsWith('/our-people-culture') ||
-              currentPath.startsWith('/global-presence');
+              currentPath.startsWith('/global-presence') ||
+              currentPath.startsWith('/sustainability') ||
+              currentPath.startsWith('/certifications') ||
+              currentPath.startsWith('/partners');
 
             return (
-              <div class="flex items-center relative">
-
-                <!-- About Us text navigates to About Us page -->
-
-                <a
-                  href="/about-us"
-                  class={`py-1.5 px-1 transition-colors ${
-                    isActive
-                      ? 'text-[#0F623A]'
-                      : 'text-slate-800 hover:text-[#0F623A]'
-                  }`}
-                >
-                  {item.label}
-                </a>
-
-
-                <!-- =================================================
-                     ABOUT US ARROW
-                ================================================== -->
-
-                <button
-                  type="button"
-                  id="about-menu-trigger"
-                  class="about-dropdown-toggle inline-flex items-center justify-center p-1 rounded-md transition-all duration-200 cursor-pointer focus:outline-none"
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  aria-controls="about-dropdown-panel"
-                  aria-label="Open About Us menu"
-                >
-                  <svg
-                    class="h-4 w-4 text-slate-600 transition-all duration-200 about-caret caret-icon shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-
-
-                <!-- =================================================
-                     ABOUT US DROPDOWN
-
-                     IMPORTANT:
-                     Added extra vertical spacing so the dropdown
-                     sits clearly below the scrolling navbar.
-                ================================================== -->
-
-<div
-  id="about-dropdown-panel"
-  class="about-dropdown-panel hidden absolute top-[calc(100%+30px)] right-0 min-w-[230px] rounded-xl z-[1000]"
->
-
-                  <a
-                    href="/about-us"
-                    class="block px-5 py-3 text-sm text-slate-700 transition-colors"
-                  >
-                    About Us
-                  </a>
-
-                  <a
-                    href="/leadership"
-                    class="block px-5 py-3 text-sm text-slate-700 transition-colors"
-                  >
-                    Leadership
-                  </a>
-
-                  <a
-                    href="/our-people-culture"
-                    class="block px-5 py-3 text-sm text-slate-700 transition-colors"
-                  >
-                    Our People &amp; Culture
-                  </a>
-
-                  <a
-                    href="/global-presence"
-                    class="block px-5 py-3 text-sm text-slate-700 transition-colors"
-                  >
-                    Global Presence
-                  </a>
-
-                </div>
-
-              </div>
+              <a
+                href="javascript:void(0)"
+                id="about-menu-trigger"
+                data-route-active={isActive ? "true" : "false"}
+                class={`nav-link about-megamenu-toggle py-1.5 px-0 transition-colors cursor-pointer focus:outline-none ${
+                  isActive ? 'active' : ''
+                }`}
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls="about-megamenu-panel"
+                role="button"
+              >
+                {item.label}
+              </a>
             );
           }
 
-
-          /* ===================================================
-             NORMAL NAVIGATION ITEMS
-          =================================================== */
-
+          /* NORMAL ITEMS: INSIGHTS, CONTACT US */
           const isActive =
             currentPath === item.url ||
-            (
-              item.url !== '/' &&
-              currentPath.startsWith(item.url)
-            );
+            (item.url !== '/' && currentPath.startsWith(item.url));
 
           return (
             <a
               href={item.url}
-              class={`py-1.5 px-1 transition-colors ${
-                isActive
-                  ? 'text-[#0F623A]'
-                  : 'text-slate-800 hover:text-[#0F623A]'
+              class={`nav-link py-1.5 px-0 transition-colors focus:outline-none ${
+                isActive ? 'active' : ''
               }`}
             >
               {item.label}
@@ -361,7 +204,7 @@ const navItems = [
         <button
           type="button"
           id="open-mobile-menu"
-          class="open-mobile-menu-btn p-2 rounded-none text-slate-800 hover:text-black hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+          class="open-mobile-menu-btn p-2 rounded-[12px] text-slate-800 hover:text-black hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
           aria-label="Open mobile navigation menu"
         >
           <svg
@@ -392,254 +235,7 @@ const navItems = [
   <MobileDrawer />
 
 
-  <!-- =====================================================
-       ABOUT DROPDOWN SCRIPT
-  ====================================================== -->
 
-  <script>
-    function setupAboutDropdown() {
-
-      const trigger =
-        document.getElementById('about-menu-trigger');
-
-      const panel =
-        document.getElementById('about-dropdown-panel');
-
-      if (!trigger || !panel) return;
-
-
-      /* ===================================================
-         PREVENT DUPLICATE INITIALIZATION
-      =================================================== */
-
-      if (
-        trigger.dataset.aboutReady === 'true'
-      ) {
-        return;
-      }
-
-      trigger.dataset.aboutReady = 'true';
-
-
-      /* ===================================================
-         CLOSE ABOUT DROPDOWN
-      =================================================== */
-
-      const closeAbout = () => {
-
-        panel.classList.add('hidden');
-
-        trigger.setAttribute(
-          'aria-expanded',
-          'false'
-        );
-
-        const icon =
-          trigger.querySelector('.about-caret');
-
-        icon?.classList.remove(
-          'rotate-180'
-        );
-
-      };
-
-
-      /* ===================================================
-         OPEN ABOUT DROPDOWN
-      =================================================== */
-
-      const openAbout = () => {
-
-        panel.classList.remove('hidden');
-
-        trigger.setAttribute(
-          'aria-expanded',
-          'true'
-        );
-
-        const icon =
-          trigger.querySelector('.about-caret');
-
-        icon?.classList.add(
-          'rotate-180'
-        );
-
-      };
-
-
-      /* ===================================================
-         ABOUT ARROW CLICK
-      =================================================== */
-
-      trigger.addEventListener(
-        'click',
-        (event) => {
-
-          event.stopPropagation();
-
-          const isOpen =
-            trigger.getAttribute(
-              'aria-expanded'
-            ) === 'true';
-
-
-          if (isOpen) {
-
-            closeAbout();
-
-          } else {
-
-            /*
-             * Close Services and Sectors first.
-             * This guarantees only one dropdown
-             * remains open at a time.
-             */
-
-            window.dispatchEvent(
-              new CustomEvent(
-                'techsteps:close-services'
-              )
-            );
-
-            window.dispatchEvent(
-              new CustomEvent(
-                'techsteps:close-sectors'
-              )
-            );
-
-            openAbout();
-
-          }
-
-        }
-      );
-
-
-      /* ===================================================
-         CLOSE WHEN SERVICES OPENS
-      =================================================== */
-
-      window.addEventListener(
-        'techsteps:close-about',
-        closeAbout
-      );
-
-
-      /* ===================================================
-         CLOSE WHEN CLICKING OUTSIDE
-      =================================================== */
-
-      document.addEventListener(
-        'click',
-        (event) => {
-
-          const target =
-            event.target as HTMLElement;
-
-
-          /*
-           * Do nothing when clicking the About
-           * trigger itself.
-           */
-
-          if (
-            target.closest(
-              '#about-menu-trigger'
-            )
-          ) {
-            return;
-          }
-
-
-          /*
-           * Do nothing when clicking inside
-           * the About dropdown.
-           */
-
-          if (
-            target.closest(
-              '#about-dropdown-panel'
-            )
-          ) {
-            return;
-          }
-
-
-          /*
-           * Everything else closes About.
-           */
-
-          closeAbout();
-
-        }
-      );
-
-
-      /* ===================================================
-         CLOSE WHEN CLICKING ABOUT LINKS
-      =================================================== */
-
-      panel.addEventListener(
-        'click',
-        () => {
-          closeAbout();
-        }
-      );
-
-
-      /* ===================================================
-         ESCAPE KEY
-      =================================================== */
-
-      document.addEventListener(
-        'keydown',
-        (event) => {
-
-          if (
-            event.key === 'Escape'
-          ) {
-
-            closeAbout();
-
-          }
-
-        }
-      );
-
-
-      /* ===================================================
-         EXPOSE CLOSE FUNCTION
-         Useful for debugging / other scripts.
-      =================================================== */
-
-      (
-        window as any
-      ).__closeAboutDropdown =
-        closeAbout;
-
-    }
-
-
-    /* =====================================================
-       INITIAL SETUP
-    ====================================================== */
-
-    setupAboutDropdown();
-
-
-    /* =====================================================
-       ASTRO PAGE LOAD
-    ====================================================== */
-
-    document.addEventListener(
-      'astro:page-load',
-      () => {
-
-        setupAboutDropdown();
-
-      }
-    );
-  </script>
 
 
   <!-- =====================================================
@@ -877,265 +473,76 @@ const navItems = [
 
     :global(#services-megamenu-card.scroll-glass-active),
     :global(#sectors-dropdown-card.scroll-glass-active),
-    #about-dropdown-panel {
+    :global(#about-megamenu-card.scroll-glass-active) {
 
       /* EXACT NAVBAR COLOR */
-
       background-color:
         rgba(250, 246, 238, 0.60) !important;
 
-
       /* EXACT NAVBAR GLASS BLUR */
-
       -webkit-backdrop-filter:
         blur(12px) !important;
-
       backdrop-filter:
         blur(12px) !important;
 
-
       /* EXACT NAVBAR BORDER */
-
       border:
         1px solid rgba(0, 0, 0, 0.10) !important;
 
-
       /* EXACT NAVBAR SHADOW */
-
       box-shadow:
         0 16px 40px -10px
         rgba(0, 0, 0, 0.08) !important;
-
     }
-
 
     /* =====================================================
        SERVICES DROPDOWN
     ====================================================== */
-
     #services-megamenu-panel {
-
       background-color:
         rgba(250, 246, 238, 0.60) !important;
-
       -webkit-backdrop-filter:
         blur(12px) !important;
-
       backdrop-filter:
         blur(12px) !important;
-
     }
-
 
     /* =====================================================
        SECTORS DROPDOWN
     ====================================================== */
-
     #sectors-dropdown-panel {
-
       background-color:
         rgba(250, 246, 238, 0.60) !important;
-
       -webkit-backdrop-filter:
         blur(12px) !important;
-
       backdrop-filter:
         blur(12px) !important;
-
     }
-
 
     /* =====================================================
        ABOUT DROPDOWN
     ====================================================== */
-
-    #about-dropdown-panel {
-
+    #about-megamenu-panel {
       background-color:
         rgba(250, 246, 238, 0.60) !important;
-
       -webkit-backdrop-filter:
         blur(12px) !important;
-
       backdrop-filter:
         blur(12px) !important;
-
-
-      border:
-        1px solid rgba(0, 0, 0, 0.10) !important;
-
-
-      box-shadow:
-        0 16px 40px -10px
-        rgba(0, 0, 0, 0.08) !important;
-
     }
-
-
-    /* =====================================================
-       ABOUT DROPDOWN ARROW
-       NORMAL STATE
-    ====================================================== */
-
-    .about-dropdown-toggle {
-
-      border-radius:
-        6px;
-
-      color:
-        #475569;
-
-      transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        transform 0.2s ease;
-
-    }
-
-
-    /* =====================================================
-       ABOUT DROPDOWN ARROW HOVER
-    ====================================================== */
-
-    .about-dropdown-toggle:hover {
-
-      color:
-        #0F623A;
-
-      background-color:
-        rgba(255, 255, 255, 0.25);
-
-    }
-
-
-    .about-dropdown-toggle:hover
-    .about-caret {
-
-      color:
-        #0F623A;
-
-    }
-
-
-    /* =====================================================
-       ABOUT DROPDOWN ARROW OPEN STATE
-    ====================================================== */
-
-    .about-dropdown-toggle[aria-expanded="true"] {
-
-      color:
-        #0F623A;
-
-      background-color:
-        rgba(255, 255, 255, 0.25);
-
-    }
-
-
-    .about-dropdown-toggle[aria-expanded="true"]
-    .about-caret {
-
-      color:
-        #0F623A;
-
-    }
-
-
-    /* =====================================================
-       ABOUT DROPDOWN LINKS
-    ====================================================== */
-
-    #about-dropdown-panel a {
-
-      color:
-        #334155;
-
-      transition:
-        color 0.2s ease,
-        background-color 0.2s ease;
-
-    }
-
-
-    #about-dropdown-panel a:hover {
-
-      color:
-        #0F623A;
-
-      background-color:
-        rgba(255, 255, 255, 0.20);
-
-    }
-
-
-    /* =====================================================
-       SERVICES DROPDOWN LINKS
-    ====================================================== */
-
-    #services-megamenu-panel a {
-
-      transition:
-        color 0.2s ease,
-        background-color 0.2s ease;
-
-    }
-
-
-    #services-megamenu-panel a:hover {
-
-      background-color:
-        rgba(255, 255, 255, 0.20);
-
-    }
-
-
-    /* =====================================================
-       SECTORS DROPDOWN LINKS
-    ====================================================== */
-
-    #sectors-dropdown-panel a {
-
-      transition:
-        color 0.2s ease,
-        background-color 0.2s ease;
-
-    }
-
-
-    #sectors-dropdown-panel a:hover {
-
-      background-color:
-        rgba(255, 255, 255, 0.20);
-
-    }
-
 
     /* =====================================================
        DROPDOWN PANELS
        PREVENT SOLID CHILD BACKGROUNDS FROM HIDING GLASS
     ====================================================== */
-
     #services-megamenu-panel,
     #sectors-dropdown-panel,
-    #about-dropdown-panel {
-
+    #about-megamenu-panel {
       isolation:
         isolate;
-
       overflow:
         hidden;
-
     }
-/* About dropdown - blur entire page */
-body:has(#about-dropdown-panel:not(.hidden))::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 997;
-  pointer-events: none;
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
-}
   </style>
 
 </header>

@@ -31,7 +31,7 @@ export const FooterNewsletter: React.FC = () => {
       </p>
 
       {subscribedSuccess ? (
-        <div className="mt-6 p-4 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-white max-w-md mx-auto flex items-center justify-center gap-2.5 animate-fadeIn">
+        <div className="mt-6 p-4 rounded-[12px] bg-emerald-950/80 border border-emerald-500/40 text-white max-w-md mx-auto flex items-center justify-center gap-2.5 animate-fadeIn">
           <svg
             className="w-5 h-5 text-emerald-400 shrink-0"
             fill="none"
@@ -68,7 +68,7 @@ export const FooterNewsletter: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="*Email"
-              className="w-full bg-transparent border border-white/60 rounded-xs px-3.5 py-2 text-sm text-white placeholder-white/80 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all font-sans"
+              className="w-full bg-transparent border border-white/60 rounded-[8px] px-3.5 py-2 text-sm text-white placeholder-white/80 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all font-sans"
             />
           </div>
 
@@ -84,12 +84,12 @@ export const FooterNewsletter: React.FC = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="*First Name"
-              className="flex-1 min-w-0 bg-transparent border border-white/60 rounded-xs px-3.5 py-2 text-sm text-white placeholder-white/80 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all font-sans"
+              className="flex-1 min-w-0 bg-transparent border border-white/60 rounded-[8px] px-3.5 py-2 text-sm text-white placeholder-white/80 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all font-sans"
             />
 
             <button
               type="submit"
-              className="bg-white hover:bg-neutral-100 text-[#0B0F0D] font-bold text-xs uppercase tracking-wider px-6 py-2.5 rounded-xs transition-colors shadow-sm shrink-0 cursor-pointer font-sans"
+              className="bg-white hover:bg-neutral-100 text-[#0B0F0D] font-bold text-xs uppercase tracking-wider px-6 py-2.5 rounded-[12px] transition-colors shadow-sm shrink-0 cursor-pointer font-sans"
             >
               Sign Up
             </button>

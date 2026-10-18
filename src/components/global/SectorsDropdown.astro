@@ -1,34 +1,90 @@
 ---
+/**
+ * SectorsDropdown.astro
+ * Balanced 3-column + 26% featured card mega menu for "Industries We Serve"
+ * Organised into 3 balanced columns (3-3-2 layout) with concise display labels
+ * and aligned in the same premium style as the About Us dropdown.
+ */
+
 import { getSectors } from '../../lib/sanity/client';
 
-const sanitySectors = await getSectors();
+const sanitySectors = await getSectors().catch(() => []);
+const currentPath = Astro.url.pathname;
 
-const findSector = (slug: string, defaultTitle: string, defaultIcon: string, active?: boolean) => {
-  const found = sanitySectors.find((s) => s.slug === slug);
-  return {
-    title: found?.title || defaultTitle,
-    slug,
-    icon: defaultIcon,
-    ...(active ? { active: true } : {}),
-  };
-};
-
+// Shorter, elegant display titles to prevent awkward wrapping, with underlying slugs
 const column1 = [
-  findSector('nhs', 'NHS & Healthcare', '/icons/NHS%20&%20Healthcare.svg', true),
-  findSector('defence', 'Defence & Aerospace', '/icons/Defence%20&%20Aerospace.svg'),
-  findSector('manufacturing-engineering', 'Manufacturing & Engineering', '/icons/Manufacturing%20&%20Engineering.svg'),
+  {
+    title: 'NHS & Healthcare',
+    slug: 'nhs',
+    href: '/sectors/nhs',
+    icon: '/icons/NHS%20&%20Healthcare.svg',
+    active: currentPath === '/sectors/nhs' || currentPath === '/sectors/nhs/',
+  },
+  {
+    title: 'Defence & Aerospace',
+    slug: 'defence',
+    href: '/sectors/defence',
+    icon: '/icons/Defence%20&%20Aerospace.svg',
+    active: currentPath === '/sectors/defence' || currentPath === '/sectors/defence/',
+  },
+  {
+    title: 'Manufacturing & Engineering',
+    slug: 'manufacturing-engineering',
+    href: '/sectors/manufacturing-engineering',
+    icon: '/icons/Manufacturing%20&%20Engineering.svg',
+    active: currentPath === '/sectors/manufacturing-engineering' || currentPath === '/sectors/manufacturing-engineering/',
+  },
 ];
 
 const column2 = [
-  findSector('finance', 'Financial Services', '/icons/Financial%20Services.svg'),
-  findSector('legal-professional-services', 'Corporate & Legal', '/icons/Corporate%20&%20Legal.svg'),
-  findSector('it-technology', 'IT & Technology', '/icons/IT%20&%20Technology.svg'),
+  {
+    title: 'Financial Services',
+    slug: 'finance',
+    href: '/sectors/finance',
+    icon: '/icons/Financial%20Services.svg',
+    active: currentPath === '/sectors/finance' || currentPath === '/sectors/finance/',
+  },
+  {
+    title: 'Corporate & Legal',
+    slug: 'legal-professional-services',
+    href: '/sectors/legal-professional-services',
+    icon: '/icons/Corporate%20&%20Legal.svg',
+    active: currentPath === '/sectors/legal-professional-services' || currentPath === '/sectors/legal-professional-services/',
+  },
+  {
+    title: 'IT & Technology',
+    slug: 'it-technology',
+    href: '/sectors/it-technology',
+    icon: '/icons/IT%20&%20Technology.svg',
+    active: currentPath === '/sectors/it-technology' || currentPath === '/sectors/it-technology/',
+  },
 ];
 
 const column3 = [
-  findSector('central-government', 'Central Government', '/icons/Central%20Government.svg'),
-  findSector('education-universities', 'Education & Universities', '/icons/Education%20&%20Universities.svg'),
+  {
+    title: 'Government & Public Sector',
+    slug: 'central-government',
+    href: '/sectors/central-government',
+    icon: '/icons/Central%20Government.svg',
+    active: currentPath === '/sectors/central-government' || currentPath === '/sectors/central-government/',
+  },
+  {
+    title: 'Education & Universities',
+    slug: 'education-universities',
+    href: '/sectors/education-universities',
+    icon: '/icons/Education%20&%20Universities.svg',
+    active: currentPath === '/sectors/education-universities' || currentPath === '/sectors/education-universities/',
+  },
 ];
+
+const hasActive =
+  column1.some((item) => item.active) ||
+  column2.some((item) => item.active) ||
+  column3.some((item) => item.active);
+
+if (!hasActive) {
+  column1[0].active = true;
+}
 ---
 
 <!-- =========================================================
@@ -46,32 +102,35 @@ const column3 = [
   >
     <div
       id="sectors-dropdown-card"
-      class="sectors-dropdown-card bg-white rounded-[12px] border border-slate-200/80 shadow-[0_16px_48px_rgba(0,0,0,0.08)] pointer-events-auto p-4 sm:p-5 flex items-stretch w-full min-h-[322px] box-border"
+      class="sectors-dropdown-card bg-white rounded-[20px] border border-slate-200/80 shadow-[0_20px_50px_rgba(0,0,0,0.08)] pointer-events-auto p-6 sm:p-7 lg:p-8 flex flex-col lg:flex-row items-stretch justify-between gap-8 xl:gap-10 w-full box-border"
     >
 
       <!-- =====================================================
-           LEFT: INDUSTRIES WE SERVE
+           LEFT: NAVIGATION AREA (~74%)
       ====================================================== -->
-      <div
-        class="flex-1 flex flex-col pt-6 pb-5 pl-2 sm:pl-3 pr-4 sm:pr-8"
-      >
-        <h3 class="sectors-heading text-[#5A6874] mb-6">
-          Industries We Serve
-        </h3>
+      <div class="flex-1 w-full flex flex-col min-w-0">
+        <!-- Main Section Header -->
+        <div class="mb-4 pb-2.5 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h3 class="sectors-heading text-xs font-bold uppercase tracking-wider text-[#5A6874]">
+              Industries We Serve
+            </h3>
+            <p class="text-[12px] text-slate-500 font-normal mt-0.5">
+              Explore our sector expertise
+            </p>
+          </div>
+        </div>
 
-        <div
-          class="grid grid-cols-1 md:grid-cols-3 gap-x-6 xl:gap-x-12 gap-y-2.5"
-        >
-
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 flex-1">
           <!-- Column 1 -->
-          <div class="flex flex-col space-y-2.5">
+          <div class="sectors-menu-column flex flex-col space-y-1.5">
             {column1.map((item) => (
               <a
-                href={`/sectors/${item.slug}`}
-                class={`sector-link group flex items-center gap-3.5 px-3.5 py-2.5 rounded-[8px] transition-all duration-150 cursor-pointer ${
+                href={item.href}
+                class={`sector-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${
                   item.active
-                    ? 'active-sector bg-[#BCE6CE] text-[#0F172A]'
-                    : 'text-[#1E293B] hover:bg-[#E0F2E7]'
+                    ? 'active-sector bg-[#BCE6CE] text-[#0F172A] font-semibold'
+                    : 'text-[#101E2C] hover:bg-[#E0F2E7]'
                 }`}
               >
                 <span class="shrink-0 flex items-center justify-center w-5 h-5">
@@ -83,8 +142,7 @@ const column3 = [
                     height="20"
                   />
                 </span>
-
-                <span class="sector-label leading-snug">
+                <span class="sector-label text-[15px] leading-snug whitespace-nowrap">
                   {item.title}
                 </span>
               </a>
@@ -92,11 +150,15 @@ const column3 = [
           </div>
 
           <!-- Column 2 -->
-          <div class="flex flex-col space-y-2.5">
+          <div class="sectors-menu-column flex flex-col space-y-1.5">
             {column2.map((item) => (
               <a
-                href={`/sectors/${item.slug}`}
-                class="sector-link group flex items-center gap-3.5 px-3.5 py-2.5 rounded-[8px] transition-all duration-150 cursor-pointer text-[#1E293B] hover:bg-[#E0F2E7]"
+                href={item.href}
+                class={`sector-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${
+                  item.active
+                    ? 'active-sector bg-[#BCE6CE] text-[#0F172A] font-semibold'
+                    : 'text-[#101E2C] hover:bg-[#E0F2E7]'
+                }`}
               >
                 <span class="shrink-0 flex items-center justify-center w-5 h-5">
                   <img
@@ -107,8 +169,7 @@ const column3 = [
                     height="20"
                   />
                 </span>
-
-                <span class="sector-label leading-snug">
+                <span class="sector-label text-[15px] leading-snug whitespace-nowrap">
                   {item.title}
                 </span>
               </a>
@@ -116,11 +177,15 @@ const column3 = [
           </div>
 
           <!-- Column 3 -->
-          <div class="flex flex-col space-y-2.5">
+          <div class="sectors-menu-column flex flex-col space-y-1.5">
             {column3.map((item) => (
               <a
-                href={`/sectors/${item.slug}`}
-                class="sector-link group flex items-center gap-3.5 px-3.5 py-2.5 rounded-[8px] transition-all duration-150 cursor-pointer text-[#1E293B] hover:bg-[#E0F2E7]"
+                href={item.href}
+                class={`sector-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${
+                  item.active
+                    ? 'active-sector bg-[#BCE6CE] text-[#0F172A] font-semibold'
+                    : 'text-[#101E2C] hover:bg-[#E0F2E7]'
+                }`}
               >
                 <span class="shrink-0 flex items-center justify-center w-5 h-5">
                   <img
@@ -131,114 +196,90 @@ const column3 = [
                     height="20"
                   />
                 </span>
-
-                <span class="sector-label leading-snug">
+                <span class="sector-label text-[15px] leading-snug whitespace-nowrap">
                   {item.title}
                 </span>
               </a>
             ))}
           </div>
-
         </div>
       </div>
 
-
       <!-- =====================================================
-           RIGHT: INVESTORS
+           RIGHT: FEATURED AREA (~26%)
       ====================================================== -->
       <div
-        class="sectors-right-col w-[280px] shrink-0 pt-6 pb-[13px] pr-8 flex flex-col ml-8 xl:ml-12"
+        class="sectors-featured-col w-full lg:w-[240px] xl:w-[260px] shrink-0 flex flex-col lg:pl-8 lg:border-l lg:border-slate-100 justify-between"
       >
-        <h3 class="sectors-right-heading text-[#5A6874] mb-5">
-          Investors
-        </h3>
-
-        <a href="/investors" class="group block shrink-0">
-          <div
-            class="rounded-xl overflow-hidden shadow-xs border border-slate-200/60 bg-slate-100"
-            style="width: 248px; height: 164.96px;"
-          >
-            <img
-              src="/images/brand/nav-sectors.webp"
-              alt="Investors"
-              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              loading="lazy"
-              width="248"
-              height="165"
-            />
+        <div class="w-full">
+          <div class="mb-4 pb-2.5 border-b border-slate-100 hidden lg:block">
+            <span class="sectors-right-heading text-xs font-bold uppercase tracking-wider text-[#5A6874]">
+              Sector Expertise
+            </span>
           </div>
-        </a>
 
-        <a
-          href="/investors"
-          class="investors-link mt-[36px] inline-flex items-center gap-1.5 font-sans text-[16px] font-semibold text-[#171717] hover:text-[#07572F] transition-colors group"
-        >
-          <span>Visit</span>
-
-          <span
-            class="font-bold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          <a
+            href="/sectors"
+            class="sectors-featured-card group block w-full rounded-[16px] overflow-hidden border border-slate-200/80 bg-slate-50 transition-all duration-200 hover:border-[#07572F]/40 hover:shadow-md"
           >
-            ↗
-          </span>
-        </a>
+            <div class="w-full aspect-[16/10] overflow-hidden bg-slate-100">
+              <img
+                src="/images/brand/nav-sectors.webp"
+                alt="Sector Expertise"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+                width="260"
+                height="162"
+              />
+            </div>
+
+            <div class="p-3.5 flex items-center justify-between bg-white group-hover:bg-[#F2F8F5] transition-colors">
+              <span class="font-sans text-[14px] font-semibold text-[#101E2C] group-hover:text-[#07572F] transition-colors">
+                Explore Industries
+              </span>
+            </div>
+          </a>
+        </div>
       </div>
 
     </div>
   </div>
 </div>
 
-
 <style>
   /* =========================================================
-     CONTAINER
+     CONTAINER & CARD
   ========================================================= */
-
   #sectors-dropdown-panel .sectors-dropdown-card {
     width: 100%;
-    height: 322px;
-    min-height: 322px;
-    max-height: 322px;
-    border-radius: 12px;
-    box-sizing: border-box;
-    padding: 8px;
-  }
-
-  #sectors-dropdown-panel .sectors-right-col {
-    width: 280px;
-    min-width: 280px;
-    max-width: 280px;
-    padding-right: 32px;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    border-radius: 20px !important;
     box-sizing: border-box;
   }
-
 
   /* =========================================================
      TYPOGRAPHY
   ========================================================= */
-
   #sectors-dropdown-panel .sectors-heading,
   #sectors-dropdown-panel .sectors-right-heading {
     font-family: var(--font-sans) !important;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    line-height: 1.4;
+    letter-spacing: 0.05em;
   }
 
   #sectors-dropdown-panel .sector-link {
     font-family: var(--font-sans) !important;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     letter-spacing: -0.01em;
-    line-height: 1.45;
+    line-height: 1.4;
     text-decoration: none;
   }
-
 
   /* =========================================================
      ACTIVE / HOVER
   ========================================================= */
-
   #sectors-dropdown-panel .sector-link.active-sector {
     background-color: #bce6ce;
     color: #0f172a;
@@ -249,921 +290,367 @@ const column3 = [
     color: #0f172a;
   }
 
-
-  /* =========================================================
-     VISIT LINK
-  ========================================================= */
-
-  #sectors-dropdown-panel .investors-link {
-    font-family: var(--font-sans) !important;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.4 !important;
-  }
-
-
   /* =========================================================
      SCROLL NAV GLASS (EXACT SAME AS SCROLLING NAVBAR)
   ========================================================= */
-
   #sectors-dropdown-panel .sectors-dropdown-card.scroll-glass-active,
   #sectors-dropdown-card.scroll-glass-active {
     background: rgba(250, 246, 238, 0.60) !important;
     background-color: rgba(250, 246, 238, 0.60) !important;
-
-    -webkit-backdrop-filter:
-      blur(12px) !important;
-
-    backdrop-filter:
-      blur(12px) !important;
-
-    border:
-      1px solid rgba(0, 0, 0, 0.10) !important;
-
-    box-shadow:
-      0 16px 40px -10px rgba(0, 0, 0, 0.08) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.10) !important;
+    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.08) !important;
   }
-
 
   /* =========================================================
      RESPONSIVE
   ========================================================= */
-
   @media (max-width: 1024px) {
-
     #sectors-dropdown-panel .sectors-dropdown-card {
-      height: auto;
-      min-height: 0;
-      max-height: none;
       flex-direction: column;
+      gap: 1.5rem;
     }
 
-    #sectors-dropdown-panel .sectors-right-col {
-      margin-left: 0;
-      margin-top: 1.5rem;
-      padding-top: 1rem;
+    #sectors-dropdown-panel .sectors-featured-col {
+      border-left: none;
       border-top: 1px solid #f1f5f9;
+      padding-left: 0;
+      padding-top: 1.5rem;
       width: 100%;
-      min-width: 100%;
-      max-width: 100%;
     }
-
   }
 </style>
 
-
 <script>
   function setupSectorsMegaMenu() {
-
-    const panel =
-      document.getElementById(
-        'sectors-dropdown-panel'
-      );
-
+    const panel = document.getElementById('sectors-dropdown-panel');
     if (!panel) return;
 
-    if (
-      panel.dataset.navInitialized === 'true'
-    ) {
+    if (panel.dataset.navInitialized === 'true') {
       return;
     }
-
     panel.dataset.navInitialized = 'true';
 
-
-    const triggers =
-      document.querySelectorAll<HTMLElement>(
-        '#sectors-menu-trigger, .sectors-dropdown-toggle'
-      );
+    const triggers = document.querySelectorAll<HTMLElement>(
+      '#sectors-menu-trigger, .sectors-dropdown-toggle'
+    );
 
     if (triggers.length === 0) return;
-
 
     let closeTimeout: ReturnType<typeof setTimeout> | null = null;
     let hideTimeout: ReturnType<typeof setTimeout> | null = null;
 
-
-    const sectorLinks =
-      panel.querySelectorAll<HTMLElement>(
-        '.sector-link'
-      );
-
+    const sectorLinks = panel.querySelectorAll<HTMLElement>('.sector-link');
 
     /* =========================================================
-       GLASS STATE
+       GLASS CONTROLLER
     ========================================================= */
-
-    const setScrollGlass = (
-      active: boolean
-    ) => {
-
-      const card =
-        document.getElementById(
-          'sectors-dropdown-card'
-        );
-
+    const setScrollGlass = (active: boolean) => {
+      const card = document.getElementById('sectors-dropdown-card');
       if (!card) return;
 
-
       if (active) {
-
-        card.classList.add(
-          'scroll-glass-active'
-        );
-
-        card.style.setProperty(
-          'background',
-          'rgba(250, 246, 238, 0.60)',
-          'important'
-        );
-
-        card.style.setProperty(
-          'background-color',
-          'rgba(250, 246, 238, 0.60)',
-          'important'
-        );
-
-        card.style.setProperty(
-          '-webkit-backdrop-filter',
-          'blur(12px)',
-          'important'
-        );
-
-        card.style.setProperty(
-          'backdrop-filter',
-          'blur(12px)',
-          'important'
-        );
-
-        card.style.setProperty(
-          'border',
-          '1px solid rgba(0, 0, 0, 0.10)',
-          'important'
-        );
-
-        card.style.setProperty(
-          'box-shadow',
-          '0 16px 40px -10px rgba(0, 0, 0, 0.08)',
-          'important'
-        );
-
+        card.classList.add('scroll-glass-active');
+        card.style.setProperty('background', 'rgba(250, 246, 238, 0.60)', 'important');
+        card.style.setProperty('background-color', 'rgba(250, 246, 238, 0.60)', 'important');
+        card.style.setProperty('-webkit-backdrop-filter', 'blur(12px)', 'important');
+        card.style.setProperty('backdrop-filter', 'blur(12px)', 'important');
+        card.style.setProperty('border', '1px solid rgba(0, 0, 0, 0.10)', 'important');
+        card.style.setProperty('box-shadow', '0 16px 40px -10px rgba(0, 0, 0, 0.08)', 'important');
       } else {
-
-        card.classList.remove(
-          'scroll-glass-active'
-        );
-
-        card.style.removeProperty(
-          'background'
-        );
-
-        card.style.removeProperty(
-          'background-color'
-        );
-
-        card.style.removeProperty(
-          '-webkit-backdrop-filter'
-        );
-
-        card.style.removeProperty(
-          'backdrop-filter'
-        );
-
-        card.style.removeProperty(
-          'border'
-        );
-
-        card.style.removeProperty(
-          'box-shadow'
-        );
-
+        card.classList.remove('scroll-glass-active');
+        card.style.removeProperty('background');
+        card.style.removeProperty('background-color');
+        card.style.removeProperty('-webkit-backdrop-filter');
+        card.style.removeProperty('backdrop-filter');
+        card.style.removeProperty('border');
+        card.style.removeProperty('box-shadow');
       }
-
     };
-
 
     /* =========================================================
        POSITION + NAV STATE
     ========================================================= */
-
     const updatePosition = () => {
-
-      const siteHeader =
-        document.getElementById(
-          'site-header'
-        );
-
-      const heroHeader =
-        document.getElementById(
-          'hero-header'
-        );
-
-      const card =
-        document.getElementById(
-          'sectors-dropdown-card'
-        );
-
-      const wrapper =
-        document.getElementById(
-          'sectors-dropdown-wrapper'
-        );
-
+      const siteHeader = document.getElementById('site-header');
+      const heroHeader = document.getElementById('hero-header');
+      const card = document.getElementById('sectors-dropdown-card');
+      const wrapper = document.getElementById('sectors-dropdown-wrapper');
 
       const isScrollNavActive =
         !!siteHeader &&
-        !siteHeader.classList.contains(
-          'opacity-0'
-        ) &&
-        !siteHeader.classList.contains(
-          '-translate-y-full'
-        );
+        !siteHeader.classList.contains('opacity-0') &&
+        !siteHeader.classList.contains('-translate-y-full');
 
-
-      /* =====================================================
-         SCROLLING NAVBAR
-      ===================================================== */
-
-      if (
-        isScrollNavActive &&
-        siteHeader
-      ) {
-
+      if (isScrollNavActive && siteHeader) {
         setScrollGlass(true);
 
+        const maxWrap = siteHeader.querySelector<HTMLElement>(':scope > div');
+        const floatingBar = maxWrap?.querySelector<HTMLElement>(':scope > div');
+        const ref = floatingBar ?? siteHeader;
+        const rect = ref.getBoundingClientRect();
 
-        const maxWrap =
-          siteHeader.querySelector<HTMLElement>(
-            ':scope > div'
-          );
-
-        const floatingBar =
-          maxWrap?.querySelector<HTMLElement>(
-            ':scope > div'
-          );
-
-        const ref =
-          floatingBar ?? siteHeader;
-
-        const rect =
-          ref.getBoundingClientRect();
-
-
-        panel.style.top =
-          `${Math.round(rect.bottom + 8)}px`;
-
-        panel.style.left =
-          `${Math.round(rect.left)}px`;
-
-        panel.style.right =
-          'auto';
-
-        panel.style.width =
-          `${Math.round(rect.width)}px`;
-
+        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
+        panel.style.left = `${Math.round(rect.left)}px`;
+        panel.style.right = 'auto';
+        panel.style.width = `${Math.round(rect.width)}px`;
 
         if (wrapper) {
-          wrapper.classList.add(
-            'scroll-dropdown-wrapper'
-          );
+          wrapper.classList.add('scroll-dropdown-wrapper');
         }
-
 
         if (card) {
-
-          card.style.width =
-            `${Math.round(rect.width)}px`;
-
-          card.style.maxWidth =
-            `${Math.round(rect.width)}px`;
-
+          card.style.width = `${Math.round(rect.width)}px`;
+          card.style.maxWidth = `${Math.round(rect.width)}px`;
         }
-
-      }
-
-
-      /* =====================================================
-         NORMAL / HERO NAVBAR
-      ===================================================== */
-
-      else if (heroHeader) {
-
+      } else if (heroHeader) {
         setScrollGlass(false);
 
+        const rect = heroHeader.getBoundingClientRect();
 
-        const rect =
-          heroHeader.getBoundingClientRect();
-
-
-        panel.style.top =
-          `${Math.round(rect.bottom + 8)}px`;
-
-        panel.style.left =
-          '';
-
-        panel.style.right =
-          '';
-
-        panel.style.width =
-          '';
-
+        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
+        panel.style.left = '';
+        panel.style.right = '';
+        panel.style.width = '';
 
         if (card) {
-
-          card.style.width =
-            '';
-
-          card.style.maxWidth =
-            '';
-
+          card.style.width = '';
+          card.style.maxWidth = '';
         }
-
 
         if (wrapper) {
-
-          wrapper.classList.remove(
-            'scroll-dropdown-wrapper'
-          );
-
+          wrapper.classList.remove('scroll-dropdown-wrapper');
         }
-
       }
-
     };
-
 
     /* =========================================================
        BACKDROP
     ========================================================= */
-
     const updateBackdrop = () => {
-
-      const backdrop =
-        document.getElementById(
-          'dropdown-backdrop'
-        );
-
+      const backdrop = document.getElementById('dropdown-backdrop');
       if (!backdrop) return;
 
-
-      const servicesPanel =
-        document.getElementById(
-          'services-megamenu-panel'
-        );
-
+      const servicesPanel = document.getElementById('services-megamenu-panel');
+      const aboutPanel = document.getElementById('about-megamenu-panel');
 
       const isServicesOpen =
         servicesPanel &&
-        !servicesPanel.classList.contains(
-          'hidden'
-        ) &&
-        !servicesPanel.classList.contains(
-          'opacity-0'
-        );
-
+        !servicesPanel.classList.contains('hidden') &&
+        !servicesPanel.classList.contains('opacity-0');
 
       const isSectorsOpen =
-        !panel.classList.contains(
-          'hidden'
-        ) &&
-        !panel.classList.contains(
-          'opacity-0'
-        );
+        !panel.classList.contains('hidden') &&
+        !panel.classList.contains('opacity-0');
 
+      const isAboutOpen =
+        aboutPanel &&
+        !aboutPanel.classList.contains('hidden') &&
+        !aboutPanel.classList.contains('opacity-0');
 
-      if (
-        isServicesOpen ||
-        isSectorsOpen
-      ) {
-
-        backdrop.classList.add(
-          'active'
-        );
-
+      if (isServicesOpen || isSectorsOpen || isAboutOpen) {
+        backdrop.classList.add('active');
       } else {
-
-        backdrop.classList.remove(
-          'active'
-        );
-
+        backdrop.classList.remove('active');
       }
-
     };
-
 
     /* =========================================================
        CANCEL CLOSE
     ========================================================= */
-
     const cancelClose = () => {
-
       if (closeTimeout) {
-
-        clearTimeout(
-          closeTimeout
-        );
-
+        clearTimeout(closeTimeout);
         closeTimeout = null;
-
       }
-
-
       if (hideTimeout) {
-
-        clearTimeout(
-          hideTimeout
-        );
-
+        clearTimeout(hideTimeout);
         hideTimeout = null;
-
       }
-
     };
-
 
     /* =========================================================
        SECTOR HOVER
     ========================================================= */
-
-    sectorLinks.forEach(
-      (link) => {
-
-        link.addEventListener(
-          'mouseenter',
-          () => {
-
-            sectorLinks.forEach(
-              (l) => {
-
-                l.classList.remove(
-                  'active-sector',
-                  'bg-[#BCE6CE]'
-                );
-
-              }
-            );
-
-
-            link.classList.add(
-              'active-sector',
-              'bg-[#BCE6CE]'
-            );
-
-          }
-        );
-
-      }
-    );
-
+    sectorLinks.forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        sectorLinks.forEach((l) => {
+          l.classList.remove('active-sector', 'bg-[#BCE6CE]', 'font-semibold');
+        });
+        link.classList.add('active-sector', 'bg-[#BCE6CE]', 'font-semibold');
+      });
+    });
 
     /* =========================================================
-       OPEN
+       OPEN MENU
     ========================================================= */
-
     const openMenu = () => {
-
       cancelClose();
 
-
       window.dispatchEvent(
-        new CustomEvent(
-          'techsteps:close-services',
-          {
-            detail: {
-              immediate: true
-            }
-          }
-        )
+        new CustomEvent('techsteps:close-services', {
+          detail: { immediate: true },
+        })
       );
       window.dispatchEvent(
-  new CustomEvent('techsteps:close-about')
-);
-
+        new CustomEvent('techsteps:close-about', {
+          detail: { immediate: true },
+        })
+      );
 
       updatePosition();
 
-
-      panel.classList.remove(
-        'hidden'
-      );
-
-
+      panel.classList.remove('hidden');
       void panel.offsetHeight;
 
+      panel.classList.remove('opacity-0', '-translate-y-1', 'pointer-events-none');
+      panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
 
-      panel.classList.remove(
-        'opacity-0',
-        '-translate-y-1',
-        'pointer-events-none'
-      );
-
-
-      panel.classList.add(
-        'opacity-100',
-        'translate-y-0',
-        'pointer-events-auto'
-      );
-
-
-      triggers.forEach(
-        (trigger) => {
-
-          trigger.setAttribute(
-            'aria-expanded',
-            'true'
-          );
-
-
-          const caret =
-            trigger.querySelector(
-              '.caret-icon'
-            );
-
-
-          if (caret) {
-
-            caret.classList.add(
-              'rotate-180'
-            );
-
-          }
-
-        }
-      );
-
+      triggers.forEach((trigger) => {
+        trigger.setAttribute('aria-expanded', 'true');
+        trigger.classList.add('active');
+      });
 
       updateBackdrop();
-
     };
 
-
     /* =========================================================
-       CLOSE
+       CLOSE MENU (WITH 200ms DELAY)
     ========================================================= */
-
-    const closeMenu = (
-      immediate = false
-    ) => {
-
+    const closeMenu = (immediate = false) => {
       const doClose = () => {
+        panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        panel.classList.add('opacity-0', '-translate-y-1', 'pointer-events-none');
 
-        panel.classList.remove(
-          'opacity-100',
-          'translate-y-0',
-          'pointer-events-auto'
-        );
-
-
-        panel.classList.add(
-          'opacity-0',
-          '-translate-y-1',
-          'pointer-events-none'
-        );
-
-
-        triggers.forEach(
-          (trigger) => {
-
-            trigger.setAttribute(
-              'aria-expanded',
-              'false'
-            );
-
-
-            const caret =
-              trigger.querySelector(
-                '.caret-icon'
-              );
-
-
-            if (caret) {
-
-              caret.classList.remove(
-                'rotate-180'
-              );
-
-            }
-
+        triggers.forEach((trigger) => {
+          trigger.setAttribute('aria-expanded', 'false');
+          if (trigger.getAttribute('data-route-active') !== 'true') {
+            trigger.classList.remove('active');
           }
-        );
-
+        });
 
         updateBackdrop();
 
-
         if (hideTimeout) {
-
-          clearTimeout(
-            hideTimeout
-          );
-
+          clearTimeout(hideTimeout);
         }
-
 
         if (immediate) {
-
-          panel.classList.add(
-            'hidden'
-          );
-
+          panel.classList.add('hidden');
         } else {
-
-          hideTimeout =
-            setTimeout(
-              () => {
-
-                if (
-                  panel.classList.contains(
-                    'opacity-0'
-                  )
-                ) {
-
-                  panel.classList.add(
-                    'hidden'
-                  );
-
-                }
-
-                hideTimeout = null;
-
-              },
-              160
-            );
-
+          hideTimeout = setTimeout(() => {
+            if (panel.classList.contains('opacity-0')) {
+              panel.classList.add('hidden');
+            }
+            hideTimeout = null;
+          }, 160);
         }
-
       };
-
 
       cancelClose();
 
-
       if (immediate) {
-
         doClose();
-
       } else {
-
-        closeTimeout =
-          setTimeout(
-            doClose,
-            280
-          );
-
+        closeTimeout = setTimeout(doClose, 200);
       }
-
     };
 
+    /* =========================================================
+       TRIGGER EVENTS (HOVER OPEN + DELAYED LEAVE)
+    ========================================================= */
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('mouseenter', openMenu);
+      trigger.addEventListener('mouseleave', () => closeMenu(false));
+      trigger.addEventListener('focus', openMenu);
+
+      trigger.addEventListener('keydown', (event) => {
+        if (event.key === ' ' || event.key === 'ArrowDown') {
+          event.preventDefault();
+          openMenu();
+        }
+      });
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+          closeMenu(true);
+        } else {
+          openMenu();
+        }
+      });
+    });
 
     /* =========================================================
-       TRIGGER EVENTS
-
-       IMPORTANT:
-       The parent of the arrow contains BOTH:
-       - Sectors text
-       - Sectors arrow
-
-       Therefore hovering either one opens the menu.
+       PANEL HOVER & LEAVE
     ========================================================= */
-
-    triggers.forEach(
-      (trigger) => {
-
-        const hoverTarget =
-          trigger.parentElement as HTMLElement | null;
-
-        if (!hoverTarget) return;
-
-
-        /*
-         * Hovering Sectors text OR arrow
-         * opens the dropdown.
-         */
-        hoverTarget.addEventListener(
-          'mouseenter',
-          openMenu
-        );
-
-
-        /*
-         * Do NOT close on mouseleave.
-         *
-         * The menu stays open until:
-         * - outside click
-         * - arrow click
-         * - Escape
-         * - another dropdown opens
-         */
-        trigger.addEventListener(
-          'click',
-          (event) => {
-
-            event.stopPropagation();
-            event.preventDefault();
-
-
-            const isExpanded =
-              trigger.getAttribute(
-                'aria-expanded'
-              ) === 'true';
-
-
-            if (isExpanded) {
-
-              closeMenu(true);
-
-            } else {
-
-              openMenu();
-
-            }
-
-          }
-        );
-
-
-        /*
-         * Keyboard accessibility.
-         */
-        trigger.addEventListener(
-          'focus',
-          openMenu
-        );
-
-      }
-    );
-
-
-    /* =========================================================
-       PANEL HOVER
-    ========================================================= */
-
-    panel.addEventListener(
-      'mouseenter',
-      cancelClose
-    );
-
+    panel.addEventListener('mouseenter', cancelClose);
+    panel.addEventListener('mouseleave', () => closeMenu(false));
 
     /* =========================================================
        CROSS MENU CLOSE
     ========================================================= */
-
-    window.addEventListener(
-      'techsteps:close-sectors',
-      (event: Event) => {
-
-        const customEvent =
-          event as CustomEvent;
-
-        closeMenu(
-          customEvent.detail?.immediate ?? true
-        );
-
-      }
-    );
-
+    window.addEventListener('techsteps:close-sectors', (event: Event) => {
+      const customEvent = event as CustomEvent;
+      closeMenu(customEvent.detail?.immediate ?? true);
+    });
 
     /* =========================================================
        ESCAPE
     ========================================================= */
-
-    document.addEventListener(
-      'keydown',
-      (event) => {
-
-        if (
-          event.key === 'Escape'
-        ) {
-
-          closeMenu(true);
-
-        }
-
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeMenu(true);
       }
-    );
-
+    });
 
     /* =========================================================
        OUTSIDE CLICK
     ========================================================= */
+    document.addEventListener('click', (event) => {
+      const target = event.target as Node;
+      let insideTrigger = false;
 
-    document.addEventListener(
-      'click',
-      (event) => {
-
-        const target =
-          event.target as Node;
-
-
-        let insideTrigger =
-          false;
-
-
-        triggers.forEach(
-          (trigger) => {
-
-            if (
-              trigger.contains(target) ||
-              trigger.parentElement?.contains(target)
-            ) {
-
-              insideTrigger = true;
-
-            }
-
-          }
-        );
-
-
+      triggers.forEach((trigger) => {
         if (
-          !panel.contains(target) &&
-          !insideTrigger
+          trigger.contains(target) ||
+          trigger.parentElement?.contains(target)
         ) {
-
-          closeMenu(true);
-
+          insideTrigger = true;
         }
+      });
 
+      if (!panel.contains(target) && !insideTrigger) {
+        closeMenu(true);
       }
-    );
-
+    });
 
     /* =========================================================
        BACKDROP CLICK
     ========================================================= */
-
-    const backdrop =
-      document.getElementById(
-        'dropdown-backdrop'
-      );
-
-
-    backdrop?.addEventListener(
-      'click',
-      () => closeMenu(true)
-    );
-
+    const backdrop = document.getElementById('dropdown-backdrop');
+    backdrop?.addEventListener('click', () => closeMenu(true));
 
     /* =========================================================
        LINK CLICK
     ========================================================= */
-
-    panel
-      .querySelectorAll('a')
-      .forEach(
-        (link) => {
-
-          link.addEventListener(
-            'click',
-            () => closeMenu(true)
-          );
-
-        }
-      );
-
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => closeMenu(true));
+    });
 
     /* =========================================================
        RESIZE / SCROLL
     ========================================================= */
-
-    window.addEventListener(
-      'resize',
-      updatePosition,
-      {
-        passive: true
-      }
-    );
-
-
-    window.addEventListener(
-      'scroll',
-      updatePosition,
-      {
-        passive: true
-      }
-    );
-
+    window.addEventListener('resize', updatePosition, { passive: true });
+    window.addEventListener('scroll', updatePosition, { passive: true });
   }
-
 
   setupSectorsMegaMenu();
 
-
-  document.addEventListener(
-    'astro:page-load',
-    () => {
-
-      document
-        .getElementById(
-          'dropdown-backdrop'
-        )
-        ?.classList.remove(
-          'active'
-        );
-
-
-      setupSectorsMegaMenu();
-
-    }
-  );
+  document.addEventListener('astro:page-load', () => {
+    document.getElementById('dropdown-backdrop')?.classList.remove('active');
+    setupSectorsMegaMenu();
+  });
 </script>

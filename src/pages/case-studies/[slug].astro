@@ -48,7 +48,7 @@ const featuredServices = services.filter((s) =>
     <Container size="narrow">
       <Breadcrumbs items={breadcrumbs} theme="dark" />
       <div class="space-y-4 mt-6">
-        <span class="px-2.5 py-1 rounded-md bg-white/10 text-emerald-300 text-xs font-bold uppercase tracking-wider">
+        <span class="px-2.5 py-1 rounded-[8px] bg-white/10 text-emerald-300 text-xs font-bold uppercase tracking-wider">
           {caseStudy.clientIndustry} &bull; Case Study
         </span>
 
@@ -67,7 +67,7 @@ const featuredServices = services.filter((s) =>
     <Container size="narrow">
       <div class="space-y-12">
         <!-- Challenge -->
-        <div class="p-8 rounded-2xl bg-brand-slate border border-slate-200/90 space-y-3">
+        <div class="p-8 rounded-[16px] bg-brand-slate border border-slate-200/90 space-y-3">
           <span class="text-xs font-bold uppercase tracking-wider text-red-600">The Problem &amp; Business Liability</span>
           <h2 class="text-2xl font-semibold text-brand-navy">The Challenge</h2>
           <p class="text-base text-slate-700 leading-relaxed">
@@ -76,7 +76,7 @@ const featuredServices = services.filter((s) =>
         </div>
 
         <!-- Solution -->
-        <div class="p-8 rounded-2xl bg-brand-navy text-white space-y-3 shadow-lg">
+        <div class="p-8 rounded-[16px] bg-brand-navy text-white space-y-3 shadow-lg">
           <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">The Certified Execution</span>
           <h2 class="text-2xl font-semibold text-white">Our Engineering Solution</h2>
           <p class="text-base text-slate-200 leading-relaxed">
@@ -89,7 +89,7 @@ const featuredServices = services.filter((s) =>
           <h2 class="text-2xl font-semibold text-brand-navy">Key Measurable Outcomes</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {caseStudy.results.map((res) => (
-              <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200/80 flex items-start gap-3">
+              <div class="p-4 rounded-[12px] bg-emerald-50 border border-emerald-200/80 flex items-start gap-3">
                 <span class="h-6 w-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
                   ✓
                 </span>
@@ -107,7 +107,7 @@ const featuredServices = services.filter((s) =>
               {featuredServices.map((srv) => (
                 <a
                   href={`/services/${srv.slug}`}
-                  class="px-4 py-2 rounded-lg bg-brand-slate hover:bg-brand-accent hover:text-white text-xs font-bold text-slate-800 border border-slate-200 transition-colors"
+                  class="px-4 py-2 rounded-[12px] bg-brand-slate hover:bg-brand-accent hover:text-white text-xs font-bold text-slate-800 border border-slate-200 transition-colors"
                 >
                   {srv.title} &rarr;
                 </a>
@@ -126,7 +126,7 @@ const featuredServices = services.filter((s) =>
           </a>
           <a
             href="/request-a-quote"
-            class="px-8 py-3.5 rounded-xl bg-brand-accent hover:bg-brand-accent-hover text-white text-xs font-bold uppercase tracking-wider shadow-lg transition-all"
+            class="px-8 py-3.5 rounded-[12px] bg-brand-accent hover:bg-brand-accent-hover text-white text-xs font-bold uppercase tracking-wider shadow-lg transition-all"
           >
             Scope a Similar Project
           </a>

@@ -204,7 +204,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
         >
           <a
             href={`/sectors/${item.slug}`}
-            class="sector-card-inner relative w-full h-full bg-white rounded-[26px] p-5 flex flex-col border border-slate-200/90 overflow-hidden text-left no-underline block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A] focus-visible:ring-offset-2"
+            class="sector-card-inner relative w-full h-full bg-white rounded-[16px] p-5 flex flex-col border border-slate-200/90 overflow-hidden text-left no-underline block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A] focus-visible:ring-offset-2"
             tabindex={idx === 0 ? "0" : "-1"}
             aria-label={`Explore ${item.title}`}
           >
@@ -212,7 +212,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
             <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-transparent via-[#0F623A]/20 to-transparent pointer-events-none opacity-0 group-data-[pos='0']:opacity-100 transition-opacity duration-500"></div>
 
             <!-- Image Container -->
-            <div class="sector-card-image-box relative w-full rounded-2xl overflow-hidden bg-slate-100">
+            <div class="sector-card-image-box relative w-full rounded-[12px] overflow-hidden bg-slate-100">
               <img
                 src={item.image}
                 alt={item.title}

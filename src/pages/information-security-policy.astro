@@ -28,7 +28,7 @@ const [siteSettings, legalData] = await Promise.all([
         )}
         {sec.body && <p class="text-slate-700 leading-relaxed">{sec.body}</p>}
         {sec.callout && (
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
+          <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
             {sec.callout.title && <div class="font-bold text-slate-900 mb-1">{sec.callout.title}</div>}
             {sec.callout.items?.map((item) => (
               <div><strong>{item.label}:</strong> {item.value}</div>
@@ -38,7 +38,7 @@ const [siteSettings, legalData] = await Promise.all([
         {sec.cards && sec.cards.length > 0 && (
           <div class="space-y-3">
             {sec.cards.map((c) => (
-              <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+              <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs">
                 <h3 class="font-semibold text-slate-900 text-base">{c.title}</h3>
                 <p class="text-sm sm:text-base text-black mt-1">{c.description}</p>
               </div>
@@ -68,34 +68,34 @@ const [siteSettings, legalData] = await Promise.all([
       We validate our operational security through continuous independent accreditations:
     </p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+      <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs space-y-1">
         <div class="flex items-center justify-between">
           <h3 class="font-semibold text-slate-900 text-sm">ISO/IEC 27001:2022</h3>
-          <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Certified</span>
+          <span class="px-2 py-0.5 rounded-[8px] bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Certified</span>
         </div>
         <p class="text-sm text-black">Enterprise Information Security Management System covering all sites, transport fleets, and software infrastructure.</p>
       </div>
 
-      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+      <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs space-y-1">
         <div class="flex items-center justify-between">
           <h3 class="font-semibold text-slate-900 text-sm">ADISA Standard 8.0</h3>
-          <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Pass with Distinction</span>
+          <span class="px-2 py-0.5 rounded-[8px] bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Pass with Distinction</span>
         </div>
         <p class="text-sm text-black">Asset Disposal &amp; Information Security Alliance standard governing chain of custody, data sanitisation, and forensic unannounced audits.</p>
       </div>
 
-      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+      <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs space-y-1">
         <div class="flex items-center justify-between">
           <h3 class="font-semibold text-slate-900 text-sm">Cyber Essentials Plus</h3>
-          <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Crown Commercial Validated</span>
+          <span class="px-2 py-0.5 rounded-[8px] bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Crown Commercial Validated</span>
         </div>
         <p class="text-sm text-black">Technical vulnerability verification, endpoint hardening, firewall controls, and multi-factor authentication enforcement.</p>
       </div>
 
-      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+      <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs space-y-1">
         <div class="flex items-center justify-between">
           <h3 class="font-semibold text-slate-900 text-sm">BS 10012 &amp; BS 7858</h3>
-          <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Personnel &amp; Privacy</span>
+          <span class="px-2 py-0.5 rounded-[8px] bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold">Personnel &amp; Privacy</span>
         </div>
         <p class="text-sm text-black">Personal Information Management Systems and mandatory security screening of 100% of staff prior to handling client records.</p>
       </div>
@@ -133,15 +133,15 @@ const [siteSettings, legalData] = await Promise.all([
       Techsteps enforces strict technical specifications for digital media sanitisation:
     </p>
     <div class="space-y-3">
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90">
         <h4 class="font-semibold text-slate-900 text-sm">A. NIST SP 800-88 Rev. 1 Guidelines for Media Sanitization</h4>
         <p class="text-sm text-black mt-1">Executing Clear, Purge, and Destroy states utilizing cryptographically verified wiping software. Each serialized asset receives an immutable digital sanitisation certificate.</p>
       </div>
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90">
         <h4 class="font-semibold text-slate-900 text-sm">B. DIN 66399 High-Torque Physical Shredding</h4>
         <p class="text-sm text-black mt-1">For failed or physically damaged drives, magnetic platter and flash memory disintegration is performed to DIN 66399 Level H-5 (&le; 320mm² particle size) or Level H-6 (&le; 10mm² particle size).</p>
       </div>
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90">
         <h4 class="font-semibold text-slate-900 text-sm">C. DIPCOG Certified Destruction for Defence Clients</h4>
         <p class="text-sm text-black mt-1">Dedicated mobile and static destruction processes compliant with Defence Info-structure Protective Security Group (DIPCOG) and HMG Infosec Standard 5.</p>
       </div>
@@ -169,7 +169,7 @@ const [siteSettings, legalData] = await Promise.all([
     <p>
       For enterprise vendor risk assessments, third-party security audits, or security questionnaire requests, please contact our Chief Information Security Officer (CISO):
     </p>
-    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm font-mono">
+    <div class="p-5 rounded-[12px] bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm font-mono">
       <div><strong>Security Office:</strong> Information Security &amp; Compliance Directorate</div>
       <div><strong>Email:</strong> <a href="mailto:infosec@techsteps.co.uk" class="text-emerald-700 hover:underline">infosec@techsteps.co.uk</a> / <a href="mailto:ciso@techsteps.co.uk" class="text-emerald-700 hover:underline">ciso@techsteps.co.uk</a></div>
       <div><strong>Direct Inquiries:</strong> {siteSettings.phone}</div>

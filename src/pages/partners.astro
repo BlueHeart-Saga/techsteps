@@ -1,0 +1,229 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroHeader from '../components/global/HeroHeader.astro';
+import CommonCTA from '../components/global/CommonCTA.astro';
+
+const canonicalUrl = 'https://techsteps.co.uk/partners';
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: 'Partners & Associations — TechSteps UK',
+  description:
+    'Explore TechSteps strategic technology partners, industry associations, and public framework memberships driving responsible IT asset management across the UK.',
+  mainEntity: {
+    '@id': 'https://techsteps.co.uk/#organization',
+  },
+};
+
+const technologyPartners = [
+  {
+    name: 'Blancco Technology Group',
+    category: 'Certified Data Erasure',
+    logo: '/images/certifications/blancco.jpg',
+    desc: 'Global benchmark in automated, tamper-proof data sanitisation software across servers, storage arrays, PCs, and mobile devices.',
+  },
+  {
+    name: 'Environment Agency',
+    category: 'Regulatory Licensing',
+    logo: '/images/certifications/environment-agency.png',
+    desc: 'Direct statutory licensing as an upper-tier carrier, broker, and dealer enforcing certified zero-landfill WEEE management.',
+  },
+  {
+    name: 'BSI (British Standards Institution)',
+    category: 'Standards Body',
+    logo: '/images/certifications/bsi-kitemark.png',
+    desc: 'Independent auditor certifying TechSteps quality management systems, data security controls, and environmental safeguards.',
+  },
+];
+
+const industryAssociations = [
+  {
+    name: 'ADISA (Asset Disposal & Information Security Alliance)',
+    badge: 'Industry Standard',
+    desc: 'Adherence to rigorous IT asset disposition standards, unannounced operational audits, and forensic data security benchmarks.',
+  },
+  {
+    name: 'SafeContractor Accredited',
+    badge: 'Site Safety',
+    desc: 'Recognised accreditation confirming our logistics, engineering teams, and onsite decommissioning crews meet strict UK safety criteria.',
+  },
+  {
+    name: 'British Association of Removers (BAR)',
+    badge: 'Commercial Logistics',
+    desc: 'Specialised commercial moving and relocation division adherence to premier British relocation and logistics guidelines.',
+  },
+  {
+    name: 'EcoVadis Sustainability Network',
+    badge: 'ESG Assessment',
+    desc: 'Collaborative network benchmarking corporate social responsibility, carbon reduction initiatives, and circular supply chains.',
+  },
+  {
+    name: 'National Cyber Security Centre (NCSC)',
+    badge: 'Government Cyber',
+    desc: 'Implementation of government-approved cyber resilience frameworks and media sanitisation protocols.',
+  },
+  {
+    name: 'Crown Commercial Service Frameworks',
+    badge: 'Public Sector',
+    desc: 'Official procurement alliance facilitating compliant, competitive asset management for NHS trusts and central government departments.',
+  },
+];
+---
+
+<BaseLayout
+  title="Partners & Associations — TechSteps UK"
+  description="Explore TechSteps strategic technology partners, industry associations, and public framework memberships driving responsible IT asset management across the UK."
+  canonicalUrl={canonicalUrl}
+  jsonLd={pageSchema}
+  hasHeroHeader={true}
+>
+  <HeroHeader isHome={false} />
+
+  <main class="partners-page bg-white text-slate-900 selection:bg-[#0F623A] selection:text-white">
+    <!-- =====================================================
+         1. HERO SECTION
+    ====================================================== -->
+    <section class="relative min-h-[460px] lg:min-h-[520px] bg-[#0c1f17] text-white flex items-center overflow-hidden">
+      <!-- Background Ambient Glow -->
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-radial-[ellipse_at_top_right] from-[#07572F]/30 via-transparent to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0c1f17] via-[#0c1f17]/95 to-transparent"></div>
+      </div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 w-full">
+        <div class="max-w-3xl">
+          <!-- Breadcrumb Navigation -->
+          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-300 mb-6">
+            <a href="/" class="text-slate-300 hover:text-[#3FB33D] transition-colors underline-offset-4 hover:underline">
+              Home
+            </a>
+            <span class="text-[#3FB33D] font-bold" aria-hidden="true">›</span>
+            <a href="/about-us" class="text-slate-300 hover:text-[#3FB33D] transition-colors underline-offset-4 hover:underline">
+              About Us
+            </a>
+            <span class="text-[#3FB33D] font-bold" aria-hidden="true">›</span>
+            <span class="text-white font-bold">Partners &amp; Associations</span>
+          </nav>
+
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#3FB33D]/20 text-[#3FB33D] text-xs font-bold tracking-widest uppercase mb-4 border border-[#3FB33D]/30 backdrop-blur-sm">
+            COLLABORATION &amp; GOVERNANCE
+          </span>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-white mb-6 leading-tight">
+            Partners &amp; Associations.
+            <span class="text-[#3FB33D] block">Collaboration Built on Trust.</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-slate-300 font-sans leading-relaxed">
+            We partner with world-class technology providers, industry associations, and public frameworks to deliver guaranteed security, audited compliance, and verifiable circular economy outcomes across the UK.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         2. TECHNOLOGY ALLIANCES
+    ====================================================== -->
+    <section class="py-16 lg:py-24 bg-white border-b border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-12">
+          <span class="text-xs font-bold font-sans tracking-widest text-[#0F623A] uppercase block mb-2">
+            STRATEGIC TECHNOLOGY ALLIANCES
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold font-display text-slate-900 tracking-tight">
+            Certified Technology &amp; Regulatory Partners
+          </h2>
+          <p class="mt-4 text-base sm:text-lg text-slate-600 font-sans leading-relaxed">
+            By embedding market-leading software and direct statutory agreements into our operating procedures, we provide clients with unassailable data destruction and environmental compliance.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {technologyPartners.map((partner) => (
+            <div class="bg-white rounded-[16px] p-6 border border-slate-200 hover:border-[#0F623A]/50 hover:shadow-lg transition-all duration-200 flex flex-col justify-between">
+              <div>
+                <div class="h-16 flex items-center mb-5 pb-4 border-b border-slate-100">
+                  <img
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    class="max-h-12 max-w-[120px] w-auto h-auto object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                <span class="text-xs font-bold uppercase tracking-wider text-[#07572F] block mb-2">
+                  {partner.category}
+                </span>
+                <h3 class="text-xl font-bold font-display text-slate-900 mb-2">
+                  {partner.name}
+                </h3>
+                <p class="text-sm text-slate-600 font-sans leading-relaxed">
+                  {partner.desc}
+                </p>
+              </div>
+
+              <div class="pt-4 mt-6 border-t border-slate-100 flex items-center gap-2 text-xs font-semibold text-[#07572F]">
+                <span>✓ Active Certified Partnership</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         3. INDUSTRY ASSOCIATIONS & FRAMEWORKS
+    ====================================================== -->
+    <section class="py-16 lg:py-24 bg-[#FAF6EE]/50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-12">
+          <span class="text-xs font-bold font-sans tracking-widest text-[#0F623A] uppercase block mb-2">
+            GOVERNING BODIES &amp; ACCREDITED NETWORKS
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold font-display text-slate-900 tracking-tight">
+            Industry Associations &amp; Frameworks
+          </h2>
+          <p class="mt-4 text-base sm:text-lg text-slate-600 font-sans leading-relaxed">
+            TechSteps participates in premier UK industry bodies, ensuring our operational protocols represent leading practice across information security, health and safety, and public procurement.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {industryAssociations.map((assoc) => (
+            <div class="bg-white rounded-[16px] p-6 border border-slate-200/90 shadow-xs hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+              <div>
+                <span class="inline-block text-[11px] font-bold tracking-wider uppercase text-[#07572F] bg-[#E0F2E7] px-2.5 py-1 rounded-full mb-4">
+                  {assoc.badge}
+                </span>
+                <h3 class="text-lg font-bold font-display text-slate-900 mb-2">
+                  {assoc.name}
+                </h3>
+                <p class="text-sm text-slate-600 font-sans leading-relaxed">
+                  {assoc.desc}
+                </p>
+              </div>
+
+              <div class="pt-4 mt-6 border-t border-slate-100 text-xs font-semibold text-slate-500">
+                UK Compliance Assurance
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         4. FINAL CTA
+    ====================================================== -->
+    <CommonCTA
+      title="Discuss a Strategic Partnership with TechSteps"
+      description="Whether you are an enterprise seeking an accredited asset lifecycle partner or a technology provider looking to collaborate, our partnerships team is ready to connect."
+      primaryText="Contact Partnerships Team"
+      primaryHref="/contact"
+      secondaryText="Learn About Our Services"
+      secondaryHref="/services"
+    />
+  </main>
+</BaseLayout>

@@ -195,7 +195,7 @@ export const CategoryPreferenceModal: React.FC<CategoryPreferenceModalProps> = (
       aria-labelledby="modal-title"
     >
       <div
-        className="relative w-full max-w-xl max-h-[90vh] bg-[#12221A] border border-emerald-500/20 rounded-2xl sm:rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col overflow-hidden animate-slideUp text-white font-sans"
+        className="relative w-full max-w-xl max-h-[90vh] bg-[#12221A] border border-emerald-500/20 rounded-[20px] shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col overflow-hidden animate-slideUp text-white font-sans"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Decorative Gradient Line */}
@@ -269,7 +269,7 @@ export const CategoryPreferenceModal: React.FC<CategoryPreferenceModalProps> = (
                       return (
                         <label
                           key={cat.slug}
-                          className={`flex items-center gap-3 p-3 rounded-xl border transition-all duration-200 cursor-pointer select-none ${
+                          className={`flex items-center gap-3 p-3 rounded-[12px] border transition-all duration-200 cursor-pointer select-none ${
                             isSelected
                               ? "bg-emerald-950/60 border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.12)] text-white"
                               : "bg-white/[0.03] border-white/10 hover:bg-white/[0.06] hover:border-white/20 text-slate-300"
@@ -307,7 +307,7 @@ export const CategoryPreferenceModal: React.FC<CategoryPreferenceModalProps> = (
           {/* Status Message */}
           {statusMessage && (
             <div
-              className={`p-3.5 rounded-xl text-xs font-semibold flex items-center gap-2.5 animate-fadeIn ${
+              className={`p-3.5 rounded-[12px] text-xs font-semibold flex items-center gap-2.5 animate-fadeIn ${
                 statusMessage.type === "success"
                   ? "bg-emerald-500/15 border border-emerald-500/40 text-emerald-300"
                   : statusMessage.type === "error"
@@ -334,7 +334,7 @@ export const CategoryPreferenceModal: React.FC<CategoryPreferenceModalProps> = (
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 px-4 py-2.5 rounded-xl border border-white/10 hover:bg-white/5 text-slate-300 text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer"
+            className="flex-1 px-4 py-2.5 rounded-[12px] border border-white/10 hover:bg-white/5 text-slate-300 text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer"
           >
             Maybe Later
           </button>
@@ -342,7 +342,7 @@ export const CategoryPreferenceModal: React.FC<CategoryPreferenceModalProps> = (
             type="button"
             onClick={handleSubscribe}
             disabled={loading || dataLoading}
-            className="flex-1 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-black text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-xl transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.45)] cursor-pointer flex items-center justify-center gap-2"
+            className="flex-1 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-black text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-[12px] transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.45)] cursor-pointer flex items-center justify-center gap-2"
           >
             {loading ? (
               <>

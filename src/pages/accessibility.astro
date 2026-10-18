@@ -28,7 +28,7 @@ const [siteSettings, legalData] = await Promise.all([
         )}
         {sec.body && <p class="text-slate-700 leading-relaxed">{sec.body}</p>}
         {sec.callout && (
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
+          <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
             {sec.callout.title && <div class="font-bold text-slate-900 mb-1">{sec.callout.title}</div>}
             {sec.callout.items?.map((item) => (
               <div><strong>{item.label}:</strong> {item.value}</div>
@@ -38,7 +38,7 @@ const [siteSettings, legalData] = await Promise.all([
         {sec.cards && sec.cards.length > 0 && (
           <div class="space-y-3">
             {sec.cards.map((c) => (
-              <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+              <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs">
                 <h3 class="font-semibold text-slate-900 text-base">{c.title}</h3>
                 <p class="text-sm sm:text-base text-black mt-1">{c.description}</p>
               </div>
@@ -68,28 +68,28 @@ const [siteSettings, legalData] = await Promise.all([
       Accessibility is built directly into our design system and frontend implementation through the following core techniques:
     </p>
     <div class="space-y-3">
-      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+      <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs">
         <h3 class="font-semibold text-slate-900 text-base">A. Semantic Document Hierarchy</h3>
         <p class="text-sm sm:text-base text-black mt-1">
           Every page features semantic HTML5 landmarks (<code class="text-xs font-mono">&lt;header&gt;</code>, <code class="text-xs font-mono">&lt;main&gt;</code>, <code class="text-xs font-mono">&lt;nav&gt;</code>, <code class="text-xs font-mono">&lt;section&gt;</code>, <code class="text-xs font-mono">&lt;footer&gt;</code>), ensuring screen readers can navigate directly between major landmarks without obstruction. Only a single <code class="text-xs font-mono">&lt;h1&gt;</code> is rendered per page.
         </p>
       </div>
 
-      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+      <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs">
         <h3 class="font-semibold text-slate-900 text-base">B. High Contrast Typography &amp; Scalability</h3>
         <p class="text-sm sm:text-base text-black mt-1">
           Color palettes meet or exceed the required minimum contrast ratio of <strong>4.5:1</strong> for normal body text and <strong>3:1</strong> for large headings against their background. Typography dynamically scales up to 200% via standard browser zoom without truncation or horizontal scrolling loss.
         </p>
       </div>
 
-      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+      <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs">
         <h3 class="font-semibold text-slate-900 text-base">C. Complete Keyboard Navigation &amp; Focus Indicators</h3>
         <p class="text-sm sm:text-base text-black mt-1">
-          All interactive elements—including mega menus, dropdown toggles, modal dialogues, tab filters, and quote calculation forms—are fully operable via standard keyboard (<kbd class="px-1.5 py-0.5 rounded bg-slate-100 border text-xs font-mono">Tab</kbd>, <kbd class="px-1.5 py-0.5 rounded bg-slate-100 border text-xs font-mono">Enter</kbd>, <kbd class="px-1.5 py-0.5 rounded bg-slate-100 border text-xs font-mono">Space</kbd>, and arrow keys). Focus states feature high-visibility emerald focus rings.
+          All interactive elements—including mega menus, dropdown toggles, modal dialogues, tab filters, and quote calculation forms—are fully operable via standard keyboard (<kbd class="px-1.5 py-0.5 rounded-[8px] bg-slate-100 border text-xs font-mono">Tab</kbd>, <kbd class="px-1.5 py-0.5 rounded-[8px] bg-slate-100 border text-xs font-mono">Enter</kbd>, <kbd class="px-1.5 py-0.5 rounded-[8px] bg-slate-100 border text-xs font-mono">Space</kbd>, and arrow keys). Focus states feature high-visibility emerald focus rings.
         </p>
       </div>
 
-      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+      <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs">
         <h3 class="font-semibold text-slate-900 text-base">D. Screen Reader Optimization &amp; ARIA Attributes</h3>
         <p class="text-sm sm:text-base text-black mt-1">
           Images feature descriptive alternative text (<code class="text-xs font-mono">alt="..."</code>) or are explicitly marked decorative (<code class="text-xs font-mono">aria-hidden="true"</code>). Complex interactive widgets utilize appropriate WAI-ARIA states (<code class="text-xs font-mono">aria-expanded</code>, <code class="text-xs font-mono">aria-controls</code>, <code class="text-xs font-mono">role="region"</code>).
@@ -128,7 +128,7 @@ const [siteSettings, legalData] = await Promise.all([
     <p>
       We welcome your feedback on the accessibility of Techsteps. If you encounter accessibility barriers, require documentation in alternative formats (such as large print, accessible PDF, or plain text), or need assistance booking a service, please contact our Accessibility Officer:
     </p>
-    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm font-mono">
+    <div class="p-5 rounded-[12px] bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm font-mono">
       <div><strong>Role:</strong> Accessibility Lead &amp; Digital Inclusion Officer</div>
       <div><strong>Email:</strong> <a href="mailto:accessibility@techsteps.co.uk" class="text-emerald-700 hover:underline">accessibility@techsteps.co.uk</a></div>
       <div><strong>Telephone:</strong> {siteSettings.phone} (Relay UK service supported)</div>

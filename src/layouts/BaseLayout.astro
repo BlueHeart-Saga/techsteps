@@ -4,6 +4,7 @@ import Header from '../components/global/Header.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
 import ServicesMegaMenu from '../components/global/ServicesMegaMenu.astro';
 import SectorsDropdown from '../components/global/SectorsDropdown.astro';
+import AboutMegaMenu from '../components/global/AboutMegaMenu.astro';
 import InsightsMegaMenu from '../components/global/InsightsMegaMenu.astro';
 import Footer from '../components/global/Footer.astro';
 import CookieConsent from '../components/global/CookieConsent.astro';
@@ -102,6 +103,7 @@ const combinedSchemas = jsonLd
     <div id="dropdown-backdrop" class="dropdown-backdrop" aria-hidden="true"></div>
     <ServicesMegaMenu />
     <SectorsDropdown />
+    <AboutMegaMenu />
     {/* <InsightsMegaMenu /> */}
 
     <main id="main-content" class:list={['flex-1', { 'home-main': isHome }]}>

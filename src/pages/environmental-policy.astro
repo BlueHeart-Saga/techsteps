@@ -28,7 +28,7 @@ const [siteSettings, legalData] = await Promise.all([
         )}
         {sec.body && <p class="text-slate-700 leading-relaxed">{sec.body}</p>}
         {sec.callout && (
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
+          <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/80 text-xs sm:text-sm space-y-1 font-mono">
             {sec.callout.title && <div class="font-bold text-slate-900 mb-1">{sec.callout.title}</div>}
             {sec.callout.items?.map((item) => (
               <div><strong>{item.label}:</strong> {item.value}</div>
@@ -38,7 +38,7 @@ const [siteSettings, legalData] = await Promise.all([
         {sec.cards && sec.cards.length > 0 && (
           <div class="space-y-3">
             {sec.cards.map((c) => (
-              <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+              <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs">
                 <h3 class="font-semibold text-slate-900 text-base">{c.title}</h3>
                 <p class="text-sm sm:text-base text-black mt-1">{c.description}</p>
               </div>
@@ -68,9 +68,9 @@ const [siteSettings, legalData] = await Promise.all([
       Techsteps strictly enforces the UK Waste Hierarchy established under Regulation 12 of the Waste (England and Wales) Regulations 2011:
     </p>
     <div class="space-y-3">
-      <div class="p-4 rounded-xl border border-emerald-200 bg-emerald-50/50 shadow-2xs">
+      <div class="p-4 rounded-[12px] border border-emerald-200 bg-emerald-50/50 shadow-2xs">
         <div class="flex items-center gap-2">
-          <span class="px-2 py-0.5 rounded bg-emerald-600 text-white font-mono text-xs font-bold">Priority 1</span>
+          <span class="px-2 py-0.5 rounded-[8px] bg-emerald-600 text-white font-mono text-xs font-bold">Priority 1</span>
           <h3 class="font-semibold text-slate-900 text-base">Prevention &amp; Asset Life Extension</h3>
         </div>
         <p class="text-xs sm:text-sm text-slate-700 mt-1">
@@ -78,9 +78,9 @@ const [siteSettings, legalData] = await Promise.all([
         </p>
       </div>
 
-      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+      <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs">
         <div class="flex items-center gap-2">
-          <span class="px-2 py-0.5 rounded bg-emerald-700 text-white font-mono text-xs font-bold">Priority 2</span>
+          <span class="px-2 py-0.5 rounded-[8px] bg-emerald-700 text-white font-mono text-xs font-bold">Priority 2</span>
           <h3 class="font-semibold text-slate-900 text-base">Direct Hardware Reuse &amp; Remarketing</h3>
         </div>
         <p class="text-sm sm:text-base text-black mt-1">
@@ -88,9 +88,9 @@ const [siteSettings, legalData] = await Promise.all([
         </p>
       </div>
 
-      <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
+      <div class="p-4 rounded-[12px] border border-slate-200 bg-white shadow-2xs">
         <div class="flex items-center gap-2">
-          <span class="px-2 py-0.5 rounded bg-teal-700 text-white font-mono text-xs font-bold">Priority 3</span>
+          <span class="px-2 py-0.5 rounded-[8px] bg-teal-700 text-white font-mono text-xs font-bold">Priority 3</span>
           <h3 class="font-semibold text-slate-900 text-base">Component Harvesting &amp; Secondary Refining</h3>
         </div>
         <p class="text-sm sm:text-base text-black mt-1">
@@ -98,9 +98,9 @@ const [siteSettings, legalData] = await Promise.all([
         </p>
       </div>
 
-      <div class="p-4 rounded-xl border border-red-200 bg-red-50/50 shadow-2xs">
+      <div class="p-4 rounded-[12px] border border-red-200 bg-red-50/50 shadow-2xs">
         <div class="flex items-center gap-2">
-          <span class="px-2 py-0.5 rounded bg-red-700 text-white font-mono text-xs font-bold">Absolute Bar</span>
+          <span class="px-2 py-0.5 rounded-[8px] bg-red-700 text-white font-mono text-xs font-bold">Absolute Bar</span>
           <h3 class="font-semibold text-slate-900 text-base">Zero Direct to Landfill Guarantee</h3>
         </div>
         <p class="text-xs sm:text-sm text-slate-700 mt-1">
@@ -138,17 +138,17 @@ const [siteSettings, legalData] = await Promise.all([
       We have established science-based decarbonisation targets targeting Net Zero operational emissions by 2035:
     </p>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90 text-center space-y-1">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90 text-center space-y-1">
         <div class="font-mono text-xs font-bold uppercase text-emerald-700">Scope 1: Fleet</div>
         <div class="text-2xl font-extrabold text-slate-900">Euro 6 &amp; EV</div>
         <p class="text-[11px] text-slate-500">100% Euro 6 clean diesel fleet with phased transition to electric collection vans by 2028.</p>
       </div>
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90 text-center space-y-1">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90 text-center space-y-1">
         <div class="font-mono text-xs font-bold uppercase text-emerald-700">Scope 2: Energy</div>
         <div class="text-2xl font-extrabold text-slate-900">100% REGO</div>
         <p class="text-[11px] text-slate-500">Certified renewable electricity powering all archival vaults and processing centres.</p>
       </div>
-      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90 text-center space-y-1">
+      <div class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90 text-center space-y-1">
         <div class="font-mono text-xs font-bold uppercase text-emerald-700">Scope 3: Client Avoided</div>
         <div class="text-2xl font-extrabold text-slate-900">Scope 3 Reports</div>
         <p class="text-[11px] text-slate-500">Delivering verified Scope 3 GHG avoidance certificates for every refurbished client asset.</p>
@@ -163,7 +163,7 @@ const [siteSettings, legalData] = await Promise.all([
     <p>
       Our Environmental Policy is reviewed annually by our Executive Leadership Team and audited bi-annually by UKAS-accredited certification bodies.
     </p>
-    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm font-mono">
+    <div class="p-5 rounded-[12px] bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm font-mono">
       <div><strong>Environmental Management Representative:</strong> Head of Sustainability &amp; Compliance</div>
       <div><strong>Email:</strong> <a href="mailto:sustainability@techsteps.co.uk" class="text-emerald-700 hover:underline">sustainability@techsteps.co.uk</a></div>
       <div><strong>Direct Enquiries:</strong> {siteSettings.phone}</div>

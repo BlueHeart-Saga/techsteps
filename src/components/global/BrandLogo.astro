@@ -4,6 +4,8 @@ interface Props {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   showTagline?: boolean;
   class?: string;
+  imageClass?: string;
+  textClass?: string;
 }
 
 const {
@@ -11,6 +13,8 @@ const {
   size = 'md',
   showTagline = false,
   class: className = '',
+  imageClass = '',
+  textClass = '',
 } = Astro.props;
 
 const imageSizeMap = {
@@ -39,7 +43,8 @@ const brandTextMap = {
     alt="Techsteps Logo"
     class:list={[
       imageSizeMap[size],
-      'object-contain shrink-0 relative -top-[2px]',
+      'object-contain shrink-0 relative top-[1.5px]',
+      imageClass,
     ]}
     width="36"
     height="36"
@@ -49,7 +54,8 @@ const brandTextMap = {
 
   <div class:list={[
     brandTextMap[size],
-    'brand-logo-title leading-none tracking-[-0.025em] font-semibold font-sans',
+    'brand-logo-title leading-none tracking-[-0.025em] font-semibold font-sans relative -top-[1px]',
+    textClass,
   ]}>
     <span class={variant === 'light' ? 'text-white' : 'text-[#07572F]'}>Tech</span><span class={variant === 'light' ? 'text-white' : 'text-[#171717]'}>steps</span>
   </div>

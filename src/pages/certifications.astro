@@ -1,0 +1,337 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroHeader from '../components/global/HeroHeader.astro';
+import CommonCTA from '../components/global/CommonCTA.astro';
+
+const canonicalUrl = 'https://techsteps.co.uk/certifications';
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: 'Certifications & Accreditations — TechSteps UK',
+  description:
+    'Comprehensive register of TechSteps accreditations and certifications including ISO 27001, ISO 9001, ISO 14001, ISO 45001, ADISA, BS EN 15713, and Cyber Essentials Plus.',
+  mainEntity: {
+    '@id': 'https://techsteps.co.uk/#organization',
+  },
+};
+
+const accreditations = [
+  {
+    name: 'ISO 27001',
+    category: 'Information Security',
+    logo: '/images/certifications/iso-27001.png',
+    desc: 'International standard for Information Security Management Systems (ISMS), governing end-to-end data sanitisation, custody tracking, and operational security.',
+  },
+  {
+    name: 'ISO 9001',
+    category: 'Quality Management',
+    logo: '/images/certifications/iso-9001.png',
+    desc: 'Quality Management System validation ensuring consistent process rigor, operational efficiency, and customer satisfaction across all service lines.',
+  },
+  {
+    name: 'ISO 14001',
+    category: 'Environmental Management',
+    logo: '/images/certifications/iso-14001.png',
+    desc: 'Environmental Management System certification validating responsible recycling, energy efficiency, and certified zero-to-landfill circular economy workflows.',
+  },
+  {
+    name: 'ISO 45001',
+    category: 'Health & Safety',
+    logo: '/images/certifications/iso-45001.png',
+    desc: 'Occupational Health and Safety Management System protecting our workforce, logistics crews, and client sites during secure asset extraction.',
+  },
+  {
+    name: 'BS EN 15713',
+    category: 'Secure Destruction',
+    logo: '/images/certifications/bs-en-15713.png',
+    desc: 'European standard for the Secure Destruction of Confidential Material, encompassing physical shredding, degaussing, and disintegrator compliance.',
+  },
+  {
+    name: 'BS 7858:2012',
+    category: 'Personnel Vetting',
+    logo: '/images/certifications/bs-7858.png',
+    desc: 'Code of practice for security screening of personnel employed in an environment where the security of people, property, or confidential information is at stake.',
+  },
+  {
+    name: 'Cyber Essentials Plus',
+    category: 'Cyber Resilience',
+    logo: '/images/certifications/cyber-essentials-plus.png',
+    desc: 'UK Government-backed certification verifying technical controls against internet-borne attacks, validated through hands-on technical audits.',
+  },
+  {
+    name: 'NCSC CAS Sanitisation',
+    category: 'Government Security',
+    logo: '/images/certifications/cas-sanitisation.jpg',
+    desc: 'National Cyber Security Centre certified commercial service for the sanitisation of sensitive media and government-grade cryptographic erasure.',
+  },
+  {
+    name: 'Blancco Certified Partner',
+    category: 'Data Sanitisation',
+    logo: '/images/certifications/blancco.jpg',
+    desc: 'Industry-leading certified data erasure partner delivering tamper-proof certificates of sanitisation compliant with DoD, NIST 800-88, and ADISA standards.',
+  },
+  {
+    name: 'Crown Commercial Service',
+    category: 'Public Frameworks',
+    logo: '/images/certifications/crown-commercial.png',
+    desc: 'Approved supplier across UK public sector procurement frameworks, enabling direct, compliant engagement for central and local government bodies.',
+  },
+  {
+    name: 'NHS IG Toolkit / DSPT',
+    category: 'Healthcare Governance',
+    logo: '/images/certifications/nhs.png',
+    desc: 'Full compliance with the NHS Data Security and Protection Toolkit, ensuring Caldicott Guardian principles and secure healthcare informatics disposal.',
+  },
+  {
+    name: 'Environment Agency',
+    category: 'Environmental Authority',
+    logo: '/images/certifications/environment-agency.png',
+    desc: 'Licensed upper-tier waste carrier, broker, and dealer authorised by the UK Environment Agency for certified WEEE collection and processing.',
+  },
+  {
+    name: 'BSI Kitemark™',
+    category: 'Quality Mark',
+    logo: '/images/certifications/bsi-kitemark.png',
+    desc: 'Symbol of trust and independent verification by the British Standards Institution, reflecting continuous adherence to international benchmarks.',
+  },
+  {
+    name: 'EcoVadis Sustainability',
+    category: 'ESG Recognition',
+    logo: '/images/certifications/ecovadis.png',
+    desc: 'Independent evaluation of TechSteps environmental, social, ethics, and sustainable procurement governance with benchmarked ESG performance.',
+  },
+  {
+    name: 'PCI DSS Compliant',
+    category: 'Payment Security',
+    logo: '/images/certifications/pci-dss.png',
+    desc: 'Payment Card Industry Data Security Standard alignment ensuring cardholder data hardware destruction exceeds global banking criteria.',
+  },
+  {
+    name: 'Committed to Equality',
+    category: 'Social Responsibility',
+    logo: '/images/certifications/equality.png',
+    desc: 'Verified commitment to diversity, equity, inclusive opportunity, and ethical workplace practices across all UK facilities.',
+  },
+  {
+    name: 'King’s Award Enterprise',
+    category: 'Enterprise Honours',
+    logo: '/images/certifications/kings-award.jpg',
+    desc: 'Prestigious UK corporate recognition honoring outstanding contribution to sustainable development, circular economy, and community impact.',
+  },
+  {
+    name: 'Diamond Membership',
+    category: 'Industry Leadership',
+    logo: '/images/certifications/diamond-member.png',
+    desc: 'Premier industry association tier recognising ongoing contributions to UK technology recycling, data protection standards, and circular innovation.',
+  },
+];
+---
+
+<BaseLayout
+  title="Certifications & Accreditations — TechSteps UK"
+  description="Explore TechSteps industry certifications and compliance register: ISO 27001, ISO 9001, ISO 14001, ISO 45001, ADISA, BS EN 15713, Cyber Essentials Plus, and more."
+  canonicalUrl={canonicalUrl}
+  jsonLd={pageSchema}
+  hasHeroHeader={true}
+>
+  <HeroHeader isHome={false} />
+
+  <main class="certifications-page bg-white text-slate-900 selection:bg-[#0F623A] selection:text-white">
+    <!-- =====================================================
+         1. HERO SECTION
+    ====================================================== -->
+    <section class="relative min-h-[460px] lg:min-h-[520px] bg-[#0c1f17] text-white flex items-center overflow-hidden">
+      <!-- Background Ambient Glow -->
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-radial-[ellipse_at_top_right] from-[#07572F]/30 via-transparent to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0c1f17] via-[#0c1f17]/95 to-transparent"></div>
+      </div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 w-full">
+        <div class="max-w-3xl">
+          <!-- Breadcrumb Navigation -->
+          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-300 mb-6">
+            <a href="/" class="text-slate-300 hover:text-[#3FB33D] transition-colors underline-offset-4 hover:underline">
+              Home
+            </a>
+            <span class="text-[#3FB33D] font-bold" aria-hidden="true">›</span>
+            <a href="/about-us" class="text-slate-300 hover:text-[#3FB33D] transition-colors underline-offset-4 hover:underline">
+              About Us
+            </a>
+            <span class="text-[#3FB33D] font-bold" aria-hidden="true">›</span>
+            <span class="text-white font-bold">Certifications &amp; Accreditations</span>
+          </nav>
+
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#3FB33D]/20 text-[#3FB33D] text-xs font-bold tracking-widest uppercase mb-4 border border-[#3FB33D]/30 backdrop-blur-sm">
+            COMPLIANCE &amp; GOVERNANCE REGISTER
+          </span>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-white mb-6 leading-tight">
+            Certified Excellence.
+            <span class="text-[#3FB33D] block">Uncompromised Security.</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-slate-300 font-sans leading-relaxed">
+            TechSteps operates under verified UKAS-accredited management systems and statutory compliance frameworks. Every collection, sanitisation cycle, and recycling pathway is independently audited.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         2. STATS STRIP
+    ====================================================== -->
+    <section class="bg-[#F8FAF9] border-y border-slate-200 py-8 lg:py-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 text-center">
+          <div class="p-4">
+            <span class="block text-3xl sm:text-4xl font-bold text-[#07572F] font-display">18+</span>
+            <span class="mt-1 block text-sm font-semibold text-slate-700">Accreditations &amp; Standards</span>
+          </div>
+          <div class="p-4 border-l border-slate-200/80">
+            <span class="block text-3xl sm:text-4xl font-bold text-[#07572F] font-display">100%</span>
+            <span class="mt-1 block text-sm font-semibold text-slate-700">Audit-Ready Documentation</span>
+          </div>
+          <div class="p-4 border-l border-slate-200/80">
+            <span class="block text-3xl sm:text-4xl font-bold text-[#07572F] font-display">BS 7858</span>
+            <span class="mt-1 block text-sm font-semibold text-slate-700">Security-Vetted Personnel</span>
+          </div>
+          <div class="p-4 border-l border-slate-200/80">
+            <span class="block text-3xl sm:text-4xl font-bold text-[#07572F] font-display">Zero</span>
+            <span class="mt-1 block text-sm font-semibold text-slate-700">Landfill Compliance</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         3. ACCREDITATIONS REGISTER GRID
+    ====================================================== -->
+    <section class="py-16 lg:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-12">
+          <span class="text-xs font-bold font-sans tracking-widest text-[#0F623A] uppercase block mb-2">
+            OFFICIAL COMPLIANCE REGISTER
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold font-display text-slate-900 tracking-tight">
+            Our Certifications &amp; Accreditations
+          </h2>
+          <p class="mt-4 text-base sm:text-lg text-slate-600 font-sans leading-relaxed">
+            Our management frameworks and technical facilities undergo continuous independent audits by accredited certification bodies to ensure complete legal compliance and risk mitigation for your organisation.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {accreditations.map((cert) => (
+            <div class="group bg-white rounded-[16px] p-6 border border-slate-200 hover:border-[#0F623A]/50 hover:shadow-lg transition-all duration-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-5 pb-4 border-b border-slate-100">
+                  <div class="h-14 w-28 flex items-center justify-start">
+                    <img
+                      src={cert.logo}
+                      alt={`${cert.name} accreditation logo`}
+                      class="max-h-12 max-w-[100px] w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span class="text-[11px] font-bold tracking-wider uppercase text-[#07572F] bg-[#E0F2E7] px-2.5 py-1 rounded-full">
+                    {cert.category}
+                  </span>
+                </div>
+
+                <h3 class="text-xl font-bold font-display text-slate-900 mb-2 group-hover:text-[#07572F] transition-colors">
+                  {cert.name}
+                </h3>
+
+                <p class="text-sm text-slate-600 font-sans leading-relaxed">
+                  {cert.desc}
+                </p>
+              </div>
+
+              <div class="pt-4 mt-6 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#07572F]">
+                <span>Independently Audited</span>
+                <span class="text-emerald-600 font-bold">✓ Verified</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         4. FOUR PILLARS OF COMPLIANCE
+    ====================================================== -->
+    <section class="py-16 lg:py-20 bg-[#FAF6EE]/50 border-t border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-bold font-sans tracking-widest text-[#0F623A] uppercase block mb-2">
+            GOVERNANCE INTEGRATION
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold font-display text-slate-900 tracking-tight">
+            Integrated Management Framework
+          </h2>
+          <p class="mt-3 text-base text-slate-600 font-sans">
+            Our operations weave international standards into every stage of collection, transport, storage, sanitisation, and material recovery.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white p-6 rounded-[16px] border border-slate-200/90 shadow-xs">
+            <div class="w-10 h-10 rounded-[8px] bg-[#E0F2E7] text-[#07572F] flex items-center justify-center font-bold mb-4">
+              01
+            </div>
+            <h3 class="text-lg font-bold font-display text-slate-900 mb-2">Information Security</h3>
+            <p class="text-sm text-slate-600 font-sans leading-relaxed">
+              ISO 27001, Cyber Essentials Plus, and NCSC-certified sanitisation guarantee zero data residual on any storage media.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-[16px] border border-slate-200/90 shadow-xs">
+            <div class="w-10 h-10 rounded-[8px] bg-[#E0F2E7] text-[#07572F] flex items-center justify-center font-bold mb-4">
+              02
+            </div>
+            <h3 class="text-lg font-bold font-display text-slate-900 mb-2">Quality &amp; Custody</h3>
+            <p class="text-sm text-slate-600 font-sans leading-relaxed">
+              ISO 9001 and serialized barcode scanning track each asset from vehicle collection to final destruction certificate.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-[16px] border border-slate-200/90 shadow-xs">
+            <div class="w-10 h-10 rounded-[8px] bg-[#E0F2E7] text-[#07572F] flex items-center justify-center font-bold mb-4">
+              03
+            </div>
+            <h3 class="text-lg font-bold font-display text-slate-900 mb-2">Environmental Care</h3>
+            <p class="text-sm text-slate-600 font-sans leading-relaxed">
+              ISO 14001, EcoVadis, and Environment Agency licenses enforce circular secondary reuse and 100% zero-landfill diversion.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-[16px] border border-slate-200/90 shadow-xs">
+            <div class="w-10 h-10 rounded-[8px] bg-[#E0F2E7] text-[#07572F] flex items-center justify-center font-bold mb-4">
+              04
+            </div>
+            <h3 class="text-lg font-bold font-display text-slate-900 mb-2">Health &amp; Vetting</h3>
+            <p class="text-sm text-slate-600 font-sans leading-relaxed">
+              ISO 45001 safety controls combined with rigorous BS 7858 background vetting on every personnel member on your premises.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         5. FINAL CTA
+    ====================================================== -->
+    <CommonCTA
+      title="Request Our Complete Compliance Register & Audit Pack"
+      description="Our compliance team provides comprehensive proof-of-certification, insurance certificates, and audit documentation for your vendor onboarding."
+      primaryText="Request Compliance Pack"
+      primaryHref="/contact"
+      secondaryText="Book an Audit Visit"
+      secondaryHref="/contact"
+    />
+  </main>
+</BaseLayout>

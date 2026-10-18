@@ -212,7 +212,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
           const tiers = ['Enterprise Operations', 'Regulated Entities', 'Specialist Facilities'];
           const tierTag = tiers[idx] || `Tier ${idx + 1}`;
           return (
-            <div class="bg-white rounded-2xl border border-slate-200/90 p-7 sm:p-8 shadow-xs hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full group">
+            <div class="bg-white rounded-[16px] border border-slate-200/90 p-7 sm:p-8 shadow-xs hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full group">
               <div class="space-y-4">
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10">
@@ -267,7 +267,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
         {serviceMappings.map((item, idx) => {
           const num = String(idx + 1).padStart(2, '0');
           return (
-            <div class="rounded-2xl border border-slate-200/90 bg-[#F8FAF9] p-6 sm:p-8 hover:bg-white hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300">
+            <div class="rounded-[16px] border border-slate-200/90 bg-[#F8FAF9] p-6 sm:p-8 hover:bg-white hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300">
               <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
                 <!-- Left: Challenge (cols 5) -->
                 <div class="lg:col-span-5 space-y-2">
@@ -302,7 +302,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
                 </div>
 
                 <!-- Right: Accredited Solution (cols 5) -->
-                <div class="lg:col-span-5 space-y-2 bg-white rounded-xl border border-slate-200/80 p-5 sm:p-6 shadow-xs">
+                <div class="lg:col-span-5 space-y-2 bg-white rounded-[12px] border border-slate-200/80 p-5 sm:p-6 shadow-xs">
                   <div class="flex items-center justify-between">
                     <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-2.5 py-0.5 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20">
                       Accredited Delivery
@@ -336,7 +336,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   <!-- ========================================================= -->
   <section class="py-14 sm:py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
     <Container>
-      <div class="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 lg:p-12 shadow-xs ">
+      <div class="rounded-[24px] border border-slate-200/90 bg-white p-6 sm:p-8 lg:p-12 shadow-xs ">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <!-- Left: High-Quality Sector Imagery -->
 <div class="lg:col-span-5">
@@ -439,7 +439,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
           {sector.securityConsiderations && sector.securityConsiderations.length > 0 ? (
             <ul class="space-y-3">
               {sector.securityConsiderations.map((note) => (
-                <li class="flex items-start gap-3.5 p-4 sm:p-5 rounded-xl bg-white/[0.06] border border-white/10 hover:border-emerald-400/30 transition-colors">
+                <li class="flex items-start gap-3.5 p-4 sm:p-5 rounded-[12px] bg-white/[0.06] border border-white/10 hover:border-emerald-400/30 transition-colors">
                   <div class="w-5 h-5 rounded-full bg-emerald-400/20 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
                     ✓
                   </div>
@@ -457,7 +457,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
         </div>
 
         <!-- Right: Governing Compliance Standards (cols 5) -->
-        <div class="lg:col-span-5 p-6 sm:p-8 rounded-2xl bg-emerald-950/70 border border-emerald-500/30 space-y-5">
+        <div class="lg:col-span-5 p-6 sm:p-8 rounded-[16px] bg-emerald-950/70 border border-emerald-500/30 space-y-5">
           <div>
             <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400 block mb-1.5">
               Statutory Governance
@@ -474,7 +474,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
           {sector.complianceStandards && sector.complianceStandards.length > 0 ? (
             <div class="flex flex-wrap gap-2 pt-1">
               {sector.complianceStandards.map((std) => (
-                <span class="inline-flex items-center px-3 py-1 rounded-lg bg-white/10 border border-white/15 text-emerald-200 text-xs sm:text-sm font-mono font-semibold tracking-wide">
+                <span class="inline-flex items-center px-3 py-1 rounded-[8px] bg-white/10 border border-white/15 text-emerald-200 text-xs sm:text-sm font-mono font-semibold tracking-wide">
                   {std}
                 </span>
               ))}
@@ -482,7 +482,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
           ) : (
             <div class="flex flex-wrap gap-2 pt-1">
               {['ISO 27001', 'ISO 9001', 'ISO 14001', 'BS 7858', 'Cyber Essentials Plus'].map((std) => (
-                <span class="inline-flex items-center px-3 py-1 rounded-lg bg-white/10 border border-white/15 text-emerald-200 text-xs sm:text-sm font-mono font-semibold tracking-wide">
+                <span class="inline-flex items-center px-3 py-1 rounded-[8px] bg-white/10 border border-white/15 text-emerald-200 text-xs sm:text-sm font-mono font-semibold tracking-wide">
                   {std}
                 </span>
               ))}
@@ -511,7 +511,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
           </p>
         </div>
 
-        <div class="rounded-2xl border border-slate-200/90 bg-[#F8FAF9] p-7 sm:p-10 lg:p-12 shadow-xs">
+        <div class="rounded-[16px] border border-slate-200/90 bg-[#F8FAF9] p-7 sm:p-10 lg:p-12 shadow-xs">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div class="lg:col-span-7 space-y-5">
               <span class="inline-block text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20">
@@ -538,7 +538,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
             </div>
 
             {matchingCaseStudy.results && matchingCaseStudy.results.length > 0 && (
-              <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200/90 p-6 sm:p-7 space-y-4 shadow-xs">
+              <div class="lg:col-span-5 bg-white rounded-[12px] border border-slate-200/90 p-6 sm:p-7 space-y-4 shadow-xs">
                 <h4 class="text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A]">
                   Verified Project Results
                 </h4>
@@ -585,7 +585,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
 <div class="max-w-4xl mx-auto space-y-4">
   {sector.faqs.slice(0, 5).map(
     (faq: { question: string; answer: string }, idx: number) => (
-      <div class="rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
+      <div class="rounded-[12px] border border-slate-200 bg-white p-5 sm:p-6">
         <div class="flex items-start gap-4">
           <span class="font-mono font-bold text-sm text-[#0F623A] shrink-0">
             {String(idx + 1).padStart(2, '0')}

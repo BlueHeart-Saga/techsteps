@@ -159,14 +159,14 @@ const items = services
     >
       {items.map((item, idx) => (
         <article
-          class="service-card group relative flex flex-col rounded-[20px] bg-white border border-slate-200/90 hover:border-[#0F623A]/40 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 ease-out h-[470px] select-none"
+          class="service-card group relative flex flex-col rounded-[16px] bg-white border border-slate-200/90 hover:border-[#0F623A]/40 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 ease-out h-[470px] select-none"
           data-service-index={idx}
           tabindex="0"
           aria-labelledby={`service-title-${idx}`}
           role="region"
         >
           <!-- ─── UPPER PORTION: Asymmetric Organic Image-Frame Treatment ─── -->
-<div class="service-image-area relative w-full h-[340px] overflow-hidden rounded-t-[20px] shrink-0 bg-[#45C800]">            
+<div class="service-image-area relative w-full h-[340px] overflow-hidden rounded-t-[16px] shrink-0 bg-[#45C800]">            
             <!-- TechSteps Brand-Colored Shape Behind Image (Stays Stable on Hover) -->
 <!-- TechSteps Logo-Colored Shape Behind Image -->
 <div
@@ -267,7 +267,7 @@ const items = services
 
           <!-- ─── LOWER PORTION: Anchored Content Panel with Expandable Details on Hover ─── -->
           <!-- Default: Shows accent bar & title. Hover: Expands upward to reveal description & CTA -->
-<div class="service-content-panel absolute bottom-0 inset-x-0 bg-white p-5 sm:p-6 rounded-b-[20px] border-t border-slate-100 flex flex-col justify-start transition-all duration-500 ease-out">            
+<div class="service-content-panel absolute bottom-0 inset-x-0 bg-white p-5 sm:p-6 rounded-b-[16px] border-t border-slate-100 flex flex-col justify-start transition-all duration-500 ease-out">            
             <!-- Default Visible State: Green Accent Line & Service Title -->
             <div class="service-default-header min-h-[78px] flex flex-col justify-start space-y-2">
               <!-- Subtle Green Accent Line (animates width on hover) -->
@@ -339,7 +339,7 @@ const items = services
       <div class="mt-6 sm:mt-8 text-center">
         <a
           href={viewAllLink}
-          class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#3FB33D]"
+          class="inline-flex items-center gap-2.5 px-6 py-3 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#3FB33D]"
         >
           <span>Explore Our Services →</span>
         </a>

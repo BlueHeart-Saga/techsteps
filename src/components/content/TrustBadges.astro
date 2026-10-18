@@ -31,7 +31,7 @@ const detailColor = theme === 'dark' ? 'text-slate-400' : 'text-slate-500';
 
   <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
     {badges.map((b) => (
-      <div class={`p-4 rounded-xl border text-center flex flex-col justify-center space-y-1 ${cardBg}`}>
+      <div class={`p-4 rounded-[16px] border text-center flex flex-col justify-center space-y-1 ${cardBg}`}>
         <span class="text-sm font-bold">{b.name}</span>
         <span class={`text-[11px] ${detailColor}`}>{b.detail}</span>
       </div>

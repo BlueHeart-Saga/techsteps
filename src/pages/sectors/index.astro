@@ -282,7 +282,7 @@ const accreditations = [
                      gap-2.5
                      px-6 sm:px-7
                      py-3 sm:py-3.5
-                     rounded-none
+                     rounded-[12px]
                      bg-[#0F623A] hover:bg-[#0c4e2e]
                      text-white
                      text-sm sm:text-base
@@ -313,7 +313,7 @@ const accreditations = [
               class="inline-flex items-center justify-center
                      px-6 sm:px-7
                      py-3 sm:py-3.5
-                     rounded-none
+                     rounded-[12px]
                      bg-white hover:bg-slate-50
                      border-2 border-[#0F623A] hover:border-[#0c4e2e]
                      text-[#0F623A] hover:text-[#0c4e2e]
@@ -334,7 +334,7 @@ const accreditations = [
               <img
                 src="/images/hero/Sector hero.webp"
                 alt="Sector IT Lifecycle and Information Governance - TechSteps UK"
-                class="w-full h-auto object-contain drop-shadow-md select-none mx-auto block rounded-2xl"
+                class="w-full h-auto object-contain drop-shadow-md select-none mx-auto block rounded-[20px]"
                 loading="eager"
                 decoding="sync"
               />
@@ -378,14 +378,14 @@ const accreditations = [
           <div class="pt-2 flex flex-wrap items-center gap-3">
             <a
               href="/service"
-              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
+              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
             >
               <span>Explore Services</span>
               <span>&rarr;</span>
             </a>
             <a
               href="/contact"
-              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 text-sm font-bold shadow-xs hover:shadow-md transition-all duration-200"
+              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-[12px] bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 text-sm font-bold shadow-xs hover:shadow-md transition-all duration-200"
             >
               <span>Contact Us</span>
             </a>
@@ -434,9 +434,9 @@ const accreditations = [
               desc: 'Sector-specific clearance and accredited capabilities tailored for NHS, Defence, Finance and Gov.',
             },
           ].map((p) => (
-            <div class="group relative p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#0F623A]/40 transition-all duration-300 flex flex-col justify-between space-y-4 hover:-translate-y-1">
+            <div class="group relative p-6 sm:p-7 rounded-[16px] bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#0F623A]/40 transition-all duration-300 flex flex-col justify-between space-y-4 hover:-translate-y-1">
               <div class="flex items-center justify-between">
-                <div class="h-11 w-11 rounded-xl bg-[#0F623A]/10 border border-[#0F623A]/20 flex items-center justify-center text-[#0F623A] group-hover:bg-[#0F623A] group-hover:text-white transition-colors duration-300">
+                <div class="h-11 w-11 rounded-[12px] bg-[#0F623A]/10 border border-[#0F623A]/20 flex items-center justify-center text-[#0F623A] group-hover:bg-[#0F623A] group-hover:text-white transition-colors duration-300">
                   {p.icon === 'lock' && (
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                       <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" stroke-linecap="round"/>
@@ -492,7 +492,7 @@ const accreditations = [
       {coreSectors.map((sector) => (
         <a
           href={`/sectors/${sector.slug}`}
-          class="group relative rounded-none overflow-hidden border border-slate-300/80 hover:border-[#0F623A] shadow-md hover:shadow-2xl transition-all duration-500 bg-[#0B0F0D] min-h-[320px] sm:min-h-[340px] flex flex-col justify-end p-8 lg:p-10"
+          class="group relative rounded-[16px] overflow-hidden border border-slate-300/80 hover:border-[#0F623A] shadow-md hover:shadow-2xl transition-all duration-500 bg-[#0B0F0D] min-h-[320px] sm:min-h-[340px] flex flex-col justify-end p-8 lg:p-10"
         >
           <!-- Background Image -->
           <img
@@ -884,10 +884,10 @@ const accreditations = [
               >
                 <a
                   href={cat.href}
-                  class="service-card-inner group block relative rounded-3xl p-5 sm:p-7 lg:p-8 border transition-all duration-500 overflow-hidden"
+                  class="service-card-inner group block relative rounded-[20px] p-5 sm:p-7 lg:p-8 border transition-all duration-500 overflow-hidden"
                 >
                   <!-- Service Image Box (Numbers removed) -->
-                  <div class="relative h-48 sm:h-52 w-full rounded-2xl overflow-hidden mb-5 bg-slate-100 border border-slate-200/70">
+                  <div class="relative h-48 sm:h-52 w-full rounded-[16px] overflow-hidden mb-5 bg-slate-100 border border-slate-200/70">
                     <img
                       src={cat.image}
                       alt={`${cat.title} Specialist Service`}
@@ -1139,7 +1139,7 @@ const accreditations = [
 
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5">
         {accreditations.map((cert) => (
-          <div class="group bg-white rounded-none p-5 border border-slate-200/90 hover:border-[#0F623A]/40 hover:shadow-lg transition-all duration-200 text-center flex flex-col items-center justify-between min-h-[170px]">
+          <div class="group bg-white rounded-[16px] p-5 border border-slate-200/90 hover:border-[#0F623A]/40 hover:shadow-lg transition-all duration-200 text-center flex flex-col items-center justify-between min-h-[170px]">
             <!-- Official Accreditation Logo -->
             <div class="h-14 w-full flex items-center justify-center mb-2 px-1">
               <img

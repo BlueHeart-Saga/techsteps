@@ -95,7 +95,7 @@ function formatMarkdown(content: string = ''): string {
     .replace(/^### (.*$)/gim, '<h3 class="text-xl sm:text-2xl font-semibold text-slate-900 mt-8 mb-4 tracking-tight">$1</h3>')
     .replace(/^## (.*$)/gim, '<h2 class="text-2xl sm:text-3xl font-semibold text-slate-900 mt-10 mb-5 tracking-tight border-b border-slate-100 pb-3">$1</h2>')
     // Blockquotes
-    .replace(/^\> (.*$)/gim, '<blockquote class="border-l-4 border-[#2D6A4F] bg-emerald-50/50 p-5 rounded-r-2xl my-6 text-base italic text-slate-800 font-medium">$1</blockquote>')
+    .replace(/^\> (.*$)/gim, '<blockquote class="border-l-4 border-[#2D6A4F] bg-emerald-50/50 p-5 rounded-r-[16px] my-6 text-base italic text-slate-800 font-medium">$1</blockquote>')
     // Bold / Italic
     .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-bold text-slate-900">$1</strong>')
     .replace(/\*(.*?)\*/gim, '<em class="italic text-slate-800">$1</em>')
@@ -202,7 +202,7 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
         {post.tags && post.tags.length > 0 && (
           <div class="flex flex-wrap gap-1.5">
             {post.tags.map((t) => (
-              <span class="text-[11px] font-semibold text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded-md">
+              <span class="text-[11px] font-semibold text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded-[8px]">
                 #{t}
               </span>
             ))}
@@ -217,7 +217,7 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
     <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 28px 28px;"></div>
     
     <Container size="narrow">
-      <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-slate-900 min-h-[280px] sm:min-h-[380px] flex items-center justify-center">
+      <div class="relative rounded-[20px] overflow-hidden shadow-2xl border border-white/10 bg-slate-900 min-h-[280px] sm:min-h-[380px] flex items-center justify-center">
         {post.coverImage || (post as any).image ? (
           <img
             src={insightsApi.getImageUrl(post.coverImage || (post as any).image)}
@@ -226,7 +226,7 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
           />
         ) : (
           <div class="p-8 sm:p-12 text-center relative z-10">
-            <div class="h-16 w-16 rounded-2xl bg-[#2D6A4F]/40 border border-[#2D6A4F]/80 flex items-center justify-center mx-auto mb-4 text-emerald-300">
+            <div class="h-16 w-16 rounded-[16px] bg-[#2D6A4F]/40 border border-[#2D6A4F]/80 flex items-center justify-center mx-auto mb-4 text-emerald-300">
               <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
@@ -260,9 +260,9 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
 
           <!-- Document Attachments Download Card -->
           {documents.length > 0 && (
-            <div class="mt-12 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
+            <div class="mt-12 bg-slate-50 border border-slate-200 rounded-[16px] p-6 sm:p-8">
               <div class="flex items-center gap-3 mb-4">
-                <div class="h-10 w-10 rounded-xl bg-[#2D6A4F]/10 flex items-center justify-center text-[#2D6A4F]">
+                <div class="h-10 w-10 rounded-[12px] bg-[#2D6A4F]/10 flex items-center justify-center text-[#2D6A4F]">
                   <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
@@ -275,7 +275,7 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
 
               <div class="space-y-3">
                 {documents.map((doc: any) => (
-                  <div class="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-200 hover:border-[#2D6A4F]/50 transition-colors">
+                  <div class="flex items-center justify-between p-4 bg-white rounded-[12px] border border-slate-200 hover:border-[#2D6A4F]/50 transition-colors">
                     <div class="flex items-center gap-3 min-w-0">
                       <svg class="w-5 h-5 text-[#2D6A4F] shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
@@ -291,7 +291,7 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
                       href={insightsApi.getDocumentUrl(doc.id || doc.file_id, doc.url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="px-4 py-2 rounded-lg bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider shrink-0 transition-colors"
+                      class="px-4 py-2 rounded-[12px] bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider shrink-0 transition-colors"
                     >
                       Download &darr;
                     </a>
@@ -302,7 +302,7 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
           )}
 
           <!-- Interactive Bottom Engagement Bar -->
-          <div class="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#fafbf9] p-6 rounded-2xl border">
+          <div class="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#fafbf9] p-6 rounded-[16px] border">
             <div>
               <p class="text-sm font-bold text-slate-900">Did you find this analysis helpful?</p>
               <p class="text-xs text-slate-500">Share your feedback or save it to your compliance records.</p>
@@ -344,7 +344,7 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
         <!-- Right Sticky Sidebar -->
         <aside class="space-y-6 lg:sticky lg:top-24">
           <!-- Author Card -->
-          <div class="bg-[#f7f8f5] rounded-2xl p-6 border border-slate-200">
+          <div class="bg-[#f7f8f5] rounded-[16px] p-6 border border-slate-200">
             <span class="text-[11px] font-bold uppercase tracking-widest text-slate-400 block mb-3">
               Author Profile
             </span>
@@ -363,7 +363,7 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
           </div>
 
           <!-- Key Metrics Box -->
-          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
+          <div class="bg-white rounded-[16px] p-6 border border-slate-200 shadow-xs">
             <span class="text-[11px] font-bold uppercase tracking-widest text-slate-400 block mb-3">
               Publication Metrics
             </span>
@@ -388,7 +388,7 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
           </div>
 
           <!-- Contact Advisor Card -->
-          <div class="bg-[#152e20] text-white rounded-2xl p-6 border border-[#2D6A4F]/40 shadow-md">
+          <div class="bg-[#152e20] text-white rounded-[16px] p-6 border border-[#2D6A4F]/40 shadow-md">
             <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-300 block mb-2">
               Compliance Consultation
             </span>
@@ -400,7 +400,7 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
             </p>
             <a
               href="/contact"
-              class="block text-center py-2.5 px-4 rounded-xl bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-xs"
+              class="block text-center py-2.5 px-4 rounded-[12px] bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-xs"
             >
               Speak to Our Specialists &rarr;
             </a>
@@ -436,7 +436,7 @@ const renderedHtml = formatMarkdown(post.content || post.excerpt || '');
           {relatedPosts.map((rel) => (
             <a
               href={`/insights/${rel.category?.slug || 'blogs'}/${rel.seoSlug || rel.id}`}
-              class="group bg-white rounded-2xl border border-slate-200 hover:border-[#2D6A4F]/50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+              class="group bg-white rounded-[16px] border border-slate-200 hover:border-[#2D6A4F]/50 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
             >
               <div class="h-40 bg-gradient-to-br from-slate-900 via-[#182f22] to-[#2D6A4F] relative overflow-hidden flex-shrink-0">
                 <div class="absolute inset-0 opacity-15" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 18px 18px;"></div>

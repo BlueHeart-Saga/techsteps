@@ -8,13 +8,13 @@ interface Props {
 const { sector } = Astro.props;
 ---
 
-<div class="group flex flex-col bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-xl hover:border-brand-accent/50 transition-all duration-300 overflow-hidden transform hover:-translate-y-1">
+<div class="group flex flex-col bg-white rounded-[16px] border border-slate-200 shadow-xs hover:shadow-xl hover:border-brand-accent/50 transition-all duration-300 overflow-hidden transform hover:-translate-y-1">
   <!-- Accent Card Header -->
   <div class="h-44 relative bg-gradient-to-br from-brand-navy via-slate-900 to-brand-blue p-6 flex flex-col justify-between overflow-hidden">
     <div class="absolute inset-0 bg-[radial-gradient(#008170_1px,transparent_1px)] [background-size:16px_16px] opacity-20 group-hover:opacity-30 transition-opacity"></div>
 
     <div class="relative z-10 flex items-center justify-between">
-      <span class="px-2.5 py-1 rounded-md bg-white/10 backdrop-blur-md text-emerald-300 text-[11px] font-bold border border-white/15">
+      <span class="px-2.5 py-1 rounded-[8px] bg-white/10 backdrop-blur-md text-emerald-300 text-[11px] font-bold border border-white/15">
         Sector Compliance
       </span>
       <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
@@ -41,7 +41,7 @@ const { sector } = Astro.props;
     <!-- Compliance Badges -->
     <div class="pt-2 flex flex-wrap gap-1.5">
       {sector.complianceStandards.slice(0, 3).map((std) => (
-        <span class="px-2 py-0.5 rounded bg-brand-slate text-slate-700 text-[11px] font-semibold border border-slate-200">
+        <span class="px-2 py-0.5 rounded-[8px] bg-brand-slate text-slate-700 text-[11px] font-semibold border border-slate-200">
           {std}
         </span>
       ))}

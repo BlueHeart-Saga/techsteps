@@ -143,7 +143,7 @@ export const Map = forwardRef<MapRef, MapProps>(({
 
   return (
     <MapContext.Provider value={{ map: mapInstance, isLoaded, styleVersion }}>
-      <div className={`relative w-full h-full overflow-hidden rounded-2xl ${className}`}>
+      <div className={`relative w-full h-full overflow-hidden rounded-[20px] `}>
         <div ref={containerRef} className="w-full h-full min-h-[400px]" />
         {children}
       </div>
@@ -232,7 +232,7 @@ export function MapGeoJSON({
                 <span class="absolute w-6 h-6 rounded-full bg-[#146B5C]/40 animate-ping"></span>
                 <span class="relative w-4 h-4 rounded-full bg-[#146B5C] border-2 border-white shadow-lg group-hover:scale-125 transition-transform duration-200"></span>
               </div>
-              <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-slate-900/95 text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap border border-slate-700 shadow-xl z-20">
+              <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-slate-900/95 text-white text-xs px-3 py-1.5 rounded-[8px] whitespace-nowrap border border-slate-700 shadow-xl z-20">
                 <p class="font-bold text-emerald-400">${props.name || 'Location'}</p>
                 ${props.address ? `<p class="text-[10px] text-slate-200 font-semibold">${props.address}</p>` : ''}
                 ${props.city ? `<p class="text-[10px] text-slate-300">${props.city}, ${props.country}</p>` : ''}
@@ -399,7 +399,7 @@ export function CustomStyleExample() {
         <select
           value={style}
           onChange={(e) => handleStyleChange(e.target.value as StyleKey)}
-          className="bg-slate-900/90 text-white rounded-xl border border-slate-700 px-3.5 py-2 text-xs sm:text-sm font-semibold shadow-lg backdrop-blur-md outline-none cursor-pointer hover:bg-slate-800 transition-colors"
+          className="bg-slate-900/90 text-white rounded-[12px] border border-slate-700 px-3.5 py-2 text-xs sm:text-sm font-semibold shadow-lg backdrop-blur-md outline-none cursor-pointer hover:bg-slate-800 transition-colors"
         >
           <option value="openstreetmap3d">OpenStreetMap 3D</option>
           <option value="openstreetmap">OpenStreetMap</option>

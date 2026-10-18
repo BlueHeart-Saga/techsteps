@@ -1720,8 +1720,8 @@ export const defaultAboutPage: AboutPageData = {
     'TechSteps is an IT asset recovery and responsible recycling company. We partner with businesses to securely manage their retired technology.',
 
   buildingHero: {
-    imageUrl: '/images/about/building (1).webp',
-    imageAlt: 'TechSteps secure IT disposal and recycling facility',
+    imageUrl: '/images/about/about-us/hero1.png',
+    imageAlt: 'TechSteps IT asset recovery and responsible recycling',
   },
 
   cleanerSmarter: {
@@ -2084,7 +2084,7 @@ export const defaultGlobalPresencePageData: GlobalPresencePageData = {
     highlightedTitle: 'Nationwide precision.',
     subtitle:
       'Connecting secure UK facilities with international logistics, bonded customs storage, and certified cross-border asset transfers across 150+ countries.',
-    imageUrl: '/images/hero/Europe & International Domestic Moves.webp',
+    imageUrl: '/images/about/global-presence/hero.png',
     imageAlt: 'TechSteps global logistics and cross-border operations',
   },
   intro: {

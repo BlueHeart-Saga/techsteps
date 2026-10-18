@@ -28,7 +28,7 @@ export const InlineNewsletter: React.FC<InlineNewsletterProps> = ({
 
   if (subscribedSuccess) {
     return (
-      <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 max-w-lg mx-auto flex items-center justify-center gap-2.5 animate-fadeIn font-sans">
+      <div className="p-4 rounded-[12px] bg-emerald-50 border border-emerald-300 text-emerald-800 max-w-lg mx-auto flex items-center justify-center gap-2.5 animate-fadeIn font-sans">
         <svg className="w-5 h-5 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
@@ -50,11 +50,11 @@ export const InlineNewsletter: React.FC<InlineNewsletterProps> = ({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 min-w-0 bg-white border border-slate-300 rounded-xl px-5 py-3.5 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/20 shadow-xs transition-all"
+          className="flex-1 min-w-0 bg-white border border-slate-300 rounded-[8px] px-5 py-3.5 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/20 shadow-xs transition-all"
         />
         <button
           type="submit"
-          className="shrink-0 bg-[#2D6A4F] hover:bg-[#245a41] text-white font-bold text-xs uppercase tracking-widest px-7 py-3.5 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer"
+          className="shrink-0 bg-[#2D6A4F] hover:bg-[#245a41] text-white font-bold text-xs uppercase tracking-widest px-7 py-3.5 rounded-[12px] transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer"
         >
           {buttonText}
         </button>

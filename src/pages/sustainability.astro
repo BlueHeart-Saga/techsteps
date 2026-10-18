@@ -176,7 +176,7 @@ const serviceCards = [
                      gap-2.5
                      px-6 sm:px-7
                      py-3 sm:py-3.5
-                     rounded-none
+                     rounded-[12px]
                      bg-[#0F623A] hover:bg-[#0c4e2e]
                      text-white
                      text-sm sm:text-base
@@ -207,7 +207,7 @@ const serviceCards = [
               class="inline-flex items-center justify-center
                      px-6 sm:px-7
                      py-3 sm:py-3.5
-                     rounded-none
+                     rounded-[12px]
                      bg-white hover:bg-slate-50
                      border-2 border-[#0F623A] hover:border-[#0c4e2e]
                      text-[#0F623A] hover:text-[#0c4e2e]
@@ -228,7 +228,7 @@ const serviceCards = [
               <img
                 src={pageData.hero?.imageUrl || "/images/sustainability/Sustainability hero.webp"}
                 alt="Sustainability and Circular IT Lifecycle - TechSteps UK"
-                class="w-full h-auto object-contain drop-shadow-md select-none mx-auto block rounded-2xl"
+                class="w-full h-auto object-contain drop-shadow-md select-none mx-auto block rounded-[20px]"
                 loading="eager"
                 decoding="sync"
               />
@@ -294,7 +294,7 @@ const serviceCards = [
               ];
               const isLast = idx === approachSteps.length - 1;
               return (
-                <div class={`${stickyClasses[idx] || 'lg:sticky lg:top-24 z-10'} bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition-all flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7`}>
+                <div class={`${stickyClasses[idx] || 'lg:sticky lg:top-24 z-10'} bg-white rounded-[20px] p-6 sm:p-7 border border-slate-200/90 shadow-md hover:shadow-xl transition-all flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7`}>
                   <span class={`text-5xl sm:text-6xl font-extrabold font-sans ${isLast ? 'text-slate-700' : 'text-[#146B5C]'} shrink-0 leading-none`}>
                     {s.step || idx + 1}
                   </span>
@@ -335,7 +335,7 @@ const serviceCards = [
         <!-- 6 Steps Grid / Flow -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {lifecycleSteps.map((s) => (
-            <div class="bg-white/90 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4 hover:shadow-xl transition-all duration-300 relative overflow-hidden group min-h-[220px] flex flex-col justify-between">
+            <div class="bg-white/90 backdrop-blur-xs rounded-[16px] p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4 hover:shadow-xl transition-all duration-300 relative overflow-hidden group min-h-[220px] flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between mb-3">
                   <span class="text-3xl sm:text-4xl font-extrabold font-sans text-[#146B5C]/30 group-hover:text-[#146B5C] transition-colors">
@@ -501,7 +501,7 @@ const serviceCards = [
         </div>
 
         <!-- Horizontal Process Stepper Timeline (Reference Design) -->
-        <div class="bg-white/90 backdrop-blur-xs rounded-3xl p-6 sm:p-10 lg:p-12 border border-slate-200/90 shadow-xl relative overflow-hidden">
+        <div class="bg-white/90 backdrop-blur-xs rounded-[24px] p-6 sm:p-10 lg:p-12 border border-slate-200/90 shadow-xl relative overflow-hidden">
           
           <div class="max-w-4xl mx-auto">
             <!-- 5-Step Horizontal Stepper -->
@@ -609,7 +609,7 @@ const serviceCards = [
         </div>
 
         <!-- Credibility Disclaimer Note -->
-        <div class="p-4 sm:p-5 rounded-2xl bg-amber-50/90 border border-amber-200 text-amber-950 text-sm sm:text-base font-semibold text-center max-w-2xl mx-auto shadow-xs">
+        <div class="p-4 sm:p-5 rounded-[12px] bg-amber-50/90 border border-amber-200 text-amber-950 text-sm sm:text-base font-semibold text-center max-w-2xl mx-auto shadow-xs">
           <span class="font-extrabold text-amber-900">Note:</span> Environmental outcomes depend on the condition, composition and destination of each asset.
         </div>
       </div>
@@ -627,7 +627,7 @@ const serviceCards = [
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {displayStats.map((st) => (
-            <div class="bg-white/90 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md text-center space-y-2.5">
+            <div class="bg-white/90 backdrop-blur-xs rounded-[16px] p-6 sm:p-8 border border-slate-200/80 shadow-md text-center space-y-2.5">
               <div class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-sans text-[#146B5C] tracking-tight">
                 {st.prefix}{st.value}{st.suffix}
               </div>
@@ -780,7 +780,7 @@ const serviceCards = [
           {serviceCards.map((sc) => (
             <a
               href={sc.url}
-              class="bg-white/90 backdrop-blur-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md hover:shadow-xl transition-all duration-300 space-y-3 group block"
+              class="bg-white/90 backdrop-blur-xs rounded-[16px] p-6 sm:p-8 border border-slate-200/80 shadow-md hover:shadow-xl transition-all duration-300 space-y-3 group block"
             >
               <div class="flex items-center justify-between">
                 <h3 class="text-xl sm:text-2xl font-semibold font-display text-slate-900 group-hover:text-[#146B5C] transition-colors">
@@ -800,7 +800,7 @@ const serviceCards = [
 
       <!-- 9. OUR COMMITMENT -->
       <div class="mt-14 sm:mt-20 max-w-5xl mx-auto">
-        <div class="bg-white/90 backdrop-blur-xs rounded-3xl p-8 sm:p-12 border border-slate-200/80 shadow-xl space-y-8">
+        <div class="bg-white/90 backdrop-blur-xs rounded-[24px] p-8 sm:p-12 border border-slate-200/80 shadow-xl space-y-8">
           <div class="text-center max-w-3xl mx-auto space-y-4">
             {/*<span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#146B5C]">
               OUR COMMITMENT
@@ -814,17 +814,17 @@ const serviceCards = [
           </div>
 
           <!-- Formula Graphic -->
-          <div class="p-6 rounded-2xl bg-slate-100/90 text-slate-800 border border-slate-200/80 shadow-xs">
+          <div class="p-6 rounded-[16px] bg-slate-100/90 text-slate-800 border border-slate-200/80 shadow-xs">
             <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base font-bold font-mono text-center">
-              <span class="px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-[#146B5C]">SECURITY</span>
+              <span class="px-3.5 py-1.5 rounded-[8px] bg-white border border-slate-200 text-[#146B5C]">SECURITY</span>
               <span class="text-slate-400">+</span>
-              <span class="px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-[#146B5C]">REUSE</span>
+              <span class="px-3.5 py-1.5 rounded-[8px] bg-white border border-slate-200 text-[#146B5C]">REUSE</span>
               <span class="text-slate-400">+</span>
-              <span class="px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-[#146B5C]">RECOVERY</span>
+              <span class="px-3.5 py-1.5 rounded-[8px] bg-white border border-slate-200 text-[#146B5C]">RECOVERY</span>
               <span class="text-slate-400">+</span>
-              <span class="px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-[#146B5C]">RESPONSIBLE RECYCLING</span>
+              <span class="px-3.5 py-1.5 rounded-[8px] bg-white border border-slate-200 text-[#146B5C]">RESPONSIBLE RECYCLING</span>
               <span class="text-slate-400 font-extrabold text-base">=</span>
-              <span class="px-4 py-1.5 rounded-lg bg-[#146B5C] text-white">SMARTER IT LIFECYCLES</span>
+              <span class="px-4 py-1.5 rounded-[8px] bg-[#146B5C] text-white">SMARTER IT LIFECYCLES</span>
             </div>
           </div>
         </div>
