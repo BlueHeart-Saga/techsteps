@@ -1,6 +1,4 @@
 ---
-// Alias page for /our-people-culture ensuring backwards compatibility with existing header dropdown links
-import OurPeopleCulturePage from './our-people-culture.astro';
+// Redirect /people-culture to /our-commitment
+return Astro.redirect('/our-commitment', 301);
 ---
-
-<OurPeopleCulturePage />

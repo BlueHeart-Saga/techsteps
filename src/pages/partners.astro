@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
-import CommonCTA from '../components/global/CommonCTA.astro';
+import Container from '../components/layout/Container.astro';
+import CTA from '../components/global/cta.astro';
 
 const canonicalUrl = 'https://techsteps.co.uk/partners';
 
@@ -18,58 +19,181 @@ const pageSchema = {
   },
 };
 
-const technologyPartners = [
+const partners = [
   {
     name: 'Blancco Technology Group',
     category: 'Certified Data Erasure',
+    authority: 'ADISA & NIST 800-88',
     logo: '/images/certifications/blancco.jpg',
     desc: 'Global benchmark in automated, tamper-proof data sanitisation software across servers, storage arrays, PCs, and mobile devices.',
+    quote: 'Guarantees ADISA and NIST 800-88 compliant tamper-proof digital certificates of erasure across all enterprise IT assets.',
+    badge: 'ADISA Compliant',
   },
   {
     name: 'Environment Agency',
     category: 'Regulatory Licensing',
+    authority: 'Statutory UK Regulator',
     logo: '/images/certifications/environment-agency.png',
     desc: 'Direct statutory licensing as an upper-tier carrier, broker, and dealer enforcing certified zero-landfill WEEE management.',
+    quote: 'Statutory upper-tier licensing ensuring legally compliant electronic waste collection, transit, and environmental duty-of-care.',
+    badge: 'Upper Tier Carrier',
   },
   {
-    name: 'BSI (British Standards Institution)',
-    category: 'Standards Body',
+    name: 'BSI Assurance UK',
+    category: 'Standards & Auditing Body',
+    authority: 'UK Royal Charter Body',
     logo: '/images/certifications/bsi-kitemark.png',
     desc: 'Independent auditor certifying TechSteps quality management systems, data security controls, and environmental safeguards.',
+    quote: 'Independent audit verification delivering the globally recognized gold standard of trust, operational rigor, and compliance.',
+    badge: 'BSI Verified',
+  },
+  {
+    name: 'Crown Commercial Service',
+    category: 'Public Sector Frameworks',
+    authority: 'Cabinet Office',
+    logo: '/images/certifications/crown-commercial.png',
+    desc: 'Approved supplier across UK public procurement alliances, enabling direct, compliant engagement for NHS trusts and central government.',
+    quote: 'Pre-approved public sector supplier status facilitating compliant, competitive asset management for UK public bodies.',
+    badge: 'CCS Approved',
+  },
+  {
+    name: 'NHS IG Toolkit / DSPT',
+    category: 'Healthcare Governance',
+    authority: 'NHS England & Caldicott',
+    logo: '/images/certifications/nhs.png',
+    desc: 'Full compliance with the NHS Data Security & Protection Toolkit, ensuring Caldicott Guardian principles and clinical data disposal.',
+    quote: 'Exceeding NHS Data Security & Protection Toolkit standards, safeguarding sensitive clinical patient archives.',
+    badge: 'DSPT Standards Met',
+  },
+  {
+    name: 'EcoVadis Sustainability',
+    category: 'ESG Assessment',
+    authority: 'Global ESG Platform',
+    logo: '/images/certifications/ecovadis.png',
+    desc: 'Collaborative corporate network benchmarking corporate social responsibility, carbon reduction initiatives, and circular supply chains.',
+    quote: 'Independently audited ESG performance validating circular economy workflows and sustainable supply chain procurement.',
+    badge: 'ESG Audited',
+  },
+  {
+    name: 'National Cyber Security Centre',
+    category: 'Government Cyber Resilience',
+    authority: 'NCSC Technical Standard',
+    logo: '/images/certifications/cas-sanitisation.jpg',
+    desc: 'Commercial service certification for the sanitisation of sensitive government media and cryptographic data destruction.',
+    quote: 'Government-grade cryptographic erasure and physical media sanitisation conforming to national cyber defence benchmarks.',
+    badge: 'CAS Certified',
+  },
+  {
+    name: 'Cyber Essentials Plus',
+    category: 'Cyber Defence',
+    authority: 'UK Gov. Assured',
+    logo: '/images/certifications/cyber-essentials-plus.png',
+    desc: 'Hands-on technical verification defending our operational infrastructure and client custody registers against advanced cyber threats.',
+    quote: 'Technical audit verification ensuring resilient defences against internet-borne vulnerabilities across all operational systems.',
+    badge: 'Gov.UK Assured',
+  },
+  {
+    name: 'ADISA Industry Alliance',
+    category: 'ITAD Forensic Security',
+    authority: 'ADISA Asset Disposal',
+    logo: '/images/certifications/bs-7858.png',
+    desc: 'Adherence to forensic data sanitisation standards, unannounced operational audits, and defensible custody tracking.',
+    quote: 'Unannounced operational audits and forensic data security benchmarks ensuring industry-leading ITAD chain of custody.',
+    badge: 'Forensic Standard',
+  },
+  {
+    name: 'PCI Security Standards',
+    category: 'Payment Hardware Security',
+    authority: 'PCI Standards Council',
+    logo: '/images/certifications/pci-dss.png',
+    desc: 'Payment Card Industry alignment ensuring financial hardware destruction exceeds strict banking criteria.',
+    quote: 'Stringent cardholder data hardware destruction protocols meeting and exceeding global financial institution criteria.',
+    badge: 'Level 1 Criteria',
+  },
+  {
+    name: 'Diamond Industry Membership',
+    category: 'Commercial Logistics & ITAD',
+    authority: 'Industry Association',
+    logo: '/images/certifications/diamond-member.png',
+    desc: 'Premier industry association tier recognising ongoing contributions to UK technology recycling, data protection, and circular innovation.',
+    quote: 'Premier commercial relocation and recycling standards ensuring safe, GPS-tracked transportation of corporate IT estates.',
+    badge: 'Premier Tier',
+  },
+  {
+    name: 'King’s Award for Enterprise',
+    category: 'Enterprise Honours',
+    authority: 'Royal Enterprise Award',
+    logo: '/images/certifications/kings-award.jpg',
+    desc: 'Prestigious royal recognition honoring outstanding contribution to sustainable development and circular innovation.',
+    quote: 'Prestigious corporate honour celebrating enterprise leadership in sustainable innovation and circular economy advancement.',
+    badge: 'Sustainable Dev.',
   },
 ];
 
-const industryAssociations = [
-  {
-    name: 'ADISA (Asset Disposal & Information Security Alliance)',
-    badge: 'Industry Standard',
-    desc: 'Adherence to rigorous IT asset disposition standards, unannounced operational audits, and forensic data security benchmarks.',
-  },
-  {
-    name: 'SafeContractor Accredited',
-    badge: 'Site Safety',
-    desc: 'Recognised accreditation confirming our logistics, engineering teams, and onsite decommissioning crews meet strict UK safety criteria.',
-  },
-  {
-    name: 'British Association of Removers (BAR)',
-    badge: 'Commercial Logistics',
-    desc: 'Specialised commercial moving and relocation division adherence to premier British relocation and logistics guidelines.',
-  },
-  {
-    name: 'EcoVadis Sustainability Network',
-    badge: 'ESG Assessment',
-    desc: 'Collaborative network benchmarking corporate social responsibility, carbon reduction initiatives, and circular supply chains.',
-  },
-  {
-    name: 'National Cyber Security Centre (NCSC)',
-    badge: 'Government Cyber',
-    desc: 'Implementation of government-approved cyber resilience frameworks and media sanitisation protocols.',
-  },
-  {
-    name: 'Crown Commercial Service Frameworks',
-    badge: 'Public Sector',
-    desc: 'Official procurement alliance facilitating compliant, competitive asset management for NHS trusts and central government departments.',
-  },
+const reviewSlides = [
+  // Slide 1 (Cards 1, 2, 3)
+  [
+    {
+      quote:
+        'TechSteps’ certified chain of custody and serialized destruction reports gave our board total legal confidence during our multi-site data center refresh.',
+      role: 'Chief Information Security Officer',
+      industry: 'Banking & Finance',
+    },
+    {
+      quote:
+        'Security-vetted logistics crews and GPS-tracked lockable vehicles made our nationwide asset collection effortless, auditable, and entirely zero-incident.',
+      role: 'VP of IT Infrastructure',
+      industry: 'Enterprise Cloud',
+    },
+    {
+      quote:
+        'PCI DSS compliant storage and automated Blancco erasure integration allow our DevOps pods to decommission server clusters with zero security friction.',
+      role: 'Chief Technology Officer',
+      industry: 'Fintech & Payments',
+    },
+  ],
+  // Slide 2 (Cards 4, 5, 6)
+  [
+    {
+      quote:
+        'Their zero-to-landfill guarantee and transparent Scope 3 carbon savings reporting directly accelerate our annual ESG disclosure and sustainability goals.',
+      role: 'Head of Sustainability & ESG',
+      industry: 'FTSE 100 Retail',
+    },
+    {
+      quote:
+        'Strict adherence to NHS IG Toolkit and Caldicott principles ensured patient record hardware and clinical telemetry systems were decommissioned with flawless compliance.',
+      role: 'Director of Information Governance',
+      industry: 'Healthcare & NHS',
+    },
+    {
+      quote:
+        'With multi-million-pound GDPR liabilities on client archives, TechSteps’ tamper-proof erasure certificates and BS EN 15713 physical shredding provide absolute certainty.',
+      role: 'General Counsel & Head of Risk',
+      industry: 'Legal & Corporate',
+    },
+  ],
+  // Slide 3 (Cards 7, 8, 9)
+  [
+    {
+      quote:
+        'Managing estate-wide laptop and workstation turnover across 40 UK locations was simplified by TechSteps’ online asset portal and serialized consignment manifests.',
+      role: 'Head of Enterprise Workplace Tech',
+      industry: 'Global Consulting',
+    },
+    {
+      quote:
+        'TechSteps delivered complete circular remarketing rebates for retired mobile and desktop hardware while maintaining uncompromised data sanitisation standards.',
+      role: 'Director of Procurement & Supply Chain',
+      industry: 'Telecommunications',
+    },
+    {
+      quote:
+        'Strict 5-year BS 7858 vetted personnel and dual-custody verification protocols provide complete compliance assurance for our sensitive operational hardware.',
+      role: 'Head of Security Operations',
+      industry: 'Aerospace & Defence',
+    },
+  ],
 ];
 ---
 
@@ -80,150 +204,978 @@ const industryAssociations = [
   jsonLd={pageSchema}
   hasHeroHeader={true}
 >
+  <!-- Top Navigation Header on clean white background -->
   <HeroHeader isHome={false} />
 
-  <main class="partners-page bg-white text-slate-900 selection:bg-[#0F623A] selection:text-white">
+  <div class="partners-page-wrapper bg-white text-slate-900 selection:bg-[#0F623A] selection:text-white">
+
     <!-- =====================================================
-         1. HERO SECTION
+         1. HERO SECTION (Ref: About Us Centered Title + Quote + Showcase Card)
     ====================================================== -->
-    <section class="relative min-h-[460px] lg:min-h-[520px] bg-[#0c1f17] text-white flex items-center overflow-hidden">
-      <!-- Background Ambient Glow -->
-      <div class="absolute inset-0 z-0">
-        <div class="absolute inset-0 bg-radial-[ellipse_at_top_right] from-[#07572F]/30 via-transparent to-transparent pointer-events-none"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-[#0c1f17] via-[#0c1f17]/95 to-transparent"></div>
-      </div>
-
-      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 w-full">
-        <div class="max-w-3xl">
-          <!-- Breadcrumb Navigation -->
-          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-300 mb-6">
-            <a href="/" class="text-slate-300 hover:text-[#3FB33D] transition-colors underline-offset-4 hover:underline">
-              Home
-            </a>
-            <span class="text-[#3FB33D] font-bold" aria-hidden="true">›</span>
-            <a href="/about-us" class="text-slate-300 hover:text-[#3FB33D] transition-colors underline-offset-4 hover:underline">
-              About Us
-            </a>
-            <span class="text-[#3FB33D] font-bold" aria-hidden="true">›</span>
-            <span class="text-white font-bold">Partners &amp; Associations</span>
-          </nav>
-
-          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#3FB33D]/20 text-[#3FB33D] text-xs font-bold tracking-widest uppercase mb-4 border border-[#3FB33D]/30 backdrop-blur-sm">
-            COLLABORATION &amp; GOVERNANCE
-          </span>
-
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-white mb-6 leading-tight">
-            Partners &amp; Associations.
-            <span class="text-[#3FB33D] block">Collaboration Built on Trust.</span>
+    <section
+      id="partners-hero"
+      class="relative w-full bg-white select-none pt-6 sm:pt-8 lg:pt-10 pb-4 sm:pb-6"
+    >
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Top Centered Heading & Quote (Matching About Us Hero Typography) -->
+        <div class="max-w-4xl lg:max-w-5xl mx-auto text-center space-y-3 sm:space-y-3.5">
+          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[46px] xl:text-[50px] font-bold text-slate-900 tracking-tight leading-[1.14] lg:whitespace-nowrap">
+            Growing Stronger Together with <span class="text-[#0F623A]">Trusted Partners</span>
           </h1>
-
-          <p class="text-lg sm:text-xl text-slate-300 font-sans leading-relaxed">
-            We partner with world-class technology providers, industry associations, and public frameworks to deliver guaranteed security, audited compliance, and verifiable circular economy outcomes across the UK.
+          <p class="text-base sm:text-lg text-slate-600 font-normal italic leading-relaxed max-w-2xl mx-auto">
+            &ldquo;Collaborating with world-class technology providers, statutory regulators, and premier industry bodies — delivering unassailable data security, audited compliance, and verifiable circular economy outcomes across the UK.&rdquo;
           </p>
+        </div>
+
+        <!-- Centered Image (Matching About Us Hero Visual Style) -->
+        <div class="relative w-full max-w-4xl lg:max-w-5xl mx-auto mt-4 sm:mt-5 flex justify-center">
+          <img
+            src="/images/about/certificates/partner-hero.png"
+            alt="TechSteps collaborative partnerships with technology providers, regulators, and industry alliances"
+            class="w-full h-auto object-contain block border-none shadow-none"
+            width="1916"
+            height="821"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         2. SECTION 2 — EDITORIAL SPLIT: COLLABORATIVE EXCELLENCE & TRUST
+         (Ref: About Us Section 3 "Nationwide network, local expertise")
+    ====================================================== -->
+    <section id="partnership-rigor" class="bg-white py-10 sm:py-14 lg:py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+          <!-- Left Column: Simple Feel-Good Message -->
+          <div class="lg:col-span-7">
+            <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2 sm:mb-3">
+              Trust &amp; Collaboration
+            </p>
+            <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-bold text-slate-900 tracking-tight font-display leading-[1.14]">
+              Collaborative Excellence, <span class="text-[#0F623A]">Complete Enterprise Trust</span>
+            </h2>
+
+            <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-700 font-medium leading-relaxed max-w-none">
+              We believe great partnerships drive lasting impact. By embedding market-leading data sanitisation software, statutory environmental licensing, and verified public frameworks directly into our workflow, we ensure your IT assets are managed with bulletproof security and circular sustainability.
+            </p>
+
+            <div class="mt-6 sm:mt-8 space-y-3.5">
+              <div class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0 text-xs font-bold">
+                  ✓
+                </div>
+                <span class="text-base font-medium text-slate-800">
+                  Certified Technology Alliances with Industry Leaders (Blancco, ADISA, NCSC)
+                </span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0 text-xs font-bold">
+                  ✓
+                </div>
+                <span class="text-base font-medium text-slate-800">
+                  Direct Statutory Environmental Licences with the UK Environment Agency
+                </span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0 text-xs font-bold">
+                  ✓
+                </div>
+                <span class="text-base font-medium text-slate-800">
+                  Pre-Approved Public Procurement Framework Access (Crown Commercial &amp; NHS DSPT)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Full Image (image.png - No Wrap, No Borderlines) -->
+          <div class="lg:col-span-5 flex justify-center lg:justify-end">
+            <img
+              src="/images/about/certificates/image.png"
+              alt="TechSteps collaborative partnerships and circular economy alliances"
+              class="w-full max-w-xs sm:max-w-sm lg:max-w-[360px] h-auto object-contain block border-none shadow-none"
+              width="600"
+              height="800"
+              loading="lazy"
+            />
+          </div>
+
         </div>
       </div>
     </section>
 
+
     <!-- =====================================================
-         2. TECHNOLOGY ALLIANCES
+         3. SECTION 3 — ANIMATED STATS STRIP (Ref: About Us Section 5)
     ====================================================== -->
-    <section class="py-16 lg:py-24 bg-white border-b border-slate-100">
+    <section class="bg-white py-8 sm:py-10 select-none">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mb-12">
-          <span class="text-xs font-bold font-sans tracking-widest text-[#0F623A] uppercase block mb-2">
-            STRATEGIC TECHNOLOGY ALLIANCES
-          </span>
-          <h2 class="text-3xl sm:text-4xl font-bold font-display text-slate-900 tracking-tight">
-            Certified Technology &amp; Regulatory Partners
+        <div
+          id="stats-counter-block"
+          class="flex flex-wrap items-center justify-between gap-6 sm:gap-8 lg:gap-10 text-center"
+        >
+          <!-- Metric 1 -->
+          <div class="stat-item flex-1 min-w-[140px] sm:min-w-0">
+            <span
+              class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+            >
+              25+
+            </span>
+            <span class="block mt-2 text-sm sm:text-base font-medium text-slate-700">
+              Strategic Alliances
+            </span>
+          </div>
+
+          <div class="hidden sm:block w-px h-10 bg-slate-200" aria-hidden="true"></div>
+
+          <!-- Metric 2 -->
+          <div class="stat-item flex-1 min-w-[140px] sm:min-w-0">
+            <span
+              class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+            >
+              100%
+            </span>
+            <span class="block mt-2 text-sm sm:text-base font-medium text-slate-700">
+              Audit-Ready Documentation
+            </span>
+          </div>
+
+          <div class="hidden sm:block w-px h-10 bg-slate-200" aria-hidden="true"></div>
+
+          <!-- Metric 3 -->
+          <div class="stat-item flex-1 min-w-[140px] sm:min-w-0">
+            <span
+              class="block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none"
+            >
+              BS 7858
+            </span>
+            <span class="block mt-2 text-sm sm:text-base font-medium text-slate-700">
+              Security-Vetted Personnel
+            </span>
+          </div>
+
+          <div class="hidden sm:block w-px h-10 bg-slate-200" aria-hidden="true"></div>
+
+          <!-- Metric 4 -->
+          <div class="stat-item flex-1 min-w-[140px] sm:min-w-0">
+            <span
+              class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+            >
+              0%
+            </span>
+            <span class="block mt-2 text-sm sm:text-base font-medium text-slate-700">
+              Landfill (100% Diversion)
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         4. SECTION 4 — OUR PARTNERSHIP ECOSYSTEM (ITAD Focused 4 Capability Cards)
+    ====================================================== -->
+    <section id="partnership-ecosystem" class="py-14 sm:py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="w-full text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2 sm:mb-3">
+            Collaborative Capabilities
+          </p>
+          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold text-slate-900 tracking-tight font-display leading-[1.14]">
+            Our Partnership <span class="text-[#0F623A]">Ecosystem</span>
           </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 font-sans leading-relaxed">
-            By embedding market-leading software and direct statutory agreements into our operating procedures, we provide clients with unassailable data destruction and environmental compliance.
+          <p class="mt-3.5 text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
+            Aligning specialized enterprise capabilities across every operational phase of the technology lifecycle — ensuring defensible security, unbroken custody, and zero-landfill circularity.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {technologyPartners.map((partner) => (
-            <div class="bg-white rounded-[16px] p-6 border border-slate-200 hover:border-[#0F623A]/50 hover:shadow-lg transition-all duration-200 flex flex-col justify-between">
-              <div>
-                <div class="h-16 flex items-center mb-5 pb-4 border-b border-slate-100">
+        <!-- 4-Column Responsive Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Card 1: IT Lifecycle & Asset Recovery -->
+          <div class="group relative bg-slate-50/70 hover:bg-white border border-slate-200/90 hover:border-[#0F623A]/40 rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:shadow-md">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center mb-5 group-hover:bg-[#0F623A] group-hover:text-white transition-colors duration-300">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug mb-2.5">
+                IT Lifecycle &amp; Asset Recovery
+              </h3>
+              <p class="text-sm text-slate-600 font-normal leading-relaxed mb-6">
+                Technology recovery, testing, remarketing relationships, and value-optimised hardware renewal.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-200/80 space-y-2 text-xs text-slate-700 font-medium">
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>Serialized hardware auditing</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>Secondary market remarketing</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>Maximum residual value return</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Secure Data Destruction -->
+          <div class="group relative bg-slate-50/70 hover:bg-white border border-slate-200/90 hover:border-[#0F623A]/40 rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:shadow-md">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center mb-5 group-hover:bg-[#0F623A] group-hover:text-white transition-colors duration-300">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug mb-2.5">
+                Secure Data Destruction
+              </h3>
+              <p class="text-sm text-slate-600 font-normal leading-relaxed mb-6">
+                Specialist capabilities supporting controlled data sanitisation and certified physical destruction.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-200/80 space-y-2 text-xs text-slate-700 font-medium">
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>Blancco cryptographic erasure</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>ADISA &amp; NIST 800-88 compliance</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>BS EN 15713 physical shredding</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Recycling & Circular Economy -->
+          <div class="group relative bg-slate-50/70 hover:bg-white border border-slate-200/90 hover:border-[#0F623A]/40 rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:shadow-md">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center mb-5 group-hover:bg-[#0F623A] group-hover:text-white transition-colors duration-300">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug mb-2.5">
+                Recycling &amp; Circular Economy
+              </h3>
+              <p class="text-sm text-slate-600 font-normal leading-relaxed mb-6">
+                Responsible material recovery, zero-to-landfill standards, and transparent carbon abatement reporting.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-200/80 space-y-2 text-xs text-slate-700 font-medium">
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>Environment Agency upper-tier license</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>100% zero-to-landfill guarantee</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>Scope 3 carbon reduction metrics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Logistics & Specialist Services -->
+          <div class="group relative bg-slate-50/70 hover:bg-white border border-slate-200/90 hover:border-[#0F623A]/40 rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:shadow-md">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center mb-5 group-hover:bg-[#0F623A] group-hover:text-white transition-colors duration-300">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug mb-2.5">
+                Logistics &amp; Specialist Services
+              </h3>
+              <p class="text-sm text-slate-600 font-normal leading-relaxed mb-6">
+                Secure nationwide collection, GPS-tracked transportation, and specialized IT relocation services.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-200/80 space-y-2 text-xs text-slate-700 font-medium">
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>GPS-tracked lockable vehicles</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>BS 7858 security-vetted personnel</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[#0F623A] font-bold">✓</span>
+                <span>Data centre &amp; lab relocations</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         5. SECTION 5 — STRATEGIC ALLIANCES & GOVERNANCE
+         (Ref: About Us Section 2 Story Quote Cards)
+    ====================================================== -->
+    <section id="strategic-alliances" class="bg-white py-12 sm:py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="w-full text-left mb-8 sm:mb-10">
+          <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2 sm:mb-3">
+            Collaboration &amp; Governance
+          </p>
+          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold text-slate-900 tracking-tight font-display leading-[1.14] max-w-4xl">
+            Built on Integrity, Verified by <span class="text-[#0F623A]">Industry Leaders</span>
+          </h2>
+          <p class="mt-3 text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-3xl">
+            Our strategic alliances bridge cutting-edge cryptographic wiping technology, statutory environmental regulation, and nationwide public sector procurement.
+          </p>
+        </div>
+
+        <!-- 2 Simple Feel-Good Quote Cards (Matching About Us Story Cards) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+          
+          <!-- Card 1: Strategic Technology Alliances -->
+          <div class="story-quote-card relative bg-slate-50/70 hover:bg-slate-50 border border-slate-100 rounded-2xl p-6 sm:p-7 transition-all duration-300">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs font-bold text-[#0F623A] uppercase tracking-[0.14em]">Strategic Technology Alliances</span>
+            </div>
+            <p class="text-base sm:text-lg text-slate-700 font-medium leading-relaxed italic">
+              &ldquo;By embedding automated Blancco data erasure and military-grade cryptographic sanitisation into our facilities, we deliver tamper-proof certificates that withstand the most rigorous regulatory scrutiny.&rdquo;
+            </p>
+          </div>
+
+          <!-- Card 2: Industry Governance & Accreditations -->
+          <div class="story-quote-card relative bg-slate-50/70 hover:bg-slate-50 border border-slate-100 rounded-2xl p-6 sm:p-7 transition-all duration-300">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs font-bold text-[#0F623A] uppercase tracking-[0.14em]">Governing Bodies &amp; Frameworks</span>
+            </div>
+            <p class="text-base sm:text-lg text-slate-700 font-medium leading-relaxed italic">
+              &ldquo;Active participation in premier UK standards bodies, public procurement alliances, and ESG assessment platforms guarantees our clients an unbroken chain of custody and certified circular recovery.&rdquo;
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         6. SECTION 6 — OFFICIAL PARTNERS & ASSOCIATIONS DIRECTORY
+         (Preserved Gridcards Design with Hover Tooltips)
+    ====================================================== -->
+    <section id="partners-directory" class="py-14 sm:py-20 bg-white scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header (Clean Centered Heading, Ref: Partner Grid) -->
+        <div class="w-full text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2 sm:mb-3">
+            Official Alliances Register
+          </p>
+          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold text-slate-900 tracking-tight font-display leading-[1.14]">
+            Partners, Frameworks &amp; <span class="text-[#0F623A]">Associations</span>
+          </h2>
+        </div>
+
+        <!-- Partners Clean Grid (Image + Title + Hover Tooltip) -->
+        <div class="rounded-2xl border border-slate-200/90 bg-white shadow-xs relative">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 -mr-px -mb-px">
+            {partners.map((partner) => (
+              <div
+                class="group relative border-r border-b border-slate-200/80 p-5 sm:p-6 flex flex-col items-center justify-center text-center bg-white hover:bg-slate-50/80 hover:z-30 transition-all duration-200 min-h-[140px] sm:min-h-[155px]"
+                title={`${partner.name} — "${partner.quote}" (${partner.authority})`}
+              >
+                <!-- Logo -->
+                <div class="h-12 sm:h-14 w-full flex items-center justify-center mb-3">
                   <img
                     src={partner.logo}
                     alt={`${partner.name} logo`}
-                    class="max-h-12 max-w-[120px] w-auto h-auto object-contain"
+                    class="max-h-10 max-w-[105px] w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
+                    width="105"
+                    height="40"
                   />
                 </div>
-                <span class="text-xs font-bold uppercase tracking-wider text-[#07572F] block mb-2">
-                  {partner.category}
-                </span>
-                <h3 class="text-xl font-bold font-display text-slate-900 mb-2">
+
+                <!-- Title -->
+                <h3 class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-[#0F623A] transition-colors leading-snug">
                   {partner.name}
                 </h3>
-                <p class="text-sm text-slate-600 font-sans leading-relaxed">
-                  {partner.desc}
-                </p>
-              </div>
 
-              <div class="pt-4 mt-6 border-t border-slate-100 flex items-center gap-2 text-xs font-semibold text-[#07572F]">
-                <span>✓ Active Certified Partnership</span>
+                <!-- Hover Tooltip showing Quote Description -->
+                <div
+                  role="tooltip"
+                  class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2.5 z-50 opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-200 w-64 sm:w-72 select-none"
+                >
+                  <div class="relative bg-slate-900/95 backdrop-blur-md text-white p-3.5 sm:p-4 rounded-xl shadow-xl shadow-slate-950/40 border border-slate-700/80 text-left">
+                    <!-- Category & Badge Header -->
+                    <div class="flex items-center justify-between gap-2 mb-2">
+                      <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                        {partner.category}
+                      </span>
+                      {partner.badge && (
+                        <span class="text-[10px] text-slate-400 font-mono tracking-tight">
+                          {partner.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    <!-- Quote-Like Description -->
+                    <p class="text-xs text-slate-200 font-normal leading-relaxed italic">
+                      &ldquo;{partner.quote}&rdquo;
+                    </p>
+
+                    <!-- Authority Footer -->
+                    <div class="mt-2.5 pt-2 border-t border-slate-800/90 flex items-center justify-between text-[10px] text-slate-400">
+                      <span class="font-medium text-slate-300">{partner.name}</span>
+                      <span class="text-emerald-400/90 font-medium">✓ {partner.authority}</span>
+                    </div>
+
+                    <!-- Downward Caret Arrow pointing to the card -->
+                    <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-slate-900 border-r border-b border-slate-700/80 rotate-45"></div>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
 
-    <!-- =====================================================
-         3. INDUSTRY ASSOCIATIONS & FRAMEWORKS
-    ====================================================== -->
-    <section class="py-16 lg:py-24 bg-[#FAF6EE]/50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mb-12">
-          <span class="text-xs font-bold font-sans tracking-widest text-[#0F623A] uppercase block mb-2">
-            GOVERNING BODIES &amp; ACCREDITED NETWORKS
-          </span>
-          <h2 class="text-3xl sm:text-4xl font-bold font-display text-slate-900 tracking-tight">
-            Industry Associations &amp; Frameworks
-          </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 font-sans leading-relaxed">
-            TechSteps participates in premier UK industry bodies, ensuring our operational protocols represent leading practice across information security, health and safety, and public procurement.
+        <!-- Feel-Good Quote (Matching Reference Design Footer) -->
+        <div class="max-w-2xl mx-auto text-center mt-8 sm:mt-10">
+          <p class="text-base sm:text-lg text-slate-700 font-medium leading-relaxed italic">
+            &ldquo;Every partnership is founded on mutual integrity, transparent standards, and a shared commitment to keeping corporate data protected and retired technology out of landfills.&rdquo;
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {industryAssociations.map((assoc) => (
-            <div class="bg-white rounded-[16px] p-6 border border-slate-200/90 shadow-xs hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
-              <div>
-                <span class="inline-block text-[11px] font-bold tracking-wider uppercase text-[#07572F] bg-[#E0F2E7] px-2.5 py-1 rounded-full mb-4">
-                  {assoc.badge}
-                </span>
-                <h3 class="text-lg font-bold font-display text-slate-900 mb-2">
-                  {assoc.name}
-                </h3>
-                <p class="text-sm text-slate-600 font-sans leading-relaxed">
-                  {assoc.desc}
-                </p>
-              </div>
-
-              <div class="pt-4 mt-6 border-t border-slate-100 text-xs font-semibold text-slate-500">
-                UK Compliance Assurance
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
 
+
     <!-- =====================================================
-         4. FINAL CTA
+         7. SECTION 7 — PARTNERSHIP BENEFITS (Clean 3-Column Layout)
     ====================================================== -->
-    <CommonCTA
-      title="Discuss a Strategic Partnership with TechSteps"
+    <section id="partnership-benefits" class="py-14 sm:py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="w-full text-left max-w-3xl mb-12 sm:mb-14">
+          <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2 sm:mb-3">
+            Enterprise Value
+          </p>
+          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold text-slate-900 tracking-tight font-display leading-[1.14]">
+            Partnership Benefits Built for <span class="text-[#0F623A]">Enterprise Scale</span>
+          </h2>
+          <p class="mt-3.5 text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
+            Collaborating with TechSteps delivers tangible operational security, defensible compliance, and verifiable ESG outcomes for our clients and partners.
+          </p>
+        </div>
+
+        <!-- 3-Column Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          
+          <!-- Column 1 -->
+          <div class="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-7 sm:p-8 flex flex-col justify-between hover:border-[#0F623A]/40 transition-all duration-300">
+            <div>
+              <span class="text-[11px] font-bold text-[#0F623A] uppercase tracking-wider bg-[#0F623A]/10 px-3 py-1 rounded-full inline-block mb-4">
+                Operational Rigour
+              </span>
+              <h3 class="text-xl font-bold text-slate-900 font-display mb-3">
+                Shared Technical Expertise
+              </h3>
+              <p class="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+                By integrating tier-1 data sanitisation software and statutory regulators directly into our facility workflows, we deliver undisputed certificates of erasure and audit-ready governance.
+              </p>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-7 sm:p-8 flex flex-col justify-between hover:border-[#0F623A]/40 transition-all duration-300">
+            <div>
+              <span class="text-[11px] font-bold text-[#0F623A] uppercase tracking-wider bg-[#0F623A]/10 px-3 py-1 rounded-full inline-block mb-4">
+                Full Transparency
+              </span>
+              <h3 class="text-xl font-bold text-slate-900 font-display mb-3">
+                End-to-End Traceability
+              </h3>
+              <p class="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+                Dual-custody verification, GPS-monitored secure transport, and online portal reporting provide complete serialized traceability for every consignment from collection to conclusion.
+              </p>
+            </div>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-7 sm:p-8 flex flex-col justify-between hover:border-[#0F623A]/40 transition-all duration-300">
+            <div>
+              <span class="text-[11px] font-bold text-[#0F623A] uppercase tracking-wider bg-[#0F623A]/10 px-3 py-1 rounded-full inline-block mb-4">
+                Verified ESG Value
+              </span>
+              <h3 class="text-xl font-bold text-slate-900 font-display mb-3">
+                Sustainable Circular Outcomes
+              </h3>
+              <p class="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+                100% zero-to-landfill diversion and transparent Scope 3 carbon savings reporting directly empower our partners' and clients' corporate sustainability disclosures.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         8. SECTION 8 — WORKING TOGETHER: HOW WE PARTNER (Horizontal Process)
+    ====================================================== -->
+    <section id="working-together" class="py-14 sm:py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="w-full text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2 sm:mb-3">
+            Collaborative Engagement
+          </p>
+          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold text-slate-900 tracking-tight font-display leading-[1.14]">
+            Working Together: <span class="text-[#0F623A]">How We Partner</span>
+          </h2>
+          <p class="mt-3.5 text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
+            A transparent, structured onboarding and engagement process ensuring mutual alignment, robust compliance, and seamless operational delivery.
+          </p>
+        </div>
+
+        <!-- 3-Step Horizontal Process -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 relative">
+          
+          <!-- Step 1 -->
+          <div class="relative bg-slate-50/70 border border-slate-200/80 rounded-2xl p-7 sm:p-8 flex flex-col justify-between hover:border-[#0F623A]/40 transition-all duration-300">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-3xl font-bold text-[#0F623A] font-display">01</span>
+                <span class="text-[10px] font-bold text-[#0F623A] uppercase tracking-wider bg-[#0F623A]/10 px-2.5 py-0.5 rounded-full">Discovery</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mb-2.5">
+                Discovery &amp; Compliance Vetting
+              </h3>
+              <p class="text-sm text-slate-600 font-normal leading-relaxed">
+                We assess mutual strategic fit, required industry accreditations (ISO, ADISA, Cyber Essentials), security clearance prerequisites, and joint value opportunities.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="relative bg-slate-50/70 border border-slate-200/80 rounded-2xl p-7 sm:p-8 flex flex-col justify-between hover:border-[#0F623A]/40 transition-all duration-300">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-3xl font-bold text-[#0F623A] font-display">02</span>
+                <span class="text-[10px] font-bold text-[#0F623A] uppercase tracking-wider bg-[#0F623A]/10 px-2.5 py-0.5 rounded-full">Scoping</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mb-2.5">
+                Workflow &amp; SLA Scoping
+              </h3>
+              <p class="text-sm text-slate-600 font-normal leading-relaxed">
+                Establishing explicit operational chains of custody, data integration pathways, reporting formats, and service level agreements tailored to enterprise requirements.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="relative bg-slate-50/70 border border-slate-200/80 rounded-2xl p-7 sm:p-8 flex flex-col justify-between hover:border-[#0F623A]/40 transition-all duration-300">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-3xl font-bold text-[#0F623A] font-display">03</span>
+                <span class="text-[10px] font-bold text-[#0F623A] uppercase tracking-wider bg-[#0F623A]/10 px-2.5 py-0.5 rounded-full">Growth</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mb-2.5">
+                Ongoing Governance &amp; Growth
+              </h3>
+              <p class="text-sm text-slate-600 font-normal leading-relaxed">
+                Active partner management, periodic audit reviews, shared circular innovation, and collaborative engagement across public frameworks and commercial tenders.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         9. SECTION 9 — WHAT THIS MEANS FOR OUR CLIENTS (3-and-3 Card Auto-Scroll Carousel)
+    ====================================================== -->
+    <section class="py-14 sm:py-20 lg:py-24 bg-white text-slate-900 select-none overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Heading (Matching Reference Mockup) -->
+        <div class="mb-10 sm:mb-14 text-left">
+          <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold text-slate-900 tracking-tight font-display leading-[1.14]">
+            What This Means for <span class="text-[#0F623A]">Our Clients</span>
+          </h2>
+        </div>
+
+        <!-- 3-and-3 Card Carousel Slider Track -->
+        <div
+          id="client-reviews-slider"
+          class="relative w-full overflow-hidden"
+          aria-roledescription="carousel"
+          aria-label="Client Testimonials"
+        >
+          <div
+            id="reviews-slides-track"
+            class="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] w-full"
+          >
+            {reviewSlides.map((slide, slideIdx) => (
+              <div
+                class="w-full shrink-0"
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`Slide ${slideIdx + 1} of ${reviewSlides.length}`}
+              >
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                  {slide.map((review) => (
+                    <div class="bg-slate-50/70 hover:bg-slate-50 border border-slate-200/80 rounded-2xl p-6 sm:p-8 flex flex-col justify-between hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300">
+                      <div>
+                        <span
+                          class="text-3xl sm:text-4xl text-[#0F623A] select-none leading-none mb-4 font-bold tracking-tighter block"
+                          style="font-family: Georgia, serif;"
+                          aria-hidden="true"
+                        >
+                          &rdquo;&rdquo;
+                        </span>
+                        <p class="text-sm sm:text-base text-slate-700 font-normal leading-relaxed italic">
+                          &ldquo;{review.quote}&rdquo;
+                        </p>
+                      </div>
+                      <div class="mt-8 pt-5 border-t border-slate-200/80 flex items-center justify-between gap-2">
+                        <span class="text-xs sm:text-sm font-semibold text-slate-900 tracking-wide block truncate">
+                          &mdash; {review.role}
+                        </span>
+                        <span class="shrink-0 text-[10px] sm:text-[11px] font-bold text-[#0F623A] bg-[#0F623A]/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                          {review.industry}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Interactive Bottom Dots Indicator (Matching Reference Mockup) -->
+        <div
+          id="reviews-dots-nav"
+          class="flex items-center justify-center gap-2.5 mt-10 sm:mt-12"
+          role="tablist"
+          aria-label="Testimonial slides pagination"
+        >
+          {reviewSlides.map((_, idx) => (
+            <button
+              type="button"
+              role="tab"
+              data-slide-index={idx}
+              class={`reviews-dot transition-all duration-300 h-2 rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A] ${
+                idx === 0
+                  ? 'active w-7 bg-[#0F623A]'
+                  : 'w-2 bg-slate-300 hover:bg-slate-400'
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+              aria-selected={idx === 0 ? 'true' : 'false'}
+            />
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         10. SECTION 10 — COMMON CTA (Ref: About Us Page)
+    ====================================================== -->
+    <CTA
+      title="Let’s Create Value Together Through Partnership"
       description="Whether you are an enterprise seeking an accredited asset lifecycle partner or a technology provider looking to collaborate, our partnerships team is ready to connect."
-      primaryText="Contact Partnerships Team"
+      primaryText="Talk to Our Team"
       primaryHref="/contact"
-      secondaryText="Learn About Our Services"
-      secondaryHref="/services"
+      secondaryText="Request a Collection"
+      secondaryHref="/request-a-collection"
     />
-  </main>
+
+  </div>
 </BaseLayout>
+
+<style>
+/* =========================================================
+   STORY QUOTE CARDS SCROLL REVEAL (Ref: About Us)
+========================================================= */
+:global(html.js) .story-quote-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background-color 0.2s ease;
+  will-change: opacity, transform;
+}
+
+:global(html.js) .story-quote-card.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html.js) .story-quote-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   STATS COUNTER ANIMATION
+========================================================= */
+.stat-counter-number {
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  min-width: 3.2ch;
+}
+
+/* =========================================================
+   CLIENT REVIEWS 3-CARD CAROUSEL
+========================================================= */
+#reviews-slides-track {
+  will-change: transform;
+}
+.reviews-dot {
+  transform: translateZ(0);
+}
+</style>
+
+<!-- Client Script for Animated Counters, Story Reveal & 3-and-3 Carousel -->
+<script>
+  function initPartnersPage() {
+    // 1. Animated Stats Counter (Ref: About Us)
+    const statsBlock = document.getElementById('stats-counter-block');
+    if (statsBlock && statsBlock.dataset.observed !== 'true') {
+      statsBlock.dataset.observed = 'true';
+      const statElements = statsBlock.querySelectorAll<HTMLElement>('.stat-counter-number');
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!prefersReducedMotion && 'IntersectionObserver' in window && statElements.length) {
+        const parsedStats: {
+          element: HTMLElement;
+          raw: string;
+          prefix: string;
+          target: number;
+          suffix: string;
+          start: number;
+        }[] = [];
+
+        statElements.forEach((el) => {
+          const raw = (el.textContent || '').trim();
+          const match = raw.match(/^([^\d]*)(\d+)(.*)$/);
+          if (match) {
+            const prefix = match[1] || '';
+            const target = parseInt(match[2], 10);
+            const suffix = match[3] || '';
+            const start = target === 0 ? 100 : 0;
+            parsedStats.push({ element: el, raw, prefix, target, suffix, start });
+          }
+        });
+
+        if (parsedStats.length) {
+          const statsObserver = new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  observer.unobserve(entry.target);
+                  const duration = 1800;
+                  let startTime: number | null = null;
+
+                  function step(timestamp: number) {
+                    if (!startTime) startTime = timestamp;
+                    const elapsed = timestamp - startTime;
+                    const p = Math.min(1, elapsed / duration);
+                    const eased = 1 - Math.pow(1 - p, 3);
+
+                    parsedStats.forEach((stat) => {
+                      const current = Math.round(stat.start + (stat.target - stat.start) * eased);
+                      stat.element.textContent = stat.prefix + current + stat.suffix;
+                    });
+
+                    if (p < 1) {
+                      requestAnimationFrame(step);
+                    } else {
+                      parsedStats.forEach((stat) => {
+                        stat.element.textContent = stat.raw;
+                      });
+                    }
+                  }
+
+                  requestAnimationFrame(step);
+                }
+              });
+            },
+            { threshold: 0.4 }
+          );
+
+          statsObserver.observe(statsBlock);
+        }
+      }
+    }
+
+    // 2. Story Quotes Staggered Scroll Reveal (Ref: About Us)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const storyQuotes = document.querySelectorAll('.story-quote-card');
+    if (storyQuotes.length) {
+      if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+        storyQuotes.forEach((card) => card.classList.add('revealed'));
+      } else {
+        const quotesObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                observer.unobserve(entry.target);
+                const delay = parseInt((entry.target as HTMLElement).dataset.delay || '0', 10);
+                setTimeout(() => {
+                  entry.target.classList.add('revealed');
+                }, delay);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+        );
+
+        storyQuotes.forEach((card, index) => {
+          if (card.dataset.observed !== 'true') {
+            card.dataset.observed = 'true';
+            (card as HTMLElement).dataset.delay = String(index * 150);
+            quotesObserver.observe(card);
+          }
+        });
+      }
+    }
+
+    // 3. Client Reviews 3-Card Carousel with Auto-Scroll & Interactive Dots
+    const slider = document.getElementById('client-reviews-slider');
+    const track = document.getElementById('reviews-slides-track');
+    const dotsContainer = document.getElementById('reviews-dots-nav');
+
+    if (slider && track && dotsContainer) {
+      const dots = dotsContainer.querySelectorAll<HTMLButtonElement>('.reviews-dot');
+      const totalSlides = dots.length;
+      let currentSlide = 0;
+      let autoScrollTimer: ReturnType<typeof setInterval> | null = null;
+      const slideInterval = 5500;
+
+      function updateSlide(index: number) {
+        currentSlide = (index + totalSlides) % totalSlides;
+        if (track) {
+          track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        dots.forEach((dot, idx) => {
+          if (idx === currentSlide) {
+            dot.classList.add('w-7', 'bg-[#0F623A]');
+            dot.classList.remove('w-2', 'bg-slate-300', 'hover:bg-slate-400');
+            dot.setAttribute('aria-selected', 'true');
+          } else {
+            dot.classList.remove('w-7', 'bg-[#0F623A]');
+            dot.classList.add('w-2', 'bg-slate-300', 'hover:bg-slate-400');
+            dot.setAttribute('aria-selected', 'false');
+          }
+        });
+      }
+
+      function startTimer() {
+        stopTimer();
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion || totalSlides <= 1) return;
+        autoScrollTimer = setInterval(() => {
+          updateSlide(currentSlide + 1);
+        }, slideInterval);
+      }
+
+      function stopTimer() {
+        if (autoScrollTimer !== null) {
+          clearInterval(autoScrollTimer);
+          autoScrollTimer = null;
+        }
+      }
+
+      if (slider.dataset.bound !== 'true') {
+        slider.dataset.bound = 'true';
+
+        dots.forEach((dot) => {
+          dot.addEventListener('click', () => {
+            const targetIdx = parseInt(dot.dataset.slideIndex || '0', 10);
+            updateSlide(targetIdx);
+            startTimer();
+          });
+        });
+
+        slider.addEventListener('mouseenter', stopTimer);
+        slider.addEventListener('mouseleave', startTimer);
+        dotsContainer.addEventListener('mouseenter', stopTimer);
+        dotsContainer.addEventListener('mouseleave', startTimer);
+
+        let touchStartX = 0;
+        slider.addEventListener(
+          'touchstart',
+          (e) => {
+            touchStartX = e.changedTouches[0].clientX;
+            stopTimer();
+          },
+          { passive: true }
+        );
+
+        slider.addEventListener(
+          'touchend',
+          (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 45) {
+              if (diff > 0) {
+                updateSlide(currentSlide + 1);
+              } else {
+                updateSlide(currentSlide - 1);
+              }
+            }
+            startTimer();
+          },
+          { passive: true }
+        );
+      }
+
+      updateSlide(0);
+      startTimer();
+    }
+  }
+
+  // Initial and Astro navigation setup
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPartnersPage);
+  } else {
+    initPartnersPage();
+  }
+  document.addEventListener('astro:page-load', initPartnersPage);
+</script>

@@ -1,0 +1,742 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroHeader from '../components/global/HeroHeader.astro';
+import Container from '../components/layout/Container.astro';
+import CTA from '../components/global/cta.astro';
+
+const canonicalUrl = 'https://techsteps.co.uk/our-commitment';
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: 'Our Commitment to Security, Quality & Sustainability — TechSteps UK',
+  description:
+    'At TechSteps, our commitment goes beyond delivering services. We focus on protecting sensitive information, managing technology responsibly, maintaining operational accountability and helping organisations achieve sustainable outcomes.',
+  mainEntity: {
+    '@id': 'https://techsteps.co.uk/#organization',
+  },
+};
+
+const commitments = [
+  {
+    number: '01',
+    title: 'Data Security & Confidentiality',
+    eyebrow: 'SECURITY FIRST',
+    tagline: 'Protecting sensitive information throughout the asset lifecycle.',
+    desc: 'We guarantee that all data-bearing hardware entrusted to us undergoes forensic digital sanitisation or complete physical destruction. Using automated Blancco software conforming to ADISA and NIST 800-88 benchmarks alongside BS EN 15713 cross-cut shredding, we eliminate data breach vulnerabilities.',
+    bullets: [
+      'ADISA & NIST 800-88 compliant cryptographic disk wiping',
+      'Tamper-proof serialized digital certificates of erasure',
+      'Dual-custody barcoded verification from initial collection',
+    ],
+    icon: 'shield',
+  },
+  {
+    number: '02',
+    title: 'Quality & Operational Excellence',
+    eyebrow: 'OPERATIONAL RIGOUR',
+    tagline: 'Consistent service delivery, transparent procedures and responsible handling.',
+    desc: 'Quality is an audited operational reality. From dedicated GPS-monitored fleet logistics to strict adherence to UKAS-accredited ISO 9001 management systems, our standardized workflows ensure predictable, legally defensible execution on every enterprise assignment.',
+    bullets: [
+      'ISO 9001 certified quality management protocols',
+      '5-year security-vetted collection personnel (BS 7858)',
+      'Defined service level agreements with dedicated account managers',
+    ],
+    icon: 'gear',
+  },
+  {
+    number: '03',
+    title: 'Environmental Responsibility',
+    eyebrow: 'CIRCULAR RECOVERY',
+    tagline: 'Encouraging reuse, value recovery and responsible recycling.',
+    desc: 'We champion the circular economy by prioritizing cascade component reuse and hardware remarketing before material refining. Operating under our statutory Environment Agency upper-tier license, we enforce a strict 100% zero-to-landfill guarantee across all electronic waste.',
+    bullets: [
+      'Statutory Environment Agency upper-tier carrier and broker licensing',
+      '100% zero-to-landfill diversion guarantee across all hardware',
+      'Scope 3 carbon avoidance and circular sustainability reporting',
+    ],
+    icon: 'leaf',
+  },
+  {
+    number: '04',
+    title: 'Customer Trust & Accountability',
+    eyebrow: 'FULL TRANSPARENCY',
+    tagline: 'Clear communication, traceability and documented service outcomes.',
+    desc: 'Enterprise partnerships thrive on certainty. We provide real-time access to serialized asset registers, live processing milestones, and comprehensive settlement documentation through our online client portal, giving compliance officers absolute legal clarity.',
+    bullets: [
+      '24/7 online asset portal with live consignment tracking',
+      'Itemized serialized manifests matching your internal registers',
+      'Prompt remarketing rebates and transparent value returns',
+    ],
+    icon: 'users',
+  },
+  {
+    number: '05',
+    title: 'Continuous Improvement',
+    eyebrow: 'FUTURE-PROOFED STANDARDS',
+    tagline: 'Strengthening processes, technology and service quality over time.',
+    desc: 'We systematically evaluate our operational benchmarks against evolving regulatory mandates, emerging cyber threats, and advanced material recovery methods. Regular independent audits ensure our facilities and technical toolsets lead the UK ITAD sector.',
+    bullets: [
+      'Annual independent compliance, quality, and cyber audits',
+      'Continuous investment in certified high-throughput wiping rigs',
+      'Structured client feedback loops driving workflow enhancements',
+    ],
+    icon: 'sparkles',
+  },
+];
+
+const reviewSlides = [
+  // Slide 1 (Cards 1, 2, 3)
+  [
+    {
+      quote:
+        'TechSteps’ certified chain of custody and serialized destruction reports gave our board total legal confidence during our multi-site data center refresh.',
+      role: 'Chief Information Security Officer',
+      industry: 'Banking & Finance',
+    },
+    {
+      quote:
+        'Security-vetted logistics crews and GPS-tracked lockable vehicles made our nationwide asset collection effortless, auditable, and entirely zero-incident.',
+      role: 'VP of IT Infrastructure',
+      industry: 'Enterprise Cloud',
+    },
+    {
+      quote:
+        'PCI DSS compliant storage and automated Blancco erasure integration allow our DevOps pods to decommission server clusters with zero security friction.',
+      role: 'Chief Technology Officer',
+      industry: 'Fintech & Payments',
+    },
+  ],
+  // Slide 2 (Cards 4, 5, 6)
+  [
+    {
+      quote:
+        'Their zero-to-landfill guarantee and transparent Scope 3 carbon savings reporting directly accelerate our annual ESG disclosure and sustainability goals.',
+      role: 'Head of Sustainability & ESG',
+      industry: 'FTSE 100 Retail',
+    },
+    {
+      quote:
+        'Strict adherence to NHS IG Toolkit and Caldicott principles ensured patient record hardware and clinical telemetry systems were decommissioned with flawless compliance.',
+      role: 'Director of Information Governance',
+      industry: 'Healthcare & NHS',
+    },
+    {
+      quote:
+        'With multi-million-pound GDPR liabilities on client archives, TechSteps’ tamper-proof erasure certificates and BS EN 15713 physical shredding provide absolute certainty.',
+      role: 'General Counsel & Head of Risk',
+      industry: 'Legal & Corporate',
+    },
+  ],
+  // Slide 3 (Cards 7, 8, 9)
+  [
+    {
+      quote:
+        'Managing estate-wide laptop and workstation turnover across 40 UK locations was simplified by TechSteps’ online asset portal and serialized consignment manifests.',
+      role: 'Head of Enterprise Workplace Tech',
+      industry: 'Global Consulting',
+    },
+    {
+      quote:
+        'TechSteps delivered complete circular remarketing rebates for retired mobile and desktop hardware while maintaining uncompromised data sanitisation standards.',
+      role: 'Director of Procurement & Supply Chain',
+      industry: 'Telecommunications',
+    },
+    {
+      quote:
+        'Strict 5-year BS 7858 vetted personnel and dual-custody verification protocols provide complete compliance assurance for our sensitive operational hardware.',
+      role: 'Head of Security Operations',
+      industry: 'Aerospace & Defence',
+    },
+  ],
+];
+---
+
+<BaseLayout
+  title="Our Commitment to Security, Quality & Sustainability — TechSteps UK"
+  description="At TechSteps, our commitment goes beyond delivering services. We focus on protecting sensitive information, managing technology responsibly, maintaining operational accountability and helping organisations achieve sustainable outcomes."
+  canonicalUrl={canonicalUrl}
+  jsonLd={pageSchema}
+  hasHeroHeader={true}
+>
+  <!-- Top Navigation Header on clean white background -->
+  <HeroHeader isHome={false} />
+
+  <div class="our-commitment-page bg-white text-slate-900 selection:bg-[#0F623A] selection:text-white">
+
+    <!-- =====================================================
+         1. HERO SECTION (Ref: About Us Centered Title + Quote + Showcase Card)
+    ====================================================== -->
+    <section
+      id="commitment-hero"
+      class="relative w-full bg-white select-none pt-6 sm:pt-8 lg:pt-10 pb-4 sm:pb-6"
+    >
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Top Centered Heading & Quote (Matching About Us Hero Typography) -->
+        <div class="max-w-4xl lg:max-w-5xl mx-auto text-center space-y-3 sm:space-y-3.5">
+          <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.18em]">
+            Operating Principles &amp; Customer Promises
+          </p>
+          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[46px] xl:text-[50px] font-bold text-slate-900 tracking-tight leading-[1.14]">
+            Our Commitment to <span class="text-[#0F623A]">Security, Quality &amp; Sustainability</span>
+          </h1>
+          <p class="text-base sm:text-lg text-slate-600 font-normal italic leading-relaxed max-w-3xl mx-auto">
+            &ldquo;At TechSteps, our commitment goes beyond delivering services. We focus on protecting sensitive information, managing technology responsibly, maintaining operational accountability and helping organisations achieve sustainable outcomes.&rdquo;
+          </p>
+        </div>
+
+        <!-- Centered Illustration (Panoramic OurCommitment.png) -->
+        <div class="relative w-full max-w-4xl lg:max-w-5xl mx-auto mt-4 sm:mt-5 flex justify-center">
+          <img
+            src="/images/about/certificates/OurCommitment.png"
+            alt="TechSteps core commitments: trust, global sustainability, data security shield, quality standards, and team excellence"
+            class="w-full h-auto object-contain block border-none shadow-none"
+            width="2172"
+            height="724"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         2. SECTION 2 — EDITORIAL SPLIT: PRINCIPLED ACTION & GOVERNANCE
+    ====================================================== -->
+    <section id="commitment-split" class="bg-white py-10 sm:py-14 lg:py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+          <!-- Left Column: Narrative & Checkmarks -->
+          <div class="lg:col-span-7">
+            <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2 sm:mb-3">
+              Enterprise Duty of Care
+            </p>
+            <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-bold text-slate-900 tracking-tight font-display leading-[1.14]">
+              Principled Action, <span class="text-[#0F623A]">Defensible Governance</span>
+            </h2>
+
+            <p class="mt-4 sm:mt-5 text-base sm:text-lg text-slate-700 font-medium leading-relaxed max-w-none">
+              In an era of escalating cybersecurity threats, stringent GDPR enforcement, and heightened corporate ESG disclosure requirements, organisations cannot afford uncertainty in asset retirement. Our operating principles are rooted in legal transparency, verified operational rigour, and circular stewardship.
+            </p>
+
+            <div class="mt-6 sm:mt-8 space-y-3.5">
+              <div class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0 text-xs font-bold">
+                  ✓
+                </div>
+                <span class="text-base font-medium text-slate-800">
+                  Forensically Certified Data Sanitisation &amp; Physical Destruction
+                </span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0 text-xs font-bold">
+                  ✓
+                </div>
+                <span class="text-base font-medium text-slate-800">
+                  Zero-to-Landfill Environmental Duty-of-Care &amp; Waste Hierarchy Alignment
+                </span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0 text-xs font-bold">
+                  ✓
+                </div>
+                <span class="text-base font-medium text-slate-800">
+                  Unbroken Serialized Chain of Custody with Immutable Digital Manifests
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Full Image (Puzzle Connection Visual) -->
+          <div class="lg:col-span-5 flex justify-center lg:justify-end">
+            <img
+              src="/images/about/certificates/image.png"
+              alt="TechSteps collaborative integration and committed operating standards"
+              class="w-full max-w-xs sm:max-w-sm lg:max-w-[360px] h-auto object-contain block border-none shadow-none"
+              width="600"
+              height="800"
+              loading="lazy"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         3. SECTION 3 — ANIMATED STATS STRIP (The Benchmark Figures)
+    ====================================================== -->
+    <section class="bg-white py-8 sm:py-10 select-none">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          id="stats-counter-block"
+          class="flex flex-wrap items-center justify-between gap-6 sm:gap-8 lg:gap-10 text-center"
+        >
+          <!-- Metric 1 -->
+          <div class="stat-item flex-1 min-w-[140px] sm:min-w-0">
+            <span
+              class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+            >
+              100%
+            </span>
+            <span class="block mt-2 text-sm sm:text-base font-medium text-slate-700">
+              Guaranteed Erasure (NIST 800-88)
+            </span>
+          </div>
+
+          <div class="hidden sm:block w-px h-10 bg-slate-200" aria-hidden="true"></div>
+
+          <!-- Metric 2 -->
+          <div class="stat-item flex-1 min-w-[140px] sm:min-w-0">
+            <span
+              class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+            >
+              0%
+            </span>
+            <span class="block mt-2 text-sm sm:text-base font-medium text-slate-700">
+              Landfill (100% Diversion)
+            </span>
+          </div>
+
+          <div class="hidden sm:block w-px h-10 bg-slate-200" aria-hidden="true"></div>
+
+          <!-- Metric 3 -->
+          <div class="stat-item flex-1 min-w-[140px] sm:min-w-0">
+            <span
+              class="block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none"
+            >
+              BS 7858
+            </span>
+            <span class="block mt-2 text-sm sm:text-base font-medium text-slate-700">
+              Security-Vetted Handlers
+            </span>
+          </div>
+
+          <div class="hidden sm:block w-px h-10 bg-slate-200" aria-hidden="true"></div>
+
+          <!-- Metric 4 -->
+          <div class="stat-item flex-1 min-w-[140px] sm:min-w-0">
+            <span
+              class="stat-counter-number block text-3xl sm:text-4xl lg:text-[42px] font-semibold text-[#0F623A] font-display tracking-tight leading-none tabular-nums"
+            >
+              100%
+            </span>
+            <span class="block mt-2 text-sm sm:text-base font-medium text-slate-700">
+              Defensible Audit Trail
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         4. SECTION 4 — THE FIVE CORE COMMITMENTS (Detailed Cards Grid)
+    ====================================================== -->
+    <section id="core-commitments" class="py-14 sm:py-20 lg:py-24 bg-white scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="w-full text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2 sm:mb-3">
+            Our Operational Foundation
+          </p>
+          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold text-slate-900 tracking-tight font-display leading-[1.14]">
+            The Five Pillars of Our <span class="text-[#0F623A]">Customer Promise</span>
+          </h2>
+          <p class="mt-3.5 text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
+            Every collection, sanitisation procedure, and remarketing engagement is governed by five unwavering operational commitments.
+          </p>
+        </div>
+
+        <!-- 5 Commitments Responsive Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          
+          {commitments.map((item, idx) => (
+            <div
+              class={`group relative bg-slate-50/70 hover:bg-white border border-slate-200/90 hover:border-[#0F623A]/40 rounded-2xl p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-md ${
+                idx === 3 || idx === 4 ? 'lg:col-span-1 md:col-span-1' : ''
+              }`}
+            >
+              <div>
+                <!-- Top Badge & Number Header -->
+                <div class="flex items-center justify-between mb-5">
+                  <span class="text-[11px] font-bold text-[#0F623A] uppercase tracking-wider bg-[#0F623A]/10 px-3 py-1 rounded-full">
+                    {item.eyebrow}
+                  </span>
+                  <span class="text-2xl font-bold font-display text-slate-400 group-hover:text-[#0F623A] transition-colors">
+                    {item.number}
+                  </span>
+                </div>
+
+                <!-- Title & Tagline -->
+                <h3 class="text-xl font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug mb-2">
+                  {item.title}
+                </h3>
+                <p class="text-xs sm:text-sm font-semibold text-slate-700 italic mb-4">
+                  &ldquo;{item.tagline}&rdquo;
+                </p>
+
+                <!-- Detailed Narrative -->
+                <p class="text-sm text-slate-600 font-normal leading-relaxed mb-6">
+                  {item.desc}
+                </p>
+              </div>
+
+              <!-- Deliverable Bullets -->
+              <div class="pt-5 border-t border-slate-200/80 space-y-2.5 text-xs text-slate-700 font-medium">
+                {item.bullets.map((bullet) => (
+                  <div class="flex items-start gap-2">
+                    <span class="text-[#0F623A] font-bold shrink-0 mt-0.5">✓</span>
+                    <span>{bullet}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <!-- Highlight / Certification Summary Card for Visual Balance (6th block) -->
+          <div class="bg-gradient-to-br from-[#0c261b] to-[#0F623A] text-white rounded-2xl p-7 sm:p-8 flex flex-col justify-between shadow-sm">
+            <div>
+              <span class="text-[11px] font-bold text-emerald-300 uppercase tracking-wider bg-white/10 px-3 py-1 rounded-full inline-block mb-5">
+                INDEPENDENTLY AUDITED
+              </span>
+              <h3 class="text-xl font-bold text-white font-display leading-snug mb-3">
+                Verified Compliance &amp; Zero Compromise
+              </h3>
+              <p class="text-sm text-emerald-100/90 font-normal leading-relaxed mb-6">
+                Our commitments are backed by UKAS-accredited ISO certifications, direct Environment Agency permits, and automated Blancco erasure integrations.
+              </p>
+            </div>
+            <div class="pt-5 border-t border-white/15 flex items-center justify-between text-xs text-emerald-200">
+              <span class="font-medium">Explore Certifications</span>
+              <a
+                href="/certifications"
+                class="inline-flex items-center gap-1 font-semibold text-white hover:text-emerald-300 transition-colors"
+              >
+                View Register &rarr;
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         5. SECTION 5 — WHAT THIS MEANS FOR OUR CLIENTS (3-and-3 Reviews Carousel)
+    ====================================================== -->
+    <section class="py-14 sm:py-20 lg:py-24 bg-white text-slate-900 select-none overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Heading -->
+        <div class="mb-10 sm:mb-14 text-left">
+          <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2 sm:mb-3">
+            Real-World Impact
+          </p>
+          <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold text-slate-900 tracking-tight font-display leading-[1.14]">
+            What Our Commitments Mean for <span class="text-[#0F623A]">Our Clients</span>
+          </h2>
+        </div>
+
+        <!-- 3-and-3 Card Carousel Slider Track -->
+        <div
+          id="client-reviews-slider"
+          class="relative w-full overflow-hidden"
+          aria-roledescription="carousel"
+          aria-label="Client Testimonials"
+        >
+          <div
+            id="reviews-slides-track"
+            class="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] w-full"
+          >
+            {reviewSlides.map((slide, slideIdx) => (
+              <div
+                class="w-full shrink-0"
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`Slide ${slideIdx + 1} of ${reviewSlides.length}`}
+              >
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                  {slide.map((review) => (
+                    <div class="bg-slate-50/70 hover:bg-slate-50 border border-slate-200/80 rounded-2xl p-6 sm:p-8 flex flex-col justify-between hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300">
+                      <div>
+                        <span
+                          class="text-3xl sm:text-4xl text-[#0F623A] select-none leading-none mb-4 font-bold tracking-tighter block"
+                          style="font-family: Georgia, serif;"
+                          aria-hidden="true"
+                        >
+                          &rdquo;&rdquo;
+                        </span>
+                        <p class="text-sm sm:text-base text-slate-700 font-normal leading-relaxed italic">
+                          &ldquo;{review.quote}&rdquo;
+                        </p>
+                      </div>
+                      <div class="mt-8 pt-5 border-t border-slate-200/80 flex items-center justify-between gap-2">
+                        <span class="text-xs sm:text-sm font-semibold text-slate-900 tracking-wide block truncate">
+                          &mdash; {review.role}
+                        </span>
+                        <span class="shrink-0 text-[10px] sm:text-[11px] font-bold text-[#0F623A] bg-[#0F623A]/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                          {review.industry}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Interactive Bottom Dots Indicator -->
+        <div
+          id="reviews-dots-nav"
+          class="flex items-center justify-center gap-2.5 mt-10 sm:mt-12"
+          role="tablist"
+          aria-label="Testimonial slides pagination"
+        >
+          {reviewSlides.map((_, idx) => (
+            <button
+              type="button"
+              role="tab"
+              data-slide-index={idx}
+              class={`reviews-dot transition-all duration-300 h-2 rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A] ${
+                idx === 0
+                  ? 'active w-7 bg-[#0F623A]'
+                  : 'w-2 bg-slate-300 hover:bg-slate-400'
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+              aria-selected={idx === 0 ? 'true' : 'false'}
+            />
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         6. COMMON CTA (Ref: About Us Page)
+    ====================================================== -->
+    <CTA
+      title="Experience the TechSteps Commitment to Excellence"
+      description="Whether you require nationwide secure collection, certified data destruction, or accredited WEEE recycling, our team delivers with complete integrity."
+      primaryText="Talk to Our Team"
+      primaryHref="/contact"
+      secondaryText="Request a Collection"
+      secondaryHref="/request-a-collection"
+    />
+
+  </div>
+</BaseLayout>
+
+<style>
+/* =========================================================
+   STATS COUNTER ANIMATION
+========================================================= */
+.stat-counter-number {
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  min-width: 3.2ch;
+}
+
+/* =========================================================
+   CLIENT REVIEWS 3-CARD CAROUSEL
+========================================================= */
+#reviews-slides-track {
+  will-change: transform;
+}
+.reviews-dot {
+  transform: translateZ(0);
+}
+</style>
+
+<!-- Client Script for Animated Counters & 3-and-3 Carousel -->
+<script>
+  function initCommitmentPage() {
+    // 1. Animated Stats Counter (Ref: About Us)
+    const statsBlock = document.getElementById('stats-counter-block');
+    if (statsBlock && statsBlock.dataset.observed !== 'true') {
+      statsBlock.dataset.observed = 'true';
+      const statElements = statsBlock.querySelectorAll<HTMLElement>('.stat-counter-number');
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!prefersReducedMotion && 'IntersectionObserver' in window && statElements.length) {
+        const parsedStats: {
+          element: HTMLElement;
+          raw: string;
+          prefix: string;
+          target: number;
+          suffix: string;
+          start: number;
+        }[] = [];
+
+        statElements.forEach((el) => {
+          const raw = (el.textContent || '').trim();
+          const match = raw.match(/^([^\d]*)(\d+)(.*)$/);
+          if (match) {
+            const prefix = match[1] || '';
+            const target = parseInt(match[2], 10);
+            const suffix = match[3] || '';
+            const start = target === 0 ? 100 : 0;
+            parsedStats.push({ element: el, raw, prefix, target, suffix, start });
+          }
+        });
+
+        if (parsedStats.length) {
+          const statsObserver = new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  observer.unobserve(entry.target);
+                  const duration = 1800;
+                  let startTime: number | null = null;
+
+                  function step(timestamp: number) {
+                    if (!startTime) startTime = timestamp;
+                    const elapsed = timestamp - startTime;
+                    const p = Math.min(1, elapsed / duration);
+                    const eased = 1 - Math.pow(1 - p, 3);
+
+                    parsedStats.forEach((stat) => {
+                      const current = Math.round(stat.start + (stat.target - stat.start) * eased);
+                      stat.element.textContent = stat.prefix + current + stat.suffix;
+                    });
+
+                    if (p < 1) {
+                      requestAnimationFrame(step);
+                    } else {
+                      parsedStats.forEach((stat) => {
+                        stat.element.textContent = stat.raw;
+                      });
+                    }
+                  }
+
+                  requestAnimationFrame(step);
+                }
+              });
+            },
+            { threshold: 0.4 }
+          );
+
+          statsObserver.observe(statsBlock);
+        }
+      }
+    }
+
+    // 2. Client Reviews 3-Card Carousel with Auto-Scroll & Interactive Dots
+    const slider = document.getElementById('client-reviews-slider');
+    const track = document.getElementById('reviews-slides-track');
+    const dotsContainer = document.getElementById('reviews-dots-nav');
+
+    if (slider && track && dotsContainer) {
+      const dots = dotsContainer.querySelectorAll<HTMLButtonElement>('.reviews-dot');
+      const totalSlides = dots.length;
+      let currentSlide = 0;
+      let autoScrollTimer: ReturnType<typeof setInterval> | null = null;
+      const slideInterval = 5500;
+
+      function updateSlide(index: number) {
+        currentSlide = (index + totalSlides) % totalSlides;
+        if (track) {
+          track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        dots.forEach((dot, idx) => {
+          if (idx === currentSlide) {
+            dot.classList.add('w-7', 'bg-[#0F623A]');
+            dot.classList.remove('w-2', 'bg-slate-300', 'hover:bg-slate-400');
+            dot.setAttribute('aria-selected', 'true');
+          } else {
+            dot.classList.remove('w-7', 'bg-[#0F623A]');
+            dot.classList.add('w-2', 'bg-slate-300', 'hover:bg-slate-400');
+            dot.setAttribute('aria-selected', 'false');
+          }
+        });
+      }
+
+      function startTimer() {
+        stopTimer();
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion || totalSlides <= 1) return;
+        autoScrollTimer = setInterval(() => {
+          updateSlide(currentSlide + 1);
+        }, slideInterval);
+      }
+
+      function stopTimer() {
+        if (autoScrollTimer !== null) {
+          clearInterval(autoScrollTimer);
+          autoScrollTimer = null;
+        }
+      }
+
+      if (slider.dataset.bound !== 'true') {
+        slider.dataset.bound = 'true';
+
+        dots.forEach((dot) => {
+          dot.addEventListener('click', () => {
+            const targetIdx = parseInt(dot.dataset.slideIndex || '0', 10);
+            updateSlide(targetIdx);
+            startTimer();
+          });
+        });
+
+        slider.addEventListener('mouseenter', stopTimer);
+        slider.addEventListener('mouseleave', startTimer);
+        dotsContainer.addEventListener('mouseenter', stopTimer);
+        dotsContainer.addEventListener('mouseleave', startTimer);
+
+        let touchStartX = 0;
+        slider.addEventListener(
+          'touchstart',
+          (e) => {
+            touchStartX = e.changedTouches[0].clientX;
+            stopTimer();
+          },
+          { passive: true }
+        );
+
+        slider.addEventListener(
+          'touchend',
+          (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 45) {
+              if (diff > 0) {
+                updateSlide(currentSlide + 1);
+              } else {
+                updateSlide(currentSlide - 1);
+              }
+            }
+            startTimer();
+          },
+          { passive: true }
+        );
+      }
+
+      updateSlide(0);
+      startTimer();
+    }
+  }
+
+  // Initial and Astro navigation setup
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCommitmentPage);
+  } else {
+    initCommitmentPage();
+  }
+  document.addEventListener('astro:page-load', initCommitmentPage);
+</script>
