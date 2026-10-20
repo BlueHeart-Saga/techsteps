@@ -3,20 +3,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import HeroHeader from '../../components/global/HeroHeader.astro';
 import CTA from '../../components/global/cta.astro';
-import { insightsApi, isPublishedPost, type Post } from '../../lib/insightsApi';
 import InlineNewsletter from '../../components/newsletter/InlineNewsletter';
-
-const breadcrumbs = [
-  { name: 'Insights', url: '/insights' },
-];
+import { insightsApi, isPublishedPost, type Post } from '../../lib/insightsApi';
+import {
+  getCategoryHeroImage,
+  getCategoryDescription,
+  formatCategoryTitle,
+  type CategoryMeta,
+} from '../../lib/insightsCategories';
 
 let apiPosts: Post[] = [];
 let siteStructure: any[] = [];
 
 try {
   const [postsRes, structureRes] = await Promise.all([
-    insightsApi.getAllPosts(50),
-    insightsApi.getFullSiteStructure()
+    insightsApi.getAllPosts(100),
+    insightsApi.getFullSiteStructure(),
   ]);
   apiPosts = (postsRes || []).filter(isPublishedPost);
   siteStructure = structureRes || [];
@@ -26,485 +28,526 @@ try {
 
 const posts = apiPosts;
 
-// Allowed categories requested: Blogs, Testimonials, Impact
-const ALLOWED_CATEGORIES_CONFIG = [
-  {
-    name: 'Blogs',
-    slug: 'blogs',
-    description: 'Expert technical analysis, regulatory compliance briefings, and IT lifecycle best practice guides.',
-    aliases: ['blogs', 'blog'],
-  },
-  {
-    name: 'Testimonials',
-    slug: 'testimonials',
-    description: 'Verified enterprise client feedback, NHS acute trust reviews, and stakeholder endorsements.',
-    aliases: ['testimonials', 'testimonial', 'reviews'],
-  },
-  {
-    name: 'Impact Content',
-    slug: 'impact-metrics',
-    description: 'Measured sustainability metrics, e-waste diversion results, carbon footprint reduction, and ESG reporting.',
-    aliases: ['impact-metrics', 'impact', 'impact-content'],
-  },
-];
+// Dynamically assemble categories solely from the live backend
+const categoriesMap = new Map<string, CategoryMeta>();
 
-// Dynamic categories restricted to only the 3 requested categories
-const availableCategories = ALLOWED_CATEGORIES_CONFIG.map((conf) => {
-  const count = posts.filter((p) => {
-    const slug = (p.category?.slug || '').toLowerCase();
-    const name = (p.category?.name || '').toLowerCase();
-    return conf.aliases.includes(slug) || conf.aliases.some((a) => slug.includes(a) || name.includes(a));
-  }).length;
-
-  return {
-    name: conf.name,
-    slug: conf.slug,
-    description: conf.description,
-    count,
-  };
+// 1. Populate from live siteStructure (sections & categories configured in MediaHub)
+siteStructure.forEach((sec: any) => {
+  (sec.categories || []).forEach((cat: any) => {
+    if (cat.slug) {
+      categoriesMap.set(cat.slug, {
+        name: cat.name || formatCategoryTitle(cat.name, cat.slug),
+        slug: cat.slug,
+        description: getCategoryDescription(cat.slug, cat.description),
+        image: getCategoryHeroImage(cat.slug),
+        sectionName: sec.name || 'Insights & Knowledge',
+        sectionSlug: sec.slug || 'insights-knowledge',
+        count: 0,
+      });
+    }
+  });
 });
 
-// Featured post: priority to post with featured: true, else first post
+// 2. Ensure every category present on live published posts is also captured
+posts.forEach((p) => {
+  const catSlug = p.category?.slug;
+  if (catSlug) {
+    if (!categoriesMap.has(catSlug)) {
+      categoriesMap.set(catSlug, {
+        name: p.category?.name || formatCategoryTitle(p.category?.name, catSlug),
+        slug: catSlug,
+        description: getCategoryDescription(catSlug),
+        image: getCategoryHeroImage(catSlug),
+        sectionName: p.section?.name || 'Insights & Knowledge',
+        sectionSlug: p.section?.slug || 'insights-knowledge',
+        count: 0,
+      });
+    }
+  }
+});
+
+// 3. Compute real post counts directly from backend posts
+posts.forEach((p) => {
+  const catSlug = p.category?.slug;
+  if (catSlug && categoriesMap.has(catSlug)) {
+    categoriesMap.get(catSlug)!.count += 1;
+  }
+});
+
+const allBackendCategories = Array.from(categoriesMap.values());
+
+// Categories that have published posts, prioritized first, then other available categories
+const activeCategories = allBackendCategories
+  .filter((c) => c.count > 0)
+  .sort((a, b) => b.count - a.count);
+
+// Featured post: priority to post with featured: true, else first published post
 const featuredArticle = posts.find((p) => p.featured) || posts[0];
 const remainingArticles = posts.filter((p) => p.id !== featuredArticle?.id);
+
+const canonicalUrl = 'https://techsteps.co.uk/insights';
 ---
 
 <BaseLayout
-  title="Insights & Research Hub | Technology Lifecycle & Data Security | TechSteps"
+  title="Insights & Research Hub — TechSteps UK"
   description="Explore expert analysis, certified ITAD whitepapers, BS 10008 legal admissibility guides, and zero-landfill ESG case studies from TechSteps UK."
+  canonicalUrl={canonicalUrl}
   hasHeroHeader={true}
 >
+  <!-- Top Navigation Header on clean white background (About Us standard) -->
+  <HeroHeader isHome={false} />
 
-  <!-- =========================
-       1. INSIGHTS HERO SECTION
-       Featuring /images/hero/Insights.webp
-  ========================= -->
-  <section
-    id="insights-hero"
-    class="relative w-full overflow-hidden bg-white select-none pt-0 pb-3 sm:pb-6 lg:pb-8 border-b border-slate-100"
-  >
-    <!-- Top Hero Header (Integrated light hero navbar) -->
-    <HeroHeader isHome={true} />
+  <div class="insights-page-wrapper bg-white text-slate-900 selection:bg-[#0F623A] selection:text-white">
 
-    <!-- Breadcrumbs -->
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4">
-      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-1 sm:mb-2">
-        <a href="/" class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
-          Home
-        </a>
-        <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
-        <span class="text-slate-900 font-bold">Insights</span>
-      </nav>
-    </div>
+    <!-- =====================================================
+         1. SECTION 1 — HERO SECTION (About-Us Layout & Fonts)
+         Featuring /images/about/inshits/main-hero.png
+    ====================================================== -->
+    <section
+      id="insights-hero"
+      class="relative w-full bg-white select-none pt-4 sm:pt-6 lg:pt-8 pb-6 sm:pb-8 border-b border-slate-100"
+    >
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- Centered Visual Composition: Insights.webp -->
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-1 sm:pt-2">
-      <!-- Semantic H1 for SEO & Accessibility -->
-      <h1 class="sr-only">TechSteps Insights &amp; Research Hub - Ideas for a Smarter Technology Lifecycle</h1>
-
-      <!-- Hero Graphic -->
-      <div class="relative w-full max-w-6xl xl:max-w-7xl mx-auto flex items-center justify-center">
-        <img
-          src="/images/hero/Insights.webp"
-          alt="TechSteps Insights & Research Hub - Industry Insights, Sustainability, Tips & How-to, Data Security, IT Asset Management, Circular Technology"
-          class="w-full max-w-[1240px] h-auto max-h-[580px] lg:max-h-[660px] xl:max-h-[740px] object-contain mx-auto block select-none pointer-events-none"
-          loading="eager"
-          fetchpriority="high"
-          decoding="sync"
-        />
-      </div>
-
-      <!-- Action Buttons & Subtitle -->
-      {/*<div class="mt-6 sm:mt-8 max-w-3xl mx-auto space-y-5">
-        <p class="text-base sm:text-lg lg:text-xl text-black leading-relaxed font-sans font-normal">
-          Explore verified analysis on IT asset management, military-grade data sanitisation, BS 10008 document integrity, and circular ESG metrics.
-        </p>
-
-        <div class="flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
-          <a
-            href="#featured-insight"
-            class="inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-none bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
-          >
-            <span>Explore Featured Research</span>
-            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
+        <!-- Breadcrumbs -->
+        <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-4 sm:mb-5">
+          <a href="/" class="text-slate-600 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
+            Home
           </a>
-          <a
-            href="#all-insights"
-            class="inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-none bg-white hover:bg-slate-50 border-2 border-[#0F623A] hover:border-[#0c4e2e] text-[#0F623A] hover:text-[#0c4e2e] text-sm sm:text-base font-bold transition-all duration-200 hover:scale-[1.02] shadow-xs focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
-          >
-            Browse All Articles ({posts.length})
-          </a>
-        </div>
-      </div>*/}
-    </div>
-  </section>
+          <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
+          <span class="text-slate-900 font-bold">Insights</span>
+        </nav>
 
-  <!-- ===== 2. DYNAMIC TAXONOMY & CATEGORY PILLS BAR ===== -->
-  <section class="bg-white border-b border-slate-200 sticky top-0 z-30 backdrop-blur-md bg-white/95 shadow-xs">
-    <Container>
-      <div class="overflow-x-auto scrollbar-hide py-4 -mx-4 px-4">
-        <div class="flex items-center gap-2 min-w-max">
-          <span class="text-xs font-bold uppercase tracking-widest text-slate-400 mr-2 shrink-0">
-            Categories:
-          </span>
-          <a
-            href="/insights"
-            class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-900 text-white border border-slate-900 transition-all duration-200 shrink-0"
-          >
-            All Insights ({posts.length})
-          </a>
-          {availableCategories.map((cat) => (
-            <a
-              href={`/insights/${cat.slug}`}
-              class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 border border-slate-200 hover:border-emerald-300 transition-all duration-200 shrink-0 flex items-center gap-1.5"
-            >
-              <span>{cat.name}</span>
-              {cat.count > 0 && (
-                <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-200 text-slate-700">
-                  {cat.count}
-                </span>
-              )}
-            </a>
-          ))}
-        </div>
-      </div>
-    </Container>
-  </section>
-
-  <!-- ===== 3. FEATURED INSIGHT ===== -->
-  {featuredArticle && (
-    <section id="featured-insight" class="bg-white py-8 lg:py-12">
-      <Container>
-        <div class="flex items-center justify-between gap-4 mb-8">
-          <div class="flex items-center gap-3">
-            <span class="inline-flex items-center gap-1.5 text-xs font-bold tracking-widest uppercase text-[#2D6A4F] bg-[#2D6A4F]/10 px-3 py-1 rounded-full">
-              <span class="w-2 h-2 rounded-full bg-[#2D6A4F] animate-pulse"></span>
-              Spotlight Insight
-            </span>
-            <span class="text-xs text-slate-400 font-mono">ADISA &amp; ESG Series</span>
+        <!-- Top Centered Heading & Subtitle Statement -->
+        <div class="max-w-4xl mx-auto text-center space-y-3 sm:space-y-4">
+          <div class="inline-flex items-center gap-2 text-xs font-bold text-[#0F623A] uppercase tracking-[0.16em] bg-[#0F623A]/10 px-4 py-1.5 rounded-full">
+            <span>TechSteps Insights Hub</span>
+            <span class="h-1.5 w-1.5 rounded-full bg-[#0F623A]"></span>
+            <span>{posts.length} Publications</span>
           </div>
-          <a
-            href={`/insights/${featuredArticle.category?.slug || 'blogs'}`}
-            class="text-xs font-bold text-slate-500 hover:text-[#2D6A4F] transition-colors"
-          >
-            More in {featuredArticle.category?.name || 'Blogs'} &rarr;
-          </a>
-        </div>
 
-        <a
-          href={`/insights/${featuredArticle.category?.slug || 'blogs'}/${featuredArticle.seoSlug || featuredArticle.id}`}
-          class="group block"
-        >
-          <div class="grid lg:grid-cols-12 gap-0 rounded-[20px] overflow-hidden border border-slate-200 hover:border-[#2D6A4F]/40 hover:shadow-2xl transition-all duration-500 bg-white">
-            <!-- Cover / Illustration Panel -->
-            <div class="lg:col-span-7 relative min-h-[300px] lg:min-h-[460px] bg-gradient-to-br from-slate-900 via-[#152e20] to-[#2D6A4F] overflow-hidden flex flex-col justify-between p-8 sm:p-10">
-              <!-- Background pattern -->
-              <div class="absolute inset-0 opacity-15" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px;"></div>
+          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-slate-900 tracking-tight leading-[1.12]">
+            Knowledge, Analysis &amp; Industry <span class="text-[#0F623A]">Perspectives</span>
+          </h1>
 
-              {featuredArticle.coverImage && (
-                <img
-                  src={insightsApi.getImageUrl(featuredArticle.coverImage)}
-                  alt={featuredArticle.title}
-                  class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40 group-hover:scale-105 transition-transform duration-700"
-                />
-              )}
-
-              <!-- Top badges -->
-              <div class="relative z-10 flex items-center justify-between">
-                <span class="text-[11px] font-bold uppercase tracking-widest text-emerald-300 border border-emerald-400/40 bg-emerald-950/60 backdrop-blur-sm px-3 py-1 rounded-full">
-                  {featuredArticle.category?.name || 'Insight'}
-                </span>
-                <span class="text-xs font-mono text-emerald-200/90 bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">
-                  {featuredArticle.readTime}
-                </span>
-              </div>
-
-              <!-- Decorative center watermark icon -->
-              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 pointer-events-none">
-                <svg class="w-72 h-72 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
-              </div>
-
-              <!-- Bottom metadata on visual card -->
-              <div class="relative z-10 mt-auto pt-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent -mx-8 -mb-8 sm:-mx-10 sm:-mb-10 p-8 sm:p-10">
-                <div class="flex flex-wrap items-center gap-4 text-xs text-slate-300">
-                  <span class="flex items-center gap-1.5">
-                    <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    {featuredArticle.date}
-                  </span>
-                  <span>&bull;</span>
-                  <span class="flex items-center gap-1.5">
-                    <svg class="w-4 h-4 text-rose-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-                    </svg>
-                    {featuredArticle.likes || 0} Likes
-                  </span>
-                  <span>&bull;</span>
-                  <span class="flex items-center gap-1.5">
-                    <svg class="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
-                    {featuredArticle.views || 0} Views
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Content Panel -->
-            <div class="lg:col-span-5 p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center gap-2 mb-4">
-                  <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                    {featuredArticle.section?.name || 'Knowledge Hub'}
-                  </span>
-                </div>
-
-                <h2 class="text-2xl sm:text-3xl font-semibold text-slate-900 leading-tight group-hover:text-[#2D6A4F] transition-colors duration-300 mb-4">
-                  {featuredArticle.title}
-                </h2>
-
-                {featuredArticle.subtitle && (
-                  <p class="text-sm font-semibold text-slate-700 mb-3">
-                    {featuredArticle.subtitle}
-                  </p>
-                )}
-
-                <p class="text-base sm:text-lg text-black leading-relaxed line-clamp-4">
-                  {featuredArticle.excerpt}
-                </p>
-
-                {featuredArticle.tags && featuredArticle.tags.length > 0 && (
-                  <div class="flex flex-wrap gap-1.5 mt-5">
-                    {featuredArticle.tags.map((tag) => (
-                      <span class="text-[11px] font-medium text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-[8px]">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
-                <!-- Author -->
-                <div class="flex items-center gap-3">
-                  <div class="h-10 w-10 rounded-full bg-[#2D6A4F]/15 border border-[#2D6A4F]/30 flex items-center justify-center font-bold text-[#2D6A4F] text-sm shrink-0">
-                    {featuredArticle.author.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
-                  </div>
-                  <div>
-                    <p class="text-sm font-bold text-slate-900">{featuredArticle.author}</p>
-                    <p class="text-xs text-slate-500">{featuredArticle.authorRole || 'Contributor'}</p>
-                  </div>
-                </div>
-
-                <span class="inline-flex items-center gap-2 text-sm font-bold text-[#2D6A4F] group-hover:gap-3 transition-all duration-200">
-                  Read Full Insight
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                  </svg>
-                </span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </Container>
-    </section>
-  )}
-
-  <!-- ===== 4. ALL INSIGHTS GRID ===== -->
-  <section id="all-insights" class="bg-[#fafbf9] py-8 lg:py-10 border-t border-slate-200">
-    <Container>
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
-        <div>
-          <span class="text-xs font-bold uppercase tracking-widest text-[#2D6A4F] block mb-2">
-            Research &amp; Publications
-          </span>
-          <h2 class="text-3xl font-semibold text-slate-900">Latest Insights</h2>
-          <p class="text-sm text-slate-500 mt-1">
-            Browse all certified analyses, whitepapers, and operational reports.
+          <p class="text-base sm:text-lg text-slate-600 font-normal italic leading-relaxed max-w-3xl mx-auto">
+            &ldquo;Practical technical briefings, compliance insights, and data-driven perspectives on enterprise technology lifecycle management and circular sustainability.&rdquo;
           </p>
         </div>
 
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-semibold text-slate-500 bg-white border border-slate-200 px-3 py-1.5 rounded-[8px] shadow-xs">
-            Showing {posts.length} Active Articles
-          </span>
+        <!-- Centered Main Hero Panoramic Visual -->
+        <div class="relative w-full max-w-5xl lg:max-w-6xl mx-auto mt-6 sm:mt-8 flex justify-center">
+          <img
+            src="/images/about/inshits/main-hero.png"
+            alt="TechSteps Insights and Research Hub Overview"
+            class="w-full h-auto object-contain block border-none shadow-none"
+            width="2172"
+            height="724"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =====================================================
+         2. SECTION 2 — DYNAMIC BACKEND CATEGORIES NAVIGATION BAR
+    ====================================================== -->
+    <nav aria-label="Insights Categories" class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="overflow-x-auto scrollbar-hide py-3.5 -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div class="flex items-center gap-2 min-w-max">
+            <span class="text-xs font-bold uppercase tracking-[0.14em] text-slate-400 mr-2 shrink-0">
+              Categories:
+            </span>
+
+            <a
+              href="/insights"
+              class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-[#0F623A] text-white shadow-xs transition-all duration-200 shrink-0"
+            >
+              All Insights ({posts.length})
+            </a>
+
+            {allBackendCategories.map((cat) => (
+              <a
+                href={`/insights/${cat.slug}`}
+                class={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider border transition-all duration-200 shrink-0 flex items-center gap-1.5 ${
+                  cat.count > 0
+                    ? 'bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-[#0F623A] border-slate-200 hover:border-[#0F623A]/40'
+                    : 'bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-800 border-slate-200'
+                }`}
+              >
+                <span>{cat.name}</span>
+                {cat.count > 0 && (
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/80 text-slate-700 font-semibold">
+                    {cat.count}
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
+    </nav>
 
-      {posts.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {remainingArticles.map((article) => (
+    <!-- =====================================================
+         3. SECTION 3 — FEATURED ARTICLE SPOTLIGHT
+    ====================================================== -->
+    {featuredArticle && (
+      <section id="featured-article" class="py-10 sm:py-14 bg-white border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 sm:mb-8">
+            <div class="flex items-center gap-2.5">
+              <span class="inline-flex items-center gap-1.5 text-xs font-bold tracking-wider uppercase text-[#0F623A] bg-[#0F623A]/10 px-3 py-1 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-[#0F623A] animate-pulse"></span>
+                Featured Publication
+              </span>
+              <span class="text-xs text-slate-400 font-medium">Verified Analysis</span>
+            </div>
+
             <a
-              href={`/insights/${article.category?.slug || 'blogs'}/${article.seoSlug || article.id}`}
-              class="group flex flex-col bg-white rounded-[16px] border border-slate-200 hover:border-[#2D6A4F]/50 hover:shadow-xl transition-all duration-300 overflow-hidden"
+              href={`/insights/${featuredArticle.category?.slug || 'blogs'}`}
+              class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0F623A] hover:underline"
             >
-              <!-- Card visual header -->
-              <div class="relative h-48 bg-gradient-to-br from-slate-900 via-[#182f22] to-[#2D6A4F] overflow-hidden flex-shrink-0">
-                <div class="absolute inset-0 opacity-15" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+              <span>More in {featuredArticle.category?.name || 'Blogs'}</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
 
-                {article.coverImage && (
+          <a
+            href={`/insights/${featuredArticle.category?.slug || 'blogs'}/${featuredArticle.seoSlug || featuredArticle.id}`}
+            class="group block bg-white hover:bg-slate-50/70 border border-slate-200/90 hover:border-[#0F623A]/40 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+              <!-- Visual Cover Panel -->
+              <div class="lg:col-span-7 relative min-h-[280px] sm:min-h-[360px] lg:min-h-[420px] bg-slate-900 overflow-hidden flex flex-col justify-between p-6 sm:p-8 lg:p-10">
+                <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle, #ffffff 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+                {featuredArticle.image ? (
                   <img
-                    src={insightsApi.getImageUrl(article.coverImage)}
-                    alt={article.title}
-                    class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50 group-hover:scale-105 transition-transform duration-500"
+                    src={featuredArticle.image}
+                    alt={featuredArticle.title}
+                    class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60 group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                ) : (
+                  <img
+                    src={getCategoryHeroImage(featuredArticle.category?.slug || 'blogs')}
+                    alt={featuredArticle.title}
+                    class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40 group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
                   />
                 )}
 
-                <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
-                  <span class="inline-block text-[10px] font-bold uppercase tracking-widest text-emerald-300 border border-emerald-400/40 bg-black/40 backdrop-blur-xs px-2.5 py-0.5 rounded-full">
-                    {article.category?.name || 'Insight'}
+                <!-- Top metadata badges -->
+                <div class="relative z-10 flex items-center justify-between gap-3">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-300 bg-emerald-950/80 border border-emerald-400/30 px-3 py-1 rounded-full backdrop-blur-sm">
+                    {featuredArticle.category?.name || 'Publication'}
                   </span>
-                  <span class="text-[11px] font-mono text-emerald-200 bg-black/40 px-2.5 py-0.5 rounded-full backdrop-blur-xs">
-                    {article.readTime}
+                  <span class="text-xs font-semibold text-slate-200 bg-black/60 px-3 py-1 rounded-full backdrop-blur-sm">
+                    {featuredArticle.readTime} min read
                   </span>
                 </div>
 
-                <div class="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] text-slate-300">
-                  <span>{article.date}</span>
-                  <div class="flex items-center gap-3">
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-rose-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                <!-- Bottom overlay details -->
+                <div class="relative z-10 mt-auto pt-6 text-xs text-slate-300 flex flex-wrap items-center gap-4">
+                  {featuredArticle.date && (
+                    <span class="flex items-center gap-1.5 font-medium">
+                      <svg class="w-4 h-4 text-[#0F623A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
-                      {article.likes || 0}
+                      {featuredArticle.date}
                     </span>
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      {article.views || 0}
-                    </span>
-                  </div>
+                  )}
+                  {featuredArticle.section?.name && (
+                    <>
+                      <span>&bull;</span>
+                      <span class="text-slate-300 font-medium">{featuredArticle.section.name}</span>
+                    </>
+                  )}
                 </div>
               </div>
 
-              <!-- Card body -->
-              <div class="flex-1 flex flex-col p-6">
-                <h3 class="text-lg font-semibold text-slate-900 group-hover:text-[#2D6A4F] transition-colors leading-snug mb-3 line-clamp-2">
-                  {article.title}
-                </h3>
-                <p class="text-base text-black leading-relaxed line-clamp-3 flex-1 mb-4">
-                  {article.excerpt}
-                </p>
+              <!-- Content Panel -->
+              <div class="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+                <div>
+                  <p class="text-xs font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2">
+                    {featuredArticle.section?.name || 'Insights & Knowledge'}
+                  </p>
 
-                <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <div class="h-7 w-7 rounded-full bg-[#2D6A4F]/10 border border-[#2D6A4F]/20 flex items-center justify-center text-[10px] font-bold text-[#2D6A4F]">
-                      {article.author.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
+                  <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-[1.2] mb-3">
+                    {featuredArticle.title}
+                  </h2>
+
+                  {featuredArticle.subtitle && (
+                    <p class="text-sm font-semibold text-slate-700 mb-3 italic">
+                      {featuredArticle.subtitle}
+                    </p>
+                  )}
+
+                  <p class="text-base text-slate-600 leading-relaxed line-clamp-4">
+                    {featuredArticle.excerpt}
+                  </p>
+
+                  {featuredArticle.tags && featuredArticle.tags.length > 0 && (
+                    <div class="flex flex-wrap gap-1.5 mt-5">
+                      {featuredArticle.tags.slice(0, 4).map((tag: string) => (
+                        <span class="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-md">
+                          #{tag}
+                        </span>
+                      ))}
                     </div>
-                    <p class="text-xs font-semibold text-slate-700 line-clamp-1">{article.author}</p>
+                  )}
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-bold text-slate-900">{featuredArticle.author}</p>
+                    <p class="text-xs text-slate-500">TechSteps Compliance &amp; ITAD Desk</p>
                   </div>
-                  <span class="flex items-center gap-1 text-xs font-bold text-[#2D6A4F] group-hover:gap-2 transition-all">
-                    Read
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
+
+                  <span class="inline-flex items-center gap-1.5 text-sm font-bold text-[#0F623A] group-hover:gap-2.5 transition-all">
+                    Read Article
+                    <span>&rarr;</span>
                   </span>
+                </div>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </section>
+    )}
+
+    <!-- =====================================================
+         4. SECTION 4 — BROWSE BY CATEGORY (Backend Categories)
+         Uses dedicated artwork: 01_Blogs_Articles.png, 02_Case_Studies.png, etc.
+    ====================================================== -->
+    <section id="categories-hub" class="py-12 sm:py-16 bg-slate-50/60 border-b border-slate-200/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Section Header -->
+        <div class="max-w-3xl mb-8 sm:mb-12">
+          <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2">
+            Categories &amp; Resource Hub
+          </p>
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-[40px] font-bold text-slate-900 tracking-tight leading-[1.14]">
+            Explore TechSteps by <span class="text-[#0F623A]">Topic</span>
+          </h2>
+          <p class="text-base sm:text-lg text-slate-600 mt-2 leading-relaxed">
+            All categories are maintained directly within our backend content system, delivering focused intelligence across every facet of technology management.
+          </p>
+        </div>
+
+        <!-- Categories Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {allBackendCategories.map((cat) => (
+            <a
+              href={`/insights/${cat.slug}`}
+              class="group bg-white hover:bg-slate-50/60 border border-slate-200/80 hover:border-[#0F623A]/40 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            >
+              <!-- Card Top Illustration -->
+              <div class="relative w-full aspect-[720/420] bg-slate-100 overflow-hidden flex items-center justify-center border-b border-slate-100">
+                <img
+                  src={cat.image}
+                  alt={`${cat.name} category illustration`}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div class="absolute top-3 right-3">
+                  <span class={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-xs ${
+                    cat.count > 0
+                      ? 'bg-[#0F623A] text-white'
+                      : 'bg-white/90 text-slate-600 backdrop-blur-sm'
+                  }`}>
+                    {cat.count > 0 ? `${cat.count} ${cat.count === 1 ? 'Article' : 'Articles'}` : 'Hub Active'}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Card Body -->
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <p class="text-xs font-bold text-[#0F623A] uppercase tracking-[0.14em] mb-1.5">
+                    {cat.sectionName}
+                  </p>
+                  <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug mb-2.5">
+                    {cat.name}
+                  </h3>
+                  <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                    {cat.description}
+                  </p>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#0F623A]">
+                  <span>Explore {cat.name}</span>
+                  <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
                 </div>
               </div>
             </a>
           ))}
         </div>
-      ) : (
-        <div class="max-w-xl mx-auto bg-white rounded-[16px] p-10 border border-slate-200 text-center shadow-sm my-6">
-          <div class="h-16 w-16 rounded-[12px] bg-emerald-50 border border-emerald-200/80 flex items-center justify-center mx-auto mb-5 text-[#2D6A4F]">
-            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-            </svg>
+
+      </div>
+    </section>
+
+    <!-- =====================================================
+         5. SECTION 5 — ALL ARTICLES GRID (Real Backend Posts)
+    ====================================================== -->
+    <section id="all-publications" class="py-12 sm:py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Grid Header -->
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
+          <div>
+            <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-1.5">
+              Published Briefings
+            </p>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight leading-[1.15]">
+              Latest Publications &amp; <span class="text-[#0F623A]">Briefings</span>
+            </h2>
           </div>
-          <h3 class="text-xl font-semibold text-slate-900 mb-2">
-            No Insights Published Yet
-          </h3>
-          <p class="text-base text-black mb-8 leading-relaxed">
-            Our team is currently preparing verified case studies, compliance briefs, and whitepapers for TechSteps. Check back soon or contact our advisory team directly.
-          </p>
-          <a
-            href="/contact"
-            class="inline-block px-6 py-3 rounded-[12px] bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider transition-colors"
-          >
-            Speak to Our Team
-          </a>
+
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold text-slate-600 bg-slate-100 border border-slate-200 px-3.5 py-1.5 rounded-full">
+              Showing {posts.length} verified publications
+            </span>
+          </div>
         </div>
-      )}
-    </Container>
-  </section>
 
-  <!-- ===== 5. CURATED KNOWLEDGE PILLARS ===== -->
-  <section class="bg-white py-8 lg:py-12 border-t border-slate-200">
-    <Container>
-      <div class="text-center max-w-2xl mx-auto mb-14">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-3">
-          Knowledge Pillars
-        </span>
-        <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight">
-          Explore Our Insights
-        </h2>
-        <p class="text-sm text-slate-500 mt-2">
-          Dive into our verified industry research, client reviews, and environmental impact data.
-        </p>
-      </div>
+        {posts.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {posts.map((article) => {
+              const postCategorySlug = article.category?.slug || 'blogs';
+              const postUrl = `/insights/${postCategorySlug}/${article.seoSlug || article.id}`;
+              const fallbackImage = getCategoryHeroImage(postCategorySlug);
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {availableCategories.map((cat) => (
-          <div class="bg-slate-50 rounded-[16px] p-7 border border-slate-200/90 flex flex-col justify-between hover:border-[#2D6A4F]/40 hover:shadow-md transition-all">
-            <div>
-              <div class="flex items-center gap-2.5 mb-4">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#2D6A4F]"></span>
-                <h3 class="text-xl font-semibold text-slate-900">{cat.name}</h3>
-              </div>
-              <p class="text-base text-black leading-relaxed mb-6">
-                {cat.description}
-              </p>
-            </div>
+              return (
+                <a
+                  href={postUrl}
+                  class="group bg-white hover:bg-slate-50/50 border border-slate-200/80 hover:border-[#0F623A]/40 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                >
+                  <!-- Card Visual -->
+                  <div class="relative w-full aspect-[16/10] bg-slate-900 overflow-hidden">
+                    {article.image ? (
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <img
+                        src={fallbackImage}
+                        alt={article.title}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    )}
 
-            <div class="pt-4 border-t border-slate-200 flex items-center justify-between">
-              <span class="text-xs font-semibold text-slate-400">
-                {cat.count > 0 ? `${cat.count} published` : 'Curated Hub'}
-              </span>
-              <a
-                href={`/insights/${cat.slug}`}
-                class="text-xs font-bold text-[#2D6A4F] hover:underline flex items-center gap-1"
-              >
-                <span>Browse {cat.name}</span>
-                <span>&rarr;</span>
-              </a>
-            </div>
+                    <!-- Overlay category and read time -->
+                    <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                      <span class="text-[11px] font-bold uppercase tracking-wider text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                        {article.category?.name || 'Article'}
+                      </span>
+                      <span class="text-[11px] font-medium text-slate-200 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                        {article.readTime} min
+                      </span>
+                    </div>
+
+                    <!-- Date at bottom of visual -->
+                    {article.date && (
+                      <div class="absolute bottom-2.5 left-3 text-[11px] font-semibold text-white/90 bg-black/50 px-2.5 py-0.5 rounded-md backdrop-blur-xs">
+                        {article.date}
+                      </div>
+                    )}
+                  </div>
+
+                  <!-- Card Content -->
+                  <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <p class="text-[11px] font-bold text-[#0F623A] uppercase tracking-[0.14em] mb-1.5">
+                        {article.section?.name || 'Insights & Knowledge'}
+                      </p>
+
+                      <h3 class="font-display text-lg sm:text-xl font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug line-clamp-2 mb-2.5">
+                        {article.title}
+                      </h3>
+
+                      <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-4">
+                        {article.excerpt}
+                      </p>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <p class="text-xs font-semibold text-slate-700 line-clamp-1">
+                        {article.author}
+                      </p>
+
+                      <span class="inline-flex items-center gap-1 text-xs font-bold text-[#0F623A] group-hover:gap-2 transition-all">
+                        <span>Read</span>
+                        <span>&rarr;</span>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
           </div>
-        ))}
-      </div>
-    </Container>
-  </section>
+        ) : (
+          <div class="max-w-xl mx-auto bg-slate-50 rounded-2xl p-8 sm:p-10 border border-slate-200 text-center shadow-xs my-8">
+            <div class="h-14 w-14 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto mb-4 text-[#0F623A]">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+              </svg>
+            </div>
+            <h3 class="font-display text-xl font-bold text-slate-900 mb-2">
+              Publications in Preparation
+            </h3>
+            <p class="text-sm sm:text-base text-slate-600 mb-6 leading-relaxed">
+              Our lifecycle engineers and compliance consultants are currently reviewing new research and briefings.
+            </p>
+            <a
+              href="/contact"
+              class="inline-block px-5 py-2.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-xs font-bold uppercase tracking-wider transition-colors"
+            >
+              Contact Our Advisory Team
+            </a>
+          </div>
+        )}
 
-  <!-- ===== 6. NEWSLETTER CTA ===== -->
-  <section class="relative z-10 py-8 lg:py-12 overflow-hidden bg-slate-50 border-t border-slate-200">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#2D6A4F]/10 blur-3xl pointer-events-none"></div>
-    <Container className="relative z-10">
-      <div class="max-w-2xl mx-auto text-center">
-        <span class="inline-block text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-[#2D6A4F] mb-4">
-          Regulatory Updates
-        </span>
-        <h2 class="text-3xl sm:text-4xl font-semibold text-slate-900 mb-4 leading-tight tracking-tight">
-          Stay Ahead of UK Compliance.
+      </div>
+    </section>
+
+    <!-- =====================================================
+         6. SECTION 6 — NEWSLETTER SUBSCRIPTION
+    ====================================================== -->
+    <section class="py-12 sm:py-16 bg-slate-50 border-t border-slate-200/80">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.16em] mb-2">
+          Regulatory Digest
+        </p>
+        <h2 class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-3">
+          Stay Ahead of UK IT Lifecycle Standards
         </h2>
-        <p class="text-lg text-black leading-relaxed mb-8 font-medium">
-          Receive our quarterly digest covering ADISA audits, Scope 3 IT recycling metrics, and BS 10008 legal precedents directly to your inbox.
+        <p class="text-base text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
+          Quarterly briefings covering ADISA 8.0 audits, Scope 3 IT emissions tracking, and BS 10008 legal admissibility delivered directly to your inbox.
         </p>
 
         <InlineNewsletter client:visible buttonText="Subscribe →" />
 
-        <p class="mt-4 text-xs text-slate-400">Zero spam. Unsubscribe at any time. Protected under UK GDPR.</p>
+        <p class="mt-4 text-xs text-slate-400">
+          Zero spam. Unsubscribe at any time. Protected under UK GDPR.
+        </p>
       </div>
-    </Container>
-    <br />
-    <br />
-  </section>
+    </section>
 
-<CTA />
+    <!-- =====================================================
+         7. COMMON TECHSTEPS CTA SECTION
+    ====================================================== -->
+    <CTA />
 
+  </div>
 </BaseLayout>

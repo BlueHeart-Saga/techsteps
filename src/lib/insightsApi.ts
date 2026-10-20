@@ -52,6 +52,8 @@ export interface TransformedPost {
   rawBlocks?: PostBlock[];
 }
 
+export type Post = TransformedPost;
+
 export function slugify(text: string): string {
   if (!text) return "";
   return text
@@ -261,7 +263,22 @@ class InsightsApiService {
     }
   }
 
-  async getAllPosts(limit = 100): Promise<TransformedPost[]> {
+  async getPostById(contentId: string): Promise<TransformedPost | null> {
+    const cleanId = extractPostId(contentId);
+    if (!cleanId) return null;
+    try {
+      const res = await this.getContentById(cleanId);
+      if (!res) return null;
+      const item = res.item || res;
+      if (!item || !item.id) return null;
+      return this.transformContent(item, item.section, item.category);
+    } catch (err) {
+      console.error(`Error fetching post by ID ${cleanId}:`, err);
+      return null;
+    }
+  }
+
+  async getAllPosts(limit = 100, options: { includeDetails?: boolean } = {}): Promise<TransformedPost[]> {
     try {
       let allPosts: TransformedPost[] = [];
       let skip = 0;
@@ -291,9 +308,21 @@ class InsightsApiService {
         }
       }
 
-      return allPosts
+      const sortedPosts = allPosts
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, limit);
+
+      if (options.includeDetails) {
+        const detailed = await Promise.all(
+          sortedPosts.map(async (p) => {
+            const full = await this.getPostById(p.id);
+            return full || p;
+          })
+        );
+        return detailed;
+      }
+
+      return sortedPosts;
     } catch (err) {
       console.error("Error fetching all posts for TechSteps:", err);
       return [];
@@ -463,11 +492,11 @@ class InsightsApiService {
   extractExcerpt(blocks: any[]): string {
     if (!blocks || blocks.length === 0) return "";
     const textBlock = blocks.find((b: any) =>
-      ["text", "heading", "subheading"].includes(b.type)
+      b && ["text", "paragraph", "heading", "subheading"].includes(b.type) && b.data?.value
     );
 
     if (textBlock?.data?.value) {
-      const text = textBlock.data.value.replace(/[#*`]/g, "").trim();
+      const text = textBlock.data.value.replace(/[#*`>]/g, "").trim();
       return text.length > 150 ? text.substring(0, 150) + "..." : text;
     }
 
@@ -479,35 +508,47 @@ class InsightsApiService {
 
     return blocks
       .map((block: any) => {
+        if (!block || !block.type) return "";
+        const data = block.data || {};
+        const val = typeof data.value === "string" ? data.value.trim() : "";
+
         switch (block.type) {
           case "heading":
-            return `## ${block.data.value}`;
+            return val ? `## ${val}` : "";
           case "subheading":
-            return `### ${block.data.value}`;
+            return val ? `### ${val}` : "";
           case "text":
-            return block.data.value;
+          case "paragraph":
+            return val;
           case "quote":
-            return `> ${block.data.value}`;
+            return val ? `> ${val}` : "";
           case "list":
           case "bullet-list":
-            return block.data.items?.map((item: string) => `- ${item}`).join("\n");
-          case "numbered-list":
-            return block.data.items
-              ?.map((item: string, i: number) => `${i + 1}. ${item}`)
+            return (data.items || [])
+              .map((item: string) => `- ${(item || "").trim()}`)
+              .filter(Boolean)
               .join("\n");
-          case "image":
-            return `![${block.data.alt || "image"}](${this.getImageUrl(block.data.file_id)})`;
+          case "numbered-list":
+            return (data.items || [])
+              .map((item: string, i: number) => `${i + 1}. ${(item || "").trim()}`)
+              .filter(Boolean)
+              .join("\n");
+          case "image": {
+            const imgUrl = data.file_id ? this.getImageUrl(data.file_id) : (data.url || "");
+            return imgUrl ? `![${data.alt || "image"}](${imgUrl})` : "";
+          }
           case "video":
           case "embed":
-            return block.data.url;
+            return data.url || "";
           case "document": {
-            const docUrl = this.getDocumentUrl(block.data.file_id, block.data.url);
-            return `[📁 Download ${block.data.title || "Document"}](${docUrl})`;
+            const docUrl = this.getDocumentUrl(data.file_id, data.url);
+            return docUrl ? `[📁 Download ${data.title || "Document"}](${docUrl})` : "";
           }
           default:
-            return "";
+            return val;
         }
       })
+      .filter(Boolean)
       .join("\n\n");
   }
 }
