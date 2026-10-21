@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Container from '../../components/layout/Container.astro';
 import HeroHeader from '../../components/global/HeroHeader.astro';
 import CTA from '../../components/global/cta.astro';
 import InlineNewsletter from '../../components/newsletter/InlineNewsletter';
@@ -27,11 +26,8 @@ try {
 }
 
 const posts = apiPosts;
-
-// Dynamically assemble categories solely from the live backend
 const categoriesMap = new Map<string, CategoryMeta>();
 
-// 1. Populate from live siteStructure (sections & categories configured in MediaHub)
 siteStructure.forEach((sec: any) => {
   (sec.categories || []).forEach((cat: any) => {
     if (cat.slug) {
@@ -48,7 +44,6 @@ siteStructure.forEach((sec: any) => {
   });
 });
 
-// 2. Ensure every category present on live published posts is also captured
 posts.forEach((p) => {
   const catSlug = p.category?.slug;
   if (catSlug) {
@@ -66,7 +61,6 @@ posts.forEach((p) => {
   }
 });
 
-// 3. Compute real post counts directly from backend posts
 posts.forEach((p) => {
   const catSlug = p.category?.slug;
   if (catSlug && categoriesMap.has(catSlug)) {
@@ -76,16 +70,30 @@ posts.forEach((p) => {
 
 const allBackendCategories = Array.from(categoriesMap.values());
 
-// Categories that have published posts, prioritized first, then other available categories
-const activeCategories = allBackendCategories
-  .filter((c) => c.count > 0)
-  .sort((a, b) => b.count - a.count);
+const groupedCategories = allBackendCategories.reduce((acc, cat) => {
+  const section = cat.sectionName || 'Insights & Knowledge';
+  if (!acc[section]) acc[section] = [];
+  acc[section].push(cat);
+  return acc;
+}, {} as Record<string, CategoryMeta[]>);
 
-// Featured post: priority to post with featured: true, else first published post
-const featuredArticle = posts.find((p) => p.featured) || posts[0];
-const remainingArticles = posts.filter((p) => p.id !== featuredArticle?.id);
+const featuredPosts = posts.filter(p => p.featured);
+const recentPosts = posts.filter(p => !p.featured);
+const carouselPosts = [...featuredPosts, ...recentPosts].slice(0, 8);
 
 const canonicalUrl = 'https://techsteps.co.uk/insights';
+
+const getCategoryIcon = (slug: string) => {
+  if (slug.includes('news') || slug.includes('announce')) return 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z';
+  if (slug.includes('award') || slug.includes('achieve') || slug.includes('milestone')) return 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z';
+  if (slug.includes('blog')) return 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253';
+  if (slug.includes('case') || slug.includes('success')) return 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z';
+  if (slug.includes('impact') || slug.includes('metric')) return 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6';
+  if (slug.includes('celebrat')) return 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z';
+  if (slug.includes('poster')) return 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z';
+  if (slug.includes('community') || slug.includes('culture')) return 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z';
+  return 'M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z';
+};
 ---
 
 <BaseLayout
@@ -94,48 +102,31 @@ const canonicalUrl = 'https://techsteps.co.uk/insights';
   canonicalUrl={canonicalUrl}
   hasHeroHeader={true}
 >
-  <!-- Top Navigation Header on clean white background (About Us standard) -->
   <HeroHeader isHome={false} />
 
   <div class="insights-page-wrapper bg-white text-slate-900 selection:bg-[#0F623A] selection:text-white">
 
-    <!-- =====================================================
-         1. SECTION 1 — HERO SECTION (About-Us Layout & Fonts)
-         Featuring /images/about/inshits/main-hero.png
-    ====================================================== -->
+    <!-- 1. HERO SECTION -->
     <section
       id="insights-hero"
-      class="relative w-full bg-white select-none pt-4 sm:pt-6 lg:pt-8 pb-6 sm:pb-8 border-b border-slate-100"
+      class="relative w-full bg-white select-none pt-4 sm:pt-6 lg:pt-8 pb-6 sm:pb-8"
     >
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <!-- Breadcrumbs -->
         <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-4 sm:mb-5">
-          <a href="/" class="text-slate-600 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
-            Home
-          </a>
+          <a href="/" class="text-slate-600 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">Home</a>
           <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
           <span class="text-slate-900 font-bold">Insights</span>
         </nav>
 
-        <!-- Top Centered Heading & Subtitle Statement -->
         <div class="max-w-4xl mx-auto text-center space-y-3 sm:space-y-4">
-          <div class="inline-flex items-center gap-2 text-xs font-bold text-[#0F623A] uppercase tracking-[0.16em] bg-[#0F623A]/10 px-4 py-1.5 rounded-full">
-            <span>TechSteps Insights Hub</span>
-            <span class="h-1.5 w-1.5 rounded-full bg-[#0F623A]"></span>
-            <span>{posts.length} Publications</span>
-          </div>
-
           <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-slate-900 tracking-tight leading-[1.12]">
             Knowledge, Analysis &amp; Industry <span class="text-[#0F623A]">Perspectives</span>
           </h1>
-
           <p class="text-base sm:text-lg text-slate-600 font-normal italic leading-relaxed max-w-3xl mx-auto">
             &ldquo;Practical technical briefings, compliance insights, and data-driven perspectives on enterprise technology lifecycle management and circular sustainability.&rdquo;
           </p>
         </div>
 
-        <!-- Centered Main Hero Panoramic Visual -->
         <div class="relative w-full max-w-5xl lg:max-w-6xl mx-auto mt-6 sm:mt-8 flex justify-center">
           <img
             src="/images/about/inshits/main-hero.png"
@@ -147,241 +138,308 @@ const canonicalUrl = 'https://techsteps.co.uk/insights';
             fetchpriority="high"
           />
         </div>
-
       </div>
     </section>
 
-    <!-- =====================================================
-         2. SECTION 2 — DYNAMIC BACKEND CATEGORIES NAVIGATION BAR
-    ====================================================== -->
-    <nav aria-label="Insights Categories" class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="overflow-x-auto scrollbar-hide py-3.5 -mx-4 px-4 sm:mx-0 sm:px-0">
-          <div class="flex items-center gap-2 min-w-max">
-            <span class="text-xs font-bold uppercase tracking-[0.14em] text-slate-400 mr-2 shrink-0">
-              Categories:
-            </span>
+    <!-- 2. FEATURED HIGHLIGHT CAROUSEL -->
+    {carouselPosts.length > 0 && (
+      <section id="featured-highlight" class="py-12 sm:py-20 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div class="text-center mb-10">
+            <h2 class="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">Featured Highlight</h2>
+            <p class="text-slate-600 mt-2">Discover our most impactful and popular stories curated just for you.</p>
+          </div>
 
-            <a
-              href="/insights"
-              class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-[#0F623A] text-white shadow-xs transition-all duration-200 shrink-0"
-            >
-              All Insights ({posts.length})
-            </a>
+          <div class="relative w-full max-w-[1100px] mx-auto h-[600px] sm:h-[650px]" id="carousel-container">
+            
+            <button id="prev-btn" aria-label="Previous post" class="absolute left-0 sm:-left-6 lg:-left-16 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border border-slate-200 shadow-lg flex items-center justify-center text-slate-600 hover:text-[#0F623A] hover:border-[#0F623A] transition-all">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+            </button>
 
-            {allBackendCategories.map((cat) => (
-              <a
-                href={`/insights/${cat.slug}`}
-                class={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider border transition-all duration-200 shrink-0 flex items-center gap-1.5 ${
-                  cat.count > 0
-                    ? 'bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-[#0F623A] border-slate-200 hover:border-[#0F623A]/40'
-                    : 'bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-800 border-slate-200'
-                }`}
-              >
-                <span>{cat.name}</span>
-                {cat.count > 0 && (
-                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200/80 text-slate-700 font-semibold">
-                    {cat.count}
-                  </span>
-                )}
-              </a>
+            <button id="next-btn" aria-label="Next post" class="absolute right-0 sm:-right-6 lg:-right-16 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border border-slate-200 shadow-lg flex items-center justify-center text-slate-600 hover:text-[#0F623A] hover:border-[#0F623A] transition-all">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </button>
+
+            <div id="carousel-track" class="relative w-full h-full flex items-center justify-center">
+              {carouselPosts.map((post, index) => {
+                const postUrl = `/insights/${post.category?.slug || 'blogs'}/${post.seoSlug || post.id}`;
+                const fallbackImage = getCategoryHeroImage(post.category?.slug || 'blogs');
+                
+                return (
+                  <a
+                    href={postUrl}
+                    data-index={index}
+                    style="width: 617.33px; height: 600.33px;"
+                    class="carousel-card group absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[95vw] max-h-[90vh] bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden flex flex-col transition-all duration-500 ease-in-out cursor-pointer"
+                  >
+                    <div class="relative w-full h-[300px] bg-slate-100 overflow-hidden shrink-0">
+                      <img
+                        src={post.image || fallbackImage}
+                        alt={post.title}
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div class="absolute top-4 left-4">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-white bg-[#0F623A]/90 backdrop-blur-sm px-3 py-1 rounded-md shadow-sm">
+                          {post.category?.name || 'Article'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="p-6 sm:p-8 flex flex-col justify-between flex-1 min-h-0">
+                      <div>
+                        <div class="flex items-center gap-3 text-xs font-semibold text-slate-500 mb-3">
+                          {post.date && <span>{post.date}</span>}
+                          {post.date && <span class="w-1 h-1 rounded-full bg-slate-300"></span>}
+                          <span class="flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            {post.readTime} min read
+                          </span>
+                        </div>
+
+                        <h3 class="font-display text-2xl font-bold text-slate-900 mb-3 leading-snug group-hover:text-[#0F623A] transition-colors line-clamp-2">
+                          {post.title}
+                        </h3>
+                        
+                        <p class="text-sm text-slate-600 line-clamp-3 leading-relaxed">
+                          {post.excerpt}
+                        </p>
+                      </div>
+
+                      <div class="mt-4 flex items-center shrink-0">
+                        <span class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#0F623A] text-white text-xs font-bold uppercase tracking-wider group-hover:bg-[#0c4e2e] transition-colors">
+                          Read Article <span>&rarr;</span>
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+
+          </div>
+
+          <div class="flex justify-center items-center gap-2 mt-8" id="carousel-dots">
+            {carouselPosts.map((_, index) => (
+              <button 
+                data-dot={index} 
+                aria-label={`Go to slide ${index + 1}`}
+                class="carousel-dot w-2.5 h-2.5 rounded-full bg-slate-300 transition-all duration-300 hover:bg-slate-400"
+              ></button>
             ))}
           </div>
-        </div>
-      </div>
-    </nav>
-
-    <!-- =====================================================
-         3. SECTION 3 — FEATURED ARTICLE SPOTLIGHT
-    ====================================================== -->
-    {featuredArticle && (
-      <section id="featured-article" class="py-10 sm:py-14 bg-white border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 sm:mb-8">
-            <div class="flex items-center gap-2.5">
-              <span class="inline-flex items-center gap-1.5 text-xs font-bold tracking-wider uppercase text-[#0F623A] bg-[#0F623A]/10 px-3 py-1 rounded-full">
-                <span class="w-2 h-2 rounded-full bg-[#0F623A] animate-pulse"></span>
-                Featured Publication
-              </span>
-              <span class="text-xs text-slate-400 font-medium">Verified Analysis</span>
-            </div>
-
-            <a
-              href={`/insights/${featuredArticle.category?.slug || 'blogs'}`}
-              class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0F623A] hover:underline"
-            >
-              <span>More in {featuredArticle.category?.name || 'Blogs'}</span>
-              <span>&rarr;</span>
-            </a>
-          </div>
-
-          <a
-            href={`/insights/${featuredArticle.category?.slug || 'blogs'}/${featuredArticle.seoSlug || featuredArticle.id}`}
-            class="group block bg-white hover:bg-slate-50/70 border border-slate-200/90 hover:border-[#0F623A]/40 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300"
-          >
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
-              <!-- Visual Cover Panel -->
-              <div class="lg:col-span-7 relative min-h-[280px] sm:min-h-[360px] lg:min-h-[420px] bg-slate-900 overflow-hidden flex flex-col justify-between p-6 sm:p-8 lg:p-10">
-                <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle, #ffffff 1px, transparent 1px); background-size: 24px 24px;"></div>
-
-                {featuredArticle.image ? (
-                  <img
-                    src={featuredArticle.image}
-                    alt={featuredArticle.title}
-                    class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60 group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
-                  />
-                ) : (
-                  <img
-                    src={getCategoryHeroImage(featuredArticle.category?.slug || 'blogs')}
-                    alt={featuredArticle.title}
-                    class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40 group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
-                  />
-                )}
-
-                <!-- Top metadata badges -->
-                <div class="relative z-10 flex items-center justify-between gap-3">
-                  <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-300 bg-emerald-950/80 border border-emerald-400/30 px-3 py-1 rounded-full backdrop-blur-sm">
-                    {featuredArticle.category?.name || 'Publication'}
-                  </span>
-                  <span class="text-xs font-semibold text-slate-200 bg-black/60 px-3 py-1 rounded-full backdrop-blur-sm">
-                    {featuredArticle.readTime} min read
-                  </span>
-                </div>
-
-                <!-- Bottom overlay details -->
-                <div class="relative z-10 mt-auto pt-6 text-xs text-slate-300 flex flex-wrap items-center gap-4">
-                  {featuredArticle.date && (
-                    <span class="flex items-center gap-1.5 font-medium">
-                      <svg class="w-4 h-4 text-[#0F623A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      {featuredArticle.date}
-                    </span>
-                  )}
-                  {featuredArticle.section?.name && (
-                    <>
-                      <span>&bull;</span>
-                      <span class="text-slate-300 font-medium">{featuredArticle.section.name}</span>
-                    </>
-                  )}
-                </div>
-              </div>
-
-              <!-- Content Panel -->
-              <div class="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
-                <div>
-                  <p class="text-xs font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2">
-                    {featuredArticle.section?.name || 'Insights & Knowledge'}
-                  </p>
-
-                  <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-[1.2] mb-3">
-                    {featuredArticle.title}
-                  </h2>
-
-                  {featuredArticle.subtitle && (
-                    <p class="text-sm font-semibold text-slate-700 mb-3 italic">
-                      {featuredArticle.subtitle}
-                    </p>
-                  )}
-
-                  <p class="text-base text-slate-600 leading-relaxed line-clamp-4">
-                    {featuredArticle.excerpt}
-                  </p>
-
-                  {featuredArticle.tags && featuredArticle.tags.length > 0 && (
-                    <div class="flex flex-wrap gap-1.5 mt-5">
-                      {featuredArticle.tags.slice(0, 4).map((tag: string) => (
-                        <span class="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-md">
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
-                  <div>
-                    <p class="text-sm font-bold text-slate-900">{featuredArticle.author}</p>
-                    <p class="text-xs text-slate-500">TechSteps Compliance &amp; ITAD Desk</p>
-                  </div>
-
-                  <span class="inline-flex items-center gap-1.5 text-sm font-bold text-[#0F623A] group-hover:gap-2.5 transition-all">
-                    Read Article
-                    <span>&rarr;</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </a>
 
         </div>
       </section>
     )}
 
-    <!-- =====================================================
-         4. SECTION 4 — BROWSE BY CATEGORY (Backend Categories)
-         Uses dedicated artwork: 01_Blogs_Articles.png, 02_Case_Studies.png, etc.
-    ====================================================== -->
-    <section id="categories-hub" class="py-12 sm:py-16 bg-slate-50/60 border-b border-slate-200/70">
+    <!-- 3. RECENT POSTS -->
+    <section id="recent-posts" class="pt-12 pb-14 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Centered Heading (Same as Featured Highlight) -->
+        <div class="text-center mb-10">
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">Recent Posts</h2>
+          <p class="text-slate-600 mt-2">Explore our latest verified technical records and industry briefings.</p>
+        </div>
 
-        <!-- Section Header -->
-        <div class="max-w-3xl mb-8 sm:mb-12">
-          <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-2">
-            Categories &amp; Resource Hub
-          </p>
-          <h2 class="font-display text-3xl sm:text-4xl lg:text-[40px] font-bold text-slate-900 tracking-tight leading-[1.14]">
+        <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 relative">
+          
+          <!-- Sidebar -->
+          <aside class="w-full lg:w-[260px] shrink-0 lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto custom-green-scrollbar pb-4">
+            
+            <button
+              data-category="all"
+              class="sidebar-filter-btn w-full flex items-center justify-between px-4 py-3 rounded-xl bg-[#0F623A] text-white font-bold text-sm shadow-md mb-8 transition-all duration-200 text-left"
+            >
+              <div class="flex items-center gap-3">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                </svg>
+                <span>All Insights</span>
+              </div>
+              <span class="text-xs bg-white/20 px-2 py-0.5 rounded-full">{posts.length}</span>
+            </button>
+
+            <div class="space-y-6">
+              {Object.entries(groupedCategories).map(([sectionName, cats]) => (
+                <div>
+                  <h3 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-3 px-2">
+                    {sectionName}
+                  </h3>
+                  <ul class="space-y-1">
+                    {cats.map(cat => (
+                      <li>
+                        <button
+                          data-category={cat.slug}
+                          class="sidebar-filter-btn group w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-[#0F623A] hover:bg-slate-50 transition-colors text-left"
+                        >
+                          <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-slate-400 group-hover:text-[#0F623A] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d={getCategoryIcon(cat.slug)} />
+                            </svg>
+                            <span class="truncate max-w-[150px]" title={cat.name}>{cat.name}</span>
+                          </div>
+                          {cat.count > 0 && (
+                            <span class="text-[10px] font-bold bg-slate-100 text-slate-500 group-hover:bg-[#0F623A]/10 group-hover:text-[#0F623A] px-2 py-0.5 rounded-md transition-colors">
+                              {cat.count}
+                            </span>
+                          )}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </aside>
+
+          <!-- Main Content -->
+          <main class="flex-1 min-w-0" id="recent-posts-main">
+            
+            <!-- Top Bar with Count and View Toggles (Now Justified Between) -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+              
+              <!-- Left: Count Label -->
+              <div class="flex items-center gap-2">
+                <span id="article-count-label" class="text-xs font-semibold text-slate-600 bg-slate-100 border border-slate-200 px-3.5 py-1.5 rounded-full">
+                  Showing {posts.length} articles
+                </span>
+              </div>
+              
+              <!-- Right: View Toggle Buttons -->
+              <div class="flex items-center gap-3">
+                <div class="flex items-center bg-slate-100 rounded-lg p-1 border border-slate-200">
+                  <button id="view-grid-btn" class="p-1.5 rounded-md bg-white shadow-sm text-[#0F623A]" title="Grid View">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                  </button>
+                  <button id="view-list-btn" class="p-1.5 rounded-md text-slate-400 hover:text-slate-600 transition-colors" title="List View">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+              {posts.map((article, index) => {
+                const postCategorySlug = article.category?.slug || 'blogs';
+                const postUrl = `/insights/${postCategorySlug}/${article.seoSlug || article.id}`;
+                const fallbackImage = getCategoryHeroImage(postCategorySlug);
+                
+                const isHidden = index >= 6;
+
+                return (
+                  <a
+                    href={postUrl}
+                    data-post-category={postCategorySlug}
+                    data-index={index}
+                    class={`article-card group bg-white border border-slate-200/80 hover:border-[#0F623A]/40 rounded-2xl overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between ${isHidden ? 'hidden' : ''}`}
+                  >
+                    <div class="article-card-image relative w-full aspect-[16/10] bg-slate-900 overflow-hidden border-none shrink-0">
+                      <img
+                        src={article.image || fallbackImage}
+                        alt={article.title}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                      <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-white bg-[#0F623A]/90 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                          {article.category?.name || 'Article'}
+                        </span>
+                        <span class="text-[10px] font-medium text-slate-200 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                          {article.readTime} min
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="article-card-content p-5 sm:p-6 flex-1 flex flex-col justify-between border-none w-full">
+                      <div>
+                        <div class="list-meta hidden items-center gap-3 text-[11px] font-semibold text-slate-500 mb-2">
+                          {article.date && <span>{article.date}</span>}
+                          {article.date && <span class="w-1 h-1 rounded-full bg-slate-300"></span>}
+                          <span>{article.readTime} min</span>
+                        </div>
+
+                        <h3 class="font-display text-lg sm:text-xl font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug line-clamp-2 mb-2.5">
+                          {article.title}
+                        </h3>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-4">
+                          {article.excerpt}
+                        </p>
+                      </div>
+                      
+                      <div class="mt-4 flex items-center justify-between">
+                        <div class="flex items-center gap-2 list-author">
+                          <div class="list-avatar hidden w-6 h-6 rounded-full bg-[#0F623A]/10 items-center justify-center text-[#0F623A] text-[10px] font-bold">
+                            {article.author?.charAt(0) || 'T'}
+                          </div>
+                          <p class="text-xs font-semibold text-slate-700 line-clamp-1">
+                            {article.author}
+                          </p>
+                        </div>
+                        <span class="inline-flex items-center gap-1 text-xs font-bold text-[#0F623A] group-hover:gap-2 transition-all">
+                          <span>Read</span>
+                          <span>&rarr;</span>
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+
+            <!-- Pagination Controls -->
+            <div id="pagination-controls" class="mt-10 flex justify-center items-center gap-2">
+              <!-- JavaScript will populate this -->
+            </div>
+            
+          </main>
+
+        </div>
+      </div>
+    </section>
+
+            <!-- 4. EXPLORE TECHSTEPS BY TOPIC -->
+    <section id="categories-hub" class="pt-12 pb-12 sm:pb-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-10">
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
             Explore TechSteps by <span class="text-[#0F623A]">Topic</span>
           </h2>
-          <p class="text-base sm:text-lg text-slate-600 mt-2 leading-relaxed">
-            All categories are maintained directly within our backend content system, delivering focused intelligence across every facet of technology management.
+          <p class="text-slate-600 mt-2">
+            Browse our resource hubs to find focused intelligence across every facet of technology management.
           </p>
         </div>
 
-        <!-- Categories Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
           {allBackendCategories.map((cat) => (
             <a
               href={`/insights/${cat.slug}`}
-              class="group bg-white hover:bg-slate-50/60 border border-slate-200/80 hover:border-[#0F623A]/40 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              class="group flex flex-col items-center text-center bg-transparent border-none"
             >
-              <!-- Card Top Illustration -->
-              <div class="relative w-full aspect-[720/420] bg-slate-100 overflow-hidden flex items-center justify-center border-b border-slate-100">
+              <!-- Image (Background removed) -->
+              <div class="relative w-full aspect-[4/3] overflow-hidden mb-4 flex items-center justify-center">
                 <img
                   src={cat.image}
-                  alt={`${cat.name} category illustration`}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  alt={`${cat.name} topic`}
+                  class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
-                <div class="absolute top-3 right-3">
-                  <span class={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-xs ${
-                    cat.count > 0
-                      ? 'bg-[#0F623A] text-white'
-                      : 'bg-white/90 text-slate-600 backdrop-blur-sm'
-                  }`}>
-                    {cat.count > 0 ? `${cat.count} ${cat.count === 1 ? 'Article' : 'Articles'}` : 'Hub Active'}
-                  </span>
-                </div>
               </div>
 
-              <!-- Card Body -->
-              <div class="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <p class="text-xs font-bold text-[#0F623A] uppercase tracking-[0.14em] mb-1.5">
-                    {cat.sectionName}
-                  </p>
-                  <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug mb-2.5">
-                    {cat.name}
-                  </h3>
-                  <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
-                    {cat.description}
-                  </p>
-                </div>
-
-                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#0F623A]">
+              <!-- Text Content (Centered) -->
+              <div class="flex flex-col items-center flex-1">
+                <h3 class="font-display text-lg font-bold text-slate-900 mb-2 group-hover:text-[#0F623A] transition-colors">
+                  {cat.name}
+                </h3>
+                
+                <div class="mt-auto flex items-center justify-center gap-1.5 text-sm font-bold text-[#0F623A]">
                   <span>Explore {cat.name}</span>
                   <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
                 </div>
@@ -393,14 +451,11 @@ const canonicalUrl = 'https://techsteps.co.uk/insights';
       </div>
     </section>
 
-    <!-- =====================================================
-         5. SECTION 5 — ALL ARTICLES GRID (Real Backend Posts)
-    ====================================================== -->
-    <section id="all-publications" class="py-12 sm:py-16 bg-white">
+    <!-- 5. LATEST PUBLICATIONS -->
+    <section id="latest-publications" class="py-12 sm:py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <!-- Grid Header -->
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.15em] mb-1.5">
               Published Briefings
@@ -409,7 +464,6 @@ const canonicalUrl = 'https://techsteps.co.uk/insights';
               Latest Publications &amp; <span class="text-[#0F623A]">Briefings</span>
             </h2>
           </div>
-
           <div class="flex items-center gap-2">
             <span class="text-xs font-semibold text-slate-600 bg-slate-100 border border-slate-200 px-3.5 py-1.5 rounded-full">
               Showing {posts.length} verified publications
@@ -418,113 +472,89 @@ const canonicalUrl = 'https://techsteps.co.uk/insights';
         </div>
 
         {posts.length > 0 ? (
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {posts.map((article) => {
-              const postCategorySlug = article.category?.slug || 'blogs';
-              const postUrl = `/insights/${postCategorySlug}/${article.seoSlug || article.id}`;
-              const fallbackImage = getCategoryHeroImage(postCategorySlug);
+          <>
+            <div id="latest-publications-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {posts.map((article, index) => {
+                const postCategorySlug = article.category?.slug || 'blogs';
+                const postUrl = `/insights/${postCategorySlug}/${article.seoSlug || article.id}`;
+                const fallbackImage = getCategoryHeroImage(postCategorySlug);
+                
+                const isHidden = index >= 6;
 
-              return (
-                <a
-                  href={postUrl}
-                  class="group bg-white hover:bg-slate-50/50 border border-slate-200/80 hover:border-[#0F623A]/40 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-                >
-                  <!-- Card Visual -->
-                  <div class="relative w-full aspect-[16/10] bg-slate-900 overflow-hidden">
-                    {article.image ? (
+                return (
+                  <a
+                    href={postUrl}
+                    class={`latest-pub-card group bg-white hover:bg-slate-50/50 border border-slate-200/80 hover:border-[#0F623A]/40 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between ${isHidden ? 'hidden' : ''}`}
+                    data-index={index}
+                  >
+                    <div class="relative w-full aspect-[16/10] bg-slate-900 overflow-hidden border-none">
                       <img
-                        src={article.image}
+                        src={article.image || fallbackImage}
                         alt={article.title}
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                       />
-                    ) : (
-                      <img
-                        src={fallbackImage}
-                        alt={article.title}
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                      />
-                    )}
-
-                    <!-- Overlay category and read time -->
-                    <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
-                      <span class="text-[11px] font-bold uppercase tracking-wider text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full">
-                        {article.category?.name || 'Article'}
-                      </span>
-                      <span class="text-[11px] font-medium text-slate-200 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full">
-                        {article.readTime} min
-                      </span>
-                    </div>
-
-                    <!-- Date at bottom of visual -->
-                    {article.date && (
-                      <div class="absolute bottom-2.5 left-3 text-[11px] font-semibold text-white/90 bg-black/50 px-2.5 py-0.5 rounded-md backdrop-blur-xs">
-                        {article.date}
+                      <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-white bg-[#0F623A]/90 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                          {article.category?.name || 'Article'}
+                        </span>
+                        <span class="text-[11px] font-medium text-slate-200 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                          {article.readTime} min
+                        </span>
                       </div>
-                    )}
-                  </div>
-
-                  <!-- Card Content -->
-                  <div class="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <p class="text-[11px] font-bold text-[#0F623A] uppercase tracking-[0.14em] mb-1.5">
-                        {article.section?.name || 'Insights & Knowledge'}
-                      </p>
-
-                      <h3 class="font-display text-lg sm:text-xl font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug line-clamp-2 mb-2.5">
-                        {article.title}
-                      </h3>
-
-                      <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-4">
-                        {article.excerpt}
-                      </p>
+                      {article.date && (
+                        <div class="absolute bottom-2.5 left-3 text-[11px] font-semibold text-white/90 bg-black/50 px-2.5 py-0.5 rounded-md backdrop-blur-xs">
+                          {article.date}
+                        </div>
+                      )}
                     </div>
 
-                    <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-                      <p class="text-xs font-semibold text-slate-700 line-clamp-1">
-                        {article.author}
-                      </p>
-
-                      <span class="inline-flex items-center gap-1 text-xs font-bold text-[#0F623A] group-hover:gap-2 transition-all">
-                        <span>Read</span>
-                        <span>&rarr;</span>
-                      </span>
+                    <div class="p-6 flex-1 flex flex-col justify-between border-none">
+                      <div>
+                        <h3 class="font-display text-lg sm:text-xl font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug line-clamp-2 mb-2.5">
+                          {article.title}
+                        </h3>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-4">
+                          {article.excerpt}
+                        </p>
+                      </div>
+                      <div class="mt-4 flex items-center justify-between">
+                        <p class="text-xs font-semibold text-slate-700 line-clamp-1">
+                          {article.author}
+                        </p>
+                        <span class="inline-flex items-center gap-1 text-xs font-bold text-[#0F623A] group-hover:gap-2 transition-all">
+                          <span>Read</span>
+                          <span>&rarr;</span>
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
+                  </a>
+                );
+              })}
+            </div>
+
+            <div class="mt-10 text-center">
+              <button 
+                id="load-more-btn" 
+                class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm font-bold uppercase tracking-wider transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+              >
+                Load More Publications
+              </button>
+            </div>
+          </>
         ) : (
           <div class="max-w-xl mx-auto bg-slate-50 rounded-2xl p-8 sm:p-10 border border-slate-200 text-center shadow-xs my-8">
-            <div class="h-14 w-14 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto mb-4 text-[#0F623A]">
-              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-            </div>
-            <h3 class="font-display text-xl font-bold text-slate-900 mb-2">
-              Publications in Preparation
-            </h3>
-            <p class="text-sm sm:text-base text-slate-600 mb-6 leading-relaxed">
-              Our lifecycle engineers and compliance consultants are currently reviewing new research and briefings.
-            </p>
-            <a
-              href="/contact"
-              class="inline-block px-5 py-2.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-xs font-bold uppercase tracking-wider transition-colors"
-            >
-              Contact Our Advisory Team
-            </a>
+            <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Publications in Preparation</h3>
+            <p class="text-sm sm:text-base text-slate-600 mb-6 leading-relaxed">Our lifecycle engineers and compliance consultants are currently reviewing new research and briefings.</p>
+            <a href="/contact" class="inline-block px-5 py-2.5 rounded-xl bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-xs font-bold uppercase tracking-wider transition-colors">Contact Our Advisory Team</a>
           </div>
         )}
 
       </div>
     </section>
 
-    <!-- =====================================================
-         6. SECTION 6 — NEWSLETTER SUBSCRIPTION
-    ====================================================== -->
-    <section class="py-12 sm:py-16 bg-slate-50 border-t border-slate-200/80">
+    <!-- 6. REGULATORY DIGEST -->
+    <section class="py-12 sm:py-16 bg-white">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.16em] mb-2">
           Regulatory Digest
@@ -544,10 +574,366 @@ const canonicalUrl = 'https://techsteps.co.uk/insights';
       </div>
     </section>
 
-    <!-- =====================================================
-         7. COMMON TECHSTEPS CTA SECTION
-    ====================================================== -->
+    <!-- 7. CTA -->
     <CTA />
 
   </div>
 </BaseLayout>
+
+<style>
+  /* Custom Scrollbar for Sidebar */
+  .custom-green-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #0F623A transparent;
+  }
+  
+  .custom-green-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-green-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .custom-green-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #0F623A;
+    border-radius: 10px;
+  }
+
+  /* ========================================= */
+  /* LIST VIEW STYLES                          */
+  /* ========================================= */
+  
+  #recent-posts-main.list-view-active #articles-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  #recent-posts-main.list-view-active .article-card {
+    flex-direction: row !important;
+    height: auto;
+    min-height: 220px;
+    align-items: stretch;
+  }
+
+  #recent-posts-main.list-view-active .article-card .article-card-image {
+    width: 40%;
+    min-width: 260px;
+    aspect-ratio: auto;
+    height: auto;
+    border-radius: 1rem 0 0 1rem;
+  }
+
+  #recent-posts-main.list-view-active .article-card .article-card-content {
+    width: 60%;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+  }
+
+  #recent-posts-main.list-view-active .article-card .list-meta {
+    display: flex;
+  }
+  #recent-posts-main.list-view-active .article-card .list-avatar {
+    display: flex;
+  }
+
+  @media (max-width: 768px) {
+    #recent-posts-main.list-view-active .article-card {
+      flex-direction: column !important;
+    }
+    #recent-posts-main.list-view-active .article-card .article-card-image {
+      width: 100%;
+      min-width: 100%;
+      aspect-ratio: 16/10;
+      border-radius: 1rem 1rem 0 0;
+    }
+    #recent-posts-main.list-view-active .article-card .article-card-content {
+      width: 100%;
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  function initInsightsPage() {
+    // ==========================================
+    // 1. RECENT POSTS FILTERING & PAGINATION
+    // ==========================================
+    const filterBtns = document.querySelectorAll('.sidebar-filter-btn');
+    const articleCards = Array.from(document.querySelectorAll('.article-card'));
+    const countLabel = document.getElementById('article-count-label');
+    const gridContainer = document.getElementById('articles-grid');
+    const paginationContainer = document.getElementById('pagination-controls');
+    const viewGridBtn = document.getElementById('view-grid-btn');
+    const viewListBtn = document.getElementById('view-list-btn');
+    const mainContentArea = document.getElementById('recent-posts-main');
+
+    let currentCategory = 'all';
+    let currentPage = 1;
+    const itemsPerPage = 6;
+
+    if (filterBtns.length > 0) {
+      
+      function updateView() {
+        let filteredCards = articleCards.filter(card => {
+          return currentCategory === 'all' || card.getAttribute('data-post-category') === currentCategory;
+        });
+
+        const totalItems = filteredCards.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        
+        if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+
+        articleCards.forEach(card => card.style.display = 'none');
+
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        
+        filteredCards.slice(start, end).forEach(card => {
+          card.style.display = 'flex';
+        });
+
+        if (countLabel) {
+          countLabel.textContent = `Showing ${totalItems} article${totalItems === 1 ? '' : 's'}`;
+        }
+
+        if (totalItems === 0 && gridContainer) {
+          if (!document.getElementById('empty-state-msg')) {
+            const emptyState = document.createElement('div');
+            emptyState.id = 'empty-state-msg';
+            emptyState.className = 'col-span-full bg-slate-50 rounded-2xl p-8 text-center border border-slate-200';
+            emptyState.innerHTML = `<h3 class="font-display text-xl font-bold text-slate-900 mb-2">No Publications Found</h3><p class="text-slate-600">There are currently no articles in this category.</p>`;
+            gridContainer.appendChild(emptyState);
+          }
+          if (paginationContainer) paginationContainer.innerHTML = '';
+        } else {
+          document.getElementById('empty-state-msg')?.remove();
+          renderPagination(totalPages);
+        }
+      }
+
+      function renderPagination(totalPages) {
+        if (!paginationContainer) return;
+        paginationContainer.innerHTML = '';
+
+        if (totalPages <= 1) return;
+
+        const prevBtn = document.createElement('button');
+        prevBtn.className = `w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition-colors ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-50 hover:text-[#0F623A]'}`;
+        prevBtn.innerHTML = `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>`;
+        if (currentPage > 1) {
+          prevBtn.addEventListener('click', () => { currentPage--; updateView(); });
+        }
+        paginationContainer.appendChild(prevBtn);
+
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+            const pageBtn = document.createElement('button');
+            pageBtn.textContent = i;
+            pageBtn.className = `w-10 h-10 flex items-center justify-center rounded-lg text-sm font-bold transition-colors ${
+              currentPage === i ? 'bg-[#0F623A] text-white' : 'border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-[#0F623A]'
+            }`;
+            pageBtn.addEventListener('click', () => { currentPage = i; updateView(); });
+            paginationContainer.appendChild(pageBtn);
+          } else if (i === currentPage - 2 || i === currentPage + 2) {
+            const dots = document.createElement('span');
+            dots.textContent = '...';
+            dots.className = 'text-slate-400 px-1';
+            paginationContainer.appendChild(dots);
+          }
+        }
+
+        const nextBtn = document.createElement('button');
+        nextBtn.className = `w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition-colors ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-50 hover:text-[#0F623A]'}`;
+        nextBtn.innerHTML = `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>`;
+        if (currentPage < totalPages) {
+          nextBtn.addEventListener('click', () => { currentPage++; updateView(); });
+        }
+        paginationContainer.appendChild(nextBtn);
+      }
+
+      filterBtns.forEach(btn => {
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+        
+        newBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          
+          document.querySelectorAll('.sidebar-filter-btn').forEach(b => {
+            const isTarget = b.getAttribute('data-category') === newBtn.getAttribute('data-category');
+            if (isTarget) {
+              b.classList.add('bg-[#0F623A]', 'text-white', 'shadow-md');
+              b.classList.remove('text-slate-700', 'hover:bg-slate-50');
+              b.querySelector('svg')?.classList.add('text-white');
+              const badge = b.querySelector('span.bg-slate-100');
+              if (badge) {
+                badge.classList.add('bg-white/20', 'text-white');
+                badge.classList.remove('bg-slate-100', 'text-slate-500');
+              }
+            } else {
+              b.classList.remove('bg-[#0F623A]', 'text-white', 'shadow-md');
+              b.classList.add('text-slate-700', 'hover:bg-slate-50');
+              b.querySelector('svg')?.classList.remove('text-white');
+              const badge = b.querySelector('span.bg-white\\/20');
+              if (badge) {
+                badge.classList.add('bg-slate-100', 'text-slate-500');
+                badge.classList.remove('bg-white/20', 'text-white');
+              }
+            }
+          });
+
+          currentCategory = newBtn.getAttribute('data-category');
+          currentPage = 1;
+          updateView();
+        });
+      });
+
+      if (viewGridBtn && viewListBtn && mainContentArea) {
+        viewGridBtn.addEventListener('click', () => {
+          mainContentArea.classList.remove('list-view-active');
+          viewGridBtn.classList.add('bg-white', 'shadow-sm', 'text-[#0F623A]');
+          viewGridBtn.classList.remove('text-slate-400');
+          viewListBtn.classList.remove('bg-white', 'shadow-sm', 'text-[#0F623A]');
+          viewListBtn.classList.add('text-slate-400');
+        });
+
+        viewListBtn.addEventListener('click', () => {
+          mainContentArea.classList.add('list-view-active');
+          viewListBtn.classList.add('bg-white', 'shadow-sm', 'text-[#0F623A]');
+          viewListBtn.classList.remove('text-slate-400');
+          viewGridBtn.classList.remove('bg-white', 'shadow-sm', 'text-[#0F623A]');
+          viewGridBtn.classList.add('text-slate-400');
+        });
+      }
+
+      updateView();
+    }
+
+    // ==========================================
+    // 2. LATEST PUBLICATIONS LOAD MORE LOGIC
+    // ==========================================
+    const latestGrid = document.getElementById('latest-publications-grid');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    
+    if (latestGrid && loadMoreBtn) {
+      const newLoadMoreBtn = loadMoreBtn.cloneNode(true);
+      loadMoreBtn.parentNode.replaceChild(newLoadMoreBtn, loadMoreBtn);
+
+      newLoadMoreBtn.addEventListener('click', () => {
+        const hiddenCards = latestGrid.querySelectorAll('.latest-pub-card.hidden');
+        let shownCount = 0;
+        for (let i = 0; i < hiddenCards.length; i++) {
+          if (shownCount < 3) {
+            hiddenCards[i].classList.remove('hidden');
+            shownCount++;
+          }
+        }
+        
+        if (latestGrid.querySelectorAll('.latest-pub-card.hidden').length === 0) {
+          newLoadMoreBtn.style.display = 'none';
+        }
+      });
+
+      if (latestGrid.querySelectorAll('.latest-pub-card.hidden').length === 0) {
+        newLoadMoreBtn.style.display = 'none';
+      }
+    }
+
+    // ==========================================
+    // 3. FEATURED HIGHLIGHT CAROUSEL LOGIC
+    // ==========================================
+    const container = document.getElementById('carousel-container');
+    const cards = document.querySelectorAll('.carousel-card');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    
+    if (container && cards.length > 0) {
+      let currentIndex = 0;
+      const totalCards = cards.length;
+
+      function updateCarousel() {
+        cards.forEach((card, index) => {
+          let offset = index - currentIndex;
+          if (offset < -1) offset += totalCards;
+          if (offset > 1) offset -= totalCards;
+
+          card.className = 'carousel-card group absolute top-1/2 left-1/2 bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden flex flex-col transition-all duration-500 ease-in-out';
+          
+          card.style.width = '617.33px';
+          card.style.height = '600.33px';
+          card.style.maxWidth = '95vw';
+          card.style.maxHeight = '120vh';
+
+          if (offset === 0) {
+            card.style.zIndex = '30';
+            card.style.opacity = '1';
+            card.style.transform = 'translate(-50%, -50%) scale(1)';
+            card.style.pointerEvents = 'auto';
+          } else if (offset === -1 || (offset === totalCards - 1 && totalCards > 2)) {
+            card.style.zIndex = '20';
+            card.style.opacity = '0.5';
+            card.style.transform = 'translate(-90%, -50%) scale(0.85)';
+            card.style.pointerEvents = 'none';
+          } else if (offset === 1 || (offset === -(totalCards - 1) && totalCards > 2)) {
+            card.style.zIndex = '20';
+            card.style.opacity = '0.5';
+            card.style.transform = 'translate(-10%, -50%) scale(0.85)';
+            card.style.pointerEvents = 'none';
+          } else {
+            card.style.zIndex = '10';
+            card.style.opacity = '0';
+            card.style.transform = 'translate(-50%, -50%) scale(0.7)';
+            card.style.pointerEvents = 'none';
+          }
+        });
+
+        dots.forEach((dot, index) => {
+          if (index === currentIndex) {
+            dot.classList.add('bg-[#0F623A]', 'w-6');
+            dot.classList.remove('bg-slate-300', 'w-2.5');
+          } else {
+            dot.classList.remove('bg-[#0F623A]', 'w-6');
+            dot.classList.add('bg-slate-300', 'w-2.5');
+          }
+        });
+      }
+
+      if (nextBtn) {
+        const newNext = nextBtn.cloneNode(true);
+        nextBtn.parentNode.replaceChild(newNext, nextBtn);
+        newNext.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentIndex = (currentIndex + 1) % totalCards;
+          updateCarousel();
+        });
+      }
+
+      if (prevBtn) {
+        const newPrev = prevBtn.cloneNode(true);
+        prevBtn.parentNode.replaceChild(newPrev, prevBtn);
+        newPrev.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+          updateCarousel();
+        });
+      }
+
+      dots.forEach((dot, index) => {
+        const newDot = dot.cloneNode(true);
+        dot.parentNode.replaceChild(newDot, dot);
+        newDot.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentIndex = index;
+          updateCarousel();
+        });
+      });
+
+      updateCarousel();
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initInsightsPage);
+  document.addEventListener('astro:page-load', initInsightsPage);
+</script>

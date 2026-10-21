@@ -92,56 +92,14 @@ const items = services
   });
 ---
 
-<!-- ========================================================= -->
-<!-- SECTION: Our Services — Asymmetric Framed Card Grid       -->
-<!-- ========================================================= -->
 <section
   id="divisions"
   class="services-grid-section relative py-8 sm:py-10 lg:py-12 bg-white overflow-hidden text-slate-900"
   aria-labelledby="services-section-heading"
 >
-
-  <!-- SVG Clip Path Definitions (Mathematically Smooth Bezier Curves for Asymmetric Image Frames) -->
-  <svg class="sr-only" aria-hidden="true" width="0" height="0">
-    <defs>
-      <!-- Card 1: Signature Top-Right Scoop + Asymmetric Lower-Right Cutout -->
-      <clipPath id="service-clip-0" clipPathUnits="objectBoundingBox">
-        <path d="M 0,0 L 0.70,0 C 0.74,0.01 0.78,0.05 0.82,0.12 C 0.86,0.18 0.90,0.20 0.96,0.20 L 1,0.20 L 1,0.78 C 0.94,0.80 0.87,0.84 0.80,0.90 C 0.72,0.96 0.65,1 0.58,1 L 0,1 Z" />
-      </clipPath>
-
-      <!-- Card 2: Top-Right Scoop + Lower-Left Cutout (Bright/Dark Green Combination) -->
-      <clipPath id="service-clip-1" clipPathUnits="objectBoundingBox">
-        <path d="M 0,0 L 0.72,0 C 0.76,0.01 0.80,0.06 0.84,0.13 C 0.88,0.19 0.92,0.22 0.97,0.22 L 1,0.22 L 1,1 L 0.48,1 C 0.38,0.98 0.28,0.93 0.18,0.86 C 0.10,0.81 0.04,0.78 0,0.78 Z" />
-      </clipPath>
-
-      <!-- Card 3: Angled Chamfered Top-Right + Precision Stepped Bottom Transition -->
-      <clipPath id="service-clip-2" clipPathUnits="objectBoundingBox">
-        <path d="M 0,0 L 0.70,0 L 0.78,0.07 L 0.85,0.14 L 0.92,0.18 L 1,0.18 L 1,0.86 L 0.88,0.86 L 0.80,1 L 0.38,1 L 0.30,0.90 L 0,0.90 Z" />
-      </clipPath>
-
-      <!-- Card 4: Balanced Mirror of Card 1 — Top-Left Scoop + Lower-Left Cutout -->
-      <clipPath id="service-clip-3" clipPathUnits="objectBoundingBox">
-        <path d="M 0,0.20 L 0.08,0.20 C 0.14,0.20 0.18,0.18 0.22,0.12 C 0.26,0.05 0.29,0.01 0.34,0 L 1,0 L 1,1 L 0.40,1 C 0.30,0.98 0.22,0.94 0.14,0.87 C 0.07,0.82 0.02,0.78 0,0.78 Z" />
-      </clipPath>
-    </defs>
-  </svg>
-
   <Container size="wide" className="!max-w-[1360px] relative z-10">
     
-    <!-- ===================================================== -->
-    <!-- 1. CENTERED SECTION HEADER                             -->
-    <!-- Balanced horizontally above the service cards          -->
-    <!-- ===================================================== -->
     <header class="text-center w-full max-w-3xl mx-auto space-y-3 mb-6 sm:mb-8 select-none">
-      <!-- Eyebrow: Centered with green dot -->
-      {/*<div class="inline-flex items-center justify-center gap-2.5">
-        <span class="w-2 h-2 rounded-full bg-[#3FB33D]" aria-hidden="true"></span>
-        <span class="text-xs sm:text-sm font-mono font-bold tracking-[0.25em] text-[#0F623A] uppercase">
-          {eyebrow}
-        </span>
-      </div>*/}
-
-      <!-- Main Heading: Centered -->
       <h2
         id="services-section-heading"
         class="text-3xl sm:text-4xl lg:text-[44px] font-semibold font-display text-slate-900 tracking-tight leading-[1.12] text-balance mx-auto"
@@ -150,109 +108,27 @@ const items = services
       </h2>
     </header>
 
-    <!-- ===================================================== -->
-    <!-- 2. FOUR-CARD GRID: Responsive (4 desktop / 2 tablet / 1 mobile) -->
-    <!-- ===================================================== -->
     <div
       class="services-cards-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-6 lg:gap-7 items-stretch"
       id="services-interactive-grid"
     >
       {items.map((item, idx) => (
         <article
-          class="service-card group relative flex flex-col rounded-[16px] bg-white border border-slate-200/90 hover:border-[#0F623A]/40 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 ease-out h-[470px] select-none"
+          class="service-card group relative flex flex-col rounded-[16px] bg-white border border-slate-200/90 hover:border-[#0B2545]/40 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 ease-out h-[470px] select-none"
           data-service-index={idx}
           tabindex="0"
           aria-labelledby={`service-title-${idx}`}
           role="region"
         >
-          <!-- ─── UPPER PORTION: Asymmetric Organic Image-Frame Treatment ─── -->
-<div class="service-image-area relative w-full h-[340px] overflow-hidden rounded-t-[16px] shrink-0 bg-[#45C800]">            
-            <!-- TechSteps Brand-Colored Shape Behind Image (Stays Stable on Hover) -->
-<!-- TechSteps Logo-Colored Shape Behind Image -->
-<div
-  class={`service-frame-bg service-frame-bg--${idx} absolute inset-0 pointer-events-none select-none`}
-  aria-hidden="true"
->
-  {idx === 0 && (
-    <div class="w-full h-full bg-[#45C800] relative">
-      <!-- Top-right lime shape -->
-      <div
-        class="absolute top-0 right-0 w-28 h-20 bg-[#79D900] rounded-bl-3xl"
-      ></div>
-
-      <!-- Bottom-right bright/lime shape -->
-      <div
-        class="absolute bottom-0 right-0 w-32 h-16 bg-[#79D900]"
-      ></div>
-    </div>
-  )}
-
-  {idx === 1 && (
-    <div class="w-full h-full bg-[#45C800] relative overflow-hidden">
-      <!-- Bottom-left lime organic shape -->
-      <div
-        class="absolute -bottom-4 -left-4 w-32 h-28 rounded-full bg-[#79D900]"
-      ></div>
-
-      <!-- Top-right lime shape -->
-      <div
-        class="absolute top-0 right-0 w-24 h-16 bg-[#79D900] rounded-bl-2xl"
-      ></div>
-
-      <!-- Very subtle logo-green depth -->
-      <div
-        class="absolute inset-0 bg-gradient-to-tr from-transparent via-[#79D900]/10 to-transparent"
-      ></div>
-    </div>
-  )}
-
-  {idx === 2 && (
-    <div class="w-full h-full bg-[#45C800] relative overflow-hidden">
-      <!-- Soft two-tone green background -->
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-[#45C800] via-[#45C800] to-[#79D900]"
-      ></div>
-
-      <!-- Top-right decorative line -->
-      <div
-        class="absolute top-2 right-2 w-16 h-8 border-t border-r border-[#79D900]/70 pointer-events-none"
-      ></div>
-
-      <!-- Bottom-left decorative line -->
-      <div
-        class="absolute bottom-1 left-2 w-20 h-6 border-b border-l border-[#79D900]/70 pointer-events-none"
-      ></div>
-    </div>
-  )}
-
-  {idx === 3 && (
-    <div class="w-full h-full bg-[#45C800] relative overflow-hidden">
-      <!-- Lime-to-bright green background -->
-      <div
-        class="absolute inset-0 bg-gradient-to-tl from-[#45C800] to-[#79D900]"
-      ></div>
-
-      <!-- Top-left lime shape -->
-      <div
-        class="absolute -top-3 -left-3 w-28 h-24 bg-[#45C800] rounded-br-3xl"
-      ></div>
-
-      <!-- Bottom-left bright green shape -->
-      <div
-        class="absolute -bottom-4 -left-4 w-28 h-20 bg-[#79D900] rounded-tr-3xl"
-      ></div>
-    </div>
-  )}
-</div>
-
-            <!-- Asymmetrically Clipped Foreground Image Area -->
-            <div
-              class={`service-image-clip service-image-clip--${idx} relative w-full h-full overflow-hidden select-none`}
-            >
+          <!-- UPPER PORTION: Image Area -->
+          <div class="service-image-area relative w-full h-[340px] overflow-hidden rounded-t-[16px] shrink-0 bg-slate-100">
+            
+            <!-- Image -->
+            <div class="relative w-full h-full overflow-hidden select-none">
               <img
                 src={item.image}
                 alt={item.imageAlt}
-                class="service-img w-full h-full object-cover object-center select-none"
+                class="service-img w-full h-full object-cover object-top select-none transition-transform duration-500 group-hover:scale-105"
                 loading={idx === 0 ? 'eager' : 'lazy'}
                 decoding="async"
                 width="600"
@@ -261,64 +137,59 @@ const items = services
               />
             </div>
 
-            <!-- Ultra-Subtle Inner Rim Glow for Premium Finish -->
-            <div class="absolute inset-x-0 top-0 h-px bg-white/15 pointer-events-none" aria-hidden="true"></div>
+            <!-- ─── NEW: SVG GREEN WAVE OVERLAY ─── -->
+            <!-- This hides the white wave and replaces it with the brand green -->
+            <div class="absolute bottom-0 left-0 right-0 pointer-events-none w-full z-10">
+              <svg 
+                viewBox="0 0 500 60" 
+                preserveAspectRatio="none" 
+                class="w-full h-[50px] block"
+              >
+                <path 
+                  d="M0,20 C150,-30 350,50 500,10 L500,100 L0,90 Z" 
+                  fill="#0F623A"
+                ></path>
+              </svg>
+            </div>
+            <!-- ─────────────────────────────────── -->
+
+            <!-- Ultra-Subtle Inner Rim Glow -->
+            <div class="absolute inset-x-0 top-0 h-px bg-white/15 pointer-events-none z-20" aria-hidden="true"></div>
           </div>
 
-          <!-- ─── LOWER PORTION: Anchored Content Panel with Expandable Details on Hover ─── -->
-          <!-- Default: Shows accent bar & title. Hover: Expands upward to reveal description & CTA -->
-<div class="service-content-panel absolute bottom-0 inset-x-0 bg-white p-5 sm:p-6 rounded-b-[16px] border-t border-slate-100 flex flex-col justify-start transition-all duration-500 ease-out">            
-            <!-- Default Visible State: Green Accent Line & Service Title -->
+          <!-- LOWER PORTION -->
+          <div class="service-content-panel absolute bottom-0 inset-x-0 bg-white p-5 sm:p-6 rounded-b-[16px] border-t border-slate-100 flex flex-col justify-start transition-all duration-500 ease-out z-20">
+            
             <div class="service-default-header min-h-[78px] flex flex-col justify-start space-y-2">
-              <!-- Subtle Green Accent Line (animates width on hover) -->
-              <span
-                class="service-accent-bar inline-block h-[2.5px] w-7 rounded-full bg-[#3FB33D] transition-all duration-400 ease-out group-hover:w-12 group-hover:bg-[#0F623A]"
-                aria-hidden="true"
-              ></span>
+              <span class="service-accent-bar inline-block h-[2.5px] w-7 rounded-full bg-[#0B2545] transition-all duration-400 ease-out group-hover:w-12 group-hover:bg-[#133B6B]" aria-hidden="true"></span>
 
-              <!-- Strong Service Title -->
-<h3
-  id={`service-title-${idx}`}
-  class="service-title text-xl lg:text-[21px] font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-300 leading-snug tracking-tight"
->
-                <a
-                  href={item.link}
-                  class="service-title-link focus:outline-none focus:underline"
-                  tabindex="-1"
-                >
+              <h3
+                id={`service-title-${idx}`}
+                class="service-title text-xl lg:text-[21px] font-semibold font-display text-slate-900 group-hover:text-[#0B2545] transition-colors duration-300 leading-snug tracking-tight"
+              >
+                <a href={item.link} class="service-title-link focus:outline-none focus:underline" tabindex="-1">
                   {item.title}
                 </a>
               </h3>
             </div>
 
-            <!-- Collapsible Details: Shown ONLY on Hover/Focus/Tap, otherwise hidden -->
             <div class="service-collapsible-wrapper">
               <div class="service-collapsible-content pt-1 space-y-3.5">
                 
-                <!-- Existing Sanity Service Description -->
                 <p class="service-desc text-sm sm:text-[15px] text-black leading-relaxed font-normal line-clamp-3">
                   {item.description}
                 </p>
 
-                <!-- Minimal Editorial CTA (View Service →) -->
                 <div class="service-cta-row pt-1">
                   <a
                     href={item.link}
-                    class="service-cta-link inline-flex items-center gap-2.5 text-xs sm:text-[13px] font-mono font-bold tracking-wider text-[#0F623A] uppercase hover:text-[#0c4e2e] transition-colors duration-200 group/cta focus:outline-none focus:ring-2 focus:ring-[#3FB33D] focus:ring-offset-2 rounded-sm"
-                    aria-label={`View ${item.title} service details`}
+                    class="service-cta-link inline-flex items-center gap-2.5 text-xs sm:text-[13px] font-mono font-bold tracking-wider text-[#0B2545] uppercase hover:text-[#133B6B] transition-colors duration-200 group/cta focus:outline-none focus:ring-2 focus:ring-[#0B2545] focus:ring-offset-2 rounded-sm"
                   >
                     <span class="cta-label relative">
                       View Service
-                      <span class="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-[#3FB33D] transition-all duration-300 ease-out group-hover/cta:w-full" aria-hidden="true"></span>
+                      <span class="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-[#0B2545] transition-all duration-300 ease-out group-hover/cta:w-full" aria-hidden="true"></span>
                     </span>
-                    <svg
-                      class="cta-arrow w-4 h-4 text-[#3FB33D] transition-transform duration-300 ease-out group-hover/cta:translate-x-1.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2.5"
-                      aria-hidden="true"
-                    >
+                    <svg class="cta-arrow w-4 h-4 text-[#0B2545] transition-transform duration-300 ease-out group-hover/cta:translate-x-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </a>
@@ -332,14 +203,11 @@ const items = services
       ))}
     </div>
 
-    <!-- ===================================================== -->
-    <!-- BOTTOM: View All Services Link                         -->
-    <!-- ===================================================== -->
     {viewAllLink && (
       <div class="mt-6 sm:mt-8 text-center">
         <a
           href={viewAllLink}
-          class="inline-flex items-center gap-2.5 px-6 py-3 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#3FB33D]"
+          class="inline-flex items-center gap-2.5 px-6 py-3 rounded-[12px] bg-[#0B2545] hover:bg-[#133B6B] text-white text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#0B2545]"
         >
           <span>Explore Our Services →</span>
         </a>
@@ -350,9 +218,6 @@ const items = services
 </section>
 
 <style>
-  /* ---------------------------------------------------- */
-  /* CARD STRUCTURE & LAYOUT STABILITY                     */
-  /* ---------------------------------------------------- */
   .service-card {
     will-change: transform, box-shadow, border-color;
   }
@@ -361,112 +226,10 @@ const items = services
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
   }
 
-  /* ---------------------------------------------------- */
-  /* ASYMMETRIC IMAGE CLIPPING (Cross-Browser Supported)  */
-  /* High-density CSS polygon + Native SVG Bezier Paths   */
-  /* ---------------------------------------------------- */
-  
-  /* Card 1: Information Management — Top-right scoop & lower-right cutout */
-  .service-image-clip--0 {
-    clip-path: polygon(
-      0% 0%,
-      70% 0%,
-      74% 2%,
-      79% 8%,
-      84% 16%,
-      90% 20%,
-      100% 20%,
-      100% 78%,
-      95% 80%,
-      88% 84%,
-      80% 90%,
-      70% 96%,
-      60% 100%,
-      0% 100%
-    );
-    clip-path: url(#service-clip-0);
-  }
-
-  /* Card 2: IT Lifecycle Services — Top-right scoop & lower-left cutout */
-  .service-image-clip--1 {
-    clip-path: polygon(
-      0% 0%,
-      72% 0%,
-      76% 2%,
-      81% 9%,
-      86% 17%,
-      92% 22%,
-      100% 22%,
-      100% 100%,
-      48% 100%,
-      38% 97%,
-      28% 92%,
-      18% 85%,
-      8% 80%,
-      0% 78%
-    );
-    clip-path: url(#service-clip-1);
-  }
-
-  /* Card 3: Secure Shredding — Angled top-right chamfer & stepped bottom */
-  .service-image-clip--2 {
-    clip-path: polygon(
-      0% 0%,
-      70% 0%,
-      78% 7%,
-      85% 14%,
-      92% 18%,
-      100% 18%,
-      100% 86%,
-      88% 86%,
-      80% 100%,
-      38% 100%,
-      30% 90%,
-      0% 90%
-    );
-    clip-path: url(#service-clip-2);
-  }
-
-  /* Card 4: Moving & Relocation — Opposite mirror: Top-left scoop & lower-left cutout */
-  .service-image-clip--3 {
-    clip-path: polygon(
-      0% 20%,
-      8% 20%,
-      15% 16%,
-      21% 9%,
-      26% 2%,
-      30% 0%,
-      100% 0%,
-      100% 100%,
-      40% 100%,
-      30% 96%,
-      20% 90%,
-      12% 84%,
-      5% 80%,
-      0% 78%
-    );
-    clip-path: url(#service-clip-3);
-  }
-
-  /* ---------------------------------------------------- */
-  /* SUBTLE IMAGE HOVER EFFECT (450ms, Scale 1.04)        */
-  /* Colored frame & clip shape remain completely stable  */
-  /* ---------------------------------------------------- */
   .service-img {
     will-change: transform;
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .service-card:hover .service-img,
-  .service-card:focus-within .service-img,
-  .service-card.is-active .service-img {
-    transform: scale(1.04);
-  }
-
-  /* ---------------------------------------------------- */
-  /* COLLAPSIBLE DETAILS REVEAL (CSS Grid Technique)      */
-  /* Default: Title only. Hover/Focus/Tap: Reveals details */
-  /* ---------------------------------------------------- */
   .service-collapsible-wrapper {
     display: grid;
     grid-template-rows: 0fr;
@@ -480,7 +243,6 @@ const items = services
     overflow: hidden;
   }
 
-  /* Description & CTA Reveal Motion */
   .service-desc {
     opacity: 0;
     transform: translateY(12px);
@@ -497,7 +259,6 @@ const items = services
       transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
   }
 
-  /* Hover, Focus, or Mobile Tap Active State */
   .service-card:hover .service-collapsible-wrapper,
   .service-card:focus-within .service-collapsible-wrapper,
   .service-card.is-active .service-collapsible-wrapper {
@@ -519,15 +280,11 @@ const items = services
     transform: translateY(0);
   }
 
-  /* Keyboard focus outline */
   .service-card:focus-visible {
-    outline: 2px solid #3FB33D;
+    outline: 2px solid #0B2545;
     outline-offset: 4px;
   }
 
-  /* ---------------------------------------------------- */
-  /* REDUCED MOTION SUPPORT                               */
-  /* ---------------------------------------------------- */
   @media (prefers-reduced-motion: reduce) {
     .service-card,
     .service-img,
@@ -539,24 +296,22 @@ const items = services
       transition: none !important;
       transform: none !important;
     }
-
     .service-collapsible-wrapper {
       opacity: 1 !important;
       grid-template-rows: 1fr !important;
     }
-
     .service-desc,
     .service-cta-row {
       opacity: 1 !important;
       transform: none !important;
     }
   }
-  /* Information Management - single-line title */
-.service-card[data-service-index="1"] .service-title {
-  white-space: nowrap;
-  font-size: 20px;
-  letter-spacing: -0.02em;
-}
+
+  .service-card[data-service-index="1"] .service-title {
+    white-space: nowrap;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+  }
 </style>
 
 <script is:inline>
@@ -568,38 +323,24 @@ const items = services
       const cards = Array.from(container.querySelectorAll('.service-card'));
       if (!cards.length) return;
 
-      // Handle mobile tap / click interaction
       cards.forEach((card) => {
         card.addEventListener('click', (e) => {
-          // If clicked directly on the CTA link, allow direct navigation
-          if (e.target.closest('.service-cta-link')) {
-            return;
-          }
+          if (e.target.closest('.service-cta-link')) return;
 
-          // Check for touch / small screen interaction
           const isTouch = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 1024;
           if (isTouch) {
             const isAlreadyActive = card.classList.contains('is-active');
-
-            // Close other cards in the grid
-            cards.forEach((c) => {
-              if (c !== card) c.classList.remove('is-active');
-            });
-
+            cards.forEach((c) => { if (c !== card) c.classList.remove('is-active'); });
             if (!isAlreadyActive) {
               card.classList.add('is-active');
             } else {
-              // Second tap navigates to service page
               const link = card.querySelector('.service-cta-link');
-              if (link && link.href) {
-                window.location.href = link.href;
-              }
+              if (link && link.href) window.location.href = link.href;
             }
           }
         });
       });
 
-      // Close active card on click outside
       document.addEventListener('click', (e) => {
         if (!e.target.closest('.service-card')) {
           cards.forEach((c) => c.classList.remove('is-active'));

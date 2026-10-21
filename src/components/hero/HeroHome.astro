@@ -11,7 +11,7 @@ const hero = homePage?.hero;
 ========================= -->
 <section
   id="hero"
-  class="relative w-full bg-white select-none"
+  class="relative w-full bg-white select-none overflow-hidden"
 >
   <!-- Top Hero Header (Integrated with light hero background) -->
   <HeroHeader isHome={true} />
@@ -20,8 +20,8 @@ const hero = homePage?.hero;
   <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="relative w-full min-h-[460px] sm:min-h-[500px] lg:min-h-[560px] flex flex-col justify-center">
 
-      <!-- Background Image on Desktop (ends at right edge of header container) -->
-      <div class="absolute inset-y-0 right-0 w-full lg:w-[62%] overflow-hidden pointer-events-none select-none z-0">
+      <!-- Background Image on Desktop (Reduced width to make image smaller) -->
+      <div class="absolute top-1/2 -translate-y-1/2 right-0 w-full lg:w-[40%] lg:H-[40%] overflow-hidden pointer-events-none select-none z-0">
         <img
           src={hero?.bgImageUrl || "/images/brand/hero section.webp"}
           alt=""
@@ -31,8 +31,7 @@ const hero = homePage?.hero;
           fetchpriority="high"
           decoding="sync"
         />
-        <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/30 lg:via-white/10 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white via-white/70 to-transparent pointer-events-none"></div>
+        
       </div>
 
       <!-- Main Hero Content Container -->
@@ -74,20 +73,20 @@ const hero = homePage?.hero;
           )}
         </h1>
 
-<!-- Description -->
-<p
-  class="mt-4 sm:mt-5
-         text-lg sm:text-xl lg:text-lg
-         text-black
-         max-w-lg
-         leading-relaxed
-         font-sans font-normal"
->
-  {
-    hero?.description ||
-    'Techsteps securely reuse and recycle retired IT assets, reducing waste while recovering maximum value responsibly.'
-  }
-</p>
+        <!-- Description -->
+        <p
+          class="mt-4 sm:mt-5
+                 text-lg sm:text-xl lg:text-lg
+                 text-black
+                 max-w-lg
+                 leading-relaxed
+                 font-sans font-normal"
+        >
+          {
+            hero?.description ||
+            'Techsteps securely reuse and recycle retired IT assets, reducing waste while recovering maximum value responsibly.'
+          }
+        </p>
 
         <!-- CTA Buttons -->
         <div
@@ -183,16 +182,6 @@ const hero = homePage?.hero;
   <!-- =========================
        TORN PAPER DIVIDER (Bottom)
   ========================= -->
-  <!--<div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-20 pointer-events-none">
-    <img
-      src="/images/brand/torn-paper-edge.svg"
-      alt=""
-      aria-hidden="true"
-      class="w-full h-8 sm:h-12 md:h-16 lg:h-20 object-fill block"
-      loading="eager"
-      decoding="sync"
-    />
-  </div>-->
 </section>
 
 <style>

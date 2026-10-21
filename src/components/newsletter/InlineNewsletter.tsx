@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import CategoryPreferenceModal from "./CategoryPreferenceModal";
+// If you still want to use the modal for category preferences, keep this import
+// import CategoryPreferenceModal from "./CategoryPreferenceModal";
 
 interface InlineNewsletterProps {
   categorySlug?: string;
@@ -17,13 +18,50 @@ export const InlineNewsletter: React.FC<InlineNewsletterProps> = ({
   const [email, setEmail] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subscribedSuccess, setSubscribedSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+
+    // Basic validation
     if (!email || !email.includes("@") || !email.includes(".")) {
+      setError("Please enter a valid email address.");
       return;
     }
-    setIsModalOpen(true);
+
+    setIsLoading(true);
+
+    try {
+      // UNGAL BACKEND API ENDPOINT INGA KUDUNGA
+      // Example: /api/newsletter/subscribe
+      const response = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          email,
+          categorySlug: categorySlug || "global",
+          categoryName: categoryName || "All Insights"
+        }),
+      });
+
+      if (response.ok) {
+        // Success
+        setSubscribedSuccess(true);
+        setEmail("");
+      } else {
+        // Server error
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.message || "Failed to subscribe. Please try again.");
+      }
+    } catch (err: any) {
+      setError(err.message || "Something went wrong. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (subscribedSuccess) {
@@ -50,28 +88,29 @@ export const InlineNewsletter: React.FC<InlineNewsletterProps> = ({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 min-w-0 bg-white border border-slate-300 rounded-[8px] px-5 py-3.5 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/20 shadow-xs transition-all"
+          disabled={isLoading}
+          className="flex-1 min-w-0 bg-white border border-slate-300 rounded-[8px] px-5 py-3.5 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/20 shadow-xs transition-all disabled:opacity-70"
         />
         <button
           type="submit"
-          className="shrink-0 bg-[#2D6A4F] hover:bg-[#245a41] text-white font-bold text-xs uppercase tracking-widest px-7 py-3.5 rounded-[12px] transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer"
+          disabled={isLoading}
+          className="shrink-0 bg-[#2D6A4F] hover:bg-[#245a41] text-white font-bold text-xs uppercase tracking-widest px-7 py-3.5 rounded-[12px] transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
         >
-          {buttonText}
+          {isLoading ? "Subscribing..." : buttonText}
         </button>
       </form>
 
-      {isModalOpen && (
-        <CategoryPreferenceModal
-          email={email}
-          isOpen={isModalOpen}
-          initialCategorySlug={categorySlug}
-          onClose={() => setIsModalOpen(false)}
-          onSuccess={() => {
-            setSubscribedSuccess(true);
-            setEmail("");
-          }}
-        />
+      {/* Error Message */}
+      {error && (
+        <p className="mt-3 text-sm text-red-600 text-center font-medium">
+          {error}
+        </p>
       )}
+
+      {/* 
+        CategoryPreferenceModal is removed from the submit flow. 
+        If you still want to use it for something else, you can bring it back.
+      */}
     </div>
   );
 };

@@ -111,7 +111,7 @@ const businessBenefits = [
   description={pageDescription}
   hasHeroHeader={true}
 >
-  <!-- Top Navigation Header (matches About, Contact and sub-pages at scroll 0) -->
+  <!-- Top Navigation Header -->
   <HeroHeader isHome={false} />
 
   <!-- =====================================================
@@ -136,7 +136,7 @@ const businessBenefits = [
           <div class="pt-1">
             <a
               href="/contact"
-              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-[12px] bg-[#0B2545] hover:bg-[#133B6B] text-white text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0B2545] focus:ring-offset-2"
             >
               <span>Talk to Our Team</span>
               <span class="text-lg leading-none" aria-hidden="true">&rarr;</span>
@@ -144,10 +144,9 @@ const businessBenefits = [
           </div>
         </div>
 
-        <!-- Right: Technician Cut-out with Floating Badges (Closer to text, clean edges, no drop shadow band) -->
+        <!-- Right: Technician Cut-out -->
         <div class="relative justify-self-start w-full max-w-[560px] mt-6 lg:mt-0">
           <div class="relative w-full max-w-[560px]">
-            <!-- Main Technician Image (No drop-shadow wrapper or band) -->
             <img
               src="/images/services/service main hero.webp"
               alt="TechSteps certified specialist representing compliance, security and lifecycle management"
@@ -158,7 +157,6 @@ const businessBenefits = [
               fetchpriority="high"
               decoding="async"
             />
-
           </div>
         </div>
 
@@ -169,11 +167,9 @@ const businessBenefits = [
 
   <!-- =====================================================
        3. "THE RIGHT EXPERTISE, ALL IN ONE PLACE"
-       4 DEEP-GREEN CARDS
        ===================================================== -->
   <section class="bg-white py-10 sm:py-12 lg:py-16 border-t border-slate-100">
     <Container size="normal">
-      <!-- Section Heading -->
       <div class="text-left max-w-3xl mb-8 sm:mb-10">
         <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.15]">
           The Right Expertise, All in One Place
@@ -183,16 +179,16 @@ const businessBenefits = [
         </p>
       </div>
 
-      <!-- 4 Deep-Green Cards Grid -->
+      <!-- 4 Deep-Navy Cards Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {serviceCards.map((card) => (
           <a
             href={card.href}
-            class="service-feature-card group relative bg-[#0F623A] rounded-[16px] overflow-hidden border border-emerald-900/40 shadow-sm hover:shadow-xl hover:-translate-y-1.5 hover:border-emerald-400/50 transition-all duration-300 flex flex-col focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+            class="service-feature-card group relative bg-[#0B2545] rounded-[16px] overflow-hidden border border-slate-900/40 shadow-sm hover:shadow-xl hover:-translate-y-1.5 hover:border-slate-400/50 transition-all duration-300 flex flex-col focus:outline-none focus:ring-2 focus:ring-[#0B2545] focus:ring-offset-2"
             aria-label={`${card.title} - ${card.description}`}
           >
-            <!-- Card Image (Pre-rendered card graphic from approved assets) -->
-            <div class="relative w-full aspect-[888/1068] bg-[#0F623A] overflow-hidden">
+            <!-- Card Image -->
+            <div class="relative w-full aspect-[888/1068] bg-[#0B2545] overflow-hidden">
               <img
                 src={card.cardImage}
                 alt={card.alt}
@@ -219,12 +215,11 @@ const businessBenefits = [
        ===================================================== -->
   <div class="bg-white">
 
-    <!-- 4a. Information Management (Text Left, Image Right) -->
+    <!-- 4a. Information Management -->
     <section id="information-management" class="scroll-mt-24 sm:scroll-mt-28 py-10 sm:py-12 lg:py-16 border-t border-slate-100">
       <Container size="normal">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
           
-          <!-- Text Column (Desktop Left / Mobile 2nd) -->
           <div class="lg:col-span-7 order-2 lg:order-1 space-y-5 sm:space-y-6">
             <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.18]">
               From Physical Records to Digital Clarity
@@ -236,8 +231,8 @@ const businessBenefits = [
 
             <!-- Pill Rows with Check Icons -->
             <div class="space-y-3 pt-1">
-              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
-                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-50 border border-[#0B2545]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0B2545] text-white flex items-center justify-center shrink-0" aria-hidden="true">
                   <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
@@ -245,8 +240,8 @@ const businessBenefits = [
                 <span>BS 10008 Evidential Weight Certification</span>
               </div>
               <br class="hidden sm:inline" />
-              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
-                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-50 border border-[#0B2545]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0B2545] text-white flex items-center justify-center shrink-0" aria-hidden="true">
                   <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
@@ -255,11 +250,10 @@ const businessBenefits = [
               </div>
             </div>
 
-            <!-- CTA Button -->
             <div class="pt-3">
               <a
                 href="/services/information-management"
-                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-[12px] bg-[#0B2545] hover:bg-[#133B6B] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0B2545] focus:ring-offset-2"
               >
                 <span>Explore Information Management</span>
                 <span aria-hidden="true">&rarr;</span>
@@ -267,7 +261,6 @@ const businessBenefits = [
             </div>
           </div>
 
-          <!-- Image Column (Desktop Right / Mobile 1st) - Clean image, no shadow band -->
           <div class="lg:col-span-5 order-1 lg:order-2 flex justify-center items-center">
             <div class="relative w-full max-w-[420px] lg:max-w-[460px]">
               <img
@@ -286,12 +279,11 @@ const businessBenefits = [
       </Container>
     </section>
 
-    <!-- 4b. IT Lifecycle (Image Left, Text Right) -->
+    <!-- 4b. IT Lifecycle -->
     <section id="it-lifecycle" class="scroll-mt-24 sm:scroll-mt-28 py-10 sm:py-12 lg:py-16 border-t border-slate-100">
       <Container size="normal">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
           
-          <!-- Image Column (Desktop Left / Mobile 1st) - Clean image, no shadow band -->
           <div class="lg:col-span-5 order-1 lg:order-1 flex justify-center items-center">
             <div class="relative w-full max-w-[420px] lg:max-w-[460px]">
               <img
@@ -306,7 +298,6 @@ const businessBenefits = [
             </div>
           </div>
 
-          <!-- Text Column (Desktop Right / Mobile 2nd) -->
           <div class="lg:col-span-7 order-2 lg:order-2 space-y-5 sm:space-y-6">
             <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.18]">
               Give Technology a Responsible Next Chapter
@@ -316,11 +307,10 @@ const businessBenefits = [
               From collecting retired IT equipment to secure data sanitization, asset remarketing, and compliant e-waste recovery, help your organisation extract value while meeting ESG commitments.
             </p>
 
-            <!-- CTA Button -->
             <div class="pt-3">
               <a
                 href="/contact"
-                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-[12px] bg-[#0B2545] hover:bg-[#133B6B] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0B2545] focus:ring-offset-2"
               >
                 <span>Discuss Your Requirements</span>
                 <span class="text-base leading-none" aria-hidden="true">&rarr;</span>
@@ -332,12 +322,11 @@ const businessBenefits = [
       </Container>
     </section>
 
-    <!-- 4c. Secure Shredding (Text Left, Image Right) -->
+    <!-- 4c. Secure Shredding -->
     <section id="secure-shredding" class="scroll-mt-24 sm:scroll-mt-28 py-10 sm:py-12 lg:py-16 border-t border-slate-100">
       <Container size="normal">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
           
-          <!-- Text Column (Desktop Left / Mobile 2nd) -->
           <div class="lg:col-span-7 order-2 lg:order-1 space-y-5 sm:space-y-6">
             <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.18]">
               Confidential Today. Securely Disposed Tomorrow.
@@ -347,10 +336,9 @@ const businessBenefits = [
               Protect sensitive business records and hard drives through controlled, on-site or off-site destruction procedures compliant with British and European standards.
             </p>
 
-            <!-- Pill Rows with Check Icons -->
             <div class="space-y-3 pt-1">
-              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
-                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-50 border border-[#0B2545]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0B2545] text-white flex items-center justify-center shrink-0" aria-hidden="true">
                   <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
@@ -358,8 +346,8 @@ const businessBenefits = [
                 <span>BS EN 15713 Level 4 to Level 6 Security Standards</span>
               </div>
               <br class="hidden sm:inline" />
-              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
-                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-50 border border-[#0B2545]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0B2545] text-white flex items-center justify-center shrink-0" aria-hidden="true">
                   <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
@@ -368,11 +356,10 @@ const businessBenefits = [
               </div>
             </div>
 
-            <!-- CTA Button -->
             <div class="pt-3">
               <a
                 href="/services/secure-destruction"
-                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-[12px] bg-[#0B2545] hover:bg-[#133B6B] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0B2545] focus:ring-offset-2"
               >
                 <span>Explore Secure Shredding</span>
                 <span aria-hidden="true">&rarr;</span>
@@ -380,7 +367,6 @@ const businessBenefits = [
             </div>
           </div>
 
-          <!-- Image Column (Desktop Right / Mobile 1st) - Clean image, no shadow band -->
           <div class="lg:col-span-5 order-1 lg:order-2 flex justify-center items-center">
             <div class="relative w-full max-w-[400px] lg:max-w-[440px]">
               <img
@@ -399,12 +385,11 @@ const businessBenefits = [
       </Container>
     </section>
 
-    <!-- 4d. Relocation (Image Left, Text Right) -->
+    <!-- 4d. Relocation -->
     <section id="relocation" class="scroll-mt-24 sm:scroll-mt-28 py-10 sm:py-12 lg:py-16 border-t border-slate-100">
       <Container size="normal">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
           
-          <!-- Image Column (Desktop Left / Mobile 1st) - Clean image, no shadow band -->
           <div class="lg:col-span-5 order-1 lg:order-1 flex justify-center items-center">
             <div class="relative w-full max-w-[420px] lg:max-w-[460px]">
               <img
@@ -419,7 +404,6 @@ const businessBenefits = [
             </div>
           </div>
 
-          <!-- Text Column (Desktop Right / Mobile 2nd) -->
           <div class="lg:col-span-7 order-2 lg:order-2 space-y-5 sm:space-y-6">
             <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.18]">
               Every Move, Carefully Managed
@@ -429,10 +413,9 @@ const businessBenefits = [
               Support corporate relocations with structured logistics planning and coordinated handling of archives, server racks, desktop fleets, and delicate equipment.
             </p>
 
-            <!-- Pill Rows with Genuine Relocation Capabilities -->
             <div class="space-y-3 pt-1">
-              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
-                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-50 border border-[#0B2545]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0B2545] text-white flex items-center justify-center shrink-0" aria-hidden="true">
                   <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
@@ -440,8 +423,8 @@ const businessBenefits = [
                 <span>Dedicated Project Management & Chain of Custody</span>
               </div>
               <br class="hidden sm:inline" />
-              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#EEF7F2] border border-[#0F623A]/15 text-slate-800 text-xs sm:text-sm font-medium">
-                <span class="w-4 h-4 rounded-full bg-[#0F623A] text-white flex items-center justify-center shrink-0" aria-hidden="true">
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-50 border border-[#0B2545]/15 text-slate-800 text-xs sm:text-sm font-medium">
+                <span class="w-4 h-4 rounded-full bg-[#0B2545] text-white flex items-center justify-center shrink-0" aria-hidden="true">
                   <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
@@ -450,11 +433,10 @@ const businessBenefits = [
               </div>
             </div>
 
-            <!-- CTA Button -->
             <div class="pt-3">
               <a
                 href="/services/relocation"
-                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0F623A] focus:ring-offset-2"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-[12px] bg-[#0B2545] hover:bg-[#133B6B] text-white text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#0B2545] focus:ring-offset-2"
               >
                 <span>Explore Relocation Services</span>
                 <span aria-hidden="true">&rarr;</span>
@@ -471,11 +453,9 @@ const businessBenefits = [
 
   <!-- =====================================================
        5. "MORE THAN INDIVIDUAL SERVICES. A CONNECTED APPROACH."
-       FOUR SOFT SAGE STEP CARDS
        ===================================================== -->
   <section class="bg-white py-10 sm:py-12 lg:py-16 border-t border-slate-100">
     <Container size="normal">
-      <!-- Section Header -->
       <div class="text-left max-w-3xl mb-8 sm:mb-10">
         <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.15]">
           More Than Individual Services. A Connected Approach.
@@ -485,11 +465,11 @@ const businessBenefits = [
         </p>
       </div>
 
-      <!-- 4 Soft Sage Cards Grid -->
+      <!-- 4 Soft Slate Cards Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {connectedSteps.map((item) => (
-          <div class="bg-[#EEF7F2] rounded-[16px] p-6 sm:p-7 border border-[#0F623A]/10 flex flex-col justify-start transition-all duration-300 hover:shadow-md hover:-translate-y-1">
-            <span class="text-2xl sm:text-3xl font-bold text-[#0F623A]/30 mb-5 font-mono select-none" aria-hidden="true">
+          <div class="bg-slate-50 rounded-[16px] p-6 sm:p-7 border border-[#0B2545]/10 flex flex-col justify-start transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+            <span class="text-2xl sm:text-3xl font-bold text-[#0B2545]/30 mb-5 font-mono select-none" aria-hidden="true">
               {item.step}
             </span>
             <h3 class="text-lg sm:text-xl font-semibold text-slate-900 mb-2 font-display">
@@ -507,11 +487,9 @@ const businessBenefits = [
 
   <!-- =====================================================
        6. "BUILT AROUND WHAT MATTERS TO YOUR BUSINESS"
-       4 BENEFITS IN A 2x2 GRID
        ===================================================== -->
   <section class="bg-white py-10 sm:py-12 lg:py-16 border-t border-slate-100">
     <Container size="normal">
-      <!-- Section Header -->
       <div class="text-left max-w-3xl mb-8 sm:mb-10">
         <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.15]">
           Built Around What Matters to Your Business
@@ -525,8 +503,7 @@ const businessBenefits = [
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-16 gap-y-8 sm:gap-y-10">
         {businessBenefits.map((benefit) => (
           <div class="flex items-start gap-4 sm:gap-5">
-            <!-- Icon -->
-            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-[12px] flex items-center justify-center shrink-0 text-[#0F623A]" aria-hidden="true">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-[12px] flex items-center justify-center shrink-0 text-[#0B2545]" aria-hidden="true">
               {benefit.icon === 'shield' && (
                 <svg class="w-5 h-5 sm:w-5.5 sm:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -554,7 +531,6 @@ const businessBenefits = [
               )}
             </div>
 
-            <!-- Content -->
             <div class="space-y-1">
               <h3 class="text-lg sm:text-xl font-semibold text-slate-900 font-display">
                 {benefit.title}
@@ -572,24 +548,19 @@ const businessBenefits = [
 
   <!-- =====================================================
        7. "SOLUTIONS FOR COMPLEX BUSINESS ENVIRONMENTS"
-       REUSING HOMEPAGE SECTORS CAROUSEL
        ===================================================== -->
   <section class="relative overflow-hidden bg-white  py-10 sm:py-12 lg:py-16 border-t border-slate-200/80">
-
-
     <div class="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Section Header -->
-<div class="text-center max-w-6xl mx-auto space-y-3 mb-6 sm:mb-8">
-  <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold font-display text-slate-900 tracking-tight leading-[1.18]">
-    Solutions for Complex Business Environments
-  </h2>
+      <div class="text-center max-w-6xl mx-auto space-y-3 mb-6 sm:mb-8">
+        <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold font-display text-slate-900 tracking-tight leading-[1.18]">
+          Solutions for Complex Business Environments
+        </h2>
 
-  <p class="text-lg sm:text-xl text-black leading-relaxed font-normal max-w-4xl mx-auto">
-    Tailored lifecycle and information management solutions designed for the regulatory, security, and operational demands of distinct industries.
-  </p>
-</div>
+        <p class="text-lg sm:text-xl text-black leading-relaxed font-normal max-w-4xl mx-auto">
+          Tailored lifecycle and information management solutions designed for the regulatory, security, and operational demands of distinct industries.
+        </p>
+      </div>
 
-      <!-- Existing Reused Homepage Sectors Carousel Component -->
       <SectorGrid sectors={sectors} />
     </div>
   </section>
