@@ -30,7 +30,7 @@ export default defineConfig({
   site: productionSite,
   trailingSlash: 'never',
   output: 'server',
-  adapter: node({ mode: 'standalone' }),// <-- MUKKIYAM! Ithu API routes work aaga thevai
+  adapter: node({ mode: 'standalone' }),
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'hover',

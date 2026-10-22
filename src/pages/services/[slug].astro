@@ -9,14 +9,31 @@ import { generateServiceSchema, generateBreadcrumbSchema } from '../../lib/seo/j
 import { getServiceDetailContent } from '../../data/serviceDetails';
 import type { Service } from '../../lib/sanity/types';
 
-export async function getStaticPaths() {
-  const allServices = await getServices();
+function isValidService(value: unknown): value is Service {
+  if (typeof value !== 'object' || value === null) return false;
+  const record = value as Record<string, unknown>;
+  return (
+    typeof record.slug === 'string' &&
+    record.slug.trim().length > 0 &&
+    typeof record.title === 'string' &&
+    record.title.trim().length > 0 &&
+    typeof record.divisionSlug === 'string' &&
+    record.divisionSlug.trim().length > 0 &&
+    typeof record.divisionTitle === 'string' &&
+    record.divisionTitle.trim().length > 0
+  );
+}
+
+function normalizeRouteSlug(slug: unknown): string {
+  return typeof slug === 'string' ? slug.trim().toLowerCase() : '';
+}
+
+function buildServicePaths(records: unknown) {
   const paths: { params: { slug: string }; props: { service: Service } }[] = [];
   const registeredSlugs = new Set<string>();
 
-  const register = (slug: string | undefined, service: Service) => {
-    if (!slug) return;
-    const cleanSlug = slug.trim().toLowerCase();
+  const register = (slug: unknown, service: Service) => {
+    const cleanSlug = normalizeRouteSlug(slug);
     if (!cleanSlug || registeredSlugs.has(cleanSlug)) return;
     registeredSlugs.add(cleanSlug);
     paths.push({
@@ -25,9 +42,9 @@ export async function getStaticPaths() {
     });
   };
 
-  for (const service of allServices) {
-    if (!service.slug) continue;
+  const allServices = Array.isArray(records) ? records.filter(isValidService) : [];
 
+  for (const service of allServices) {
     // Primary route
     register(service.slug, service);
 
@@ -43,12 +60,14 @@ export async function getStaticPaths() {
     register(`${withoutServices}-uk`, service);
 
     // Match against fallback services to ensure menu slugs resolve
-    const fallbackMatch = fallbackServices.find(
-      (f) =>
+    const fallbackMatch = fallbackServices.find((f) => {
+      if (!isValidService(f)) return false;
+      return (
         f.id === service.id ||
-        f.id === (service as any)._id ||
-        (f.title && service.title && f.title.toLowerCase() === service.title.toLowerCase())
-    );
+        ('_id' in service && typeof service._id === 'string' && f.id === service._id) ||
+        f.title.toLowerCase() === service.title.toLowerCase()
+      );
+    });
     if (fallbackMatch?.slug) {
       register(fallbackMatch.slug, service);
       register(fallbackMatch.slug.replace(/-uk$/, ''), service);
@@ -59,7 +78,7 @@ export async function getStaticPaths() {
 
   // Ensure any fallback service not present in Sanity is also reachable
   for (const fallback of fallbackServices) {
-    if (fallback.slug) {
+    if (isValidService(fallback)) {
       register(fallback.slug, fallback);
       register(fallback.slug.replace(/-uk$/, ''), fallback);
       register(`${fallback.slug}-uk`, fallback);
@@ -69,17 +88,30 @@ export async function getStaticPaths() {
   return paths;
 }
 
+export async function getStaticPaths() {
+  return buildServicePaths(await getServices());
+}
+
 interface Props {
   service: Service;
 }
 
-const { service } = Astro.props;
+const { service: propsService } = Astro.props;
 const [siteSettings, allCaseStudies, allServices, allSectors] = await Promise.all([
   getSiteSettings(),
   getCaseStudies(),
   getServices(),
   getSectors(),
 ]);
+
+const requestedSlug = normalizeRouteSlug(Astro.params.slug);
+const service = isValidService(propsService)
+  ? propsService
+  : buildServicePaths(allServices).find((path) => path.params.slug === requestedSlug)?.props.service;
+
+if (!service) {
+  return Astro.rewrite('/404');
+}
 
 // Division accent colour map — consistent with hub pages and site theme
 const divisionAccent: Record<string, { accent: string; dark: string; light: string; pill: string }> = {

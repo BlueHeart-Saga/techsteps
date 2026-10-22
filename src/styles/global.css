@@ -888,3 +888,8 @@ address {
   opacity: 1;
   pointer-events: auto;
 }
+/* Remove horizontal border lines from all sections globally */
+section {
+  border-top: none !important;
+  border-bottom: none !important;
+}

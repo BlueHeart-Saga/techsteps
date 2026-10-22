@@ -2,7 +2,7 @@
 import type { HomePageLifecycle, HomePageLifecycleStep } from '../../lib/sanity/types';
 
 interface Step {
-  stepNumber: string;
+  
   number?: string | number;
   title: string;
   headline: string;
@@ -23,7 +23,7 @@ interface Props {
 
 const fallbackDefaultSteps: Step[] = [
   {
-    stepNumber: '01',
+    
     number: '1',
     title: 'COLLECT',
     headline: 'GPS-Tracked Transit',
@@ -36,8 +36,8 @@ const fallbackDefaultSteps: Step[] = [
     imageAlt: 'Techsteps secure collection vehicle and logistics specialist',
   },
   {
-    stepNumber: '02',
-    number: '2',
+    
+    
     title: 'SECURE',
     headline: 'Chain of Custody',
     shortDesc: 'Chain of Custody',
@@ -50,7 +50,7 @@ const fallbackDefaultSteps: Step[] = [
       'Techsteps tamper-evident flight case tracking and digital custody verification',
   },
   {
-    stepNumber: '03',
+    
     number: '3',
     title: 'PROCESS',
     headline: 'Data Sanitisation',
@@ -64,7 +64,7 @@ const fallbackDefaultSteps: Step[] = [
       'NIST 800-88 certified hardware data sanitisation and live progress verification',
   },
   {
-    stepNumber: '04',
+    
     number: '4',
     title: 'RECOVER',
     headline: 'Value Recovery',
@@ -78,7 +78,7 @@ const fallbackDefaultSteps: Step[] = [
       'Enterprise laptop and hard drive component testing and value recovery',
   },
   {
-    stepNumber: '05',
+    
     number: '5',
     title: 'RECYCLE',
     headline: 'Zero Landfill',
@@ -216,6 +216,14 @@ const normalizedSteps: Step[] = rawSteps.map(
 const initialStep =
   normalizedSteps[0] ||
   fallbackDefaultSteps[0];
+
+const navigationIconUrls = [
+  'https://res.cloudinary.com/dlbeckur1/image/upload/v1792657475/box_yyzn30.png',
+  'https://res.cloudinary.com/dlbeckur1/image/upload/v1792657476/shield_u7rb1s.png',
+  'https://res.cloudinary.com/dlbeckur1/image/upload/v1792657476/management_ng3btb.png',
+  'https://res.cloudinary.com/dlbeckur1/image/upload/v1792657475/backup_lvmjuu.png',
+  'https://res.cloudinary.com/dlbeckur1/image/upload/v1792657475/triangular-arrows-sign-for-recycle_bt41zv.png',
+];
 ---
 
 <section
@@ -259,12 +267,15 @@ const initialStep =
       >
 
         <!-- Step badge -->
+        {/*
         <div
           id="hero41-step-badge"
           class="text-xs sm:text-sm font-extrabold uppercase tracking-[0.16em] text-[#146B5C] transition-opacity duration-200"
         >
           {initialStep.stepNumber}. {initialStep.title}
         </div>
+        */}
+        
 
         <!-- Headline -->
         <h3
@@ -282,15 +293,15 @@ const initialStep =
           {initialStep.description}
         </p>
 
-        <!-- =================================================
+            <!-- =================================================
              SCROLLING STEP NAVIGATION
              ================================================= -->
         <div
-          class="relative w-full mt-8 sm:mt-10 lg:mt-14 overflow-hidden"
+          class="relative w-full max-w-[500px] mt-10 sm:mt-10 lg:mt-14 overflow-hidden ml-0 md:ml-6 lg:-ml-8"
           role="region"
           aria-roledescription="carousel"
           aria-label="Lifecycle process steps"
-        >
+        > 
 
           <!-- Fade masks -->
           <div
@@ -307,7 +318,7 @@ const initialStep =
             id="hero41-thumb-viewport"
           >
             <div
-              class="flex items-end transition-transform duration-500 ease-out"
+              class="flex items-stretch transition-transform duration-500 ease-out"
               id="hero41-thumb-track"
             >
 
@@ -320,7 +331,7 @@ const initialStep =
                     tabindex="0"
                     aria-label={`Select Step ${step.stepNumber}: ${step.title}`}
                     aria-selected={isFirst ? 'true' : 'false'}
-                    class={`hero41-thumb-item min-w-0 shrink-0 grow-0 basis-1/3 cursor-pointer px-1 flex flex-col items-center justify-end ${
+                    class={`hero41-thumb-item min-w-0 shrink-0 grow-0 basis-1/5 cursor-pointer px-1 flex flex-col items-center justify-center ${
                       isFirst ? 'active' : ''
                     }`}
                     data-thumb-index={idx}
@@ -329,74 +340,24 @@ const initialStep =
                     data-headline={step.headline}
                     data-desc={step.description}
                     data-badge={step.badge}
-                    data-icon={step.iconImage}
+                    data-icon={navigationIconUrls[idx]}
                     data-short={step.shortDesc}
                   >
 
-                    <!-- =====================================
-                         STEP NUMBER + NAME
-                         ===================================== -->
-                    <div
-                      class="hero41-thumb-label relative z-20 mb-2 text-center whitespace-nowrap transition-all duration-300"
-                    >
-                      <span
-                        class="hero41-thumb-number font-extrabold text-xs sm:text-sm tracking-[0.12em]"
-                      >
-                        {step.stepNumber}
-                      </span>
+                    
 
-                      {/*<span
-                        class="hero41-thumb-title font-extrabold text-xs sm:text-sm uppercase tracking-[0.10em]"
-                      >
-                        {step.title}
-                      </span>*/}
-                    </div>
+                    <img
+                      src={navigationIconUrls[idx]}
+                      alt=""
+                      aria-hidden="true"
+                      class="hero41-thumb-img w-9 h-9 sm:w-12 sm:h-12 object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
 
-                    <!-- =====================================
-                         PEDESTAL + ICON
-                         ===================================== -->
-                    <div
-                      class="relative flex h-24 items-end justify-center w-full group"
-                    >
-
-                      <!-- SVG Pedestal -->
-                      <div
-                        class={`hero41-pedestal-svg absolute bottom-0 w-full flex justify-center transition-all duration-300 ${
-                          isFirst
-                            ? 'text-[#146B5C]'
-                            : 'text-slate-200 group-hover:text-slate-300'
-                        }`}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="161"
-                          height="92"
-                          viewBox="0 0 161 92"
-                          fill="none"
-                          class="w-full max-w-[110px] sm:max-w-[130px] h-auto"
-                        >
-                          <path
-                            d="M0.682517 80.6118L0.501193 39.6946C0.480127 34.9409 3.80852 30.8294 8.46241 29.8603L148.426 0.713985C154.636 -0.579105 160.465 4.16121 160.465 10.504V80.7397C160.465 86.2674 155.98 90.7465 150.453 90.7397L10.6701 90.5674C5.16936 90.5607 0.706893 86.1125 0.682517 80.6118Z"
-                            stroke="currentColor"
-                            stroke-width="2"
-                          ></path>
-                        </svg>
-                      </div>
-
-                      <!-- Icon -->
-                      <img
-                        src={step.iconImage}
-                        alt={step.title}
-                        class={`hero41-thumb-img size-14 sm:size-16 object-contain transition-all duration-300 relative z-10 group-hover:scale-110 ${
-                          isFirst
-                            ? 'scale-105 opacity-100 drop-shadow-md'
-                            : 'scale-95 opacity-70'
-                        }`}
-                        loading="lazy"
-                        decoding="async"
-                      />
-
-                    </div>
+                    <span class="hero41-thumb-title font-extrabold text-[9px] sm:text-xs uppercase tracking-wide text-center">
+                      {step.title}
+                    </span>
                   </div>
                 );
               })}
@@ -519,6 +480,74 @@ const initialStep =
     outline-offset: 4px;
     border-radius: 8px;
   }
+
+  /* Only the existing five-icon navigation moves. */
+  #hero41-thumb-viewport {
+    height: 164px;
+    padding: 24px 0 16px;
+    overflow: hidden;
+  }
+
+  #hero41-thumb-track {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 124px;
+    transform: none !important;
+    transition: none !important;
+    isolation: isolate;
+  }
+
+  .hero41-thumb-item,
+  .hero41-thumb-item.active {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    width: 20%;
+    height: 100px;
+    min-width: 0;
+    margin: 0;
+    padding: 8px 2px;
+    gap: 9px;
+    transform-origin: center center;
+    will-change: transform;
+    transition: none;
+  }
+
+  .hero41-thumb-img {
+    display: block;
+    flex-shrink: 0;
+    transform: none;
+    opacity: 1;
+    filter: none;
+    transition: filter 640ms ease;
+  }
+
+  .hero41-thumb-title {
+    opacity: 1;
+    white-space: nowrap;
+    transition: color 640ms ease;
+  }
+
+  .hero41-thumb-item.active .hero41-thumb-title {
+    color: #146B5C;
+  }
+
+  @media (max-width: 639px) {
+    #hero41-thumb-viewport { height: 144px; padding-top: 20px; }
+    #hero41-thumb-track { height: 112px; }
+    .hero41-thumb-item, .hero41-thumb-item.active {
+      height: 88px;
+      top: 14px;
+      gap: 7px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero41-thumb-item,
+    .hero41-thumb-img,
+    .hero41-thumb-title { transition: none !important; }
+  }
 </style>
 
 <!-- =====================================================
@@ -526,12 +555,16 @@ const initialStep =
      ===================================================== -->
 <script is:inline>
   (() => {
+    if (window.__hero41LifecycleScriptBound) return;
+    window.__hero41LifecycleScriptBound = true;
     const initHero41Lifecycle = () => {
       const container = document.getElementById(
         'hero-section-41-lifecycle'
       );
 
       if (!container) return;
+      if (container.dataset.lifecycleInitialized === 'true') return;
+      container.dataset.lifecycleInitialized = 'true';
 
       const mainSlides =
         container.querySelectorAll('.hero41-main-slide');
@@ -560,53 +593,66 @@ const initialStep =
 
       let currentIndex = 0;
       let autoplayTimer = null;
+      let contentTransitionTimer = null;
 
-      const AUTO_SCROLL_DELAY = 3000;
+      const AUTO_SCROLL_DELAY = 1800;
 
       /* =================================================
          KEEP EXISTING HORIZONTAL SCROLLING
          ================================================= */
-      const updateThumbTrackPosition = (index) => {
-        if (
-          !thumbTrack ||
-          !thumbViewport ||
-          !thumbItems[index]
-        ) {
-          return;
-        }
+       /* Three-visible circular carousel. Keep all five original items mounted. */
+       let visualPhase = 0;
+       let motionFrame = 0;
+       const MOTION_MS = 680;
+       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-        const targetItem = thumbItems[index];
+       const renderThumbPositions = (phase) => {
+         const width = thumbViewport?.clientWidth || 400;
+         const distance = width * 0.285;
+         const count = thumbItems.length;
 
-        const itemWidth = targetItem.offsetWidth;
+         thumbItems.forEach((item, idx) => {
+           // Shortest signed circular distance: RECYCLE -> COLLECT is continuous.
+           let offset = ((idx - phase + count / 2) % count + count) % count - count / 2;
+           const visible = Math.abs(offset) < 1.5;
+           const depth = Math.max(0, 1 - Math.abs(offset));
+           const scale = 0.88 + depth * 0.42;
+           const x = offset * distance;
+           const y = -depth * 6;
 
-        const viewportWidth =
-          thumbViewport.offsetWidth;
+           // Three items max at every animation frame, including wraparound.
+           item.style.visibility = visible ? 'visible' : 'hidden';
+           item.style.pointerEvents = visible ? 'auto' : 'none';
+           item.style.opacity = visible ? '1' : '0';
+           item.style.transform = `translateX(-50%) translateX(${x.toFixed(2)}px) translateY(${y.toFixed(2)}px) scale(${scale.toFixed(4)})`;
+           item.style.zIndex = String(10 + Math.round(depth * 90));
+         });
+       };
 
-        const targetLeft =
-          targetItem.offsetLeft;
-
-        const centerOffset =
-          targetLeft -
-          viewportWidth / 2 +
-          itemWidth / 2;
-
-        const maxScroll = Math.max(
-          0,
-          thumbTrack.scrollWidth -
-            viewportWidth
-        );
-
-        const clampedOffset = Math.max(
-          0,
-          Math.min(
-            centerOffset,
-            maxScroll
-          )
-        );
-
-        thumbTrack.style.transform =
-          `translateX(-${clampedOffset}px)`;
-      };
+       const updateThumbTrackPosition = (index) => {
+         if (!thumbTrack || !thumbViewport || !thumbItems.length) return;
+         cancelAnimationFrame(motionFrame);
+         const count = thumbItems.length;
+         const wrapped = ((Math.round(visualPhase) % count) + count) % count;
+         let delta = (index - wrapped + count) % count;
+         if (delta > count / 2) delta -= count;
+         const startPhase = visualPhase;
+         const targetPhase = Math.round(visualPhase) + delta;
+         if (reducedMotion.matches || Math.abs(targetPhase - startPhase) < 0.001) {
+           visualPhase = targetPhase;
+           renderThumbPositions(visualPhase);
+           return;
+         }
+         const started = performance.now();
+         const animate = (now) => {
+           const t = Math.min(1, (now - started) / MOTION_MS);
+           const eased = 1 - Math.pow(1 - t, 3);
+           visualPhase = startPhase + (targetPhase - startPhase) * eased;
+           renderThumbPositions(visualPhase);
+           if (t < 1) motionFrame = requestAnimationFrame(animate);
+         };
+         motionFrame = requestAnimationFrame(animate);
+       };
 
       /* =================================================
          SELECT STEP
@@ -615,6 +661,7 @@ const initialStep =
         index,
         userInitiated = false
       ) => {
+        const previousIndex = currentIndex;
         currentIndex =
           (index + totalItems) %
           totalItems;
@@ -666,51 +713,34 @@ const initialStep =
         );
 
         /* ===============================================
-           2. UPDATE LEFT CONTENT
+           2. UPDATE LEFT CONTENT — same active index
            =============================================== */
-        if (
-          headlineEl &&
-          descEl &&
-          stepBadgeEl
-        ) {
-          headlineEl.style.opacity = '0';
-          descEl.style.opacity = '0';
-          stepBadgeEl.style.opacity = '0';
-
-          setTimeout(() => {
-            const num =
-              activeItem.getAttribute(
-                'data-number'
-              ) || '';
-
-            const title =
-              activeItem.getAttribute(
-                'data-title'
-              ) || '';
-
-            const headline =
-              activeItem.getAttribute(
-                'data-headline'
-              ) || '';
-
-            const desc =
-              activeItem.getAttribute(
-                'data-desc'
-              ) || '';
-
-            stepBadgeEl.textContent =
-              `${num}. ${title}`;
-
-            headlineEl.textContent =
-              headline;
-
-            descEl.textContent =
-              desc;
-
+        if (headlineEl && descEl) {
+          // The step badge may be intentionally absent from the template.
+          // Keep text changes tied to the same currentIndex as the icons.
+          clearTimeout(contentTransitionTimer);
+          const headline = activeItem.getAttribute('data-headline') || '';
+          const desc = activeItem.getAttribute('data-desc') || '';
+          const num = activeItem.getAttribute('data-number') || '';
+          const title = activeItem.getAttribute('data-title') || '';
+          const reduced = reducedMotion.matches;
+          const commitContent = () => {
+            headlineEl.textContent = headline;
+            descEl.textContent = desc;
+            if (stepBadgeEl) stepBadgeEl.textContent = `${num}. ${title}`;
             headlineEl.style.opacity = '1';
             descEl.style.opacity = '1';
-            stepBadgeEl.style.opacity = '1';
-          }, 120);
+            if (stepBadgeEl) stepBadgeEl.style.opacity = '1';
+          };
+
+          if (reduced || previousIndex === currentIndex) {
+            commitContent();
+          } else {
+            headlineEl.style.opacity = '0';
+            descEl.style.opacity = '0';
+            if (stepBadgeEl) stepBadgeEl.style.opacity = '0';
+            contentTransitionTimer = setTimeout(commitContent, 150);
+          }
         }
 
         /* ===============================================
@@ -727,21 +757,6 @@ const initialStep =
                 ? 'true'
                 : 'false'
             );
-
-            const svgEl =
-              item.querySelector(
-                '.hero41-pedestal-svg'
-              );
-
-            const imgEl =
-              item.querySelector(
-                '.hero41-thumb-img'
-              );
-
-            const labelEl =
-              item.querySelector(
-                '.hero41-thumb-label'
-              );
 
             const numberEl =
               item.querySelector(
@@ -761,36 +776,6 @@ const initialStep =
                 'active'
               );
 
-              if (svgEl) {
-                svgEl.classList.remove(
-                  'text-slate-200',
-                  'group-hover:text-slate-300'
-                );
-
-                svgEl.classList.add(
-                  'text-[#146B5C]'
-                );
-              }
-
-              if (imgEl) {
-                imgEl.classList.remove(
-                  'scale-95',
-                  'opacity-80',
-                  'opacity-70'
-                );
-
-                imgEl.classList.add(
-                  'scale-105',
-                  'opacity-100',
-                  'drop-shadow-md'
-                );
-              }
-
-              /* Keep active text green */
-              if (labelEl) {
-                labelEl.style.opacity = '1';
-              }
-
               if (numberEl) {
                 numberEl.style.color =
                   '#146B5C';
@@ -808,35 +793,6 @@ const initialStep =
               item.classList.remove(
                 'active'
               );
-
-              if (svgEl) {
-                svgEl.classList.remove(
-                  'text-[#146B5C]'
-                );
-
-                svgEl.classList.add(
-                  'text-slate-200',
-                  'group-hover:text-slate-300'
-                );
-              }
-
-              if (imgEl) {
-                imgEl.classList.remove(
-                  'scale-105',
-                  'opacity-100',
-                  'drop-shadow-md'
-                );
-
-                imgEl.classList.add(
-                  'scale-95',
-                  'opacity-70'
-                );
-              }
-
-              if (labelEl) {
-                labelEl.style.opacity =
-                  '0.7';
-              }
 
               if (numberEl) {
                 numberEl.style.color =
@@ -861,7 +817,7 @@ const initialStep =
         /* ===============================================
            5. RESET AUTOPLAY
            =============================================== */
-        resetAutoplay();
+         resetAutoplay();
       };
 
       /* =================================================
@@ -869,6 +825,7 @@ const initialStep =
          ================================================= */
       const startAutoplay = () => {
         stopAutoplay();
+        if (reducedMotion.matches) return;
 
         autoplayTimer =
           setInterval(() => {
@@ -887,6 +844,17 @@ const initialStep =
           autoplayTimer = null;
         }
       };
+
+      document.addEventListener(
+        'astro:before-swap',
+        () => {
+          stopAutoplay();
+          cancelAnimationFrame(motionFrame);
+          clearTimeout(contentTransitionTimer);
+          container.removeAttribute('data-lifecycle-initialized');
+        },
+        { once: true }
+      );
 
       const resetAutoplay = () => {
         stopAutoplay();

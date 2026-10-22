@@ -1,4 +1,5 @@
 ---
+import Container from '../layout/Container.astro';
 import { getTestimonials } from '../../lib/sanity/client';
 import type { TestimonialItem } from '../../lib/sanity/types';
 
@@ -142,7 +143,8 @@ const uniqueCount = sourceList.length;
 
 
   <!-- Centred Section Header -->
-  <div class="relative z-10 max-w-3xl mx-auto mb-10 sm:mb-14 lg:mb-16 px-4 text-center">
+  <Container className="relative z-10 mb-10 sm:mb-14 lg:mb-16">
+    <div class="max-w-3xl mx-auto text-center">
     <!-- Faint oversized decorative quote mark behind heading (rgba(15,98,58,.05)) -->
     <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none -z-10" aria-hidden="true">
       <svg class="w-44 h-44 sm:w-60 sm:h-60 text-[#0F623A]/[0.05]" fill="currentColor" viewBox="0 0 24 24">
@@ -173,7 +175,8 @@ const uniqueCount = sourceList.length;
         {sectionDescription}
       </p>
     )}
-  </div>
+    </div>
+  </Container>
 
   <!-- ONE Horizontal Row of Cards inside Full-Width Container with Edge-Fade Masks -->
   <div class="testimonial-marquee-wrapper relative w-full overflow-hidden">
@@ -443,3 +446,4 @@ const uniqueCount = sourceList.length;
     document.addEventListener('astro:page-load', initPauseControl);
   })();
 </script>
+

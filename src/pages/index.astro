@@ -327,151 +327,165 @@ const divisionMetadata: Record<
     viewAllLink={homePage?.services?.viewAllLink}
   />
 
-  <!-- Section 5 — Why Choose TechSteps (Editorial 4-Card Composition) -->
-  <!-- Section 5 — Why Choose TechSteps (Two-Column Editorial Showcase matching reference) -->
+  <!-- Section 5 — Why Choose TechSteps (Minimal 2×2 Layout) -->
   <section
     id="why-choose-us"
     class="why-choose-section relative py-8 sm:py-10 lg:py-12 bg-white text-slate-900 overflow-hidden scroll-mt-20 border-t border-slate-200/60"
     aria-labelledby="why-choose-heading"
   >
     <!-- Soft radial ambient eco glow -->
-    <div class="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-[#EEF7F2]/70 blur-3xl pointer-events-none select-none" aria-hidden="true"></div>
+    <div
+      class="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-[#EEF7F2]/70 blur-3xl pointer-events-none select-none"
+      aria-hidden="true"
+    ></div>
 
-    <Container size="wide" className="!max-w-[1360px] relative z-10">
+    <Container className="relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center">
-        <!-- LEFT COLUMN: Eyebrow, Heading, Short Intro, and 4 Stacked Feature Items -->
+
+        <!-- LEFT COLUMN: Heading + 2×2 Feature Layout -->
         <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center">
 
-          <!-- Main Dominant Headline -->
-          <h2
-            id="why-choose-heading"
-            class="why-choose-reveal text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-semibold font-display text-slate-900 tracking-tight leading-[1.14] mb-4 sm:mb-5"
-          >
-            {homePage?.whyChoose?.heading || "Why Choose TechSteps?"}
-          </h2>
+          <div class="why-choose-reveal mb-7 sm:mb-9">
+            <h2
+              id="why-choose-heading"
+              class="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-semibold font-display text-slate-900 tracking-tight leading-[1.14]"
+            >
+              {homePage?.whyChoose?.heading || "Why Choose TechSteps?"}
+            </h2>
 
-          <!-- Aligned Concise Narrative Intro -->
-          <p class="why-choose-reveal text-lg sm:text-xl text-black leading-relaxed font-normal mb-8 sm:mb-10 max-w-xl">
-            {homePage?.whyChoose?.description || "TechSteps combines secure handling, reliable service, complete lifecycle solutions, and sustainability to deliver dependable IT asset management for organisations across the UK."}
-          </p>
+            <p class="mt-4 sm:mt-5 text-lg sm:text-xl text-black leading-relaxed font-normal max-w-xl">
+              {homePage?.whyChoose?.description || "TechSteps combines secure handling, reliable service, complete lifecycle solutions, and sustainability to deliver dependable IT asset management for organisations across the UK."}
+            </p>
+          </div>
 
-          <!-- 4 Stacked Feature Items (24–32px vertical spacing) -->
-          <div class="why-choose-features-list space-y-6 sm:space-y-7">
-            <!-- Feature 01 — Security & Compliance -->
+          <!-- 2×2 Feature Grid — intentionally borderless -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 lg:gap-x-10 gap-y-7 sm:gap-y-9">
+
+            <!-- Feature 01 -->
             <div
-              class="why-choose-feature-item why-choose-reveal group flex items-start gap-4 sm:gap-5 p-2 -mx-2 rounded-[12px] transition-all duration-300 hover:translate-x-1.5"
+              class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0"
               data-feature-index="1"
             >
-              <!-- Icon Container: Pure vector icon without background -->
-              <div
-                class="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center shrink-0 text-[#0F623A] group-hover:text-[#3FB33D] transition-all duration-300 group-hover:scale-110"
-                aria-hidden="true"
-              >
-                <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-                </svg>
+              <div class="flex items-start gap-3.5">
+                <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight">
+                  01
+                </span>
+
+                <div class="pt-0.5">
+                  <div class="flex items-center gap-2 mb-1.5">
+                    
+                    <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                      {homePage?.whyChoose?.features?.[0]?.title || "Security & Compliance"}
+                    </h3>
+                  </div>
+
+                  <p class="text-sm sm:text-[15px] text-black leading-relaxed">
+                    {homePage?.whyChoose?.features?.[0]?.description || "Secure handling of IT assets and sensitive information, supported by responsible processes and appropriate documentation."}
+                  </p>
+                </div>
               </div>
-              <div class="space-y-1 pt-0.5">
-                <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
-                  {homePage?.whyChoose?.features?.[0]?.title || "Security & Compliance"}
-                </h3>
-                <p class="text-base sm:text-lg text-black leading-relaxed font-normal">
-                  {homePage?.whyChoose?.features?.[0]?.description || "Secure handling of IT assets and sensitive information, supported by responsible processes and appropriate documentation."}
-                </p>
-              </div>
+              <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
             </div>
 
-            <!-- Feature 02 — Complete Lifecycle Solutions -->
+            <!-- Feature 02 -->
             <div
-              class="why-choose-feature-item why-choose-reveal group flex items-start gap-4 sm:gap-5 p-2 -mx-2 rounded-[12px] transition-all duration-300 hover:translate-x-1.5"
+              class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0"
               data-feature-index="2"
             >
-              <!-- Icon Container: Pure vector icon without background -->
-              <div
-                class="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center shrink-0 text-[#0F623A] group-hover:text-[#3FB33D] transition-all duration-300 group-hover:scale-110"
-                aria-hidden="true"
-              >
-                <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                </svg>
+              <div class="flex items-start gap-3.5">
+                <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight">
+                  02
+                </span>
+
+                <div class="pt-0.5">
+                  <div class="flex items-center gap-2 mb-1.5">
+                    
+                    <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                      {homePage?.whyChoose?.features?.[1]?.title || "Complete Lifecycle Solutions"}
+                    </h3>
+                  </div>
+
+                  <p class="text-sm sm:text-[15px] text-black leading-relaxed">
+                    {homePage?.whyChoose?.features?.[1]?.description || "Integrated IT asset management, collection, and end-of-life services through a coordinated approach."}
+                  </p>
+                </div>
               </div>
-              <div class="space-y-1 pt-0.5">
-                <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
-                  {homePage?.whyChoose?.features?.[1]?.title || "Complete Lifecycle Solutions"}
-                </h3>
-                <p class="text-base sm:text-lg text-black leading-relaxed font-normal">
-                  {homePage?.whyChoose?.features?.[1]?.description || "Integrated IT asset management, collection, and end-of-life services through a coordinated approach."}
-                </p>
-              </div>
+              <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
             </div>
 
-            <!-- Feature 03 — Sustainable Outcomes -->
+            <!-- Feature 03 -->
             <div
-              class="why-choose-feature-item why-choose-reveal group flex items-start gap-4 sm:gap-5 p-2 -mx-2 rounded-[12px] transition-all duration-300 hover:translate-x-1.5"
+              class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0"
               data-feature-index="3"
             >
-              <!-- Icon Container: Pure vector icon without background -->
-              <div
-                class="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center shrink-0 text-[#0F623A] group-hover:text-[#3FB33D] transition-all duration-300 group-hover:scale-110"
-                aria-hidden="true"
-              >
-                <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
-                </svg>
+              <div class="flex items-start gap-3.5">
+                <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight">
+                  03
+                </span>
+
+                <div class="pt-0.5">
+                  <div class="flex items-center gap-2 mb-1.5">
+                    
+                    <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                      {homePage?.whyChoose?.features?.[2]?.title || "Sustainable Outcomes"}
+                    </h3>
+                  </div>
+
+                  <p class="text-sm sm:text-[15px] text-black leading-relaxed">
+                    {homePage?.whyChoose?.features?.[2]?.description || "Promote responsible reuse, recycling, and resource management to support more sustainable business operations."}
+                  </p>
+                </div>
               </div>
-              <div class="space-y-1 pt-0.5">
-                <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
-                  {homePage?.whyChoose?.features?.[2]?.title || "Sustainable Outcomes"}
-                </h3>
-                <p class="text-base sm:text-lg text-black leading-relaxed font-normal">
-                  {homePage?.whyChoose?.features?.[2]?.description || "Promote responsible reuse, recycling, and resource management to support more sustainable business operations."}
-                </p>
-              </div>
+              <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
             </div>
 
-            <!-- Feature 04 — Reliable Service -->
+            <!-- Feature 04 -->
             <div
-              class="why-choose-feature-item why-choose-reveal group flex items-start gap-4 sm:gap-5 p-2 -mx-2 rounded-[12px] transition-all duration-300 hover:translate-x-1.5"
+              class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0"
               data-feature-index="4"
             >
-              <!-- Icon Container: Pure vector icon without background -->
-              <div
-                class="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center shrink-0 text-[#0F623A] group-hover:text-[#3FB33D] transition-all duration-300 group-hover:scale-110"
-                aria-hidden="true"
-              >
-                <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+              <div class="flex items-start gap-3.5">
+                <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight">
+                  04
+                </span>
+
+                <div class="pt-0.5">
+                  <div class="flex items-center gap-2 mb-1.5">
+                    
+                    <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                      {homePage?.whyChoose?.features?.[3]?.title || "Reliable Service"}
+                    </h3>
+                  </div>
+
+                  <p class="text-sm sm:text-[15px] text-black leading-relaxed">
+                    {homePage?.whyChoose?.features?.[3]?.description || "Dependable collection coordination, clear communication, and traceable processes with completion records where applicable."}
+                  </p>
+                </div>
               </div>
-              <div class="space-y-1 pt-0.5">
-                <h3 class="text-lg sm:text-xl font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
-                  {homePage?.whyChoose?.features?.[3]?.title || "Reliable Service"}
-                </h3>
-                <p class="text-base sm:text-lg text-black leading-relaxed font-normal">
-                  {homePage?.whyChoose?.features?.[3]?.description || "Dependable collection coordination, clear communication, and traceable processes with completion records where applicable."}
-                </p>
-              </div>
+              <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
             </div>
+
           </div>
         </div>
 
-<!-- RIGHT COLUMN: One Large Image Aligned with Content -->
-<div class="lg:col-span-6 xl:col-span-6 flex items-center justify-center">
-  <img
-    src={homePage?.whyChoose?.imageUrl || "/images/services/why choose us.webp"}
-    alt={homePage?.whyChoose?.imageAlt || "TechSteps team collaborating on certified IT lifecycle and compliance solutions"}
-    class="why-choose-img w-full h-[360px] sm:h-[460px] lg:h-[540px] xl:h-[580px] object-cover object-[center_35%] transition-transform duration-700 ease-out hover:scale-[1.025] select-none"
-    loading="lazy"
-    decoding="async"
-  />
-</div>
+        <!-- RIGHT COLUMN: Existing Team Image — unchanged -->
+        <div class="lg:col-span-6 xl:col-span-6 flex items-center justify-center">
+          <img
+            src={homePage?.whyChoose?.imageUrl || "/images/services/why choose us.webp"}
+            alt={homePage?.whyChoose?.imageAlt || "TechSteps team collaborating on certified IT lifecycle and compliance solutions"}
+            class="why-choose-img w-full h-[360px] sm:h-[460px] lg:h-[540px] xl:h-[580px] object-cover object-[center_35%] transition-transform duration-700 ease-out hover:scale-[1.025] select-none"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
       </div>
     </Container>
   </section>
 
   <!-- Section 6 — Process: Visual Lifecycle -->
   <Section theme="white" padding="py-8 md:py-10 lg:py-12" className="bg-white overflow-hidden">
-    <Container size="wide" className="!max-w-[1380px]">
+    <Container>
       <ProcessSteps lifecycle={homePage?.lifecycle} />
     </Container>
   </Section>
@@ -479,7 +493,7 @@ const divisionMetadata: Record<
   <!-- Section 7 — Sectors We Serve -->
   <Section theme="slate" id="sectors" padding="py-8 sm:py-10 lg:py-12" className="relative overflow-hidden bg-white border-t border-slate-200/80">
 
-    <div class="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+    <Container className="relative z-10">
       <div class="text-center max-w-3xl mx-auto space-y-3.5 mb-6 sm:mb-8">
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display text-slate-900 tracking-tight leading-[1.18]">
           {homePage?.sectorsSection?.heading || "Supporting Businesses Across Every Sector"}
@@ -490,7 +504,7 @@ const divisionMetadata: Record<
       </div>
 
       <SectorGrid sectors={sectors} />
-    </div>
+    </Container>
   </Section>
 
   <!-- Section 8 — Client Reviews / Testimonials -->
@@ -784,29 +798,32 @@ const divisionMetadata: Record<
           return;
         }
 
+        if (section.dataset.whyChooseRevealed === 'true') {
+          revealElements.forEach((el) => el.classList.add('is-revealed'));
+          return;
+        }
+
+        const reveal = () => {
+          section.dataset.whyChooseRevealed = 'true';
+          revealElements.forEach((el, index) => {
+            el.style.transitionDelay = `${index * 140}ms`;
+            el.classList.add('is-revealed');
+          });
+        };
+
         if ('IntersectionObserver' in window) {
           const observer = new IntersectionObserver(
             (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  // Reveal elements sequentially with staggered timing
-                  revealElements.forEach((el, index) => {
-                    setTimeout(() => {
-                      el.classList.add('is-revealed');
-                    }, index * 120);
-                  });
-                  observer.disconnect();
-                }
-              });
+              if (entries.some((entry) => entry.isIntersecting)) {
+                reveal();
+                observer.disconnect();
+              }
             },
-            {
-              threshold: 0.15,
-              rootMargin: '0px 0px -40px 0px',
-            }
+            { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
           );
           observer.observe(section);
         } else {
-          revealElements.forEach((el) => el.classList.add('is-revealed'));
+          reveal();
         }
       };
 
@@ -834,7 +851,7 @@ const divisionMetadata: Record<
   </script>
 
   <style>
-    /* Why Choose TechSteps Two-Column Entrance & Hover Animation */
+    /* Why Choose TechSteps — Minimal 2×2 Feature Layout */
     .why-choose-reveal {
       opacity: 0;
       transform: translateY(24px);
@@ -849,7 +866,16 @@ const divisionMetadata: Record<
       transform: translateY(0);
     }
 
-    /* Image zoom transition */
+    .why-choose-feature-item {
+      transition:
+        opacity 650ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 280ms ease;
+    }
+
+    .why-choose-feature-item:hover {
+      transform: translateY(-3px);
+    }
+
     .why-choose-img {
       will-change: transform;
       transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
@@ -866,7 +892,8 @@ const divisionMetadata: Record<
         transform: none !important;
         transition: none !important;
       }
-      .why-choose-feature-item {
+      .why-choose-feature-item,
+      .why-choose-feature-item.is-revealed:hover {
         transform: none !important;
         transition: none !important;
       }

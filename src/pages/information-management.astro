@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
-import PageHero from '../components/hero/PageHero.astro';
+import HeroHeader from '../components/global/HeroHeader.astro';
 import AccordionFaq from '../components/content/AccordionFaq.astro';
 import ServicesCardGrid from '../components/services/ServicesCardGrid.astro';
 import CTA from '../components/global/cta.astro';
@@ -54,116 +54,65 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
   description={division?.metaDescription || "Secure information management — climate-controlled document storage, BS 10008 scanning, digital mailroom, and records lifecycle services. UK-wide from Techsteps."}
   hasHeroHeader={true}
 >
-  <!-- ===== 1. HERO ===== -->
-  <PageHero
-    bgImage={division?.heroImage || "/images/hero/Information Management (1).webp"}
-    bgAlt="Information Management Services UK - TechSteps"
-    breadcrumbs={[]}
-    layout="custom"
-    showDivider={true}
-    dividerColor="#ffffff"
-    minHeight="min-h-[540px] sm:min-h-[580px] lg:min-h-[640px]"
-    noOverlay={true}
-    theme="light"
-    contained={true}
-  >
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
-      <!-- HERO CONTENT (Left) -->
-      <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
+  <!-- ===== 1. HERO (Custom section replacing PageHero to remove bg image) ===== -->
+  <div class="relative bg-white">
+    <!-- Keep the Navbar -->
+    <HeroHeader isHome={false} />
 
-        <!-- Breadcrumb Navigation -->
-        <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
-          <a href="/services" class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
-            Services
-          </a>
-          <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
-          <span class="text-slate-900 font-bold">Information Management</span>
-        </nav>
+    <!-- Hero Content -->
+    <section class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
+        
+        <!-- HERO CONTENT (Left) -->
+        <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none z-10">
+          <!-- Breadcrumb Navigation -->
+          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
+            <a href="/services" class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
+              Services
+            </a>
+            <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
+            <span class="text-slate-900 font-bold">Information Management</span>
+          </nav>
 
-        <!-- Heading -->
-        <h1
-          class="font-display
-                 text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
-                 font-semibold
-                 text-slate-900
-                 tracking-normal
-                 leading-[1.12] sm:leading-[1.1]
-                 max-w-xl"
-        >
-          {division?.heroTitle || 'Information Management Services UK'}
-        </h1>
+          <!-- Heading -->
+          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px] font-semibold text-slate-900 tracking-normal leading-[1.12] sm:leading-[1.1] max-w-xl">
+            {division?.heroTitle || 'Information Management Services UK'}
+          </h1>
 
-        <!-- Description -->
-        <p
-          class="mt-4 sm:mt-5
-                 text-lg sm:text-xl lg:text-lg
-                 text-black
-                 max-w-lg
-                 leading-relaxed
-                 font-sans font-normal"
-        >
-          {division?.heroDescription || 'Secure, organised and compliant information management solutions designed to help UK businesses store, manage, protect and access critical business information.'}
-        </p>
+          <!-- Description -->
+          <p class="mt-4 sm:mt-5 text-lg sm:text-xl lg:text-lg text-black max-w-lg leading-relaxed font-sans font-normal">
+            {division?.heroDescription || 'Secure, organised and compliant information management solutions designed to help UK businesses store, manage, protect and access critical business information.'}
+          </p>
 
-        <!-- CTA Button -->
-        <div
-          class="mt-6 sm:mt-8
-                 flex flex-wrap
-                 items-center
-                 gap-3.5 sm:gap-4"
-        >
-          <a
-            href={division?.heroCtaLink || '/request-a-collection?service=information-management'}
-            class="inline-flex items-center justify-center
-                   gap-2.5
-                   px-6 sm:px-7
-                   py-3 sm:py-3.5
-                   rounded-[12px]
-                   bg-[#0F623A] hover:bg-[#0c4e2e]
-                   text-white
-                   text-sm sm:text-base
-                   font-bold
-                   shadow-md hover:shadow-lg
-                   transition-all duration-200
-                   hover:scale-[1.02]
-                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
-          >
-            <span>{division?.heroCtaText || 'Request a Collection'}</span>
-            <svg
-              class="w-4 h-4 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2.2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </a>
+          <!-- CTA Button -->
+          <div class="mt-6 sm:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
+            <a href={division?.heroCtaLink || '/request-a-collection?service=information-management'} class="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0F623A]">
+              <span>{division?.heroCtaText || 'Request a Collection'}</span>
+              <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
         </div>
 
+        <!-- HERO IMAGE (Right on Desktop - Pushed further right) -->
+        <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end relative z-0">
+          <img 
+            src={division?.heroImage || "/images/hero/Information Management (1).webp"} 
+            alt="Information Management Services UK" 
+            class="w-full max-w-[650px] h-auto object-contain scale-[1.15] translate-x-12 drop-shadow-xl select-none pointer-events-none"
+          />
+        </div>
       </div>
-
-      <!-- HERO SPACER (Right on Desktop) -->
-      <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end min-h-[420px] lg:min-h-[480px] xl:min-h-[520px] pointer-events-none" aria-hidden="true">
-      </div>
-    </div>
-  </PageHero>
+    </section>
+  </div>
 
   <!-- ===== 2. INTRODUCTION TO INFORMATION MANAGEMENT ===== -->
-  <section class="bg-white py-8 lg:py-12 border-b border-slate-200/80 relative overflow-hidden">
+  <section class="bg-white py-8 lg:py-12 relative overflow-hidden">
     <Container>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         <!-- Left Side: Introduction Content -->
         <div class="lg:col-span-7 space-y-6">
-          {/*<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-            {division?.aboutBadge || 'About Our Service'}
-          </div>*/}
-
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
             {division?.aboutTitle || 'Information Management Built Around Your Business'}
           </h2>
@@ -186,10 +135,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
           </div>
 
           <div class="pt-2">
-            <a
-              href="/services"
-              class="inline-flex items-center gap-2 text-[#0F623A] hover:text-[#0A331E] font-bold text-sm sm:text-base transition-colors group"
-            >
+            <a href="/services" class="inline-flex items-center gap-2 text-[#0F623A] hover:text-[#0A331E] font-bold text-sm sm:text-base transition-colors group">
               <span>See our four service groups</span>
               <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -217,17 +163,12 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
 
 
   <!-- ===== WHY EFFECTIVE INFORMATION MANAGEMENT MATTERS (GREEN THEME) ===== -->
-  <section class="bg-[#0A331E] py-8 sm:py-10 lg:py-12 border-b border-emerald-900/50 relative overflow-hidden">
+  <section class="bg-[#0A331E] py-8 sm:py-10 lg:py-12 relative overflow-hidden">
     <div class="absolute inset-0 bg-radial-[ellipse_at_top_right] from-emerald-500/10 via-transparent to-transparent pointer-events-none"></div>
     <Container>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         <!-- Left Column: Title & Intro -->
         <div class="lg:col-span-5 space-y-5">
-          {/*<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-mono font-medium uppercase tracking-wider">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            Strategic Value
-          </div>*/}
-
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
             Why Effective Information Management Matters
           </h2>
@@ -306,15 +247,11 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
   </section>
 
   <!-- ===== OUR INFORMATION MANAGEMENT PROCESS (WORKFLOW) ===== -->
-  <section class="bg-white py-8 sm:py-10 lg:py-12 border-b border-slate-200/80 relative overflow-hidden">
+  <section class="bg-white py-8 sm:py-10 lg:py-12 relative overflow-hidden">
     <Container>
       <div class="relative z-10">
         <!-- Section Header -->
         <div class="max-w-3xl mb-12 sm:mb-16">
-          {/*<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-mono font-medium uppercase tracking-wider mb-4">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-            Workflow & Execution
-          </div>*/}
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display">
             Our Information Management Process
           </h2>
@@ -396,15 +333,11 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
   </section>
 
   <!-- ===== ONE PARTNER FOR PHYSICAL & DIGITAL INFORMATION ===== -->
-  <section id="im-services" class="bg-white text-[#0A331E] py-8 sm:py-10 lg:py-12 border-b border-slate-200 relative overflow-hidden scroll-mt-20">
+  <section id="im-services" class="bg-white text-[#0A331E] py-8 sm:py-10 lg:py-12 relative overflow-hidden scroll-mt-20">
     <div class="absolute inset-0 bg-radial-[ellipse_at_top] from-emerald-50/60 via-transparent to-transparent pointer-events-none"></div>
     <Container>
       <!-- Section Heading -->
       <div class="max-w-3xl mb-12 sm:mb-16">
-        {/*<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-300 text-[#0F623A] text-xs font-mono font-medium uppercase tracking-wider mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          Integrated Lifecycle Management
-        </div>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0A331E] tracking-tight font-display leading-tight">
           One Partner for Physical & Digital Information
         </h2>
@@ -421,41 +354,21 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
                 Physical Information
               </h3>
               <div class="space-y-1 font-sans">
-                <a
-                  href="/services/document-storage"
-                  class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group"
-                >
+                <a href="/services/document-storage" class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group">
                   <span class="group-hover:underline">Document Storage</span>
-                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                 </a>
-                <a
-                  href="/services/tape-media-storage"
-                  class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group"
-                >
+                <a href="/services/tape-media-storage" class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group">
                   <span class="group-hover:underline">Tape & Media Storage</span>
-                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                 </a>
-                <a
-                  href="/services/vault-storage"
-                  class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group"
-                >
+                <a href="/services/vault-storage" class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group">
                   <span class="group-hover:underline">Vault Storage</span>
-                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                 </a>
-                <a
-                  href="/services/heritage-storage"
-                  class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group"
-                >
+                <a href="/services/heritage-storage" class="flex items-center justify-between py-3.5 border-b border-white/15 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-200 transition-all duration-200 group">
                   <span class="group-hover:underline">Heritage Storage</span>
-                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                 </a>
               </div>
             </div>
@@ -473,32 +386,17 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
                 Digital Information
               </h3>
               <div class="space-y-1 font-sans">
-                <a
-                  href="/services/document-scanning"
-                  class="flex items-center justify-between py-3.5 border-b border-white/20 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-300 transition-all duration-200 group"
-                >
+                <a href="/services/document-scanning" class="flex items-center justify-between py-3.5 border-b border-white/20 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-300 transition-all duration-200 group">
                   <span class="group-hover:underline">Document Scanning</span>
-                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                 </a>
-                <a
-                  href="/services/digital-mailroom"
-                  class="flex items-center justify-between py-3.5 border-b border-white/20 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-300 transition-all duration-200 group"
-                >
+                <a href="/services/digital-mailroom" class="flex items-center justify-between py-3.5 border-b border-white/20 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-300 transition-all duration-200 group">
                   <span class="group-hover:underline">Digital Mailroom</span>
-                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                 </a>
-                <a
-                  href="/services/document-management"
-                  class="flex items-center justify-between py-3.5 border-b border-white/20 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-300 transition-all duration-200 group"
-                >
+                <a href="/services/document-management" class="flex items-center justify-between py-3.5 border-b border-white/20 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-300 transition-all duration-200 group">
                   <span class="group-hover:underline">Document Management</span>
-                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
+                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                 </a>
               </div>
             </div>
@@ -515,14 +413,9 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
 
         <!-- Bottom CTA Button -->
         <div class="mt-12 sm:mt-14 text-center">
-          <a
-            href="/services"
-            class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-[12px] bg-[#0F623A] hover:bg-[#0A331E] text-white font-bold text-sm sm:text-base shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-0.5 border border-[#0F623A]"
-          >
+          <a href="/services" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-[12px] bg-[#0F623A] hover:bg-[#0A331E] text-white font-bold text-sm sm:text-base shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-0.5 border border-[#0F623A]">
             <span>Explore Information Management Solutions</span>
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </a>
         </div>
       </div>
@@ -531,33 +424,6 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
     <br />
     <br />
   </section>
-
-  {/* ===== SECTORS (COMMENTED OUT) =====
-  <section class="bg-white py-10 border-t border-slate-100">
-    <Container>
-      <div class="text-center mb-10">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4">Sector Expertise</span>
-        <h2 class="text-2xl font-semibold text-slate-900 tracking-tight">Built for Regulated Organisations</h2>
-      </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
-        {sectorLinks.map(s => (
-          <a href={`/sectors/${s.slug}`} class="group bg-[#F2F8F5] rounded-[16px] px-5 py-5 border border-slate-200 hover:border-[#0F623A]/40 hover:shadow-md transition-all text-center">
-            <p class="text-sm font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors">{s.title}</p>
-            <p class="mt-1 text-[10px] text-[#0F623A] font-bold">Explore →</p>
-          </a>
-        ))}
-      </div>
-    </Container>
-  </section>
-  ===== */}
-
-  {/* ===== FAQ (COMMENTED OUT) =====
-  <section class="py-10 border-t border-slate-200" style={`background: ${clr.light};`}>
-    <Container>
-      <AccordionFaq faqs={faqs} title="Information Management Questions" subtitle="Common questions about our information lifecycle and records services." />
-    </Container>
-  </section>
-  ===== */}
 
   <!-- ===== COMMON CTA ===== -->
   <CTA

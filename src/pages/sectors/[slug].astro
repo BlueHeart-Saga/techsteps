@@ -7,20 +7,44 @@ import { getSectors, getServices, getCaseStudies, getSiteSettings } from '../../
 import { generateSectorSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 import type { Sector, Service } from '../../lib/sanity/types';
 
-export async function getStaticPaths() {
-  const allSectors = await getSectors();
+function isValidSector(value: unknown): value is Sector {
+  if (typeof value !== 'object' || value === null) return false;
+  const record = value as Record<string, unknown>;
+  return (
+    typeof record.slug === 'string' &&
+    record.slug.trim().length > 0 &&
+    typeof record.title === 'string' &&
+    record.title.trim().length > 0 &&
+    typeof record.summary === 'string' &&
+    record.summary.trim().length > 0
+  );
+}
 
-  return allSectors.map((sector) => ({
-    params: { slug: sector.slug },
-    props: { sector },
-  }));
+function normalizeRouteSlug(slug: unknown): string {
+  return typeof slug === 'string' ? slug.trim().toLowerCase() : '';
+}
+
+function buildSectorPaths(records: unknown) {
+  const sectors = Array.isArray(records) ? records.filter(isValidSector) : [];
+  const seenSlugs = new Set<string>();
+
+  return sectors.flatMap((sector) => {
+    const slug = normalizeRouteSlug(sector.slug);
+    if (!slug || seenSlugs.has(slug)) return [];
+    seenSlugs.add(slug);
+    return [{ params: { slug }, props: { sector } }];
+  });
+}
+
+export async function getStaticPaths() {
+  return buildSectorPaths(await getSectors());
 }
 
 interface Props {
-  sector: Sector;
+  sector?: Sector;
 }
 
-const { sector } = Astro.props;
+const { sector: propsSector } = Astro.props;
 
 const [allSectors, allServices, caseStudies, siteSettings] = await Promise.all([
   getSectors(),
@@ -28,6 +52,15 @@ const [allSectors, allServices, caseStudies, siteSettings] = await Promise.all([
   getCaseStudies(),
   getSiteSettings(),
 ]);
+
+const requestedSlug = normalizeRouteSlug(Astro.params.slug);
+const sector = isValidSector(propsSector)
+  ? propsSector
+  : buildSectorPaths(allSectors).find((path) => path.params.slug === requestedSlug)?.props.sector;
+
+if (!sector) {
+  return Astro.rewrite('/404');
+}
 
 const origin = Astro.site?.origin || 'https://techsteps.co.uk';
 const sectorSchema = generateSectorSchema(sector, siteSettings, origin);
