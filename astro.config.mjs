@@ -6,6 +6,7 @@ import { EnumChangefreq } from 'sitemap';
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 import azureSwa from '@opsydyn/astro-azure-swa';
+import node from '@astrojs/node';
 
 const sanityProjectId =
   process.env.PUBLIC_SANITY_PROJECT_ID ||
@@ -28,8 +29,8 @@ export default defineConfig({
   },
   site: productionSite,
   trailingSlash: 'never',
-  output: 'static',
-  adapter: azureSwa(), // <-- MUKKIYAM! Ithu API routes work aaga thevai
+  output: 'server',
+  adapter: node({ mode: 'standalone' }),// <-- MUKKIYAM! Ithu API routes work aaga thevai
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'hover',
