@@ -95,12 +95,12 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
           </div>
         </div>
 
-        <!-- HERO IMAGE (Right on Desktop - Pushed further right) -->
-        <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end relative z-0">
+        <!-- HERO IMAGE (Right on Desktop, Below on Mobile) -->
+        <div class="flex lg:col-span-6 xl:col-span-6 items-center justify-center lg:justify-end relative z-0 mt-8 lg:mt-0">
           <img 
             src={division?.heroImage || "/images/hero/Information Management (1).webp"} 
             alt="Information Management Services UK" 
-            class="w-full max-w-[650px] h-auto object-contain scale-[1.15] translate-x-12 drop-shadow-xl select-none pointer-events-none"
+            class="w-full max-w-[650px] h-auto object-contain lg:scale-[1.15] lg:translate-x-12 drop-shadow-xl select-none pointer-events-none"
           />
         </div>
       </div>
