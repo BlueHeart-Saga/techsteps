@@ -45,16 +45,24 @@ jobs:
       - name: Verify Astro output
         run: |
           echo "Checking Astro build..."
-          test -f dist/index.html
+          
+          # 1. Verify Astro's Node server entry point
+          test -f dist/server/entry.mjs
+          
+          # 2. Verify your custom Azure runner files
           test -f dist/server.js
           test -f dist/package.json
+          
+          # 3. Verify production dependencies
           test -d dist/node_modules
           test -d dist/node_modules/dotenv
           test -d dist/node_modules/nodemailer
-          echo "dist/index.html and Azure server runner files exist"
-          echo "Production dependencies installed successfully"
-          echo "Build output:"
-          find dist -maxdepth 2 -type f | head -50
+          
+          echo "✓ Astro server and Azure runner files exist!"
+          echo "✓ Production dependencies installed successfully!"
+          
+          echo "Build output top-level:"
+          ls -la dist/
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
