@@ -75,62 +75,62 @@ export const CATEGORY_HERO_IMAGES: Record<string, string> = {
 // 2. MAPPING FOR ARCHIVE PAGE HERO IMAGE (Global for all categories)
 export const CATEGORY_ARCHIVE_HERO_IMAGES: Record<string, string> = {
   // Blogs & Articles
-  'blogs': '/images/about/inshits/blog hero.png',
-  'blog': '/images/about/inshits/blog hero.png',
-  'articles': '/images/about/inshits/blog hero.png',
-  'blogs-articles': '/images/about/inshits/blog hero.png',
+  'blogs': '/images/about/inshits/Blogs(2).webp',
+  'blog': '/images/about/inshits/Blog(1).webp',
+  'articles': '/images/about/inshits/Blog(1).webp',
+  'blogs-articles': '/images/about/inshits/Blog(1).webp',
 
   // Case Studies
-  'case-studies': '/images/about/inshits/blog hero.png',
-  'case-study': '/images/about/inshits/blog hero.png',
-  'studies': '/images/about/inshits/blog hero.png',
+  'case-studies': '/images/about/inshits/case-study(1).webp',
+  'case-study': '/images/about/inshits/case-study(1).webp',
+  'studies': '/images/about/inshits/case-study(1).webp',
 
   // Impact Metrics
-  'impact-metrics': '/images/about/inshits/blog hero.png',
-  'impact': '/images/about/inshits/blog hero.png',
-  'client-impact': '/images/about/inshits/blog hero.png',
-  'client-transformations': '/images/about/inshits/blog hero.png',
+  'impact-metrics': '/images/about/inshits/Impact-metrics(1).webp',
+  'impact': '/images/about/inshits/Impact-metrics(1).webp',
+  'client-impact': '/images/about/inshits/Impact-metrics(1).webp',
+  'client-transformations': '/images/about/inshits/client-transformation(1).webp',
 
   // Testimonials
-  'testimonials': '/images/about/inshits/blog hero.png',
-  'testimonial': '/images/about/inshits/blog hero.png',
-  'reviews': '/images/about/inshits/blog hero.png',
+  'testimonials': '/images/about/inshits/Testimonials.webp',
+  'testimonial': '/images/about/inshits/Testimonials.webp',
+  'reviews': '/images/about/inshits/Testimonials.webp',
 
   // Achievements & Awards
-  'achievements': '/images/about/inshits/blog hero.png',
-  'awards-milestones': '/images/about/inshits/blog hero.png',
-  'awards': '/images/about/inshits/blog hero.png',
-  'milestones': '/images/about/inshits/blog hero.png',
+  'achievements': '/images/about/inshits/Acheivement.webp',
+  'awards-milestones': '/images/about/inshits/Awards&Milestones.webp',
+  'awards': '/images/about/inshits/Awards&Milestones.webp',
+  'milestones': '/images/about/inshits/Awards&Milestones.webp',
 
   // Newsletters
-  'newsletters': '/images/about/inshits/blog hero.png',
-  'newsletter': '/images/about/inshits/blog hero.png',
+  'newsletters': '/images/about/inshits/News-letter.webp',
+  'newsletter': '/images/about/inshits/News-letter.webp',
 
   // Industry Events / Podcasts
-  'industry-events': '/images/about/inshits/blog hero.png',
-  'industry-insights': '/images/about/inshits/blog hero.png',
-  'podcasts': '/images/about/inshits/blog hero.png',
+  'industry-events': '/images/about/inshits/Industry-Events(1).webp',
+  'industry-insights': '/images/about/inshits/Industry-Insights(1).webp',
+  'podcasts': '/images/about/inshits/podcasts (2).webp',
 
   // Celebrations & Life at TechSteps
-  'celebrations': '/images/about/inshits/blog hero.png',
-  'events': '/images/about/inshits/blog hero.png',
-  'celebrations-events': '/images/about/inshits/blog hero.png',
-  'team-culture': '/images/about/inshits/blog hero.png',
-  'community': '/images/about/inshits/blog hero.png',
+  'celebrations': '/images/about/inshits/Celebrations.webp',
+  'events': '/images/about/inshits/Celebrations.webp',
+  'celebrations-events': '/images/about/inshits/Celebrations.webp',
+  'team-culture': '/images/about/inshits/team-culture(1).webp',
+  'community': '/images/about/inshits/community (1).webp',
 
   // Company Announcements
-  'company-announcements': '/images/about/inshits/blog hero.png',
-  'media-announcements': '/images/about/inshits/blog hero.png',
-  'announcements': '/images/about/inshits/blog hero.png',
-  'press': '/images/about/inshits/blog hero.png',
+  'company-announcements': '/images/about/inshits/Company-Announcements(1).webp',
+  'media-announcements': '/images/about/inshits/Company-Announcements(1).webp',
+  'announcements': '/images/about/inshits/Company-Announcements(1).webp',
+  'press': '/images/about/inshits/Company-Announcements(1).webp',
 
   // Research & Resources / General
   'research-resources': '/images/about/inshits/blog hero.png',
   'resources': '/images/about/inshits/blog hero.png',
-  'posters': '/images/about/inshits/blog hero.png',
+  'posters': '/images/about/inshits/Posters.webp',
   'whitepapers': '/images/about/inshits/blog hero.png',
-  'general': '/images/about/inshits/blog hero.png',
-  'uncategorized': '/images/about/inshits/blog hero.png',
+  'general': '/images/about/inshits/general (1).webp',
+  'uncategorized': '/images/about/inshits/general (1).webp',
 };
 export const MAIN_INSIGHTS_HERO_IMAGE = '/images/about/inshits/main-hero.png';
 

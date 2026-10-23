@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
-import PageHero from '../components/hero/PageHero.astro';
+import HeroHeader from '../components/global/HeroHeader.astro';
 import AccordionFaq from '../components/content/AccordionFaq.astro';
 import ServicesCardGrid from '../components/services/ServicesCardGrid.astro';
 import CTA from '../components/global/cta.astro';
@@ -42,106 +42,60 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
 <BaseLayout
   title={division?.metaTitle || "IT Lifecycle Services & Destruction | Secure ITAD & Certified Recycling | Techsteps"}
   description={division?.metaDescription || "ADISA-certified IT asset disposition, secure collection, data sanitisation, remarketing, and zero-landfill electronic recycling. UK-wide from Techsteps."}
-  hasHeroHeader={true}
+  hasHeroHeader={false}
 >
-  <!-- ===== 1. HERO ===== -->
-  <PageHero
-    bgImage={division?.heroImage || "/images/hero/IT Lifecycle & Destruction.webp"}
-    bgAlt="IT Lifecycle & Destruction Services UK - TechSteps"
-    breadcrumbs={[]}
-    layout="custom"
-    showDivider={true}
-    dividerColor="#ffffff"
-    minHeight="min-h-[540px] sm:min-h-[580px] lg:min-h-[640px]"
-    noOverlay={true}
-    theme="light"
-    contained={true}
-  >
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
-      <!-- HERO CONTENT (Left) -->
-      <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
+  <!-- ===== 1. HERO (Custom Clean Layout) ===== -->
+  <div class="relative bg-white">
+    <!-- Keep the Navbar -->
+   
 
-        <!-- Breadcrumb Navigation -->
-        <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
-          <a href="/services" class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
-            Services
-          </a>
-          <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
-          <span class="text-slate-900 font-bold">IT Lifecycle & Destruction</span>
-        </nav>
+    <!-- Hero Content -->
+    <section class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
+        
+        <!-- HERO CONTENT (Left) -->
+        <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none z-10">
+          <!-- Breadcrumb Navigation -->
+          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
+            <a href="/services" class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
+              Services
+            </a>
+            <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
+            <span class="text-slate-900 font-bold">IT Lifecycle & Destruction</span>
+          </nav>
 
-        <!-- Heading -->
-        <h1
-          class="font-display
-                 text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
-                 font-semibold
-                 text-slate-900
-                 tracking-normal
-                 leading-[1.12] sm:leading-[1.1]
-                 max-w-xl"
-        >
-          {division?.heroTitle || 'IT Lifecycle & Destruction Services UK'}
-        </h1>
+          <!-- Heading -->
+          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px] font-semibold text-slate-900 tracking-normal leading-[1.12] sm:leading-[1.1] max-w-xl">
+            {division?.heroTitle || 'IT Lifecycle & Destruction Services UK'}
+          </h1>
 
-        <!-- Description -->
-        <p
-          class="mt-4 sm:mt-5
-                 text-lg sm:text-xl lg:text-lg
-                 text-black
-                 max-w-lg
-                 leading-relaxed
-                 font-sans font-normal"
-        >
-          {division?.heroDescription || 'Secure, accredited IT asset disposition (ITAD), verified data erasure, hardware remarketing, and circular zero-landfill electronic recycling for UK enterprise.'}
-        </p>
+          <!-- Description -->
+          <p class="mt-4 sm:mt-5 text-lg sm:text-xl lg:text-lg text-black max-w-lg leading-relaxed font-sans font-normal">
+            {division?.heroDescription || 'Secure, accredited IT asset disposition (ITAD), verified data erasure, hardware remarketing, and circular zero-landfill electronic recycling for UK enterprise.'}
+          </p>
 
-        <!-- CTA Button -->
-        <div
-          class="mt-6 sm:mt-8
-                 flex flex-wrap
-                 items-center
-                 gap-3.5 sm:gap-4"
-        >
-          <a
-            href={division?.heroCtaLink || '/request-a-collection?service=it-lifecycle'}
-            class="inline-flex items-center justify-center
-                   gap-2.5
-                   px-6 sm:px-7
-                   py-3 sm:py-3.5
-                   rounded-[12px]
-                   bg-[#0F623A] hover:bg-[#0c4e2e]
-                   text-white
-                   text-sm sm:text-base
-                   font-bold
-                   shadow-md hover:shadow-lg
-                   transition-all duration-200
-                   hover:scale-[1.02]
-                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
-          >
-            <span>{division?.heroCtaText || 'Request a Collection'}</span>
-            <svg
-              class="w-4 h-4 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2.2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </a>
+          <!-- CTA Button -->
+          <div class="mt-6 sm:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
+            <a href={division?.heroCtaLink || '/request-a-collection?service=it-lifecycle'} class="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0F623A]">
+              <span>{division?.heroCtaText || 'Request a Collection'}</span>
+              <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
         </div>
 
+        <!-- HERO IMAGE (Right on Desktop, Below on Mobile) -->
+        <div class="flex lg:col-span-6 xl:col-span-6 items-center justify-center lg:justify-end relative z-0 mt-8 lg:mt-0">
+          <img 
+            src={division?.heroImage || "/images/hero/IT Lifecycle & Destruction.webp"} 
+            alt="IT Lifecycle & Destruction Services UK" 
+            class="w-full max-w-[650px] h-auto object-contain lg:scale-[1.15] lg:translate-x-12 select-none pointer-events-none"
+          />
+        </div>
       </div>
-
-      <!-- HERO SPACER (Right on Desktop) -->
-      <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end min-h-[420px] lg:min-h-[480px] xl:min-h-[520px] pointer-events-none" aria-hidden="true">
-      </div>
-    </div>
-  </PageHero>
+    </section>
+  </div>
 
   <!-- ===== 2. INTRODUCTION TO IT LIFECYCLE SERVICES ===== -->
   <section class="bg-white py-8 lg:py-12 border-b border-slate-200/80 relative overflow-hidden">
@@ -149,11 +103,6 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         <!-- Left Side: Introduction Content -->
         <div class="lg:col-span-7 space-y-6">
-          {/*<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-            {division?.aboutBadge || 'About Our Service'}
-          </div>*/}
-
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
             {division?.aboutTitle || 'Sustainable, Secure IT Asset Management for Modern Enterprise'}
           </h2>
@@ -205,7 +154,6 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
   <!-- ===== 2.5 SERVICES / CORE DIVISIONS ===== -->
   <ServicesCardGrid />
 
-
   <!-- ===== WHY PROACTIVE IT LIFECYCLE MATTERS (GREEN THEME) ===== -->
   <section class="bg-[#0A331E] py-8 sm:py-10 lg:py-12 border-b border-emerald-900/50 relative overflow-hidden">
     <div class="absolute inset-0 bg-radial-[ellipse_at_top_right] from-emerald-500/10 via-transparent to-transparent pointer-events-none"></div>
@@ -213,11 +161,6 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         <!-- Left Column: Title & Intro -->
         <div class="lg:col-span-5 space-y-5">
-          {/*<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-mono font-medium uppercase tracking-wider">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            Strategic Value
-          </div>*/}
-
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
             {division?.strategicValue?.heading || "Why Proactive IT Lifecycle Management Matters"}
           </h2>
@@ -295,15 +238,11 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
   </section>
 
   <!-- ===== OUR IT LIFECYCLE PROCESS (WORKFLOW) ===== -->
-  <section class="bg-white py-8 sm:py-10 lg:py-12 border-b border-slate-200/80 relative overflow-hidden">
+  <section id="techsteps-lifecycle-steps" class="bg-white py-8 sm:py-10 lg:py-12 border-b border-slate-200/80 relative overflow-hidden">
     <Container>
       <div class="relative z-10">
-        <!-- Section Header -->
+        <!-- Existing heading and subtitle preserved -->
         <div class="max-w-3xl mb-12 sm:mb-16">
-          {/*<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-mono font-medium uppercase tracking-wider mb-4">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-            Workflow & Execution
-          </div>*/}
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display">
             {division?.customerJourney?.heading || "Our IT Lifecycle & Disposition Process"}
           </h2>
@@ -311,89 +250,236 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
             {division?.customerJourney?.description || "A structured, secure end-to-end framework to collect, audit, sanitise and remarket or recycle technology assets."}
           </p>
         </div>
-
-        <!-- 4-Step Process Flow -->
-        <div class="relative">
-          <!-- Continuous connecting line on large screens -->
-          <div class="hidden lg:block absolute top-[21px] left-6 right-20 h-[2px] bg-slate-200 -z-0"></div>
-
-          <!-- Steps Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 relative z-10">
-            <!-- Step 1 -->
-            <div class="flex flex-col group">
-              <div class="mb-5 flex items-center">
-                <div class="w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
-                  01
-                </div>
+        <div class="tlc-grid" aria-label="Four steps to complete lifecycle governance">
+          <article class="tlc-card" data-tlc-step="0" aria-label="Step 01: Collect & Secure">
+            <div class="tlc-card-copy tlc-card-copy--light tlc-card-copy--collect">
+              <div class="tlc-copy-top">
+                <span class="tlc-step-badge">01</span>
+                <h3>Collect &amp; Secure</h3>
+                <p>GPS-tracked vehicles and vetted personnel collect hardware with full chain of custody.</p>
               </div>
-              <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
-                Collect & Secure
-              </h3>
-              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
-                GPS-tracked vehicles and vetted personnel collect hardware with full chain of custody.
-              </p>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="flex flex-col group">
-              <div class="mb-5 flex items-center">
-                <div class="w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
-                  02
-                </div>
+              <div class="tlc-visual tlc-visual--collect" aria-hidden="true">
+                <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792745836/Mint_Orbit_Delivery_Icon_zxgeqr.png" alt="" loading="lazy" decoding="async" />
               </div>
-              <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
-                Audit & Ingest
-              </h3>
-              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
-                Every unit is barcoded, scanned, and logged by serial number into our secure portal.
-              </p>
             </div>
+            <div class="tlc-cover" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1581092335878-2d9ff86ca2bf?auto=format&fit=crop&w=1200&q=85" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
+              <span class="tlc-cover-shade"></span>
+              <span class="tlc-photo-number">01</span>
+            </div>
+            <span class="tlc-spark" aria-hidden="true"></span>
+          </article>
 
-            <!-- Step 3 -->
-            <div class="flex flex-col group">
-              <div class="mb-5 flex items-center">
-                <div class="w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
-                  03
-                </div>
+          <article class="tlc-card" data-tlc-step="1" aria-label="Step 02: Audit & Ingest">
+            <div class="tlc-card-copy tlc-card-copy--light tlc-card-copy--audit">
+              <div class="tlc-copy-top">
+                <span class="tlc-step-badge">02</span>
+                <h3>Audit &amp; Ingest</h3>
+                <p>Every unit is barcoded, scanned, and logged by serial number into our secure portal.</p>
               </div>
-              <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
-                Sanitise & Grade
-              </h3>
-              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
-                ADISA-certified data sanitisation and comprehensive hardware functionality grading.
-              </p>
+              <div class="tlc-visual tlc-visual--audit" aria-hidden="true">
+                <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792745836/Mint_Barcode_Scanner_Badge_frtnxt.png" alt="" loading="lazy" decoding="async" />
+              </div>
             </div>
+            <div class="tlc-cover" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=85" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
+              <span class="tlc-cover-shade"></span>
+              <span class="tlc-photo-number">02</span>
+            </div>
+            <span class="tlc-spark" aria-hidden="true"></span>
+          </article>
 
-            <!-- Step 4 -->
-            <div class="flex flex-col group">
-              <div class="mb-5 flex items-center">
-                <div class="w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
-                  04
-                </div>
+          <article class="tlc-card" data-tlc-step="2" aria-label="Step 03: Sanitise & Grade">
+            <div class="tlc-card-copy tlc-card-copy--light tlc-card-copy--sanitize">
+              <div class="tlc-copy-top">
+                <span class="tlc-step-badge">03</span>
+                <h3>Sanitise &amp; Grade</h3>
+                <p>ADISA-certified data sanitisation and comprehensive hardware functionality grading.</p>
               </div>
-              <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
-                Remarket or Recycle
-              </h3>
-              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
-                Recover value through refurbishment or process end-of-life items via zero-landfill WEEE streams.
-              </p>
+              <div class="tlc-visual tlc-visual--sanitize" aria-hidden="true">
+                <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792745836/Secure_Server_Shield_Emblem_zlxroh.png" alt="" loading="lazy" decoding="async" />
+              </div>
             </div>
-          </div>
+            <div class="tlc-cover" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
+              <span class="tlc-cover-shade"></span>
+              <span class="tlc-photo-number">03</span>
+            </div>
+            <span class="tlc-spark" aria-hidden="true"></span>
+          </article>
+
+          <article class="tlc-card" data-tlc-step="3" aria-label="Step 04: Remarket or Recycle">
+            <div class="tlc-card-copy tlc-card-copy--light">
+              <div class="tlc-copy-top">
+             <span class="tlc-step-badge">04</span>
+                <h3>Remarket or Recycle</h3>
+                <p>Recover value through refurbishment or process end-of-life items via zero-landfill WEEE streams.</p>
+              </div>
+              <div class="tlc-visual tlc-visual--recycle" aria-hidden="true">
+                <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792745836/Eco_Recycling_Bin_Emblem_gcljlv.png" alt="" loading="lazy" decoding="async" />
+              </div>
+            </div>
+             
+            
+            <div class="tlc-cover" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1200&q=85" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
+              <span class="tlc-cover-shade"></span>
+              <span class="tlc-photo-number">04</span>
+            </div>
+            <span class="tlc-spark" aria-hidden="true"></span>
+          </article>
         </div>
       </div>
     </Container>
+    <style is:global>
+      #techsteps-lifecycle-steps .tlc-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; align-items:stretch; }
+      #techsteps-lifecycle-steps .tlc-card { --wipe:0%; position:relative; height:300px; min-width:0; box-sizing:border-box; isolation:isolate; overflow:hidden; border:1px solid #d7e7df; border-radius:20px; background:#fff; box-shadow:0 8px 24px rgba(11,39,31,.05); }
+      #techsteps-lifecycle-steps .tlc-card-copy { position:absolute; inset:0; z-index:1; display:flex; flex-direction:column; justify-content:space-between; box-sizing:border-box; padding:18px 17px 0; overflow:hidden; }
+      #techsteps-lifecycle-steps .tlc-copy-top { position:relative; z-index:3; flex:0 0 auto; }
+      #techsteps-lifecycle-steps .tlc-step-badge { display:inline-flex; align-items:center; justify-content:center; min-width:56px; padding:7px 14px; border-radius:999px; background:#eaf5f0; color:#0e7152; font-size:20px; font-weight:800; line-height:1; }
+      #techsteps-lifecycle-steps .tlc-card-copy h3 { margin:17px 0 0; color:#122544; font-size:clamp(17px,1.35vw,20px); font-weight:700; line-height:1.25; }
+      #techsteps-lifecycle-steps .tlc-card-copy p { margin:12px 0 0; color:#55657f; font-size:clamp(13px,.97vw,14px); font-weight:400; line-height:1.53; }
+      #techsteps-lifecycle-steps .tlc-card-copy--light { background:linear-gradient(180deg,#fff 0%,#fff 48%,#f4fcf8 100%); }
+      #techsteps-lifecycle-steps .tlc-card-copy--light::before { content:''; position:absolute; top:-56px; right:-45px; width:146px; height:146px; border-radius:50%; background:radial-gradient(circle,rgba(216,243,231,.7) 0 61%,transparent 62%); pointer-events:none; }
+      #techsteps-lifecycle-steps .tlc-card-copy--light::after { content:''; position:absolute; left:-18%; right:-18%; bottom:-18px; height:73px; border-radius:50% 50% 0 0/100% 100% 0 0; background:linear-gradient(180deg,rgba(218,245,233,.12),rgba(216,241,230,.6)); pointer-events:none; }
+      #techsteps-lifecycle-steps .tlc-visual { position:relative; flex:0 0 129px; height:129px; width:100%; margin-top:5px; display:flex; align-items:center; justify-content:center; z-index:2; }
+      #techsteps-lifecycle-steps .tlc-stage-icon { display:block; width:100%; height:100%; max-width:215px; object-fit:contain; object-position:center; }
+      #techsteps-lifecycle-steps .tlc-card--featured { border-color:#137559; }
+      #techsteps-lifecycle-steps .tlc-card-copy--featured { padding-bottom:118px; background:linear-gradient(145deg,#064b3b,#075a46 55%,#0b694d); }
+      #techsteps-lifecycle-steps .tlc-card-copy--featured .tlc-step-badge { background:#23ab73; color:#fff; }
+      #techsteps-lifecycle-steps .tlc-card-copy--featured h3 { color:#fff; }
+      #techsteps-lifecycle-steps .tlc-card-copy--featured p { color:#e6f7ef; }
+      #techsteps-lifecycle-steps .tlc-feature-dots { position:absolute; top:16px; right:15px; width:60px; height:45px; opacity:.48; background-image:radial-gradient(circle,rgba(200,246,222,.8) 0 1px,transparent 1.8px); background-size:12px 12px; }
+      #techsteps-lifecycle-steps .tlc-feature-curve { position:absolute; left:-5%; right:-5%; bottom:10px; height:42px; border-bottom:2px solid rgba(183,247,211,.7); border-radius:0 0 50% 50%; z-index:4; pointer-events:none; }
+      #techsteps-lifecycle-steps .tlc-feature-emblem { position:absolute; right:8px; top:12px; width:38px; height:38px; object-fit:contain; z-index:1; opacity:.10; pointer-events:none; }
+      #techsteps-lifecycle-steps .tlc-feature-photo { position:absolute; z-index:2; left:0; right:0; bottom:0; height:108px; margin:0; overflow:hidden; border-radius:0 0 19px 19px; }
+      #techsteps-lifecycle-steps .tlc-feature-photo img { display:block; width:100%; height:100%; object-fit:cover; object-position:center 62%; }
+      #techsteps-lifecycle-steps .tlc-feature-photo-glow { position:absolute; inset:0; background:linear-gradient(180deg,rgba(3,63,47,.04),rgba(3,63,47,.35)); }
+      /* Full-face cover sits ABOVE all text. The same --wipe value controls both clipping and light. */
+      #techsteps-lifecycle-steps .tlc-cover { position:absolute; inset:0; z-index:5; overflow:hidden; background:#0A331E; clip-path:inset(0 0 0 var(--wipe)); }
+      #techsteps-lifecycle-steps .tlc-cover img { display:block; width:100%; height:100%; object-fit:cover; }
+      #techsteps-lifecycle-steps .tlc-cover-shade { position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(3,31,21,.62)); }
+      #techsteps-lifecycle-steps .tlc-photo-number { position:absolute; bottom:19px; left:18px; font-weight:800; font-size:25px; color:#fff; text-shadow:0 2px 6px #123; }
+      #techsteps-lifecycle-steps .tlc-spark { position:absolute; z-index:7; top:0; bottom:0; left:var(--wipe); width:3px; transform:translateX(-50%); opacity:0; pointer-events:none; background:linear-gradient(180deg,transparent 5%,#f3ffac 28%,#fff 50%,#bfff4c 72%,transparent 95%); box-shadow:0 0 12px 3px rgba(214,255,74,.8),0 0 28px 9px rgba(196,255,36,.35); }
+      #techsteps-lifecycle-steps .tlc-card.is-revealing .tlc-spark { opacity:1; }
+      #techsteps-lifecycle-steps .tlc-spark::before { content:''; position:absolute; width:60px; height:60px; left:50%; top:46%; transform:translate(-50%,-50%); background:radial-gradient(circle,#fff 0 8%,#f5ffbe 12%,rgba(214,255,96,.7) 25%,transparent 64%); filter:drop-shadow(0 0 10px #d5ff52); clip-path:polygon(50% 0,56% 39%,100% 50%,56% 58%,50% 100%,44% 58%,0 50%,44% 42%); }
+      #techsteps-lifecycle-steps .tlc-spark::after { content:''; position:absolute; inset:6% -13px; background-image:radial-gradient(circle,#e9ff98 1px,transparent 2px),radial-gradient(circle,#fff 1px,transparent 2px); background-size:18px 27px,23px 32px; background-position:1px 1px,8px 12px; mask-image:linear-gradient(180deg,transparent,#000 16%,#000 84%,transparent); }
+      #techsteps-lifecycle-steps .tlc-card.is-revealed .tlc-spark { display:none; }
+      @media(max-width:1023px) { #techsteps-lifecycle-steps .tlc-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } #techsteps-lifecycle-steps .tlc-card-copy h3 {font-size:19px;} #techsteps-lifecycle-steps .tlc-card-copy p {font-size:14px;} }
+      @media(max-width:639px) { #techsteps-lifecycle-steps .tlc-grid {grid-template-columns:minmax(0,1fr);gap:15px;} #techsteps-lifecycle-steps .tlc-card {height:300px;} #techsteps-lifecycle-steps .tlc-visual {flex-basis:125px;height:125px;} }
+      @media(prefers-reduced-motion:reduce) { #techsteps-lifecycle-steps .tlc-cover {clip-path:inset(0 0 0 100%) !important;} #techsteps-lifecycle-steps .tlc-spark {display:none !important;} }
+    </style>
+    <script is:inline>
+      (() => {
+        const init = () => {
+          const section = document.getElementById('techsteps-lifecycle-steps');
+          if (!section || section.dataset.sparkleReady === '1') return;
+          const cards = [...section.querySelectorAll('.tlc-card')];
+          if (cards.length !== 4) return;
+          section.dataset.sparkleReady = '1';
+
+          const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+          const revealDuration = 1650;
+          const betweenCards = 300;
+          const readingPause = 2600;
+          const resetDuration = 550;
+          const revealEnd = cards.length * revealDuration + (cards.length - 1) * betweenCards;
+          const resetStart = revealEnd + readingPause;
+          const cycleDuration = resetStart + resetDuration + 350;
+
+          let frame = 0;
+          let observer;
+          let visible = false;
+          let elapsed = 0;
+          let previousFrameTime = null;
+          let disposed = false;
+
+          const setWipe = (card, percentage, revealing = false) => {
+            card.style.setProperty('--wipe', `${percentage.toFixed(3)}%`);
+            card.classList.toggle('is-revealing', revealing);
+            card.classList.toggle('is-revealed', !revealing && percentage >= 100);
+          };
+          const revealAll = () => cards.forEach(card => setWipe(card, 100));
+          const showImages = () => cards.forEach(card => setWipe(card, 0));
+
+          // The same --wipe property drives both image clipping and sparkle position.
+          const render = () => {
+            if (elapsed < revealEnd) {
+              cards.forEach((card, index) => {
+                const position = (elapsed - index * (revealDuration + betweenCards)) / revealDuration;
+                const progress = Math.min(1, Math.max(0, position));
+                const eased = progress * progress * (3 - 2 * progress);
+                setWipe(card, eased * 100, progress > 0 && progress < 1);
+              });
+            } else if (elapsed < resetStart) {
+              revealAll();
+            } else if (elapsed < resetStart + resetDuration) {
+              // Smoothly restore all image covers without displaying the sparkle.
+              const progress = (elapsed - resetStart) / resetDuration;
+              const eased = progress * progress * (3 - 2 * progress);
+              cards.forEach(card => setWipe(card, (1 - eased) * 100));
+            } else {
+              showImages();
+            }
+          };
+
+          const stop = () => {
+            cancelAnimationFrame(frame);
+            frame = 0;
+            previousFrameTime = null;
+          };
+          const tick = (now) => {
+            if (disposed || !visible || document.hidden || reduced.matches) { stop(); return; }
+            if (previousFrameTime !== null) elapsed += Math.min(now - previousFrameTime, 100);
+            previousFrameTime = now;
+            if (elapsed >= cycleDuration) elapsed %= cycleDuration;
+            render();
+            frame = requestAnimationFrame(tick);
+          };
+          const syncPlayback = () => {
+            stop();
+            if (reduced.matches) { revealAll(); return; }
+            if (!visible || document.hidden) return;
+            render();
+            frame = requestAnimationFrame(tick);
+          };
+
+          showImages();
+          observer = new IntersectionObserver(entries => {
+            visible = entries[0]?.isIntersecting ?? false;
+            syncPlayback();
+          }, { threshold: 0.15 });
+          observer.observe(section);
+          const onVisibility = () => syncPlayback();
+          const onMotion = () => {
+            if (!reduced.matches) { elapsed = 0; showImages(); }
+            syncPlayback();
+          };
+          document.addEventListener('visibilitychange', onVisibility);
+          reduced.addEventListener('change', onMotion);
+          const cleanup = () => {
+            disposed = true;
+            stop();
+            observer.disconnect();
+            document.removeEventListener('visibilitychange', onVisibility);
+            reduced.removeEventListener('change', onMotion);
+            section.removeAttribute('data-sparkle-ready');
+          };
+          document.addEventListener('astro:before-swap', cleanup, { once: true });
+        };
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+        else init();
+        document.addEventListener('astro:page-load', init);
+      })();
+    </script>
   </section>
 
   <!-- ===== ONE PARTNER FOR ASSET DISPOSITION & DATA SECURITY ===== -->
   <section id="it-services" class="bg-white text-[#0A331E] py-8 sm:py-10 lg:py-12 border-b border-slate-200 relative overflow-hidden scroll-mt-20">
-    <div class="absolute inset-0 bg-radial-[ellipse_at_top] from-emerald-50/60 via-transparent to-transparent pointer-events-none"></div>
+    
     <Container>
       <!-- Section Heading -->
       <div class="max-w-3xl mb-12 sm:mb-16">
-        {/*<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-300 text-[#0F623A] text-xs font-mono font-medium uppercase tracking-wider mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          Integrated Hardware Management
-        </div>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0A331E] tracking-tight font-display leading-tight">
           One Partner for ITAD, Data Erasure & Circular Recycling
         </h2>
@@ -480,24 +566,6 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
                 </a>
-                {/*<a
-                  href="/services/it-asset-disposition-services"
-                  class="flex items-center justify-between py-3.5 border-b border-white/20 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-300 transition-all duration-200 group"
-                >
-                  <span class="group-hover:underline">ADISA Certified Sanitisation</span>
-                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </a>
-                <a
-                  href="/services/remarketing-recycling"
-                  class="flex items-center justify-between py-3.5 border-b border-white/20 font-semibold text-white text-base sm:text-lg hover:translate-x-1.5 hover:text-emerald-300 transition-all duration-200 group"
-                >
-                  <span class="group-hover:underline">Zero-Landfill WEEE Streams</span>
-                  <svg class="w-5 h-5 transition-transform group-hover:translate-x-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </a>*/}
               </div>
             </div>
           </div>
@@ -529,33 +597,6 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
     <br />
     <br />
   </section>
-
-  {/* ===== SECTORS (COMMENTED OUT) =====
-  <section class="bg-white py-10 border-t border-slate-100">
-    <Container>
-      <div class="text-center mb-10">
-        <span class="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#0F623A] mb-4">Sector Expertise</span>
-        <h2 class="text-2xl font-semibold text-slate-900 tracking-tight">Built for Regulated Organisations</h2>
-      </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
-        {sectorLinks.map(s => (
-          <a href={`/sectors/${s.slug}`} class="group bg-[#F2F8F5] rounded-2xl px-5 py-5 border border-slate-200 hover:border-[#0F623A]/40 hover:shadow-md transition-all text-center">
-            <p class="text-sm font-bold text-slate-900 group-hover:text-[#0F623A] transition-colors">{s.title}</p>
-            <p class="mt-1 text-[10px] text-[#0F623A] font-bold">Explore →</p>
-          </a>
-        ))}
-      </div>
-    </Container>
-  </section>
-  ===== */}
-
-  {/* ===== FAQ (COMMENTED OUT) =====
-  <section class="py-10 border-t border-slate-200" style={`background: ${clr.light};`}>
-    <Container>
-      <AccordionFaq faqs={faqs} title="IT Lifecycle Questions" subtitle="Common questions about our ITAD, data sanitisation, and recycling services." />
-    </Container>
-  </section>
-  ===== */}
 
   <!-- ===== COMMON CTA ===== -->
   <CTA

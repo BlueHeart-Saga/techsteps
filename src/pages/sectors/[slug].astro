@@ -69,9 +69,6 @@ const breadcrumbSchema = generateBreadcrumbSchema([
   { name: sector.title, url: `/sectors/${sector.slug}` },
 ], origin);
 
-/*
- * Fallback organisation lists per sector
- */
 const defaultSectorOrgs: Record<string, { name: string; description: string }[]> = {
   'nhs': [
     { name: 'NHS Integrated Care Boards & Acute Trusts', description: 'Supporting compliant health records management, Caldicott governance, and acute hospital ward IT decommissions.' },
@@ -123,7 +120,6 @@ const organizationsSupported = (sector.whoWeSupport && sector.whoWeSupport.lengt
       { name: `Specialist Facilities & Operations`, description: `End-to-end logistics, compliant relocations, and confidential lifecycle decommissioning.` },
     ]);
 
-// Resolved mapped services
 const mappedServices = (sector.relevantServices || [])
   .map((slug) => {
     const clean = slug.toLowerCase().replace(/-services|-uk/g, '');
@@ -134,7 +130,6 @@ const mappedServices = (sector.relevantServices || [])
   })
   .filter(Boolean) as Service[];
 
-// Service Mapping: Connect challenges to accredited services without duplicates
 const serviceMappings = (sector.challenges || []).map((challenge, idx) => {
   const matchedService = mappedServices[idx] || mappedServices[idx % (mappedServices.length || 1)] || allServices[0];
   return {
@@ -144,7 +139,6 @@ const serviceMappings = (sector.challenges || []).map((challenge, idx) => {
   };
 }).filter((m) => Boolean(m.service));
 
-// Fallback sector images
 const sectorFallbackImages: Record<string, string> = {
   defence: '/images/sectors/defence(1).webp',
   nhs: '/images/sectors/healthcare.webp',
@@ -189,7 +183,6 @@ const deliveryImage =
   sectorDeliveryImages[sector.slug] ||
   '/images/sectors/corporate(1).webp';
 
-// Strictly sector-specific verified case study
 const matchingCaseStudy = (caseStudies || []).find((c) => {
   if (!c) return false;
   const targetIndustry = (c.clientIndustry || '').toLowerCase();
@@ -222,14 +215,11 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   <HeroSector sector={sector} />
 
   <!-- ========================================================= -->
-  <!-- SECTION 2: WHO WE SUPPORT (3 Responsive Visual Cards)     -->
+  <!-- SECTION 2: WHO WE SUPPORT                                 -->
   <!-- ========================================================= -->
-  <section class="py-14 sm:py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
+  <section id={sector.slug === "nhs" ? "nhs-who-we-support" : undefined} class="py-14 sm:py-16 lg:py-20 bg-white">
     <Container>
       <div class="max-w-3xl mb-10 sm:mb-12">
-        {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
-          WHO WE SUPPORT
-        </span>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
           Tailored for {sector.title} Organisations
         </h2>
@@ -238,55 +228,204 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
         </p>
       </div>
 
-      <!-- 3 Visual Organisation Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+      <div class="nhs-motion-deck grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
         {organizationsSupported.slice(0, 3).map((org: any, idx: number) => {
           const num = String(idx + 1).padStart(2, '0');
           const tiers = ['Enterprise Operations', 'Regulated Entities', 'Specialist Facilities'];
           const tierTag = tiers[idx] || `Tier ${idx + 1}`;
           return (
-            <div class="bg-white rounded-[16px] border border-slate-200/90 p-7 sm:p-8 shadow-xs hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full group">
+            <div class="nhs-motion-card rounded-[16px] p-7 sm:p-8 shadow-xs flex flex-col justify-between h-full cursor-pointer" data-nhs-index={idx}>
               <div class="space-y-4">
                 <div class="flex items-center justify-between">
-                  <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10">
+                  <span class="nhs-tier-badge text-xs font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full transition-colors">
                     {tierTag}
                   </span>
-                  <span class="text-2xl font-mono font-bold text-slate-300 group-hover:text-[#0F623A]/60 transition-colors">
+                  <span class="nhs-card-num text-2xl font-mono font-bold transition-colors">
                     {num}
                   </span>
                 </div>
 
-                <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors leading-snug">
+                <h3 class="nhs-card-title text-xl sm:text-2xl font-bold font-display leading-snug transition-colors">
                   {org.name}
                 </h3>
 
-                <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+                <p class="nhs-card-desc text-sm sm:text-base leading-relaxed font-sans transition-colors">
                   {org.description}
                 </p>
               </div>
-
-              {/*<div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span class="text-xs font-medium text-slate-500 font-sans">
-                  Audited Operational Protocols
-                </span>
-                <span class="w-2 h-2 rounded-full bg-[#0F623A]"></span>
-              </div>*/}
             </div>
           );
         })}
       </div>
     </Container>
+    
+    <style is:global>
+      /* Base styles */
+      #nhs-who-we-support .nhs-motion-card {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+      }
+      #nhs-who-we-support .nhs-motion-card .nhs-card-title { color: #0f172a; }
+      #nhs-who-we-support .nhs-motion-card .nhs-card-desc { color: #475569; }
+      #nhs-who-we-support .nhs-motion-card .nhs-card-num { color: #cbd5e1; }
+      #nhs-who-we-support .nhs-motion-card .nhs-tier-badge { 
+        color: #0F623A; 
+        background-color: rgba(15,98,58,.1); 
+      }
+
+      @media (max-width:1023px) {
+        #nhs-who-we-support .nhs-motion-card { min-height:300px; }
+      }
+
+      /* Desktop Motion */
+      @media (min-width: 1024px) {
+        #nhs-who-we-support[data-nhs-motion="ready"] .nhs-motion-deck {
+          position:relative; display:block; height:395px; isolation:isolate; overflow:visible;
+          perspective:1400px;
+        }
+        #nhs-who-we-support[data-nhs-motion="ready"] .nhs-motion-card {
+          position:absolute; left:50%; top:14px; width:39%; height:355px; min-width:0;
+          margin:0; box-sizing:border-box;
+          translate:-50% 0;
+          transform: translateX(calc(var(--nhs-side, 0) * 80%)) scale(var(--nhs-scale, 1));
+          opacity:var(--nhs-opacity, 1);
+          z-index:var(--nhs-depth, 1);
+          border-color:var(--nhs-border, #e2e8f0) !important;
+          background-color:var(--nhs-bg, #ffffff) !important;
+          box-shadow:var(--nhs-shadow, 0 8px 30px rgba(12,49,40,.06));
+          transition:transform 820ms cubic-bezier(.22,1,.36,1), opacity 600ms ease,
+            box-shadow 820ms ease, border-color 820ms ease, background-color 820ms ease, color 500ms ease;
+          will-change:transform;
+        }
+        
+        /* Center Card - Teal Green */
+        #nhs-who-we-support[data-nhs-motion="ready"] .nhs-motion-card[data-nhs-place="center"] {
+          --nhs-side:0; --nhs-scale:1.035; --nhs-depth:3;
+          --nhs-border: #0F623A;
+          --nhs-bg: #0F623A;
+          --nhs-shadow:0 26px 52px rgba(8,57,40,.30);
+        }
+
+        /* Side Cards */
+        #nhs-who-we-support[data-nhs-motion="ready"] .nhs-motion-card[data-nhs-place="left"] {
+          --nhs-side:-1; --nhs-scale:.90; --nhs-depth:1;
+          --nhs-shadow:0 12px 26px rgba(12,49,40,.08);
+        }
+        #nhs-who-we-support[data-nhs-motion="ready"] .nhs-motion-card[data-nhs-place="right"] {
+          --nhs-side:1; --nhs-scale:.90; --nhs-depth:1;
+          --nhs-shadow:0 12px 26px rgba(12,49,40,.08);
+        }
+
+        /* Center Card Text Colors */
+        #nhs-who-we-support[data-nhs-motion="ready"] .nhs-motion-card[data-nhs-place="center"] .nhs-card-title {
+          color: #ffffff !important;
+        }
+        #nhs-who-we-support[data-nhs-motion="ready"] .nhs-motion-card[data-nhs-place="center"] .nhs-card-desc {
+          color: rgba(255, 255, 255, 0.85) !important;
+        }
+        #nhs-who-we-support[data-nhs-motion="ready"] .nhs-motion-card[data-nhs-place="center"] .nhs-card-num {
+          color: rgba(255, 255, 255, 0.45) !important;
+        }
+        #nhs-who-we-support[data-nhs-motion="ready"] .nhs-motion-card[data-nhs-place="center"] .nhs-tier-badge {
+          color: #ffffff !important;
+          background-color: rgba(255, 255, 255, 0.15) !important;
+        }
+      }
+
+      @media (prefers-reduced-motion:reduce) {
+        #nhs-who-we-support .nhs-motion-card { 
+          transition:none !important; 
+          transform:none !important; 
+          background-color: #ffffff !important;
+        }
+        #nhs-who-we-support .nhs-motion-card .nhs-card-title { color: #0f172a !important; }
+        #nhs-who-we-support .nhs-motion-card .nhs-card-desc  { color: #475569 !important; }
+        #nhs-who-we-support .nhs-motion-card .nhs-card-num   { color: #cbd5e1 !important; }
+        #nhs-who-we-support .nhs-motion-card .nhs-tier-badge {
+          color: #0F623A !important;
+          background-color: rgba(15,98,58,.1) !important;
+        }
+      }
+    </style>
+
+    <script is:inline>
+      (() => {
+        const init = () => {
+          const section = document.getElementById('nhs-who-we-support');
+          if (!section || section.dataset.nhsInitialized === '1') return;
+          const cards = [...section.querySelectorAll('.nhs-motion-card')];
+          if (cards.length !== 3) return;
+          section.dataset.nhsInitialized = '1';
+          const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+          const desktop = matchMedia('(min-width:1024px)');
+          let index = 0, timer = null, relocation = null, visible = false, paused = false;
+          const clearTimers = () => {
+            if (timer !== null) clearInterval(timer);
+            if (relocation !== null) clearTimeout(relocation);
+            timer = null; relocation = null;
+          };
+          const place = () => {
+            cards.forEach((card, i) => {
+              const relative = (i - index + 3) % 3;
+              card.dataset.nhsPlace = relative === 0 ? 'center' : relative === 1 ? 'right' : 'left';
+            });
+          };
+          const canAnimate = () => desktop.matches && !reduced.matches;
+          const sync = () => {
+            clearTimers();
+            if (!canAnimate()) { 
+              section.removeAttribute('data-nhs-motion'); 
+              cards.forEach(c => c.removeAttribute('data-nhs-place'));
+              return; 
+            }
+            place();
+            section.dataset.nhsMotion = 'ready';
+            if (!visible || document.hidden || paused) return;
+            timer = setInterval(() => { index = (index + 1) % cards.length; place(); }, 3300);
+          };
+          const observer = new IntersectionObserver(entries => {
+            visible = Boolean(entries[0]?.isIntersecting); sync();
+          }, { threshold:.18 });
+          observer.observe(section);
+          const onVisibility = () => sync();
+          
+          // Click Event to pause/play
+          const onClick = (e) => {
+            if (e.target.closest('.nhs-motion-card')) {
+              paused = !paused;
+              sync();
+            }
+          };
+
+          section.addEventListener('click', onClick);
+          desktop.addEventListener('change', sync);
+          reduced.addEventListener('change', sync);
+          document.addEventListener('visibilitychange', onVisibility);
+          
+          const cleanup = () => {
+            clearTimers(); observer.disconnect();
+            section.removeEventListener('click', onClick);
+            desktop.removeEventListener('change', sync);
+            reduced.removeEventListener('change', sync);
+            document.removeEventListener('visibilitychange', onVisibility);
+            section.removeAttribute('data-nhs-initialized');
+          };
+          document.addEventListener('astro:before-swap', cleanup, {once:true});
+          sync();
+        };
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
+        else init();
+        document.addEventListener('astro:page-load', init);
+      })();
+    </script>
   </section>
 
   <!-- ========================================================= -->
-  <!-- SECTION 3: CHALLENGES & SOLUTIONS (Merged Cohesive Flow)  -->
+  <!-- SECTION 3: CHALLENGES & SOLUTIONS                         -->
   <!-- ========================================================= -->
-  <section id="challenges-solutions" class="py-14 sm:py-16 lg:py-20 bg-white border-b border-slate-200/80">
+  <section id="challenges-solutions" class="py-14 sm:py-16 lg:py-20 bg-white">
     <Container>
       <div class="max-w-3xl mb-10 sm:mb-12">
-        {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
-          CHALLENGES &amp; SOLUTIONS
-        </span>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
           Resolving {sector.title} Operational Risks
         </h2>
@@ -295,14 +434,12 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
         </p>
       </div>
 
-      <!-- Challenge to Solution Connected Rows -->
       <div class="space-y-4 sm:space-y-5">
         {serviceMappings.map((item, idx) => {
           const num = String(idx + 1).padStart(2, '0');
           return (
-            <div class="rounded-[16px] border border-slate-200/90 bg-[#F8FAF9] p-6 sm:p-8 hover:bg-white hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300">
+            <div class="rounded-[16px] border border-slate-200/90 bg-white p-6 sm:p-8 hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300">
               <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-                <!-- Left: Challenge (cols 5) -->
                 <div class="lg:col-span-5 space-y-2">
                   <div class="flex items-center gap-2.5">
                     <span class="text-xs font-mono font-bold text-slate-400">
@@ -320,7 +457,6 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
                   </p>
                 </div>
 
-                <!-- Center: Connection Arrow (cols 2) -->
                 <div class="lg:col-span-2 flex flex-col items-center justify-center py-2 lg:py-0">
                   <div class="flex items-center gap-2 lg:flex-col">
                     <div class="w-10 h-10 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 flex items-center justify-center text-[#0F623A] shadow-xs">
@@ -334,7 +470,6 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
                   </div>
                 </div>
 
-                <!-- Right: Accredited Solution (cols 5) -->
                 <div class="lg:col-span-5 space-y-2 bg-white rounded-[12px] border border-slate-200/80 p-5 sm:p-6 shadow-xs">
                   <div class="flex items-center justify-between">
                     <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-2.5 py-0.5 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20">
@@ -365,13 +500,12 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   </section>
 
   <!-- ========================================================= -->
-  <!-- SECTION 4: HOW WE DELIVER (Editorial 2-Column Layout)      -->
+  <!-- SECTION 4: HOW WE DELIVER                                 -->
   <!-- ========================================================= -->
-  <section class="py-14 sm:py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
+  <section class="py-14 sm:py-16 lg:py-20 bg-white">
     <Container>
       <div class="rounded-[24px] border border-slate-200/90 bg-white p-6 sm:p-8 lg:p-12 shadow-xs ">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <!-- Left: High-Quality Sector Imagery -->
 <div class="lg:col-span-5">
   <div class="relative overflow-hidden group">
     <img
@@ -383,12 +517,8 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   </div>
 </div>
 
-          <!-- Right: Editorial Delivery & Integrated Benefits -->
           <div class="lg:col-span-7 space-y-6">
             <div>
-              {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
-                HOW WE DELIVER
-              </span>*/}
               <h3 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-900 font-display leading-tight">
                 Enterprise Lifecycle Management in Action
               </h3>
@@ -398,7 +528,6 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
               {sector.howTechstepsHelps}
             </p>
 
-            <!-- Up to Three Solution Highlights -->
             {sector.solutions && sector.solutions.length > 0 && (
               <div class="space-y-3 pt-1">
                 {sector.solutions.slice(0, 3).map((sol) => (
@@ -414,7 +543,6 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
               </div>
             )}
 
-            <!-- Integrated Business Outcomes -->
             {sector.keyBenefits && sector.keyBenefits.length > 0 && (
               <div class="pt-4 border-t border-slate-100 space-y-2.5">
                 <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 block">
@@ -430,15 +558,6 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
                 </div>
               </div>
             )}
-
-            {/*<div class="pt-2">
-              <a
-                href="#challenges-solutions"
-                class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#0F623A] hover:text-[#0c4e2e] transition-colors"
-              >
-                <span>View Tailored Service Pathways ↓</span>
-              </a>
-            </div>*/}
           </div>
         </div>
       </div>
@@ -446,14 +565,11 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   </section>
 
   <!-- ========================================================= -->
-  <!-- SECTION 5: SECURITY & COMPLIANCE (Premium Dark Green)     -->
+  <!-- SECTION 5: SECURITY & COMPLIANCE                          -->
   <!-- ========================================================= -->
-  <section class="py-14 sm:py-16 lg:py-20 bg-[#0A331E] relative overflow-hidden border-b border-emerald-950 text-white">
+  <section class="py-14 sm:py-16 lg:py-20 bg-[#0A331E] relative overflow-hidden text-white">
     <Container>
       <div class="max-w-3xl mb-10 sm:mb-12">
-        {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-3">
-          SECURITY &amp; COMPLIANCE
-        </span>*/}
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
           Security Built into Every Step
         </h2>
@@ -463,7 +579,6 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-        <!-- Left: Operational Security Controls (cols 7) -->
         <div class="lg:col-span-7 space-y-4">
           <h3 class="text-xl sm:text-2xl font-semibold text-white font-display mb-1">
             Operational Security Controls
@@ -489,7 +604,6 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
           )}
         </div>
 
-        <!-- Right: Governing Compliance Standards (cols 5) -->
         <div class="lg:col-span-5 p-6 sm:p-8 rounded-[16px] bg-emerald-950/70 border border-emerald-500/30 space-y-5">
           <div>
             <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400 block mb-1.5">
@@ -527,15 +641,12 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   </section>
 
   <!-- ========================================================= -->
-  <!-- SECTION 6: PROVEN EXPERIENCE (Strictly Sector-Specific)   -->
+  <!-- SECTION 6: PROVEN EXPERIENCE                              -->
   <!-- ========================================================= -->
   {matchingCaseStudy && (
-    <section class="py-14 sm:py-16 lg:py-20 bg-white border-b border-slate-200/80">
+    <section class="py-14 sm:py-16 lg:py-20 bg-white">
       <Container>
         <div class="max-w-3xl mb-10 sm:mb-12">
-          {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
-            PROVEN EXPERIENCE
-          </span>*/}
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
             Customer Success in {sector.title}
           </h2>
@@ -544,7 +655,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
           </p>
         </div>
 
-        <div class="rounded-[16px] border border-slate-200/90 bg-[#F8FAF9] p-7 sm:p-10 lg:p-12 shadow-xs">
+        <div class="rounded-[16px] border border-slate-200/90 bg-white p-7 sm:p-10 lg:p-12 shadow-xs">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div class="lg:col-span-7 space-y-5">
               <span class="inline-block text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20">
@@ -593,18 +704,13 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
     </section>
   )}
 
-
   <!-- ========================================================= -->
-  <!-- SECTION 7: FAQS (Centered Editorial Layout)                -->
+  <!-- SECTION 7: FAQS                                           -->
   <!-- ========================================================= -->
   {sector.faqs && sector.faqs.length > 0 && (
-    <section class="py-14 sm:py-16 lg:py-20 bg-[#F8FAF9] border-b border-slate-200/80">
+    <section class="py-14 sm:py-16 lg:py-20 bg-white">
       <Container>
         <div class="max-w-3xl mx-auto mb-10 sm:mb-12 text-center">
-          {/*<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-4">
-            FREQUENTLY ASKED QUESTIONS
-          </span>*/}
-
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
             {sector.title} Questions &amp; Answers
           </h2>
@@ -645,7 +751,7 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   )}
 
   <!-- ========================================================= -->
-  <!-- FINAL CTA (Preserved Completely Unchanged)                -->
+  <!-- FINAL CTA                                                 -->
   <!-- ========================================================= -->
   <CTA
     title={`Ready to Protect Your ${sector.title}?`}
