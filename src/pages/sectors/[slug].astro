@@ -6,35 +6,7 @@ import CTA from '../../components/global/cta.astro';
 import { getSectors, getServices, getCaseStudies, getSiteSettings } from '../../lib/sanity/client';
 import { generateSectorSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 import type { Sector, Service } from '../../lib/sanity/types';
-
-function isValidSector(value: unknown): value is Sector {
-  if (typeof value !== 'object' || value === null) return false;
-  const record = value as Record<string, unknown>;
-  return (
-    typeof record.slug === 'string' &&
-    record.slug.trim().length > 0 &&
-    typeof record.title === 'string' &&
-    record.title.trim().length > 0 &&
-    typeof record.summary === 'string' &&
-    record.summary.trim().length > 0
-  );
-}
-
-function normalizeRouteSlug(slug: unknown): string {
-  return typeof slug === 'string' ? slug.trim().toLowerCase() : '';
-}
-
-function buildSectorPaths(records: unknown) {
-  const sectors = Array.isArray(records) ? records.filter(isValidSector) : [];
-  const seenSlugs = new Set<string>();
-
-  return sectors.flatMap((sector) => {
-    const slug = normalizeRouteSlug(sector.slug);
-    if (!slug || seenSlugs.has(slug)) return [];
-    seenSlugs.add(slug);
-    return [{ params: { slug }, props: { sector } }];
-  });
-}
+import { isValidSector, normalizeRouteSlug, buildSectorPaths } from '../../lib/routeHelpers';
 
 export async function getStaticPaths() {
   return buildSectorPaths(await getSectors());

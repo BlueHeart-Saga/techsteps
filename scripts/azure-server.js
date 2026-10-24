@@ -1148,6 +1148,87 @@ const server = http.createServer((req, res) => {
   }
 
   // =========================================================================
+  // API: /api/newsletter/subscribe
+  // =========================================================================
+  if (
+    pathname === '/api/newsletter/subscribe' ||
+    pathname === '/api/newsletter/subscribe/' ||
+    req.url === '/api/newsletter/subscribe'
+  ) {
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204, CORS_HEADERS);
+      res.end();
+      return;
+    }
+
+    if (req.method === 'POST') {
+      (async () => {
+        try {
+          const body = await readRequestBody(req);
+          let data;
+          try {
+            data = JSON.parse(body);
+          } catch {
+            res.writeHead(400, {
+              ...CORS_HEADERS,
+              'Content-Type': 'application/json; charset=utf-8',
+            });
+            res.end(JSON.stringify({
+              success: false,
+              message: 'Invalid JSON body.',
+            }));
+            return;
+          }
+
+          if (!data.email || !data.email.includes('@')) {
+            res.writeHead(400, {
+              ...CORS_HEADERS,
+              'Content-Type': 'application/json; charset=utf-8',
+            });
+            res.end(JSON.stringify({
+              success: false,
+              message: 'Please provide a valid email address.',
+            }));
+            return;
+          }
+
+          console.log(`[Newsletter] Subscribed: ${data.email} (${data.categorySlug || 'general'})`);
+
+          res.writeHead(200, {
+            ...CORS_HEADERS,
+            'Content-Type': 'application/json; charset=utf-8',
+          });
+          res.end(JSON.stringify({
+            success: true,
+            message: 'Successfully subscribed to the newsletter!',
+          }));
+        } catch (error) {
+          console.error('Newsletter API error:', error);
+          res.writeHead(500, {
+            ...CORS_HEADERS,
+            'Content-Type': 'application/json; charset=utf-8',
+          });
+          res.end(JSON.stringify({
+            success: false,
+            message: error?.message || 'Unable to subscribe right now.',
+          }));
+        }
+      })();
+      return;
+    }
+
+    res.writeHead(405, {
+      ...CORS_HEADERS,
+      'Content-Type': 'application/json; charset=utf-8',
+    });
+    res.end(JSON.stringify({
+      success: false,
+      message: 'Method Not Allowed. Please use POST.',
+    }));
+    return;
+  }
+
+  // =========================================================================
   // STATIC FILE SERVING
   // =========================================================================
   // Only allow GET and HEAD for static assets

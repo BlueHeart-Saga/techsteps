@@ -5,8 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import { EnumChangefreq } from 'sitemap';
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
-import azureSwa from '@opsydyn/astro-azure-swa';
-import node from '@astrojs/node';
+
 
 const sanityProjectId =
   process.env.PUBLIC_SANITY_PROJECT_ID ||
@@ -29,8 +28,7 @@ export default defineConfig({
   },
   site: productionSite,
   trailingSlash: 'never',
-  output: 'server',
-  adapter: node({ mode: 'standalone' }),
+
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'hover',
@@ -109,7 +107,23 @@ export default defineConfig({
     })
   ],
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      {
+        name: 'dev-api-middleware',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            if (req.url === '/api/newsletter/subscribe' && req.method === 'POST') {
+              res.setHeader('Content-Type', 'application/json');
+              res.statusCode = 200;
+              res.end(JSON.stringify({ success: true, message: 'Subscribed successfully!' }));
+              return;
+            }
+            next();
+          });
+        }
+      }
+    ],
     optimizeDeps: {
       include: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
       exclude: ['maplibre-gl']
