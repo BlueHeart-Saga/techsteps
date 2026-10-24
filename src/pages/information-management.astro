@@ -247,7 +247,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
   </section>
 
   <!-- ===== OUR INFORMATION MANAGEMENT PROCESS (WORKFLOW) ===== -->
-  <section class="bg-white py-8 sm:py-10 lg:py-12 relative overflow-hidden">
+  <section id="im-process-timeline" class="bg-white py-8 sm:py-10 lg:py-12 relative overflow-hidden">
     <Container>
       <div class="relative z-10">
         <!-- Section Header -->
@@ -261,16 +261,19 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
         </div>
 
         <!-- 4-Step Process Flow -->
-        <div class="relative">
-          <!-- Continuous connecting line on large screens -->
-          <div class="hidden lg:block absolute top-[21px] left-6 right-20 h-[2px] bg-slate-200 -z-0"></div>
+        <div class="relative im-timeline" data-im-timeline>
+          <!-- Existing line coordinates retained; green progress shares the same track. -->
+                    <div class="im-timeline-track hidden lg:block absolute top-[21px] left-[5.5%] right-[19.5%] h-[2px] bg-slate-200 -z-0" aria-hidden="true">
+            <div class="im-timeline-fill"></div>
+            <span class="im-timeline-pulse"></span>
+          </div>
 
           <!-- Steps Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 relative z-10">
+          <div class="im-timeline-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 relative z-10">
             <!-- Step 1 -->
-            <div class="flex flex-col group">
+            <div class="im-timeline-step flex flex-col group">
               <div class="mb-5 flex items-center">
-                <div class="w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                <div class="im-timeline-marker w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
                   01
                 </div>
               </div>
@@ -283,9 +286,9 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
             </div>
 
             <!-- Step 2 -->
-            <div class="flex flex-col group">
+            <div class="im-timeline-step flex flex-col group">
               <div class="mb-5 flex items-center">
-                <div class="w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                <div class="im-timeline-marker w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
                   02
                 </div>
               </div>
@@ -298,9 +301,9 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
             </div>
 
             <!-- Step 3 -->
-            <div class="flex flex-col group">
+            <div class="im-timeline-step flex flex-col group">
               <div class="mb-5 flex items-center">
-                <div class="w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                <div class="im-timeline-marker w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
                   03
                 </div>
               </div>
@@ -313,9 +316,9 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
             </div>
 
             <!-- Step 4 -->
-            <div class="flex flex-col group">
+            <div class="im-timeline-step flex flex-col group">
               <div class="mb-5 flex items-center">
-                <div class="w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                <div class="im-timeline-marker w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
                   04
                 </div>
               </div>
@@ -330,11 +333,123 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
         </div>
       </div>
     </Container>
+    <style is:global>
+      #im-process-timeline .im-timeline-track { background:#dce5e5; overflow:visible; }
+      #im-process-timeline .im-timeline-fill { position:absolute; inset:0 auto 0 0; width:var(--im-progress,0%); background:linear-gradient(90deg,#169b79,#0f623a); border-radius:999px; transition:width 80ms linear; }
+      #im-process-timeline .im-timeline-pulse { position:absolute; top:50%; left:var(--im-progress,0%); width:9px; height:9px; border:2px solid #0c7756; border-radius:50%; background:#dcf6eb; transform:translate(-50%,-50%); opacity:var(--im-pulse-opacity,0); box-shadow:0 0 0 5px rgba(20,159,111,.13); }
+      #im-process-timeline .im-timeline-marker { position:relative; isolation:isolate; transition:background-color .55s ease,color .55s ease,box-shadow .55s ease,transform .55s ease,border-radius .55s ease; }
+      #im-process-timeline .im-timeline-marker::after { content:''; pointer-events:none; position:absolute; inset:-6px; border:3px solid rgba(15,98,58,.32); border-radius:50%; opacity:0; transform:scale(.76); transition:transform .65s ease,opacity .4s ease; }
+      #im-process-timeline .im-timeline-step.is-active .im-timeline-marker { transform:scale(1.14); border-radius:50%; background:#0c7656; box-shadow:0 0 0 6px rgba(17,158,113,.11),0 10px 22px rgba(11,99,70,.21); }
+      #im-process-timeline .im-timeline-step.is-active .im-timeline-marker::after { opacity:1; transform:scale(1); }
+      #im-process-timeline .im-timeline-step.is-complete .im-timeline-marker { border-radius:50%; background:#fff; color:#0f623a; box-shadow:inset 0 0 0 3px #0f7958,0 0 0 4px #fff; }
+      #im-process-timeline .im-timeline-step.is-complete .im-timeline-marker::after { opacity:.45; transform:scale(1); }
+      #im-process-timeline .im-timeline-step.is-active h3 { color:#0f623a; }
+      @media (prefers-reduced-motion:reduce) {
+        #im-process-timeline .im-timeline-marker,#im-process-timeline .im-timeline-marker::after,#im-process-timeline .im-timeline-fill { transition:none!important; }
+        #im-process-timeline .im-timeline-pulse { display:none; }
+      }
+    </style>
+    <script is:inline>
+      (() => {
+        const setup = () => {
+          const root = document.getElementById('im-process-timeline');
+          if (!root || root.dataset.imAnimated === '1') return;
+          const steps = Array.from(root.querySelectorAll('.im-timeline-step'));
+          const markers = steps.map(el => el.querySelector('.im-timeline-marker'));
+          const timeline = root.querySelector('.im-timeline');
+          const track = root.querySelector('.im-timeline-track');
+          if (!timeline || !track || steps.length !== 4 || markers.some(x => !x)) return;
+          
+          root.dataset.imAnimated = '1';
+          const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+          
+          let observer, frame = 0, started = false, disposed = false;
+          let startTime = 0;
+
+          // Animation settings
+          const delayBeforeStart = 500; // Wait 0.5s before starting
+          const timePerStage = 1800;   // Time taken for each stage (1.8 seconds)
+          const pauseAtEnd = 1500;     // Pause at the end before looping (1.5 seconds)
+
+          const render = timestamp => {
+            if (disposed || document.hidden || !root.isConnected) { frame=0; return; }
+            if (!startTime) startTime = timestamp;
+            
+            const elapsed = timestamp - startTime;
+            
+            // To loop, we use modulo (%) on the total cycle duration
+            const totalCycleTime = (steps.length * timePerStage) + pauseAtEnd;
+            const currentElapsed = elapsed % totalCycleTime;
+
+            // Calculate progress (0 to 100%)
+            const progress = Math.min(1, currentElapsed / (steps.length * timePerStage));
+            
+            const trackRect = track.getBoundingClientRect();
+            const center = marker => { const r=marker.getBoundingClientRect();return r.left+r.width/2; };
+            const left=center(markers[0]), right=center(markers[3]);
+            
+            const sweep = left + (right - left) * progress;
+            
+            // Update the line progress
+            timeline.style.setProperty('--im-progress', `${Math.max(0,Math.min(100,(sweep-trackRect.left)/trackRect.width*100))}%`);
+            timeline.style.setProperty('--im-pulse-opacity', progress < 1 ? '1' : '0');
+
+            // Update each step's active/complete state
+            steps.forEach((el, index) => {
+              const stepStartTime = index * timePerStage;
+              const stepEndTime = (index + 1) * timePerStage;
+              
+              const isActive = currentElapsed >= stepStartTime && currentElapsed < stepEndTime;
+              const isComplete = currentElapsed >= stepEndTime;
+
+              el.classList.toggle('is-active', isActive);
+              el.classList.toggle('is-complete', isComplete);
+            });
+
+            // Continue the animation loop
+            frame = requestAnimationFrame(render);
+          };
+
+          const begin = () => { 
+            if (started || motion.matches || document.hidden) return; 
+            started = true; 
+            frame = requestAnimationFrame(render); 
+          };
+
+          const cleanup = () => { 
+            disposed = true;
+            cancelAnimationFrame(frame);
+            observer?.disconnect();
+            root.removeAttribute('data-im-animated'); 
+          };
+
+          // Handle prefers-reduced-motion
+          if (motion.matches) {
+            steps.forEach(el => el.classList.add('is-complete'));
+            timeline.style.setProperty('--im-progress', '100%');
+            timeline.style.setProperty('--im-pulse-opacity', '0');
+          } else {
+            observer = new IntersectionObserver(entries => { 
+              if (entries[0]?.isIntersecting) { 
+                begin(); 
+                observer.disconnect(); 
+              } 
+            }, { threshold: 0.2 });
+            observer.observe(root);
+          }
+          
+          document.addEventListener('astro:before-swap', cleanup, { once: true });
+        };
+
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup, { once: true });
+        else setup();
+        document.addEventListener('astro:page-load', setup);
+      })();
+    </script>
   </section>
 
   <!-- ===== ONE PARTNER FOR PHYSICAL & DIGITAL INFORMATION ===== -->
   <section id="im-services" class="bg-white text-[#0A331E] py-8 sm:py-10 lg:py-12 relative overflow-hidden scroll-mt-20">
-    <div class="absolute inset-0 bg-radial-[ellipse_at_top] from-emerald-50/60 via-transparent to-transparent pointer-events-none"></div>
     <Container>
       <!-- Section Heading -->
       <div class="max-w-3xl mb-12 sm:mb-16">
