@@ -247,7 +247,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
   </section>
 
   <!-- ===== OUR INFORMATION MANAGEMENT PROCESS (WORKFLOW) ===== -->
-  <section id="im-process-timeline" class="bg-white py-8 sm:py-10 lg:py-12 relative overflow-hidden">
+  <section id="techsteps-lifecycle-steps" class="bg-white py-8 sm:py-10 lg:py-12 relative overflow-hidden">
     <Container>
       <div class="relative z-10">
         <!-- Section Header -->
@@ -260,190 +260,225 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
           </p>
         </div>
 
-        <!-- 4-Step Process Flow -->
-        <div class="relative im-timeline" data-im-timeline>
-          <!-- Existing line coordinates retained; green progress shares the same track. -->
-                    <div class="im-timeline-track hidden lg:block absolute top-[21px] left-[5.5%] right-[19.5%] h-[2px] bg-slate-200 -z-0" aria-hidden="true">
-            <div class="im-timeline-fill"></div>
-            <span class="im-timeline-pulse"></span>
-          </div>
-
-          <!-- Steps Grid -->
-          <div class="im-timeline-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 relative z-10">
-            <!-- Step 1 -->
-            <div class="im-timeline-step flex flex-col group">
-              <div class="mb-5 flex items-center">
-                <div class="im-timeline-marker w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
-                  01
-                </div>
+        <!-- 4-Step Process Grid (Using the Sparkle Animation Structure) -->
+        <div class="tlc-grid" aria-label="Four steps to complete information lifecycle governance">
+          
+          <!-- Step 1 -->
+          <article class="tlc-card" data-tlc-step="0" aria-label="Step 01: Assess">
+            <div class="tlc-card-copy tlc-card-copy--light">
+              <div class="tlc-copy-top">
+                <span class="tlc-step-badge">01</span>
+                <h3>Assess</h3>
+                <p>Understand your information, storage requirements and business needs.</p>
               </div>
-              <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
-                Assess
-              </h3>
-              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
-                Understand your information, storage requirements and business needs.
-              </p>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="im-timeline-step flex flex-col group">
-              <div class="mb-5 flex items-center">
-                <div class="im-timeline-marker w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
-                  02
-                </div>
+              <div class="tlc-visual" aria-hidden="true">
+                <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792825891/ChatGPT_Image_Oct_24_2026_12_38_32_PM-1_vpdsdz.png" alt="" loading="lazy" decoding="async" />
               </div>
-              <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
-                Collect & Prepare
-              </h3>
-              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
-                Securely collect, catalogue and prepare records or media.
-              </p>
             </div>
+            <div class="tlc-cover" aria-hidden="true">
+              <img src="/images/process/Information-Management-Card1.png" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
+              <span class="tlc-cover-shade"></span>
+              <span class="tlc-photo-number">01</span>
+            </div>
+            <span class="tlc-spark" aria-hidden="true"></span>
+          </article>
 
-            <!-- Step 3 -->
-            <div class="im-timeline-step flex flex-col group">
-              <div class="mb-5 flex items-center">
-                <div class="im-timeline-marker w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
-                  03
-                </div>
+          <!-- Step 2 -->
+          <article class="tlc-card" data-tlc-step="1" aria-label="Step 02: Collect & Prepare">
+            <div class="tlc-card-copy tlc-card-copy--light">
+              <div class="tlc-copy-top">
+                <span class="tlc-step-badge">02</span>
+                <h3>Collect &amp; Prepare</h3>
+                <p>Securely collect, catalogue and prepare records or media.</p>
               </div>
-              <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
-                Store & Manage
-              </h3>
-              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
-                Store information in the appropriate physical or digital environment.
-              </p>
+              <div class="tlc-visual" aria-hidden="true">
+                <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792825890/ChatGPT_Image_Oct_24_2026_12_38_33_PM-2_sfa7yq.png" alt="" loading="lazy" decoding="async" />
+              </div>
             </div>
+            <div class="tlc-cover" aria-hidden="true">
+              <img src="/images/process/Information-Management-Card2.png" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
+              <span class="tlc-cover-shade"></span>
+              <span class="tlc-photo-number">02</span>
+            </div>
+            <span class="tlc-spark" aria-hidden="true"></span>
+          </article>
 
-            <!-- Step 4 -->
-            <div class="im-timeline-step flex flex-col group">
-              <div class="mb-5 flex items-center">
-                <div class="im-timeline-marker w-11 h-11 rounded-[12px] bg-[#0F623A] text-white font-mono font-bold text-sm flex items-center justify-center shadow-lg shadow-[#0F623A]/20 ring-4 ring-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
-                  04
-                </div>
+          <!-- Step 3 -->
+          <article class="tlc-card" data-tlc-step="2" aria-label="Step 03: Store & Manage">
+            <div class="tlc-card-copy tlc-card-copy--light">
+              <div class="tlc-copy-top">
+                <span class="tlc-step-badge">03</span>
+                <h3>Store &amp; Manage</h3>
+                <p>Store information in the appropriate physical or digital environment.</p>
               </div>
-              <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors">
-                Access & Retrieve
-              </h3>
-              <p class="mt-2.5 text-sm sm:text-base text-black leading-relaxed font-normal">
-                Provide controlled access, retrieval and ongoing management when required.
-              </p>
+              <div class="tlc-visual" aria-hidden="true">
+                <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792825890/ChatGPT_Image_Oct_24_2026_12_38_35_PM-3_btj49m.png" alt="" loading="lazy" decoding="async" />
+              </div>
             </div>
-          </div>
+            <div class="tlc-cover" aria-hidden="true">
+              <img src="/images/process/Information-Management-Card3.png" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
+              <span class="tlc-cover-shade"></span>
+              <span class="tlc-photo-number">03</span>
+            </div>
+            <span class="tlc-spark" aria-hidden="true"></span>
+          </article>
+
+          <!-- Step 4 -->
+          <article class="tlc-card" data-tlc-step="3" aria-label="Step 04: Access & Retrieve">
+            <div class="tlc-card-copy tlc-card-copy--light">
+              <div class="tlc-copy-top">
+                <span class="tlc-step-badge">04</span>
+                <h3>Access &amp; Retrieve</h3>
+                <p>Provide controlled access, retrieval and ongoing management when required.</p>
+              </div>
+              <div class="tlc-visual" aria-hidden="true">
+                <!-- 4th Icon: Using the 1st link as the 4th link was duplicate -->
+                <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792825891/ChatGPT_Image_Oct_24_2026_12_38_32_PM-1_vpdsdz.png" alt="" loading="lazy" decoding="async" />
+              </div>
+            </div>
+            <div class="tlc-cover" aria-hidden="true">
+              <img src="/images/process/Information-Management-Card4.png" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
+              <span class="tlc-cover-shade"></span>
+              <span class="tlc-photo-number">04</span>
+            </div>
+            <span class="tlc-spark" aria-hidden="true"></span>
+          </article>
+
         </div>
       </div>
     </Container>
+    
+    <!-- Styles for Animation -->
     <style is:global>
-      #im-process-timeline .im-timeline-track { background:#dce5e5; overflow:visible; }
-      #im-process-timeline .im-timeline-fill { position:absolute; inset:0 auto 0 0; width:var(--im-progress,0%); background:linear-gradient(90deg,#169b79,#0f623a); border-radius:999px; transition:width 80ms linear; }
-      #im-process-timeline .im-timeline-pulse { position:absolute; top:50%; left:var(--im-progress,0%); width:9px; height:9px; border:2px solid #0c7756; border-radius:50%; background:#dcf6eb; transform:translate(-50%,-50%); opacity:var(--im-pulse-opacity,0); box-shadow:0 0 0 5px rgba(20,159,111,.13); }
-      #im-process-timeline .im-timeline-marker { position:relative; isolation:isolate; transition:background-color .55s ease,color .55s ease,box-shadow .55s ease,transform .55s ease,border-radius .55s ease; }
-      #im-process-timeline .im-timeline-marker::after { content:''; pointer-events:none; position:absolute; inset:-6px; border:3px solid rgba(15,98,58,.32); border-radius:50%; opacity:0; transform:scale(.76); transition:transform .65s ease,opacity .4s ease; }
-      #im-process-timeline .im-timeline-step.is-active .im-timeline-marker { transform:scale(1.14); border-radius:50%; background:#0c7656; box-shadow:0 0 0 6px rgba(17,158,113,.11),0 10px 22px rgba(11,99,70,.21); }
-      #im-process-timeline .im-timeline-step.is-active .im-timeline-marker::after { opacity:1; transform:scale(1); }
-      #im-process-timeline .im-timeline-step.is-complete .im-timeline-marker { border-radius:50%; background:#fff; color:#0f623a; box-shadow:inset 0 0 0 3px #0f7958,0 0 0 4px #fff; }
-      #im-process-timeline .im-timeline-step.is-complete .im-timeline-marker::after { opacity:.45; transform:scale(1); }
-      #im-process-timeline .im-timeline-step.is-active h3 { color:#0f623a; }
-      @media (prefers-reduced-motion:reduce) {
-        #im-process-timeline .im-timeline-marker,#im-process-timeline .im-timeline-marker::after,#im-process-timeline .im-timeline-fill { transition:none!important; }
-        #im-process-timeline .im-timeline-pulse { display:none; }
-      }
+      #techsteps-lifecycle-steps .tlc-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; align-items:stretch; }
+      #techsteps-lifecycle-steps .tlc-card { --wipe:0%; position:relative; height:300px; min-width:0; box-sizing:border-box; isolation:isolate; overflow:hidden; border:1px solid #d7e7df; border-radius:20px; background:#fff; box-shadow:0 8px 24px rgba(11,39,31,.05); }
+      #techsteps-lifecycle-steps .tlc-card-copy { position:absolute; inset:0; z-index:1; display:flex; flex-direction:column; justify-content:space-between; box-sizing:border-box; padding:18px 17px 0; overflow:hidden; }
+      #techsteps-lifecycle-steps .tlc-copy-top { position:relative; z-index:3; flex:0 0 auto; }
+      #techsteps-lifecycle-steps .tlc-step-badge { display:inline-flex; align-items:center; justify-content:center; min-width:56px; padding:7px 14px; border-radius:999px; background:#eaf5f0; color:#0e7152; font-size:20px; font-weight:800; line-height:1; }
+      #techsteps-lifecycle-steps .tlc-card-copy h3 { margin:17px 0 0; color:#122544; font-size:clamp(17px,1.35vw,20px); font-weight:700; line-height:1.25; }
+      #techsteps-lifecycle-steps .tlc-card-copy p { margin:12px 0 0; color:#55657f; font-size:clamp(13px,.97vw,14px); font-weight:400; line-height:1.53; }
+      #techsteps-lifecycle-steps .tlc-card-copy--light { background:linear-gradient(180deg,#fff 0%,#fff 48%,#f4fcf8 100%); }
+      #techsteps-lifecycle-steps .tlc-card-copy--light::before { content:''; position:absolute; top:-56px; right:-45px; width:146px; height:146px; border-radius:50%; background:radial-gradient(circle,rgba(216,243,231,.7) 0 61%,transparent 62%); pointer-events:none; }
+      #techsteps-lifecycle-steps .tlc-card-copy--light::after { content:''; position:absolute; left:-18%; right:-18%; bottom:-18px; height:73px; border-radius:50% 50% 0 0/100% 100% 0 0; background:linear-gradient(180deg,rgba(218,245,233,.12),rgba(216,241,230,.6)); pointer-events:none; }
+      #techsteps-lifecycle-steps .tlc-visual { position:relative; flex:0 0 129px; height:129px; width:100%; margin-top:5px; display:flex; align-items:center; justify-content:center; z-index:2; }
+      #techsteps-lifecycle-steps .tlc-stage-icon { display:block; width:auto; height:100%; max-width:120px; object-fit:contain; object-position:center; }      
+      /* Full-face cover sits ABOVE all text. The same --wipe value controls both clipping and light. */
+      #techsteps-lifecycle-steps .tlc-cover { position:absolute; inset:0; z-index:5; overflow:hidden; background:#0A331E; clip-path:inset(0 0 0 var(--wipe)); }
+      #techsteps-lifecycle-steps .tlc-cover img { display:block; width:100%; height:100%; object-fit:cover; }
+      #techsteps-lifecycle-steps .tlc-cover-shade { position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(3,31,21,.62)); }
+      #techsteps-lifecycle-steps .tlc-photo-number { position:absolute; bottom:19px; left:18px; font-weight:800; font-size:25px; color:#fff; text-shadow:0 2px 6px #123; }
+      
+      #techsteps-lifecycle-steps .tlc-spark { position:absolute; z-index:7; top:0; bottom:0; left:var(--wipe); width:3px; transform:translateX(-50%); opacity:0; pointer-events:none; background:linear-gradient(180deg,transparent 5%,#f3ffac 28%,#fff 50%,#bfff4c 72%,transparent 95%); box-shadow:0 0 12px 3px rgba(214,255,74,.8),0 0 28px 9px rgba(196,255,36,.35); }
+      #techsteps-lifecycle-steps .tlc-card.is-revealing .tlc-spark { opacity:1; }
+      #techsteps-lifecycle-steps .tlc-spark::before { content:''; position:absolute; width:60px; height:60px; left:50%; top:46%; transform:translate(-50%,-50%); background:radial-gradient(circle,#fff 0 8%,#f5ffbe 12%,rgba(214,255,96,.7) 25%,transparent 64%); filter:drop-shadow(0 0 10px #d5ff52); clip-path:polygon(50% 0,56% 39%,100% 50%,56% 58%,50% 100%,44% 58%,0 50%,44% 42%); }
+      #techsteps-lifecycle-steps .tlc-spark::after { content:''; position:absolute; inset:6% -13px; background-image:radial-gradient(circle,#e9ff98 1px,transparent 2px),radial-gradient(circle,#fff 1px,transparent 2px); background-size:18px 27px,23px 32px; background-position:1px 1px,8px 12px; mask-image:linear-gradient(180deg,transparent,#000 16%,#000 84%,transparent); }
+      #techsteps-lifecycle-steps .tlc-card.is-revealed .tlc-spark { display:none; }
+      
+      @media(max-width:1023px) { #techsteps-lifecycle-steps .tlc-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } #techsteps-lifecycle-steps .tlc-card-copy h3 {font-size:19px;} #techsteps-lifecycle-steps .tlc-card-copy p {font-size:14px;} }
+      @media(max-width:639px) { #techsteps-lifecycle-steps .tlc-grid {grid-template-columns:minmax(0,1fr);gap:15px;} #techsteps-lifecycle-steps .tlc-card {height:300px;} #techsteps-lifecycle-steps .tlc-visual {flex-basis:125px;height:125px;} }
+      @media(prefers-reduced-motion:reduce) { #techsteps-lifecycle-steps .tlc-cover {clip-path:inset(0 0 0 100%) !important;} #techsteps-lifecycle-steps .tlc-spark {display:none !important;} }
     </style>
+
+    <!-- Script for Animation -->
     <script is:inline>
       (() => {
-        const setup = () => {
-          const root = document.getElementById('im-process-timeline');
-          if (!root || root.dataset.imAnimated === '1') return;
-          const steps = Array.from(root.querySelectorAll('.im-timeline-step'));
-          const markers = steps.map(el => el.querySelector('.im-timeline-marker'));
-          const timeline = root.querySelector('.im-timeline');
-          const track = root.querySelector('.im-timeline-track');
-          if (!timeline || !track || steps.length !== 4 || markers.some(x => !x)) return;
-          
-          root.dataset.imAnimated = '1';
-          const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-          
-          let observer, frame = 0, started = false, disposed = false;
-          let startTime = 0;
+        const init = () => {
+          const section = document.getElementById('techsteps-lifecycle-steps');
+          if (!section || section.dataset.sparkleReady === '1') return;
+          const cards = [...section.querySelectorAll('.tlc-card')];
+          if (cards.length !== 4) return;
+          section.dataset.sparkleReady = '1';
 
-          // Animation settings
-          const delayBeforeStart = 500; // Wait 0.5s before starting
-          const timePerStage = 1800;   // Time taken for each stage (1.8 seconds)
-          const pauseAtEnd = 1500;     // Pause at the end before looping (1.5 seconds)
+          const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+          const revealDuration = 1650;
+          const betweenCards = 300;
+          const readingPause = 2600;
+          const resetDuration = 550;
+          const revealEnd = cards.length * revealDuration + (cards.length - 1) * betweenCards;
+          const resetStart = revealEnd + readingPause;
+          const cycleDuration = resetStart + resetDuration + 350;
 
-          const render = timestamp => {
-            if (disposed || document.hidden || !root.isConnected) { frame=0; return; }
-            if (!startTime) startTime = timestamp;
-            
-            const elapsed = timestamp - startTime;
-            
-            // To loop, we use modulo (%) on the total cycle duration
-            const totalCycleTime = (steps.length * timePerStage) + pauseAtEnd;
-            const currentElapsed = elapsed % totalCycleTime;
+          let frame = 0;
+          let observer;
+          let visible = false;
+          let elapsed = 0;
+          let previousFrameTime = null;
+          let disposed = false;
 
-            // Calculate progress (0 to 100%)
-            const progress = Math.min(1, currentElapsed / (steps.length * timePerStage));
-            
-            const trackRect = track.getBoundingClientRect();
-            const center = marker => { const r=marker.getBoundingClientRect();return r.left+r.width/2; };
-            const left=center(markers[0]), right=center(markers[3]);
-            
-            const sweep = left + (right - left) * progress;
-            
-            // Update the line progress
-            timeline.style.setProperty('--im-progress', `${Math.max(0,Math.min(100,(sweep-trackRect.left)/trackRect.width*100))}%`);
-            timeline.style.setProperty('--im-pulse-opacity', progress < 1 ? '1' : '0');
+          const setWipe = (card, percentage, revealing = false) => {
+            card.style.setProperty('--wipe', `${percentage.toFixed(3)}%`);
+            card.classList.toggle('is-revealing', revealing);
+            card.classList.toggle('is-revealed', !revealing && percentage >= 100);
+          };
+          const revealAll = () => cards.forEach(card => setWipe(card, 100));
+          const showImages = () => cards.forEach(card => setWipe(card, 0));
 
-            // Update each step's active/complete state
-            steps.forEach((el, index) => {
-              const stepStartTime = index * timePerStage;
-              const stepEndTime = (index + 1) * timePerStage;
-              
-              const isActive = currentElapsed >= stepStartTime && currentElapsed < stepEndTime;
-              const isComplete = currentElapsed >= stepEndTime;
-
-              el.classList.toggle('is-active', isActive);
-              el.classList.toggle('is-complete', isComplete);
-            });
-
-            // Continue the animation loop
-            frame = requestAnimationFrame(render);
+          const render = () => {
+            if (elapsed < revealEnd) {
+              cards.forEach((card, index) => {
+                const position = (elapsed - index * (revealDuration + betweenCards)) / revealDuration;
+                const progress = Math.min(1, Math.max(0, position));
+                const eased = progress * progress * (3 - 2 * progress);
+                setWipe(card, eased * 100, progress > 0 && progress < 1);
+              });
+            } else if (elapsed < resetStart) {
+              revealAll();
+            } else if (elapsed < resetStart + resetDuration) {
+              const progress = (elapsed - resetStart) / resetDuration;
+              const eased = progress * progress * (3 - 2 * progress);
+              cards.forEach(card => setWipe(card, (1 - eased) * 100));
+            } else {
+              showImages();
+            }
           };
 
-          const begin = () => { 
-            if (started || motion.matches || document.hidden) return; 
-            started = true; 
-            frame = requestAnimationFrame(render); 
-          };
-
-          const cleanup = () => { 
-            disposed = true;
+          const stop = () => {
             cancelAnimationFrame(frame);
-            observer?.disconnect();
-            root.removeAttribute('data-im-animated'); 
+            frame = 0;
+            previousFrameTime = null;
+          };
+          const tick = (now) => {
+            if (disposed || !visible || document.hidden || reduced.matches) { stop(); return; }
+            if (previousFrameTime !== null) elapsed += Math.min(now - previousFrameTime, 100);
+            previousFrameTime = now;
+            if (elapsed >= cycleDuration) elapsed %= cycleDuration;
+            render();
+            frame = requestAnimationFrame(tick);
+          };
+          const syncPlayback = () => {
+            stop();
+            if (reduced.matches) { revealAll(); return; }
+            if (!visible || document.hidden) return;
+            render();
+            frame = requestAnimationFrame(tick);
           };
 
-          // Handle prefers-reduced-motion
-          if (motion.matches) {
-            steps.forEach(el => el.classList.add('is-complete'));
-            timeline.style.setProperty('--im-progress', '100%');
-            timeline.style.setProperty('--im-pulse-opacity', '0');
-          } else {
-            observer = new IntersectionObserver(entries => { 
-              if (entries[0]?.isIntersecting) { 
-                begin(); 
-                observer.disconnect(); 
-              } 
-            }, { threshold: 0.2 });
-            observer.observe(root);
-          }
-          
+          showImages();
+          observer = new IntersectionObserver(entries => {
+            visible = entries[0]?.isIntersecting ?? false;
+            syncPlayback();
+          }, { threshold: 0.15 });
+          observer.observe(section);
+          const onVisibility = () => syncPlayback();
+          const onMotion = () => {
+            if (!reduced.matches) { elapsed = 0; showImages(); }
+            syncPlayback();
+          };
+          document.addEventListener('visibilitychange', onVisibility);
+          reduced.addEventListener('change', onMotion);
+          const cleanup = () => {
+            disposed = true;
+            stop();
+            observer.disconnect();
+            document.removeEventListener('visibilitychange', onVisibility);
+            reduced.removeEventListener('change', onMotion);
+            section.removeAttribute('data-sparkleReady');
+          };
           document.addEventListener('astro:before-swap', cleanup, { once: true });
         };
-
-        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup, { once: true });
-        else setup();
-        document.addEventListener('astro:page-load', setup);
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+        else init();
+        document.addEventListener('astro:page-load', init);
       })();
     </script>
   </section>
