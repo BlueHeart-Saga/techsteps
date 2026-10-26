@@ -356,9 +356,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
       #techsteps-lifecycle-steps .tlc-stage-icon { display:block; width:100%; height:100%; max-width:150px; object-fit:contain; object-position:center; }
 
       /* Full-face cover sits ABOVE all text. The same --wipe value controls both clipping and light. */
-      #techsteps-lifecycle-steps .tlc-cover { position:absolute; inset:0; z-index:5; overflow:hidden; background:#0A331E; clip-path:inset(0 0 0 var(--wipe)); }
-      #techsteps-lifecycle-steps .tlc-cover img { display:block; width:100%; height:100%; object-fit:cover; }
-      #techsteps-lifecycle-steps .tlc-cover-shade { position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(3,31,21,.62)); }
+#techsteps-lifecycle-steps .tlc-cover { position:absolute; inset:0; z-index:5; overflow:hidden; background:#fff; clip-path:inset(0 0 0 var(--wipe)); }#techsteps-lifecycle-steps .tlc-cover img { display:block; width:100%; height:100%; object-fit:contain; }
       #techsteps-lifecycle-steps .tlc-photo-number { position:absolute; bottom:19px; left:18px; font-weight:800; font-size:25px; color:#fff; text-shadow:0 2px 6px #123; }
       
       #techsteps-lifecycle-steps .tlc-spark { position:absolute; z-index:7; top:0; bottom:0; left:var(--wipe); width:3px; transform:translateX(-50%); opacity:0; pointer-events:none; background:linear-gradient(180deg,transparent 5%,#f3ffac 28%,#fff 50%,#bfff4c 72%,transparent 95%); box-shadow:0 0 12px 3px rgba(214,255,74,.8),0 0 28px 9px rgba(196,255,36,.35); }
@@ -478,7 +476,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
 
   <!-- ===== ONE PARTNER FOR DOCUMENT, MEDIA & PRODUCT SHREDDING ===== -->
   <section id="shredding-services" class="bg-white text-[#0A331E] py-8 sm:py-10 lg:py-12 border-b border-slate-200 relative overflow-hidden scroll-mt-20">
-    <div class="absolute inset-0 bg-radial-[ellipse_at_top] from-emerald-50/60 via-transparent to-transparent pointer-events-none"></div>
+    <div class="absolute inset-0 bg-radial-[ellipse_at_top] via-transparent to-transparent pointer-events-none"></div>
     <Container>
       <!-- Section Heading -->
       <div class="max-w-3xl mb-12 sm:mb-16">

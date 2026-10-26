@@ -158,8 +158,386 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
     </Container>
   </section>
 
-  <!-- ===== 2.5 SERVICES / CORE DIVISIONS ===== -->
-  <ServicesCardGrid />
+  <!-- ===== NEW MORPHING SPLIT SERVICES SECTION ===== -->
+<section id="morphing-services-section" class="bg-white py-20 lg:py-28 overflow-hidden relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Heading -->
+    <div class="text-center max-w-3xl mx-auto mb-16 lg:mb-24 transition-all duration-1000" id="morph-heading">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+        Services For The Complete Business Lifecycle
+      </h2>
+      <p class="mt-4 text-lg text-slate-600 font-sans">
+        Four integrated divisions delivering secure, compliant, and sustainable solutions from start to finish.
+      </p>
+    </div>
+
+    <!-- The Morphing Container -->
+    <div id="morphing-stage" class="relative flex justify-center items-center h-auto min-h-[500px]">
+      
+      <!-- Intro Card (This will shrink and disappear) -->
+      <div id="intro-card" class="absolute z-20 w-full max-w-md bg-[#0F623A] rounded-[24px] p-10 text-center shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.4,0,0.2,1)]">
+        <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-6">
+          <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+        </div>
+        <h3 class="text-3xl font-bold text-white font-display mb-4">We Provide 4 Core Services</h3>
+        <p class="text-emerald-100 font-sans">Scroll down to explore our complete business lifecycle solutions.</p>
+      </div>
+
+      <!-- The 4 Grid Cards (Initially hidden behind Intro Card) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 w-full z-10">
+        
+        <!-- Card 1 -->
+        <div class="morph-target-card morph-service-1 group relative bg-white rounded-[24px] overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-700 cursor-pointer opacity-0 scale-90 translate-y-10">
+          <span class="morph-corner-orb" aria-hidden="true"></span>
+          <span class="morph-edge-spark" aria-hidden="true"></span>
+          <div class="morph-service-media h-56 overflow-hidden relative bg-slate-50 flex items-center justify-center p-4">
+            <img src="/images/hero/IT Lifecycle & Destruction.webp" alt="IT Lifecycle" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110" />
+          </div>
+          <div class="p-6 lg:p-8">
+            <div class="morph-service-detail flex items-center justify-between mb-4" aria-hidden="true">
+              <span class="morph-accent-line"></span>
+              <span class="morph-service-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v10H4z"/><path d="M8 7V4h8v3M8 17v3h8v-3"/><path d="M9 12h6"/></svg></span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-display leading-snug mb-3">IT Lifecycle Services & Destruction</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">Secure IT asset disposal, data destruction, and remarketing.</p>
+          </div>
+          <a href="/it-lifecycle-services-destruction" class="absolute inset-0 z-10"><span class="sr-only">Explore IT Lifecycle</span></a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="morph-target-card morph-service-2 group relative bg-white rounded-[24px] overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-700 cursor-pointer opacity-0 scale-90 translate-y-10">
+          <span class="morph-corner-orb" aria-hidden="true"></span>
+          <span class="morph-edge-spark" aria-hidden="true"></span>
+          <div class="morph-service-media h-56 overflow-hidden relative bg-slate-50 flex items-center justify-center p-4">
+            <img src="/images/hero/document management.webp" alt="Information Management" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110" />
+          </div>
+          <div class="p-6 lg:p-8">
+            <div class="morph-service-detail flex items-center justify-between mb-4" aria-hidden="true">
+              <span class="morph-accent-line"></span>
+              <span class="morph-service-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v5h5M10 12h6M10 16h6"/><path d="M4 7v13"/></svg></span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-display leading-snug mb-3">Information Management</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">End-to-end document management, scanning, and secure storage.</p>
+          </div>
+          <a href="/information-management" class="absolute inset-0 z-10"><span class="sr-only">Explore Information Management</span></a>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="morph-target-card morph-service-3 group relative bg-white rounded-[24px] overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-700 cursor-pointer opacity-0 scale-90 translate-y-10">
+          <span class="morph-corner-orb" aria-hidden="true"></span>
+          <span class="morph-edge-spark" aria-hidden="true"></span>
+          <div class="morph-service-media h-56 overflow-hidden relative bg-slate-50 flex items-center justify-center p-4">
+            <img src="/images/hero/onsite shredding.webp" alt="Secure Shredding" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110" />
+          </div>
+          <div class="p-6 lg:p-8">
+            <div class="morph-service-detail flex items-center justify-between mb-4" aria-hidden="true">
+              <span class="morph-accent-line"></span>
+              <span class="morph-service-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6h14v12H5z"/><path d="M8 10h8M8 14h5"/><path d="M3 3l18 18"/></svg></span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-display leading-snug mb-3">Secure Shredding & Document Integrity</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">Accredited on-site and off-site destruction with zero-landfill recycling.</p>
+          </div>
+          <a href="/secure-shredding-document-integrity" class="absolute inset-0 z-10"><span class="sr-only">Explore Secure Shredding</span></a>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="morph-target-card morph-service-4 group relative bg-white rounded-[24px] overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-700 cursor-pointer opacity-0 scale-90 translate-y-10">
+          <span class="morph-corner-orb" aria-hidden="true"></span>
+          <span class="morph-edge-spark" aria-hidden="true"></span>
+          <div class="morph-service-media h-56 overflow-hidden relative bg-slate-50 flex items-center justify-center p-4">
+            <img src="/images/hero/Business Relocations.webp" alt="Moving Relocation" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110" />
+          </div>
+          <div class="p-6 lg:p-8">
+            <div class="morph-service-detail flex items-center justify-between mb-4" aria-hidden="true">
+              <span class="morph-accent-line"></span>
+              <span class="morph-service-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18M5 17V7h9v10M14 10h4l3 3v4"/><circle cx="8" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-display leading-snug mb-3">Moving & Relocation Services</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">Specialist commercial relocations, laboratory moves, and IT relocations.</p>
+          </div>
+          <a href="/moving-relocation-services" class="absolute inset-0 z-10"><span class="sr-only">Explore Moving & Relocation</span></a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Our Services only: zoom, staggered reveal, hold and seamless reverse loop -->
+  <style is:global>
+    /* All styling is restricted to the four existing service cards. */
+    #morphing-services-section #intro-card {
+      transform-origin: center;
+      will-change: transform, opacity;
+      transition: none !important;
+      background: linear-gradient(145deg, #0b563d 0%, #0f623a 64%, #168a69 100%);
+      box-shadow: 0 24px 55px rgba(12, 71, 47, .18);
+    }
+    #morphing-services-section #morph-heading {
+      transform-origin: center;
+      will-change: transform, opacity;
+    }
+    #morphing-services-section .morph-target-card {
+      --morph-tint: #dff6ec;
+      position: relative;
+      isolation: isolate;
+      transform-origin: center;
+      will-change: transform, opacity;
+      background: linear-gradient(168deg, #ffffff 0%, #ffffff 67%, #f3faf6 100%);
+      border-color: #d8eae2;
+      box-shadow: 0 10px 30px rgba(13, 62, 47, .065), 0 1px 3px rgba(13, 62, 47, .04);
+      transition: box-shadow 400ms ease, border-color 400ms ease !important;
+    }
+    #morphing-services-section .morph-service-2 { --morph-tint: #dbf5f1; }
+    #morphing-services-section .morph-service-3 { --morph-tint: #e7f7e7; }
+    #morphing-services-section .morph-service-4 { --morph-tint: #def2e9; }
+    #morphing-services-section .morph-target-card::before {
+      content: '';
+      position: absolute;
+      z-index: 2;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #1c9677 30%, #80d8ac 65%, transparent);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 550ms cubic-bezier(.22,1,.36,1);
+      pointer-events: none;
+    }
+    #morphing-services-section .morph-target-card:hover::before,
+    #morphing-services-section .morph-target-card:focus-within::before,
+    #morphing-services-section .morph-target-card.morph-card-lit::before { transform: scaleX(1); }
+    #morphing-services-section .morph-corner-orb {
+      position: absolute;
+      z-index: 1;
+      top: -47px;
+      right: -45px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--morph-tint), transparent 72%);
+      opacity: .72;
+      pointer-events: none;
+      animation: morph-orb-float 7s ease-in-out infinite alternate;
+    }
+    #morphing-services-section .morph-service-2 .morph-corner-orb { animation-delay: -1s; }
+    #morphing-services-section .morph-service-3 .morph-corner-orb { animation-delay: -2s; }
+    #morphing-services-section .morph-service-4 .morph-corner-orb { animation-delay: -3s; }
+    #morphing-services-section .morph-edge-spark {
+      position: absolute;
+      z-index: 2;
+      right: 20px;
+      top: 24px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1px solid #6ab99c;
+      background: #e3f7ee;
+      pointer-events: none;
+    }
+    #morphing-services-section .morph-service-media {
+      background: linear-gradient(155deg, #f8fcfa 5%, var(--morph-tint) 100%);
+    }
+    #morphing-services-section .morph-service-media img {
+      position: relative;
+      z-index: 1;
+      transition: transform 650ms cubic-bezier(.22,1,.36,1), filter 500ms ease;
+    }
+    #morphing-services-section .morph-target-card:hover .morph-service-media img,
+    #morphing-services-section .morph-target-card:focus-within .morph-service-media img {
+      transform: scale(1.055) translateY(-4px);
+      filter: drop-shadow(0 9px 12px rgba(15,98,58,.10));
+    }
+    #morphing-services-section .morph-service-detail { min-height: 30px; }
+    #morphing-services-section .morph-accent-line {
+      display: block;
+      width: 40px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #0f623a, #77d4aa);
+      transition: width 450ms cubic-bezier(.22,1,.36,1);
+    }
+    #morphing-services-section .morph-target-card:hover .morph-accent-line,
+    #morphing-services-section .morph-target-card:focus-within .morph-accent-line { width: 70px; }
+    #morphing-services-section .morph-service-symbol {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 34px;
+      border-radius: 11px;
+      color: #0f7659;
+      background: #eaf7f0;
+      border: 1px solid #cceadd;
+      transition: transform 450ms cubic-bezier(.22,1,.36,1), background-color 350ms ease;
+    }
+    #morphing-services-section .morph-service-symbol svg { width: 21px; height: 21px; }
+    #morphing-services-section .morph-target-card:hover .morph-service-symbol,
+    #morphing-services-section .morph-target-card:focus-within .morph-service-symbol {
+      transform: translateY(-3px) rotate(-5deg);
+      background: #d9f2e6;
+    }
+    #morphing-services-section .morph-target-card:hover,
+    #morphing-services-section .morph-target-card:focus-within {
+      border-color: #81cbb0;
+      box-shadow: 0 22px 42px rgba(15,98,58,.15), 0 3px 10px rgba(15,98,58,.06);
+    }
+    #morphing-services-section .morph-target-card:focus-within {
+      outline: 2px solid #0f623a;
+      outline-offset: 3px;
+    }
+    @keyframes morph-orb-float {
+      from { transform: translate3d(0,0,0) scale(1); }
+      to { transform: translate3d(-9px, 11px, 0) scale(1.08); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #morphing-services-section #intro-card { display: none !important; }
+      #morphing-services-section #morph-heading,
+      #morphing-services-section .morph-target-card {
+        transform: none !important;
+        opacity: 1 !important;
+        will-change: auto;
+      }
+      #morphing-services-section .morph-corner-orb { animation: none !important; }
+      #morphing-services-section .morph-target-card *,
+      #morphing-services-section .morph-target-card::before { transition: none !important; }
+    }
+  </style>
+  <script is:inline>
+    (() => {
+      const initializeServicesAnimation = () => {
+        const section = document.getElementById('morphing-services-section');
+        if (!section || section.dataset.servicesAnimationReady === '1') return;
+        const intro = section.querySelector('#intro-card');
+        const cards = Array.from(section.querySelectorAll('.morph-target-card'));
+        const heading = section.querySelector('#morph-heading');
+        if (!intro || !heading || cards.length !== 4) return;
+        section.dataset.servicesAnimationReady = '1';
+
+        const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const ease = value => {
+          const p = Math.min(1, Math.max(0, value));
+          return p * p * (3 - 2 * p);
+        };
+        // Milliseconds; full cards remain readable for 4.5 seconds per cycle.
+        const ENTER = 900;
+        const INTRO_HOLD = 550;
+        const INTRO_EXIT = 700;
+        const REVEAL = 750;
+        const STAGGER = 240;
+        const HOLD = 4500;
+        const RESET = 1050;
+        const sequenceEnd = ENTER + INTRO_HOLD + INTRO_EXIT + REVEAL + (cards.length - 1) * STAGGER;
+        const cycleEnd = sequenceEnd + HOLD + RESET;
+        let elapsed = 0;
+        let lastTime = null;
+        let frame = 0;
+        let visible = false;
+        let hovering = false;
+        let disposed = false;
+        let observer;
+
+        const render = () => {
+          if (motion.matches) {
+            intro.style.opacity = '0';
+            heading.style.opacity = '1';
+            heading.style.transform = 'none';
+            intro.style.pointerEvents = 'none';
+            cards.forEach(card => {
+              card.style.opacity = '1';
+              card.style.transform = 'none';
+              card.style.pointerEvents = 'auto';
+            });
+            return;
+          }
+          const introduction = ease(elapsed / ENTER);
+          const headingReveal = ease(elapsed / 850);
+          heading.style.opacity = String(headingReveal);
+          heading.style.transform = `translateY(${(1 - headingReveal) * 15}px) scale(${.985 + .015 * headingReveal})`;
+          const exitStart = ENTER + INTRO_HOLD;
+          const introExit = ease((elapsed - exitStart) / INTRO_EXIT);
+          const resetStart = sequenceEnd + HOLD;
+          const resetting = ease((elapsed - resetStart) / RESET);
+          const introAmount = Math.max(0, introduction * (1 - introExit) * (1 - resetting));
+          intro.style.opacity = String(introAmount);
+          intro.style.transform = `translateY(${(1 - introduction) * 22 - introExit * 18 + resetting * 18}px) scale(${0.84 + introduction * .16 - introExit * .22 + resetting * .22})`;
+          intro.style.pointerEvents = introAmount > .65 ? 'auto' : 'none';
+          const cardBegin = exitStart + 180;
+          cards.forEach((card, index) => {
+            const reveal = ease((elapsed - cardBegin - index * STAGGER) / REVEAL);
+            const amount = reveal * (1 - resetting);
+            card.style.opacity = String(amount);
+            const hovered = card.matches(':hover') || card.matches(':focus-within');
+            const lift = amount > .98 && hovered ? -6 : 0;
+            const boost = amount > .98 && hovered ? .012 : 0;
+            card.style.transform = `translateY(${(1 - amount) * 34 + lift}px) scale(${0.88 + .12 * amount + boost})`;
+            card.classList.toggle('morph-card-lit', amount > .18 && amount < .98);
+            card.style.pointerEvents = amount > .95 ? 'auto' : 'none';
+          });
+        };
+
+        const stop = () => {
+          if (frame) cancelAnimationFrame(frame);
+          frame = 0;
+          lastTime = null;
+        };
+        const tick = now => {
+          if (disposed || !visible || hovering || document.hidden || motion.matches) { stop(); return; }
+          if (lastTime !== null) elapsed += Math.min(now - lastTime, 80);
+          lastTime = now;
+          if (elapsed >= cycleEnd) elapsed %= cycleEnd;
+          render();
+          frame = requestAnimationFrame(tick);
+        };
+        const sync = () => {
+          stop();
+          render();
+          if (visible && !hovering && !document.hidden && !motion.matches) frame = requestAnimationFrame(tick);
+        };
+        observer = new IntersectionObserver(entries => {
+          visible = entries[0]?.isIntersecting ?? false;
+          sync();
+        }, { threshold: 0.12 });
+        observer.observe(section);
+        const onVisibility = () => sync();
+        const onMotion = () => sync();
+        document.addEventListener('visibilitychange', onVisibility);
+        motion.addEventListener('change', onMotion);
+        // Pause on hover and keyboard focus so the linked cards remain usable.
+        const pause = () => { hovering = true; sync(); };
+        const resume = () => { hovering = false; sync(); };
+        const onMouseLeave = () => { if (!document.hidden) resume(); };
+        const onFocusOut = event => {
+          if (!section.contains(event.relatedTarget)) resume();
+        };
+        section.addEventListener('mouseenter', pause);
+        section.addEventListener('mouseleave', onMouseLeave);
+        section.addEventListener('focusin', pause);
+        section.addEventListener('focusout', onFocusOut);
+        const cleanup = () => {
+          disposed = true;
+          stop();
+          observer.disconnect();
+          document.removeEventListener('visibilitychange', onVisibility);
+          motion.removeEventListener('change', onMotion);
+          section.removeEventListener('mouseenter', pause);
+          section.removeEventListener('mouseleave', onMouseLeave);
+          section.removeEventListener('focusin', pause);
+          section.removeEventListener('focusout', onFocusOut);
+          section.removeAttribute('data-services-animation-ready');
+        };
+        document.addEventListener('astro:before-swap', cleanup, { once: true });
+        render();
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeServicesAnimation, { once: true });
+      else initializeServicesAnimation();
+      document.addEventListener('astro:page-load', initializeServicesAnimation);
+    })();
+  </script>
+</section>
 
 
   <!-- ===== WHY EFFECTIVE INFORMATION MANAGEMENT MATTERS (GREEN THEME) ===== -->
@@ -276,7 +654,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
               </div>
             </div>
             <div class="tlc-cover" aria-hidden="true">
-              <img src="/images/process/Information-Management-Card1.png" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
+              <img src="/images/process/Information-Management-card1.png" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
               <span class="tlc-cover-shade"></span>
               <span class="tlc-photo-number">01</span>
             </div>
@@ -296,7 +674,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
               </div>
             </div>
             <div class="tlc-cover" aria-hidden="true">
-              <img src="/images/process/Information-Management-Card2.png" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
+              <img src="/images/process/Information-Management-card2.png" alt="" loading="eager" decoding="async" onerror="this.style.visibility='hidden'" />
               <span class="tlc-cover-shade"></span>
               <span class="tlc-photo-number">02</span>
             </div>
@@ -333,7 +711,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
               </div>
               <div class="tlc-visual" aria-hidden="true">
                 <!-- 4th Icon: Using the 1st link as the 4th link was duplicate -->
-                <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792825891/ChatGPT_Image_Oct_24_2026_12_38_32_PM-1_vpdsdz.png" alt="" loading="lazy" decoding="async" />
+                <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792825890/ChatGPT_Image_Oct_24_2026_12_38_37_PM-4_l9qrd9.png" alt="" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="tlc-cover" aria-hidden="true">
