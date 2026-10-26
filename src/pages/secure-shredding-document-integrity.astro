@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
-import PageHero from '../components/hero/PageHero.astro';
+import HeroHeader from '../components/global/HeroHeader.astro';
 import AccordionFaq from '../components/content/AccordionFaq.astro';
 import ServicesCardGrid from '../components/services/ServicesCardGrid.astro';
 import CTA from '../components/global/cta.astro';
@@ -42,106 +42,60 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
 <BaseLayout
   title={division?.metaTitle || "Secure Shredding & Document Integrity | Certified Destruction Services | Techsteps"}
   description={division?.metaDescription || "BS EN 15713 accredited secure document shredding, mobile on-site shredding, hard drive destruction, and certified recycling across the UK."}
-  hasHeroHeader={true}
+  hasHeroHeader={false}
 >
-  <!-- ===== 1. HERO ===== -->
-  <PageHero
-    bgImage={division?.heroImage || "/images/hero/Secure Shredding & Integrity.webp"}
-    bgAlt="Secure Shredding & Destruction Services UK - TechSteps"
-    breadcrumbs={[]}
-    layout="custom"
-    showDivider={true}
-    dividerColor="#ffffff"
-    minHeight="min-h-[540px] sm:min-h-[580px] lg:min-h-[640px]"
-    noOverlay={true}
-    theme="light"
-    contained={true}
-  >
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
-      <!-- HERO CONTENT (Left) -->
-      <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
+  <!-- ===== 1. HERO (Custom Clean Layout) ===== -->
+  <div class="relative bg-white">
+    <!-- Keep the Navbar -->
+    
 
-        <!-- Breadcrumb Navigation -->
-        <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
-          <a href="/services" class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
-            Services
-          </a>
-          <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
-          <span class="text-slate-900 font-bold">Secure Shredding & Integrity</span>
-        </nav>
+    <!-- Hero Content -->
+    <section class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
+        
+        <!-- HERO CONTENT (Left) -->
+        <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none z-10">
+          <!-- Breadcrumb Navigation -->
+          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
+            <a href="/services" class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
+              Services
+            </a>
+            <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
+            <span class="text-slate-900 font-bold">Secure Shredding & Integrity</span>
+          </nav>
 
-        <!-- Heading -->
-        <h1
-          class="font-display
-                 text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
-                 font-semibold
-                 text-slate-900
-                 tracking-normal
-                 leading-[1.12] sm:leading-[1.1]
-                 max-w-xl"
-        >
-          {division?.heroTitle || 'Secure Shredding & Destruction Services UK'}
-        </h1>
+          <!-- Heading -->
+          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px] font-semibold text-slate-900 tracking-normal leading-[1.12] sm:leading-[1.1] max-w-xl">
+            {division?.heroTitle || 'Secure Shredding & Destruction Services UK'}
+          </h1>
 
-        <!-- Description -->
-        <p
-          class="mt-4 sm:mt-5
-                 text-lg sm:text-xl lg:text-lg
-                 text-black
-                 max-w-lg
-                 leading-relaxed
-                 font-sans font-normal"
-        >
-          {division?.heroDescription || 'BS EN 15713 accredited on-site mobile shredding, off-site destruction facilities, and certified product disposal ensuring total compliance with UK GDPR and data protection standards.'}
-        </p>
+          <!-- Description -->
+          <p class="mt-4 sm:mt-5 text-lg sm:text-xl lg:text-lg text-black max-w-lg leading-relaxed font-sans font-normal">
+            {division?.heroDescription || 'BS EN 15713 accredited on-site mobile shredding, off-site destruction facilities, and certified product disposal ensuring total compliance with UK GDPR and data protection standards.'}
+          </p>
 
-        <!-- CTA Button -->
-        <div
-          class="mt-6 sm:mt-8
-                 flex flex-wrap
-                 items-center
-                 gap-3.5 sm:gap-4"
-        >
-          <a
-            href={division?.heroCtaLink || '/request-a-collection?service=secure-shredding'}
-            class="inline-flex items-center justify-center
-                   gap-2.5
-                   px-6 sm:px-7
-                   py-3 sm:py-3.5
-                   rounded-[12px]
-                   bg-[#0F623A] hover:bg-[#0c4e2e]
-                   text-white
-                   text-sm sm:text-base
-                   font-bold
-                   shadow-md hover:shadow-lg
-                   transition-all duration-200
-                   hover:scale-[1.02]
-                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
-          >
-            <span>{division?.heroCtaText || 'Request a Collection'}</span>
-            <svg
-              class="w-4 h-4 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2.2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </a>
+          <!-- CTA Button -->
+          <div class="mt-6 sm:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
+            <a href={division?.heroCtaLink || '/request-a-collection?service=secure-shredding'} class="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0F623A]">
+              <span>{division?.heroCtaText || 'Request a Collection'}</span>
+              <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
         </div>
 
+                <!-- HERO IMAGE (Right on Desktop, Below on Mobile) -->
+        <div class="flex lg:col-span-6 xl:col-span-6 items-center justify-center lg:justify-end relative z-0 mt-8 lg:mt-0">
+          <img 
+            src={division?.heroImage || "/images/hero/Secure Shredding & Integrity.webp"} 
+            alt="Secure Shredding & Destruction Services UK" 
+            class="w-full max-w-[650px] h-auto object-contain select-none pointer-events-none"
+          />
+        </div>
       </div>
-
-      <!-- HERO SPACER (Right on Desktop) -->
-      <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end min-h-[420px] lg:min-h-[480px] xl:min-h-[520px] pointer-events-none" aria-hidden="true">
-      </div>
-    </div>
-  </PageHero>
+    </section>
+  </div>
 
   <!-- ===== 2. INTRODUCTION TO SECURE SHREDDING ===== -->
   <section class="bg-white py-8 lg:py-12 border-b border-slate-200/80 relative overflow-hidden">
@@ -309,7 +263,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
                 <p>Place confidential documents or digital media into tamper-proof locked office consoles or sacks.</p>
               </div>
               <div class="tlc-visual" aria-hidden="true">
-              <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792857555/ChatGPT_Image_Oct_24_2026_09_28_28_PM-1_kzkgii.png" alt="" loading="lazy" decoding="async" />
+              <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792825891/ChatGPT_Image_Oct_24_2026_12_38_32_PM-1_vpdsdz.png" alt="" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="tlc-cover" aria-hidden="true">
@@ -329,7 +283,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
                 <p>BS 7858 security-cleared personnel collect and transfer materials under verified custody.</p>
               </div>
               <div class="tlc-visual" aria-hidden="true">
-              <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792857555/ChatGPT_Image_Oct_24_2026_09_28_30_PM-2_hedbce.png" alt="" loading="lazy" decoding="async" />
+              <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792825891/ChatGPT_Image_Oct_24_2026_12_38_32_PM-1_vpdsdz.png" alt="" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="tlc-cover" aria-hidden="true">
@@ -349,7 +303,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
                 <p>Mobile on-site shredder or secure facility cross-cuts material to BS EN 15713 standards.</p>
               </div>
               <div class="tlc-visual" aria-hidden="true">
-              <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792857554/ChatGPT_Image_Oct_24_2026_09_28_32_PM-3_by4j50.png" alt="" loading="lazy" decoding="async" />
+              <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792825891/ChatGPT_Image_Oct_24_2026_12_38_32_PM-1_vpdsdz.png" alt="" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="tlc-cover" aria-hidden="true">
@@ -369,7 +323,7 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
                 <p>Receive serialized Certificate of Destruction while shredded paper and metals are 100% recycled.</p>
               </div>
               <div class="tlc-visual" aria-hidden="true">
-              <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792857554/ChatGPT_Image_Oct_24_2026_09_28_33_PM-4_ieuvqd.png" alt="" loading="lazy" decoding="async" />
+              <img class="tlc-stage-icon" src="https://res.cloudinary.com/dlbeckur1/image/upload/v1792825891/ChatGPT_Image_Oct_24_2026_12_38_32_PM-1_vpdsdz.png" alt="" loading="lazy" decoding="async" />
               </div>
             </div>
             <div class="tlc-cover" aria-hidden="true">

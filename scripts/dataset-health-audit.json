@@ -264,7 +264,7 @@
           }
         ],
         "hero": {
-          "bgImage": "/images/brand/about-hero-bg.jpg",
+          
           "eyebrow": "INVESTOR RELATIONS",
           "subheading": "Techsteps delivers vital business lifecycle services across document management, IT asset disposition, secure destruction, and commercial relocation.",
           "title": "Market leadership in essential lifecycle services."
@@ -2961,7 +2961,7 @@
           "heading": "Still have questions?"
         },
         "hero": {
-          "bgImage": "/images/brand/about-hero-bg.jpg",
+          
           "eyebrow": "KNOWLEDGE CENTER / FAQS",
           "subheading": "Explore our comprehensive knowledge base covering secure IT asset disposition, confidential shredding, records management, relocations, and regulatory compliance.",
           "title": "FREQUENTLY ASKED QUESTIONS"
@@ -4272,7 +4272,7 @@
           }
         ],
         "hero": {
-          "bgImage": "/images/brand/about-hero-bg.jpg",
+          
           "eyebrow": "INVESTOR RELATIONS",
           "subheading": "Techsteps delivers vital business lifecycle services across document management, IT asset disposition, secure destruction, and commercial relocation.",
           "title": "Market leadership in essential lifecycle services."
