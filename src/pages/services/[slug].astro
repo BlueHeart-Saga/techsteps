@@ -8,7 +8,7 @@ import { services as fallbackServices } from '../../lib/sanity/data';
 import { generateServiceSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 import { getServiceDetailContent } from '../../data/serviceDetails';
 import type { Service } from '../../lib/sanity/types';
-import { isValidService, normalizeRouteSlug, buildServicePaths } from '../../lib/routeHelpers';
+import { isValidService, normalizeRouteSlug, buildServicePaths, getServiceSeoSlug } from '../../lib/routeHelpers';
 
 export async function getStaticPaths() {
   return buildServicePaths(await getServices());
@@ -69,6 +69,8 @@ const clr = divisionAccent[service.divisionSlug] ?? {
 
 // Division label for breadcrumb/link
 const divisionPageSlug = service.divisionSlug;
+const seoSlug = getServiceSeoSlug(service.slug);
+const canonicalUrl = `https://techsteps.co.uk/services/${service.divisionSlug}/${seoSlug}`;
 
 // Tailored service detail content with direct Sanity CMS precedence
 const fallbackDetail = getServiceDetailContent(service.slug, service);
@@ -444,7 +446,7 @@ const serviceAboutImage =
 <BaseLayout
   title={service.metaTitle || `${service.title} | Techsteps UK`}
   description={service.metaDescription || service.summary}
-  canonicalUrl={`https://techsteps.co.uk/services/${service.slug}`}
+  canonicalUrl={canonicalUrl}
   jsonLd={[serviceSchema, breadcrumbSchema]}
   hasHeroHeader={true}
 >

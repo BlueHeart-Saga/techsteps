@@ -1,0 +1,1270 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/layout/Container.astro';
+import PageHero from '../../../components/hero/PageHero.astro';
+import CTA from '../../../components/global/cta.astro';
+import { getServices, getSectors, getSiteSettings, getCaseStudies } from '../../../lib/sanity/client';
+import { services as fallbackServices } from '../../../lib/sanity/data';
+import { generateServiceSchema, generateBreadcrumbSchema } from '../../../lib/seo/jsonld';
+import { getServiceDetailContent } from '../../../data/serviceDetails';
+import type { Service } from '../../../lib/sanity/types';
+import { isValidService, normalizeRouteSlug, buildHierarchicalServicePaths, getServiceSeoSlug } from '../../../lib/routeHelpers';
+
+export async function getStaticPaths() {
+  return buildHierarchicalServicePaths(await getServices());
+}
+
+interface Props {
+  service: Service;
+}
+
+const { service: propsService } = Astro.props;
+const [siteSettings, allCaseStudies, allServices, allSectors] = await Promise.all([
+  getSiteSettings(),
+  getCaseStudies(),
+  getServices(),
+  getSectors(),
+]);
+
+const requestedSlug = normalizeRouteSlug(Astro.params.slug);
+const requestedDivision = normalizeRouteSlug(Astro.params.division);
+const service = isValidService(propsService)
+  ? propsService
+  : buildHierarchicalServicePaths(allServices).find(
+      (path) => path.params.slug === requestedSlug && path.params.division === requestedDivision
+    )?.props.service;
+
+if (!service) {
+  return Astro.rewrite('/404');
+}
+
+// Division accent colour map — consistent with hub pages and site theme
+const divisionAccent: Record<string, { accent: string; dark: string; light: string; pill: string }> = {
+  'it-lifecycle-services-destruction': {
+    accent: '#0F623A',
+    dark: '#0A331E',
+    light: '#F2F8F5',
+    pill: '#0F623A15',
+  },
+  'information-management': {
+    accent: '#0F623A',
+    dark: '#0A331E',
+    light: '#F2F8F5',
+    pill: '#0F623A15',
+  },
+  'secure-shredding-document-integrity': {
+    accent: '#0F623A',
+    dark: '#0A331E',
+    light: '#F2F8F5',
+    pill: '#0F623A15',
+  },
+  'moving-relocation-services': {
+    accent: '#0F623A',
+    dark: '#0A331E',
+    light: '#F2F8F5',
+    pill: '#0F623A15',
+  },
+};
+
+const clr = divisionAccent[service.divisionSlug] ?? {
+  accent: '#0F623A', dark: '#0A331E', light: '#F2F8F5', pill: '#0F623A15',
+};
+
+// Division label for breadcrumb/link
+const divisionPageSlug = requestedDivision || service.divisionSlug;
+const seoSlug = getServiceSeoSlug(service.slug);
+const canonicalUrl = `https://techsteps.co.uk/services/${service.divisionSlug}/${seoSlug}`;
+
+// Tailored service detail content with direct Sanity CMS precedence
+const fallbackDetail = getServiceDetailContent(service.slug, service);
+const detail = {
+  heroTag: service.heroTag || fallbackDetail.heroTag,
+  heroTitle: service.heroTitle || fallbackDetail.heroTitle,
+  heroDescription: service.heroDescription || fallbackDetail.heroDescription,
+  aboutBadge: service.aboutBadge || fallbackDetail.aboutBadge,
+  aboutTitle: service.aboutTitle || fallbackDetail.aboutTitle,
+  aboutImage: service.aboutImage || fallbackDetail.aboutImage,
+  aboutImageAlt: service.aboutImageAlt || fallbackDetail.aboutImageAlt,
+  aboutParagraphs: (service.aboutParagraphs && service.aboutParagraphs.length > 0) ? service.aboutParagraphs : fallbackDetail.aboutParagraphs,
+  aboutBullets: (service.aboutBullets && service.aboutBullets.length > 0) ? service.aboutBullets : fallbackDetail.aboutBullets,
+  whyTitle: service.whyTitle || fallbackDetail.whyTitle,
+  whySubtitle: service.whySubtitle || fallbackDetail.whySubtitle,
+  whyPoints: (service.whyPoints && service.whyPoints.length > 0) ? service.whyPoints : fallbackDetail.whyPoints,
+  processBadge: service.processBadge || fallbackDetail.processBadge,
+  processTitle: service.processTitle || fallbackDetail.processTitle,
+  processSubtitle: service.processSubtitle || fallbackDetail.processSubtitle,
+  processSteps: (service.processSteps && service.processSteps.length > 0) ? service.processSteps : fallbackDetail.processSteps,
+  businessNeedsTitle: service.businessNeedsTitle || fallbackDetail.businessNeedsTitle,
+  businessNeedsSubtitle: service.businessNeedsSubtitle || fallbackDetail.businessNeedsSubtitle,
+  businessNeedsCards: (service.businessNeedsCards && service.businessNeedsCards.length > 0) ? service.businessNeedsCards : fallbackDetail.businessNeedsCards,
+  faqBadge: service.faqBadge || fallbackDetail.faqBadge,
+  faqTitle: service.faqTitle || fallbackDetail.faqTitle,
+  faqSubtitle: service.faqSubtitle || fallbackDetail.faqSubtitle,
+  faqs: (service.faqs && service.faqs.length > 0) ? service.faqs : fallbackDetail.faqs,
+};
+
+// JSON-LD
+const serviceSchema = generateServiceSchema(service, siteSettings, Astro.site?.origin || 'https://techsteps.co.uk');
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Services', url: '/services' },
+  { name: service.divisionTitle, url: `/services/${divisionPageSlug}` },
+  { name: service.title, url: `/services/${divisionPageSlug}/${requestedSlug}` },
+], Astro.site?.origin || 'https://techsteps.co.uk');
+
+// Identify light-background hero pages matching Home Hero style
+const cleanSlug = service.slug ? service.slug.toLowerCase().replace(/-(uk|services|services-uk)$/, '') : '';
+const isDigitalMailroom = cleanSlug === 'digital-mailroom' || service.slug?.toLowerCase().includes('digital-mailroom') || service.title?.toLowerCase().includes('mailroom');
+const isDocumentScanning = cleanSlug === 'document-scanning' || service.slug?.toLowerCase().includes('document-scanning') || service.title?.toLowerCase().includes('scanning');
+const isDocumentManagement = cleanSlug === 'document-management' || service.slug?.toLowerCase().includes('document-management') || service.title?.toLowerCase().includes('document management');
+const isDocumentStorage = cleanSlug === 'document-storage' || service.slug?.toLowerCase().includes('document-storage') || service.title?.toLowerCase().includes('document storage');
+const isTapeStorage = cleanSlug === 'tape-media-storage' || cleanSlug === 'tape-storage' || service.slug?.toLowerCase().includes('tape') || service.title?.toLowerCase().includes('tape');
+const isHeritageStorage = cleanSlug === 'heritage-storage' || service.slug?.toLowerCase().includes('heritage') || service.title?.toLowerCase().includes('heritage');
+const isVaultStorage = cleanSlug === 'vault-storage' || service.slug?.toLowerCase().includes('vault') || service.title?.toLowerCase().includes('vault');
+
+// IT Lifecycle services
+const isSecureItDisposal = cleanSlug === 'secure-it-disposal' || service.slug?.toLowerCase().includes('secure-it-disposal') || service.title?.toLowerCase().includes('secure it disposal');
+const isSecureCollection = cleanSlug === 'secure-collection-services' || cleanSlug === 'secure-collection' || service.slug?.toLowerCase().includes('secure-collection') || service.title?.toLowerCase().includes('secure collection');
+const isItad = cleanSlug === 'it-asset-disposition-services' || cleanSlug === 'it-asset-disposition' || cleanSlug === 'itad' || service.slug?.toLowerCase().includes('itad') || service.title?.toLowerCase().includes('disposition');
+const isItam = cleanSlug === 'it-asset-tracking-services' || cleanSlug === 'it-asset-tracking' || cleanSlug === 'itat' || service.slug?.toLowerCase().includes('itat') || service.title?.toLowerCase().includes('asset tracking');
+const isRemarketingRecycling = cleanSlug === 'remarketing-recycling' || cleanSlug === 'remarketing' || service.slug?.toLowerCase().includes('remarketing') || service.title?.toLowerCase().includes('remarketing');
+const isHardDriveDestruction = cleanSlug === 'ultra-secure-hard-drive-destruction' || cleanSlug === 'hard-drive-destruction' || service.slug?.toLowerCase().includes('hard-drive-destruction') || service.title?.toLowerCase().includes('hard drive destruction');
+
+// Secure Shredding & Document Integrity / Recycling services
+const isHomeShredding = cleanSlug === 'home-shredding' || service.slug?.toLowerCase().includes('home-shredding') || service.title?.toLowerCase().includes('home shredding');
+const isOnsiteShredding = cleanSlug === 'on-site-shredding' || cleanSlug === 'onsite-shredding' || service.slug?.toLowerCase().includes('on-site-shredding') || service.slug?.toLowerCase().includes('onsite-shredding') || service.title?.toLowerCase().includes('on-site shredding') || service.title?.toLowerCase().includes('onsite shredding');
+const isOffsiteShredding = cleanSlug === 'off-site-shredding' || cleanSlug === 'offsite-shredding' || service.slug?.toLowerCase().includes('off-site-shredding') || service.slug?.toLowerCase().includes('offsite-shredding') || service.title?.toLowerCase().includes('off-site shredding') || service.title?.toLowerCase().includes('offsite shredding');
+const isProductShredding = cleanSlug === 'product-shredding' || service.slug?.toLowerCase().includes('product-shredding') || service.title?.toLowerCase().includes('product shredding');
+const isSimplerRecycling = cleanSlug === 'simpler-recycling-services' || cleanSlug === 'simpler-recycling' || service.slug?.toLowerCase().includes('simpler-recycling') || service.title?.toLowerCase().includes('simpler recycling');
+const isDisposalServices = cleanSlug === 'disposal-services' || cleanSlug === 'disposal' || service.slug?.toLowerCase().includes('disposal') || service.title?.toLowerCase().includes('disposal services') || service.title?.toLowerCase() === 'disposal';
+const isCardboardRecycling = cleanSlug === 'cardboard-recycling' || service.slug?.toLowerCase().includes('cardboard-recycling') || service.title?.toLowerCase().includes('cardboard recycling') || service.title?.toLowerCase().includes('cardboard');
+const isDryMixedRecycling = cleanSlug === 'dry-mixed-recycling' || cleanSlug === 'dmr' || service.slug?.toLowerCase().includes('dry-mixed-recycling') || service.title?.toLowerCase().includes('dry mixed recycling');
+
+// Moving & Relocation services
+const isBusinessRelocations = cleanSlug === 'business-relocations' || service.slug?.toLowerCase().includes('business-relocations') || service.title?.toLowerCase().includes('business relocation');
+const isLabRelocations = cleanSlug === 'laboratory-relocations-storage' || cleanSlug === 'laboratory-relocations' || service.slug?.toLowerCase().includes('laboratory-relocations') || service.title?.toLowerCase().includes('laboratory relocation');
+const isHeritageRelocations = cleanSlug === 'heritage-relocations-storage' || cleanSlug === 'heritage-relocations' || service.slug?.toLowerCase().includes('heritage-relocations') || service.title?.toLowerCase().includes('heritage relocation');
+const isInternationalMoves = cleanSlug === 'europe-international-domestic-moves' || cleanSlug === 'international-moves' || service.slug?.toLowerCase().includes('international') || service.title?.toLowerCase().includes('international');
+const isItRelocations = cleanSlug === 'it-relocations-specialist' || cleanSlug === 'it-relocations' || service.slug?.toLowerCase().includes('it-relocations') || service.title?.toLowerCase().includes('it relocation');
+const isProjectManagement = cleanSlug === 'project-management' || service.slug?.toLowerCase().includes('project-management') || service.title?.toLowerCase().includes('project management');
+
+const isLightHero = true; // Uniform premium light hero matching Home & Contact standards
+
+const heroBgImage = isDigitalMailroom
+  ? '/images/hero/digital-mail-room.webp'
+  : isDocumentScanning
+  ? '/images/hero/document scaning services (1).webp'
+  : isDocumentManagement
+  ? '/images/hero/document management.webp'
+  : isDocumentStorage
+  ? '/images/hero/document storage.webp'
+  : isTapeStorage
+  ? '/images/hero/Tape and Media Storage.webp'
+  : isHeritageStorage
+  ? '/images/hero/heritage storage.webp'
+  : isVaultStorage
+  ? '/images/hero/Valut storage.webp'
+  : isSecureItDisposal
+  ? '/images/hero/Secure IT Disposal.webp'
+  : isSecureCollection
+  ? '/images/hero/Secure Collection Services.webp'
+  : isItad
+  ? '/images/hero/IT Asset Disposition Services (ITAD).webp'
+  : isItam
+  ? '/images/hero/IT Asset Tracking Services.webp'
+  : isRemarketingRecycling
+  ? '/images/hero/Remarketing & Recycling.webp'
+  : isHardDriveDestruction
+  ? '/images/hero/Ultra Secure Hard Drive Destruction.webp'
+  : isHomeShredding
+  ? '/images/hero/home shredding.webp'
+  : isOnsiteShredding
+  ? '/images/hero/onsite shredding.webp'
+  : isOffsiteShredding
+  ? '/images/hero/offsite shredding.webp'
+  : isProductShredding
+  ? '/images/hero/product shredding.webp'
+  : isSimplerRecycling
+  ? '/images/hero/simpler recycling.webp'
+  : isDisposalServices
+  ? '/images/hero/disposal services.webp'
+  : isCardboardRecycling
+  ? '/images/hero/Cardboard Recycling.webp'
+  : isDryMixedRecycling
+  ? '/images/hero/Dry Mixed Recycling.webp'
+  : isBusinessRelocations
+  ? '/images/hero/Business Relocations.webp'
+  : isLabRelocations
+  ? '/images/hero/Laboratory Relocations & Storage.webp'
+  : isHeritageRelocations
+  ? '/images/hero/Heritage Relocations & Storage.webp'
+  : isInternationalMoves
+  ? '/images/hero/Europe & International Domestic Moves.webp'
+  : isItRelocations
+  ? '/images/hero/IT Relocations Specialist.webp'
+  : isProjectManagement
+  ? '/images/hero/Project Management.webp'
+  : (service.heroImage || '/images/hero/IT Lifecycle & Destruction.webp');
+
+// PROCESS STEPS: Clean 4-step progression
+const processFallback = {
+  badge: 'HOW IT WORKS',
+  title: 'Our Proven 4-Step Process',
+  subtitle: 'A structured, auditable delivery model engineered for seamless execution.',
+  steps: [
+    { title: 'Plan & Consult', description: 'We assess volumes, requirements and compliance criteria to design a tailored service schedule.' },
+    { title: 'Secure Handling', description: 'Operations are executed by vetted personnel using monitored, GPS-tracked logistics.' },
+    { title: 'Certified Processing', description: 'Assets and records are catalogued, managed or treated strictly to accredited standards.' },
+    { title: 'Verified Audit Delivery', description: 'Receive full serialized reporting, duty-of-care transfer notes and completion certificates.' },
+  ],
+};
+
+const processSteps =
+  Array.isArray(detail?.processSteps) && detail.processSteps.length > 0
+    ? detail.processSteps.slice(0, 4)
+    : processFallback.steps;
+
+const processTitle = detail?.processTitle?.trim() || processFallback.title;
+const processSubtitle = detail?.processSubtitle?.trim() || processFallback.subtitle;
+
+// BUSINESS NEEDS section (expanding image panels)
+const sectorImages: Record<string, string> = {
+  legal: '/images/sectors/corporate(1).webp',
+  health: '/images/sectors/healthcare.webp',
+  finance: '/images/sectors/finance.webp',
+  corporate: '/images/sectors/corporate(1).webp',
+  public: '/images/sectors/government.webp',
+  business: '/images/sectors/It.webp',
+  tech: '/images/sectors/It.webp',
+  defence: '/images/sectors/defence(1).webp',
+  education: '/images/sectors/education(1).webp',
+};
+const needsIconPaths: Record<string, string> = {
+  legal:
+    'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3',
+  health: 'M7 3h10a4 4 0 014 4v10a4 4 0 01-4 4H7a4 4 0 01-4-4V7a4 4 0 014-4zM12 8v8m-4-4h8',
+  finance:
+    'M21 12a9 9 0 11-18 0 9 9 0 0118 0zM15 9.5a2.5 2.5 0 00-4 2 2.5 2.5 0 01-1.5 2.2V15h5M9 13.5h4',
+  corporate:
+    'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+  public: 'M3 21h18M3 10h18M5 10v8m4-8v8m6-8v8m4-8v8M12 3l9 7H3l9-7z',
+  business: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+  tech: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+};
+
+// 07 / INDUSTRIES / SECTORS: Map and filter relevant sectors
+const sectorIconMap: Record<string, string> = {
+  legal: 'legal',
+  'legal-professional-services': 'legal',
+  health: 'health',
+  healthcare: 'health',
+  nhs: 'health',
+  finance: 'finance',
+  banking: 'finance',
+  corporate: 'corporate',
+  public: 'public',
+  government: 'public',
+  'central-government': 'public',
+  business: 'business',
+  tech: 'business',
+  'it-technology': 'business',
+  defence: 'security',
+  manufacturing: 'corporate',
+  'manufacturing-engineering': 'corporate',
+  education: 'public',
+  'education-universities': 'public',
+};
+
+const filteredSectorCards = (service.relatedSectors && service.relatedSectors.length > 0)
+  ? (detail.businessNeedsCards || []).filter((c) => {
+      return service.relatedSectors?.some((rs) => {
+        const mappedIcon = sectorIconMap[rs.toLowerCase()] || rs.toLowerCase();
+        return c.icon === mappedIcon || c.title.toLowerCase().includes(rs.toLowerCase());
+      });
+    })
+  : detail.businessNeedsCards;
+
+const finalSectorCards = (filteredSectorCards && filteredSectorCards.length >= 3)
+  ? filteredSectorCards
+  : (detail.businessNeedsCards || []);
+
+// MERGED 3-PILLAR BENEFITS: Combining challenges, capabilities & documentation into 3 clear cards
+const consolidatedBenefits = [
+  {
+    tag: 'RISK MITIGATION',
+    title: detail.whyPoints?.[0]?.title || 'Confidentiality & Regulatory Security',
+    description: detail.whyPoints?.[0]?.description || service.customerProblem || 'Eliminate compliance liabilities, data leaks, and audit exposure through vetted personnel, biometric security, and full UK GDPR adherence.',
+    deliverable: 'Certified Chain of Custody & Non-Disclosure Verification',
+  },
+  {
+    tag: 'OPERATIONAL EFFICIENCY',
+    title: detail.whyPoints?.[1]?.title || 'Seamless Lifecycle Management',
+    description: detail.whyPoints?.[1]?.description || 'Minimise operational downtime and reclaim valuable workplace capacity with scheduled logistics, barcoded tracking, and fast retrieval.',
+    deliverable: 'Serialized Asset Manifests & Fast Portal Visibility',
+  },
+  {
+    tag: 'AUDIT & ESG ASSURANCE',
+    title: detail.whyPoints?.[2]?.title || 'Statutory Compliance & Circular Impact',
+    description: detail.whyPoints?.[2]?.description || 'Achieve measurable ESG progress with zero-landfill diversion, licensed waste transfers, and certified destruction documentation for total defense.',
+    deliverable: 'Duty of Care Waste Transfer Notes & Completion Certificates',
+  },
+];
+
+// SUCCESS STORY: Verified matching case study if available
+const matchingCaseStudy = (allCaseStudies || []).find((cs) => {
+  if (!cs.servicesUsed || !Array.isArray(cs.servicesUsed)) return false;
+  const targets = [
+    service.id?.toLowerCase(),
+    (service as any)._id?.toLowerCase(),
+    service.slug?.toLowerCase(),
+    cleanSlug,
+  ].filter(Boolean) as string[];
+
+  return cs.servicesUsed.some((u: any) => {
+    if (!u) return false;
+    const strValues: string[] = [];
+    if (typeof u === 'string') {
+      strValues.push(u.toLowerCase());
+    } else if (typeof u === 'object') {
+      if (u._ref) strValues.push(String(u._ref).toLowerCase());
+      if (u.id) strValues.push(String(u.id).toLowerCase());
+      if (u._id) strValues.push(String(u._id).toLowerCase());
+      if (u.slug) {
+        if (typeof u.slug === 'string') strValues.push(u.slug.toLowerCase());
+        else if (u.slug.current) strValues.push(String(u.slug.current).toLowerCase());
+      }
+    }
+    return strValues.some((sv) => targets.some((t) => sv === t || sv.replace(/-services|-uk/g, '') === t.replace(/-services|-uk/g, '')));
+  });
+});
+
+// COMPACT RELATED SERVICES
+const resolvedRelatedServices = (service.relatedServices || [])
+  .map((rSlug) => {
+    const clean = rSlug.toLowerCase().replace(/-(uk|services|services-uk)$/, '');
+    return allServices.find((s) => {
+      const sClean = s.slug?.toLowerCase().replace(/-(uk|services|services-uk)$/, '');
+      return s.slug?.toLowerCase() === rSlug.toLowerCase() || sClean === clean;
+    });
+  })
+  .filter(Boolean) as Service[];
+
+const relatedServices = (resolvedRelatedServices.length >= 2
+  ? resolvedRelatedServices.slice(0, 3)
+  : [
+      ...resolvedRelatedServices,
+      ...allServices.filter((s) => s.divisionSlug === service.divisionSlug && s.slug !== service.slug && !resolvedRelatedServices.some((r) => r.slug === s.slug)),
+    ]).slice(0, 3);
+
+// FAQS: Strictly 4 to 6 concise questions
+const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slice(0, 5) : [];
+
+// =====================================================
+// SERVICE ABOUT IMAGES
+// Dedicated images for the About / Introduction section
+// =====================================================
+const serviceAboutImages: Record<string, string> = {
+  // Information Management
+  'digital-mailroom': '/images/services/digital mailroom.webp',
+  'document-scanning': '/images/services/document scanning.webp',
+  'document-management': '/images/services/document management.webp',
+  'document-storage': '/images/services/Secure Document Storage.webp',
+  'tape-media-storage': '/images/services/Tape and Media Storage.webp',
+  'tape-storage': '/images/services/Tape and Media Storage.webp',
+  'heritage-storage': '/images/services/Heritage Storage Services.webp',
+  'vault-storage': '/images/services/Vault Storage.webp',
+
+  // IT Lifecycle Services
+  'secure-it-disposal': '/images/services/secure-it-disposal.webp',
+  'secure-collection-services': '/images/services/secure-collection-services(!).webp',
+  'secure-collection': '/images/services/secure-collection-services(!).webp',
+  'it-asset-disposition-services': '/images/services/it-asset-disposition-services(1).webp',
+  'it-asset-disposition': '/images/services/it-asset-disposition-services(1).webp',
+  'itad': '/images/services/it-asset-disposition-services(1).webp',
+  'it-asset-tracking-services': '/images/services/it-asset-tracking-services(1).webp',
+  'it-asset-tracking': '/images/services/it-asset-tracking-services(1).webp',
+  'it-asset-management-services': '/images/services/it-asset-tracking-services(1).webp',
+  'itam': '/images/services/it-asset-tracking-services(1).webp',
+  'itat': '/images/services/it-asset-tracking-services(1).webp',
+  'remarketing-recycling': '/images/services/remarketing-recycling.webp',
+  'remarketing': '/images/services/remarketing-recycling.webp',
+  'ultra-secure-hard-drive-destruction': '/images/services/ultra-secure-hard-drive-destruction.webp',
+  'hard-drive-destruction': '/images/services/ultra-secure-hard-drive-destruction.webp',
+
+  // Secure Shredding & Simpler Recycling
+  'home-shredding': '/images/services/home-shredding.webp',
+  'on-site-shredding': '/images/services/on-site-shredding.webp',
+  'onsite-shredding': '/images/services/on-site-shredding.webp',
+  'off-site-shredding': '/images/services/off-site-shredding.webp',
+  'offsite-shredding': '/images/services/off-site-shredding.webp',
+  'product-shredding': '/images/services/product-shredding.webp',
+  'simpler-recycling-services': '/images/services/simpler-recycling.webp',
+  'simpler-recycling': '/images/services/simpler-recycling.webp',
+  'disposal-services': '/images/services/disposal-services.webp',
+  'disposal': '/images/services/disposal-services.webp',
+  'cardboard-recycling': '/images/services/cardboard-recycling.webp',
+  'dry-mixed-recycling': '/images/services/dry-mixed-recycling.webp',
+
+  // Moving & Relocation
+  'business-relocations': '/images/services/business-relocations.webp',
+  'laboratory-relocations-storage': '/images/services/laboratory-relocations-storage.webp',
+  'laboratory-relocations': '/images/services/laboratory-relocations-storage.webp',
+  'heritage-relocations-storage': '/images/services/heritage-relocations-storage.webp',
+  'heritage-relocations': '/images/services/heritage-relocations-storage.webp',
+  'europe-international-domestic-moves': '/images/services/europe-international-domestic-moves.webp',
+  'international-moves': '/images/services/europe-international-domestic-moves.webp',
+  'it-relocations-specialist': '/images/services/it-relocations-specialist.webp',
+  'it-relocations': '/images/services/it-relocations-specialist.webp',
+  'project-management': '/images/services/project-management.webp',
+};
+
+// Normalize service slug before matching
+const normalizedServiceSlug = (service.slug || '')
+  .toLowerCase()
+  .replace(/-(uk|services|services-uk)$/, '');
+
+// Resolve verified local webp about image with full alias fallback support
+const serviceAboutImage =
+  serviceAboutImages[cleanSlug] ||
+  serviceAboutImages[normalizedServiceSlug] ||
+  serviceAboutImages[service.slug?.toLowerCase() || ''] ||
+  (isSecureItDisposal ? '/images/services/secure-it-disposal.webp' : '') ||
+  (isSecureCollection ? '/images/services/secure-collection-services(!).webp' : '') ||
+  (isItad ? '/images/services/it-asset-disposition-services(1).webp' : '') ||
+  (isItam ? '/images/services/it-asset-tracking-services(1).webp' : '') ||
+  (isRemarketingRecycling ? '/images/services/remarketing-recycling.webp' : '') ||
+  (isHardDriveDestruction ? '/images/services/ultra-secure-hard-drive-destruction.webp' : '') ||
+  (isHomeShredding ? '/images/services/home-shredding.webp' : '') ||
+  (isOnsiteShredding ? '/images/services/on-site-shredding.webp' : '') ||
+  (isOffsiteShredding ? '/images/services/off-site-shredding.webp' : '') ||
+  (isProductShredding ? '/images/services/product-shredding.webp' : '') ||
+  (isSimplerRecycling ? '/images/services/simpler-recycling.webp' : '') ||
+  (isDisposalServices ? '/images/services/disposal-services.webp' : '') ||
+  (isCardboardRecycling ? '/images/services/cardboard-recycling.webp' : '') ||
+  (isDryMixedRecycling ? '/images/services/dry-mixed-recycling.webp' : '') ||
+  service.aboutImage ||
+  detail.aboutImage;
+
+---
+
+<BaseLayout
+  title={service.metaTitle || `${service.title} | Techsteps UK`}
+  description={service.metaDescription || service.summary}
+  canonicalUrl={canonicalUrl}
+  jsonLd={[serviceSchema, breadcrumbSchema]}
+  hasHeroHeader={true}
+>
+
+  <!-- ===================================================== -->
+  <!-- 1. HERO SECTION: Custom layout with image integrated  -->
+  <!-- ===================================================== -->
+  <div class="relative bg-white">
+    <!-- Keep the Navbar -->
+    <PageHero
+      
+      breadcrumbs={[]}
+      layout="custom"
+      showDivider={true}
+      dividerColor="#ffffff"
+      minHeight="min-h-[400px] sm:min-h-[450px] lg:min-h-[500px]"
+      noOverlay={true}
+      theme="light"
+      contained={true}
+    >
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <!-- HERO CONTENT (Left) -->
+        <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-0 z-10">
+
+
+          <!-- Breadcrumb Navigation -->
+          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
+            <a href={`/services/${requestedDivision || divisionPageSlug}`} class="text-slate-700 hover:text-[#0F623A] transition-colors underline-offset-4 hover:underline">
+              {service.divisionTitle} Services UK
+            </a>
+            <span class="text-[#0F623A] font-bold" aria-hidden="true">›</span>
+            <span class="text-slate-900 font-bold">{service.title}</span>
+          </nav>
+
+          <!-- Heading -->
+          <h1
+            class="font-display
+                   text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[54px]
+                   font-semibold
+                   text-slate-900
+                   tracking-normal
+                   leading-[1.12] sm:leading-[1.1]
+                   max-w-xl"
+          >
+            {detail.heroTitle}
+          </h1>
+
+          <!-- Short Description -->
+          <p
+            class="mt-4 sm:mt-5
+                   text-base sm:text-lg lg:text-[19px]
+                   text-black
+                   max-w-xl
+                   leading-relaxed
+                   font-sans font-normal"
+          >
+            {detail.heroDescription}
+          </p>
+
+          <!-- Primary CTA -->
+          <div class="mt-6 sm:mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href={`/request-a-collection?service=${encodeURIComponent(service.slug)}`}
+              class="inline-flex items-center justify-center
+                     gap-2.5
+                     px-7 sm:px-8
+                     py-3.5 sm:py-4
+                     rounded-[12px]
+                     bg-[#0F623A] hover:bg-[#0c4e2e]
+                     text-white
+                     text-base sm:text-lg
+                     font-bold
+                     shadow-md hover:shadow-lg
+                     transition-all duration-200
+                     hover:scale-[1.01]
+                     focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+            >
+              <span>Request a Collection</span>
+              <svg
+                class="w-5 h-5 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2.2"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+
+            <a
+              href="/contact"
+              class="inline-flex items-center justify-center
+                     px-6 py-3.5
+                     rounded-[12px]
+                     bg-white hover:bg-slate-50
+                     border border-slate-300
+                     text-slate-800 hover:text-black
+                     text-base
+                     font-semibold
+                     transition-colors duration-200"
+            >
+              Contact Specialist
+            </a>
+          </div>
+        </div>
+
+        <!-- HERO IMAGE (Right on Desktop, Below on Mobile) -->
+        <div class="flex lg:col-span-6 xl:col-span-6 items-center justify-center lg:justify-end relative z-0 mt-8 lg:mt-0">
+          <img 
+  src={heroBgImage} 
+  alt={detail.aboutImageAlt || service.title}
+  class="w-full max-w-[800px] h-auto object-contain select-none pointer-events-none mix-blend-multiply"
+/>
+        </div>
+      </div>
+    </PageHero>
+  </div>
+
+  <!-- ===================================================== -->
+  <!-- 2. INTRODUCTION SECTION: Split Image & Text Layout    -->
+  <!-- ===================================================== -->
+  <section class="bg-white py-0 lg:py-0 border-b border-slate-200/80">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        <!-- Left Side: Service Photo -->
+<!-- Left Side: Service Image -->
+<div class="lg:col-span-5">
+  <img
+    src={serviceAboutImage}
+    alt={detail.aboutImageAlt}
+    class="w-full h-[380px] sm:h-[440px] lg:h-[480px] object-cover object-center rounded-[20px]"
+    loading="eager"
+  />
+</div>
+
+        <!-- Right Side: Editorial Content with 3 Key Benefits -->
+        <div class="lg:col-span-7 space-y-6">
+          {/*<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono">
+            SERVICE OVERVIEW
+          </div>*/}
+
+          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-semibold text-slate-900 tracking-tight font-display leading-[1.14]">
+            {detail.aboutTitle}
+          </h2>
+
+          <p class="text-base sm:text-lg lg:text-[19px] text-black leading-relaxed font-normal text-justify">
+            {detail.aboutParagraphs[0] || "We deliver tailored, security-cleared operational solutions ensuring compliance, continuous data protection, and complete chain of custody across the UK."}
+          </p>
+
+          <!-- 3 Key Benefits with Circular Green Checkmarks -->
+          <div class="pt-3 space-y-3.5 border-t border-slate-100  text-justify">
+            {detail.aboutBullets.slice(0, 3).map((bullet) => (
+              <div class="flex items-start gap-3.5">
+                <div class="w-6 h-6 rounded-full bg-[#0F623A]/10 text-[#0F623A] flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span class="text-base sm:text-lg font-medium text-slate-900 leading-snug">
+                  {bullet}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===================================================== -->
+  <!-- 3. BENEFITS SECTION: Consolidated 3 Visual Cards      -->
+  <!-- ===================================================== -->
+  <section class="py-8 lg:py-12 bg-white border-b border-slate-200/80">
+    <Container>
+      <div class="max-w-3xl mb-2 sm:mb-12">
+        {/*<span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+          KEY ADVANTAGES
+        </span>*/}
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+          {service.deliversSection?.heading || "What the Service Delivers for Your Business"}
+        </h2>
+        <p class="mt-3 text-base sm:text-lg lg:text-[19px] text-black leading-relaxed font-normal">
+          {service.deliversSection?.description || "Consolidated risk reduction, streamlined operations, and certified documentation for total peace of mind."}
+        </p>
+      </div>
+
+      <!-- 3-Column Visual Benefit Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {consolidatedBenefits.map((benefit, idx) => (
+          <div class="bg-white rounded-[16px] border border-slate-200/90 p-7 sm:p-8 shadow-xs hover:border-[#0F623A]/40 hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10">
+                  {benefit.tag}
+                </span>
+                <span class="text-2xl font-mono font-bold text-slate-300">
+                  0{idx + 1}
+                </span>
+              </div>
+
+              <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 leading-snug">
+                {benefit.title}
+              </h3>
+
+              <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-sans">
+                {benefit.description}
+              </p>
+            </div>
+
+            <!-- Proof / Deliverable Note at bottom of card -->
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-start gap-2.5">
+              <svg class="w-4 h-4 text-[#0F623A] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-xs font-medium text-slate-600 leading-snug">
+                {benefit.deliverable}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===================================================== -->
+  <!-- 4. PROCESS SECTION: 4-Step Process with Clean Spacing -->
+  <!-- ===================================================== -->
+  <section class="py-8 lg:py-12 bg-white border-b border-slate-200/80">
+    <Container>
+      <div class="max-w-3xl mb-10 sm:mb-12">
+        {/*<span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+          HOW IT WORKS
+        </span>*/}
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+          {processTitle}
+        </h2>
+        <p class="mt-3 text-base sm:text-lg lg:text-[19px] text-black leading-relaxed font-normal">
+          {processSubtitle}
+        </p>
+      </div>
+
+      <!-- 4 Connected Process Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {processSteps.map((step, i) => {
+          const stepNum = String(i + 1).padStart(2, '0');
+          return (
+            <article class="rounded-[16px] border border-slate-200/90 bg-[#F8FAF9] p-6 sm:p-7 hover:border-[#0F623A]/40 hover:bg-white hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-5">
+                  <div class="w-10 h-10 rounded-[12px] bg-[#0F623A] text-white flex items-center justify-center font-mono font-bold text-sm shadow-xs">
+                    {stepNum}
+                  </div>
+                  <span class="text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A]">
+                    PHASE {stepNum}
+                  </span>
+                </div>
+
+                <h3 class="text-xl font-semibold text-slate-900 font-display mb-2.5 leading-snug">
+                  {step.title}
+                </h3>
+
+                <p class="text-sm sm:text-base text-slate-700 font-sans leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+
+              <div class="mt-6 pt-3.5 border-t border-slate-200/70 flex items-center justify-between">
+                <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Step {i + 1} of 4</span>
+                <span class="w-2 h-2 rounded-full bg-[#0F623A]"></span>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===================================================== -->
+  <!-- 5. TRUST & SECURITY: Premium Dark-Green Section       -->
+  <!-- ===================================================== -->
+  <section class="py-8 lg:py-12 bg-[#0A331E] relative overflow-hidden border-b border-emerald-950 text-white">
+    <Container>
+      <div class="max-w-3xl mb-10 sm:mb-12">
+        {/*<span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-widest font-mono mb-3">
+          SECURITY & TRUST
+        </span>*/}
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight font-display leading-[1.12]">
+          {service.securitySection?.heading || "Enterprise Security Built into Every Step"}
+        </h2>
+        <p class="mt-3 text-base sm:text-lg text-emerald-100/90 leading-relaxed font-sans font-normal max-w-2xl">
+          {service.securitySection?.description || "Rigorous vetting, certified information governance, and unbroken chain of custody protecting your assets nationwide."}
+        </p>
+      </div>
+
+      <!-- 4 Trust & Security Pillars -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div class="p-6 rounded-[16px] bg-white/[0.06] border border-white/10 hover:border-emerald-400/40 transition-colors space-y-3">
+          <div class="w-9 h-9 rounded-[8px] bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold font-mono text-sm">
+            01
+          </div>
+          <h3 class="text-lg font-semibold text-white font-display">
+            Vetted Logistics & Fleet
+          </h3>
+          <p class="text-sm text-emerald-100/80 leading-relaxed font-sans">
+            BS 7858 security-vetted drivers, dedicated GPS-tracked vehicles, panic alarms, and numbered tamper-evident seals.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-[16px] bg-white/[0.06] border border-white/10 hover:border-emerald-400/40 transition-colors space-y-3">
+          <div class="w-9 h-9 rounded-[8px] bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold font-mono text-sm">
+            02
+          </div>
+          <h3 class="text-lg font-semibold text-white font-display">
+            ISO 27001 & UK GDPR
+          </h3>
+          <p class="text-sm text-emerald-100/80 leading-relaxed font-sans">
+            Certified data handling controls, strict confidentiality agreements, and statutory compliance with UK data protection laws.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-[16px] bg-white/[0.06] border border-white/10 hover:border-emerald-400/40 transition-colors space-y-3">
+          <div class="w-9 h-9 rounded-[8px] bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold font-mono text-sm">
+            03
+          </div>
+          <h3 class="text-lg font-semibold text-white font-display">
+            Traceable Chain of Custody
+          </h3>
+          <p class="text-sm text-emerald-100/80 leading-relaxed font-sans">
+            Barcoded inventory intake, real-time tracking, and Blancco-sanitised / DIN 66399 particle destruction verification.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-[16px] bg-white/[0.06] border border-white/10 hover:border-emerald-400/40 transition-colors space-y-3">
+          <div class="w-9 h-9 rounded-[8px] bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-bold font-mono text-sm">
+            04
+          </div>
+          <h3 class="text-lg font-semibold text-white font-display">
+            Zero-Landfill ESG Defence
+          </h3>
+          <p class="text-sm text-emerald-100/80 leading-relaxed font-sans">
+            100% circular diversion pathways, Environment Agency AATF carrier licences, and full statutory waste transfer notes.
+          </p>
+        </div>
+      </div>
+
+      <!-- Governing Accreditations Strip -->
+      <div class="pt-8 border-t border-emerald-500/20 flex flex-wrap items-center justify-between gap-4">
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-300">
+          Governing Accreditations:
+        </span>
+        <div class="flex flex-wrap gap-2.5">
+          {['ISO 27001', 'ISO 9001', 'ISO 14001', 'BS 7858 Vetted', 'Cyber Essentials Plus', 'Crown Commercial Service'].map((std) => (
+            <span class="inline-flex items-center px-3 py-1 rounded-[8px] bg-white/10 border border-white/15 text-emerald-200 text-xs font-mono font-semibold">
+              {std}
+            </span>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===== 07 / INDUSTRIES / SECTORS ===== -->
+  <section class="py-8 lg:py-12 bg-white relative overflow-hidden border-b border-slate-200/80">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end mb-12 lg:mb-16">
+        <div class="lg:col-span-7">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+            {detail.businessNeedsTitle || "Industries We Support"}
+          </h2>
+        </div>
+        <div class="lg:col-span-5">
+          <p class="text-lg sm:text-xl text-black leading-relaxed font-sans font-normal">
+            {detail.businessNeedsSubtitle || "Tailored operational and compliance protocols designed for regulated UK sectors."}
+          </p>
+        </div>
+      </div>
+
+      <div class="needs-row">
+        {finalSectorCards.map((card, i) => (
+          <button
+            type="button"
+            data-needs-panel
+            aria-expanded={i === 0 ? 'true' : 'false'}
+            class:list={['needs-panel', 'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0F623A]', { 'is-active': i === 0 }]}
+          >
+            <img
+              src={card.image ?? sectorImages[card.icon] ?? sectorImages.business}
+              alt=""
+              loading="lazy"
+              class="np-img"
+            />
+            <span class="np-dim"></span>
+            <span class="np-fade"></span>
+
+            <span class="np-icon">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d={needsIconPaths[card.icon] ?? needsIconPaths.business} />
+              </svg>
+            </span>
+
+            <span class="np-vt font-display">{card.title}</span>
+
+            <span class="np-body">
+              <span class="np-title font-display">{card.title}</span>
+              <span class="np-desc font-sans">{card.description}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- ===================================================== -->
+  <!-- 7. CUSTOMER SUCCESS & FAQS                            -->
+  <!-- ===================================================== -->
+  <section class="py-8 lg:py-12 bg-white border-b border-slate-200/80">
+    <Container>
+      <!-- Optional Single Genuine Case Study -->
+      {matchingCaseStudy && (
+        <div class="mb-16">
+          <div class="rounded-[16px] border border-slate-200 bg-[#F8FAF9] p-8 sm:p-10 lg:p-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+              <div class="lg:col-span-7 space-y-5">
+                <span class="inline-block text-xs font-mono font-bold uppercase tracking-wider text-[#0F623A] px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/20">
+                  {matchingCaseStudy.clientIndustry || "Customer Success"}
+                </span>
+                <h3 class="text-2xl sm:text-3xl font-semibold text-slate-900 font-display leading-tight">
+                  {matchingCaseStudy.title}
+                </h3>
+                <div class="space-y-3 text-black font-sans leading-relaxed text-base sm:text-lg text-justify">
+                  <p><strong class="text-slate-900">Challenge:</strong> {matchingCaseStudy.challenge}</p>
+                  <p><strong class="text-slate-900">Solution:</strong> {matchingCaseStudy.solution}</p>
+                </div>
+                <div class="pt-2">
+                  <a
+                    href={`/case-studies/${matchingCaseStudy.slug}`}
+                    class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#0F623A] hover:text-[#0c4e2e] transition-colors"
+                  >
+                    Read Full Case Study →
+                  </a>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5 bg-white rounded-[12px] border border-slate-200/90 p-6 sm:p-7 space-y-3.5 shadow-xs">
+                <h4 class="text-xs font-mono font-bold uppercase tracking-widest text-[#0F623A]">
+                  Verified Project Results
+                </h4>
+                <ul class="space-y-3">
+                  {matchingCaseStudy.results?.map((result: string) => (
+                    <li class="flex items-start gap-3 text-sm sm:text-base text-slate-800 font-sans text-justify">
+                      <svg class="w-5 h-5 text-[#0F623A] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{result}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <!-- Frequently Asked Questions (4 to 6 concise questions) -->
+      {displayedFaqs.length > 0 && (
+        <div class="max-w-4xl mx-auto">
+          <div class="mb-10 text-center">
+            {/*<span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
+              COMMON QUESTIONS
+            </span>*/}
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
+              {detail.faqTitle || "Frequently Asked Questions"}
+            </h2>
+            <p class="mt-3 text-base sm:text-lg lg:text-[19px] text-black leading-relaxed font-normal">
+              {detail.faqSubtitle || "Clear answers about operational standards, accreditations, and UK delivery."}
+            </p>
+          </div>
+
+          <!-- Editorial FAQ List -->
+          <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
+            {displayedFaqs.map((faq: { question: string; answer: string }, idx: number) => {
+              const num = String(idx + 1).padStart(2, '0');
+              return (
+                <div class="py-7 sm:py-8 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-[12px]">
+                  <div class="flex items-baseline gap-3.5 mb-2">
+                    <span class="font-mono font-bold text-sm sm:text-base text-[#0F623A] shrink-0">
+                      {num}
+                    </span>
+                    <h3 class="text-lg sm:text-xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-snug">
+                      {faq.question}
+                    </h3>
+                  </div>
+                  <div class="pl-7 sm:pl-8">
+                    <p class="text-base sm:text-lg text-black leading-relaxed font-sans">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      <!-- Compact Row of Related Services -->
+      {relatedServices.length > 0 && (
+        <div class="mt-14 pt-10 border-t border-slate-200 max-w-4xl mx-auto">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-slate-500">
+              Related Services:
+            </span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            {relatedServices.map((rel) => (
+              <a
+                href={`/services/${rel.slug}`}
+                class="p-4 rounded-[16px] border border-slate-200/80 bg-[#F8FAF9] hover:bg-white hover:border-[#0F623A]/40 hover:shadow-sm transition-all text-left group"
+              >
+                <h4 class="text-sm font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors line-clamp-1">
+                  {rel.title}
+                </h4>
+                <p class="text-xs text-slate-600 line-clamp-1 mt-1">
+                  {rel.summary || `Specialist ${rel.title.toLowerCase()} service.`}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </Container>
+    <br />
+    <br />
+  </section>
+
+  <!-- ===================================================== -->
+  <!-- 8. FINAL CTA: Preserved Completely Unchanged           -->
+  <!-- ===================================================== -->
+  <CTA
+    title={`Need ${service.title} for Your Organisation?`}
+    description={`Speak with our specialist team to arrange a secure collection, request an on-site audit, or receive a formal proposal for ${service.title.toLowerCase()}.`}
+    primaryText="Request a Collection"
+    primaryHref={`/request-a-collection?service=${encodeURIComponent(service.slug)}`}
+    secondaryText="Contact Our Team"
+    secondaryHref="/contact"
+  />
+
+</BaseLayout>
+
+<style>
+  .needs-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .needs-panel {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #000;
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+    height: 88px;
+    transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .needs-panel.is-active {
+    height: 290px;
+  }
+
+  .np-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.12);
+    transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .needs-panel.is-active .np-img {
+    transform: scale(1);
+  }
+
+  /* Folded strips: dark layer so the vertical title is readable */
+/* Folded strips: slightly stronger dark overlay */
+.np-dim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.65);
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* Active panel: remove the full-image dark overlay */
+.needs-panel.is-active .np-dim {
+  opacity: 0;
+}
+
+/* Active panel: remove the full-image dark overlay */
+.needs-panel.is-active .np-dim {
+  opacity: 0;
+}
+
+/* Default: no text-area overlay */
+.np-fade {
+  position: absolute;
+  inset: auto 0 0;
+  height: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.65) 55%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0;
+  transition:
+    height 0.5s ease,
+    opacity 0.5s ease;
+}
+
+/* Active / hovered panel: gradient behind the text only */
+.needs-panel.is-active .np-fade {
+  height: 65%;
+  opacity: 1;
+}
+/* Show the text overlay when hovering over a panel */
+.needs-panel:hover .np-fade {
+  height: 65%;
+  opacity: 1;
+}
+
+/* Keep the image clear when the panel is closed */
+.needs-panel:not(.is-active) .np-img {
+  filter: none;
+}
+
+/* Smooth image zoom on hover */
+.needs-panel:hover .np-img {
+  transform: scale(1.04);
+}
+
+  .np-icon {
+    position: absolute;
+    top: 22px;
+    left: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Soft text shadow keeps the words readable on the photo */
+  .np-vt,
+  .np-title,
+  .np-desc {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55), 0 2px 14px rgba(0, 0, 0, 0.45);
+  }
+
+  .np-vt {
+    position: absolute;
+    top: 32px;
+    left: 80px;
+    right: 20px;
+    font-size: 1.125rem;
+    line-height: 1.2;
+  }
+
+  .np-body {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 96px;
+    display: block;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .needs-panel.is-active .np-body {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.2s;
+  }
+  .np-title {
+    display: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 0.625rem;
+  }
+  .np-desc {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: #fff;
+  }
+
+  @media (min-width: 1024px) {
+    .needs-row {
+      flex-direction: row;
+      height: 460px;
+    }
+
+    .needs-panel {
+      height: auto;
+      flex: 1 1 0%;
+      min-width: 0;
+      transition: flex-grow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .needs-panel.is-active {
+      height: auto;
+      flex-grow: 5;
+    }
+
+    .np-icon {
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .needs-panel.is-active .np-icon {
+      left: 24px;
+      transform: translateX(0);
+    }
+
+    .np-vt {
+      position: absolute;
+      top: 88px;
+      left: 50%;
+      right: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      writing-mode: vertical-rl;
+      white-space: nowrap;
+      transform: translateX(-50%);
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.2;
+      transition: opacity 0.25s ease;
+    }
+
+    .needs-panel.is-active .np-vt {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .np-body {
+      top: auto;
+      bottom: 28px;
+      left: 24px;
+      right: auto;
+      width: 380px;
+      max-width: calc(100% - 48px);
+    }
+    .np-title {
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .needs-panel,
+    .np-img,
+    .np-icon,
+    .np-vt,
+    .np-body {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  function initNeedsPanels() {
+    const needsPanels =
+      document.querySelectorAll<HTMLElement>('[data-needs-panel]');
+
+    if (!needsPanels.length) return;
+
+    function activateNeeds(target: HTMLElement) {
+      needsPanels.forEach((panel) => {
+        const isActive = panel === target;
+
+        panel.classList.toggle('is-active', isActive);
+        panel.setAttribute('aria-expanded', String(isActive));
+      });
+    }
+
+    needsPanels.forEach((panel) => {
+      if (panel.dataset.needsInitialized === 'true') return;
+      panel.dataset.needsInitialized = 'true';
+
+      panel.addEventListener('mouseenter', () => {
+        activateNeeds(panel);
+      });
+
+      panel.addEventListener('focus', () => {
+        activateNeeds(panel);
+      });
+
+      panel.addEventListener('click', () => {
+        activateNeeds(panel);
+      });
+    });
+  }
+
+  initNeedsPanels();
+  document.addEventListener('astro:page-load', initNeedsPanels);
+</script>

@@ -50,8 +50,13 @@ export default defineConfig({
 
         // For service dynamic routes...
         if (path.startsWith('/services/')) {
-          const slug = path.replace('/services/', '');
-          if (slug.endsWith('-services-uk') || slug.endsWith('-services-services') || slug.endsWith('-uk-services')) {
+          const servicePart = path.replace('/services/', '');
+          if (
+            servicePart.endsWith('-services-uk') ||
+            servicePart.endsWith('-services-services') ||
+            servicePart.endsWith('-uk-services') ||
+            servicePart.endsWith('-uk')
+          ) {
             return false;
           }
         }
@@ -72,7 +77,14 @@ export default defineConfig({
         if (path === '' || path === '/') {
           item.changefreq = EnumChangefreq.DAILY;
           item.priority = 1.0;
-        } else if (path.startsWith('/services') || path.startsWith('/sectors')) {
+        } else if (
+          path.startsWith('/services') ||
+          path.startsWith('/sectors') ||
+          path === '/information-management' ||
+          path === '/it-lifecycle-services-destruction' ||
+          path === '/secure-shredding-document-integrity' ||
+          path === '/moving-relocation-services'
+        ) {
           item.changefreq = EnumChangefreq.WEEKLY;
           item.priority = 0.9;
         } else if (path.startsWith('/insights') || path.startsWith('/case-studies')) {
