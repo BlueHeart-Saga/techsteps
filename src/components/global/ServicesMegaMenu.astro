@@ -15,11 +15,13 @@
  */
 
 import { getDivisions, getServices } from '../../lib/sanity/client';
+import { getServiceSeoSlug } from '../../lib/routeHelpers';
 
 const [divisionsData, servicesData] = await Promise.all([
   getDivisions().catch(() => []),
   getServices().catch(() => []),
 ]);
+
 
 const defaultPillars = [
   {
@@ -210,12 +212,13 @@ const defaultPillar = servicePillars.find(p => p.id === defaultActiveId) || serv
               >
                 <div class="services-submenu grid grid-cols-1 md:grid-cols-2 gap-x-6 lg:gap-x-8 xl:gap-x-10 gap-y-3 lg:gap-y-3.5">
                   {pillar.subLinks.map((link) => {
-                    const subSlug = link.slug.endsWith('-services') ? link.slug : `${link.slug}-services`;
+                    const subSlug = getServiceSeoSlug(link.slug);
                     return (
                       <a
                         href={`/services/${pillar.slug}/${subSlug}`}
                         class="service-link group flex flex-col justify-start py-0.5 text-[#1E293B] hover:text-[#0F623A] transition-colors duration-150 cursor-pointer"
                       >
+
                         <span class="text-[14.5px] lg:text-[15px] font-medium leading-normal whitespace-nowrap group-hover:text-[#0F623A] transition-colors">
                           {link.name}
                         </span>
