@@ -74,61 +74,55 @@ export default defineConfig({
           return false;
         }
 
-        // Canonical services filtering
+        // Canonical services filtering (/services/[slug])
         if (path.startsWith('/services/')) {
           const parts = path.split('/').filter(Boolean); // ['services', ...]
-          
-          // Exclude flat legacy aliases: /services/[slug] (canonical is /services/[division]/[slug])
+
+          // Canonical service routes: /services/[serviceSlug]
           if (parts.length === 2) {
-            return false;
+            const serviceSlug = parts[1];
+
+            const canonicalServiceSlugs = new Set([
+              // Information Management
+              'document-storage',
+              'tape-media-storage',
+              'heritage-storage',
+              'vault-storage',
+              'document-scanning',
+              'digital-mailroom',
+              'document-management',
+
+              // IT Lifecycle Services & Destruction
+              'secure-it-disposal',
+              'secure-collection-services',
+              'it-asset-disposition-services',
+              'it-asset-tracking-services',
+              'remarketing-recycling',
+              'ultra-secure-hard-drive-destruction',
+
+              // Secure Shredding & Document Integrity
+              'home-shredding',
+              'on-site-shredding',
+              'off-site-shredding',
+              'product-shredding',
+              'simpler-recycling-services',
+              'disposal-services',
+              'cardboard-recycling',
+              'dry-mixed-recycling',
+
+              // Moving & Relocation Services
+              'business-relocations',
+              'laboratory-relocations-storage',
+              'heritage-relocations-storage',
+              'europe-international-domestic-moves',
+              'it-relocations-specialist',
+              'project-management',
+            ]);
+
+            return canonicalServiceSlugs.has(serviceSlug);
           }
 
-          // Hierarchical service routes: /services/[division]/[slug]
-          if (parts.length === 3) {
-            const division = parts[1];
-            const serviceSlug = parts[2];
-
-            const divisionServiceMap = {
-              'information-management': new Set([
-                'document-storage',
-                'tape-media-storage',
-                'heritage-storage',
-                'vault-storage',
-                'document-scanning',
-                'digital-mailroom',
-                'document-management',
-              ]),
-              'it-lifecycle-services-destruction': new Set([
-                'secure-it-disposal',
-                'secure-collection-services',
-                'it-asset-disposition-services',
-                'it-asset-tracking-services',
-                'remarketing-recycling',
-                'ultra-secure-hard-drive-destruction',
-              ]),
-              'secure-shredding-document-integrity': new Set([
-                'home-shredding',
-                'on-site-shredding',
-                'off-site-shredding',
-                'product-shredding',
-                'simpler-recycling-services',
-                'disposal-services',
-                'cardboard-recycling',
-                'dry-mixed-recycling',
-              ]),
-              'moving-relocation-services': new Set([
-                'business-relocations',
-                'laboratory-relocations-storage',
-                'heritage-relocations-storage',
-                'europe-international-domestic-moves',
-                'it-relocations-specialist',
-                'project-management',
-              ]),
-            };
-
-            return divisionServiceMap[division]?.has(serviceSlug) ?? false;
-          }
-
+          // Exclude hierarchical aliases from sitemap since /services/[slug] is canonical
           return false;
         }
 

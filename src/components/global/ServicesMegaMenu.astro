@@ -218,7 +218,7 @@ const defaultPillar = servicePillars.find(p => p.id === defaultActiveId) || serv
                     const subSlug = getServiceCanonicalSlug(link.slug);
                     return (
                       <a
-                        href={`/services/${pillar.slug}/${subSlug}`}
+                        href={`/services/${subSlug}`}
                         class="service-link group flex flex-col justify-start py-0.5 text-[#1E293B] hover:text-[#0F623A] transition-colors duration-150 cursor-pointer"
                       >
 

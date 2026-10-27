@@ -138,10 +138,17 @@ const currentYear = new Date().getFullYear();
           <ul class="space-y-3 text-[14px]">
             {(siteSettings.footerServices || []).map((link, idx) => {
               const isLast = idx === (siteSettings.footerServices?.length || 0) - 1;
+              let targetUrl = link.url;
+              if (targetUrl?.startsWith('/services/')) {
+                const parts = targetUrl.split('/').filter(Boolean);
+                if (parts.length === 3) {
+                  targetUrl = `/services/${parts[2]}`;
+                }
+              }
               return (
                 <li class={isLast ? 'pt-1.5' : ''}>
                   <a
-                    href={link.url}
+                    href={targetUrl}
                     target={link.openInNewTab ? '_blank' : undefined}
                     rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
                     class={isLast

@@ -72,7 +72,7 @@ const clr = divisionAccent[service.divisionSlug] ?? {
 
 const divisionPageSlug = requestedDivision || service.divisionSlug;
 const canonicalSlug = getServiceCanonicalSlug(service.slug);
-const canonicalUrl = `https://techsteps.co.uk/services/${service.divisionSlug}/${canonicalSlug}`;
+const canonicalUrl = `https://techsteps.co.uk/services/${canonicalSlug}`;
 
 // Tailored service detail content with direct Sanity CMS precedence
 const fallbackDetail = getServiceDetailContent(service.slug, service);
@@ -107,7 +107,7 @@ const serviceSchema = generateServiceSchema(service, siteSettings, Astro.site?.o
 const breadcrumbSchema = generateBreadcrumbSchema([
   { name: 'Services', url: '/services' },
   { name: service.divisionTitle, url: `/services/${divisionPageSlug}` },
-  { name: service.title, url: `/services/${divisionPageSlug}/${requestedSlug}` },
+  { name: service.title, url: `/services/${canonicalSlug}` },
 ], Astro.site?.origin || 'https://techsteps.co.uk');
 
 // Identify light-background hero pages matching Home Hero style
