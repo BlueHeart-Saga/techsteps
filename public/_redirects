@@ -16,3 +16,7 @@
 # Legacy WordPress admin/content suppression
 /wp-login.php     /404              404
 /wp-admin/*       /404              404
+
+# Sitemap resolution
+/sitemap.xml      /sitemap-index.xml  200
+

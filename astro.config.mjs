@@ -44,34 +44,127 @@ export default defineConfig({
     }),
     sitemap({
       filter: (page) => {
-        const path = page.replace(productionSite, '').replace('https://techsteps.co.uk', '');
-        // Exclude 404 error page, admin studio, and legacy /terms alias
-        if (path === '/404' || path === '/terms' || path.startsWith('/admin')) return false;
+        const rawPath = page.replace(productionSite, '').replace('https://techsteps.co.uk', '');
+        const path = rawPath.replace(/\/$/, '') || '/';
 
-        // For service dynamic routes...
-        if (path.startsWith('/services/')) {
-          const servicePart = path.replace('/services/', '');
-          if (
-            servicePart.endsWith('-services-uk') ||
-            servicePart.endsWith('-services-services') ||
-            servicePart.endsWith('-uk-services') ||
-            servicePart.endsWith('-uk')
-          ) {
-            return false;
-          }
+        // Exclude system/studio, 404, sitemaps themselves, and non-canonical redirect aliases
+        const excludedExactPaths = new Set([
+          '/404',
+          '/terms',
+          '/cta-preview',
+          '/cta-preview.html',
+          '/certifications-accreditations',
+          '/partners-associations',
+          '/our-people-culture',
+          '/people-culture',
+          '/request-a-collection',
+          '/sitemap.xml',
+          '/sitemap-index.xml',
+          // Exclude single-level division aliases under /services/ (canonical division hubs are at root /information-management etc.)
+          '/services/information-management',
+          '/services/it-lifecycle',
+          '/services/it-lifecycle-services-destruction',
+          '/services/moving-relocation-services',
+          '/services/relocation',
+          '/services/secure-destruction',
+          '/services/secure-shredding-document-integrity',
+        ]);
+
+        if (excludedExactPaths.has(path) || path.startsWith('/admin') || path.startsWith('/studio')) {
+          return false;
         }
 
-        // For insights dynamic routes...
-        if (path.startsWith('/insights/') && path.split('/').length > 3) {
-          const parts = path.split('/');
-          const postSlug = parts[parts.length - 1];
-          if (/^[a-f0-9]{24}$/i.test(postSlug)) {
+        // Canonical services filtering
+        if (path.startsWith('/services/')) {
+          const parts = path.split('/').filter(Boolean); // ['services', ...]
+          
+          // Exclude flat legacy aliases: /services/[slug] (canonical is /services/[division]/[slug])
+          if (parts.length === 2) {
             return false;
           }
+
+          // Hierarchical service routes: /services/[division]/[slug]
+          if (parts.length === 3) {
+            const division = parts[1];
+            const serviceSlug = parts[2];
+
+            const canonicalDivisions = new Set([
+              'information-management',
+              'it-lifecycle-services-destruction',
+              'secure-shredding-document-integrity',
+              'moving-relocation-services',
+            ]);
+
+            if (!canonicalDivisions.has(division)) {
+              return false;
+            }
+
+            // Legacy alias for it-asset-tracking-services
+            if (serviceSlug.startsWith('it-asset-management')) {
+              return false;
+            }
+
+            // Must end with -services and avoid duplicate -services-uk etc.
+            if (
+              !serviceSlug.endsWith('-services') ||
+              serviceSlug.endsWith('-services-uk') ||
+              serviceSlug.endsWith('-services-services') ||
+              serviceSlug.endsWith('-uk-services') ||
+              serviceSlug.endsWith('-uk')
+            ) {
+              return false;
+            }
+
+            return true;
+          }
+
+          return false;
+        }
+
+        // Canonical insights filtering
+        if (path.startsWith('/insights/')) {
+          const parts = path.split('/').filter(Boolean); // ['insights', ...]
+
+          const validInsightCategories = new Set([
+            'blogs',
+            'case-studies',
+            'community',
+            'awards-milestones',
+            'company-announcements',
+            'impact-metrics',
+            'achievements',
+          ]);
+
+          // Level 1: /insights/[param]
+          if (parts.length === 2) {
+            const catSlug = parts[1];
+            // Only keep real category archive pages; exclude single-level post redirects
+            return validInsightCategories.has(catSlug);
+          }
+
+          // Level 2: /insights/[category]/[postSlug]
+          if (parts.length === 3) {
+            const catSlug = parts[1];
+            const postSlug = parts[2];
+
+            if (!validInsightCategories.has(catSlug)) {
+              return false;
+            }
+
+            // Exclude raw 24-hex-char MongoDB ObjectIDs
+            if (/^[a-f0-9]{24}$/i.test(postSlug)) {
+              return false;
+            }
+
+            return true;
+          }
+
+          return false;
         }
 
         return true;
       },
+
       serialize(item) {
         const path = item.url.replace(productionSite, '').replace('https://techsteps.co.uk', '');
         if (path === '' || path === '/') {
