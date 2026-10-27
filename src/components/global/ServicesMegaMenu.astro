@@ -15,7 +15,7 @@
  */
 
 import { getDivisions, getServices } from '../../lib/sanity/client';
-import { getServiceSeoSlug } from '../../lib/routeHelpers';
+import { getServiceCanonicalSlug } from '../../lib/routeHelpers';
 
 const [divisionsData, servicesData] = await Promise.all([
   getDivisions().catch(() => []),
@@ -96,9 +96,12 @@ const servicePillars = defaultPillars.map((pillar) => {
   const subLinks = (divServices && divServices.length > 0)
     ? divServices.map((s: any) => ({
         name: s.title,
-        slug: s.slug,
+        slug: getServiceCanonicalSlug(s.slug),
       }))
-    : pillar.subLinks;
+    : pillar.subLinks.map((s: any) => ({
+        name: s.name,
+        slug: getServiceCanonicalSlug(s.slug),
+      }));
 
   return {
     ...pillar,
@@ -212,7 +215,7 @@ const defaultPillar = servicePillars.find(p => p.id === defaultActiveId) || serv
               >
                 <div class="services-submenu grid grid-cols-1 md:grid-cols-2 gap-x-6 lg:gap-x-8 xl:gap-x-10 gap-y-3 lg:gap-y-3.5">
                   {pillar.subLinks.map((link) => {
-                    const subSlug = getServiceSeoSlug(link.slug);
+                    const subSlug = getServiceCanonicalSlug(link.slug);
                     return (
                       <a
                         href={`/services/${pillar.slug}/${subSlug}`}

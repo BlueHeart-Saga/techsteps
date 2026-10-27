@@ -88,34 +88,45 @@ export default defineConfig({
             const division = parts[1];
             const serviceSlug = parts[2];
 
-            const canonicalDivisions = new Set([
-              'information-management',
-              'it-lifecycle-services-destruction',
-              'secure-shredding-document-integrity',
-              'moving-relocation-services',
-            ]);
+            const divisionServiceMap = {
+              'information-management': new Set([
+                'document-storage',
+                'tape-media-storage',
+                'heritage-storage',
+                'vault-storage',
+                'document-scanning',
+                'digital-mailroom',
+                'document-management',
+              ]),
+              'it-lifecycle-services-destruction': new Set([
+                'secure-it-disposal',
+                'secure-collection-services',
+                'it-asset-disposition-services',
+                'it-asset-tracking-services',
+                'remarketing-recycling',
+                'ultra-secure-hard-drive-destruction',
+              ]),
+              'secure-shredding-document-integrity': new Set([
+                'home-shredding',
+                'on-site-shredding',
+                'off-site-shredding',
+                'product-shredding',
+                'simpler-recycling-services',
+                'disposal-services',
+                'cardboard-recycling',
+                'dry-mixed-recycling',
+              ]),
+              'moving-relocation-services': new Set([
+                'business-relocations',
+                'laboratory-relocations-storage',
+                'heritage-relocations-storage',
+                'europe-international-domestic-moves',
+                'it-relocations-specialist',
+                'project-management',
+              ]),
+            };
 
-            if (!canonicalDivisions.has(division)) {
-              return false;
-            }
-
-            // Legacy alias for it-asset-tracking-services
-            if (serviceSlug.startsWith('it-asset-management')) {
-              return false;
-            }
-
-            // Must end with -services and avoid duplicate -services-uk etc.
-            if (
-              !serviceSlug.endsWith('-services') ||
-              serviceSlug.endsWith('-services-uk') ||
-              serviceSlug.endsWith('-services-services') ||
-              serviceSlug.endsWith('-uk-services') ||
-              serviceSlug.endsWith('-uk')
-            ) {
-              return false;
-            }
-
-            return true;
+            return divisionServiceMap[division]?.has(serviceSlug) ?? false;
           }
 
           return false;

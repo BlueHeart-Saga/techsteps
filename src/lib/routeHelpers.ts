@@ -45,6 +45,165 @@ export function isValidService(value: unknown): value is Service {
   );
 }
 
+/**
+ * Clean canonical service slug mapping.
+ * Avoids dynamic suffix appending and eliminates repeated/irrelevant words.
+ */
+export const CANONICAL_SERVICE_SLUGS: Record<string, string> = {
+  // Information Management
+  'digital-mailroom': 'digital-mailroom',
+  'digital-mailroom-services': 'digital-mailroom',
+  'digital-mailroom-services-uk': 'digital-mailroom',
+  'digital-mailroom-uk': 'digital-mailroom',
+
+  'document-management': 'document-management',
+  'document-management-services': 'document-management',
+  'document-management-services-uk': 'document-management',
+  'document-management-uk': 'document-management',
+
+  'document-scanning': 'document-scanning',
+  'document-scanning-services': 'document-scanning',
+  'document-scanning-services-uk': 'document-scanning',
+  'document-scanning-uk': 'document-scanning',
+
+  'document-storage': 'document-storage',
+  'document-storage-services': 'document-storage',
+  'document-storage-services-uk': 'document-storage',
+  'document-storage-uk': 'document-storage',
+
+  'heritage-storage': 'heritage-storage',
+  'heritage-storage-services': 'heritage-storage',
+  'heritage-storage-services-uk': 'heritage-storage',
+  'heritage-storage-uk': 'heritage-storage',
+
+  'tape-media-storage': 'tape-media-storage',
+  'tape-storage': 'tape-media-storage',
+  'tape-media-storage-services': 'tape-media-storage',
+  'tape-media-storage-services-uk': 'tape-media-storage',
+  'tape-media-storage-uk': 'tape-media-storage',
+
+  'vault-storage': 'vault-storage',
+  'vault-storage-services': 'vault-storage',
+  'vault-storage-services-uk': 'vault-storage',
+  'vault-storage-uk': 'vault-storage',
+
+  // IT Lifecycle Services & Destruction
+  'it-asset-disposition-services': 'it-asset-disposition-services',
+  'it-asset-disposition': 'it-asset-disposition-services',
+  'it-asset-disposition-services-uk': 'it-asset-disposition-services',
+  'itad': 'it-asset-disposition-services',
+
+  'it-asset-tracking-services': 'it-asset-tracking-services',
+  'it-asset-tracking': 'it-asset-tracking-services',
+  'it-asset-tracking-services-uk': 'it-asset-tracking-services',
+  'it-asset-management-services': 'it-asset-tracking-services',
+  'it-asset-management': 'it-asset-tracking-services',
+  'itam': 'it-asset-tracking-services',
+  'itat': 'it-asset-tracking-services',
+
+  'remarketing-recycling': 'remarketing-recycling',
+  'remarketing-recycling-services': 'remarketing-recycling',
+  'remarketing-recycling-services-uk': 'remarketing-recycling',
+  'remarketing': 'remarketing-recycling',
+
+  'secure-collection-services': 'secure-collection-services',
+  'secure-collection': 'secure-collection-services',
+  'secure-collection-services-uk': 'secure-collection-services',
+
+  'secure-it-disposal': 'secure-it-disposal',
+  'secure-it-disposal-services': 'secure-it-disposal',
+  'secure-it-disposal-services-uk': 'secure-it-disposal',
+  'it-disposal': 'secure-it-disposal',
+
+  'ultra-secure-hard-drive-destruction': 'ultra-secure-hard-drive-destruction',
+  'ultra-secure-hard-drive-destruction-services': 'ultra-secure-hard-drive-destruction',
+  'hard-drive-destruction': 'ultra-secure-hard-drive-destruction',
+  'hard-drive-destruction-services': 'ultra-secure-hard-drive-destruction',
+
+  // Secure Shredding & Document Integrity
+  'cardboard-recycling': 'cardboard-recycling',
+  'cardboard-recycling-services': 'cardboard-recycling',
+  'cardboard-recycling-services-uk': 'cardboard-recycling',
+
+  'disposal-services': 'disposal-services',
+  'disposal': 'disposal-services',
+  'disposal-services-uk': 'disposal-services',
+
+  'dry-mixed-recycling': 'dry-mixed-recycling',
+  'dry-mixed-recycling-services': 'dry-mixed-recycling',
+  'dry-mixed-recycling-services-uk': 'dry-mixed-recycling',
+  'dmr': 'dry-mixed-recycling',
+
+  'home-shredding': 'home-shredding',
+  'home-shredding-services': 'home-shredding',
+  'home-shredding-services-uk': 'home-shredding',
+
+  'off-site-shredding': 'off-site-shredding',
+  'off-site-shredding-services': 'off-site-shredding',
+  'off-site-shredding-services-uk': 'off-site-shredding',
+  'offsite-shredding': 'off-site-shredding',
+
+  'on-site-shredding': 'on-site-shredding',
+  'on-site-shredding-services': 'on-site-shredding',
+  'on-site-shredding-services-uk': 'on-site-shredding',
+  'onsite-shredding': 'on-site-shredding',
+
+  'product-shredding': 'product-shredding',
+  'product-shredding-services': 'product-shredding',
+  'product-shredding-services-uk': 'product-shredding',
+
+  'simpler-recycling-services': 'simpler-recycling-services',
+  'simpler-recycling': 'simpler-recycling-services',
+  'simpler-recycling-services-uk': 'simpler-recycling-services',
+
+  // Moving & Relocation Services
+  'business-relocations': 'business-relocations',
+  'business-relocations-services': 'business-relocations',
+  'business-relocations-services-uk': 'business-relocations',
+
+  'europe-international-domestic-moves': 'europe-international-domestic-moves',
+  'europe-international-domestic-moves-services': 'europe-international-domestic-moves',
+  'international-moves': 'europe-international-domestic-moves',
+  'domestic-moves': 'europe-international-domestic-moves',
+
+  'heritage-relocations-storage': 'heritage-relocations-storage',
+  'heritage-relocations': 'heritage-relocations-storage',
+  'heritage-relocations-storage-services': 'heritage-relocations-storage',
+
+  'it-relocations-specialist': 'it-relocations-specialist',
+  'it-relocations': 'it-relocations-specialist',
+  'it-relocations-specialist-services': 'it-relocations-specialist',
+
+  'laboratory-relocations-storage': 'laboratory-relocations-storage',
+  'laboratory-relocations': 'laboratory-relocations-storage',
+  'laboratory-relocations-storage-services': 'laboratory-relocations-storage',
+
+  'project-management': 'project-management',
+  'project-management-services': 'project-management',
+  'project-management-services-uk': 'project-management',
+};
+
+export function getServiceCanonicalSlug(slug: unknown): string {
+  const clean = normalizeRouteSlug(slug);
+  if (CANONICAL_SERVICE_SLUGS[clean]) {
+    return CANONICAL_SERVICE_SLUGS[clean];
+  }
+  // Strip trailing -uk, -services-uk, -services-services
+  const withoutUk = clean.replace(/-services-uk$/, '-services').replace(/-uk$/, '');
+  if (CANONICAL_SERVICE_SLUGS[withoutUk]) {
+    return CANONICAL_SERVICE_SLUGS[withoutUk];
+  }
+  const withoutServices = withoutUk.replace(/-services$/, '');
+  if (CANONICAL_SERVICE_SLUGS[withoutServices]) {
+    return CANONICAL_SERVICE_SLUGS[withoutServices];
+  }
+  return clean;
+}
+
+export function getServiceSeoSlug(slug: unknown): string {
+  return getServiceCanonicalSlug(slug);
+}
+
 export function buildServicePaths(records: unknown) {
   const paths: { params: { slug: string }; props: { service: Service } }[] = [];
   const registeredSlugs = new Set<string>();
@@ -62,10 +221,10 @@ export function buildServicePaths(records: unknown) {
   const allServices = Array.isArray(records) ? records.filter(isValidService) : [];
 
   for (const service of allServices) {
-    // Primary route
+    const canonicalSlug = getServiceCanonicalSlug(service.slug);
+    register(canonicalSlug, service);
     register(service.slug, service);
 
-    // Variations: -uk, -services, -services-uk
     const withoutUk = service.slug.endsWith('-uk') ? service.slug.replace(/-uk$/, '') : service.slug;
     const withoutServices = withoutUk.replace(/-services$/, '');
 
@@ -76,7 +235,6 @@ export function buildServicePaths(records: unknown) {
     register(`${withoutServices}-services-uk`, service);
     register(`${withoutServices}-uk`, service);
 
-    // Match against fallback services to ensure menu slugs resolve
     const fallbackMatch = fallbackServices.find((f) => {
       if (!isValidService(f)) return false;
       return (
@@ -86,9 +244,10 @@ export function buildServicePaths(records: unknown) {
       );
     });
     if (fallbackMatch?.slug) {
+      register(getServiceCanonicalSlug(fallbackMatch.slug), service);
+      register(fallbackMatch.slug, service);
       const fbWithoutUk = fallbackMatch.slug.replace(/-uk$/, '');
       const fbWithoutServices = fbWithoutUk.replace(/-services$/, '');
-      register(fallbackMatch.slug, service);
       register(fbWithoutUk, service);
       register(`${fbWithoutUk}-uk`, service);
       register(fbWithoutServices, service);
@@ -96,12 +255,12 @@ export function buildServicePaths(records: unknown) {
     }
   }
 
-  // Ensure any fallback service not present in Sanity is also reachable
   for (const fallback of fallbackServices) {
     if (isValidService(fallback)) {
+      register(getServiceCanonicalSlug(fallback.slug), fallback);
+      register(fallback.slug, fallback);
       const fbWithoutUk = fallback.slug.replace(/-uk$/, '');
       const fbWithoutServices = fbWithoutUk.replace(/-services$/, '');
-      register(fallback.slug, fallback);
       register(fbWithoutUk, fallback);
       register(`${fbWithoutUk}-uk`, fallback);
       register(fbWithoutServices, fallback);
@@ -131,15 +290,6 @@ export const REVERSE_DIVISION_MAP: Record<string, string> = {
   'moving-relocation': 'moving-relocation-services',
 };
 
-export function getServiceSeoSlug(slug: unknown): string {
-  const clean = normalizeRouteSlug(slug);
-  const withoutUk = clean.endsWith('-uk') ? clean.replace(/-uk$/, '') : clean;
-  if (withoutUk.endsWith('-services')) {
-    return withoutUk;
-  }
-  return `${withoutUk}-services`;
-}
-
 export function buildHierarchicalServicePaths(records: unknown) {
   const paths: { params: { division: string; slug: string }; props: { service: Service } }[] = [];
   const registered = new Set<string>();
@@ -164,12 +314,14 @@ export function buildHierarchicalServicePaths(records: unknown) {
     const canonicalDiv = normalizeRouteSlug(service.divisionSlug);
     const divVariants = DIVISION_ALIASES[canonicalDiv] || [canonicalDiv];
 
+    const canonicalSlug = getServiceCanonicalSlug(service.slug);
     const rawSlug = normalizeRouteSlug(service.slug);
     const withoutUk = rawSlug.endsWith('-uk') ? rawSlug.replace(/-uk$/, '') : rawSlug;
     const withoutServices = withoutUk.replace(/-services$/, '');
     const withServices = `${withoutServices}-services`;
 
     const slugVariants = [
+      canonicalSlug,
       rawSlug,
       withServices,
       withoutServices,
@@ -183,7 +335,6 @@ export function buildHierarchicalServicePaths(records: unknown) {
       }
     }
 
-    // Match fallback service if exists
     const fallbackMatch = fallbackServices.find((f) => {
       if (!isValidService(f)) return false;
       return (
@@ -194,12 +345,14 @@ export function buildHierarchicalServicePaths(records: unknown) {
     });
     if (fallbackMatch?.slug) {
       const fbRaw = normalizeRouteSlug(fallbackMatch.slug);
+      const fbCanonical = getServiceCanonicalSlug(fallbackMatch.slug);
       const fbWithoutUk = fbRaw.endsWith('-uk') ? fbRaw.replace(/-uk$/, '') : fbRaw;
       const fbWithoutServices = fbWithoutUk.replace(/-services$/, '');
       const fbWithServices = `${fbWithoutServices}-services`;
       const fbDivVariants = DIVISION_ALIASES[normalizeRouteSlug(fallbackMatch.divisionSlug)] || divVariants;
 
       for (const div of fbDivVariants) {
+        register(div, fbCanonical, service);
         register(div, fbRaw, service);
         register(div, fbWithServices, service);
         register(div, fbWithoutServices, service);
@@ -207,16 +360,17 @@ export function buildHierarchicalServicePaths(records: unknown) {
     }
   }
 
-  // Ensure any fallback service not present in Sanity is also reachable
   for (const fallback of fallbackServices) {
     if (isValidService(fallback)) {
       const fbDivVariants = DIVISION_ALIASES[normalizeRouteSlug(fallback.divisionSlug)] || [normalizeRouteSlug(fallback.divisionSlug)];
+      const fbCanonical = getServiceCanonicalSlug(fallback.slug);
       const fbRaw = normalizeRouteSlug(fallback.slug);
       const fbWithoutUk = fbRaw.endsWith('-uk') ? fbRaw.replace(/-uk$/, '') : fbRaw;
       const fbWithoutServices = fbWithoutUk.replace(/-services$/, '');
       const fbWithServices = `${fbWithoutServices}-services`;
 
       for (const div of fbDivVariants) {
+        register(div, fbCanonical, fallback);
         register(div, fbRaw, fallback);
         register(div, fbWithServices, fallback);
         register(div, fbWithoutServices, fallback);
@@ -226,4 +380,3 @@ export function buildHierarchicalServicePaths(records: unknown) {
 
   return paths;
 }
-

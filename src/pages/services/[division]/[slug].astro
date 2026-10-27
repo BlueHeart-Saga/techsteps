@@ -8,7 +8,7 @@ import { services as fallbackServices } from '../../../lib/sanity/data';
 import { generateServiceSchema, generateBreadcrumbSchema } from '../../../lib/seo/jsonld';
 import { getServiceDetailContent } from '../../../data/serviceDetails';
 import type { Service } from '../../../lib/sanity/types';
-import { isValidService, normalizeRouteSlug, buildHierarchicalServicePaths, getServiceSeoSlug } from '../../../lib/routeHelpers';
+import { isValidService, normalizeRouteSlug, buildHierarchicalServicePaths, getServiceCanonicalSlug } from '../../../lib/routeHelpers';
 
 export async function getStaticPaths() {
   return buildHierarchicalServicePaths(await getServices());
@@ -70,10 +70,9 @@ const clr = divisionAccent[service.divisionSlug] ?? {
   accent: '#0F623A', dark: '#0A331E', light: '#F2F8F5', pill: '#0F623A15',
 };
 
-// Division label for breadcrumb/link
 const divisionPageSlug = requestedDivision || service.divisionSlug;
-const seoSlug = getServiceSeoSlug(service.slug);
-const canonicalUrl = `https://techsteps.co.uk/services/${service.divisionSlug}/${seoSlug}`;
+const canonicalSlug = getServiceCanonicalSlug(service.slug);
+const canonicalUrl = `https://techsteps.co.uk/services/${service.divisionSlug}/${canonicalSlug}`;
 
 // Tailored service detail content with direct Sanity CMS precedence
 const fallbackDetail = getServiceDetailContent(service.slug, service);
