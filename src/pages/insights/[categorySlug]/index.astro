@@ -33,7 +33,7 @@ export async function getStaticPaths() {
 
   siteStructure.forEach((sec: any) => {
     (sec.categories || []).forEach((cat: any) => {
-      if (cat.slug) {
+      if (cat.slug && cat.slug !== 'case-studies') {
         categoriesMap.set(cat.slug, {
           name: cat.name || formatCategoryTitle(cat.name, cat.slug),
           slug: cat.slug,
@@ -49,7 +49,7 @@ export async function getStaticPaths() {
 
   allPosts.forEach((p) => {
     const catSlug = p.category?.slug;
-    if (catSlug) {
+    if (catSlug && catSlug !== 'case-studies') {
       if (!categoriesMap.has(catSlug)) {
         categoriesMap.set(catSlug, {
           name: p.category?.name || formatCategoryTitle(p.category?.name, catSlug),
@@ -71,8 +71,8 @@ export async function getStaticPaths() {
     }
   });
 
-  // Real active categories only (avoid any dummy / empty categories)
-  const realCategoryList = Array.from(categoriesMap.values()).filter((cat) => cat.count > 0);
+  // Real active categories only (excluding case-studies which lives at /case-studies hub)
+  const realCategoryList = Array.from(categoriesMap.values()).filter((cat) => cat.count > 0 && cat.slug !== 'case-studies');
 
   const paths: any[] = [];
   const seenParam = new Set<string>();

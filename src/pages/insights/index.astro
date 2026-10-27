@@ -68,8 +68,8 @@ posts.forEach((p) => {
   }
 });
 
-// Filter ONLY real backend categories that have published posts (eliminate dummy or empty categories)
-const allBackendCategories = Array.from(categoriesMap.values()).filter((cat) => cat.count > 0);
+// Filter ONLY real backend categories that have published posts (excluding case-studies which lives at /case-studies hub)
+const allBackendCategories = Array.from(categoriesMap.values()).filter((cat) => cat.count > 0 && cat.slug !== 'case-studies');
 
 const groupedCategories = allBackendCategories.reduce((acc, cat) => {
   const section = cat.sectionName || 'Insights & Knowledge';

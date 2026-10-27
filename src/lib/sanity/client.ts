@@ -48,6 +48,7 @@ import type {
   TestimonialItem,
   LegalPageData,
 } from './types';
+import { getServiceCanonicalSlug } from '../routeHelpers';
 
 const env = (typeof import.meta !== 'undefined' && import.meta.env) ? import.meta.env : (typeof process !== 'undefined' ? process.env : {} as any);
 const projectId =
@@ -659,20 +660,41 @@ export async function getStatistics(): Promise<StatItem[]> {
 }
 
 export async function getCaseStudies(): Promise<CaseStudy[]> {
+  const fallbackBySlug = new Map(caseStudies.map((cs) => [cs.slug, cs]));
+
   if (sanityClient) {
     try {
-      const data = await sanityClient.fetch(`*[_type == "caseStudy" && !(_id in path("drafts.**"))] | order(publishedAt desc)`);
+      const data = await sanityClient.fetch(`*[_type == "caseStudy" && !(_id in path("drafts.**"))] | order(publishedAt desc){
+        ...,
+        "slug": slug.current,
+        "servicesUsed": coalesce(servicesUsed[]->slug.current, servicesUsed)
+      }`);
       if (data && data.length > 0) {
-        return data.map((cs: any) => ({
-          ...cs,
-          slug: normalizeSlug(cs.slug),
-        }));
+        return data.map((cs: any) => {
+          const s = normalizeSlug(cs.slug);
+          const fb = fallbackBySlug.get(s);
+          const rawServices = fb?.servicesUsed || cs.servicesUsed;
+          return {
+            ...cs,
+            ...(fb || {}),
+            slug: s,
+            servicesUsed: Array.isArray(rawServices)
+              ? rawServices.map((item: any) => {
+                  const raw = typeof item === 'string' ? item : (item?.current || item?._ref?.replace(/^srv-/, '') || '');
+                  return getServiceCanonicalSlug(raw);
+                }).filter(Boolean)
+              : [],
+          };
+        });
       }
     } catch {
       // Fallback
     }
   }
-  return caseStudies;
+  return caseStudies.map((cs) => ({
+    ...cs,
+    servicesUsed: cs.servicesUsed.map(getServiceCanonicalSlug),
+  }));
 }
 
 export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | undefined> {

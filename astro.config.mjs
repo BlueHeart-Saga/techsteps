@@ -28,6 +28,9 @@ export default defineConfig({
   },
   site: productionSite,
   trailingSlash: 'never',
+  redirects: {
+    '/insights/case-studies': '/case-studies',
+  },
 
   prefetch: {
     prefetchAll: true,
@@ -58,6 +61,7 @@ export default defineConfig({
           '/our-people-culture',
           '/people-culture',
           '/request-a-collection',
+          '/insights/case-studies',
           '/sitemap.xml',
           '/sitemap-index.xml',
           // Exclude single-level division aliases under /services/ (canonical division hubs are at root /information-management etc.)
@@ -132,7 +136,6 @@ export default defineConfig({
 
           const validInsightCategories = new Set([
             'blogs',
-            'case-studies',
             'community',
             'awards-milestones',
             'company-announcements',

@@ -27,10 +27,10 @@ for (const p of allPosts) {
   }
 }
 
-// Preferred core knowledge pillars that have published posts
-const pillarOrder = ['blogs', 'case-studies', 'impact-metrics', 'company-announcements', 'awards-milestones'];
+// Preferred core knowledge pillars that have published posts (excluding case-studies which lives at /case-studies hub)
+const pillarOrder = ['blogs', 'impact-metrics', 'company-announcements', 'awards-milestones'];
 const realCategories = Array.from(categoryCountMap.values())
-  .filter((c) => c.count > 0)
+  .filter((c) => c.count > 0 && c.slug !== 'case-studies')
   .sort((a, b) => {
     const idxA = pillarOrder.indexOf(a.slug);
     const idxB = pillarOrder.indexOf(b.slug);
@@ -40,9 +40,9 @@ const realCategories = Array.from(categoryCountMap.values())
   .map((cat) => {
     let tagline = 'Enterprise Intelligence';
     if (cat.slug === 'blogs') tagline = 'Expert Analysis & Guides';
-    else if (cat.slug === 'case-studies') tagline = 'Client Case Studies';
     else if (cat.slug === 'impact-metrics') tagline = 'Sustainability & ESG';
     else if (cat.slug === 'company-announcements') tagline = 'Official Announcements';
+    else if (cat.slug === 'awards-milestones') tagline = 'Awards & Milestones';
 
     return {
       name: cat.name,
