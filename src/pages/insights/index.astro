@@ -68,7 +68,8 @@ posts.forEach((p) => {
   }
 });
 
-const allBackendCategories = Array.from(categoriesMap.values());
+// Filter ONLY real backend categories that have published posts (eliminate dummy or empty categories)
+const allBackendCategories = Array.from(categoriesMap.values()).filter((cat) => cat.count > 0);
 
 const groupedCategories = allBackendCategories.reduce((acc, cat) => {
   const section = cat.sectionName || 'Insights & Knowledge';

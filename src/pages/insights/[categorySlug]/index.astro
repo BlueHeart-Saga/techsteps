@@ -71,32 +71,87 @@ export async function getStaticPaths() {
     }
   });
 
-  const allCategoryList = Array.from(categoriesMap.values());
+  // Real active categories only (avoid any dummy / empty categories)
+  const realCategoryList = Array.from(categoriesMap.values()).filter((cat) => cat.count > 0);
 
-  return allCategoryList.map((cat) => {
+  const paths: any[] = [];
+  const seenParam = new Set<string>();
+
+  // 1. Category archive routes
+  for (const cat of realCategoryList) {
+    seenParam.add(cat.slug);
     const categoryPosts = allPosts.filter((p) => {
       const pSlug = (p.category?.slug || '').toLowerCase();
       return pSlug === cat.slug;
     });
 
-    return {
+    paths.push({
       params: { categorySlug: cat.slug },
       props: {
+        isRedirect: false,
+        redirectTo: '',
         category: cat,
         posts: categoryPosts,
-        allCategories: allCategoryList,
+        allCategories: realCategoryList,
       },
-    };
-  });
+    });
+  }
+
+  // 2. Legacy single-level post slug / ID redirects to canonical /insights/:categorySlug/:postId
+  for (const post of allPosts) {
+    const targetCatSlug = post.category?.slug || 'blogs';
+    const primarySlug = post.seoSlug || post.id;
+    const targetUrl = `/insights/${targetCatSlug}/${primarySlug}`;
+
+    if (primarySlug && !seenParam.has(primarySlug)) {
+      seenParam.add(primarySlug);
+      paths.push({
+        params: { categorySlug: primarySlug },
+        props: {
+          isRedirect: true,
+          redirectTo: targetUrl,
+          category: null,
+          posts: [],
+          allCategories: realCategoryList,
+        },
+      });
+    }
+
+    if (post.id && post.id !== primarySlug && !seenParam.has(post.id)) {
+      seenParam.add(post.id);
+      paths.push({
+        params: { categorySlug: post.id },
+        props: {
+          isRedirect: true,
+          redirectTo: targetUrl,
+          category: null,
+          posts: [],
+          allCategories: realCategoryList,
+        },
+      });
+    }
+  }
+
+  return paths;
 }
 
 interface Props {
-  category: CategoryMeta;
-  posts: Post[];
-  allCategories: CategoryMeta[];
+  isRedirect?: boolean;
+  redirectTo?: string;
+  category?: CategoryMeta | null;
+  posts?: Post[];
+  allCategories?: CategoryMeta[];
 }
 
-const { category, posts, allCategories } = Astro.props;
+const { isRedirect, redirectTo, category, posts = [], allCategories = [] } = Astro.props;
+
+if (isRedirect && redirectTo) {
+  return Astro.redirect(redirectTo, 301);
+}
+
+if (!category) {
+  return Astro.redirect('/insights', 302);
+}
 
 const breadcrumbs = [
   { name: 'Insights', url: '/insights' },

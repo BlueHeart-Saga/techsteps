@@ -1,54 +1,66 @@
 ---
-import { insightsApi } from '../../lib/insightsApi';
+import { insightsApi, isPublishedPost, type Post } from '../../lib/insightsApi';
+import { getCategoryDescription, formatCategoryTitle } from '../../lib/insightsCategories';
 
-let allPosts: any[] = [];
+let allPosts: Post[] = [];
 
 try {
-  const postsRes = await insightsApi.getAllPosts(8);
-  allPosts = postsRes || [];
+  const postsRes = await insightsApi.getAllPosts(100);
+  allPosts = (postsRes || []).filter(isPublishedPost);
 } catch (e) {
   console.error('Failed to load insights for megamenu:', e);
 }
 
-// 3 Curated Categories requested: Blogs, Testimonials, Impact
-const curatedCategories = [
-  {
-    name: 'Blogs',
-    slug: 'blogs',
-    tagline: 'Expert Analysis & Guides',
-    description: 'In-depth articles on ITAD standards, NIST 800-88 media sanitisation, and regulatory compliance.',
-  },
-  {
-    name: 'Testimonials',
-    slug: 'testimonials',
-    tagline: 'Client & Partner Reviews',
-    description: 'Verified feedback from UK public sector bodies, NHS trusts, and enterprise corporate partners.',
-  },
-  {
-    name: 'Impact Content',
-    slug: 'impact-metrics',
-    tagline: 'Sustainability & ESG',
-    description: 'Scope 3 emissions reduction data, zero-landfill avoidance statistics, and circular economy metrics.',
-  },
-];
+// Derive active real categories with published posts dynamically from backend
+const categoryCountMap = new Map<string, { name: string; slug: string; count: number }>();
+for (const p of allPosts) {
+  const slug = p.category?.slug;
+  if (slug) {
+    if (!categoryCountMap.has(slug)) {
+      categoryCountMap.set(slug, {
+        name: p.category.name || formatCategoryTitle(p.category.name, slug),
+        slug,
+        count: 0,
+      });
+    }
+    categoryCountMap.get(slug)!.count++;
+  }
+}
 
-// Default featured post fallback with rich details & image if CMS empty
-const fallbackFeatured = {
-  title: 'UK Simpler Recycling Mandate: Complete Business Compliance Guide',
-  excerpt: 'Key timelines, legal duties, and practical steps for business leaders preparing for mandatory workplace recycling reforms.',
-  readTime: 4,
-  author: 'Techsteps Advisory',
-  date: 'March 2025',
-  category: { slug: 'blogs', name: 'Blogs' },
-  seoSlug: 'uk-simpler-recycling-mandate-business-guide',
-  coverImage: '/images/services/sustainability-approach.jpg'
-};
+// Preferred core knowledge pillars that have published posts
+const pillarOrder = ['blogs', 'case-studies', 'impact-metrics', 'company-announcements', 'awards-milestones'];
+const realCategories = Array.from(categoryCountMap.values())
+  .filter((c) => c.count > 0)
+  .sort((a, b) => {
+    const idxA = pillarOrder.indexOf(a.slug);
+    const idxB = pillarOrder.indexOf(b.slug);
+    return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+  })
+  .slice(0, 3)
+  .map((cat) => {
+    let tagline = 'Enterprise Intelligence';
+    if (cat.slug === 'blogs') tagline = 'Expert Analysis & Guides';
+    else if (cat.slug === 'case-studies') tagline = 'Client Case Studies';
+    else if (cat.slug === 'impact-metrics') tagline = 'Sustainability & ESG';
+    else if (cat.slug === 'company-announcements') tagline = 'Official Announcements';
 
-const activeFeatured = (allPosts && allPosts.length > 0)
-  ? (allPosts.find(p => p.featured) || allPosts[0])
-  : fallbackFeatured;
+    return {
+      name: cat.name,
+      slug: cat.slug,
+      tagline,
+      description: getCategoryDescription(cat.slug),
+    };
+  });
 
-const featuredImage = activeFeatured?.coverImage || activeFeatured?.image || '/images/services/sustainability-approach.jpg';
+// Dynamic featured post directly from backend
+const activeFeatured = allPosts.length > 0
+  ? (allPosts.find((p) => p.featured) || allPosts[0])
+  : null;
+
+const featuredImage = activeFeatured?.image || '/images/services/sustainability-approach.jpg';
+const featuredUrl = activeFeatured
+  ? `/insights/${activeFeatured.category?.slug || 'blogs'}/${activeFeatured.seoSlug || activeFeatured.id}`
+  : '/insights';
 ---
 
 <!-- Insights Full-Width Mega Dropdown Panel -->
@@ -65,7 +77,7 @@ const featuredImage = activeFeatured?.coverImage || activeFeatured?.image || '/i
       <!-- Left 8 Cols: 3 Core Categories -->
       <div class="lg:col-span-8 border-b lg:border-b-0 lg:border-r border-slate-100 pb-6 lg:pb-0 lg:pr-8">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-7 lg:gap-8">
-          {curatedCategories.map((cat) => (
+          {realCategories.map((cat) => (
             <a
               href={`/insights/${cat.slug}`}
               class="group block space-y-3 p-4 rounded-[12px] hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all duration-200"
@@ -109,7 +121,7 @@ const featuredImage = activeFeatured?.coverImage || activeFeatured?.image || '/i
 
           <!-- Featured Card Link & Content -->
           <a
-            href={activeFeatured?.seoSlug ? `/insights/${activeFeatured.category?.slug || 'blogs'}/${activeFeatured.seoSlug}` : '/insights'}
+            href={featuredUrl}
             class="group/feat block"
           >
             <!-- Image with subtle hover zoom effect -->
@@ -122,13 +134,13 @@ const featuredImage = activeFeatured?.coverImage || activeFeatured?.image || '/i
               />
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
               <span class="absolute bottom-2.5 left-2.5 text-[10.5px] font-bold uppercase tracking-wider text-white bg-emerald-800/90 backdrop-blur-xs px-2.5 py-0.5 rounded-[8px]">
-                {activeFeatured?.category?.name || 'Blogs'}
+                {activeFeatured?.category?.name || 'Insights'}
               </span>
             </div>
 
             <!-- Headline -->
             <h3 class="text-base sm:text-lg font-semibold text-slate-900 group-hover/feat:text-emerald-700 transition-colors leading-snug line-clamp-2 mb-2">
-              {activeFeatured?.title || 'UK Simpler Recycling Mandate: Complete Business Compliance Guide'}
+              {activeFeatured?.title || 'Latest Technical Insights & Industry Perspectives'}
             </h3>
 
             <!-- Excerpt -->
@@ -142,7 +154,7 @@ const featuredImage = activeFeatured?.coverImage || activeFeatured?.image || '/i
         <div class="mt-4 pt-3.5 border-t border-slate-200/70 flex items-center justify-between text-xs text-slate-500">
           <span>By {activeFeatured?.author || 'Techsteps Advisory'}</span>
           <a
-            href={activeFeatured?.seoSlug ? `/insights/${activeFeatured.category?.slug || 'blogs'}/${activeFeatured.seoSlug}` : '/insights'}
+            href={featuredUrl}
             class="font-bold text-emerald-800 hover:text-emerald-950 inline-flex items-center gap-1 group-hover/feat:gap-1.5 transition-all"
           >
             <span>Read Article</span>
