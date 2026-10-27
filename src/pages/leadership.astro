@@ -57,6 +57,17 @@ const executiveMembers = [
   },
 ];
 
+const mappedExecutiveMembers = (leadership?.team?.members && leadership.team.members.length > 0)
+  ? leadership.team.members.slice(0, 4).map((m: any, idx: number) => ({
+      name: m.name || executiveMembers[idx]?.name,
+      title: m.role || m.title || executiveMembers[idx]?.title,
+      kicker: m.kicker || executiveMembers[idx]?.kicker || 'EXECUTIVE',
+      imageUrl: m.imageUrl || m.image || executiveMembers[idx]?.imageUrl,
+      imageAlt: m.imageAlt || m.name || executiveMembers[idx]?.imageAlt,
+      linkedin: m.linkedin || executiveMembers[idx]?.linkedin,
+    }))
+  : executiveMembers;
+
 // 2. Technical & Operations Directors (8 Members)
 const operationalMembers = [
   {
@@ -265,10 +276,21 @@ const insights = [
         <!-- Top Centered Heading & Quote -->
         <div class="max-w-3xl mx-auto text-center space-y-3 sm:space-y-3.5">
           <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-slate-900 tracking-tight leading-[1.12]">
-            Leadership &amp; <span class="text-[#0F623A]">Executive Team</span>
+            {leadership?.hero?.title ? (
+              <span>
+                {leadership.hero.title}{' '}
+                {leadership.hero.highlightedTitle && (
+                  <span class="text-[#0F623A]">{leadership.hero.highlightedTitle}</span>
+                )}
+              </span>
+            ) : (
+              <span>
+                Leadership &amp; <span class="text-[#0F623A]">Executive Team</span>
+              </span>
+            )}
           </h1>
           <p class="text-base sm:text-lg text-slate-600 font-normal italic leading-relaxed max-w-2xl mx-auto">
-            &ldquo;Responsible leadership is measured by the trust we earn, the security we protect, and the sustainable future we help build.&rdquo;
+            &ldquo;{leadership?.hero?.subtitle || 'Responsible leadership is measured by the trust we earn, the security we protect, and the sustainable future we help build.'}&rdquo;
           </p>
         </div>
 
@@ -303,7 +325,7 @@ const insights = [
 
         <!-- 4-Column Card Grid (4 Cards Per Row on Desktop) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 xl:gap-6 pt-1 pb-4">
-          {executiveMembers.map((member, idx) => (
+          {mappedExecutiveMembers.map((member, idx) => (
             <article class="leadership-card group relative bg-white rounded-[18px] p-3 sm:p-3.5 flex flex-col justify-between text-left overflow-visible">
               
               <!-- 4th Card Top-Right Draw Line Asset (card-righttop.png) -->
@@ -640,13 +662,13 @@ const insights = [
          7. FINAL CALL TO ACTION (Standard TechSteps Component)
          ======================================================== -->
     <CTA
-      eyebrow="GET IN TOUCH"
-      title="Let's Build a More Responsible Technology Future."
-      description="Connect with our leadership and specialist teams to discuss secure data destruction, enterprise ITAD value recovery, or dedicated facility relocations."
-      primaryText="Talk to Our Team"
-      primaryHref="/contact"
-      secondaryText="Request a Collection"
-      secondaryHref="/request-a-collection"
+      eyebrow={leadership?.cta?.eyebrow || "GET IN TOUCH"}
+      title={leadership?.cta?.title || "Let's Build a More Responsible Technology Future."}
+      description={leadership?.cta?.description || "Connect with our leadership and specialist teams to discuss secure data destruction, enterprise ITAD value recovery, or dedicated facility relocations."}
+      primaryText={leadership?.cta?.primaryText || "Talk to Our Team"}
+      primaryHref={leadership?.cta?.primaryHref || "/contact"}
+      secondaryText={leadership?.cta?.secondaryText || "Request a Collection"}
+      secondaryHref={leadership?.cta?.secondaryHref || "/request-a-collection"}
     />
 
   </main>

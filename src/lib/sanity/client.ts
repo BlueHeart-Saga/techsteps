@@ -885,9 +885,15 @@ export async function getAboutPage(): Promise<AboutPageData> {
       imageUrl: data.technologyPurpose?.image || data.technologyPurpose?.imageUrl || defaultAboutPage.technologyPurpose?.imageUrl,
     };
 
+    const cleanCompetitorNames = (text?: string): string => {
+      if (!text) return '';
+      return text.replace(/Restore\s*Datashred/gi, 'TechSteps');
+    };
+
     const nationwideNetwork = {
       ...defaultAboutPage.nationwideNetwork,
       ...(data.nationwideNetwork || {}),
+      description: cleanCompetitorNames(data.nationwideNetwork?.description || defaultAboutPage.nationwideNetwork?.description),
       imageUrl: data.nationwideNetwork?.image || data.nationwideNetwork?.imageUrl || defaultAboutPage.nationwideNetwork?.imageUrl,
     };
 
@@ -902,6 +908,7 @@ export async function getAboutPage(): Promise<AboutPageData> {
     const sustainabilityCommitment = {
       ...defaultAboutPage.sustainabilityCommitment,
       ...(data.sustainabilityCommitment || {}),
+      description: cleanCompetitorNames(data.sustainabilityCommitment?.description || defaultAboutPage.sustainabilityCommitment?.description),
       imageUrl: data.sustainabilityCommitment?.image || data.sustainabilityCommitment?.imageUrl || defaultAboutPage.sustainabilityCommitment?.imageUrl,
       metrics: (Array.isArray(data.sustainabilityCommitment?.metrics) && data.sustainabilityCommitment.metrics.length > 0)
         ? data.sustainabilityCommitment.metrics

@@ -77,13 +77,22 @@ const column3 = [
   },
 ];
 
+const enrichTitle = (slug: string, fallback: string) => {
+  const match = sanitySectors.find((s: any) => s.slug === slug);
+  return match?.title || fallback;
+};
+
+const processedColumn1 = column1.map(item => ({ ...item, title: enrichTitle(item.slug, item.title) }));
+const processedColumn2 = column2.map(item => ({ ...item, title: enrichTitle(item.slug, item.title) }));
+const processedColumn3 = column3.map(item => ({ ...item, title: enrichTitle(item.slug, item.title) }));
+
 const hasActive =
-  column1.some((item) => item.active) ||
-  column2.some((item) => item.active) ||
-  column3.some((item) => item.active);
+  processedColumn1.some((item) => item.active) ||
+  processedColumn2.some((item) => item.active) ||
+  processedColumn3.some((item) => item.active);
 
 if (!hasActive) {
-  column1[0].active = true;
+  processedColumn1[0].active = true;
 }
 ---
 
@@ -124,7 +133,7 @@ if (!hasActive) {
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 flex-1">
           <!-- Column 1 -->
           <div class="sectors-menu-column flex flex-col space-y-1.5">
-            {column1.map((item) => (
+            {processedColumn1.map((item) => (
               <a
                 href={item.href}
                 class={`sector-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${
@@ -151,7 +160,7 @@ if (!hasActive) {
 
           <!-- Column 2 -->
           <div class="sectors-menu-column flex flex-col space-y-1.5">
-            {column2.map((item) => (
+            {processedColumn2.map((item) => (
               <a
                 href={item.href}
                 class={`sector-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${
@@ -178,7 +187,7 @@ if (!hasActive) {
 
           <!-- Column 3 -->
           <div class="sectors-menu-column flex flex-col space-y-1.5">
-            {column3.map((item) => (
+            {processedColumn3.map((item) => (
               <a
                 href={item.href}
                 class={`sector-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${

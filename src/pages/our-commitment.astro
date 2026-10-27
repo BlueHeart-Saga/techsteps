@@ -3,6 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
 import Container from '../components/layout/Container.astro';
 import CTA from '../components/global/cta.astro';
+import { getPeopleCulturePage } from '../lib/sanity/client';
+
+const pageData = await getPeopleCulturePage();
 
 const canonicalUrl = 'https://techsteps.co.uk/our-commitment';
 
@@ -11,8 +14,9 @@ const pageSchema = {
   '@type': 'AboutPage',
   '@id': `${canonicalUrl}#webpage`,
   url: canonicalUrl,
-  name: 'Our Commitment to Security, Quality & Sustainability — TechSteps UK',
+  name: pageData?.metaTitle || 'Our Commitment to Security, Quality & Sustainability — TechSteps UK',
   description:
+    pageData?.metaDescription ||
     'At TechSteps, our commitment goes beyond delivering services. We focus on protecting sensitive information, managing technology responsibly, maintaining operational accountability and helping organisations achieve sustainable outcomes.',
   mainEntity: {
     '@id': 'https://techsteps.co.uk/#organization',
@@ -178,13 +182,24 @@ const reviewSlides = [
         <!-- Top Centered Heading & Quote (Matching About Us Hero Typography) -->
         <div class="max-w-4xl lg:max-w-5xl mx-auto text-center space-y-3 sm:space-y-3.5">
           <p class="text-xs sm:text-sm font-bold text-[#0F623A] uppercase tracking-[0.18em]">
-            Operating Principles &amp; Customer Promises
+            {pageData?.hero?.eyebrow || 'Operating Principles & Customer Promises'}
           </p>
           <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[46px] xl:text-[50px] font-bold text-slate-900 tracking-tight leading-[1.14]">
-            Our Commitment to <span class="text-[#0F623A]">Security, Quality &amp; Sustainability</span>
+            {pageData?.hero?.title ? (
+              <span>
+                {pageData.hero.title}{' '}
+                {pageData.hero.highlightedTitle && (
+                  <span class="text-[#0F623A]">{pageData.hero.highlightedTitle}</span>
+                )}
+              </span>
+            ) : (
+              <span>
+                Our Commitment to <span class="text-[#0F623A]">Security, Quality &amp; Sustainability</span>
+              </span>
+            )}
           </h1>
           <p class="text-base sm:text-lg text-slate-600 font-normal italic leading-relaxed max-w-3xl mx-auto">
-            &ldquo;At TechSteps, our commitment goes beyond delivering services. We focus on protecting sensitive information, managing technology responsibly, maintaining operational accountability and helping organisations achieve sustainable outcomes.&rdquo;
+            &ldquo;{pageData?.hero?.subtitle || 'At TechSteps, our commitment goes beyond delivering services. We focus on protecting sensitive information, managing technology responsibly, maintaining operational accountability and helping organisations achieve sustainable outcomes.'}&rdquo;
           </p>
         </div>
 
@@ -530,12 +545,12 @@ const reviewSlides = [
          6. COMMON CTA (Ref: About Us Page)
     ====================================================== -->
     <CTA
-      title="Experience the TechSteps Commitment to Excellence"
-      description="Whether you require nationwide secure collection, certified data destruction, or accredited WEEE recycling, our team delivers with complete integrity."
-      primaryText="Talk to Our Team"
-      primaryHref="/contact"
-      secondaryText="Request a Collection"
-      secondaryHref="/request-a-collection"
+      title={pageData?.cta?.title || "Experience the TechSteps Commitment to Excellence"}
+      description={pageData?.cta?.description || "Whether you require nationwide secure collection, certified data destruction, or accredited WEEE recycling, our team delivers with complete integrity."}
+      primaryText={pageData?.cta?.primaryText || "Talk to Our Team"}
+      primaryHref={pageData?.cta?.primaryHref || "/contact"}
+      secondaryText={pageData?.cta?.secondaryText || "Request a Collection"}
+      secondaryHref={pageData?.cta?.secondaryHref || "/request-a-collection"}
     />
 
   </div>

@@ -84,7 +84,26 @@ const defaultPillars = [
   },
 ];
 
-const servicePillars = defaultPillars;
+const servicePillars = defaultPillars.map((pillar) => {
+  const matchedDiv = divisionsData.find(
+    (d: any) => d.slug === pillar.slug || d.slug?.includes(pillar.id)
+  );
+  const divServices = servicesData.filter(
+    (s: any) => s.divisionSlug === (matchedDiv?.slug || pillar.slug)
+  );
+  const subLinks = (divServices && divServices.length > 0)
+    ? divServices.map((s: any) => ({
+        name: s.title,
+        slug: s.slug,
+      }))
+    : pillar.subLinks;
+
+  return {
+    ...pillar,
+    title: matchedDiv?.title || pillar.title,
+    subLinks,
+  };
+});
 const defaultActiveId = 'it-lifecycle';
 const defaultPillar = servicePillars.find(p => p.id === defaultActiveId) || servicePillars[0];
 ---

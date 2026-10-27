@@ -1749,14 +1749,14 @@ export const defaultAboutPage: AboutPageData = {
   nationwideNetwork: {
     heading: 'Nationwide network, local expertise',
     description:
-      'Restore Datashred boasts a robust network spanning the entire UK. With strategically located facilities, we ensure efficient and timely service, no matter where your business is located. With our local reach, we can tailor a service plan to perfectly suit your volume and frequency of document shredding, while our national presence guarantees the security and compliance expertise you expect for any data disposal needs, from paper shredding to hard drive destruction.',
+      'TechSteps boasts a robust network spanning the entire UK. With strategically located facilities, we ensure efficient and timely service, no matter where your business is located. With our local reach, we can tailor a service plan to perfectly suit your volume and frequency of secure IT disposal, while our national presence guarantees the security and compliance expertise you expect for any data disposal needs, from IT lifecycle management to hard drive destruction.',
     imageUrl: '/images/about/More Than Recycling. A Brighter Future. (1).webp',
     imageAlt: 'Hand holding recovered IT components and hardware',
   },
   brighterFuture: {
     heading: 'Nationwide network, local expertise',
     description:
-      'Restore Datashred boasts a robust network spanning the entire UK. With strategically located facilities, we ensure efficient and timely service, no matter where your business is located. With our local reach, we can tailor a service plan to perfectly suit your volume and frequency of document shredding, while our national presence guarantees the security and compliance expertise you expect for any data disposal needs, from paper shredding to hard drive destruction.',
+      'TechSteps boasts a robust network spanning the entire UK. With strategically located facilities, we ensure efficient and timely service, no matter where your business is located. With our local reach, we can tailor a service plan to perfectly suit your volume and frequency of secure IT disposal, while our national presence guarantees the security and compliance expertise you expect for any data disposal needs, from IT lifecycle management to hard drive destruction.',
     imageUrl: '/images/about/More Than Recycling. A Brighter Future. (1).webp',
     imageAlt: 'Hand holding recovered IT components and hardware',
   },
@@ -1819,7 +1819,7 @@ export const defaultAboutPage: AboutPageData = {
   sustainabilityCommitment: {
     heading: 'Committed to sustainability: 0% landfill shredding',
     description:
-      'Restore Datashred isn’t just about secure data destruction; we’re also passionate about protecting the environment. As a leading recycling business, we’re proud to work towards being Net Zero from our shredding activities by 2035 – a commitment our customers truly value. Furthermore, we are fully authorised by the Environment Agency to handle, transport, and recycle your company’s confidential materials. Choose Restore Datashred for peace of mind on both data security and environmental responsibility.',
+      'TechSteps isn’t just about secure data destruction; we’re also passionate about protecting the environment. As a leading recycling and IT lifecycle business, we’re proud to work towards being Net Zero from our operations by 2035 – a commitment our customers truly value. Furthermore, we are fully authorised by the Environment Agency to handle, transport, and recycle your company’s confidential materials. Choose TechSteps for peace of mind on both data security and environmental responsibility.',
     imageUrl: '/images/about/People. Planet. Progress. (1).webp',
     imageAlt: 'Hand holding plant seedling in soil',
     metrics: [
@@ -1831,7 +1831,7 @@ export const defaultAboutPage: AboutPageData = {
   peoplePlanetProgress: {
     heading: 'Committed to sustainability: 0% landfill shredding',
     description:
-      'Restore Datashred isn’t just about secure data destruction; we’re also passionate about protecting the environment. As a leading recycling business, we’re proud to work towards being Net Zero from our shredding activities by 2035 – a commitment our customers truly value. Furthermore, we are fully authorised by the Environment Agency to handle, transport, and recycle your company’s confidential materials. Choose Restore Datashred for peace of mind on both data security and environmental responsibility.',
+      'TechSteps isn’t just about secure data destruction; we’re also passionate about protecting the environment. As a leading recycling and IT lifecycle business, we’re proud to work towards being Net Zero from our operations by 2035 – a commitment our customers truly value. Furthermore, we are fully authorised by the Environment Agency to handle, transport, and recycle your company’s confidential materials. Choose TechSteps for peace of mind on both data security and environmental responsibility.',
     imageUrl: '/images/about/People. Planet. Progress. (1).webp',
     imageAlt: 'Hand holding plant seedling in soil',
     metrics: [

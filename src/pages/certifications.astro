@@ -3,7 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
 import Container from '../components/layout/Container.astro';
 import CTA from '../components/global/cta.astro';
+import { getSiteSettings } from '../lib/sanity/client';
 
+const siteSettings = await getSiteSettings();
 const canonicalUrl = 'https://techsteps.co.uk/certifications';
 
 const pageSchema = {

@@ -1,5 +1,6 @@
 ---
 import Container from '../layout/Container.astro';
+import { getHomePage } from '../../lib/sanity/client';
 
 interface Props {
   eyebrow?: string;
@@ -33,13 +34,22 @@ const {
   className = "",
 } = Astro.props;
 
+// Fetch Sanity CTA if available as default
+let sanityCta: any = null;
+try {
+  const homeData = await getHomePage();
+  sanityCta = homeData?.cta;
+} catch {
+  // Graceful fallback to static defaults
+}
+
 // Default reference values if props are not explicitly provided
-const defaultTitle = "Let’s Find The Right Solution for Your Business.";
-const defaultDescription = "Partner with TechSteps to manage your IT assets securely, responsibly, and sustainably.";
-const defaultPrimaryText = "Schedule Asset Pickup";
-const defaultPrimaryHref = "/request-a-collection";
-const defaultSecondaryText = "Explore Services";
-const defaultSecondaryHref = "/services";
+const defaultTitle = sanityCta?.heading || "Let’s Find The Right Solution for Your Business.";
+const defaultDescription = sanityCta?.description || "Partner with TechSteps to manage your IT assets securely, responsibly, and sustainably.";
+const defaultPrimaryText = sanityCta?.primaryButtonText || "Schedule Asset Pickup";
+const defaultPrimaryHref = sanityCta?.primaryButtonLink || "/request-a-collection";
+const defaultSecondaryText = sanityCta?.secondaryButtonText || "Explore Services";
+const defaultSecondaryHref = sanityCta?.secondaryButtonLink || "/services";
 
 const resolvedTitle = title || heading || defaultTitle;
 const resolvedDescription = description || defaultDescription;
