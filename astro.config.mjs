@@ -87,40 +87,40 @@ export default defineConfig({
             const serviceSlug = parts[1];
 
             const canonicalServiceSlugs = new Set([
-              // Information Management
-              'document-storage',
-              'tape-media-storage',
-              'heritage-storage',
-              'vault-storage',
-              'document-scanning',
-              'digital-mailroom',
-              'document-management',
+              // 1. Information Management
+              'digital-mailroom-services',
+              'document-management-services',
+              'document-scanning-services',
+              'document-storage-services',
+              'heritage-storage-services',
+              'tape-media-storage-services',
+              'vault-storage-services',
 
-              // IT Lifecycle Services & Destruction
-              'secure-it-disposal',
-              'secure-collection-services',
+              // 2. IT Lifecycle Services & Destruction
               'it-asset-disposition-services',
               'it-asset-tracking-services',
-              'remarketing-recycling',
-              'ultra-secure-hard-drive-destruction',
+              'remarketing-recycling-services',
+              'secure-collection-services',
+              'secure-it-disposal-services',
+              'ultra-secure-hard-drive-destruction-services',
 
-              // Secure Shredding & Document Integrity
-              'home-shredding',
-              'on-site-shredding',
-              'off-site-shredding',
-              'product-shredding',
-              'simpler-recycling-services',
+              // 3. Secure Shredding & Document Integrity
+              'cardboard-recycling-services',
               'disposal-services',
-              'cardboard-recycling',
-              'dry-mixed-recycling',
+              'dry-mixed-recycling-services',
+              'home-shredding-services',
+              'off-site-shredding-services',
+              'on-site-shredding-services',
+              'product-shredding-services',
+              'simpler-recycling-services',
 
-              // Moving & Relocation Services
-              'business-relocations',
-              'laboratory-relocations-storage',
-              'heritage-relocations-storage',
-              'europe-international-domestic-moves',
-              'it-relocations-specialist',
-              'project-management',
+              // 4. Moving & Relocation Services
+              'business-relocations-services',
+              'europe-international-domestic-moves-services',
+              'heritage-relocations-storage-services',
+              'it-relocations-specialist-services',
+              'laboratory-relocations-storage-services',
+              'project-management-services',
             ]);
 
             return canonicalServiceSlugs.has(serviceSlug);

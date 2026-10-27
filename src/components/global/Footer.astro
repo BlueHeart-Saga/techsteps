@@ -1,6 +1,7 @@
 ---
 import { getDivisions, getSectors, getSiteSettings } from '../../lib/sanity/client';
 import BrandLogo from './BrandLogo.astro';
+import { getServiceCanonicalSlug } from '../../lib/routeHelpers';
 
 const [divisions, sectors, siteSettings] = await Promise.all([
   getDivisions(),
@@ -142,7 +143,9 @@ const currentYear = new Date().getFullYear();
               if (targetUrl?.startsWith('/services/')) {
                 const parts = targetUrl.split('/').filter(Boolean);
                 if (parts.length === 3) {
-                  targetUrl = `/services/${parts[2]}`;
+                  targetUrl = `/services/${getServiceCanonicalSlug(parts[2])}`;
+                } else if (parts.length === 2) {
+                  targetUrl = `/services/${getServiceCanonicalSlug(parts[1])}`;
                 }
               }
               return (

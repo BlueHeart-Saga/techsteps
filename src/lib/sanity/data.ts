@@ -2202,7 +2202,7 @@ export const defaultGlobalPresencePageData: GlobalPresencePageData = {
         description:
           'Certified data sanitisation, testing, refurbishment, and remarketing for enterprise technology fleets across multiple sites.',
         badge: 'ADISA Certified',
-        linkUrl: '/services/it-asset-disposition',
+        linkUrl: '/services/it-asset-disposition-services',
       },
       {
         number: '02',
@@ -2210,7 +2210,7 @@ export const defaultGlobalPresencePageData: GlobalPresencePageData = {
         description:
           'Satellite-tracked, dedicated company vehicles with dual-driver crews and tamper-evident containerization from desk to facility.',
         badge: 'GPS Tracked',
-        linkUrl: '/services/secure-collection',
+        linkUrl: '/services/secure-collection-services',
       },
       {
         number: '03',
@@ -2218,7 +2218,7 @@ export const defaultGlobalPresencePageData: GlobalPresencePageData = {
         description:
           'Specialist server, laboratory, and corporate asset relocation with comprehensive customs clearance and export crating.',
         badge: 'HMRC CDS Integrated',
-        linkUrl: '/services/europe-international-domestic-moves',
+        linkUrl: '/services/europe-international-domestic-moves-services',
       },
       {
         number: '04',
@@ -2226,7 +2226,7 @@ export const defaultGlobalPresencePageData: GlobalPresencePageData = {
         description:
           'On-site mobile shredding or off-site high-security disintegration to DIN 66399 standards with serialized audit certificates.',
         badge: 'DIN 66399 Standards',
-        linkUrl: '/services/ultra-secure-hard-drive-destruction',
+        linkUrl: '/services/ultra-secure-hard-drive-destruction-services',
       },
       {
         number: '05',
@@ -2234,7 +2234,7 @@ export const defaultGlobalPresencePageData: GlobalPresencePageData = {
         description:
           'Secure bonded storage in the UK and European hubs, deferring duties and taxes while assets await final clearance or deployment.',
         badge: 'Bonded Storage',
-        linkUrl: '/services/vault-storage',
+        linkUrl: '/services/vault-storage-services',
       },
       {
         number: '06',
@@ -2242,7 +2242,7 @@ export const defaultGlobalPresencePageData: GlobalPresencePageData = {
         description:
           'Secure records storage, digital scanning, and scheduled compliance archiving across national enterprise branch networks.',
         badge: 'BS EN 15713',
-        linkUrl: '/services/document-management',
+        linkUrl: '/services/document-management-services',
       },
     ],
   },

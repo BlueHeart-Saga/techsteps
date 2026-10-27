@@ -6,7 +6,7 @@ import CTA from '../../components/global/cta.astro';
 import { getSectors, getServices, getCaseStudies, getSiteSettings } from '../../lib/sanity/client';
 import { generateSectorSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 import type { Sector, Service } from '../../lib/sanity/types';
-import { isValidSector, normalizeRouteSlug, buildSectorPaths } from '../../lib/routeHelpers';
+import { isValidSector, normalizeRouteSlug, buildSectorPaths, getServiceCanonicalSlug } from '../../lib/routeHelpers';
 
 export async function getStaticPaths() {
   return buildSectorPaths(await getSectors());
@@ -448,14 +448,14 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
                       Accredited Delivery
                     </span>
                     <a
-                      href={`/services/${item.service.slug}`}
+                      href={`/services/${getServiceCanonicalSlug(item.service.slug)}`}
                       class="text-xs font-bold text-[#0F623A] hover:text-[#0c4e2e] inline-flex items-center gap-1 transition-colors"
                     >
                       View Service ↗
                     </a>
                   </div>
                   <h4 class="text-lg sm:text-xl font-bold font-display text-slate-900 leading-snug">
-                    <a href={`/services/${item.service.slug}`} class="hover:text-[#0F623A] transition-colors">
+                    <a href={`/services/${getServiceCanonicalSlug(item.service.slug)}`} class="hover:text-[#0F623A] transition-colors">
                       {item.service.title}
                     </a>
                   </h4>

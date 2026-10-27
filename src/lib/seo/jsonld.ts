@@ -1,4 +1,5 @@
 import type { Service, Sector, Article, SiteSettings } from '../sanity/types';
+import { getServiceCanonicalSlug } from '../routeHelpers';
 
 export function generateOrganizationSchema(
   settings: SiteSettings,
@@ -72,7 +73,8 @@ export function generateServiceSchema(
   settings: SiteSettings,
   origin: string = 'https://techsteps.co.uk'
 ) {
-  const serviceUrl = `${origin}/services/${service.slug}`;
+  const canonicalSlug = getServiceCanonicalSlug(service.slug);
+  const serviceUrl = `${origin}/services/${canonicalSlug}`;
 
   return {
     '@context': 'https://schema.org',

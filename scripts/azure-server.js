@@ -5,7 +5,9 @@ const path = require('path');
 const zlib = require('zlib');
 const nodemailer = require('nodemailer');
 
-const DIST_DIR = __dirname;
+const DIST_DIR = fs.existsSync(path.join(__dirname, 'index.html'))
+  ? __dirname
+  : (fs.existsSync(path.join(__dirname, '../dist/index.html')) ? path.join(__dirname, '../dist') : __dirname);
 const PORT = process.env.PORT || 8080;
 
 const MIME_TYPES = {
@@ -56,6 +58,115 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
+
+// Canonical sub-service slugs (all 27 end with -services)
+const CANONICAL_SERVICE_MAP = {
+  // 1. Information Management
+  'digital-mailroom': 'digital-mailroom-services',
+  'digital-mailroom-services': 'digital-mailroom-services',
+  'digital-mailroom-uk': 'digital-mailroom-services',
+  'document-management': 'document-management-services',
+  'document-management-services': 'document-management-services',
+  'document-management-uk': 'document-management-services',
+  'document-scanning': 'document-scanning-services',
+  'document-scanning-services': 'document-scanning-services',
+  'document-scanning-uk': 'document-scanning-services',
+  'document-storage': 'document-storage-services',
+  'document-storage-services': 'document-storage-services',
+  'document-storage-uk': 'document-storage-services',
+  'heritage-storage': 'heritage-storage-services',
+  'heritage-storage-services': 'heritage-storage-services',
+  'heritage-storage-services-uk': 'heritage-storage-services',
+  'tape-media-storage': 'tape-media-storage-services',
+  'tape-media-storage-services': 'tape-media-storage-services',
+  'tape-media-storage-uk': 'tape-media-storage-services',
+  'vault-storage': 'vault-storage-services',
+  'vault-storage-services': 'vault-storage-services',
+  'vault-storage-uk': 'vault-storage-services',
+
+  // 2. IT Lifecycle Services & Destruction
+  'it-asset-disposition': 'it-asset-disposition-services',
+  'it-asset-disposition-services': 'it-asset-disposition-services',
+  'it-asset-disposition-uk': 'it-asset-disposition-services',
+  'it-asset-tracking': 'it-asset-tracking-services',
+  'it-asset-tracking-services': 'it-asset-tracking-services',
+  'it-asset-tracking-uk': 'it-asset-tracking-services',
+  'remarketing-recycling': 'remarketing-recycling-services',
+  'remarketing-recycling-services': 'remarketing-recycling-services',
+  'remarketing-recycling-uk': 'remarketing-recycling-services',
+  'secure-collection': 'secure-collection-services',
+  'secure-collection-services': 'secure-collection-services',
+  'secure-collection-uk': 'secure-collection-services',
+  'secure-it-disposal': 'secure-it-disposal-services',
+  'secure-it-disposal-services': 'secure-it-disposal-services',
+  'secure-it-disposal-uk': 'secure-it-disposal-services',
+  'ultra-secure-hard-drive-destruction': 'ultra-secure-hard-drive-destruction-services',
+  'ultra-secure-hard-drive-destruction-services': 'ultra-secure-hard-drive-destruction-services',
+  'ultra-secure-hard-drive-destruction-uk': 'ultra-secure-hard-drive-destruction-services',
+
+  // 3. Secure Shredding & Document Integrity
+  'cardboard-recycling': 'cardboard-recycling-services',
+  'cardboard-recycling-services': 'cardboard-recycling-services',
+  'cardboard-recycling-uk': 'cardboard-recycling-services',
+  'disposal-services': 'disposal-services',
+  'disposal-services-uk': 'disposal-services',
+  'dry-mixed-recycling': 'dry-mixed-recycling-services',
+  'dry-mixed-recycling-services': 'dry-mixed-recycling-services',
+  'dry-mixed-recycling-uk': 'dry-mixed-recycling-services',
+  'home-shredding': 'home-shredding-services',
+  'home-shredding-services': 'home-shredding-services',
+  'home-shredding-uk': 'home-shredding-services',
+  'off-site-shredding': 'off-site-shredding-services',
+  'off-site-shredding-services': 'off-site-shredding-services',
+  'off-site-shredding-uk': 'off-site-shredding-services',
+  'on-site-shredding': 'on-site-shredding-services',
+  'on-site-shredding-services': 'on-site-shredding-services',
+  'on-site-shredding-uk': 'on-site-shredding-services',
+  'product-shredding': 'product-shredding-services',
+  'product-shredding-services': 'product-shredding-services',
+  'product-shredding-uk': 'product-shredding-services',
+  'simpler-recycling': 'simpler-recycling-services',
+  'simpler-recycling-services': 'simpler-recycling-services',
+  'simpler-recycling-uk': 'simpler-recycling-services',
+
+  // 4. Moving & Relocation Services
+  'business-relocations': 'business-relocations-services',
+  'business-relocations-services': 'business-relocations-services',
+  'business-relocations-uk': 'business-relocations-services',
+  'europe-international-domestic-moves': 'europe-international-domestic-moves-services',
+  'europe-international-domestic-moves-services': 'europe-international-domestic-moves-services',
+  'europe-international-domestic-moves-uk': 'europe-international-domestic-moves-services',
+  'heritage-relocations-storage': 'heritage-relocations-storage-services',
+  'heritage-relocations-storage-services': 'heritage-relocations-storage-services',
+  'heritage-relocations-storage-uk': 'heritage-relocations-storage-services',
+  'it-relocations-specialist': 'it-relocations-specialist-services',
+  'it-relocations-specialist-services': 'it-relocations-specialist-services',
+  'it-relocations-specialist-uk': 'it-relocations-specialist-services',
+  'laboratory-relocations-storage': 'laboratory-relocations-storage-services',
+  'laboratory-relocations-storage-services': 'laboratory-relocations-storage-services',
+  'laboratory-relocations-storage-uk': 'laboratory-relocations-storage-services',
+  'project-management': 'project-management-services',
+  'project-management-services': 'project-management-services',
+  'project-management-uk': 'project-management-services',
+};
+
+function getCanonicalSubService(slug) {
+  if (!slug) return null;
+  let clean = String(slug).toLowerCase().trim().replace(/^\/+|\/+$/g, '');
+  if (CANONICAL_SERVICE_MAP[clean]) {
+    return CANONICAL_SERVICE_MAP[clean];
+  }
+  clean = clean.replace(/-services(-services)+$/, '-services');
+  if (clean.endsWith('-services')) {
+    const base = clean.slice(0, -9);
+    if (CANONICAL_SERVICE_MAP[base]) return CANONICAL_SERVICE_MAP[base];
+  } else {
+    const withServices = `${clean}-services`;
+    if (CANONICAL_SERVICE_MAP[withServices]) return CANONICAL_SERVICE_MAP[withServices];
+  }
+  return null;
+}
+
 
 // =========================================================================
 // HTML TEMPLATE GENERATORS: INTERNAL TECHSTEPS NOTIFICATIONS
@@ -1035,11 +1146,44 @@ function readRequestBody(req) {
 
 const server = http.createServer((req, res) => {
   let pathname = '';
+  let parsedUrl = null;
   try {
-    const parsedUrl = new URL(req.url, `http://localhost:${PORT}`);
+    parsedUrl = new URL(req.url, `http://localhost:${PORT}`);
     pathname = decodeURIComponent(parsedUrl.pathname);
   } catch {
     pathname = req.url || '';
+  }
+
+  // Canonical HTTP 301 redirects for TechSteps sub-services
+  if (pathname.startsWith('/services/')) {
+    const trimmed = pathname.replace(/^\/services\//, '').replace(/\/$/, '');
+    const parts = trimmed.split('/');
+    const search = (parsedUrl && parsedUrl.search) ? parsedUrl.search : '';
+
+    if (parts.length === 1 && parts[0]) {
+      const slug = parts[0];
+      const canonical = getCanonicalSubService(slug);
+      if (canonical && slug !== canonical) {
+        res.writeHead(301, {
+          'Location': `/services/${canonical}${search}`,
+          'Cache-Control': 'public, max-age=31536000',
+        });
+        res.end();
+        return;
+      }
+    } else if (parts.length === 2 && parts[1]) {
+      // Legacy 3-segment route: /services/[division]/[slug]
+      const slug = parts[1];
+      const canonical = getCanonicalSubService(slug);
+      if (canonical) {
+        res.writeHead(301, {
+          'Location': `/services/${canonical}${search}`,
+          'Cache-Control': 'public, max-age=31536000',
+        });
+        res.end();
+        return;
+      }
+    }
   }
 
   // =========================================================================

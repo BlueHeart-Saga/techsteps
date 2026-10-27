@@ -2,6 +2,7 @@
 import Container from '../layout/Container.astro';
 import Breadcrumbs from '../seo/Breadcrumbs.astro';
 import type { Service } from '../../lib/sanity/types';
+import { getServiceCanonicalSlug } from '../../lib/routeHelpers';
 
 interface Props {
   service: Service;
@@ -12,7 +13,7 @@ const { service } = Astro.props;
 const breadcrumbs = [
   { name: 'Services', url: '/services' },
   { name: service.divisionTitle, url: `/${service.divisionSlug}` },
-  { name: service.title, url: `/services/${service.slug}` },
+  { name: service.title, url: `/services/${getServiceCanonicalSlug(service.slug)}` },
 ];
 ---
 

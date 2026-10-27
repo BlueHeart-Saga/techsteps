@@ -35,6 +35,15 @@ if (!service) {
   return Astro.rewrite('/404');
 }
 
+const canonicalSlug = getServiceCanonicalSlug(service.slug);
+const canonicalUrl = `https://techsteps.co.uk/services/${canonicalSlug}`;
+
+// 301 redirect any legacy or alias service slugs directly to canonical URL
+if (requestedSlug !== canonicalSlug) {
+  const search = Astro.url.search || '';
+  return Astro.redirect(`/services/${canonicalSlug}${search}`, 301);
+}
+
 // Division accent colour map — consistent with hub pages and site theme
 const divisionAccent: Record<string, { accent: string; dark: string; light: string; pill: string }> = {
   'it-lifecycle-services-destruction': {
@@ -68,8 +77,6 @@ const clr = divisionAccent[service.divisionSlug] ?? {
 };
 
 const divisionPageSlug = service.divisionSlug;
-const canonicalSlug = getServiceCanonicalSlug(service.slug);
-const canonicalUrl = `https://techsteps.co.uk/services/${canonicalSlug}`;
 
 // Tailored service detail content with direct Sanity CMS precedence
 const fallbackDetail = getServiceDetailContent(service.slug, service);
@@ -961,7 +968,7 @@ const serviceAboutImage =
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
             {relatedServices.map((rel) => (
               <a
-                href={`/services/${rel.slug}`}
+                href={`/services/${getServiceCanonicalSlug(rel.slug)}`}
                 class="p-4 rounded-[16px] border border-slate-200/80 bg-[#F8FAF9] hover:bg-white hover:border-[#0F623A]/40 hover:shadow-sm transition-all text-left group"
               >
                 <h4 class="text-sm font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors line-clamp-1">

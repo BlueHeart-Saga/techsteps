@@ -1,5 +1,6 @@
 ---
 import { getDivisions, getServices, getSectors } from '../../lib/sanity/client';
+import { getServiceCanonicalSlug } from '../../lib/routeHelpers';
 import BrandLogo from './BrandLogo.astro';
 
 const [divisions, services, sectors] = await Promise.all([
@@ -106,7 +107,7 @@ const { id = 'services-megamenu' } = Astro.props;
               {divServices.map((srv) => (
                 <li>
                   <a
-                    href={`/services/${srv.slug}`}
+                    href={`/services/${getServiceCanonicalSlug(srv.slug)}`}
                     class="text-sm font-medium text-slate-600 hover:text-brand-accent transition-colors block py-0.5"
                   >
                     {srv.title}

@@ -188,8 +188,8 @@ const customServiceDetails: Record<string, Partial<ServiceDetailContent>> = {
 // Generic generator for any service based on its structured properties
 export function getServiceDetailContent(slug: string, service: any): ServiceDetailContent {
   const safeSlug = slug || '';
-  const baseSlug = slug.endsWith('-uk') ? slug.replace(/-uk$/, '') : slug;
-  const custom = customServiceDetails[slug] || customServiceDetails[baseSlug] || customServiceDetails[`${baseSlug}-uk`];
+  const baseSlug = slug.replace(/-(uk|services|services-uk)$/g, '').replace(/-services$/, '');
+  const custom = customServiceDetails[slug] || customServiceDetails[baseSlug] || customServiceDetails[`${baseSlug}-services`] || customServiceDetails[`${baseSlug}-uk`];
 
   // Base title and context
   const title = service.title || 'Specialist Service';

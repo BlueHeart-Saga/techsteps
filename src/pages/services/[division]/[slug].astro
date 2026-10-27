@@ -35,8 +35,17 @@ const service = isValidService(propsService)
     )?.props.service;
 
 if (!service) {
+  const fallbackCanonical = getServiceCanonicalSlug(requestedSlug);
+  if (fallbackCanonical) {
+    const search = Astro.url.search || '';
+    return Astro.redirect(`/services/${fallbackCanonical}${search}`, 301);
+  }
   return Astro.rewrite('/404');
 }
+
+const targetCanonicalSlug = getServiceCanonicalSlug(service.slug);
+const search = Astro.url.search || '';
+return Astro.redirect(`/services/${targetCanonicalSlug}${search}`, 301);
 
 // Division accent colour map — consistent with hub pages and site theme
 const divisionAccent: Record<string, { accent: string; dark: string; light: string; pill: string }> = {
@@ -964,7 +973,7 @@ const serviceAboutImage =
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
             {relatedServices.map((rel) => (
               <a
-                href={`/services/${rel.slug}`}
+                href={`/services/${getServiceCanonicalSlug(rel.slug)}`}
                 class="p-4 rounded-[16px] border border-slate-200/80 bg-[#F8FAF9] hover:bg-white hover:border-[#0F623A]/40 hover:shadow-sm transition-all text-left group"
               >
                 <h4 class="text-sm font-bold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors line-clamp-1">
