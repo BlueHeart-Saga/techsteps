@@ -45,5 +45,5 @@ Matched fields (1): eyebrow
 Document ID: siteSettings (_type: siteSettings)
 Matched fields (2): email, phone
   email: "collection@techsteps.co.uk"
-  phone: "020 8501 5050"
+  phone: "+44 1784 640216"
 

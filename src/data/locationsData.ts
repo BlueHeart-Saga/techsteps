@@ -60,7 +60,7 @@ export const locationsList: LocationData[] = [
       'Sutton', 'Waltham Forest'
     ],
     localHubAddress: 'TechSteps London Logistics Hub, Hainault Business Park, IG6 3UF',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -120,7 +120,7 @@ export const locationsList: LocationData[] = [
       'Smethwick', 'West Bromwich', 'Dudley', 'Walsall', 'Wolverhampton', 'Halesowen'
     ],
     localHubAddress: 'TechSteps West Midlands Depot, Stafford Centre Hub, ST16 3AQ',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -180,7 +180,7 @@ export const locationsList: LocationData[] = [
       'Oldham', 'Rochdale', 'Altrincham', 'Sale', 'Wigan', 'Stretford'
     ],
     localHubAddress: 'TechSteps North West Operations Desk, Manchester Logistics Centre',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -240,7 +240,7 @@ export const locationsList: LocationData[] = [
       'Rochester', 'Chatham', 'Gillingham', 'Maidstone', 'Bromley', 'Sidcup'
     ],
     localHubAddress: 'TechSteps UK National Headquarters, Logistics Park, Crossways Boulevard, Dartford DA2 6QJ',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: 'Same-day / 24 hours',
     faqs: [
       {
@@ -299,7 +299,7 @@ export const locationsList: LocationData[] = [
       'Morley', 'Bradford', 'Wakefield', 'Huddersfield', 'Halifax', 'Dewsbury', 'Harrogate'
     ],
     localHubAddress: 'TechSteps Yorkshire Regional Depot, Leeds Commercial Hub',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -358,7 +358,7 @@ export const locationsList: LocationData[] = [
       'Filton', 'Bradley Stoke', 'Aztec West', 'Bath', 'Keynsham', 'Clevedon', 'Portishead'
     ],
     localHubAddress: 'TechSteps South West Hub, Bristol Commercial Network',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -417,7 +417,7 @@ export const locationsList: LocationData[] = [
       'East Kilbride', 'Paisley', 'Cumbernauld', 'Hamilton', 'Motherwell', 'Clydebank', 'Coatbridge'
     ],
     localHubAddress: 'TechSteps Scotland Logistics Depot, Central Belt Operations',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -476,7 +476,7 @@ export const locationsList: LocationData[] = [
       'The Gyle', 'Haymarket', 'Morningside', 'Livingston', 'Dunfermline', 'Musselburgh', 'Dalkeith'
     ],
     localHubAddress: 'TechSteps Edinburgh Logistics Centre, Edinburgh Park Hub',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -535,7 +535,7 @@ export const locationsList: LocationData[] = [
       'Newport', 'Penarth', 'Barry', 'Bridgend', 'Pontypridd', 'Caerphilly', 'Llantrisant'
     ],
     localHubAddress: 'TechSteps Wales Operations Hub, South Wales Commercial Network',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -595,7 +595,7 @@ export const locationsList: LocationData[] = [
       'Huntingdon', 'Royston', 'Peterborough', 'Saffron Walden'
     ],
     localHubAddress: 'TechSteps East of England Hub, Cambridge Science Corridor',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -654,7 +654,7 @@ export const locationsList: LocationData[] = [
       'Headington', 'Cowley', 'Abingdon', 'Didcot', 'Bicester', 'Witney', 'Banbury', 'Kidlington'
     ],
     localHubAddress: 'TechSteps Thames Valley Hub, Oxford Commercial Network',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -713,7 +713,7 @@ export const locationsList: LocationData[] = [
       'Bracknell', 'Wokingham', 'Maidenhead', 'Slough', 'Newbury', 'Henley-on-Thames', 'Woodley', 'Theale'
     ],
     localHubAddress: 'TechSteps Thames Valley Logistics Centre, Reading Depot',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -772,7 +772,7 @@ export const locationsList: LocationData[] = [
       'Birkenhead', 'Bootle', 'Speke', 'Knowsley', 'St Helens', 'Southport', 'Wallasey', 'Crosby'
     ],
     localHubAddress: 'TechSteps North West Depot, Liverpool Commercial Network',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -831,7 +831,7 @@ export const locationsList: LocationData[] = [
       'Meadowhall', 'Rotherham', 'Doncaster', 'Barnsley', 'Chesterfield', 'Worksop'
     ],
     localHubAddress: 'TechSteps Yorkshire Hub, Sheffield Depot',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -890,7 +890,7 @@ export const locationsList: LocationData[] = [
       'Gateshead', 'Sunderland', 'South Shields', 'North Shields', 'Tynemouth', 'Durham', 'Cramlington'
     ],
     localHubAddress: 'TechSteps North East Logistics Centre, Newcastle Hub',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -949,7 +949,7 @@ export const locationsList: LocationData[] = [
       'Portsmouth', 'Fareham', 'Winchester', 'Romsey', 'Totton', 'Havant', 'Gosport'
     ],
     localHubAddress: 'TechSteps South Coast Depot, Southampton Network',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -1008,7 +1008,7 @@ export const locationsList: LocationData[] = [
       'Derby', 'Mansfield', 'Newark-on-Trent', 'Ilkeston', 'Long Eaton', 'Hucknall', 'Arnold'
     ],
     localHubAddress: 'TechSteps East Midlands Depot, Nottingham Commercial Hub',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -1067,7 +1067,7 @@ export const locationsList: LocationData[] = [
       'Hinckley', 'Melton Mowbray', 'Coalville', 'Market Harborough', 'Braunstone'
     ],
     localHubAddress: 'TechSteps Midlands Hub, Leicester Commercial Network',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -1126,7 +1126,7 @@ export const locationsList: LocationData[] = [
       'Leamington Spa', 'Warwick', 'Kenilworth', 'Nuneaton', 'Rugby', 'Bedworth', 'Stratford-upon-Avon'
     ],
     localHubAddress: 'TechSteps West Midlands Depot, Coventry Network',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -1185,7 +1185,7 @@ export const locationsList: LocationData[] = [
       'Northampton', 'Bedford', 'Luton', 'Aylesbury', 'Buckingham', 'Towcester'
     ],
     localHubAddress: 'TechSteps Central Corridor Hub, Milton Keynes Depot',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -1244,7 +1244,7 @@ export const locationsList: LocationData[] = [
       'Lisburn', 'Bangor', 'Newtownards', 'Antrim', 'Ballymena', 'Craigavon', 'Newry'
     ],
     localHubAddress: 'TechSteps Northern Ireland Logistics Depot, Belfast Network',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -1303,7 +1303,7 @@ export const locationsList: LocationData[] = [
       'Kingswells', 'Westhill', 'Inverurie', 'Stonehaven', 'Peterhead', 'Ellon'
     ],
     localHubAddress: 'TechSteps Scotland North Depot, Aberdeen Commercial Network',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -1362,7 +1362,7 @@ export const locationsList: LocationData[] = [
       'Christchurch', 'Ferndown Industrial Estate', 'Wimborne', 'Ringwood', 'Wareham', 'Dorchester'
     ],
     localHubAddress: 'TechSteps South Coast Depot, Dorset Hub',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -1421,7 +1421,7 @@ export const locationsList: LocationData[] = [
       'Portslade', 'Worthing', 'Lewes', 'Shoreham-by-Sea', 'Newhaven', 'Eastbourne'
     ],
     localHubAddress: 'TechSteps Sussex Depot, Brighton Commercial Hub',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: '24–48 hours',
     faqs: [
       {
@@ -1480,7 +1480,7 @@ export const locationsList: LocationData[] = [
       'Cannock', 'Stone', 'Rugeley', 'Lichfield', 'Burton upon Trent', 'Newcastle-under-Lyme', 'Uttoxeter'
     ],
     localHubAddress: 'TechSteps Midlands Hub, Stafford Commercial Centre, ST16 3AQ',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: 'Same-day / 24 hours',
     faqs: [
       {
@@ -1539,7 +1539,7 @@ export const locationsList: LocationData[] = [
       'Loughton', 'Epping', 'Brentwood', 'Dagenham', 'Stratford', 'Redbridge', 'Woodford'
     ],
     localHubAddress: 'TechSteps London Hub, Unit B, Roebuck Road, Hainault Business Park, Essex IG6 3UF',
-    phone: '0800 083 4700',
+    phone: '+44 1784 640216',
     leadTime: 'Same-day / 24 hours',
     faqs: [
       {
