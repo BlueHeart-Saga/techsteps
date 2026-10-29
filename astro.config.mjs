@@ -121,6 +121,9 @@ export default defineConfig({
               'it-relocations-specialist-services',
               'laboratory-relocations-storage-services',
               'project-management-services',
+
+              // IT Equipment Collection Overview
+              'collection',
             ]);
 
             return canonicalServiceSlugs.has(serviceSlug);
@@ -184,7 +187,14 @@ export default defineConfig({
           path === '/information-management' ||
           path === '/it-lifecycle-services-destruction' ||
           path === '/secure-shredding-document-integrity' ||
-          path === '/moving-relocation-services'
+          path === '/moving-relocation-services' ||
+          path === '/av-media-equipment-collection' ||
+          path === '/computer-collection' ||
+          path === '/laptop-collection' ||
+          path === '/mobile-device-collection' ||
+          path === '/monitor-screen-collection' ||
+          path === '/printer-copier-collection' ||
+          path === '/server-collection'
         ) {
           item.changefreq = EnumChangefreq.WEEKLY;
           item.priority = 0.9;

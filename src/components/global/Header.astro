@@ -21,6 +21,12 @@ const currentPath = Astro.url.pathname;
 
 const navItems = [
   {
+    label: 'Free Collection',
+    url: '/services/collection',
+    hasDropdown: true,
+    type: 'free-collection'
+  },
+  {
     label: 'Services',
     url: '/services',
     hasDropdown: true,
@@ -53,7 +59,7 @@ const navItems = [
 
 <header
   id="site-header"
-  class="fixed top-0 inset-x-0 z-[999] transition-all duration-500 pt-3 sm:pt-4 px-4 sm:px-6 lg:px-8 pointer-events-none -translate-y-full opacity-0"
+  class="fixed top-0 inset-x-0 z-[999] pointer-events-none -translate-y-full opacity-0 pt-3 sm:pt-4 px-3 sm:px-6 transition-all duration-300 ease-in-out"
   data-is-home={isHome ? 'true' : 'false'}
 >
   <div class="max-w-[1240px] mx-auto">
@@ -63,8 +69,8 @@ const navItems = [
     ====================================================== -->
 
     <div
-      class="relative flex items-center justify-between h-16 sm:h-[72px] px-3.5 sm:px-6 bg-[#FAF6EE]/60 backdrop-blur-md rounded-[16px] border border-black/10 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300"
-      style="background-color: rgba(250, 246, 238, 0.60); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);"
+      class="relative flex items-center justify-between h-16 sm:h-[72px] px-3.5 sm:px-6 bg-[#FAF6EE]/88 backdrop-blur-md rounded-[16px] border border-black/10 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.10)] transition-all duration-300"
+      style="background-color: rgba(250, 246, 238, 0.88); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);"
     >
 
       <!-- =====================================================
@@ -100,8 +106,18 @@ const navItems = [
         {navItems.map((item) => {
           /* SERVICES */
           if (item.type === 'services') {
+            const isCollection =
+              currentPath.startsWith('/services/collection') ||
+              currentPath === '/av-media-equipment-collection' ||
+              currentPath === '/computer-collection' ||
+              currentPath === '/laptop-collection' ||
+              currentPath === '/mobile-device-collection' ||
+              currentPath === '/monitor-screen-collection' ||
+              currentPath === '/printer-copier-collection' ||
+              currentPath === '/server-collection';
+
             const isActive =
-              currentPath.startsWith('/services') ||
+              (!isCollection && currentPath.startsWith('/services')) ||
               currentPath === '/information-management' ||
               currentPath === '/it-lifecycle-services-destruction' ||
               currentPath === '/secure-shredding-document-integrity' ||
@@ -118,6 +134,38 @@ const navItems = [
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-controls="services-megamenu-panel"
+                role="button"
+              >
+                {item.label}
+              </a>
+            );
+          }
+
+          /* FREE COLLECTION */
+          if (item.type === 'free-collection') {
+            const isActive =
+              currentPath.startsWith('/services/collection') ||
+              currentPath.startsWith('/collection') ||
+              currentPath === '/book-pickup' ||
+              currentPath === '/av-media-equipment-collection' ||
+              currentPath === '/computer-collection' ||
+              currentPath === '/laptop-collection' ||
+              currentPath === '/mobile-device-collection' ||
+              currentPath === '/monitor-screen-collection' ||
+              currentPath === '/printer-copier-collection' ||
+              currentPath === '/server-collection';
+
+            return (
+              <a
+                href="javascript:void(0)"
+                id="free-collection-menu-trigger"
+                data-route-active={isActive ? "true" : "false"}
+                class={`nav-link free-collection-megamenu-toggle py-1.5 px-0 transition-colors cursor-pointer focus:outline-none whitespace-nowrap ${
+                  isActive ? 'active' : ''
+                }`}
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls="free-collection-megamenu-panel"
                 role="button"
               >
                 {item.label}
@@ -197,15 +245,24 @@ const navItems = [
 
 
       <!-- =====================================================
-           MOBILE MENU HAMBURGER
+           RIGHT: REQUEST A COLLECTION BUTTON + MOBILE MENU
       ====================================================== -->
 
-      <div class="flex items-center lg:hidden">
+      <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
 
+        <!-- Request a Collection CTA -->
+        <a
+          href={siteSettings.headerRequestButtonLink || "/request-a-quote"}
+          class="hidden sm:inline-flex items-center justify-center h-[42px] px-5 sm:px-6 rounded-[10px] bg-[#07572F] hover:bg-[#054324] text-white font-sans text-[14.5px] sm:text-[15px] font-semibold tracking-tight transition-all duration-150 shadow-xs hover:shadow-sm whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#07572F] focus-visible:ring-offset-2"
+        >
+          {siteSettings.headerRequestButtonText || "Request a Collection"}
+        </a>
+
+        <!-- Hamburger for mobile -->
         <button
           type="button"
           id="open-mobile-menu"
-          class="open-mobile-menu-btn p-2 rounded-[12px] text-slate-800 hover:text-black hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+          class="open-mobile-menu-btn lg:hidden p-2 rounded-[12px] text-slate-800 hover:text-black hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
           aria-label="Open mobile navigation menu"
         >
           <svg
@@ -246,206 +303,109 @@ const navItems = [
 
   <script>
     function initScrollNavbar() {
-
-      const header =
-        document.getElementById('site-header');
-
+      const header = document.getElementById('site-header');
       if (!header) return;
 
+      const SCROLL_THRESHOLD = 140;
+      const DIRECTION_THRESHOLD = 5;
 
-      const SCROLL_THRESHOLD = 120;
-
-      const DIRECTION_THRESHOLD = 4;
-
-      let lastScrollY =
-        window.scrollY;
-
+      let lastScrollY = Math.max(0, window.scrollY);
       let ticking = false;
-
 
       /* ===================================================
          SHOW
       =================================================== */
-
       const show = () => {
-
         header.classList.remove(
           '-translate-y-full',
           'opacity-0',
           'pointer-events-none'
         );
-
         header.classList.add(
           'translate-y-0',
           'opacity-100',
           'pointer-events-auto'
         );
-
       };
-
 
       /* ===================================================
          HIDE
       =================================================== */
-
       const hide = () => {
-
         header.classList.add(
           '-translate-y-full',
           'opacity-0',
           'pointer-events-none'
         );
-
         header.classList.remove(
           'translate-y-0',
           'opacity-100',
           'pointer-events-auto'
         );
-
       };
-
 
       /* ===================================================
          UPDATE NAVBAR
       =================================================== */
-
       const updateNavbar = () => {
+        const currentScrollY = Math.max(0, window.scrollY);
+        const difference = currentScrollY - lastScrollY;
 
-        const currentScrollY =
-          window.scrollY;
-
-        const difference =
-          currentScrollY -
-          lastScrollY;
-
-
-        /* =================================================
-           AT TOP OF PAGE
-        ================================================= */
-
-        if (
-          currentScrollY <=
-          SCROLL_THRESHOLD
-        ) {
-
+        /* AT TOP OF PAGE (Near Hero / TopBar) */
+        if (currentScrollY <= SCROLL_THRESHOLD) {
           hide();
-
-          lastScrollY =
-            currentScrollY;
-
+          lastScrollY = currentScrollY;
           ticking = false;
-
           return;
         }
 
-
-        /* =================================================
-           IGNORE VERY SMALL SCROLL MOVEMENTS
-        ================================================= */
-
-        if (
-          Math.abs(difference) <
-          DIRECTION_THRESHOLD
-        ) {
-
+        /* IGNORE VERY SMALL MOVEMENTS */
+        if (Math.abs(difference) < DIRECTION_THRESHOLD) {
           ticking = false;
-
           return;
         }
 
-
-        /* =================================================
-           SCROLLING DOWN
-           → HIDE NAVBAR
-        ================================================= */
-
-        if (
-          difference > 0
-        ) {
-
+        /* SCROLLING DOWN → HIDE NAVBAR */
+        if (difference > 0) {
           hide();
-
         }
-
-
-        /* =================================================
-           SCROLLING UP
-           → SHOW NAVBAR
-        ================================================= */
-
-        else if (
-          difference < 0
-        ) {
-
+        /* SCROLLING UP → POPUP / SHOW NAVBAR */
+        else if (difference < 0) {
           show();
-
         }
 
-
-        lastScrollY =
-          currentScrollY;
-
+        lastScrollY = currentScrollY;
         ticking = false;
-
       };
-
 
       /* ===================================================
          SCROLL EVENT
       =================================================== */
-
       const onScroll = () => {
-
         if (!ticking) {
-
-          window.requestAnimationFrame(
-            updateNavbar
-          );
-
+          window.requestAnimationFrame(updateNavbar);
           ticking = true;
-
         }
-
       };
 
+      /* Clean up previous listener to prevent duplicate handlers across Astro page transitions */
+      if ((window as any).__scrollNavbarHandler) {
+        window.removeEventListener('scroll', (window as any).__scrollNavbarHandler);
+      }
+      (window as any).__scrollNavbarHandler = onScroll;
+      window.addEventListener('scroll', onScroll, { passive: true });
 
-      window.addEventListener(
-        'scroll',
-        onScroll,
-        {
-          passive: true
-        }
-      );
-
-
-      /* ===================================================
-         INITIAL STATE
-      =================================================== */
-
+      /* INITIAL STATE */
       hide();
-
     }
 
-
-    /* =====================================================
-       INITIAL SETUP
-    ====================================================== */
-
+    /* INITIAL SETUP */
     initScrollNavbar();
 
-
-    /* =====================================================
-       ASTRO PAGE LOAD
-    ====================================================== */
-
-    document.addEventListener(
-      'astro:page-load',
-      () => {
-
-        initScrollNavbar();
-
-      }
-    );
+    /* ASTRO PAGE LOAD */
+    document.addEventListener('astro:page-load', () => {
+      initScrollNavbar();
+    });
   </script>
 
 

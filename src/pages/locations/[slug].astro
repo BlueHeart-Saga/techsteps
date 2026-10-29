@@ -1,0 +1,626 @@
+---
+/**
+ * [slug].astro
+ * Dynamic City & Regional IT Equipment Collection Landing Page
+ * Route: /locations/[slug]
+ * 
+ * Recreates the exact reference image design tailored to each UK city/region:
+ * - Localised breadcrumb, hero & top-rated Google review badge
+ * - 4 Key service guarantee cards
+ * - 2-column split with dedicated booking form on left & local compliance on right
+ * - Interactive Boroughs / Districts coverage pill cloud
+ * - 8 City-specific FAQs using unified FAQSection component
+ * - Bottom "Ready to book?" CTA bar
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { locationsList, getLocationBySlug } from '../../data/locationsData';
+import { getSiteSettings } from '../../lib/sanity/client';
+
+export async function getStaticPaths() {
+  return locationsList.map((loc) => ({
+    params: { slug: loc.slug },
+    props: { location: loc },
+  }));
+}
+
+const { location } = Astro.props;
+const siteSettings = await getSiteSettings();
+
+const pageTitle = `${location.tagline} | TechSteps UK`;
+const pageDescription = location.heroDescription;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  hasHeroHeader={false}
+>
+  <!-- =====================================================
+       1. HERO SECTION (CORPORATE GREEN THEME - MATCHING FOOTER)
+       ===================================================== -->
+  <section class="relative pt-10 pb-14 sm:pt-14 sm:pb-16 lg:pt-16 lg:pb-20 bg-[#062C20] text-white overflow-hidden">
+    <!-- Ambient Backdrop Pattern -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_-10%,rgba(163,230,205,0.14),rgba(6,44,32,0))] pointer-events-none"></div>
+
+    <Container>
+      <div class="relative z-10">
+        
+        <!-- Top Bar: Breadcrumb + Google Reviews Badge -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <!-- Breadcrumb -->
+          <nav class="flex items-center gap-1.5 text-xs sm:text-[13px] text-emerald-100/70 font-sans" aria-label="Breadcrumb">
+            <a href="/" class="hover:text-white underline underline-offset-2">Home</a>
+            <span>&gt;</span>
+            <a href="/locations" class="hover:text-white underline underline-offset-2">IT recycling near me free reference across England &amp; Wales</a>
+            <span>&gt;</span>
+            <span class="text-white font-medium">{location.name}</span>
+          </nav>
+
+          <!-- Top Rated Google Badge -->
+          <div class="inline-flex items-center gap-3 bg-white text-slate-900 px-4 py-2 rounded-[14px] shadow-md shrink-0 self-start md:self-auto">
+            <div class="text-left leading-tight">
+              <span class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider font-mono">
+                Top Rated Service
+              </span>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="font-bold text-[14px] text-slate-900">Google</span>
+                <span class="text-amber-500 text-xs">★★★★★</span>
+                <span class="text-xs font-semibold text-slate-700">{location.rating}</span>
+              </div>
+            </div>
+            <div class="text-[11px] text-slate-500 font-medium pl-2 border-l border-slate-200">
+              {location.reviewCount}+ verified<br />UK reviews
+            </div>
+          </div>
+        </div>
+
+        <!-- Headline & Subtitle -->
+        <div class="max-w-3xl">
+          <h1 class="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-[#B8EC4C] font-display leading-[1.12] mb-4">
+            {location.tagline}
+          </h1>
+
+          <p class="text-base sm:text-lg text-emerald-50/90 leading-relaxed font-sans mb-8 max-w-2xl">
+            {location.heroDescription}
+          </p>
+
+          <div>
+            <a
+              href="#book-collection-form"
+              class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-[10px] bg-[#B8EC4C] hover:bg-[#a6d83e] text-[#0A261F] font-bold text-sm sm:text-base uppercase tracking-wider shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-sans"
+            >
+              REQUEST MY COLLECTION
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       2. 4-PILLAR SERVICE GUARANTEE SECTION
+       ===================================================== -->
+  <section class="py-14 sm:py-16 bg-white border-b border-slate-200/80">
+    <Container>
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-10">
+        <h2 class="text-2xl sm:text-3xl lg:text-[34px] font-bold text-[#062C20] font-display tracking-tight leading-tight mb-3">
+          Clear communication. Easy collection. Certificates provided.
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+          Old IT doesn't stop being your responsibility when it leaves the building; that's quite often 10 minutes to a year after IT refresh projects. Our customers value the same things you do: responsive service that makes responsible recycling easy and compliant.
+        </p>
+      </div>
+
+      <!-- 4 Cards Grid (Light Green Theme with Plain Stroke Icons - No Circle/Box Border) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <!-- Card 1 -->
+        <div class="p-6 rounded-[20px] bg-[#F4FAF6] border border-[#D2EBDC] hover:border-emerald-300 hover:shadow-xs transition-all flex flex-col justify-between">
+          <div>
+            <svg class="w-8 h-8 text-[#07572F] mb-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375A1.125 1.125 0 012.25 17.625V5.625A1.125 1.125 0 013.375 4.5h9.75a1.125 1.125 0 011.125 1.125v4.875m-11.25 8.25h11.25m0-8.25h4.125a1.125 1.125 0 011.125 1.125v4.5a1.125 1.125 0 01-.33.795l-2.07 2.07a1.125 1.125 0 01-.795.33H14.25m0-8.25v8.25m6 0a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0" />
+            </svg>
+            <h3 class="font-display font-bold text-base text-[#062C20] leading-snug mb-2">
+              Free qualifying collections
+            </h3>
+            <p class="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-sans">
+              Free for 10+ qualifying laptops, PCs or servers across {location.name} and surrounding areas.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="p-6 rounded-[20px] bg-[#F4FAF6] border border-[#D2EBDC] hover:border-emerald-300 hover:shadow-xs transition-all flex flex-col justify-between">
+          <div>
+            <svg class="w-8 h-8 text-[#07572F] mb-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+            <h3 class="font-display font-bold text-base text-[#062C20] leading-snug mb-2">
+              Secure data destruction
+            </h3>
+            <p class="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-sans">
+              Blancco, degaussing or physical destruction, matched to BS EN 15713 and ADISA Standard 8.0.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="p-6 rounded-[20px] bg-[#F4FAF6] border border-[#D2EBDC] hover:border-emerald-300 hover:shadow-xs transition-all flex flex-col justify-between">
+          <div>
+            <svg class="w-8 h-8 text-[#07572F] mb-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+            </svg>
+            <h3 class="font-display font-bold text-base text-[#062C20] leading-snug mb-2">
+              Certificates always provided
+            </h3>
+            <p class="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-sans">
+              Waste Transfer Note, Certificate of Destruction and Carbon Offset Certificate on every collection.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="p-6 rounded-[20px] bg-[#F4FAF6] border border-[#D2EBDC] hover:border-emerald-300 hover:shadow-xs transition-all flex flex-col justify-between">
+          <div>
+            <svg class="w-8 h-8 text-[#07572F] mb-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+            <h3 class="font-display font-bold text-base text-[#062C20] leading-snug mb-2">
+              Carbon-negative recycling
+            </h3>
+            <p class="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-sans">
+              Responsible reuse-first recycling, and we offset 150% of the CO2 our collection service generates.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       3. 2-COLUMN BOOKING FORM & LOCAL CONTENT
+       ===================================================== -->
+  <section class="py-16 sm:py-20 bg-[#F8FAF9]">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-start">
+        
+        <!-- ===================================================
+             LEFT: DARK BOOKING FORM CARD (MATCHING SCREENSHOT)
+             =================================================== -->
+        <div
+          id="book-collection-form"
+          class="lg:col-span-6 bg-[#062C20] text-white rounded-[24px] p-6 sm:p-8 lg:p-10 shadow-xl border border-emerald-900/60 scroll-mt-28"
+        >
+          <!-- Success State Notification (Shown After Submit) -->
+          <div id="location-form-success" class="hidden mb-6 p-5 rounded-[16px] bg-emerald-500/20 border border-emerald-400 text-white space-y-2 animate-fadeIn">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-emerald-400 text-slate-900 flex items-center justify-center font-bold text-base shrink-0">✓</span>
+              <h3 class="font-bold text-base text-white">
+                Collection Request Logged! Reference: <span id="loc-ref-code" class="font-mono underline text-[#B8EC4C]"></span>
+              </h3>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-200 pl-11">
+              Our {location.name} dispatch team will contact you within 2 working hours with collection date availability.
+            </p>
+          </div>
+
+          <div class="mb-6">
+            <h2 class="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight mb-2">
+              Book your free {location.name} IT collection
+            </h2>
+            <p class="text-xs sm:text-[13.5px] text-slate-300 leading-relaxed font-sans">
+              Takes less than 2 minutes. We'll confirm collection options by email or phone. Tell us what you need collected and we'll confirm the next available collection slot. We'll collect from your premises, securely process your equipment, destroy sensitive data, and provide the certificates you need.
+            </p>
+          </div>
+
+          <form id="location-collection-form" class="space-y-4 text-xs sm:text-sm">
+            
+            <!-- Enquiry Type Radio Toggle -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+                Enquiry type <span class="text-emerald-400">*</span>
+              </label>
+              <div class="flex items-center gap-3">
+                <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 cursor-pointer text-xs font-medium">
+                  <input type="radio" name="enquiryType" value="Business" checked class="text-[#B8EC4C] focus:ring-0" />
+                  <span>Business</span>
+                </label>
+                <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 cursor-pointer text-xs font-medium">
+                  <input type="radio" name="enquiryType" value="Personal" class="text-[#B8EC4C] focus:ring-0" />
+                  <span>Personal</span>
+                </label>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1">
+                We serve businesses from extra-log, education institutions and charities. No home disposal/private waste.
+              </p>
+            </div>
+
+            <!-- Name Field -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              <div class="space-y-1">
+                <label for="loc_first_name" class="block text-xs font-semibold text-slate-300">
+                  First name <span class="text-emerald-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="loc_first_name"
+                  name="firstName"
+                  required
+                  placeholder="First name"
+                  class="w-full bg-white text-slate-900 rounded-[8px] px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#B8EC4C]"
+                />
+              </div>
+              <div class="space-y-1">
+                <label for="loc_last_name" class="block text-xs font-semibold text-slate-300">
+                  Last name <span class="text-emerald-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="loc_last_name"
+                  name="lastName"
+                  required
+                  placeholder="Last name"
+                  class="w-full bg-white text-slate-900 rounded-[8px] px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#B8EC4C]"
+                />
+              </div>
+            </div>
+
+            <!-- Company Name -->
+            <div class="space-y-1">
+              <label for="loc_company" class="block text-xs font-semibold text-slate-300">
+                Company name
+              </label>
+              <input
+                type="text"
+                id="loc_company"
+                name="company"
+                placeholder="Your company name"
+                class="w-full bg-white text-slate-900 rounded-[8px] px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#B8EC4C]"
+              />
+              <p class="text-[11px] text-slate-400">
+                Please use a business, federation or council email address. Personal emails get delayed response.
+              </p>
+            </div>
+
+            <!-- Email -->
+            <div class="space-y-1">
+              <label for="loc_email" class="block text-xs font-semibold text-slate-300">
+                Email <span class="text-emerald-400">*</span>
+              </label>
+              <input
+                type="email"
+                id="loc_email"
+                name="email"
+                required
+                placeholder="your.email@address.com"
+                class="w-full bg-white text-slate-900 rounded-[8px] px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#B8EC4C]"
+              />
+              <p class="text-[11px] text-slate-400">
+                Our local team will email your pickup proposal here.
+              </p>
+            </div>
+
+            <!-- Phone -->
+            <div class="space-y-1">
+              <label for="loc_phone" class="block text-xs font-semibold text-slate-300">
+                Phone <span class="text-emerald-400">*</span>
+              </label>
+              <input
+                type="tel"
+                id="loc_phone"
+                name="phone"
+                required
+                placeholder="07xxx xxxxxx / 020 xxx xxxx"
+                class="w-full bg-white text-slate-900 rounded-[8px] px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#B8EC4C]"
+              />
+            </div>
+
+            <!-- Collection Postcode -->
+            <div class="space-y-1">
+              <label for="loc_postcode" class="block text-xs font-semibold text-slate-300">
+                Collection postcode <span class="text-emerald-400">*</span>
+              </label>
+              <input
+                type="text"
+                id="loc_postcode"
+                name="postcode"
+                required
+                placeholder="e.g. SW1A 1AA / EC2R 8AH"
+                class="w-full bg-white text-slate-900 rounded-[8px] px-3.5 py-2.5 text-sm uppercase font-mono focus:outline-none focus:ring-2 focus:ring-[#B8EC4C]"
+              />
+              <p class="text-[11px] text-slate-400">
+                Where items sit. Would you prefer to deliver them?
+              </p>
+            </div>
+
+            <!-- What you'd like to collect -->
+            <div class="space-y-1">
+              <label for="loc_details" class="block text-xs font-semibold text-slate-300">
+                What you'd like to collect <span class="text-emerald-400">*</span>
+              </label>
+              <textarea
+                id="loc_details"
+                name="details"
+                required
+                rows="3"
+                placeholder="e.g. 25 Dell laptops, 12 desktops, 2 servers and redundant cables."
+                class="w-full bg-white text-slate-900 rounded-[8px] px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#B8EC4C] resize-y"
+              ></textarea>
+              <p class="text-[11px] text-slate-400">
+                Give us the amount and types of items you want us to collect.
+              </p>
+            </div>
+
+            <!-- Checkboxes -->
+            <div class="space-y-2 pt-2">
+              <label class="flex items-start gap-2.5 cursor-pointer">
+                <input type="checkbox" name="marketingConsent" class="mt-0.5 rounded text-[#B8EC4C] focus:ring-0" />
+                <span class="text-[11.5px] text-slate-300 leading-snug">
+                  <strong class="text-white">Stay informed</strong><br />
+                  Yes, I'd like to receive occasional emails with practical IT management, green computing and compliance tips, plus occasional sustainability considerations.
+                </span>
+              </label>
+
+              <label class="flex items-start gap-2.5 cursor-pointer">
+                <input type="checkbox" name="termsConsent" required class="mt-0.5 rounded text-[#B8EC4C] focus:ring-0" />
+                <span class="text-[11.5px] text-slate-300 leading-snug">
+                  <strong class="text-white">Your consent *</strong><br />
+                  I have read and agree to the TechSteps <a href="/terms-and-conditions" class="underline text-[#B8EC4C] hover:text-white">Terms and Conditions</a> and for them to process my data in accordance with their <a href="/privacy-policy" class="underline text-[#B8EC4C] hover:text-white">Privacy Notice</a>.
+                </span>
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-3">
+              <button
+                type="submit"
+                class="w-full py-4 rounded-[10px] bg-[#B8EC4C] hover:bg-[#a6d83e] text-[#0A261F] font-bold text-sm sm:text-base uppercase tracking-wider shadow-lg transition-all cursor-pointer font-sans"
+              >
+                REQUEST MY COLLECTION
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- ===================================================
+             RIGHT: LOCAL TRUST & STANDARDS CONTENT
+             =================================================== -->
+        <div class="lg:col-span-6 space-y-8 text-slate-800">
+          
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-[#062C20] font-display tracking-tight mb-4">
+              Secure, documented &amp; easy to organise.
+            </h2>
+            
+            <ul class="space-y-2.5 text-sm sm:text-base font-semibold text-slate-800 mb-6">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-[#07572F] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                <span>Collections across all {location.name} boroughs &amp; districts</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-[#07572F] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                <span>100% WEEE compliant &amp; Environment Agency registered</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-[#07572F] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                <span>Certificates of Destruction always provided</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-[#07572F] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                <span>Carbon-negative IT recycling guarantee</span>
+              </li>
+            </ul>
+
+            <div class="space-y-4 text-sm sm:text-[14.5px] text-slate-600 leading-relaxed font-sans">
+              <p>
+                Old IT isn't just office clutter; it can carry sensitive corporate data, compliance risk and environmental liability. TechSteps helps {location.name} businesses clear it securely, responsibly and with legally binding proof.
+              </p>
+              <p>
+                From offices and schools to banks, public sector teams and growing technology businesses, we make it simple to clear redundant IT equipment without risking your data, compliance or environmental commitments. We collect directly from your {location.name} premises, securely handle your equipment, destroy sensitive data, and provide the certificates you need for your records.
+              </p>
+            </div>
+          </div>
+
+          <!-- Local Standards Heading -->
+          <div class="p-6 rounded-[20px] bg-white border border-slate-200/90 shadow-sm space-y-3">
+            <h3 class="font-display font-bold text-lg text-[#062C20]">
+              Local collection. National standards.
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+              Need local IT recycling near me in {location.name}? We regularly collect from businesses across {location.name}, {location.region}, and the wider {location.countyOrArea}. That means you get the convenience of a responsive, dedicated local service, backed by the credentials, systems and reliability of a reputable UK IT recycling partner.
+            </p>
+            <div class="pt-1 text-xs text-[#07572F] font-mono font-bold flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-[#07572F] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Local Hub: {location.localHubAddress} • Rapid {location.leadTime} collection</span>
+            </div>
+          </div>
+
+          <!-- Featured Testimonial Card (Matching Screenshot) -->
+          <div class="p-5 rounded-[18px] bg-white border border-slate-200 shadow-sm space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#07572F] text-white font-bold flex items-center justify-center text-sm shadow-sm">
+                  {location.featuredTestimonial.author.charAt(0)}
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-[#062C20]">
+                    {location.featuredTestimonial.author}
+                  </h4>
+                  <p class="text-xs text-slate-500">
+                    {location.featuredTestimonial.role}, {location.featuredTestimonial.company}
+                  </p>
+                </div>
+              </div>
+              <span class="text-amber-500 text-sm">★★★★★</span>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
+              "{location.featuredTestimonial.text}"
+            </p>
+
+            <div class="text-[11px] text-slate-400 font-mono pt-1">
+              Verified Review on Google • {location.featuredTestimonial.timeAgo}
+            </div>
+          </div>
+
+          <!-- Who We Collect From -->
+          <div class="space-y-3">
+            <h3 class="font-display font-bold text-lg text-[#062C20]">
+              Who we collect from in {location.name}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 font-sans">
+              We support organisations that need old IT removed properly, safely and with clear evidence of responsible disposal:
+            </p>
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-[#07572F] font-bold">•</span>
+                <span><strong>Finance, legal and professional services:</strong> Laptops, desktops, monitors, storage media, servers, phones and equipment carrying sensitive client data.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-[#07572F] font-bold">•</span>
+                <span><strong>Managed service providers and IT support companies:</strong> Client equipment, failed hardware, storage media, networking gear, servers and data centre refresh projects.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-[#07572F] font-bold">•</span>
+                <span><strong>Offices, agencies and growing businesses:</strong> Staff laptops, desktops, monitors, printers, cables, smartphones and redundant office technology.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-[#07572F] font-bold">•</span>
+                <span><strong>Creative, media and production teams:</strong> AV equipment, media devices, monitors, storage drives, editing hardware and specialist electronics.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-[#07572F] font-bold">•</span>
+                <span><strong>Healthcare, public sector and education:</strong> Sensitive equipment requiring secure handling, full chain of custody and certified data destruction.</span>
+              </li>
+            </ul>
+
+            <div class="pt-2 text-xs text-slate-500">
+              Have smaller volumes (fewer than 10 laptops/PCs)? We also offer a <a href="/book-pickup?tab=box" class="text-[#07572F] hover:text-[#062C20] font-semibold underline">Tracked Courier Box Collection</a> service.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       4. BOROUGHS & DISTRICTS COVERAGE CLOUD
+       ===================================================== -->
+  <section class="py-16 sm:py-20 bg-white border-y border-slate-200/80">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#062C20] font-display tracking-tight mb-2">
+          IT recycling collections across all {location.boroughsOrDistricts.length} {location.name} areas and beyond.
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 font-sans">
+          We collect from businesses across {location.name}, {location.region} and nearby commercial zones.
+        </p>
+      </div>
+
+      <!-- District / Borough Pills Cloud -->
+      <div class="flex flex-wrap items-center justify-center gap-2.5 max-w-4xl mx-auto mb-10">
+        {location.boroughsOrDistricts.map((district) => (
+          <span class="px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-medium bg-[#F0FDF4] text-[#062C20] border border-[#CDEED9] hover:bg-[#DCFCE7] transition-colors cursor-default">
+            {district}
+          </span>
+        ))}
+      </div>
+
+      <!-- Outside Area Callout Box -->
+      <div class="max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#F4FAF6] border border-[#D2EBDC] text-center text-xs sm:text-sm text-slate-700">
+        Need a collection outside this area? We also provide <a href="/services/collection" class="font-bold text-[#07572F] hover:text-[#062C20] underline">UK-wide IT recycling</a> for businesses, public sector organisations and large multi-site projects. For more information, call us on <a href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`} class="font-bold text-[#07572F]">{siteSettings.phone}</a> or <a href="/contact" class="font-bold text-[#07572F] hover:text-[#062C20] underline">make an enquiry online</a>.
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       5. FREQUENTLY ASKED QUESTIONS (CITY SPECIFIC)
+       ===================================================== -->
+  <FAQSection
+    eyebrow="COMMON QUESTIONS"
+    heading="Frequently asked questions"
+    intro={`Clear answers regarding commercial computer recycling, data destruction, and collection logistics in ${location.name}.`}
+    faqs={location.faqs}
+    sectionId={`faq-${location.slug}`}
+  />
+
+  <!-- =====================================================
+       6. BOTTOM READY TO BOOK CTA BAR (MATCHING SCREENSHOT)
+       ===================================================== -->
+  <section class="py-14 sm:py-16 bg-[#062C20] text-white border-t border-emerald-950/60">
+    <Container>
+      <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold font-display text-white mb-2">
+            Ready to book?
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 font-sans max-w-xl">
+            Tell us what you've got. We'll confirm whether your collection qualifies as free, and book a slot at a convenient time for you.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 shrink-0 w-full md:w-auto">
+          <a
+            href="#book-collection-form"
+            class="w-full sm:w-auto text-center px-6 py-3.5 rounded-[10px] bg-[#B8EC4C] hover:bg-[#a6d83e] text-[#0A261F] font-bold text-xs sm:text-sm uppercase tracking-wider shadow transition-colors"
+          >
+            BOOK A COLLECTION
+          </a>
+          <a
+            href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`}
+            class="w-full sm:w-auto text-center px-6 py-3.5 rounded-[10px] bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm tracking-wider border border-white/20 transition-colors font-mono"
+          >
+            {siteSettings.phone}
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<script>
+  function initLocationForm() {
+    const form = document.getElementById('location-collection-form') as HTMLFormElement | null;
+    const successBox = document.getElementById('location-form-success');
+    const refCodeSpan = document.getElementById('loc-ref-code');
+
+    if (!form || !successBox || !refCodeSpan) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Generate a realistic reference code
+      const randomId = Math.floor(1000 + Math.random() * 9000);
+      const ref = `TS-LOC-${randomId}`;
+
+      refCodeSpan.textContent = ref;
+      successBox.classList.remove('hidden');
+      form.reset();
+
+      successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+
+  initLocationForm();
+  document.addEventListener('astro:page-load', initLocationForm);
+</script>

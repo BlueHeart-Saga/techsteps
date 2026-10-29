@@ -603,6 +603,11 @@ const defaultPillar = servicePillars.find(p => p.id === defaultActiveId) || serv
       cancelClose();
 
       window.dispatchEvent(
+        new CustomEvent('techsteps:close-free-collection', {
+          detail: { immediate: true },
+        })
+      );
+      window.dispatchEvent(
         new CustomEvent('techsteps:close-sectors', {
           detail: { immediate: true },
         })

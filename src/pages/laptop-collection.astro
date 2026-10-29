@@ -1,0 +1,8 @@
+---
+import CollectionPageLayout from '../components/collection/CollectionPageLayout.astro';
+import { collectionServices } from '../data/collectionServices';
+
+const data = collectionServices['laptop-collection'];
+---
+
+<CollectionPageLayout data={data} />

@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
-import AccordionFaq from '../components/content/AccordionFaq.astro';
+import FAQSection from '../components/FAQSection.astro';
+import { getPageFaqs } from '../data/pageFaqs';
 import ServicesCardGrid from '../components/services/ServicesCardGrid.astro';
 import CTA from '../components/global/cta.astro';
 import { getDivisions, getServices, getSectors } from '../lib/sanity/client';
@@ -30,13 +31,8 @@ const sectorLinks = [
   { title: 'Central Government', slug: 'central-government' },
 ];
 
-const defaultFaqs = [
-  { question: 'What is secure document destruction?', answer: 'Secure document destruction is the certified, auditable process of permanently destroying documents and media containing sensitive information — preventing any possibility of data recovery or misuse.' },
-  { question: 'What is the difference between on-site and off-site shredding?', answer: 'On-site shredding takes place at your premises using a mobile shredding vehicle — you can witness the destruction. Off-site shredding involves secure collection and destruction at our facility. Both methods are certificated.' },
-  { question: 'Can hard drives and media be physically destroyed?', answer: 'Yes. Physical hard drive and media destruction involves high-torque shredding to a particle size that renders data irrecoverable — appropriate where standard data erasure is insufficient.' },
-  { question: 'What certificate is issued after destruction?', answer: 'A Certificate of Destruction is issued after each destruction event, recording the material type, quantity, destruction method, date and reference — providing legal evidence of compliant disposal.' },
-];
-const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defaultFaqs;
+const faqConfig = getPageFaqs('secure-shredding-document-integrity');
+const faqs = (faqConfig?.faqs && faqConfig.faqs.length >= 6) ? faqConfig.faqs : (division?.faqs && division.faqs.length >= 6 ? division.faqs : (faqConfig?.faqs || []));
 ---
 
 <BaseLayout
@@ -615,6 +611,15 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
     <br />
     <br />
   </section>
+
+  <!-- ===== FREQUENTLY ASKED QUESTIONS ===== -->
+  <FAQSection
+    eyebrow={faqConfig?.eyebrow || "COMMON QUESTIONS"}
+    heading={faqConfig?.heading || "Frequently Asked Questions"}
+    intro={faqConfig?.intro || "Explore answers to common questions about our EN 15713 accredited secure shredding, mobile on-site destruction, and chain-of-custody protocols."}
+    faqs={faqs}
+    sectionId="faqs"
+  />
 
   <!-- ===== COMMON CTA ===== -->
   <CTA

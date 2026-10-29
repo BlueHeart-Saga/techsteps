@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import HeroSector from '../../components/hero/HeroSector.astro';
 import CTA from '../../components/global/cta.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { getPageFaqs } from '../../data/pageFaqs';
 import { getSectors, getServices, getCaseStudies, getSiteSettings } from '../../lib/sanity/client';
 import { generateSectorSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 import type { Sector, Service } from '../../lib/sanity/types';
@@ -33,6 +35,9 @@ const sector = isValidSector(propsSector)
 if (!sector) {
   return Astro.rewrite('/404');
 }
+
+const faqConfig = getPageFaqs(sector.slug) || getPageFaqs(`sector-${sector.slug}`);
+const sectorFaqs = faqConfig?.faqs || (sector.faqs && sector.faqs.length >= 6 ? sector.faqs : []);
 
 const origin = Astro.site?.origin || 'https://techsteps.co.uk';
 const sectorSchema = generateSectorSchema(sector, siteSettings, origin);
@@ -679,47 +684,14 @@ const matchingCaseStudy = (caseStudies || []).find((c) => {
   <!-- ========================================================= -->
   <!-- SECTION 7: FAQS                                           -->
   <!-- ========================================================= -->
-  {sector.faqs && sector.faqs.length > 0 && (
-    <section class="py-14 sm:py-16 lg:py-20 bg-white">
-      <Container>
-        <div class="max-w-3xl mx-auto mb-10 sm:mb-12 text-center">
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-            {sector.title} Questions &amp; Answers
-          </h2>
-
-          <p class="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed font-sans font-normal max-w-2xl mx-auto">
-            Transparent answers regarding operational standards, statutory compliance controls, and UK nationwide logistics.
-          </p>
-        </div>
-
-
-<div class="max-w-4xl mx-auto space-y-4">
-  {sector.faqs.slice(0, 5).map(
-    (faq: { question: string; answer: string }, idx: number) => (
-      <div class="rounded-[12px] border border-slate-200 bg-white p-5 sm:p-6">
-        <div class="flex items-start gap-4">
-          <span class="font-mono font-bold text-sm text-[#0F623A] shrink-0">
-            {String(idx + 1).padStart(2, '0')}
-          </span>
-
-          <div class="flex-1 text-left">
-            <h3 class="text-base sm:text-lg font-semibold text-slate-900">
-              {faq.question}
-            </h3>
-
-            <p class="mt-3 text-sm sm:text-base text-slate-700 leading-relaxed">
-              {faq.answer}
-            </p>
-          </div>
-        </div>
-      </div>
-    )
-  )}
-</div>
-      </Container>
-      <br />
-      <br />
-    </section>
+  {sectorFaqs.length > 0 && (
+    <FAQSection
+      eyebrow={faqConfig?.eyebrow || "COMMON QUESTIONS"}
+      heading={faqConfig?.heading || `${sector.title} Questions & Answers`}
+      intro={faqConfig?.intro || "Transparent answers regarding operational standards, statutory compliance controls, and UK nationwide logistics."}
+      faqs={sectorFaqs}
+      sectionId="faqs"
+    />
   )}
 
   <!-- ========================================================= -->

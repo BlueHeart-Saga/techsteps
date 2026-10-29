@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
-import AccordionFaq from '../components/content/AccordionFaq.astro';
+import FAQSection from '../components/FAQSection.astro';
+import { getPageFaqs } from '../data/pageFaqs';
 import ServicesCardGrid from '../components/services/ServicesCardGrid.astro';
 import CTA from '../components/global/cta.astro';
 import { getDivisions, getServices, getSectors } from '../lib/sanity/client';
@@ -30,13 +31,8 @@ const sectorLinks = [
   { title: 'Central Government', slug: 'central-government' },
 ];
 
-const defaultFaqs = [
-  { question: 'What types of technology can you relocate?', answer: 'We relocate all types of IT equipment including servers, storage arrays, networking infrastructure, workstations, specialist laboratory equipment, heritage and museum archives, and complete data centre environments.' },
-  { question: 'How do you minimise disruption during a move?', answer: 'Careful planning is central to minimising disruption. We work with your team to schedule moves at appropriate times, plan in stages where required, and maintain clear communication throughout to keep downtime to a minimum.' },
-  { question: 'Do you provide an inventory of moved assets?', answer: 'Yes. A full asset inventory is produced as part of the relocation process — recording each item before, during and after the move, with condition notes and destination confirmation.' },
-  { question: 'Do you work outside normal office hours?', answer: 'Yes. Many technology relocations take place at weekends or out of hours to minimise operational disruption. We can accommodate requirements outside standard business hours with appropriate planning.' },
-];
-const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defaultFaqs;
+const faqConfig = getPageFaqs('moving-relocation-services');
+const faqs = (faqConfig?.faqs && faqConfig.faqs.length >= 6) ? faqConfig.faqs : (division?.faqs && division.faqs.length >= 6 ? division.faqs : (faqConfig?.faqs || []));
 ---
 
 <BaseLayout
@@ -602,6 +598,15 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
     <br />
     <br />
   </section>
+
+  <!-- ===== FREQUENTLY ASKED QUESTIONS ===== -->
+  <FAQSection
+    eyebrow={faqConfig?.eyebrow || "COMMON QUESTIONS"}
+    heading={faqConfig?.heading || "Frequently Asked Questions"}
+    intro={faqConfig?.intro || "Explore answers to common questions about our data centre migrations, server moves, and specialist relocation logistics."}
+    faqs={faqs}
+    sectionId="faqs"
+  />
 
   <!-- ===== COMMON CTA ===== -->
   <CTA

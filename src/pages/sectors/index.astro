@@ -3,7 +3,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import HeroHeader from '../../components/global/HeroHeader.astro';
 import CommonCTA from '../../components/global/CommonCTA.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { getPageFaqs } from '../../data/pageFaqs';
 import { getSectors, getDivisions, getSectorsPage } from '../../lib/sanity/client';
+
+const faqConfig = getPageFaqs('sectors-overview');
+const faqs = faqConfig?.faqs || [];
 
 const breadcrumbs = [
   { name: 'Sectors', url: '/sectors' },
@@ -1160,6 +1165,15 @@ const accreditations = [
     </Container>
     <br />
   </section>
+
+  <!-- ===== FREQUENTLY ASKED QUESTIONS ===== -->
+  <FAQSection
+    eyebrow={faqConfig?.eyebrow || "COMMON QUESTIONS"}
+    title={faqConfig?.title || "Frequently Asked Questions"}
+    subtitle={faqConfig?.subtitle || "Common questions regarding sector compliance, multi-site deployments, and chain of custody."}
+    faqs={faqs}
+    sectionId="faqs"
+  />
 
   <!-- ===== 7. FINAL CTA ===== -->
   <CommonCTA />

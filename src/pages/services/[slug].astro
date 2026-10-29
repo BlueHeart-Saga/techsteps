@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import PageHero from '../../components/hero/PageHero.astro';
 import CTA from '../../components/global/cta.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { getPageFaqs } from '../../data/pageFaqs';
 import { getServices, getSectors, getSiteSettings, getCaseStudies } from '../../lib/sanity/client';
 import { services as fallbackServices } from '../../lib/sanity/data';
 import { generateServiceSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
@@ -358,8 +360,13 @@ const relatedServices = (resolvedRelatedServices.length >= 2
       ...allServices.filter((s) => s.divisionSlug === service.divisionSlug && s.slug !== service.slug && !resolvedRelatedServices.some((r) => r.slug === s.slug)),
     ]).slice(0, 3);
 
-// FAQS: Strictly 4 to 6 concise questions
-const displayedFaqs = (detail.faqs && detail.faqs.length > 0) ? detail.faqs.slice(0, 5) : [];
+// FAQS: Resolved from pageFaqs with fallback to service detail (guaranteed 6-8 FAQs)
+const pageFaqConfig = getPageFaqs(service.slug) || getPageFaqs(canonicalSlug);
+const serviceFaqs = (pageFaqConfig?.faqs && pageFaqConfig.faqs.length >= 6)
+  ? pageFaqConfig.faqs
+  : (detail.faqs && detail.faqs.length >= 6)
+    ? detail.faqs
+    : (pageFaqConfig?.faqs || detail.faqs || []);
 
 // =====================================================
 // SERVICE ABOUT IMAGES
@@ -916,47 +923,6 @@ const serviceAboutImage =
         </div>
       )}
 
-      <!-- Frequently Asked Questions (4 to 6 concise questions) -->
-      {displayedFaqs.length > 0 && (
-        <div class="max-w-4xl mx-auto">
-          <div class="mb-10 text-center">
-            {/*<span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono mb-3">
-              COMMON QUESTIONS
-            </span>*/}
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight font-display leading-[1.12]">
-              {detail.faqTitle || "Frequently Asked Questions"}
-            </h2>
-            <p class="mt-3 text-base sm:text-lg lg:text-[19px] text-black leading-relaxed font-normal">
-              {detail.faqSubtitle || "Clear answers about operational standards, accreditations, and UK delivery."}
-            </p>
-          </div>
-
-          <!-- Editorial FAQ List -->
-          <div class="divide-y divide-slate-200/90 border-t border-b border-slate-200/90">
-            {displayedFaqs.map((faq: { question: string; answer: string }, idx: number) => {
-              const num = String(idx + 1).padStart(2, '0');
-              return (
-                <div class="py-7 sm:py-8 group transition-colors duration-200 hover:bg-[#F8FAF9] px-4 sm:px-6 -mx-4 sm:-mx-6 rounded-[12px]">
-                  <div class="flex items-baseline gap-3.5 mb-2">
-                    <span class="font-mono font-bold text-sm sm:text-base text-[#0F623A] shrink-0">
-                      {num}
-                    </span>
-                    <h3 class="text-lg sm:text-xl font-semibold text-slate-900 font-display group-hover:text-[#0F623A] transition-colors leading-snug">
-                      {faq.question}
-                    </h3>
-                  </div>
-                  <div class="pl-7 sm:pl-8">
-                    <p class="text-base sm:text-lg text-black leading-relaxed font-sans">
-                      {faq.answer}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
       <!-- Compact Row of Related Services -->
       {relatedServices.length > 0 && (
         <div class="mt-14 pt-10 border-t border-slate-200 max-w-4xl mx-auto">
@@ -986,6 +952,19 @@ const serviceAboutImage =
     <br />
     <br />
   </section>
+
+  <!-- ===================================================== -->
+  <!-- 7b. FREQUENTLY ASKED QUESTIONS                         -->
+  <!-- ===================================================== -->
+  {serviceFaqs.length > 0 && (
+    <FAQSection
+      eyebrow={pageFaqConfig?.eyebrow || detail.faqBadge || "COMMON QUESTIONS"}
+      heading={pageFaqConfig?.heading || detail.faqTitle || "Frequently Asked Questions"}
+      intro={pageFaqConfig?.intro || detail.faqSubtitle || "Clear answers about operational standards, accreditations, and UK delivery."}
+      faqs={serviceFaqs}
+      sectionId="faqs"
+    />
+  )}
 
   <!-- ===================================================== -->
   <!-- 8. FINAL CTA: Preserved Completely Unchanged           -->

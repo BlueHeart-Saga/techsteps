@@ -1,0 +1,1199 @@
+---
+/**
+ * book-pickup.astro
+ * Redesigned Premium Tab-Based Collection Booking Experience
+ * Route: /book-pickup
+ * 
+ * Features:
+ * - 3 interactive collection modes via modern tab navigation:
+ *   1. Free Collection (10+ devices, standard nationwide UK pickup)
+ *   2. On-Site Collection & Destruction (Witnessed on-premise wiping, shredding & de-racking)
+ *   3. Box Collection (Tracked courier boxes for remote workers & small batches)
+ * - Custom tailored form fields per collection mode
+ * - Dynamic URL parameter support (?tab=free|onsite|box and ?type=...)
+ * - Instant reference generation and submission state
+ * - Security & compliance trust badges
+ * - Unified FAQSection integration
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/layout/Container.astro';
+import FAQSection from '../components/FAQSection.astro';
+import CTA from '../components/global/cta.astro';
+import { getSiteSettings } from '../lib/sanity/client';
+import { getPageFaqs } from '../data/pageFaqs';
+
+const siteSettings = await getSiteSettings();
+const faqConfig = getPageFaqs('collection-overview');
+const faqs = faqConfig?.faqs || [];
+
+const pageTitle = "Book an IT Equipment Pickup | Free, On-Site & Box Services | TechSteps";
+const pageDescription = "Book an IT equipment collection. Choose from Free Nationwide Collection for 10+ devices, Witnessed On-Site Destruction, or Tracked Courier Boxes for remote teams.";
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  hasHeroHeader={false}
+>
+  <!-- =====================================================
+       1. HERO HEADER SECTION
+       ===================================================== -->
+  <section class="relative pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24 bg-[#0A1A16] text-white overflow-hidden">
+    <!-- Ambient Backdrop Effects -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(20,107,92,0.4),rgba(10,26,22,0))] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+    <Container>
+      <div class="relative z-10 max-w-4xl mx-auto text-center">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center justify-center gap-2 text-xs sm:text-sm text-emerald-300/80 mb-5 font-mono" aria-label="Breadcrumb">
+          <a href="/" class="hover:text-white transition-colors">Home</a>
+          <span>/</span>
+          <a href="/collection/all-equipement" class="hover:text-white transition-colors">IT Equipment Collection</a>
+          <span>/</span>
+          <span class="text-white font-medium">Book a Pickup</span>
+        </nav>
+
+        <!-- Eyebrow Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Priority Scheduling • ADISA &amp; Environment Agency Licensed
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white font-display leading-[1.12] mb-5">
+          Book Your IT Equipment Pickup
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-sans mb-8">
+          Fast, certified collection for UK businesses and public sector organisations. Choose your preferred service mode below to receive an instant reference number and collection window.
+        </p>
+
+        <!-- Trust Credentials Strip -->
+        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-[13px] text-emerald-200/90 font-mono">
+          <span class="flex items-center gap-1.5">
+            <span class="text-emerald-400 font-bold">✓</span> 100% WEEE Compliant
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span class="text-emerald-400 font-bold">✓</span> ADISA Certified Erasure
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span class="text-emerald-400 font-bold">✓</span> GPS Tracked Fleet
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span class="text-emerald-400 font-bold">✓</span> EA Waste Transfer Note
+          </span>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       2. TAB-BASED BOOKING CONTAINER
+       ===================================================== -->
+  <section class="relative bg-[#F4F7F5] py-12 sm:py-16 lg:py-20 -mt-6 rounded-t-[32px] sm:rounded-t-[40px] z-20 shadow-2xl">
+    <Container>
+      <div class="max-w-4xl mx-auto">
+
+        <!-- ===================================================
+             TAB NAVIGATION CONTROLLER (3 SERVICE MODES)
+             =================================================== -->
+        <div class="mb-8" role="tablist" aria-label="Collection Service Options">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 p-2 bg-slate-200/80 rounded-[20px] border border-slate-300/80 shadow-inner">
+            
+            <!-- Tab 1: Free Collection -->
+            <button
+              type="button"
+              id="tab-btn-free"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-free"
+              data-tab-target="free"
+              class="collection-tab-btn active text-left p-4 rounded-[16px] transition-all duration-200 focus:outline-none cursor-pointer flex flex-col justify-between"
+            >
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-xl">🚚</span>
+                <span class="tab-badge px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider">
+                  Most Popular
+                </span>
+              </div>
+              <div>
+                <span class="tab-title block font-display text-base font-bold leading-tight">
+                  Free IT Collection
+                </span>
+                <span class="tab-desc block text-xs mt-0.5">
+                  Qualifying batches (10+ devices) • Nationwide UK
+                </span>
+              </div>
+            </button>
+
+            <!-- Tab 2: On-Site Collection -->
+            <button
+              type="button"
+              id="tab-btn-onsite"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-onsite"
+              data-tab-target="onsite"
+              class="collection-tab-btn text-left p-4 rounded-[16px] transition-all duration-200 focus:outline-none cursor-pointer flex flex-col justify-between"
+            >
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-xl">🏢</span>
+                <span class="tab-badge px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider">
+                  High Security
+                </span>
+              </div>
+              <div>
+                <span class="tab-title block font-display text-base font-bold leading-tight">
+                  On-Site Collection
+                </span>
+                <span class="tab-desc block text-xs mt-0.5">
+                  Witnessed shredding, wiping &amp; de-racking
+                </span>
+              </div>
+            </button>
+
+            <!-- Tab 3: Box Collection -->
+            <button
+              type="button"
+              id="tab-btn-box"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-box"
+              data-tab-target="box"
+              class="collection-tab-btn text-left p-4 rounded-[16px] transition-all duration-200 focus:outline-none cursor-pointer flex flex-col justify-between"
+            >
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-xl">📦</span>
+                <span class="tab-badge px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider">
+                  Remote Teams
+                </span>
+              </div>
+              <div>
+                <span class="tab-title block font-display text-base font-bold leading-tight">
+                  Tracked Box Service
+                </span>
+                <span class="tab-desc block text-xs mt-0.5">
+                  Pre-paid courier boxes for home workers
+                </span>
+              </div>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- ===================================================
+             MAIN BOOKING CARD
+             =================================================== -->
+        <div class="bg-white rounded-[24px] sm:rounded-[28px] border border-slate-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.04)] p-6 sm:p-10 lg:p-12 relative overflow-hidden">
+          
+          <!-- Submission Confirmation Screen (Hidden by Default) -->
+          <div
+            id="booking-confirmation-modal"
+            class="hidden py-8 text-center space-y-6 animate-fadeIn"
+          >
+            <div class="w-16 h-16 rounded-full bg-emerald-100 text-[#146B5C] flex items-center justify-center mx-auto text-3xl font-bold shadow-sm">
+              ✓
+            </div>
+            <div>
+              <span class="inline-block px-3.5 py-1 rounded-full bg-emerald-50 text-[#146B5C] text-xs font-mono font-bold uppercase tracking-wider mb-2">
+                Booking Request Successfully Transmitted
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-semibold text-[#101E2C] font-display">
+                Collection Reference: <span id="conf-ref" class="font-mono text-[#146B5C] underline font-extrabold"></span>
+              </h2>
+              <p class="text-sm sm:text-base text-slate-600 max-w-lg mx-auto mt-2 leading-relaxed">
+                Thank you! We have logged your request. Our UK logistics desk will review your items and confirm your scheduled collection window within <span class="font-bold text-slate-900">two working days</span>.
+              </p>
+            </div>
+
+            <!-- Next Steps Manifest Summary -->
+            <div class="max-w-md mx-auto text-left p-5 rounded-2xl bg-[#F8FAF9] border border-slate-200 text-xs sm:text-[13px] space-y-2.5">
+              <div class="font-bold text-slate-800 uppercase tracking-wider font-mono text-[11px] pb-1 border-b border-slate-200">
+                What happens next?
+              </div>
+              <div class="flex items-start gap-2 text-slate-600">
+                <span class="text-[#146B5C] font-bold">1.</span>
+                <span>You will receive an automated email confirmation receipt.</span>
+              </div>
+              <div class="flex items-start gap-2 text-slate-600">
+                <span class="text-[#146B5C] font-bold">2.</span>
+                <span>Our operations coordinator will verify vehicle access &amp; time slots.</span>
+              </div>
+              <div class="flex items-start gap-2 text-slate-600">
+                <span class="text-[#146B5C] font-bold">3.</span>
+                <span>Security-vetted drivers will provide an Environment Agency Waste Transfer Note on arrival.</span>
+              </div>
+            </div>
+
+            <div class="pt-2">
+              <button
+                type="button"
+                id="btn-book-another"
+                class="px-6 py-2.5 rounded-[12px] bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold transition-colors"
+              >
+                Submit another collection request
+              </button>
+            </div>
+          </div>
+
+          <!-- =================================================
+               FORM PANEL 1: FREE COLLECTION
+               ================================================= -->
+          <div id="panel-free" role="tabpanel" aria-labelledby="tab-btn-free" class="tab-panel space-y-8">
+            <!-- Helper Header Box -->
+            <div class="p-5 rounded-[18px] bg-[#EAF2EE] border border-[#D1E2D9] flex items-start gap-3.5">
+              <span class="text-2xl shrink-0 mt-0.5">ℹ️</span>
+              <div class="text-xs sm:text-[13.5px] text-[#101E2C] leading-relaxed">
+                <span class="font-bold block text-sm text-[#0F623A] mb-0.5">
+                  100% Free Nationwide IT Collection Eligibility
+                </span>
+                Free collection applies to UK commercial, educational, and healthcare organisations with <span class="font-bold underline">10 or more</span> desktop PCs, laptops, or enterprise servers. Smaller batches can be bundled or collected via our Tracked Box Service.
+              </div>
+            </div>
+
+            <form id="form-free" class="space-y-7" data-service-type="Free Nationwide Collection">
+              
+              <!-- Section A: Hardware Quantities & Types -->
+              <div>
+                <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-[#146B5C] font-mono">
+                    1. Hardware Quantities &amp; Equipment Count
+                  </h3>
+                  <span class="text-xs text-slate-400 font-sans">Enter approximate counts</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5 sm:gap-4">
+                  <!-- Laptops -->
+                  <div class="p-3.5 rounded-[14px] bg-[#F8FAF9] border border-slate-200 hover:border-[#146B5C]/40 transition-colors">
+                    <label for="free_laptops" class="block text-xs font-bold text-slate-800 mb-1">
+                      Laptops / MacBooks
+                    </label>
+                    <input
+                      type="number"
+                      id="free_laptops"
+                      name="laptops"
+                      min="0"
+                      value="0"
+                      class="qty-counter w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-center font-bold text-slate-900 text-base focus:border-[#146B5C] focus:ring-1 focus:ring-[#146B5C] outline-none"
+                    />
+                  </div>
+
+                  <!-- Desktops -->
+                  <div class="p-3.5 rounded-[14px] bg-[#F8FAF9] border border-slate-200 hover:border-[#146B5C]/40 transition-colors">
+                    <label for="free_pcs" class="block text-xs font-bold text-slate-800 mb-1">
+                      Desktop PCs &amp; Towers
+                    </label>
+                    <input
+                      type="number"
+                      id="free_pcs"
+                      name="desktops"
+                      min="0"
+                      value="0"
+                      class="qty-counter w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-center font-bold text-slate-900 text-base focus:border-[#146B5C] focus:ring-1 focus:ring-[#146B5C] outline-none"
+                    />
+                  </div>
+
+                  <!-- Servers -->
+                  <div class="p-3.5 rounded-[14px] bg-[#F8FAF9] border border-slate-200 hover:border-[#146B5C]/40 transition-colors">
+                    <label for="free_servers" class="block text-xs font-bold text-slate-800 mb-1">
+                      Servers &amp; Storage Arrays
+                    </label>
+                    <input
+                      type="number"
+                      id="free_servers"
+                      name="servers"
+                      min="0"
+                      value="0"
+                      class="qty-counter w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-center font-bold text-slate-900 text-base focus:border-[#146B5C] focus:ring-1 focus:ring-[#146B5C] outline-none"
+                    />
+                  </div>
+
+                  <!-- Monitors -->
+                  <div class="p-3.5 rounded-[14px] bg-[#F8FAF9] border border-slate-200 hover:border-[#146B5C]/40 transition-colors">
+                    <label for="free_monitors" class="block text-xs font-bold text-slate-800 mb-1">
+                      Monitors &amp; Screens
+                    </label>
+                    <input
+                      type="number"
+                      id="free_monitors"
+                      name="monitors"
+                      min="0"
+                      value="0"
+                      class="qty-counter w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-center font-bold text-slate-900 text-base focus:border-[#146B5C] focus:ring-1 focus:ring-[#146B5C] outline-none"
+                    />
+                  </div>
+
+                  <!-- Mobile Devices -->
+                  <div class="p-3.5 rounded-[14px] bg-[#F8FAF9] border border-slate-200 hover:border-[#146B5C]/40 transition-colors">
+                    <label for="free_mobiles" class="block text-xs font-bold text-slate-800 mb-1">
+                      Mobile Phones &amp; Tablets
+                    </label>
+                    <input
+                      type="number"
+                      id="free_mobiles"
+                      name="mobiles"
+                      min="0"
+                      value="0"
+                      class="qty-counter w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-center font-bold text-slate-900 text-base focus:border-[#146B5C] focus:ring-1 focus:ring-[#146B5C] outline-none"
+                    />
+                  </div>
+
+                  <!-- Printers -->
+                  <div class="p-3.5 rounded-[14px] bg-[#F8FAF9] border border-slate-200 hover:border-[#146B5C]/40 transition-colors">
+                    <label for="free_printers" class="block text-xs font-bold text-slate-800 mb-1">
+                      Printers / MFPs
+                    </label>
+                    <input
+                      type="number"
+                      id="free_printers"
+                      name="printers"
+                      min="0"
+                      value="0"
+                      class="qty-counter w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-center font-bold text-slate-900 text-base focus:border-[#146B5C] focus:ring-1 focus:ring-[#146B5C] outline-none"
+                    />
+                  </div>
+                </div>
+
+                <!-- Total Count & Qualification Indicator -->
+                <div class="mt-4 p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs sm:text-[13px]">
+                  <span class="text-slate-600 font-medium">
+                    Total Estimated Hardware: <span id="free-total-count" class="font-bold text-slate-900 font-mono text-sm">0</span> items
+                  </span>
+                  <span id="free-qualify-pill" class="font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-600">
+                    Awaiting device count
+                  </span>
+                </div>
+              </div>
+
+              <!-- Section B: Preferred Outcome & Logistics -->
+              <div>
+                <div class="mb-4 pb-2 border-b border-slate-100">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-[#146B5C] font-mono">
+                    2. Outcome &amp; Site Logistics
+                  </h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-1.5">
+                    <label for="free_outcome" class="block text-xs font-semibold text-slate-800">
+                      Primary Outcome Preference
+                    </label>
+                    <select
+                      id="free_outcome"
+                      name="outcome"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    >
+                      <option value="Refurbishment & Remarketing with Rebate">Refurbishment &amp; Remarketing (Max Residual Value)</option>
+                      <option value="Zero-Landfill WEEE Recycling">Zero-Landfill WEEE Certified Recycling</option>
+                      <option value="High Security Destruction">High Security Physical Shredding</option>
+                      <option value="Asset Audit & Assessment">Full Comprehensive Asset Audit</option>
+                    </select>
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="free_date" class="block text-xs font-semibold text-slate-800">
+                      Preferred Collection Date
+                    </label>
+                    <input
+                      type="date"
+                      id="free_date"
+                      name="preferredDate"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+                </div>
+
+                <!-- Collection Address & Access -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                  <div class="sm:col-span-2 space-y-1.5">
+                    <label for="free_address" class="block text-xs font-semibold text-slate-800">
+                      Collection Address &amp; Town <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="free_address"
+                      name="address"
+                      required
+                      placeholder="e.g. 10 Finsbury Square, London"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+                  <div class="space-y-1.5">
+                    <label for="free_postcode" class="block text-xs font-semibold text-slate-800">
+                      Postcode <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="free_postcode"
+                      name="postcode"
+                      required
+                      placeholder="EC2A 1AF"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans uppercase font-mono"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section C: Contact Information -->
+              <div>
+                <div class="mb-4 pb-2 border-b border-slate-100">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-[#146B5C] font-mono">
+                    3. Contact &amp; Company Details
+                  </h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-1.5">
+                    <label for="free_name" class="block text-xs font-semibold text-slate-800">
+                      Contact Name <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="free_name"
+                      name="fullName"
+                      required
+                      placeholder="Sarah Jenkins"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="free_company" class="block text-xs font-semibold text-slate-800">
+                      Company / Organisation <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="free_company"
+                      name="company"
+                      required
+                      placeholder="Acme Financial UK Ltd"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="free_email" class="block text-xs font-semibold text-slate-800">
+                      Corporate Email <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="free_email"
+                      name="email"
+                      required
+                      placeholder="s.jenkins@acmefinance.co.uk"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="free_phone" class="block text-xs font-semibold text-slate-800">
+                      Direct Telephone <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      id="free_phone"
+                      name="phone"
+                      required
+                      placeholder="020 7946 0912"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+                </div>
+
+                <div class="space-y-1.5 mt-4">
+                  <label for="free_notes" class="block text-xs font-semibold text-slate-800">
+                    Access Notes or Equipment Details (Loading bay, ground floor, floor number, damaged items)
+                  </label>
+                  <textarea
+                    id="free_notes"
+                    name="notes"
+                    rows="3"
+                    placeholder="e.g. 3rd floor office with goods lift, building security requires 24h advance driver registration."
+                    class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none resize-y font-sans"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Submit Row -->
+              <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-xs text-slate-500 font-sans">
+                  🔒 Information encrypted &amp; stored under UK GDPR &amp; ISO 27001 standards.
+                </div>
+                <button
+                  type="submit"
+                  class="w-full sm:w-auto px-8 py-3.5 rounded-[12px] bg-[#146B5C] hover:bg-[#105549] text-white font-bold text-sm sm:text-base shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Request Free Collection Pickup &rarr;
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- =================================================
+               FORM PANEL 2: ON-SITE COLLECTION & DESTRUCTION
+               ================================================= -->
+          <div id="panel-onsite" role="tabpanel" aria-labelledby="tab-btn-onsite" class="tab-panel hidden space-y-8">
+            <!-- Helper Header Box -->
+            <div class="p-5 rounded-[18px] bg-amber-50/80 border border-amber-200/90 flex items-start gap-3.5">
+              <span class="text-2xl shrink-0 mt-0.5">🔒</span>
+              <div class="text-xs sm:text-[13.5px] text-slate-900 leading-relaxed">
+                <span class="font-bold block text-sm text-amber-900 mb-0.5">
+                  High Security Witnessed On-Premise Decommissioning
+                </span>
+                Our security-cleared mobile engineers arrive on-site in dedicated vehicles equipped with industrial hard drive shredders (DIN 66399 Level H-5/H-6) and mobile Blancco sanitisation servers. Drives never leave your building intact.
+              </div>
+            </div>
+
+            <form id="form-onsite" class="space-y-7" data-service-type="On-Site Collection & Destruction">
+              
+              <!-- Section A: On-Site Requirements -->
+              <div>
+                <div class="mb-4 pb-2 border-b border-slate-100">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-[#146B5C] font-mono">
+                    1. On-Site Security Services Required
+                  </h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-800">
+                  <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-[#146B5C] cursor-pointer">
+                    <input type="checkbox" name="service_shredding" class="mt-0.5 text-[#146B5C] rounded" checked />
+                    <div>
+                      <span class="font-bold block">On-Site Hard Drive Physical Shredding</span>
+                      <span class="text-slate-500 text-xs">DIN 66399 6mm or 2mm cross-cut particles</span>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-[#146B5C] cursor-pointer">
+                    <input type="checkbox" name="service_blancco" class="mt-0.5 text-[#146B5C] rounded" />
+                    <div>
+                      <span class="font-bold block">Witnessed Blancco Software Wiping</span>
+                      <span class="text-slate-500 text-xs">Multi-pass NIST 800-88 Purge on active servers</span>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-[#146B5C] cursor-pointer">
+                    <input type="checkbox" name="service_deracking" class="mt-0.5 text-[#146B5C] rounded" />
+                    <div>
+                      <span class="font-bold block">Data Centre De-Racking &amp; Rail Removal</span>
+                      <span class="text-slate-500 text-xs">Server chassis, SAN bays &amp; core switches</span>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-[#146B5C] cursor-pointer">
+                    <input type="checkbox" name="service_degaussing" class="mt-0.5 text-[#146B5C] rounded" />
+                    <div>
+                      <span class="font-bold block">Magnetic Degaussing &amp; Tape Destruction</span>
+                      <span class="text-slate-500 text-xs">LTO tapes, DLT, and legacy magnetic media</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Section B: Scope & Vetting -->
+              <div>
+                <div class="mb-4 pb-2 border-b border-slate-100">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-[#146B5C] font-mono">
+                    2. Security Clearance &amp; Estimated Scope
+                  </h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-1.5">
+                    <label for="onsite_vetting" class="block text-xs font-semibold text-slate-800">
+                      Required Engineer Clearance Level
+                    </label>
+                    <select
+                      id="onsite_vetting"
+                      name="vettingLevel"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    >
+                      <option value="BS 7858 Standard Security Cleared">Standard BS 7858 Security Vetted (Default)</option>
+                      <option value="BPSS (Baseline Personnel Security Standard)">BPSS (Baseline Personnel Security Standard)</option>
+                      <option value="Security Check (SC Cleared)">SC Cleared (MoD / Central Government)</option>
+                      <option value="Enhanced DBS Cleared">Enhanced DBS Cleared (Education / Healthcare)</option>
+                    </select>
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="onsite_drive_count" class="block text-xs font-semibold text-slate-800">
+                      Approximate Hard Drives / SSDs to Destroy
+                    </label>
+                    <input
+                      type="text"
+                      id="onsite_drive_count"
+                      name="driveCount"
+                      placeholder="e.g. 150 HDDs, 40 SSDs, 20 LTO Tapes"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                  <div class="sm:col-span-2 space-y-1.5">
+                    <label for="onsite_address" class="block text-xs font-semibold text-slate-800">
+                      On-Site Facility Location &amp; Town <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="onsite_address"
+                      name="address"
+                      required
+                      placeholder="Data Centre or HQ Address"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+                  <div class="space-y-1.5">
+                    <label for="onsite_postcode" class="block text-xs font-semibold text-slate-800">
+                      Postcode <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="onsite_postcode"
+                      name="postcode"
+                      required
+                      placeholder="EC1A 1BB"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans uppercase font-mono"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section C: Contact & Signatory Details -->
+              <div>
+                <div class="mb-4 pb-2 border-b border-slate-100">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-[#146B5C] font-mono">
+                    3. Authorised Contact / Witness Information
+                  </h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-1.5">
+                    <label for="onsite_name" class="block text-xs font-semibold text-slate-800">
+                      Witness / IT Lead Name <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="onsite_name"
+                      name="fullName"
+                      required
+                      placeholder="David Miller (Head of IT)"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="onsite_company" class="block text-xs font-semibold text-slate-800">
+                      Company Name <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="onsite_company"
+                      name="company"
+                      required
+                      placeholder="Global Bank PLC"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="onsite_email" class="block text-xs font-semibold text-slate-800">
+                      Work Email <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="onsite_email"
+                      name="email"
+                      required
+                      placeholder="d.miller@bank.co.uk"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="onsite_phone" class="block text-xs font-semibold text-slate-800">
+                      Direct Mobile / Desk Phone <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      id="onsite_phone"
+                      name="phone"
+                      required
+                      placeholder="07700 900123"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Row -->
+              <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-xs text-slate-500 font-sans">
+                  📋 Includes on-site Certificate of Destruction signed before departure.
+                </div>
+                <button
+                  type="submit"
+                  class="w-full sm:w-auto px-8 py-3.5 rounded-[12px] bg-[#146B5C] hover:bg-[#105549] text-white font-bold text-sm sm:text-base shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Book On-Site Destruction Service &rarr;
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- =================================================
+               FORM PANEL 3: TRACKED BOX COLLECTION SERVICE
+               ================================================= -->
+          <div id="panel-box" role="tabpanel" aria-labelledby="tab-btn-box" class="tab-panel hidden space-y-8">
+            <!-- Helper Header Box -->
+            <div class="p-5 rounded-[18px] bg-blue-50/80 border border-blue-200/90 flex items-start gap-3.5">
+              <span class="text-2xl shrink-0 mt-0.5">📦</span>
+              <div class="text-xs sm:text-[13.5px] text-slate-900 leading-relaxed">
+                <span class="font-bold block text-sm text-blue-900 mb-0.5">
+                  Tracked Courier Box Service for Remote Workers &amp; Small Batches
+                </span>
+                We dispatch heavy-duty, foam-lined courier boxes with serialized tamper-evident zip seals and pre-paid tracked returns directly to your office or to individual remote employee homes across the UK.
+              </div>
+            </div>
+
+            <form id="form-box" class="space-y-7" data-service-type="Tracked Courier Box Collection">
+              
+              <!-- Section A: Box Sizes -->
+              <div>
+                <div class="mb-4 pb-2 border-b border-slate-100">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-[#146B5C] font-mono">
+                    1. Select Courier Box Requirements
+                  </h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                  <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-sm text-slate-900">Standard Laptop Box</span>
+                      <span class="text-xs font-mono text-[#146B5C] font-bold">1–2 Units</span>
+                    </div>
+                    <p class="text-xs text-slate-500">
+                      Custom foam insert for 1–2 laptops, power chargers, and cables.
+                    </p>
+                    <div class="pt-1 flex items-center justify-between">
+                      <label for="box_qty_small" class="text-xs font-semibold text-slate-700">Quantity:</label>
+                      <input
+                        type="number"
+                        id="box_qty_small"
+                        name="boxSmall"
+                        min="0"
+                        value="1"
+                        class="w-16 bg-white border border-slate-300 rounded px-2 py-1 text-center font-bold text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-sm text-slate-900">Multi-Device Box</span>
+                      <span class="text-xs font-mono text-[#146B5C] font-bold">3–5 Units</span>
+                    </div>
+                    <p class="text-xs text-slate-500">
+                      Reinforced box for up to 5 laptops or 10 smartphones/tablets.
+                    </p>
+                    <div class="pt-1 flex items-center justify-between">
+                      <label for="box_qty_med" class="text-xs font-semibold text-slate-700">Quantity:</label>
+                      <input
+                        type="number"
+                        id="box_qty_med"
+                        name="boxMedium"
+                        min="0"
+                        value="0"
+                        class="w-16 bg-white border border-slate-300 rounded px-2 py-1 text-center font-bold text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-sm text-slate-900">Storage Crate</span>
+                      <span class="text-xs font-mono text-[#146B5C] font-bold">Bulk Media</span>
+                    </div>
+                    <p class="text-xs text-slate-500">
+                      Lockable solid tote for loose hard drives, SSDs, and server drives.
+                    </p>
+                    <div class="pt-1 flex items-center justify-between">
+                      <label for="box_qty_crate" class="text-xs font-semibold text-slate-700">Quantity:</label>
+                      <input
+                        type="number"
+                        id="box_qty_crate"
+                        name="boxCrate"
+                        min="0"
+                        value="0"
+                        class="w-16 bg-white border border-slate-300 rounded px-2 py-1 text-center font-bold text-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section B: Dispatch Model -->
+              <div>
+                <div class="mb-4 pb-2 border-b border-slate-100">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-[#146B5C] font-mono">
+                    2. Distribution &amp; Delivery Destination
+                  </h3>
+                </div>
+
+                <div class="space-y-3 mb-4">
+                  <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer">
+                    <input type="radio" name="boxModel" value="Single Office" class="mt-0.5 text-[#146B5C]" checked />
+                    <div>
+                      <span class="font-bold block text-xs sm:text-sm text-slate-900">Deliver all boxes to single corporate office</span>
+                      <span class="text-xs text-slate-500">All collection boxes delivered to your company site for internal packing.</span>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer">
+                    <input type="radio" name="boxModel" value="Remote Workers" class="mt-0.5 text-[#146B5C]" />
+                    <div>
+                      <span class="font-bold block text-xs sm:text-sm text-slate-900">Multi-address dispatch to remote employee home addresses</span>
+                      <span class="text-xs text-slate-500">We send individual tracked return boxes directly to your remote team across the UK.</span>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div class="sm:col-span-2 space-y-1.5">
+                    <label for="box_address" class="block text-xs font-semibold text-slate-800">
+                      Primary Delivery Address <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="box_address"
+                      name="address"
+                      required
+                      placeholder="Company reception or home address"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="box_postcode" class="block text-xs font-semibold text-slate-800">
+                      Postcode <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="box_postcode"
+                      name="postcode"
+                      required
+                      placeholder="SW1A 1AA"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans uppercase font-mono"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section C: Contact Information -->
+              <div>
+                <div class="mb-4 pb-2 border-b border-slate-100">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-[#146B5C] font-mono">
+                    3. Contact &amp; Dispatch Recipient
+                  </h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-1.5">
+                    <label for="box_name" class="block text-xs font-semibold text-slate-800">
+                      Recipient / Contact Name <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="box_name"
+                      name="fullName"
+                      required
+                      placeholder="Alex Turner"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="box_company" class="block text-xs font-semibold text-slate-800">
+                      Company Name <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="box_company"
+                      name="company"
+                      required
+                      placeholder="Tech Innovators Ltd"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="box_email" class="block text-xs font-semibold text-slate-800">
+                      Email Address <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="box_email"
+                      name="email"
+                      required
+                      placeholder="alex.turner@techinnovators.com"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label for="box_phone" class="block text-xs font-semibold text-slate-800">
+                      Courier SMS / Phone Number <span class="text-emerald-700 font-bold">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      id="box_phone"
+                      name="phone"
+                      required
+                      placeholder="07912 345678"
+                      class="w-full bg-[#F8FAF9] border border-slate-200 rounded-[10px] px-3.5 py-2.5 text-sm text-slate-800 focus:bg-white focus:border-[#146B5C] outline-none font-sans"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Row -->
+              <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-xs text-slate-500 font-sans">
+                  📦 Includes tamper-evident seals &amp; pre-paid return DPD courier manifests.
+                </div>
+                <button
+                  type="submit"
+                  class="w-full sm:w-auto px-8 py-3.5 rounded-[12px] bg-[#146B5C] hover:bg-[#105549] text-white font-bold text-sm sm:text-base shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  Order Tracked Courier Boxes &rarr;
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+        <!-- ===================================================
+             QUICK ASSISTANCE CALLOUT
+             =================================================== -->
+        <div class="mt-8 text-center text-xs sm:text-sm text-slate-600 font-sans">
+          Need an urgent or same-day commercial collection? Speak directly to our senior logistics coordinators on{" "}
+          <a href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`} class="font-bold text-[#146B5C] hover:underline">
+            {siteSettings.phone}
+          </a>
+          {" "}or email{" "}
+          <a href="mailto:operations@techsteps.co.uk" class="font-bold text-[#146B5C] hover:underline">
+            operations@techsteps.co.uk
+          </a>
+        </div>
+
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       3. FREQUENTLY ASKED QUESTIONS (UNIFIED COMPONENT)
+       ===================================================== -->
+  <FAQSection
+    eyebrow="HERE TO HELP"
+    heading="Frequently Asked Questions"
+    intro="Everything you need to know about booking an IT equipment collection."
+    faqs={faqs}
+    sectionId="booking-faqs"
+  />
+
+  <!-- =====================================================
+       4. GLOBAL CTA
+       ===================================================== -->
+  <CTA />
+</BaseLayout>
+
+<style>
+  /* =========================================================
+     TAB BUTTON STYLES
+  ========================================================= */
+  .collection-tab-btn {
+    background-color: transparent;
+    color: #475569;
+    border: 1px solid transparent;
+  }
+
+  .collection-tab-btn .tab-badge {
+    background-color: rgba(148, 163, 184, 0.2);
+    color: #475569;
+  }
+
+  .collection-tab-btn.active {
+    background-color: #FFFFFF;
+    color: #101E2C;
+    border-color: rgba(203, 213, 225, 0.9);
+    box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+  }
+
+  .collection-tab-btn.active .tab-badge {
+    background-color: #E2EFE8;
+    color: #146B5C;
+  }
+
+  .collection-tab-btn:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 250ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+</style>
+
+<script>
+  function setupBookingTabs() {
+    const tabButtons = document.querySelectorAll<HTMLButtonElement>('.collection-tab-btn');
+    const tabPanels = document.querySelectorAll<HTMLElement>('.tab-panel');
+    const confirmationModal = document.getElementById('booking-confirmation-modal');
+    const confRefSpan = document.getElementById('conf-ref');
+    const btnBookAnother = document.getElementById('btn-book-another');
+
+    if (tabButtons.length === 0) return;
+
+    // Switch Tab Function
+    const switchTab = (targetId: string) => {
+      // Hide confirmation screen if shown
+      if (confirmationModal) {
+        confirmationModal.classList.add('hidden');
+      }
+
+      tabButtons.forEach((btn) => {
+        const isTarget = btn.dataset.tabTarget === targetId;
+        btn.classList.toggle('active', isTarget);
+        btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      });
+
+      tabPanels.forEach((panel) => {
+        const panelId = panel.id.replace('panel-', '');
+        if (panelId === targetId) {
+          panel.classList.remove('hidden');
+        } else {
+          panel.classList.add('hidden');
+        }
+      });
+    };
+
+    // Attach click listeners to tab buttons
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tabTarget;
+        if (target) {
+          switchTab(target);
+          // Update URL without refresh
+          const url = new URL(window.location.href);
+          url.searchParams.set('tab', target);
+          window.history.replaceState({}, '', url.toString());
+        }
+      });
+    });
+
+    // Handle URL query parameters (?tab=free|onsite|box and ?type=laptops|servers...)
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialTab = urlParams.get('tab');
+    const prefillType = urlParams.get('type');
+
+    if (initialTab && ['free', 'onsite', 'box'].includes(initialTab)) {
+      switchTab(initialTab);
+    }
+
+    if (prefillType) {
+      if (prefillType === 'laptops') {
+        const input = document.getElementById('free_laptops') as HTMLInputElement;
+        if (input) input.value = '15';
+      } else if (prefillType === 'computers') {
+        const input = document.getElementById('free_pcs') as HTMLInputElement;
+        if (input) input.value = '10';
+      } else if (prefillType === 'servers') {
+        const input = document.getElementById('free_servers') as HTMLInputElement;
+        if (input) input.value = '4';
+      }
+    }
+
+    // Dynamic Free Qualification Calculator inside Panel 1
+    const qtyInputs = document.querySelectorAll<HTMLInputElement>('.qty-counter');
+    const freeTotalSpan = document.getElementById('free-total-count');
+    const freeQualifyPill = document.getElementById('free-qualify-pill');
+
+    const updateFreeCount = () => {
+      let total = 0;
+      qtyInputs.forEach((inp) => {
+        total += parseInt(inp.value || '0', 10);
+      });
+
+      if (freeTotalSpan) {
+        freeTotalSpan.textContent = String(total);
+      }
+
+      if (freeQualifyPill) {
+        if (total >= 10) {
+          freeQualifyPill.textContent = '✅ Free Collection Guaranteed';
+          freeQualifyPill.className = 'font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-[#146B5C]';
+        } else if (total > 0) {
+          freeQualifyPill.textContent = 'ℹ️ Small batch (subsidised / box)';
+          freeQualifyPill.className = 'font-mono font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800';
+        } else {
+          freeQualifyPill.textContent = 'Awaiting device count';
+          freeQualifyPill.className = 'font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-600';
+        }
+      }
+    };
+
+    qtyInputs.forEach((inp) => {
+      inp.addEventListener('input', updateFreeCount);
+    });
+    updateFreeCount();
+
+    // Form Submissions Handling
+    const forms = document.querySelectorAll<HTMLFormElement>('#form-free, #form-onsite, #form-box');
+
+    forms.forEach((form) => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Generate friendly unique reference
+        const randomDigits = Math.floor(1000 + Math.random() * 9000);
+        const prefix = form.id === 'form-free' ? 'TS-FREE' : form.id === 'form-onsite' ? 'TS-SITE' : 'TS-BOX';
+        const referenceCode = `${prefix}-${randomDigits}`;
+
+        // Hide all tab panels
+        tabPanels.forEach((panel) => panel.classList.add('hidden'));
+
+        // Display confirmation modal
+        if (confirmationModal && confRefSpan) {
+          confRefSpan.textContent = referenceCode;
+          confirmationModal.classList.remove('hidden');
+          confirmationModal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    if (btnBookAnother) {
+      btnBookAnother.addEventListener('click', () => {
+        switchTab('free');
+      });
+    }
+  }
+
+  setupBookingTabs();
+  document.addEventListener('astro:page-load', setupBookingTabs);
+</script>

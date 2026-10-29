@@ -1,220 +1,329 @@
 ---
-import { getDivisions, getSectors, getSiteSettings } from '../../lib/sanity/client';
+import { getSiteSettings } from '../../lib/sanity/client';
 import BrandLogo from './BrandLogo.astro';
-import { getServiceCanonicalSlug } from '../../lib/routeHelpers';
 
-const [divisions, sectors, siteSettings] = await Promise.all([
-  getDivisions(),
-  getSectors(),
-  getSiteSettings(),
-]);
-
+const siteSettings = await getSiteSettings();
 const currentYear = new Date().getFullYear();
+
+const freephone = '0800 083 4700';
+const phoneRaw = '08000834700';
+const email = 'collection@techsteps.co.uk';
+
+// Column 1: IT EQUIPMENT COLLECTION & LIFECYCLE
+const col1 = {
+  groups: [
+    {
+      title: 'IT EQUIPMENT COLLECTION',
+      links: [
+        { label: 'Computer Collection', url: '/computer-collection' },
+        { label: 'Laptop Collection', url: '/laptop-collection' },
+        { label: 'Server Collection', url: '/server-collection' },
+        { label: 'Mobile Device Collection', url: '/mobile-device-collection' },
+        { label: 'Monitor & Screen Collection', url: '/monitor-screen-collection' },
+        { label: 'Printer & Copier Collection', url: '/printer-copier-collection' },
+        { label: 'AV & Media Equipment Collection', url: '/av-media-equipment-collection' },
+        { label: 'Explore All Equipment', url: '/collection/all-equipement' },
+        { label: 'Book a Free Pickup', url: '/book-pickup' },
+      ],
+    },
+    {
+      title: 'IT LIFECYCLE & DESTRUCTION',
+      links: [
+        { label: 'IT Asset Disposition (ITAD)', url: '/services/it-asset-disposition-services' },
+        { label: 'IT Asset Tracking (ITAM)', url: '/services/it-asset-tracking-services' },
+        { label: 'Remarketing & Recycling', url: '/services/remarketing-recycling-services' },
+        { label: 'Secure IT Disposal', url: '/services/secure-it-disposal-services' },
+        { label: 'Ultra Secure Hard Drive Destruction', url: '/services/ultra-secure-hard-drive-destruction-services' },
+        { label: 'Secure Collection Services', url: '/services/secure-collection-services' },
+      ],
+    },
+  ],
+};
+
+// Column 2: ENTERPRISE SERVICES & SECTORS
+const col2 = {
+  header: 'SERVICES & SECTORS',
+  groups: [
+    {
+      title: 'SPECIALIST SERVICES',
+      links: [
+        { label: 'Digital Mailroom', url: '/services/digital-mailroom-services' },
+        { label: 'Document Management', url: '/services/document-management-services' },
+        { label: 'Document Scanning', url: '/services/document-scanning-services' },
+        { label: 'Document Storage', url: '/services/document-storage-services' },
+        { label: 'Tape & Media Storage', url: '/services/tape-media-storage-services' },
+        { label: 'On-Site Shredding', url: '/services/on-site-shredding-services' },
+        { label: 'Off-Site Shredding Services', url: '/services/off-site-shredding-services' },
+        { label: 'IT Relocations Specialist', url: '/services/it-relocations-specialist-services' },
+        { label: 'Business Relocations', url: '/services/business-relocations-services' },
+        { label: 'View all 27 certified services →', url: '/services' },
+      ],
+    },
+    {
+      title: 'INDUSTRIES WE SERVE',
+      links: [
+        { label: 'NHS & Healthcare', url: '/sectors/nhs' },
+        { label: 'Financial Services', url: '/sectors/finance' },
+        { label: 'Central Government', url: '/sectors/central-government' },
+        { label: 'Defence & Aerospace', url: '/sectors/defence' },
+        { label: 'Corporate & Legal', url: '/sectors/legal-professional-services' },
+        { label: 'Education & Universities', url: '/sectors/education-universities' },
+        { label: 'Manufacturing & Engineering', url: '/sectors/manufacturing-engineering' },
+        { label: 'IT & Technology', url: '/sectors/it-technology' },
+      ],
+    },
+  ],
+};
+
+// Column 3: WHERE WE OPERATE (Global Locations & UK Nationwide Coverage)
+const locationsCol1 = [
+  { label: 'United Kingdom', url: '/global-presence#location-uk', isGlobal: true },
+  { label: 'United States', url: '/global-presence#location-usa', isGlobal: true },
+  { label: 'India', url: '/global-presence#location-india', isGlobal: true },
+  { label: 'Europe & International', url: '/global-presence', isGlobal: true },
+  { label: 'London', url: '/locations/london' },
+  { label: 'Birmingham', url: '/locations/birmingham' },
+  { label: 'Manchester', url: '/locations/manchester' },
+  { label: 'Leeds', url: '/locations/leeds' },
+  { label: 'Bristol', url: '/locations/bristol' },
+  { label: 'Glasgow', url: '/locations/glasgow' },
+  { label: 'Cardiff', url: '/locations/cardiff' },
+  { label: 'Cambridge', url: '/locations/cambridge' },
+  { label: 'Oxford', url: '/locations/oxford' },
+  { label: 'Newcastle', url: '/locations/newcastle' },
+  { label: 'Edinburgh', url: '/locations/edinburgh' },
+  { label: 'Worldwide Network', url: '/partners', isGlobal: true },
+];
+
+const locationsCol2 = [
+  { label: 'Dartford', url: '/locations/dartford' },
+  { label: 'Stafford Centre', url: '/locations/stafford' },
+  { label: 'Hainault Hub', url: '/locations/hainault' },
+  { label: 'Liverpool', url: '/locations/liverpool' },
+  { label: 'Sheffield', url: '/locations/sheffield' },
+  { label: 'Southampton', url: '/locations/southampton' },
+  { label: 'Reading', url: '/locations/reading' },
+  { label: 'Nottingham', url: '/locations/nottingham' },
+  { label: 'Leicester', url: '/locations/leicester' },
+  { label: 'Coventry', url: '/locations/coventry' },
+  { label: 'Milton Keynes', url: '/locations/milton-keynes' },
+  { label: 'Belfast', url: '/locations/belfast' },
+  { label: 'Aberdeen', url: '/locations/aberdeen' },
+  { label: 'Bournemouth', url: '/locations/bournemouth' },
+  { label: 'Brighton', url: '/locations/brighton' },
+  { label: 'Global Support Desk', url: '/global-presence', isGlobal: true },
+];
+
+// Column 4: ABOUT US & CONTACT US
+const col4 = {
+  about: {
+    title: 'ABOUT US',
+    links: [
+      { label: 'Our Story', url: '/about-us' },
+      { label: 'Our Commitment', url: '/our-commitment' },
+      { label: 'Leadership', url: '/leadership' },
+      { label: 'Global Presence', url: '/global-presence' },
+      { label: 'Sustainability', url: '/sustainability' },
+      { label: 'Certifications & Accreditations', url: '/certifications' },
+      { label: 'Partners & Associations', url: '/partners' },
+    ],
+  },
+  contact: {
+    title: 'CONTACT US',
+    links: [
+      { label: 'Follow us on LinkedIn', url: siteSettings.socialLinks?.linkedin || 'https://www.linkedin.com/company/techsteps-uk/posts/?feedView=all', isExternal: true },
+      { label: 'Ask us a question', url: '/contact' },
+      { label: 'Client Hub: Access your documents', url: '/contact' },
+      { label: 'Arrange a collection', url: '/request-a-quote' },
+    ],
+  },
+};
 ---
 
-<footer class="relative w-full bg-[#071F19] overflow-x-clip" aria-labelledby="footer-heading">
+<!-- =====================================================
+     PREMIUM UK CORPORATE FOOTER
+     Inspired by Zero Tech Waste: Clean, multi-column directory
+     Background: #062C20, Max Width: 1240px, Inter Typography
+====================================================== -->
+<footer
+  class="w-full bg-[#062C20] text-white border-t border-emerald-950/60 select-none relative z-10 font-sans"
+  aria-labelledby="footer-heading"
+>
   <h2 id="footer-heading" class="sr-only">Footer</h2>
 
-  <!-- Main Deep Teal-Green Body -->
-  <div class="w-full bg-[#071F19] text-white pt-12 sm:pt-14 lg:pt-16 pb-12 sm:pb-14 lg:pb-16 px-4 sm:px-6 lg:px-12 relative overflow-visible">
+  <div class="w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- Subtle ambient green radial glow in the corner -->
-    <div class="absolute inset-0 bg-radial-[ellipse_at_top_left] from-[#3FB33D]/12 via-transparent to-transparent pointer-events-none select-none"></div>
-
-    <div class="relative z-10 max-w-[1480px] mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-10 xl:gap-12 items-start">
-        
-        <!-- Column 1: Brand Logo & Freshworks-style Contact Block -->
-        <div class="space-y-4 font-sans">
-          <!-- Logo -->
+    <!-- =====================================================
+         TOP HERO CTA / BRAND BANNER
+         Matching Zero Tech Waste layout: bold headline + subtext + direct links line + logo
+    ====================================================== -->
+    <div class="pt-12 sm:pt-14 pb-10 sm:pb-12 border-b border-white/10 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+      <div>
+        <h3 class="text-3xl sm:text-4xl lg:text-[40px] font-bold tracking-tight text-white leading-tight font-display">
+          FREE IT recycling collection
+        </h3>
+        <p class="mt-2 text-slate-300 text-[15px] sm:text-[16px] leading-relaxed">
+          Secure, carbon-negative, certificates provided.
+        </p>
+        <div class="mt-3 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[14px] sm:text-[15px] text-slate-300">
           <a
-            href="/"
-            class="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071F19] rounded-lg"
-            aria-label="TechSteps Home"
+            href={siteSettings.headerRequestButtonLink || "/request-a-quote"}
+            class="text-[#A3E6CD] hover:text-white underline underline-offset-4 font-semibold transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400"
           >
-            <BrandLogo size="md" variant="light" showTagline={false} />
+            Book online
           </a>
-
-          <!-- Get in Touch Heading & Details (avoiding repeated 'Contact' and 'TechSteps') -->
-          <div class="space-y-2.5 pt-1">
-            <h3 class="text-[18px] sm:text-[19px] font-medium text-white tracking-tight">
-              Get in Touch
-            </h3>
-
-            <!-- Action Link (Speak with our team ↗) -->
-            <div>
-              <a
-                href="/contact"
-                class="group inline-flex items-center gap-1.5 text-[15px] font-semibold text-white hover:text-[#6EE7B7] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] rounded-sm"
-              >
-                <span>Speak with our team</span>
-                <span class="text-base font-normal leading-none transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
-              </a>
-            </div>
-
-            <!-- Email & Phone Links -->
-            <div class="space-y-1.5 pt-0.5">
-              {siteSettings.email && (
-                <a
-                  href={`mailto:${siteSettings.email}`}
-                  class="text-[14px] text-slate-300 hover:text-[#6EE7B7] transition-colors block leading-snug focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] rounded-sm"
-                >
-                  {siteSettings.email}
-                </a>
-              )}
-              {siteSettings.phone && (
-                <a
-                  href={`tel:${siteSettings.phone.replace(/[^0-9+]/g, '')}`}
-                  class="text-[14px] text-slate-300/80 hover:text-[#6EE7B7] transition-colors block leading-snug focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] rounded-sm"
-                >
-                  {siteSettings.phone}
-                </a>
-              )}
-            </div>
-
-            <!-- Social Media Icons Row (clean, borderless, no background) -->
-            <div class="flex items-center gap-4 pt-2">
-              <!-- LinkedIn -->
-              <a
-                href={siteSettings.socialLinks?.linkedin || "https://www.linkedin.com/company/techsteps-uk/posts/?feedView=all"}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center justify-center text-slate-300 hover:text-white transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071F19] rounded-sm"
-                aria-label="TechSteps on LinkedIn"
-              >
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-              </a>
-
-              <!-- X / Twitter -->
-              <a
-                href={siteSettings.socialLinks?.twitter || "https://twitter.com/techsteps_uk"}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center justify-center text-slate-300 hover:text-white transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071F19]"
-                aria-label="TechSteps on X"
-              >
-                <svg class="w-[18px] h-[18px] fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-              </a>
-
-              <!-- Facebook -->
-              <a
-                href={siteSettings.socialLinks?.facebook || "http://facebook.com/profile.php?id=61584942775645"}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center justify-center text-slate-300 hover:text-white transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071F19]"
-                aria-label="TechSteps on Facebook"
-              >
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.65 5H18V0h-3.808C10.597 0 9 1.583 9 4.615V8z"/>
-                </svg>
-              </a>
-
-              <!-- Instagram -->
-              <a
-                href={siteSettings.socialLinks?.instagram || "https://www.instagram.com/techsteps_official/"}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center justify-center text-slate-300 hover:text-white transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071F19]"
-                aria-label="TechSteps on Instagram"
-              >
-                <svg class="w-5 h-5 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
-                  <rect x="3" y="3" width="18" height="18" rx="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-                </svg>
-              </a>
-            </div>
-          </div>
+          <span class="text-slate-500" aria-hidden="true">&bull;</span>
+          <a
+            href={`tel:${phoneRaw}`}
+            class="hover:text-white transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400"
+          >
+            {freephone}
+          </a>
+          <span class="text-slate-500" aria-hidden="true">&bull;</span>
+          <a
+            href={`mailto:${email}`}
+            class="hover:text-white transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400"
+          >
+            {email}
+          </a>
         </div>
+      </div>
 
-        <!-- Column 2: Services Navigation Links -->
-        <div class="space-y-4 font-sans">
-          <h3 class="text-[14px] font-semibold text-white uppercase tracking-[0.05em] pb-3 border-b border-white/10">
-            Services
-          </h3>
-          <ul class="space-y-3 text-[14px]">
-            {(siteSettings.footerServices || []).map((link, idx) => {
-              const isLast = idx === (siteSettings.footerServices?.length || 0) - 1;
-              let targetUrl = link.url;
-              if (targetUrl?.startsWith('/services/')) {
-                const parts = targetUrl.split('/').filter(Boolean);
-                if (parts.length === 3) {
-                  targetUrl = `/services/${getServiceCanonicalSlug(parts[2])}`;
-                } else if (parts.length === 2) {
-                  targetUrl = `/services/${getServiceCanonicalSlug(parts[1])}`;
-                }
-              }
-              return (
-                <li class={isLast ? 'pt-1.5' : ''}>
-                  <a
-                    href={targetUrl}
-                    target={link.openInNewTab ? '_blank' : undefined}
-                    rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
-                    class={isLast
-                      ? 'group inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#3FB33D] hover:text-[#6EE7B7] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] rounded-sm'
-                      : 'text-slate-300 hover:text-[#6EE7B7] transition-colors block leading-snug focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] rounded-sm'}
-                  >
-                    <span>{link.label}</span>
-                    {isLast && (
-                      <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                      </svg>
-                    )}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+      <!-- Right: Brand Logo -->
+      <div class="shrink-0 pt-1 md:pt-0">
+        <a
+          href="/"
+          class="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg py-1"
+          aria-label="TechSteps UK Home"
+        >
+          <BrandLogo size="lg" variant="light" showTagline={false} />
+        </a>
+      </div>
+    </div>
 
-        <!-- Column 3: Industries Navigation Links -->
-        <div class="space-y-4 font-sans">
-          <h3 class="text-[14px] font-semibold text-white uppercase tracking-[0.05em] pb-3 border-b border-white/10">
-            Industries
-          </h3>
-          <ul class="space-y-3 text-[14px]">
-            {(siteSettings.footerSectors || []).map((link, idx) => {
-              const isLast = idx === (siteSettings.footerSectors?.length || 0) - 1;
-              return (
-                <li class={isLast ? 'pt-1.5' : ''}>
+    <!-- =====================================================
+         MAIN NAVIGATION DIRECTORY
+         4 Main Columns matching Zero Tech Waste structure
+    ====================================================== -->
+    <nav
+      class="py-12 sm:py-14 border-b border-white/10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-8"
+      aria-label="Footer Navigation Directory"
+    >
+      <!-- COLUMN 1: IT RECYCLING & DISPOSAL (lg:col-span-3) -->
+      <div class="lg:col-span-3 space-y-8">
+        {col1.groups.map((group) => (
+          <div>
+            <h5 class="text-[#A3E6CD] text-[12px] font-semibold tracking-wider uppercase mb-3">
+              {group.title}
+            </h5>
+            <ul class="space-y-2 text-[13.5px] sm:text-[14px]">
+              {group.links.map((link) => (
+                <li>
                   <a
                     href={link.url}
-                    target={link.openInNewTab ? '_blank' : undefined}
-                    rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
-                    class={isLast
-                      ? 'group inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#3FB33D] hover:text-[#6EE7B7] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] rounded-sm'
-                      : 'text-slate-300 hover:text-[#6EE7B7] transition-colors block leading-snug focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] rounded-sm'}
+                    class="text-slate-300 hover:text-white transition-colors duration-150 block leading-snug focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400 rounded-xs"
                   >
-                    <span>{link.label}</span>
-                    {isLast && (
-                      <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                      </svg>
-                    )}
+                    {link.label}
                   </a>
                 </li>
-              );
-            })}
-          </ul>
-        </div>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
 
-        <!-- Column 4: Company / Quick Links -->
-        <div class="space-y-4 font-sans">
-          <h3 class="text-[14px] font-semibold text-white uppercase tracking-[0.05em] pb-3 border-b border-white/10">
-            Company
-          </h3>
-          <ul class="space-y-3 text-[14px]">
-            {(siteSettings.footerCompany || []).map((link) => (
+      <!-- COLUMN 2: HOW IT WORKS (lg:col-span-3) -->
+      <div class="lg:col-span-3 space-y-8">
+        {col2.groups.map((group) => (
+          <div>
+            <h5 class="text-[#A3E6CD] text-[12px] font-semibold tracking-wider uppercase mb-3">
+              {group.title}
+            </h5>
+            <ul class="space-y-2 text-[13.5px] sm:text-[14px]">
+              {group.links.map((link) => (
+                <li>
+                  <a
+                    href={link.url}
+                    class="text-slate-300 hover:text-white transition-colors duration-150 block leading-snug focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400 rounded-xs"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <!-- COLUMN 3: WHERE WE OPERATE (GLOBAL & NATIONWIDE) (lg:col-span-4) -->
+      <div class="lg:col-span-4 space-y-8">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-[#A3E6CD] text-[12px] font-semibold tracking-wider uppercase">
+              WHERE WE OPERATE
+            </h4>
+            <a
+              href="/locations"
+              class="text-[12px] text-[#A3E6CD] hover:text-white underline underline-offset-2 font-medium transition-colors"
+            >
+              All Locations &rarr;
+            </a>
+          </div>
+
+          <!-- Two Sub-columns for Global & Nationwide Locations -->
+          <div class="grid grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-2 text-[13.5px] sm:text-[14px]">
+            <!-- Sub-column 1: Global & Key Regional Metros -->
+            <ul class="space-y-2">
+              {locationsCol1.map((loc) => (
+                <li>
+                  <a
+                    href={loc.url}
+                    class={`block leading-snug whitespace-nowrap transition-colors duration-150 focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400 rounded-xs ${
+                      loc.isGlobal
+                        ? 'text-white font-medium hover:text-[#A3E6CD]'
+                        : 'text-slate-300 hover:text-white'
+                    }`}
+                  >
+                    {loc.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <!-- Sub-column 2: Operations Centres & UK Regions -->
+            <ul class="space-y-2">
+              {locationsCol2.map((loc) => (
+                <li>
+                  <a
+                    href={loc.url}
+                    class={`block leading-snug whitespace-nowrap transition-colors duration-150 focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400 rounded-xs ${
+                      loc.isGlobal
+                        ? 'text-white font-medium hover:text-[#A3E6CD]'
+                        : 'text-slate-300 hover:text-white'
+                    }`}
+                  >
+                    {loc.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUMN 4: ABOUT US & CONTACT US (lg:col-span-2) -->
+      <div class="lg:col-span-2 space-y-8">
+        <!-- About Us Group -->
+        <div>
+          <h4 class="text-[#A3E6CD] text-[12px] font-semibold tracking-wider uppercase mb-3">
+            {col4.about.title}
+          </h4>
+          <ul class="space-y-2 text-[13.5px] sm:text-[14px]">
+            {col4.about.links.map((link) => (
               <li>
                 <a
                   href={link.url}
-                  target={link.openInNewTab ? '_blank' : undefined}
-                  rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
-                  class="text-slate-300 hover:text-[#6EE7B7] transition-colors block leading-snug focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] rounded-sm"
+                  class="text-slate-300 hover:text-white transition-colors duration-150 block leading-snug focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400 rounded-xs"
                 >
                   {link.label}
                 </a>
@@ -223,28 +332,140 @@ const currentYear = new Date().getFullYear();
           </ul>
         </div>
 
-      </div>
-    </div>
-  </div>
+        <!-- Contact Us Group -->
+        <div>
+          <h5 class="text-[#A3E6CD] text-[12px] font-semibold tracking-wider uppercase mb-3">
+            {col4.contact.title}
+          </h5>
+          <ul class="space-y-2 text-[13.5px] sm:text-[14px]">
+            {col4.contact.links.map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  target={link.isExternal ? "_blank" : undefined}
+                  rel={link.isExternal ? "noopener noreferrer" : undefined}
+                  class="text-slate-300 hover:text-white transition-colors duration-150 block leading-snug focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400 rounded-xs"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-  <!-- Bottom Legal Strip -->
-  <div class="w-full bg-[#051813] py-5 px-4 sm:px-6 lg:px-12 border-t border-white/10 relative z-30">
-    <div class="max-w-[1480px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[13px] text-slate-400 font-sans">
-      <p class="text-slate-400 text-center md:text-left">
-        &copy; {currentYear} {siteSettings.footerCopyright || `${siteSettings.legalName || 'Techsteps UK Limited'}. All rights reserved.`}
-      </p>
-      <div class="flex flex-wrap items-center justify-center md:justify-end gap-x-6 gap-y-2 text-[13px] text-slate-400 font-sans">
-        {(siteSettings.footerLegal || []).map((link) => (
-          <a
-            href={link.url}
-            target={link.openInNewTab ? '_blank' : undefined}
-            rel={link.openInNewTab ? 'noopener noreferrer' : undefined}
-            class="text-slate-400 hover:text-[#6EE7B7] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3FB33D] rounded-sm"
-          >
-            {link.label}
-          </a>
-        ))}
+          <!-- Direct Phone & Email Channels -->
+          <div class="pt-4 space-y-1.5 text-[13px]">
+            <a
+              href={`tel:${phoneRaw}`}
+              class="block text-white font-semibold hover:text-[#A3E6CD] transition-colors"
+            >
+              {freephone}
+            </a>
+            <a
+              href="tel:+442079460888"
+              class="block text-slate-300 hover:text-white transition-colors"
+            >
+              +44 (0) 20 7946 0888
+            </a>
+            <a
+              href={`mailto:${email}`}
+              class="block text-slate-300 hover:text-white transition-colors"
+            >
+              {email}
+            </a>
+          </div>
+
+          <!-- Social Media Channels -->
+          <div class="flex items-center gap-2.5 pt-3 text-slate-300">
+            <!-- LinkedIn -->
+            <a
+              href={siteSettings.socialLinks?.linkedin || "https://www.linkedin.com/company/techsteps-uk/posts/?feedView=all"}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-7 h-7 rounded-md border border-white/15 hover:border-emerald-400/50 hover:bg-white/5 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
+              aria-label="TechSteps on LinkedIn"
+            >
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+            <!-- Twitter/X -->
+            <a
+              href={siteSettings.socialLinks?.twitter || "https://twitter.com/techsteps_uk"}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-7 h-7 rounded-md border border-white/15 hover:border-emerald-400/50 hover:bg-white/5 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
+              aria-label="TechSteps on X"
+            >
+              <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <!-- Facebook -->
+            <a
+              href={siteSettings.socialLinks?.facebook || "http://facebook.com/profile.php?id=61584942775645"}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-7 h-7 rounded-md border border-white/15 hover:border-emerald-400/50 hover:bg-white/5 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
+              aria-label="TechSteps on Facebook"
+            >
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.65 5H18V0h-3.808C10.597 0 9 1.583 9 4.615V8z"/>
+              </svg>
+            </a>
+            <!-- Instagram -->
+            <a
+              href={siteSettings.socialLinks?.instagram || "https://www.instagram.com/techsteps_official/"}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-7 h-7 rounded-md border border-white/15 hover:border-emerald-400/50 hover:bg-white/5 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
+              aria-label="TechSteps on Instagram"
+            >
+              <svg class="w-3.5 h-3.5 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+          </div>
+        </div>
       </div>
+    </nav>
+
+    <!-- =====================================================
+         SECTION 4: BOTTOM LEGAL BAR & STATUTORY INFORMATION
+         Matching Zero Tech Waste layout
+    ====================================================== -->
+    <div class="py-8 space-y-4 text-xs sm:text-[13px] text-slate-400">
+      <!-- Statutory and Address Info -->
+      <div class="space-y-1">
+        <p class="font-medium text-slate-300">
+          &copy; {currentYear} Techsteps UK Limited.
+        </p>
+        <p class="text-slate-400 leading-relaxed">
+          Techsteps House, Logistics Park, Crossways Boulevard, Dartford, Kent DA2 6QJ &bull; Registered in England &amp; Wales 09876543 &bull; VAT GB 123 4567 89
+        </p>
+      </div>
+
+      <!-- Legal Links Row with bullet separators matching screenshot -->
+      <nav
+        class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs sm:text-[13px] text-slate-400"
+        aria-label="Legal and Compliance Links"
+      >
+        <a href="/cookie-policy" class="hover:text-white underline underline-offset-2 transition-colors">Cookie notice</a>
+        <span class="text-slate-600" aria-hidden="true">&bull;</span>
+        <a href="/information-security-policy" class="hover:text-white underline underline-offset-2 transition-colors">Data protection</a>
+        <span class="text-slate-600" aria-hidden="true">&bull;</span>
+        <a href="/modern-slavery-statement" class="hover:text-white underline underline-offset-2 transition-colors">Modern slavery statement</a>
+        <span class="text-slate-600" aria-hidden="true">&bull;</span>
+        <a href="/privacy-policy" class="hover:text-white underline underline-offset-2 transition-colors">Privacy notice</a>
+        <span class="text-slate-600" aria-hidden="true">&bull;</span>
+        <a href="/terms-and-conditions" class="hover:text-white underline underline-offset-2 transition-colors">Website terms of use</a>
+        <span class="text-slate-600" aria-hidden="true">&bull;</span>
+        <a href="/accessibility" class="hover:text-white underline underline-offset-2 transition-colors">Accessibility</a>
+        <span class="text-slate-600" aria-hidden="true">&bull;</span>
+        <a href="/sitemap.xml" class="hover:text-white underline underline-offset-2 transition-colors">Sitemap (XML)</a>
+      </nav>
     </div>
+
   </div>
 </footer>

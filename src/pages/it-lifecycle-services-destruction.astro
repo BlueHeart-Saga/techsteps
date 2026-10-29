@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/layout/Container.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
-import AccordionFaq from '../components/content/AccordionFaq.astro';
+import FAQSection from '../components/FAQSection.astro';
+import { getPageFaqs } from '../data/pageFaqs';
 import ServicesCardGrid from '../components/services/ServicesCardGrid.astro';
 import CTA from '../components/global/cta.astro';
 import { getDivisions, getServices, getSectors } from '../lib/sanity/client';
@@ -30,13 +31,8 @@ const sectorLinks = [
   { title: 'Central Government', slug: 'central-government' },
 ];
 
-const defaultFaqs = [
-  { question: 'What is IT asset lifecycle management?', answer: 'IT asset lifecycle management covers the full journey of a technology asset — from collection through data sanitisation, reuse or remarketing, recycling and final disposal — with the aim of maximising value recovery, protecting data and achieving responsible environmental outcomes.' },
-  { question: 'What happens to our IT equipment after collection?', answer: 'Following secure collection, each asset is audited, data-sanitised and assessed. Equipment suitable for continued use is refurbished or remarketed. Assets at end of life are responsibly recycled through WEEE-compliant streams. You receive a full report for every asset.' },
-  { question: 'Can data be securely removed before equipment is recycled?', answer: 'Yes. We use ADISA-certified data erasure, degaussing and physical hard drive destruction depending on the security requirement of the asset. Every data sanitisation event is certificated.' },
-  { question: 'What happens to equipment that cannot be reused?', answer: 'Assets that cannot be reused are processed through WEEE-compliant zero-landfill recycling channels. No equipment is sent to landfill.' },
-];
-const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defaultFaqs;
+const faqConfig = getPageFaqs('it-lifecycle-services-destruction');
+const faqs = (faqConfig?.faqs && faqConfig.faqs.length >= 6) ? faqConfig.faqs : (division?.faqs && division.faqs.length >= 6 ? division.faqs : (faqConfig?.faqs || []));
 ---
 
 <BaseLayout
@@ -597,6 +593,15 @@ const faqs = (division?.faqs && division.faqs.length > 0) ? division.faqs : defa
     <br />
     <br />
   </section>
+
+  <!-- ===== FREQUENTLY ASKED QUESTIONS ===== -->
+  <FAQSection
+    eyebrow={faqConfig?.eyebrow || "COMMON QUESTIONS"}
+    heading={faqConfig?.heading || "Frequently Asked Questions"}
+    intro={faqConfig?.intro || "Explore answers to common questions about our certified IT asset disposition, military-grade data sanitisation, and WEEE recycling processes."}
+    faqs={faqs}
+    sectionId="faqs"
+  />
 
   <!-- ===== COMMON CTA ===== -->
   <CTA

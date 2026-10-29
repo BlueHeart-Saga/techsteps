@@ -1,0 +1,592 @@
+---
+/**
+ * index.astro
+ * Master UK IT Recycling & Equipment Collection Locations Directory
+ * Route: /locations
+ * 
+ * Showcases all 26 TechSteps UK regional hubs and operations centres.
+ * Features:
+ * - Live interactive search by city name or postcode
+ * - Regional tab filtering
+ * - Direct links to each dedicated city landing page (/locations/[slug])
+ * - 4 core service guarantees
+ * - Master FAQ section
+ * - Quick collection request CTAs
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { locationsList } from '../../data/locationsData';
+import { getSiteSettings } from '../../lib/sanity/client';
+
+const siteSettings = await getSiteSettings();
+
+const pageTitle = "UK IT Equipment Recycling & Collection Locations | TechSteps UK";
+const pageDescription = "Free, secure, and carbon-negative IT equipment recycling collections across all 26 UK metro hubs and regions. ADISA-certified data destruction, WEEE compliance, and zero-landfill guarantee.";
+
+// Regional grouping
+const regions = [
+  { id: 'all', name: 'All Locations', count: locationsList.length },
+  { id: 'london-southeast', name: 'London & South East', count: locationsList.filter(l => ['Greater London', 'South East', 'East of England'].includes(l.region)).length },
+  { id: 'midlands', name: 'Midlands', count: locationsList.filter(l => l.region === 'Midlands').length },
+  { id: 'north', name: 'North of England', count: locationsList.filter(l => ['North West', 'Yorkshire', 'North East'].includes(l.region)).length },
+  { id: 'scotland-wales-ni', name: 'Scotland, Wales & NI', count: locationsList.filter(l => ['Scotland', 'Wales', 'Northern Ireland'].includes(l.region)).length },
+  { id: 'operations-centres', name: 'Operations Centres', count: locationsList.filter(l => ['dartford', 'stafford', 'hainault'].includes(l.slug)).length },
+];
+
+const masterFaqs = [
+  {
+    question: "Do you offer free IT collection services throughout the entire UK?",
+    answer: "Yes, TechSteps provides free collections for businesses, schools, healthcare providers, and charities nationwide when you have 10 or more qualifying devices (such as laptops, PCs, or servers). For remote or smaller quantities, we provide competitive low-emission logistics or tracked secure return boxes."
+  },
+  {
+    question: "How quickly can TechSteps collect IT assets from our regional office?",
+    answer: "Across our core hubs—including Greater London, Birmingham, Manchester, Leeds, and Bristol—we typically schedule collections within 24 to 48 hours of booking. For urgent office relocations or decommissioning projects, same-day or dedicated timed slots can be arranged."
+  },
+  {
+    question: "What compliance certificates are provided after collection?",
+    answer: "Every single collection, regardless of location, receives an Environment Agency compliant Waste Transfer Note (Duty of Care), an itemised asset inventory with serial numbers, a Certificate of Destruction/Sanitisation (ADISA & BS EN 15713 compliant), and a Carbon Offset Certificate."
+  },
+  {
+    question: "Can you coordinate collections across multiple UK office locations simultaneously?",
+    answer: "Yes, our central corporate logistics team frequently coordinates multi-site rollouts and IT refreshes across dozens of regional branches simultaneously. You will receive a single dedicated account manager, unified asset reporting, and consolidated compliance paperwork."
+  },
+  {
+    question: "How do you ensure data security during transit from regional sites?",
+    answer: "All collections are executed using our own GPS-tracked, solid-sided vehicles operated by security-vetted TechSteps personnel (BS 7858 vetted and DBS checked). Equipment is locked in heavy-duty tamper-evident security roll cages from your door to our ADISA-certified facilities."
+  },
+  {
+    question: "What types of business IT equipment do you collect across the UK?",
+    answer: "We collect redundant laptops, desktop PCs, computer monitors, server racks and storage arrays, networking hardware (switches, firewalls, routers), mobile phones and tablets, printers and copiers, and AV/media production hardware."
+  },
+  {
+    question: "Are your recycling and data destruction processes carbon-negative?",
+    answer: "Yes, TechSteps adheres strictly to the waste hierarchy with a reuse-first methodology that refurbishes redundant hardware to prevent e-waste. For non-reusable parts, materials are refined with 0% landfill disposal, and we offset 150% of all vehicle transport emissions via verified UK reforestation schemes."
+  },
+  {
+    question: "How do I book a collection for our local branch or head office?",
+    answer: "You can select your city from the directory below to view local dispatch times and complete the quick 2-minute booking form. Alternatively, call our UK team directly on 0800 254 5902 or email collection@techsteps.co.uk."
+  }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  hasHeroHeader={false}
+>
+  <!-- =====================================================
+       1. HERO SECTION (CORPORATE GREEN THEME - MATCHING FOOTER)
+       ===================================================== -->
+  <section class="relative pt-10 pb-14 sm:pt-14 sm:pb-16 lg:pt-16 lg:pb-20 bg-[#062C20] text-white overflow-hidden">
+    <!-- Ambient Backdrop Pattern -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_-10%,rgba(163,230,205,0.14),rgba(6,44,32,0))] pointer-events-none"></div>
+
+    <Container>
+      <div class="relative z-10 max-w-4xl">
+        
+        <!-- Breadcrumb & Rating -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+          <nav class="flex items-center gap-1.5 text-xs sm:text-[13px] text-emerald-100/70 font-sans" aria-label="Breadcrumb">
+            <a href="/" class="hover:text-white underline underline-offset-2">Home</a>
+            <span>&gt;</span>
+            <span class="text-white font-medium">Locations Directory</span>
+          </nav>
+
+          <!-- Google Rating Pill -->
+          <div class="inline-flex items-center gap-2.5 bg-white text-slate-900 px-3.5 py-1.5 rounded-[12px] shadow-sm self-start sm:self-auto">
+            <span class="font-bold text-xs">Google</span>
+            <span class="text-amber-500 text-xs">★★★★★</span>
+            <span class="text-xs font-semibold text-slate-700">4.9 / 5</span>
+            <span class="text-[11px] text-slate-500 border-l border-slate-200 pl-2">480+ UK Reviews</span>
+          </div>
+        </div>
+
+        <!-- Headline & Description -->
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#B8EC4C] font-display leading-[1.12] mb-4">
+          UK-Wide IT Recycling &amp; Secure Collection Locations
+        </h1>
+
+        <p class="text-base sm:text-lg text-emerald-50/90 leading-relaxed font-sans mb-8 max-w-2xl">
+          Free, certified IT equipment collection for qualifying businesses, schools, and NHS trusts across all 26 UK operations hubs. Choose your local region below for fast dispatch and guaranteed data destruction.
+        </p>
+
+        <!-- Live Search Bar -->
+        <div class="relative max-w-xl">
+          <div class="relative flex items-center">
+            <input
+              type="text"
+              id="location-search-input"
+              placeholder="Search by city, town or postcode (e.g. Manchester, SW1, Leeds)..."
+              class="w-full px-5 py-4 pl-12 rounded-[14px] bg-white text-slate-900 placeholder:text-slate-400 font-sans text-sm sm:text-base shadow-lg focus:outline-none focus:ring-2 focus:ring-[#B8EC4C]"
+            />
+            <svg class="w-5 h-5 text-slate-400 absolute left-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <button
+              id="clear-search-btn"
+              type="button"
+              class="hidden absolute right-3 px-2 py-1 text-xs text-slate-400 hover:text-slate-700 bg-slate-100 rounded-md"
+            >
+              Clear
+            </button>
+          </div>
+          <p class="text-xs text-emerald-100/70 mt-2">
+            Tip: Filter instantly across 26 UK cities, operational centres, and surrounding boroughs.
+          </p>
+        </div>
+
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       2. 4-PILLAR SERVICE GUARANTEE SECTION
+       ===================================================== -->
+  <section class="py-12 sm:py-14 bg-white border-b border-slate-200/80">
+    <Container>
+      <div class="max-w-3xl mb-8">
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#062C20] font-display tracking-tight leading-tight mb-2">
+          Clear communication. Easy collection. Certificates provided.
+        </h2>
+        <p class="text-sm text-slate-600 leading-relaxed font-sans">
+          Responsible IT asset disposal available everywhere in the UK. Responsive service that makes compliance effortless.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="p-6 rounded-[20px] bg-[#F4FAF6] border border-[#D2EBDC] hover:border-emerald-300 hover:shadow-xs transition-all">
+          <svg class="w-8 h-8 text-[#07572F] mb-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375A1.125 1.125 0 012.25 17.625V5.625A1.125 1.125 0 013.375 4.5h9.75a1.125 1.125 0 011.125 1.125v4.875m-11.25 8.25h11.25m0-8.25h4.125a1.125 1.125 0 011.125 1.125v4.5a1.125 1.125 0 01-.33.795l-2.07 2.07a1.125 1.125 0 01-.795.33H14.25m0-8.25v8.25m6 0a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0" />
+          </svg>
+          <h3 class="font-display font-bold text-base text-[#062C20] leading-snug mb-1">
+            Free qualifying collections
+          </h3>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans">
+            Zero collection fees for 10+ qualifying laptops, PCs or servers in all UK locations.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-[20px] bg-[#F4FAF6] border border-[#D2EBDC] hover:border-emerald-300 hover:shadow-xs transition-all">
+          <svg class="w-8 h-8 text-[#07572F] mb-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+          </svg>
+          <h3 class="font-display font-bold text-base text-[#062C20] leading-snug mb-1">
+            Secure data destruction
+          </h3>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans">
+            ADISA Standard 8.0 & BS EN 15713 sanitisation, degaussing or physical shredding.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-[20px] bg-[#F4FAF6] border border-[#D2EBDC] hover:border-emerald-300 hover:shadow-xs transition-all">
+          <svg class="w-8 h-8 text-[#07572F] mb-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+          </svg>
+          <h3 class="font-display font-bold text-base text-[#062C20] leading-snug mb-1">
+            Certificates 4 ways provided
+          </h3>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans">
+            Waste Transfer Note, Certificate of Destruction, Inventory and Carbon Offset Certificate.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-[20px] bg-[#F4FAF6] border border-[#D2EBDC] hover:border-emerald-300 hover:shadow-xs transition-all">
+          <svg class="w-8 h-8 text-[#07572F] mb-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+          </svg>
+          <h3 class="font-display font-bold text-base text-[#062C20] leading-snug mb-1">
+            Carbon-negative recycling
+          </h3>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans">
+            Reuse-first circular lifecycle offsetting 150% of collection emissions. 0% landfill.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       3. INTERACTIVE LOCATIONS DIRECTORY SECTION
+       ===================================================== -->
+  <section class="py-16 sm:py-20 bg-[#F8FAF9]">
+    <Container>
+      <!-- Filter Bar -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 pb-6 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold font-display text-slate-900 tracking-tight">
+            Browse All UK Collection Locations
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1">
+            Showing <span id="visible-count" class="font-semibold text-emerald-800">{locationsList.length}</span> active operational areas with local vehicle dispatch.
+          </p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap items-center gap-2" id="region-filter-buttons">
+          <button
+            type="button"
+            data-filter="all"
+            class="filter-btn active px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#062C20] text-white transition-all shadow-xs"
+          >
+            All (26)
+          </button>
+          <button
+            type="button"
+            data-filter="london-southeast"
+            class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all shadow-xs"
+          >
+            London &amp; SE
+          </button>
+          <button
+            type="button"
+            data-filter="midlands"
+            class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all shadow-xs"
+          >
+            Midlands
+          </button>
+          <button
+            type="button"
+            data-filter="north"
+            class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all shadow-xs"
+          >
+            North of England
+          </button>
+          <button
+            type="button"
+            data-filter="scotland-wales-ni"
+            class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all shadow-xs"
+          >
+            Scotland, Wales &amp; NI
+          </button>
+          <button
+            type="button"
+            data-filter="operations-centres"
+            class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all shadow-xs"
+          >
+            Operations Hubs (HQ)
+          </button>
+        </div>
+      </div>
+
+      <!-- No Results State (Hidden by Default) -->
+      <div id="no-results" class="hidden text-center py-16 px-4 bg-white rounded-[20px] border border-slate-200 max-w-lg mx-auto">
+        <svg class="w-10 h-10 text-[#07572F] mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+        <h3 class="text-lg font-bold text-[#062C20] mb-1">No matching location found</h3>
+        <p class="text-xs text-slate-600 mb-4">
+          We collect everywhere across mainland UK even if your specific town isn't listed as a primary hub.
+        </p>
+        <a
+          href="/book-pickup"
+          class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#062C20] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#07572F] transition-colors"
+        >
+          Book Nationwide Collection &rarr;
+        </a>
+      </div>
+
+      <!-- Locations Grid (All 26 Cards) -->
+      <div id="locations-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {locationsList.map((loc) => {
+          let category = 'north';
+          if (['Greater London', 'South East', 'East of England'].includes(loc.region)) category = 'london-southeast';
+          if (loc.region === 'Midlands') category = 'midlands';
+          if (['Scotland', 'Wales', 'Northern Ireland'].includes(loc.region)) category = 'scotland-wales-ni';
+          const isOperationsHub = ['dartford', 'stafford', 'hainault'].includes(loc.slug);
+
+          return (
+            <article
+              data-slug={loc.slug}
+              data-name={loc.name.toLowerCase()}
+              data-region={loc.region.toLowerCase()}
+              data-districts={loc.boroughsOrDistricts.join(' ').toLowerCase()}
+              data-category={category}
+              data-is-hub={isOperationsHub ? "true" : "false"}
+              class="location-card group bg-white rounded-[20px] p-6 border border-slate-200/90 hover:border-emerald-500/60 hover:shadow-lg transition-all duration-200 flex flex-col justify-between"
+            >
+              <div>
+                <!-- Top Badge & Rating -->
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <span class={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider ${
+                    isOperationsHub 
+                      ? 'bg-amber-100 text-amber-900 border border-amber-300' 
+                      : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                  }`}>
+                    {isOperationsHub ? '★ Facility Hub' : loc.region}
+                  </span>
+
+                  <div class="flex items-center gap-1 text-xs">
+                    <span class="text-amber-500">★</span>
+                    <span class="font-bold text-slate-800">{loc.rating}</span>
+                    <span class="text-slate-400 text-[11px]">({loc.reviewCount})</span>
+                  </div>
+                </div>
+
+                <!-- Title -->
+                <h3 class="text-xl font-bold font-display text-slate-900 group-hover:text-[#07572F] transition-colors leading-tight mb-2">
+                  <a href={`/locations/${loc.slug}`} class="focus:outline-none focus-visible:underline">
+                    {loc.name}
+                  </a>
+                </h3>
+
+                <!-- Short Tagline -->
+                <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">
+                  {loc.heroDescription}
+                </p>
+
+                <!-- Boroughs Preview -->
+                <div class="mb-5">
+                  <span class="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+                    Coverage Areas:
+                  </span>
+                  <div class="flex flex-wrap gap-1">
+                    {loc.boroughsOrDistricts.slice(0, 5).map((district) => (
+                      <span class="inline-block px-2 py-0.5 rounded-sm bg-slate-100 text-slate-700 text-[11px] font-medium">
+                        {district}
+                      </span>
+                    ))}
+                    {loc.boroughsOrDistricts.length > 5 && (
+                      <span class="inline-block px-2 py-0.5 rounded-sm bg-slate-200 text-slate-600 text-[11px] font-semibold">
+                        +{loc.boroughsOrDistricts.length - 5} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom Meta & Actions -->
+              <div class="pt-4 border-t border-slate-100">
+                <div class="flex items-center justify-between text-xs text-slate-500 mb-3.5">
+                  <span class="flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    Lead time: <strong class="text-slate-700">{loc.leadTime}</strong>
+                  </span>
+                  <span class="text-emerald-700 font-semibold">Free qualifying</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                  <a
+                    href={`/locations/${loc.slug}`}
+                    class="w-full text-center py-2.5 px-3 rounded-lg bg-[#062C20] hover:bg-[#07572F] text-white font-bold text-xs uppercase tracking-wider transition-all"
+                  >
+                    View Hub &rarr;
+                  </a>
+                  <a
+                    href={`/locations/${loc.slug}#book-collection-form`}
+                    class="w-full text-center py-2.5 px-3 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-900 font-bold text-xs uppercase tracking-wider border border-emerald-200 transition-all"
+                  >
+                    Book Pickup
+                  </a>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       4. OPERATIONAL INFRASTRUCTURE BANNER
+       ===================================================== -->
+  <section class="py-14 sm:py-16 bg-[#062C20] text-white border-t border-emerald-950/60">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="inline-block text-xs font-mono font-bold uppercase tracking-wider text-[#B8EC4C]">
+            National Operations Network
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight leading-tight">
+            Security-Cleared Logistics from Dartford HQ, Stafford &amp; Hainault Hubs
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-sans">
+            Operating our own fleet of GPS-tracked vehicles, TechSteps connects regional city offices with accredited high-security processing facilities. Whether you have 10 laptops in Cambridge or 1,200 server blades across Edinburgh and London, our team coordinates smooth, secure asset retirement.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-2">
+            <div class="flex items-center gap-2 text-xs font-medium text-slate-200">
+              <span class="text-emerald-400">✓</span> BS 7858 Security Vetted Drivers
+            </div>
+            <div class="flex items-center gap-2 text-xs font-medium text-slate-200">
+              <span class="text-emerald-400">✓</span> Tamper-Evident GPS Transit
+            </div>
+            <div class="flex items-center gap-2 text-xs font-medium text-slate-200">
+              <span class="text-emerald-400">✓</span> 100% Data Overwrite / Shredding
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white/5 border border-white/10 rounded-[20px] p-6 space-y-4 backdrop-blur-xs">
+          <h3 class="text-lg font-bold text-white font-display">Need a custom enterprise quote?</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Multi-site corporate decommissions, data centre rack clearances, and timed out-of-hours collections arranged nationwide.
+          </p>
+          <div class="pt-2 flex flex-col sm:flex-row gap-3">
+            <a
+              href="tel:08002545902"
+              class="flex-1 text-center py-3 px-4 rounded-lg bg-[#B8EC4C] hover:bg-[#a6d83e] text-[#0A261F] font-bold text-xs uppercase tracking-wider transition-all"
+            >
+              Call 0800 254 5902
+            </a>
+            <a
+              href="/request-a-quote"
+              class="flex-1 text-center py-3 px-4 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider border border-white/20 transition-all"
+            >
+              Custom Quote
+            </a>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       5. MASTER UK COLLECTION FAQ SECTION
+       ===================================================== -->
+  <FAQSection
+    title="UK IT Recycling & Collection Questions"
+    subtitle="Frequently asked questions about our nationwide collection network, zero-landfill process, and data destruction compliance."
+    faqs={masterFaqs}
+  />
+
+  <!-- =====================================================
+       6. BOTTOM READY TO BOOK CTA BANNER
+       ===================================================== -->
+  <section class="py-12 sm:py-16 bg-[#062C20] text-white border-t border-emerald-950/60">
+    <Container>
+      <div class="bg-[#0B3A2C] rounded-[24px] p-8 sm:p-12 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight mb-2">
+            Ready to book your collection?
+          </h2>
+          <p class="text-sm text-slate-300 font-sans max-w-xl">
+            Tell us what you've got. We'll confirm whether your collection qualifies as free, and book a slot at a convenient time for you anywhere in the UK.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <a
+            href="/book-pickup"
+            class="px-6 py-3 rounded-[10px] bg-[#B8EC4C] hover:bg-[#a6d83e] text-[#0A261F] font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition-all font-sans"
+          >
+            BOOK A COLLECTION
+          </a>
+          <a
+            href="tel:08002545902"
+            class="px-6 py-3 rounded-[10px] bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition-all font-sans"
+          >
+            0800 254 5902
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  // Interactive Filtering & Search Script for UK Locations Directory
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('location-search-input');
+    const clearBtn = document.getElementById('clear-search-btn');
+    const cards = Array.from(document.querySelectorAll('.location-card'));
+    const visibleCount = document.getElementById('visible-count');
+    const noResults = document.getElementById('no-results');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    let activeFilter = 'all';
+    let searchQuery = '';
+
+    function filterCards() {
+      let count = 0;
+      const q = searchQuery.trim().toLowerCase();
+
+      cards.forEach((card) => {
+        const name = card.getAttribute('data-name') || '';
+        const region = card.getAttribute('data-region') || '';
+        const districts = card.getAttribute('data-districts') || '';
+        const category = card.getAttribute('data-category') || '';
+        const isHub = card.getAttribute('data-is-hub') === 'true';
+
+        // Check category match
+        let matchesCategory = false;
+        if (activeFilter === 'all') {
+          matchesCategory = true;
+        } else if (activeFilter === 'operations-centres') {
+          matchesCategory = isHub;
+        } else {
+          matchesCategory = (category === activeFilter);
+        }
+
+        // Check text search match
+        let matchesQuery = true;
+        if (q.length > 0) {
+          matchesQuery = name.includes(q) || region.includes(q) || districts.includes(q);
+        }
+
+        if (matchesCategory && matchesQuery) {
+          card.classList.remove('hidden');
+          count++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (visibleCount) {
+        visibleCount.textContent = count.toString();
+      }
+
+      if (noResults) {
+        if (count === 0) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+        }
+      }
+    }
+
+    // Search input handler
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        if (clearBtn) {
+          if (searchQuery.length > 0) {
+            clearBtn.classList.remove('hidden');
+          } else {
+            clearBtn.classList.add('hidden');
+          }
+        }
+        filterCards();
+      });
+    }
+
+    // Clear search handler
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (searchInput) {
+          searchInput.value = '';
+          searchQuery = '';
+          clearBtn.classList.add('hidden');
+          filterCards();
+          searchInput.focus();
+        }
+      });
+    }
+
+    // Filter button handlers
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach((b) => {
+          b.classList.remove('active', 'bg-[#062C20]', 'text-white');
+          b.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+        });
+
+        btn.classList.add('active', 'bg-[#062C20]', 'text-white');
+        btn.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+
+        activeFilter = btn.getAttribute('data-filter') || 'all';
+        filterCards();
+      });
+    });
+  });
+</script>

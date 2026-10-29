@@ -503,6 +503,11 @@ if (!hasActive) {
         })
       );
       window.dispatchEvent(
+        new CustomEvent('techsteps:close-free-collection', {
+          detail: { immediate: true },
+        })
+      );
+      window.dispatchEvent(
         new CustomEvent('techsteps:close-about', {
           detail: { immediate: true },
         })

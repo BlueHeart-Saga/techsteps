@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/global/Header.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
 import ServicesMegaMenu from '../components/global/ServicesMegaMenu.astro';
+import FreeCollectionMegaMenu from '../components/global/FreeCollectionMegaMenu.astro';
 import SectorsDropdown from '../components/global/SectorsDropdown.astro';
 import AboutMegaMenu from '../components/global/AboutMegaMenu.astro';
 import InsightsMegaMenu from '../components/global/InsightsMegaMenu.astro';
@@ -102,6 +103,7 @@ const combinedSchemas = jsonLd
     <Header isHome={isHome} hasHeroHeader={heroActive} />
     <div id="dropdown-backdrop" class="dropdown-backdrop" aria-hidden="true"></div>
     <ServicesMegaMenu />
+    <FreeCollectionMegaMenu />
     <SectorsDropdown />
     <AboutMegaMenu />
     {/* <InsightsMegaMenu /> */}

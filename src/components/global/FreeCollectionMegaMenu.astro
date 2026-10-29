@@ -1,0 +1,634 @@
+---
+/**
+ * FreeCollectionMegaMenu.astro
+ * Simple and premium dropdown mega menu for "Free Collection"
+ * Precisely matched to the visual styling, layout, typography, and hover pills of SectorsDropdown.astro
+ */
+
+const currentPath = Astro.url.pathname;
+
+const isPathActive = (path: string) => {
+  return currentPath === path || currentPath === `${path}/`;
+};
+
+const column1 = [
+  {
+    title: 'Computer Collection',
+    href: '/computer-collection',
+    icon: '/icons/IT%20Lifecycle%20&%20Destruction.svg',
+    active: isPathActive('/computer-collection'),
+  },
+  {
+    title: 'Laptop Collection',
+    href: '/laptop-collection',
+    icon: '/icons/IT%20&%20Technology.svg',
+    active: isPathActive('/laptop-collection'),
+  },
+  {
+    title: 'Server Collection',
+    href: '/server-collection',
+    icon: '/icons/Corporate%20&%20Legal.svg',
+    active: isPathActive('/server-collection'),
+  },
+];
+
+const column2 = [
+  {
+    title: 'Mobile Device Collection',
+    href: '/mobile-device-collection',
+    icon: '/icons/about-us.svg',
+    active: isPathActive('/mobile-device-collection'),
+  },
+  {
+    title: 'Monitor & Screen Collection',
+    href: '/monitor-screen-collection',
+    icon: '/icons/Education%20&%20Universities.svg',
+    active: isPathActive('/monitor-screen-collection'),
+  },
+  {
+    title: 'Printer & Copier Collection',
+    href: '/printer-copier-collection',
+    icon: '/icons/Manufacturing%20&%20Engineering.svg',
+    active: isPathActive('/printer-copier-collection'),
+  },
+];
+
+const column3 = [
+  {
+    title: 'AV & Media Equipment',
+    href: '/av-media-equipment-collection',
+    icon: '/icons/Information%20Management.svg',
+    active: isPathActive('/av-media-equipment-collection'),
+  },
+  {
+    title: 'Explore All Equipment',
+    href: '/collection/all-equipement',
+    icon: '/icons/Moving%20&%20Relocation%20Services.svg',
+    active: isPathActive('/collection/all-equipement') || isPathActive('/collection/all-equipment'),
+  },
+  {
+    title: 'Book a Free Pickup',
+    href: '/book-pickup',
+    icon: '/icons/certifications.svg',
+    active: isPathActive('/book-pickup'),
+  },
+];
+
+const hasActive =
+  column1.some((item) => item.active) ||
+  column2.some((item) => item.active) ||
+  column3.some((item) => item.active);
+
+if (!hasActive) {
+  column1[0].active = true;
+}
+---
+
+<!-- =========================================================
+     FREE COLLECTION DROPDOWN PANEL
+========================================================= -->
+<div
+  id="free-collection-megamenu-panel"
+  class="fixed top-[82px] inset-x-0 z-[998] hidden opacity-0 -translate-y-1 transition-[opacity,transform] duration-150 ease-out pointer-events-none before:absolute before:-top-10 before:inset-x-0 before:h-10 before:content-[''] before:pointer-events-auto"
+  role="region"
+  aria-label="Free Collection Menu"
+>
+  <div
+    id="free-collection-megamenu-wrapper"
+    class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+  >
+    <div
+      id="free-collection-megamenu-card"
+      class="free-collection-dropdown-card bg-white rounded-[20px] border border-slate-200/80 shadow-[0_20px_50px_rgba(0,0,0,0.08)] pointer-events-auto p-6 sm:p-7 lg:p-8 flex flex-col lg:flex-row items-stretch justify-between gap-8 xl:gap-10 w-full box-border"
+    >
+
+      <!-- =====================================================
+           LEFT: NAVIGATION AREA (~74%)
+      ====================================================== -->
+      <div class="flex-1 w-full flex flex-col min-w-0">
+        <!-- Main Section Header -->
+        <div class="mb-4 pb-2.5 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h3 class="free-collection-heading text-xs font-bold uppercase tracking-wider text-[#5A6874]">
+              Equipment We Collect
+            </h3>
+            <p class="text-[12px] text-slate-500 font-normal mt-0.5">
+              Free IT equipment collection for qualifying UK businesses
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 flex-1">
+          <!-- Column 1 -->
+          <div class="free-collection-menu-column flex flex-col space-y-1.5">
+            {column1.map((item) => (
+              <a
+                href={item.href}
+                class={`free-collection-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${
+                  item.active
+                    ? 'active-collection bg-[#BCE6CE] text-[#0F172A] font-semibold'
+                    : 'text-[#101E2C] hover:bg-[#E0F2E7]'
+                }`}
+              >
+                <span class="shrink-0 flex items-center justify-center w-5 h-5">
+                  <img
+                    src={item.icon}
+                    alt=""
+                    class="w-5 h-5 object-contain"
+                    width="20"
+                    height="20"
+                  />
+                </span>
+                <span class="collection-label text-[15px] leading-snug whitespace-nowrap">
+                  {item.title}
+                </span>
+              </a>
+            ))}
+          </div>
+
+          <!-- Column 2 -->
+          <div class="free-collection-menu-column flex flex-col space-y-1.5">
+            {column2.map((item) => (
+              <a
+                href={item.href}
+                class={`free-collection-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${
+                  item.active
+                    ? 'active-collection bg-[#BCE6CE] text-[#0F172A] font-semibold'
+                    : 'text-[#101E2C] hover:bg-[#E0F2E7]'
+                }`}
+              >
+                <span class="shrink-0 flex items-center justify-center w-5 h-5">
+                  <img
+                    src={item.icon}
+                    alt=""
+                    class="w-5 h-5 object-contain"
+                    width="20"
+                    height="20"
+                  />
+                </span>
+                <span class="collection-label text-[15px] leading-snug whitespace-nowrap">
+                  {item.title}
+                </span>
+              </a>
+            ))}
+          </div>
+
+          <!-- Column 3 -->
+          <div class="free-collection-menu-column flex flex-col space-y-1.5">
+            {column3.map((item) => (
+              <a
+                href={item.href}
+                class={`free-collection-link group flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-150 cursor-pointer min-h-[46px] ${
+                  item.active
+                    ? 'active-collection bg-[#BCE6CE] text-[#0F172A] font-semibold'
+                    : 'text-[#101E2C] hover:bg-[#E0F2E7]'
+                }`}
+              >
+                <span class="shrink-0 flex items-center justify-center w-5 h-5">
+                  <img
+                    src={item.icon}
+                    alt=""
+                    class="w-5 h-5 object-contain"
+                    width="20"
+                    height="20"
+                  />
+                </span>
+                <span class="collection-label text-[15px] leading-snug whitespace-nowrap">
+                  {item.title}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           RIGHT: FEATURED AREA (~26%)
+      ====================================================== -->
+      <div
+        class="free-collection-featured-col w-full lg:w-[240px] xl:w-[260px] shrink-0 flex flex-col lg:pl-8 lg:border-l lg:border-slate-100 justify-between"
+      >
+        <div class="w-full">
+          <div class="mb-4 pb-2.5 border-b border-slate-100 hidden lg:block">
+            <span class="free-collection-right-heading text-xs font-bold uppercase tracking-wider text-[#5A6874]">
+              Collection Overview
+            </span>
+          </div>
+
+          <a
+            href="/services/collection#collection-process"
+            class="free-collection-featured-card group block w-full rounded-[16px] overflow-hidden border border-slate-200/80 bg-slate-50 transition-all duration-200 hover:border-[#07572F]/40 hover:shadow-md"
+          >
+            <div class="w-full aspect-[16/10] overflow-hidden bg-slate-100">
+              <img
+                src="/images/collection/collection-overview-hero.jpg"
+                alt="TechSteps IT Equipment Collection Process"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+                width="260"
+                height="162"
+              />
+            </div>
+
+            <div class="p-3.5 flex items-center justify-between bg-white group-hover:bg-[#F2F8F5] transition-colors">
+              <span class="font-sans text-[14px] font-semibold text-[#101E2C] group-hover:text-[#07572F] transition-colors">
+                View Collection Process
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  /* =========================================================
+     CONTAINER & CARD
+  ========================================================= */
+  #free-collection-megamenu-panel .free-collection-dropdown-card {
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    border-radius: 20px !important;
+    box-sizing: border-box;
+  }
+
+  /* =========================================================
+     TYPOGRAPHY
+  ========================================================= */
+  #free-collection-megamenu-panel .free-collection-heading,
+  #free-collection-megamenu-panel .free-collection-right-heading {
+    font-family: var(--font-sans) !important;
+    letter-spacing: 0.05em;
+  }
+
+  #free-collection-megamenu-panel .free-collection-link {
+    font-family: var(--font-sans) !important;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+
+  /* =========================================================
+     ACTIVE / HOVER
+  ========================================================= */
+  #free-collection-megamenu-panel .free-collection-link.active-collection {
+    background-color: #bce6ce;
+    color: #0f172a;
+  }
+
+  #free-collection-megamenu-panel .free-collection-link:not(.active-collection):hover {
+    background-color: #e0f2e7;
+    color: #0f172a;
+  }
+
+  /* =========================================================
+     SCROLL NAV GLASS (EXACT SAME AS SCROLLING NAVBAR)
+  ========================================================= */
+  #free-collection-megamenu-panel .free-collection-dropdown-card.scroll-glass-active,
+  #free-collection-megamenu-card.scroll-glass-active {
+    background: rgba(250, 246, 238, 0.60) !important;
+    background-color: rgba(250, 246, 238, 0.60) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.10) !important;
+    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  /* =========================================================
+     RESPONSIVE
+  ========================================================= */
+  @media (max-width: 1024px) {
+    #free-collection-megamenu-panel .free-collection-dropdown-card {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    #free-collection-megamenu-panel .free-collection-featured-col {
+      border-left: none;
+      border-top: 1px solid #f1f5f9;
+      padding-left: 0;
+      padding-top: 1.5rem;
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  function setupFreeCollectionMegaMenu() {
+    const panel = document.getElementById('free-collection-megamenu-panel');
+    if (!panel) return;
+
+    if (panel.dataset.navInitialized === 'true') {
+      return;
+    }
+    panel.dataset.navInitialized = 'true';
+
+    const triggers = document.querySelectorAll<HTMLElement>(
+      '#free-collection-menu-trigger, .free-collection-megamenu-toggle'
+    );
+
+    if (triggers.length === 0) return;
+
+    let closeTimeout: ReturnType<typeof setTimeout> | null = null;
+    let hideTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    const collectionLinks = panel.querySelectorAll<HTMLElement>('.free-collection-link');
+
+    /* =========================================================
+       GLASS CONTROLLER
+    ========================================================= */
+    const setScrollGlass = (active: boolean) => {
+      const card = document.getElementById('free-collection-megamenu-card');
+      if (!card) return;
+
+      if (active) {
+        card.classList.add('scroll-glass-active');
+        card.style.setProperty('background', 'rgba(250, 246, 238, 0.60)', 'important');
+        card.style.setProperty('background-color', 'rgba(250, 246, 238, 0.60)', 'important');
+        card.style.setProperty('-webkit-backdrop-filter', 'blur(12px)', 'important');
+        card.style.setProperty('backdrop-filter', 'blur(12px)', 'important');
+        card.style.setProperty('border', '1px solid rgba(0, 0, 0, 0.10)', 'important');
+        card.style.setProperty('box-shadow', '0 16px 40px -10px rgba(0, 0, 0, 0.08)', 'important');
+      } else {
+        card.classList.remove('scroll-glass-active');
+        card.style.removeProperty('background');
+        card.style.removeProperty('background-color');
+        card.style.removeProperty('-webkit-backdrop-filter');
+        card.style.removeProperty('backdrop-filter');
+        card.style.removeProperty('border');
+        card.style.removeProperty('box-shadow');
+      }
+    };
+
+    /* =========================================================
+       POSITION + NAV STATE
+    ========================================================= */
+    const updatePosition = () => {
+      const siteHeader = document.getElementById('site-header');
+      const heroHeader = document.getElementById('hero-header');
+      const card = document.getElementById('free-collection-megamenu-card');
+      const wrapper = document.getElementById('free-collection-megamenu-wrapper');
+
+      const isScrollNavActive =
+        !!siteHeader &&
+        !siteHeader.classList.contains('opacity-0') &&
+        !siteHeader.classList.contains('-translate-y-full');
+
+      if (isScrollNavActive && siteHeader) {
+        setScrollGlass(true);
+
+        const maxWrap = siteHeader.querySelector<HTMLElement>(':scope > div');
+        const floatingBar = maxWrap?.querySelector<HTMLElement>(':scope > div');
+        const ref = floatingBar ?? siteHeader;
+        const rect = ref.getBoundingClientRect();
+
+        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
+        panel.style.left = `${Math.round(rect.left)}px`;
+        panel.style.right = 'auto';
+        panel.style.width = `${Math.round(rect.width)}px`;
+
+        if (wrapper) {
+          wrapper.classList.add('scroll-dropdown-wrapper');
+        }
+
+        if (card) {
+          card.style.width = `${Math.round(rect.width)}px`;
+          card.style.maxWidth = `${Math.round(rect.width)}px`;
+        }
+      } else if (heroHeader) {
+        setScrollGlass(false);
+
+        const rect = heroHeader.getBoundingClientRect();
+
+        panel.style.top = `${Math.round(rect.bottom + 8)}px`;
+        panel.style.left = '';
+        panel.style.right = '';
+        panel.style.width = '';
+
+        if (card) {
+          card.style.width = '';
+          card.style.maxWidth = '';
+        }
+
+        if (wrapper) {
+          wrapper.classList.remove('scroll-dropdown-wrapper');
+        }
+      }
+    };
+
+    /* =========================================================
+       BACKDROP
+    ========================================================= */
+    const updateBackdrop = () => {
+      const backdrop = document.getElementById('dropdown-backdrop');
+      if (!backdrop) return;
+
+      const servicesPanel = document.getElementById('services-megamenu-panel');
+      const sectorsPanel = document.getElementById('sectors-dropdown-panel');
+      const aboutPanel = document.getElementById('about-megamenu-panel');
+
+      const isServicesOpen =
+        servicesPanel &&
+        !servicesPanel.classList.contains('hidden') &&
+        !servicesPanel.classList.contains('opacity-0');
+
+      const isSectorsOpen =
+        sectorsPanel &&
+        !sectorsPanel.classList.contains('hidden') &&
+        !sectorsPanel.classList.contains('opacity-0');
+
+      const isAboutOpen =
+        aboutPanel &&
+        !aboutPanel.classList.contains('hidden') &&
+        !aboutPanel.classList.contains('opacity-0');
+
+      const isCollectionOpen =
+        !panel.classList.contains('hidden') &&
+        !panel.classList.contains('opacity-0');
+
+      if (isServicesOpen || isSectorsOpen || isAboutOpen || isCollectionOpen) {
+        backdrop.classList.add('active');
+      } else {
+        backdrop.classList.remove('active');
+      }
+    };
+
+    /* =========================================================
+       CANCEL CLOSE
+    ========================================================= */
+    const cancelClose = () => {
+      if (closeTimeout) {
+        clearTimeout(closeTimeout);
+        closeTimeout = null;
+      }
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+        hideTimeout = null;
+      }
+    };
+
+    /* =========================================================
+       COLLECTION LINK HOVER
+    ========================================================= */
+    collectionLinks.forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        collectionLinks.forEach((l) => {
+          l.classList.remove('active-collection', 'bg-[#BCE6CE]', 'font-semibold');
+        });
+        link.classList.add('active-collection', 'bg-[#BCE6CE]', 'font-semibold');
+      });
+    });
+
+    /* =========================================================
+       OPEN MENU
+    ========================================================= */
+    const openMenu = () => {
+      cancelClose();
+
+      window.dispatchEvent(
+        new CustomEvent('techsteps:close-services', {
+          detail: { immediate: true },
+        })
+      );
+      window.dispatchEvent(
+        new CustomEvent('techsteps:close-sectors', {
+          detail: { immediate: true },
+        })
+      );
+      window.dispatchEvent(
+        new CustomEvent('techsteps:close-about', {
+          detail: { immediate: true },
+        })
+      );
+
+      updatePosition();
+
+      panel.classList.remove('hidden');
+      void panel.offsetHeight;
+
+      panel.classList.remove('opacity-0', '-translate-y-1', 'pointer-events-none');
+      panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+
+      triggers.forEach((trigger) => {
+        trigger.setAttribute('aria-expanded', 'true');
+        trigger.classList.add('active');
+      });
+
+      updateBackdrop();
+    };
+
+    /* =========================================================
+       SCHEDULE CLOSE
+    ========================================================= */
+    const scheduleClose = (delay = 180) => {
+      cancelClose();
+
+      closeTimeout = setTimeout(() => {
+        panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        panel.classList.add('opacity-0', '-translate-y-1', 'pointer-events-none');
+
+        triggers.forEach((trigger) => {
+          trigger.setAttribute('aria-expanded', 'false');
+          if (trigger.dataset.routeActive !== 'true') {
+            trigger.classList.remove('active');
+          }
+        });
+
+        hideTimeout = setTimeout(() => {
+          panel.classList.add('hidden');
+          updateBackdrop();
+        }, 150);
+      }, delay);
+    };
+
+    /* =========================================================
+       CROSS-MENU CLOSE EVENT
+    ========================================================= */
+    window.addEventListener('techsteps:close-free-collection', ((
+      e: CustomEvent<{ immediate?: boolean }>
+    ) => {
+      cancelClose();
+      panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      panel.classList.add('opacity-0', '-translate-y-1', 'pointer-events-none');
+
+      triggers.forEach((trigger) => {
+        trigger.setAttribute('aria-expanded', 'false');
+        if (trigger.dataset.routeActive !== 'true') {
+          trigger.classList.remove('active');
+        }
+      });
+
+      if (e.detail?.immediate) {
+        panel.classList.add('hidden');
+        updateBackdrop();
+      } else {
+        hideTimeout = setTimeout(() => {
+          panel.classList.add('hidden');
+          updateBackdrop();
+        }, 150);
+      }
+    }) as EventListener);
+
+    /* =========================================================
+       EVENT LISTENERS
+    ========================================================= */
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('mouseenter', openMenu);
+      trigger.addEventListener('mouseleave', () => scheduleClose(180));
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen =
+          !panel.classList.contains('hidden') &&
+          !panel.classList.contains('opacity-0');
+        if (isOpen) {
+          scheduleClose(0);
+        } else {
+          openMenu();
+        }
+      });
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const isOpen =
+            !panel.classList.contains('hidden') &&
+            !panel.classList.contains('opacity-0');
+          if (isOpen) {
+            scheduleClose(0);
+          } else {
+            openMenu();
+          }
+        }
+      });
+    });
+
+    panel.addEventListener('mouseenter', cancelClose);
+    panel.addEventListener('mouseleave', () => scheduleClose(180));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        scheduleClose(0);
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      const clickedTrigger = Array.from(triggers).some((t) => t.contains(target));
+      if (!panel.contains(target) && !clickedTrigger) {
+        scheduleClose(0);
+      }
+    });
+
+    window.addEventListener('scroll', updatePosition, { passive: true });
+    window.addEventListener('resize', updatePosition, { passive: true });
+  }
+
+  setupFreeCollectionMegaMenu();
+  document.addEventListener('astro:page-load', setupFreeCollectionMegaMenu);
+</script>

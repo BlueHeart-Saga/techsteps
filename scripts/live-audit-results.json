@@ -1,0 +1,604 @@
+{
+  "timestamp": "2026-10-28T10:13:49.226Z",
+  "totalChecked": 149,
+  "okPages": [
+    {
+      "url": "https://techsteps.co.uk/",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/accessibility",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/case-studies",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/about-us",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/case-studies/nhs-trust-patient-record-digitization",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/cookie-policy",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/contact",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/case-studies/tier1-investment-bank-itad-relocation",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/certifications",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/environmental-policy",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/information-management",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/global-presence",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/information-security-policy",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/faq",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/commitment-in-action-the-6ad88ff2127b311d59ec8a1f",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/celebrating-team-contributions-6ad886dd127b311d59ec8a01",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/behind-every-achievement-the-6ad87c2c127b311d59ec89a2",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/a-record-of-progress-why-every-6ad88d91127b311d59ec8a15",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/raising-the-standard-how-service-6ad88841127b311d59ec8a0a",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/from-goals-to-results-6ad883c9127b311d59ec89dd",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/recognizing-excellence-the-6ad8810e127b311d59ec89be",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/measuring-success-the-importance-6ad8857b127b311d59ec89fd",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/recognizing-operational-6ad8a1c6127b311d59ec8a8c",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/turning-challenges-into-6ad87f5d127b311d59ec89ba",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/the-value-of-getting-it-right-6ad8a405127b311d59ec8a95",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/achievements/small-steps-big-results-how-6ad8825e127b311d59ec89c4",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/4-how-it-asset-recycling-6ad75ae296f8be35f1107334",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/building-a-greener-future-6ad75c8696f8be35f1107338",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/celebrating-business-6ad7562a96f8be35f1107325",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/business-growth-and-digital-6ad85240127b311d59ec880a",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/celebrating-sustainability-6ad86545127b311d59ec8901",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/business-growth-and-digital-6ad75e6496f8be35f110733b",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/how-businesses-can-turn-it-6ad862de127b311d59ec8871",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/from-legacy-systems-to-6ad85488127b311d59ec880f",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/from-small-beginnings-to-6ad7581196f8be35f110732a",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/key-milestones-in-building-6ad85e57127b311d59ec885f",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/how-responsible-it-disposal-6ad856a9127b311d59ec8816",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/marking-company-milestones-6ad7595296f8be35f110732e",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/beyond-cloud-storage-why-backup-tapes-6ad7422996f8be35f11072ca",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/building-a-sustainable-digital-6ad74b5496f8be35f11072e3",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/awards-milestones/measuring-business-progress-6ad85a02127b311d59ec8844",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/document-retention-explained-what-6ad7316f96f8be35f110725d",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/digital-preservation-vs-physical-6ad73edb96f8be35f11072c2",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/digital-mailrooms-explained-the-shift-6ad7367796f8be35f1107266",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/e-waste-in-the-workplace-what-6ad7154f96f8be35f11071fb",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/data-security-beyond-the-office-6ad70ecc96f8be35f11071e1",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/technology-refresh-cycles-explained-6ad719f496f8be35f1107232",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/testing-6ad206cca49baf5b00ad3a69",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/it-asset-visibility-in-2026-the-growing-6ad711dc96f8be35f11071ed",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/the-future-of-it-asset-management-key-6ad7033296f8be35f11071bf",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/intelligent-document-processing-the-6ad7283e96f8be35f1107246",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/the-hidden-costs-of-poor-information-6ad7486696f8be35f11072d8",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/the-rise-of-it-reuse-why-the-circular-6ad708d896f8be35f11071cf",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/blogs/uk-gdpr-and-business-records-common-6ad7441796f8be35f11072d0",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/better-records-better-communities-6ad8a8e1127b311d59ec8ada",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/creating-a-culture-of-6ad8af3b127b311d59ec8b08",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/building-greener-communities-6ad882f9127b311d59ec89db",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/giving-old-technology-a-new-purpose-6ad887b2127b311d59ec8a08",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/how-businesses-can-work-together-to-6ad8a6f1127b311d59ec8ad2",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/how-local-businesses-can-make-a-6ad87995127b311d59ec899d",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/understanding-the-environmental-6ad8ad82127b311d59ec8afd",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/raising-awareness-about-electronic-6ad8a510127b311d59ec8aca",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/supporting-digital-inclusion-6ad8aadc127b311d59ec8add",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/the-role-of-businesses-in-creating-6ad88515127b311d59ec89e2",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/small-business-sustainability-6ad8a348127b311d59ec8a91",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/beyond-the-milestones-6ad86bf6127b311d59ec894f",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/community/why-data-security-matters-when-6ad88f71127b311d59ec8a1c",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/building-a-greener-6ad8593b127b311d59ec8841",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/a-journey-of-innovation-6ad85ccf127b311d59ec885c",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/business-growth-and-6ad85b50127b311d59ec8858",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/driving-positive-change-6ad861f5127b311d59ec886d",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/looking-ahead-techsteps-6ad86030127b311d59ec8866",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/celebrating-progress-6ad8524e127b311d59ec880b",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/expanding-opportunities-6ad8627b127b311d59ec886f",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/moving-forward-the-next-6ad85614127b311d59ec8813",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/strengthening-business-6ad85eb7127b311d59ec8862",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/supporting-business-6ad86800127b311d59ec8934",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/recognising-progress-6ad866a0127b311d59ec8929",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/progress-through-6ad8694c127b311d59ec8942",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/document-scanning-transforming-6ad752c496f8be35f11072f5",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/digital-mailroom-faster-6ad7504696f8be35f11072eb",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/document-management-turning-6ad846bb127b311d59ec8776",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/company-announcements/towards-a-sustainable-6ad8697e127b311d59ec8949",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/remarketing-recycling-6ad741eb96f8be35f11072c8",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/it-asset-tracking-greater-6ad7496896f8be35f11072dc",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/heritage-storage-preserving-6ad84aeb127b311d59ec877f",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/secure-collection-services-a-6ad74a7a96f8be35f11072e1",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/it-asset-disposition-turning-6ad7417696f8be35f11072c7",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/ultra-secure-hard-drive-6ad74ea396f8be35f11072e8",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/secure-document-storage-6ad7546b96f8be35f110731d",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/vault-storage-enhanced-6ad755ca96f8be35f1107320",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/insights/impact-metrics/secure-it-disposal-6ad7449e96f8be35f11072d4",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/investors",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/it-lifecycle-services-destruction",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/our-commitment",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/moving-relocation-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/leadership",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/modern-slavery-statement",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/request-a-quote",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/sectors/central-government",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/partners",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/sectors",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/privacy-policy",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/sectors/finance",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/sectors/defence",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/sectors/it-technology",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/sectors/education-universities",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/sectors/legal-professional-sector",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/sectors/nhs",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/sectors/legal-professional-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/sectors/manufacturing-engineering",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/secure-shredding-document-integrity",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/digital-mailroom-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/cardboard-recycling-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/disposal-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/document-management-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/business-relocations-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/dry-mixed-recycling-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/heritage-relocations-storage-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/document-scanning-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/europe-international-domestic-moves-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/document-storage-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/it-asset-tracking-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/heritage-storage-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/it-asset-disposition-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/it-relocations-specialist-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/home-shredding-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/laboratory-relocations-storage-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/product-shredding-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/on-site-shredding-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/off-site-shredding-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/project-management-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/tape-media-storage-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/simpler-recycling-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/remarketing-recycling-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/secure-it-disposal-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/secure-collection-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/sustainability",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/terms-and-conditions",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/vault-storage-services",
+      "status": 200
+    },
+    {
+      "url": "https://techsteps.co.uk/services/ultra-secure-hard-drive-destruction-services",
+      "status": 200
+    }
+  ],
+  "notFound404": [],
+  "otherErrors": []
+}

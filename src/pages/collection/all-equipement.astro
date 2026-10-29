@@ -1,0 +1,700 @@
+---
+/**
+ * all-equipement.astro
+ * Comprehensive Directory of Accepted IT Equipment & Hardware
+ * Route: /collection/all-equipement
+ * 
+ * Features:
+ * - One-by-one showcase of all 8 equipment divisions with high-res photography
+ * - Specific accepted models, security wiping protocols, and environmental routing
+ * - Interactive category jump filters
+ * - Live Free Collection volume qualification estimator
+ * - Direct booking CTAs to /book-pickup
+ * - Seamless integration with unified FAQSection and global layout
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import CTA from '../../components/global/cta.astro';
+import { getPageFaqs } from '../../data/pageFaqs';
+
+const pageTitle = "Explore All IT Equipment & Devices We Collect | TechSteps UK";
+const pageDescription = "Comprehensive directory of all business IT equipment collected by TechSteps. Desktops, laptops, enterprise servers, mobile devices, monitors, printers, AV gear and storage media. Free nationwide collection for qualifying UK organisations.";
+
+const faqConfig = getPageFaqs('collection-overview');
+const faqs = faqConfig?.faqs || [];
+
+const equipmentList = [
+  {
+    id: "laptops",
+    title: "Enterprise Laptops & Notebooks",
+    badge: "High Residual Value • Free Collection Eligible",
+    category: "Mobile Computing",
+    image: "/images/collection/laptop-collection-hero.jpg",
+    alt: "Corporate enterprise laptops and ultrabooks ready for secure collection",
+    serviceUrl: "/laptop-collection",
+    bookingType: "laptops",
+    summary: "Complete lifecycle management for corporate laptop fleets, executive ultrabooks, rugged field laptops, and education Chromebooks.",
+    acceptedItems: [
+      "Apple MacBooks (Pro, Air, M1/M2/M3)",
+      "Lenovo ThinkPads (X1, T-Series, P-Series)",
+      "Dell Latitude, XPS & Precision Mobile Workstations",
+      "HP EliteBook, ProBook & ZBook Series",
+      "Google Chromebooks & Education Netbooks",
+      "Microsoft Surface Pro & Surface Laptop Units",
+      "Universal Docking Stations, Power Bricks & Laptop Bags"
+    ],
+    securityProtocol: "Certified Blancco multi-pass SSD erasure to NIST 800-88 and HMG IS5 standards, or mobile on-site 6mm SSD shredding.",
+    circularRoute: "Testing, cosmetic grading, component upgrades, and secure remarketing with financial rebate credited back to your organisation.",
+    complianceDocs: "Itemised Asset Manifest, Serialised Erasure Certificates, and ADR-compliant Hazardous Waste Notes for lithium batteries."
+  },
+  {
+    id: "computers",
+    title: "Desktop Computers & High-Performance Workstations",
+    badge: "Bulk Pickup Available • 100% Zero Landfill",
+    category: "Desktop Systems",
+    image: "/images/collection/computer-collection-hero.jpg",
+    alt: "Commercial desktop PC towers and engineering workstations",
+    serviceUrl: "/computer-collection",
+    bookingType: "computers",
+    summary: "Secure collection for commercial PC fleets, space-saving mini form factor units, all-in-one desktops, and high-performance CAD and financial trading workstations.",
+    acceptedItems: [
+      "Small Form Factor (SFF) & Micro / Mini PCs",
+      "Mid-Tower & Full-Tower Corporate Desktops",
+      "All-in-One (AIO) Workstations & iMacs",
+      "CAD, 3D Rendering & Data Science Towers (Multi-GPU)",
+      "Financial Trading Desks & Multi-Head Video Rigs",
+      "Point-of-Sale (POS) & Retail Terminal Units",
+      "Desktop Keyboards, Mice, Cables & Peripherals"
+    ],
+    securityProtocol: "Hard drives wiped via certified cryptographic erasure algorithms or physically shredded to DIN 66399 Level H-5 particles.",
+    circularRoute: "Recoverable CPUs, RAM, and GPUs harvested for circular spares. Base chassis stripped into pure steel, aluminium, and recyclable plastics.",
+    complianceDocs: "Asset Tag tracking, Environment Agency Waste Transfer Note, and destruction audit certificate for all storage drives."
+  },
+  {
+    id: "servers",
+    title: "Enterprise Servers, Storage & Data Centre Arrays",
+    badge: "High Security • Data Centre De-Racking Service",
+    category: "Enterprise Infrastructure",
+    image: "/images/collection/server-collection-hero.jpg",
+    alt: "Enterprise rackmount servers and SAN arrays in data centre facility",
+    serviceUrl: "/server-collection",
+    bookingType: "servers",
+    summary: "White-glove decommissioning, de-racking, and transport of mission-critical data centre infrastructure, SAN arrays, blade chassis, and core enterprise switches.",
+    acceptedItems: [
+      "1U, 2U, 4U Rackmount Servers (Dell PowerEdge, HPE ProLiant, Cisco UCS)",
+      "High-Density Blade Chassis & Modular Server Modules",
+      "SAN & NAS Storage Enclosures (NetApp, EMC, Pure Storage)",
+      "Core Enterprise Switches, Routers & Fibre Channel Fabrics",
+      "Enterprise Tape Storage Libraries & Autoloaders",
+      "42U / 48U Server Racks, Enclosures & PDUs",
+      "Industrial UPS Backup Systems & Lead-Acid Battery Strings"
+    ],
+    securityProtocol: "Witnessed on-site hard drive degaussing, high-speed multi-bay drive shredding, or certified firmware-level wipe.",
+    circularRoute: "De-installed by security-vetted engineers (BS 7858), component remarketing across global enterprise broker networks.",
+    complianceDocs: "Complete Data Centre Decommissioning Sign-off, Serialised Certificate of Destruction, and statutory Hazardous Consignment Manifest."
+  },
+  {
+    id: "mobile",
+    title: "Smartphones, Tablets & Handheld Enterprise Devices",
+    badge: "MDM Sanitisation • Lithium Battery Compliant",
+    category: "Mobile & Handhelds",
+    image: "/images/collection/mobile-device-collection-hero.jpg",
+    alt: "Corporate smartphones, tablets and handheld barcode scanners",
+    serviceUrl: "/mobile-device-collection",
+    bookingType: "mobile",
+    summary: "Secure end-to-end collection for distributed corporate smartphones, executive tablets, ruggedised warehouse terminals, and retail barcode scanners.",
+    acceptedItems: [
+      "Apple iPhones (Enterprise Fleets & Executive Models)",
+      "Apple iPads (Standard, Mini, Air, Pro)",
+      "Samsung Galaxy Enterprise Edition Smartphones & Tablets",
+      "Rugged Handheld Scanners & Mobile Computers (Zebra, Honeywell)",
+      "Point-of-Sale (POS) Contactless Terminals & Handheld Card Readers",
+      "Industrial Field Tablets & Portable Inspection Hardware",
+      "Charging Cradles, Multi-Docks & Cellular 4G/5G Dongles"
+    ],
+    securityProtocol: "Factory MDM lock verification, certified cryptographic factory wipe, and physical pulverisation for non-functional chips.",
+    circularRoute: "Screens, intact batteries, and circuit boards recycled via certified hydrometallurgical refining with zero export to developing nations.",
+    complianceDocs: "Serial-number level intake log, IMEI audit manifest, and ADR dangerous goods compliance receipts."
+  },
+  {
+    id: "monitors",
+    title: "Commercial Monitors, Displays & Conference Screens",
+    badge: "Mercury Extraction • WEEE Glass Stewardship",
+    category: "Displays & Screens",
+    image: "/images/collection/monitor-screen-collection-hero.jpg",
+    alt: "Commercial office monitors, ultrawide displays and boardroom presentation screens",
+    serviceUrl: "/monitor-screen-collection",
+    bookingType: "monitors",
+    summary: "Compliant WEEE disposal and refurbishment for corporate office monitors, high-resolution designer displays, curved panels, and interactive boardroom whiteboards.",
+    acceptedItems: [
+      "Standard Commercial LCD & LED Monitors (19\" to 27\")",
+      "Designer 4K / 5K & Ultrawide Curved Displays (32\" to 49\")",
+      "Interactive Boardroom Touchscreens & Smartboards (up to 86\")",
+      "Video Wall Panels & Commercial Digital Signage Screens",
+      "Medical Grade Imaging Displays & Radiology Monitors",
+      "Monitor Mounting Arms, Dual-Screen Stands & Display Cables"
+    ],
+    securityProtocol: "Complete inspection of internal flash memory in smart monitors, followed by certified hardware recycling.",
+    circularRoute: "Specialist cold cathode mercury lamp isolation, plastic casing pelletisation, and high-purity cullet glass recycling.",
+    complianceDocs: "Environment Agency Hazardous Waste Consignment documentation and WEEE treatment certificates."
+  },
+  {
+    id: "printers",
+    title: "Multifunction Printers, Copiers & Architectural Plotters",
+    badge: "Internal HDD Wiping • Heavy Logistics Specialists",
+    category: "Print & Imaging",
+    image: "/images/collection/printer-copier-collection-hero.jpg",
+    alt: "Floor-standing commercial photocopiers and multi-function office printers",
+    serviceUrl: "/printer-copier-collection",
+    bookingType: "printers",
+    summary: "Dedicated heavy-lift collection for departmental photocopiers, floor-standing MFPs, high-speed office laser printers, and wide-format CAD plotters.",
+    acceptedItems: [
+      "Floor-Standing Enterprise Multifunction Photocopiers (Canon, Ricoh, Xerox)",
+      "Desktop Office Laser & Workgroup Network Printers",
+      "Wide-Format CAD Plotters & Architectural Engineering Printers",
+      "Thermal Label Printers & Direct-to-Card ID Printers",
+      "Production Digital Presses & Document Finishing Units",
+      "Unopened & Spent Toner Cartridges (Collected in Bulk Bins)"
+    ],
+    securityProtocol: "Crucial physical extraction and certified sanitisation of internal print-spool hard drives that store scanned document copies.",
+    circularRoute: "Toner hazardous waste recovery, mechanical breakdown into ferrous metals, copper coils, and recyclable ABS plastics.",
+    complianceDocs: "Serialised Hard Drive Destruction Certificates and Environmental Waste Consignment Notes."
+  },
+  {
+    id: "av-media",
+    title: "Audio-Visual, Media & Video Telepresence Hardware",
+    badge: "De-Installation Support • Premium Remarketing",
+    category: "Audio-Visual & Media",
+    image: "/images/collection/av-media-collection-hero.jpg",
+    alt: "Video conferencing bars, boardroom microphones and commercial projectors",
+    serviceUrl: "/av-media-equipment-collection",
+    bookingType: "av",
+    summary: "Comprehensive collection and recovery of unified communications hardware, Zoom/Teams boardroom systems, commercial projection units, and broadcast audio equipment.",
+    acceptedItems: [
+      "Teams & Zoom Room Systems (Logitech, Poly, Neat, Yealink)",
+      "All-in-One Video Conference Bars & Motorised PTZ Cameras",
+      "Ceiling Beamforming Microphone Arrays & Conference Phones",
+      "Commercial Laser Projectors & Motorised Tensioned Screens",
+      "Digital Signal Processors (DSPs), Audio Amplifiers & Matrix Switchers",
+      "AV Rack Cabinets, Baluns, Extenders & Structured AV Cabling",
+      "Broadcast Cameras, Studio Lighting & Media Editing Consoles"
+    ],
+    securityProtocol: "Network credential cleansing, firmware factory resets, and permanent clearing of local flash caches.",
+    circularRoute: "High-value commercial remarketing to schools, charities, and corporate buyers; metal and cable copper extraction for scrap.",
+    complianceDocs: "Full asset inventory log with model and serial numbers, accompanied by WEEE compliance documentation."
+  },
+  {
+    id: "storage-media",
+    title: "Loose Hard Drives, Storage Media & Networking",
+    badge: "DIN 66399 Level H-5/H-6 • High-Density Sanitisation",
+    category: "Storage & Networking",
+    image: "/images/collection/collection-overview-hero.jpg",
+    alt: "Loose hard drives, SSDs, backup tapes and networking switches",
+    serviceUrl: "/services/collection",
+    bookingType: "storage",
+    summary: "Secure containment and high-security destruction for bulk batches of loose hard drives, enterprise solid-state media, backup magnetic tapes, and network arrays.",
+    acceptedItems: [
+      "2.5\" & 3.5\" SAS, SATA & SCSI Hard Disk Drives (HDDs)",
+      "NVMe, M.2 & PCIe Solid State Drives (SSDs)",
+      "Magnetic LTO Backup Tapes (LTO-3 through LTO-9) & DLT Media",
+      "Loose RAID Array Drive Trays & Storage Controller Cards",
+      "Enterprise Firewalls, Routers & Managed PoE Network Switches",
+      "Mixed IT Cabling (Cat5e/6/6a, Fibre Optic, Power Cords, DisplayPort)",
+      "USB Flash Memory, SD Cards & Encrypted Optical Media"
+    ],
+    securityProtocol: "Physical cross-cut shredding down to 6mm / 2mm particles, witnessed on-site or at our high-security 24/7 CCTV facility.",
+    circularRoute: "Smelted for pure precious metal recovery (gold, platinum, neodymium magnets) with strict 0% landfill audit guarantee.",
+    complianceDocs: "Itemised Serialised Certificate of Destruction with exact particle size confirmation and EA Waste Transfer Note."
+  }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  hasHeroHeader={false}
+>
+  <!-- =====================================================
+       1. HERO HEADER SECTION
+       ===================================================== -->
+  <section class="relative pt-12 pb-20 sm:pt-16 sm:pb-24 lg:pt-20 lg:pb-32 bg-[#0A1A16] text-white overflow-hidden">
+    <!-- Ambient Background Gradients & Micro Grid -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(20,107,92,0.35),rgba(10,26,22,0))] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+    <Container>
+      <div class="relative z-10 max-w-4xl mx-auto text-center">
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center justify-center gap-2 text-xs sm:text-sm text-emerald-300/80 mb-6 font-mono" aria-label="Breadcrumb">
+          <a href="/" class="hover:text-white transition-colors">Home</a>
+          <span>/</span>
+          <a href="/services/collection" class="hover:text-white transition-colors">IT Equipment Collection</a>
+          <span>/</span>
+          <span class="text-white font-medium">All Equipment Directory</span>
+        </nav>
+
+        <!-- Eyebrow Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Comprehensive Hardware Catalogue • 100% WEEE Certified
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-white font-display leading-[1.1] mb-6">
+          Everything We Collect. <br class="hidden sm:inline" />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-teal-300 to-emerald-400">
+            Every Device. Certified.
+          </span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-base sm:text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-sans mb-10">
+          TechSteps provides free and secure commercial collection for all workplace technology, mobile fleets, data centre racks, and office imaging devices. Enjoy a refurbishment-first policy, zero-landfill guarantee, and certified data erasure across the UK.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="/book-pickup"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-[14px] bg-[#146B5C] hover:bg-[#105549] text-white text-base font-semibold shadow-lg hover:shadow-emerald-900/30 transition-all duration-200 transform hover:-translate-y-0.5"
+          >
+            <svg class="w-5 h-5 text-emerald-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Book a Free Pickup
+          </a>
+          <a
+            href="#equipment-showcase"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-[14px] bg-white/10 hover:bg-white/15 text-white text-base font-medium border border-white/20 backdrop-blur-sm transition-all"
+          >
+            Explore Equipment Directory ↓
+          </a>
+        </div>
+
+        <!-- 4 Key Value Pillars -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-12 border-t border-emerald-900/50 text-left">
+          <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+            <div class="text-emerald-400 text-sm font-mono font-bold mb-1">01 / FREE PICKUP</div>
+            <div class="text-sm font-semibold text-white">Nationwide UK</div>
+            <p class="text-xs text-slate-400 mt-1">Free for qualifying commercial volumes</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+            <div class="text-emerald-400 text-sm font-mono font-bold mb-1">02 / DATA SECURITY</div>
+            <div class="text-sm font-semibold text-white">ADISA & NIST 800-88</div>
+            <p class="text-xs text-slate-400 mt-1">Certified Blancco wiping & shredding</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+            <div class="text-emerald-400 text-sm font-mono font-bold mb-1">03 / ENVIRONMENT</div>
+            <div class="text-sm font-semibold text-white">0% Landfill Guarantee</div>
+            <p class="text-xs text-slate-400 mt-1">Circular reuse & component recovery</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white/[0.03] border border-white/5">
+            <div class="text-emerald-400 text-sm font-mono font-bold mb-1">04 / COMPLIANCE</div>
+            <div class="text-sm font-semibold text-white">Full Audit Manifest</div>
+            <p class="text-xs text-slate-400 mt-1">EA Waste Transfer Notes & certificates</p>
+          </div>
+        </div>
+
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       2. STICKY / QUICK FILTER JUMP BAR
+       ===================================================== -->
+  <section class="sticky top-[72px] z-30 bg-white/95 backdrop-blur-md border-y border-slate-200/90 shadow-sm py-3 transition-all">
+    <Container>
+      <div class="flex items-center justify-between gap-4 overflow-x-auto no-scrollbar py-1">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 shrink-0 hidden md:inline font-mono">
+          Jump To Category:
+        </span>
+        <div class="flex items-center gap-2 shrink-0">
+          {equipmentList.map((item) => (
+            <a
+              href={`#${item.id}`}
+              class="px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-medium bg-slate-100 hover:bg-[#E0F2E7] text-slate-700 hover:text-[#0F623A] transition-colors whitespace-nowrap"
+            >
+              {item.title.split('&')[0].trim()}
+            </a>
+          ))}
+        </div>
+        <a
+          href="/book-pickup"
+          class="shrink-0 hidden lg:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#146B5C] text-white text-xs font-semibold hover:bg-[#105549] transition-colors"
+        >
+          Book Pickup &rarr;
+        </a>
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       3. ONE-BY-ONE EQUIPMENT SHOWCASE SECTION
+       ===================================================== -->
+  <section id="equipment-showcase" class="py-20 sm:py-24 bg-[#F8FAF9]">
+    <Container>
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#146B5C] mb-2.5 font-mono">
+          HARDWARE DIRECTORY
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#101E2C] tracking-tight font-display leading-[1.15]">
+          Accepted Equipment Breakdown
+        </h2>
+        <p class="mt-4 text-base sm:text-lg text-slate-600 font-sans leading-relaxed">
+          Explore our complete directory of accepted business equipment. Every item collected is processed according to strict UK security standards and environmental legislation.
+        </p>
+      </div>
+
+      <!-- Equipment Cards Stack (One by One) -->
+      <div class="space-y-16 sm:space-y-20">
+        {equipmentList.map((item, index) => {
+          const isEven = index % 2 === 1;
+
+          return (
+            <div
+              id={item.id}
+              class="scroll-mt-32 bg-white rounded-[24px] sm:rounded-[28px] border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
+            >
+              <div class={`flex flex-col ${isEven ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-stretch`}>
+                
+                <!-- Left/Right Visual Showcase Column (~45%) -->
+                <div class="w-full lg:w-[45%] relative bg-slate-900 min-h-[320px] sm:min-h-[380px] lg:min-h-[460px] overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.alt}
+                    class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    loading="lazy"
+                  />
+                  <!-- Overlay Gradient -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                  
+                  <!-- Floating Badge on Image -->
+                  <div class="absolute top-5 left-5 right-5 flex items-center justify-between">
+                    <span class="px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-[#101E2C] text-xs font-bold tracking-wide shadow-sm">
+                      {item.category}
+                    </span>
+                    <span class="px-3 py-1 rounded-full bg-[#146B5C] text-white text-[11px] font-mono font-bold tracking-wider uppercase">
+                      Div {String(index + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  <!-- Bottom Caption on Image -->
+                  <div class="absolute bottom-5 left-5 right-5 text-white">
+                    <p class="text-xs text-emerald-300 font-mono uppercase tracking-wider mb-1">
+                      {item.badge}
+                    </p>
+                    <h3 class="text-xl sm:text-2xl font-bold font-display leading-snug drop-shadow-sm">
+                      {item.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <!-- Content & Specifications Column (~55%) -->
+                <div class="w-full lg:w-[55%] p-7 sm:p-9 lg:p-11 flex flex-col justify-between">
+                  <div>
+                    <!-- Top Category & Title -->
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class="text-xs font-bold uppercase tracking-wider text-[#146B5C] font-mono">
+                        Accepted Hardware
+                      </span>
+                    </div>
+
+                    <h3 class="text-2xl sm:text-3xl font-semibold text-[#101E2C] font-display leading-tight mb-3">
+                      {item.title}
+                    </h3>
+
+                    <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans mb-6">
+                      {item.summary}
+                    </p>
+
+                    <!-- Accepted Items Checklist Grid -->
+                    <div class="mb-7">
+                      <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3 font-mono">
+                        Common Models &amp; Hardware Types:
+                      </h4>
+                      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-[13.5px] text-slate-700">
+                        {item.acceptedItems.map((accepted) => (
+                          <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-[#146B5C] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>{accepted}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <!-- Security & Environment Specs -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-[16px] bg-[#F1F6F4] border border-[#D5E6DE] mb-8 text-xs sm:text-[13px]">
+                      <div>
+                        <span class="font-bold text-[#146B5C] block mb-1 uppercase tracking-wider font-mono">
+                          🛡️ Data Security
+                        </span>
+                        <p class="text-slate-700 leading-relaxed">
+                          {item.securityProtocol}
+                        </p>
+                      </div>
+                      <div>
+                        <span class="font-bold text-[#146B5C] block mb-1 uppercase tracking-wider font-mono">
+                          ♻️ Circular Routing
+                        </span>
+                        <p class="text-slate-700 leading-relaxed">
+                          {item.circularRoute}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Actions & Service Link Footer -->
+                  <div class="pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
+                    <div class="text-xs text-slate-500 font-sans">
+                      <span class="font-semibold text-slate-800">Compliance documentation:</span> {item.complianceDocs}
+                    </div>
+
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                      <a
+                        href={item.serviceUrl}
+                        class="text-xs sm:text-sm font-semibold text-[#146B5C] hover:text-[#0c4e2e] hover:underline transition-colors"
+                      >
+                        View Dedicated Service &rarr;
+                      </a>
+                      <a
+                        href={`/book-pickup?type=${item.bookingType}`}
+                        class="px-5 py-2.5 rounded-[10px] bg-[#146B5C] hover:bg-[#105549] text-white text-xs sm:text-sm font-bold shadow-sm hover:shadow transition-all"
+                      >
+                        Book Pickup
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       4. INTERACTIVE FREE COLLECTION QUALIFIER WIDGET
+       ===================================================== -->
+  <section class="py-16 sm:py-20 bg-white border-t border-slate-200/80">
+    <Container>
+      <div class="max-w-4xl mx-auto bg-gradient-to-br from-[#0F3D32] to-[#0A261F] text-white rounded-[24px] sm:rounded-[30px] p-8 sm:p-12 shadow-xl border border-emerald-800/40">
+        <div class="text-center max-w-2xl mx-auto mb-8">
+          <span class="px-3.5 py-1 rounded-full bg-emerald-900/80 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-bold uppercase tracking-wider mb-3 inline-block">
+            Instant Volume Checker
+          </span>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight font-display text-white">
+            Do You Qualify for Free UK Collection?
+          </h2>
+          <p class="text-sm sm:text-base text-emerald-100/90 mt-2">
+            Most businesses with 10+ laptops, PCs, or server assets qualify for 100% Free Collection. Enter your approximate inventory below to check immediately:
+          </p>
+        </div>
+
+        <!-- Calculator Form Simulator -->
+        <div class="bg-white/10 backdrop-blur-md rounded-[20px] p-6 sm:p-8 border border-white/15">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+            <div class="space-y-1">
+              <label for="calc-laptops" class="text-xs font-semibold text-emerald-200">Laptops / MacBooks</label>
+              <input
+                type="number"
+                id="calc-laptops"
+                value="10"
+                min="0"
+                class="w-full bg-black/30 border border-emerald-500/30 rounded-lg px-3 py-2.5 text-center text-white font-bold text-lg focus:outline-none focus:border-emerald-400"
+              />
+            </div>
+            <div class="space-y-1">
+              <label for="calc-pcs" class="text-xs font-semibold text-emerald-200">Desktop PCs</label>
+              <input
+                type="number"
+                id="calc-pcs"
+                value="5"
+                min="0"
+                class="w-full bg-black/30 border border-emerald-500/30 rounded-lg px-3 py-2.5 text-center text-white font-bold text-lg focus:outline-none focus:border-emerald-400"
+              />
+            </div>
+            <div class="space-y-1">
+              <label for="calc-servers" class="text-xs font-semibold text-emerald-200">Servers / SAN</label>
+              <input
+                type="number"
+                id="calc-servers"
+                value="2"
+                min="0"
+                class="w-full bg-black/30 border border-emerald-500/30 rounded-lg px-3 py-2.5 text-center text-white font-bold text-lg focus:outline-none focus:border-emerald-400"
+              />
+            </div>
+            <div class="space-y-1">
+              <label for="calc-monitors" class="text-xs font-semibold text-emerald-200">Monitors &amp; Screens</label>
+              <input
+                type="number"
+                id="calc-monitors"
+                value="8"
+                min="0"
+                class="w-full bg-black/30 border border-emerald-500/30 rounded-lg px-3 py-2.5 text-center text-white font-bold text-lg focus:outline-none focus:border-emerald-400"
+              />
+            </div>
+          </div>
+
+          <!-- Dynamic Result Banner -->
+          <div id="calc-result" class="p-4 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-emerald-400 text-emerald-950 font-bold flex items-center justify-center shrink-0">
+                ✓
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm sm:text-base">
+                  Your batch qualifies for 100% Free Nationwide Collection!
+                </div>
+                <div class="text-xs text-emerald-200">
+                  Includes GPS-tracked transport, Waste Transfer Note, and certified data erasure.
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="/book-pickup"
+              class="shrink-0 px-6 py-2.5 rounded-[12px] bg-white text-[#0F3D32] font-bold text-xs sm:text-sm hover:bg-emerald-50 transition-colors shadow"
+            >
+              Confirm Free Pickup &rarr;
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       5. COMPREHENSIVE CERTIFICATIONS STRIP
+       ===================================================== -->
+  <section class="py-16 bg-[#F8FAF9] border-t border-slate-200/80">
+    <Container>
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-[#146B5C] font-mono mb-2">
+          OPERATIONAL SECURITY STANDARDS
+        </h3>
+        <p class="text-xl sm:text-2xl font-semibold text-[#101E2C] font-display">
+          Guaranteed Compliance on Every Collection
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-center">
+        <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+          <div class="text-3xl mb-2">🛡️</div>
+          <div class="font-bold text-sm text-[#101E2C]">ADISA Standard 8.0</div>
+          <p class="text-xs text-slate-500 mt-1">Certified Data Erasure &amp; Destruction</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+          <div class="text-3xl mb-2">🌿</div>
+          <div class="font-bold text-sm text-[#101E2C]">Environment Agency</div>
+          <p class="text-xs text-slate-500 mt-1">Licensed Broker &amp; Carrier CBDU45123</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+          <div class="text-3xl mb-2">📜</div>
+          <div class="font-bold text-sm text-[#101E2C]">ISO 27001 &amp; 14001</div>
+          <p class="text-xs text-slate-500 mt-1">Information Security &amp; Environmental</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+          <div class="text-3xl mb-2">🔒</div>
+          <div class="font-bold text-sm text-[#101E2C]">BS 7858 Vetted</div>
+          <p class="text-xs text-slate-500 mt-1">Security-cleared collection drivers</p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       6. FREQUENTLY ASKED QUESTIONS (UNIFIED FAQ COMPONENT)
+       ===================================================== -->
+  <FAQSection
+    eyebrow="HERE TO HELP"
+    heading="Frequently Asked Questions"
+    intro="Everything you need to know about our IT equipment collection process."
+    faqs={faqs}
+    sectionId="faqs"
+  />
+
+  <!-- =====================================================
+       7. GLOBAL CTA
+       ===================================================== -->
+  <CTA />
+</BaseLayout>
+
+<script>
+  // Simple Volume Qualifier Interactivity
+  function initVolumeChecker() {
+    const inputs = document.querySelectorAll<HTMLInputElement>('#calc-laptops, #calc-pcs, #calc-servers, #calc-monitors');
+    const resultBox = document.getElementById('calc-result');
+    if (!resultBox || inputs.length === 0) return;
+
+    const checkTotal = () => {
+      let total = 0;
+      inputs.forEach(input => {
+        total += parseInt(input.value || '0', 10);
+      });
+
+      if (total >= 10) {
+        resultBox.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-400 text-emerald-950 font-bold flex items-center justify-center shrink-0">
+              ✓
+            </div>
+            <div>
+              <div class="font-bold text-white text-sm sm:text-base">
+                Your batch qualifies for 100% Free Nationwide Collection! (${total} items total)
+              </div>
+              <div class="text-xs text-emerald-200">
+                Includes GPS-tracked transport, Waste Transfer Note, and certified data erasure.
+              </div>
+            </div>
+          </div>
+          <a
+            href="/book-pickup"
+            class="shrink-0 px-6 py-2.5 rounded-[12px] bg-white text-[#0F3D32] font-bold text-xs sm:text-sm hover:bg-emerald-50 transition-colors shadow"
+          >
+            Confirm Free Pickup &rarr;
+          </a>
+        `;
+        resultBox.className = "p-4 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex flex-col sm:flex-row items-center justify-between gap-4";
+      } else {
+        resultBox.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-amber-400 text-amber-950 font-bold flex items-center justify-center shrink-0">
+              ℹ
+            </div>
+            <div>
+              <div class="font-bold text-white text-sm sm:text-base">
+                Small batch detected (${total} items) — Eligible for Tracked Courier Box or Combined Run!
+              </div>
+              <div class="text-xs text-amber-200">
+                You can still book a subsidized pickup or choose our convenient Tracked Box Service.
+              </div>
+            </div>
+          </div>
+          <a
+            href="/book-pickup?tab=box"
+            class="shrink-0 px-6 py-2.5 rounded-[12px] bg-amber-400 text-amber-950 font-bold text-xs sm:text-sm hover:bg-amber-300 transition-colors shadow"
+          >
+            Explore Box Service &rarr;
+          </a>
+        `;
+        resultBox.className = "p-4 rounded-xl bg-amber-500/20 border border-amber-400/40 flex flex-col sm:flex-row items-center justify-between gap-4";
+      }
+    };
+
+    inputs.forEach(input => {
+      input.addEventListener('input', checkTotal);
+    });
+  }
+
+  initVolumeChecker();
+  document.addEventListener('astro:page-load', initVolumeChecker);
+</script>
