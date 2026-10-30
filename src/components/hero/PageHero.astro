@@ -42,7 +42,7 @@ const isLight = theme === 'light' || noOverlay;
 const currentPath = Astro.url.pathname;
 ---
 
-<section class={`relative w-full ${contained ? '' : 'overflow-hidden'} ${isLight ? 'bg-white text-slate-900' : 'bg-slate-950 text-white'} ${contained ? '' : minHeight} flex flex-col justify-between select-none`}>
+<section class={`relative w-full ${contained ? '' : 'overflow-hidden'} ${isLight ? 'bg-white text-slate-900' : 'bg-slate-950 text-white'} ${contained ? '' : minHeight} flex flex-col justify-between`}>
   
   <!-- Multi-layered Atmospheric Vignettes for Contrast & Soft Lighting (Dark mode uncontained only) -->
   {!contained && !noOverlay && (
@@ -82,7 +82,7 @@ const currentPath = Astro.url.pathname;
               )}
 
               {title && (
-                <h1 class={`font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] select-none ${isLight ? 'text-slate-900' : 'text-white drop-shadow-2xl'}`}>
+                <h1 class={`font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] ${isLight ? 'text-slate-900' : 'text-white drop-shadow-2xl'}`}>
                   {title}
                 </h1>
               )}
@@ -165,7 +165,7 @@ const currentPath = Astro.url.pathname;
           )}
 
           {title && (
-            <h1 class={`font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] select-none w-full max-w-[1240px] min-h-[2lh] min-h-[2.1em] ${isLight ? 'text-slate-900' : 'text-white drop-shadow-2xl'}`}>
+            <h1 class={`font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] w-full max-w-[1240px] min-h-[2lh] min-h-[2.1em] ${isLight ? 'text-slate-900' : 'text-white drop-shadow-2xl'}`}>
               {title}
             </h1>
           )}

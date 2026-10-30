@@ -1,5 +1,7 @@
 ---
 import Container from '../layout/Container.astro';
+import SectionBackground from '../SectionBackground.astro';
+import EcoJourneyBridge from '../content/EcoJourneyBridge.astro';
 import { getHomePage } from '../../lib/sanity/client';
 
 interface ServiceItem {
@@ -22,6 +24,7 @@ interface Props {
   description?: string;
   viewAllText?: string;
   viewAllLink?: string;
+  showCollectionSection?: boolean;
 }
 
 const homePage = await getHomePage();
@@ -29,10 +32,23 @@ const homePage = await getHomePage();
 const {
   services: propServices,
   eyebrow = homePage?.services?.eyebrow || 'OUR SERVICES',
-  heading = homePage?.services?.heading || 'Services For The Complete Business Lifecycle',
-  viewAllText = 'Explore Our Services→',
+  heading: propHeading,
+  description: propDescription,
+  viewAllText = 'Explore Our Services →',
   viewAllLink = homePage?.services?.viewAllLink || '/services',
+  showCollectionSection = true,
 } = Astro.props;
+
+const defaultHeading = 'Complete Solutions for Every Stage of Your Business';
+const defaultDescription = 'From IT asset management and secure data destruction to information management and business relocation, TechSteps delivers integrated services that help organisations operate securely, efficiently and responsibly.';
+
+const heading = (!propHeading || propHeading === 'Services For The Complete Business Lifecycle')
+  ? (homePage?.services?.heading && homePage?.services?.heading !== 'Services For The Complete Business Lifecycle' ? homePage.services.heading : defaultHeading)
+  : propHeading;
+
+const description = propDescription || homePage?.services?.description || defaultDescription;
+
+
 
 const fallbackImages = [
   '/images/services/1.webp',
@@ -65,6 +81,56 @@ const defaultServiceCards = (homePage?.services?.cards || []).map((card, idx) =>
 
 const services = (propServices && propServices.length > 0) ? propServices : defaultServiceCards;
 
+const getInitialIllustration = (title: string, index: number): string => {
+  const t = (title || '').toLowerCase();
+  if (t.includes('it lifecycle') || t.includes('lifecycle')) {
+    return '/images/services/hover/1.png';
+  }
+  if (t.includes('information') || t.includes('archive') || t.includes('storage') || t.includes('records') || t.includes('scanning')) {
+    return '/images/services/hover/2.png';
+  }
+  if (t.includes('shred') || t.includes('integrity') || t.includes('confidential')) {
+    return '/images/services/hover/3.png';
+  }
+  if (t.includes('relocation') || t.includes('moving') || t.includes('moves') || t.includes('warehouse')) {
+    return '/images/services/hover/4.png';
+  }
+
+  const illustrations = [
+    '/images/services/hover/1.png',
+    '/images/services/hover/2.png',
+    '/images/services/hover/3.png',
+    '/images/services/hover/4.png',
+  ];
+  return illustrations[index % illustrations.length];
+};
+
+const getRealImage = (title: string, currentImg: string, index: number): string => {
+  const t = (title || '').toLowerCase();
+  if (t.includes('it lifecycle') || t.includes('lifecycle')) {
+    return '/images/services/2.webp';
+  }
+  if (t.includes('information') || t.includes('archive') || t.includes('records')) {
+    return '/images/services/1.webp';
+  }
+  if (t.includes('shred') || t.includes('integrity')) {
+    return '/images/services/3.webp';
+  }
+  if (t.includes('relocation') || t.includes('mov')) {
+    return '/images/services/4.webp';
+  }
+  return currentImg || `/images/services/${(index % 4) + 1}.webp`;
+};
+
+const getHarmonizedTitle = (title: string): string => {
+  const t = (title || '').toLowerCase();
+  if (t.includes('lifecycle')) return 'IT Lifecycle Solutions';
+  if (t.includes('information') || t.includes('archive') || t.includes('records') || t.includes('storage')) return 'Information Management';
+  if (t.includes('shred') || t.includes('destruction') || t.includes('integrity')) return 'Secure Data Destruction';
+  if (t.includes('relocation') || t.includes('moving') || t.includes('moves')) return 'Specialist Relocations';
+  return title;
+};
+
 const items = services
   .map((item, idx) => {
     let imgUrl =
@@ -72,12 +138,14 @@ const items = services
         ? item.image
         : (item.image?.asset?.url || item.imageUrl || fallbackImages[idx % fallbackImages.length]);
 
+    const cleanTitle = getHarmonizedTitle(item.title);
+
     return {
       id: item.id ?? idx,
-      title: item.title,
+      title: cleanTitle,
       description: item.description,
       image: imgUrl,
-      imageAlt: item.imageAlt || `${item.title} - TechSteps Service`,
+      imageAlt: item.imageAlt || `${cleanTitle} - TechSteps Service`,
       buttonText: item.buttonText || 'View Service',
       link: item.link || '#',
     };
@@ -89,128 +157,183 @@ const items = services
     if (aIsLifecycle) return -1;
     if (bIsLifecycle) return 1;
     return 0;
-  });
+  })
+  .map((item, idx) => ({
+    ...item,
+    initialImage: getInitialIllustration(item.title, idx),
+    realImage: getRealImage(item.title, item.image, idx),
+  }));
+
 ---
 
 <section
   id="divisions"
-  class="services-grid-section relative py-8 sm:py-10 lg:py-12 bg-white overflow-hidden text-slate-900"
+  class="services-grid-section relative py-12 sm:py-16 lg:py-20 overflow-hidden text-slate-900 isolate"
+  style="background: linear-gradient(180deg, #ffffff 0%, #f3fbf7 50%, #ffffff 100%);"
   aria-labelledby="services-section-heading"
 >
+  <!-- Subtle ambient glow and mild floating bubbles (Hero style) -->
+  <SectionBackground
+    variant="hero"
+    glow={true}
+    glowPosition="both"
+    showBubbles={true}
+    bubbleCount={5}
+  />
+
   <Container className="relative z-10">
     
-    <header class="text-center w-full max-w-3xl mx-auto space-y-3 mb-6 sm:mb-8 select-none">
+    <header class="text-center w-full max-w-3xl mx-auto mb-10 sm:mb-12">
       <h2
         id="services-section-heading"
-        class="text-3xl sm:text-4xl lg:text-[44px] font-semibold font-display text-slate-900 tracking-tight leading-[1.12] text-balance mx-auto"
+        class="text-3xl sm:text-4xl lg:text-[44px] font-bold font-display text-slate-900 tracking-tight leading-[1.14] mb-3 sm:mb-4"
       >
         {heading}
       </h2>
+      
+      {description && (
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
+          {description}
+        </p>
+      )}
     </header>
 
     <div
-      class="services-cards-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-6 lg:gap-7 items-stretch"
+      class="services-cards-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 lg:gap-8 items-stretch"
       id="services-interactive-grid"
     >
       {items.map((item, idx) => (
         <article
-          class="service-card group relative flex flex-col rounded-[16px] bg-white border border-slate-200/90 hover:border-[#0B2545]/40 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 ease-out h-[470px] select-none"
+          class="service-item group flex flex-col h-full"
           data-service-index={idx}
           tabindex="0"
           aria-labelledby={`service-title-${idx}`}
           role="region"
         >
-          <!-- UPPER PORTION: Image Area -->
-          <div class="service-image-area relative w-full h-[340px] overflow-hidden rounded-t-[16px] shrink-0 bg-slate-100">
-            
-            <!-- Image -->
-            <div class="relative w-full h-full overflow-hidden select-none">
+          <!-- UPPER PORTION: Image with Magical Cursor Lighting Reveal (Clickable Link to Service) -->
+          <a 
+            href={item.link}
+            class="service-image-area magical-service-showcase relative w-full h-[240px] sm:h-[260px] lg:h-[270px] overflow-hidden rounded-2xl bg-transparent cursor-pointer flex items-center justify-center block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A]"
+            style="--mouse-x: -500px; --mouse-y: -500px; --brush-radius: 130px; --reveal-opacity: 0;"
+            aria-label={`View ${item.title}`}
+          >
+            <!-- 1. Base Layer: Initial Illustration Image (object-contain avoids image warping) -->
+            <img
+              src={item.initialImage}
+              alt={item.imageAlt}
+              class="service-initial-img w-full h-full object-contain object-center pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105"
+              loading={idx === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              width="600"
+              height="400"
+              onerror={`this.onerror=null; this.src='/images/services/hover/${idx + 1}.png';`}
+            />
+
+            <!-- 2. Back Image (Real Photograph Revealed by Cursor Points Lighting) -->
+            <div
+              class="service-magic-reveal-layer absolute inset-0 w-full h-full pointer-events-none z-20 rounded-2xl overflow-hidden"
+              aria-hidden="true"
+            >
               <img
-                src={item.image}
-                alt={item.imageAlt}
-                class="service-img w-full h-full object-cover object-top select-none transition-transform duration-500 group-hover:scale-105"
-                loading={idx === 0 ? 'eager' : 'lazy'}
+                src={item.realImage}
+                alt={`${item.title} - Real Service Facility & Operations`}
+                class="service-real-img absolute inset-0 w-full h-full object-cover object-center pointer-events-none rounded-2xl"
+                loading="lazy"
                 decoding="async"
                 width="600"
                 height="400"
-                onerror={`this.onerror=null; this.src='/images/services/${idx + 1}.webp';`}
+                onerror={`this.onerror=null; this.src='/images/services/${idx === 0 ? 2 : idx === 1 ? 1 : idx + 1}.webp';`}
               />
             </div>
 
-            <!-- ─── NEW: SVG GREEN WAVE OVERLAY ─── -->
-            <!-- This hides the white wave and replaces it with the brand green -->
-            <div class="absolute bottom-0 left-0 right-0 pointer-events-none w-full z-10">
-              <svg 
-                viewBox="0 0 500 60" 
-                preserveAspectRatio="none" 
-                class="w-full h-[50px] block"
-              >
-                <path 
-                  d="M0,20 C150,-30 350,50 500,10 L500,100 L0,90 Z" 
-                  fill="#0F623A"
-                ></path>
-              </svg>
-            </div>
-            <!-- ─────────────────────────────────── -->
+            <!-- 3. Cursor Points Lighting Overlay & Halo -->
+            <div class="magic-lighting-spotlight absolute inset-0 z-20 pointer-events-none" aria-hidden="true"></div>
+            <div class="magic-brush-rim absolute inset-0 z-20 pointer-events-none" aria-hidden="true"></div>
 
-            <!-- Ultra-Subtle Inner Rim Glow -->
-            <div class="absolute inset-x-0 top-0 h-px bg-white/15 pointer-events-none z-20" aria-hidden="true"></div>
-          </div>
+          </a>
 
-          <!-- LOWER PORTION -->
-          <div class="service-content-panel absolute bottom-0 inset-x-0 bg-white p-5 sm:p-6 rounded-b-[16px] border-t border-slate-100 flex flex-col justify-start transition-all duration-500 ease-out z-20">
-            
-            <div class="service-default-header min-h-[78px] flex flex-col justify-start space-y-2">
-              <span class="service-accent-bar inline-block h-[2.5px] w-7 rounded-full bg-[#0B2545] transition-all duration-400 ease-out group-hover:w-12 group-hover:bg-[#133B6B]" aria-hidden="true"></span>
+          <!-- LOWER PORTION: Details directly below image (Locked alignment across all cards) -->
+          <div class="service-details-area pt-5 flex flex-col flex-grow">
+            <!-- 1. Accent Bar & Title: Single line with locked height across all cards -->
+            <div class="service-title-container min-h-[46px] sm:min-h-[50px] flex flex-col justify-start space-y-2">
+              <span class="service-accent-bar inline-block h-[2.5px] w-7 rounded-full bg-[#0F623A] transition-all duration-300 ease-out group-hover:w-12 group-hover:bg-[#133B6B]" aria-hidden="true"></span>
 
               <h3
                 id={`service-title-${idx}`}
-                class="service-title text-xl lg:text-[21px] font-semibold font-display text-slate-900 group-hover:text-[#0B2545] transition-colors duration-300 leading-snug tracking-tight"
+                class="service-title text-[15px] sm:text-[16.5px] lg:text-[16px] xl:text-[17.5px] font-semibold font-display text-slate-900 group-hover:text-[#0B2545] transition-colors duration-200 leading-snug tracking-tight truncate whitespace-nowrap overflow-hidden text-ellipsis"
+                title={item.title}
               >
-                <a href={item.link} class="service-title-link focus:outline-none focus:underline" tabindex="-1">
+                <a href={item.link} class="service-title-link focus:outline-none hover:underline block truncate">
                   {item.title}
                 </a>
               </h3>
             </div>
 
-            <div class="service-collapsible-wrapper">
-              <div class="service-collapsible-content pt-1 space-y-3.5">
-                
-                <p class="service-desc text-sm sm:text-[15px] text-black leading-relaxed font-normal line-clamp-3">
-                  {item.description}
-                </p>
-
-                <div class="service-cta-row pt-1">
-                  <a
-                    href={item.link}
-                    class="service-cta-link inline-flex items-center gap-2.5 text-xs sm:text-[13px] font-mono font-bold tracking-wider text-[#0B2545] uppercase hover:text-[#133B6B] transition-colors duration-200 group/cta focus:outline-none focus:ring-2 focus:ring-[#0B2545] focus:ring-offset-2 rounded-sm"
-                  >
-                    <span class="cta-label relative">
-                      View Service
-                      <span class="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-[#0B2545] transition-all duration-300 ease-out group-hover/cta:w-full" aria-hidden="true"></span>
-                    </span>
-                    <svg class="cta-arrow w-4 h-4 text-[#0B2545] transition-transform duration-300 ease-out group-hover/cta:translate-x-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </a>
-                </div>
-
-              </div>
+            <!-- 2. Description: Locked height & line clamp for matching space across all cards 
+            <div class="service-desc-container min-h-[72px] sm:min-h-[78px] mt-2.5">
+              <p class="service-desc text-sm sm:text-[14.5px] text-slate-600 leading-relaxed font-normal line-clamp-3">
+                {item.description}
+              </p>
             </div>
+            -->
 
+            <!-- 3. Bottom CTA Link: Locked to the exact same bottom position across all cards -->
+            <div class="service-cta-container mt-auto pt-4">
+              <a
+                href={item.link}
+                class="service-cta-link inline-flex items-center gap-2 text-xs sm:text-[13px] font-mono font-bold tracking-wider text-[#0B2545] uppercase hover:text-[#0F623A] transition-colors duration-200 group/cta focus:outline-none"
+              >
+                <span class="cta-label relative">
+                  View Service
+                  <span class="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-[#0F623A] transition-all duration-300 ease-out group-hover/cta:w-full" aria-hidden="true"></span>
+                </span>
+                <svg class="cta-arrow w-4 h-4 text-[#0B2545] group-hover/cta:text-[#0F623A] transition-transform duration-300 ease-out group-hover/cta:translate-x-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
           </div>
         </article>
       ))}
     </div>
 
-    {viewAllLink && (
-      <div class="mt-6 sm:mt-8 text-center">
-        <a
-          href={viewAllLink}
-          class="inline-flex items-center gap-2.5 px-6 py-3 rounded-[12px] bg-[#0B2545] hover:bg-[#133B6B] text-white text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#0B2545]"
-        >
-          <span>Explore Our Services →</span>
-        </a>
+    <!-- Continuous Eco Journey Bridge: Cards -> Collection Showcase (Right Gutter) -->
+    <EcoJourneyBridge side="right" type="leaflet" rotation={15} offsetY="-top-6" delay="-3s" />
+
+    <!-- =========================================================
+         FREE IT EQUIPMENT COLLECTION HEADING & BANNER SHOWCASE
+         ========================================================= -->
+    {showCollectionSection && (
+      <div class="mt-12 sm:mt-16 text-center">
+        <!-- Heading & Description -->
+        <div class="max-w-3xl mx-auto space-y-3 px-4 mb-5 sm:mb-6">
+          <h3 class="text-2xl sm:text-3xl lg:text-[36px] font-bold font-display text-[#0B2545] tracking-tight leading-tight">
+            Free IT Equipment Collection for UK Businesses
+          </h3>
+          <p class="text-slate-600 text-sm sm:text-base lg:text-[16.5px] leading-relaxed max-w-2xl mx-auto font-normal">
+            From laptops and computers to servers and office electronics, TechSteps makes IT equipment disposal simple, secure and sustainable. Explore our collection services and give your unwanted technology a responsible next step.
+          </p>
+        </div>
+
+        <!-- Banner Image: Clean with soft subtle ambient glow behind illustration -->
+        <div class="relative w-full max-w-5xl mx-auto px-2 py-2">
+          <!-- Soft ambient glow behind collection illustration -->
+          <div class="absolute inset-0 -inset-x-2 sm:-inset-x-6 rounded-3xl bg-gradient-to-r from-[#DDF5EB]/40 via-[#E5F7F1]/60 to-[#DDF5EB]/40 -z-10 blur-xl pointer-events-none" aria-hidden="true"></div>
+          <img
+            src="/images/services/banner-3.png"
+            alt="TechSteps nationwide IT equipment collection and certified recycling process"
+            class="relative z-10 w-full h-auto object-contain mx-auto block max-h-[440px] select-none"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <!-- Feel-Good Quote: Right below image with minimal gap -->
+        <div class="max-w-3xl mx-auto mt-3 sm:mt-4 px-4">
+          <p class="text-base sm:text-lg lg:text-xl font-display font-medium italic text-slate-800 leading-snug tracking-tight">
+            &ldquo;Giving redundant technology a purposeful next chapter &mdash; certified data security, 100% circular commitment, and effortless nationwide collection for UK businesses.&rdquo;
+          </p>
+        </div>
       </div>
     )}
 
@@ -218,99 +341,80 @@ const items = services
 </section>
 
 <style>
-  .service-card {
-    will-change: transform, box-shadow, border-color;
-  }
-
-  .service-content-panel {
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
-  }
-
-  .service-img {
+  .service-item {
     will-change: transform;
   }
 
-  .service-collapsible-wrapper {
-    display: grid;
-    grid-template-rows: 0fr;
-    opacity: 0;
-    transition:
-      grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-      opacity 0.4s ease;
+  /* =========================================================
+     MAGICAL CURSOR LIGHTING BRUSH REVEAL
+  ========================================================= */
+  .magical-service-showcase {
+    position: relative;
+    touch-action: pan-y;
   }
 
-  .service-collapsible-content {
-    overflow: hidden;
+  .service-magic-reveal-layer {
+    opacity: var(--reveal-opacity, 0);
+    transition: opacity 0.3s ease;
+    mask-image: radial-gradient(
+      circle var(--brush-radius, 130px) at var(--mouse-x, -500px) var(--mouse-y, -500px),
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.95) 45%,
+      rgba(0, 0, 0, 0.35) 75%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      circle var(--brush-radius, 130px) at var(--mouse-x, -500px) var(--mouse-y, -500px),
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.95) 45%,
+      rgba(0, 0, 0, 0.35) 75%,
+      transparent 100%
+    );
+    will-change: mask-image, -webkit-mask-image;
   }
 
-  .service-desc {
-    opacity: 0;
-    transform: translateY(12px);
-    transition:
-      opacity 0.35s ease 0.06s,
-      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.06s;
+  .magic-lighting-spotlight {
+    opacity: var(--reveal-opacity, 0);
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+      circle var(--brush-radius, 130px) at var(--mouse-x, -500px) var(--mouse-y, -500px),
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0.15) 45%,
+      rgba(15, 98, 58, 0.2) 70%,
+      transparent 100%
+    );
+    mix-blend-mode: overlay;
+    will-change: background;
   }
 
-  .service-cta-row {
-    opacity: 0;
-    transform: translateY(8px);
-    transition:
-      opacity 0.35s ease 0.12s,
-      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+  .magic-brush-rim {
+    opacity: var(--reveal-opacity, 0);
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+      circle var(--brush-radius, 130px) at var(--mouse-x, -500px) var(--mouse-y, -500px),
+      transparent calc(var(--brush-radius, 130px) - 22px),
+      rgba(255, 255, 255, 0.5) calc(var(--brush-radius, 130px) - 4px),
+      rgba(15, 98, 58, 0.4) var(--brush-radius, 130px),
+      transparent calc(var(--brush-radius, 130px) + 10px)
+    );
+    mix-blend-mode: overlay;
   }
 
-  .service-card:hover .service-collapsible-wrapper,
-  .service-card:focus-within .service-collapsible-wrapper,
-  .service-card.is-active .service-collapsible-wrapper {
-    grid-template-rows: 1fr;
-    opacity: 1;
-  }
-
-  .service-card:hover .service-desc,
-  .service-card:focus-within .service-desc,
-  .service-card.is-active .service-desc {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .service-card:hover .service-cta-row,
-  .service-card:focus-within .service-cta-row,
-  .service-card.is-active .service-cta-row {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .service-card:focus-visible {
-    outline: 2px solid #0B2545;
-    outline-offset: 4px;
+  .magic-hover-badge {
+    opacity: var(--reveal-opacity, 0);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .service-card,
-    .service-img,
+    .service-item,
     .service-accent-bar,
-    .service-collapsible-wrapper,
-    .service-desc,
-    .service-cta-row,
-    .cta-arrow {
+    .magic-hover-badge,
+    .service-magic-reveal-layer,
+    .magic-lighting-spotlight,
+    .magic-brush-rim {
       transition: none !important;
       transform: none !important;
+      animation: none !important;
     }
-    .service-collapsible-wrapper {
-      opacity: 1 !important;
-      grid-template-rows: 1fr !important;
-    }
-    .service-desc,
-    .service-cta-row {
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  }
-
-  .service-card[data-service-index="1"] .service-title {
-    white-space: nowrap;
-    font-size: 20px;
-    letter-spacing: -0.02em;
   }
 </style>
 
@@ -320,31 +424,51 @@ const items = services
       const container = document.getElementById('services-interactive-grid');
       if (!container) return;
 
-      const cards = Array.from(container.querySelectorAll('.service-card'));
-      if (!cards.length) return;
+      // Magical Service Image Cursor Point Lighting Reveal
+      const showcases = Array.from(container.querySelectorAll('.magical-service-showcase'));
+      showcases.forEach((showcase) => {
+        if (showcase.dataset.init === 'true') return;
+        showcase.dataset.init = 'true';
 
-      cards.forEach((card) => {
-        card.addEventListener('click', (e) => {
-          if (e.target.closest('.service-cta-link')) return;
+        let isInside = false;
+        let rafId = null;
+        let targetX = -500;
+        let targetY = -500;
 
-          const isTouch = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 1024;
-          if (isTouch) {
-            const isAlreadyActive = card.classList.contains('is-active');
-            cards.forEach((c) => { if (c !== card) c.classList.remove('is-active'); });
-            if (!isAlreadyActive) {
-              card.classList.add('is-active');
-            } else {
-              const link = card.querySelector('.service-cta-link');
-              if (link && link.href) window.location.href = link.href;
-            }
+        function updateBrushPosition() {
+          if (showcase && isInside) {
+            showcase.style.setProperty('--mouse-x', `${targetX}px`);
+            showcase.style.setProperty('--mouse-y', `${targetY}px`);
           }
-        });
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('.service-card')) {
-          cards.forEach((c) => c.classList.remove('is-active'));
+          rafId = null;
         }
+
+        function handlePointerMove(e) {
+          if (!showcase) return;
+          const rect = showcase.getBoundingClientRect();
+          targetX = e.clientX - rect.left;
+          targetY = e.clientY - rect.top;
+
+          if (!isInside) {
+            isInside = true;
+            showcase.style.setProperty('--reveal-opacity', '1');
+          }
+
+          if (!rafId) {
+            rafId = requestAnimationFrame(updateBrushPosition);
+          }
+        }
+
+        function handlePointerLeave() {
+          if (!showcase) return;
+          isInside = false;
+          showcase.style.setProperty('--reveal-opacity', '0');
+        }
+
+        showcase.addEventListener('pointerenter', handlePointerMove);
+        showcase.addEventListener('pointermove', handlePointerMove);
+        showcase.addEventListener('pointerleave', handlePointerLeave);
+        showcase.addEventListener('pointercancel', handlePointerLeave);
       });
     };
 

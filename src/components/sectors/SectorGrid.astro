@@ -154,7 +154,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 
 <div
   id="sector-carousel-root"
-  class="relative w-full max-w-[1440px] mx-auto py-4 select-none"
+  class="relative w-full max-w-[1440px] mx-auto py-4"
   data-total={sectorItems.length}
   aria-roledescription="carousel"
   aria-label="Sectors We Serve Carousel"
@@ -189,7 +189,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     <!-- Carousel 3D Cards Stage -->
     <div
       id="sector-carousel-stage"
-      class="sector-carousel-stage carousel-entering relative w-full h-[520px] sm:h-[550px] lg:h-[580px] xl:h-[600px] flex items-center justify-center"
+      class="sector-carousel-stage carousel-entering relative w-full h-[390px] sm:h-[415px] lg:h-[435px] xl:h-[450px] flex items-center justify-center"
     >
       {sectorItems.map((item, idx) => (
         <article
@@ -204,7 +204,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
         >
           <a
             href={`/sectors/${item.slug}`}
-            class="sector-card-inner relative w-full h-full bg-white rounded-[16px] p-5 flex flex-col border border-slate-200/90 overflow-hidden text-left no-underline block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A] focus-visible:ring-offset-2"
+            class="sector-card-inner relative w-full h-full bg-white rounded-[16px] p-3.5 sm:p-4 flex flex-col border border-slate-200/90 overflow-hidden text-left no-underline block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A] focus-visible:ring-offset-2"
             tabindex={idx === 0 ? "0" : "-1"}
             aria-label={`Explore ${item.title}`}
           >
@@ -212,7 +212,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
             <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-transparent via-[#0F623A]/20 to-transparent pointer-events-none opacity-0 group-data-[pos='0']:opacity-100 transition-opacity duration-500"></div>
 
             <!-- Image Container -->
-            <div class="sector-card-image-box relative w-full rounded-[12px] overflow-hidden bg-slate-100">
+            <div class="sector-card-image-box relative w-full rounded-[10px] overflow-hidden bg-slate-100">
               <img
                 src={item.image}
                 alt={item.title}
@@ -226,10 +226,10 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
             </div>
 
             <!-- Content Area -->
-            <div class="sector-card-content shrink-0 pt-3.5">
+            <div class="sector-card-content shrink-0 pt-2.5">
 
               <!-- Sector Title -->
-              <h3 class="sector-card-title text-xl sm:text-[22px] font-semibold font-display text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors line-clamp-2">
+              <h3 class="sector-card-title text-[16.5px] sm:text-[18px] font-semibold font-display text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors line-clamp-2">
                 {item.title}
               </h3>
 
@@ -238,21 +238,21 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
                 <div class="sector-card-more-inner">
 
                   <!-- Description -->
-                  <p class="sector-card-desc text-xs sm:text-[13px] text-slate-700 font-normal leading-relaxed line-clamp-3 pt-3">
+                  <p class="sector-card-desc text-xs text-slate-700 font-normal leading-relaxed line-clamp-2 pt-1.5 sm:pt-2">
                     {item.description}
                   </p>
 
                   <!-- Bottom Action CTA -->
-                  <div class="sector-card-action pt-3 mt-3.5 border-t border-slate-100 flex items-center justify-between">
+                  <div class="sector-card-action pt-2 mt-2 border-t border-slate-100 flex items-center justify-between">
                     <span class="sector-card-cta-label text-xs font-bold text-[#0F623A] tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors">
                       <span>Explore Sector</span>
                     </span>
 
                     <span
-                      class="sector-card-arrow-btn w-9 h-9 rounded-full bg-white border border-[#0F623A]/35 text-[#0F623A] flex items-center justify-center shadow-xs transition-all duration-300"
+                      class="sector-card-arrow-btn w-7.5 h-7.5 rounded-full bg-white border border-[#0F623A]/35 text-[#0F623A] flex items-center justify-center shadow-xs transition-all duration-300"
                       aria-hidden="true"
                     >
-                      <svg class="w-4 h-4 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <svg class="w-3.5 h-3.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
                     </span>
@@ -309,9 +309,9 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 82vw;
-    max-width: 320px;
-    height: 470px;
+    width: 78vw;
+    max-width: 290px;
+    height: 350px;
     will-change: transform, opacity;
 
     transition:
@@ -325,22 +325,22 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 
   @media (min-width: 640px) {
     .sector-carousel-card {
-      max-width: 340px;
-      height: 490px;
+      max-width: 305px;
+      height: 370px;
     }
   }
 
   @media (min-width: 1024px) {
     .sector-carousel-card {
-      max-width: 350px;
-      height: 510px;
+      max-width: 315px;
+      height: 385px;
     }
   }
 
   @media (min-width: 1280px) {
     .sector-carousel-card {
-      max-width: 370px;
-      height: 520px;
+      max-width: 330px;
+      height: 395px;
     }
   }
 
@@ -351,7 +351,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
   .sector-card-inner {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 14px;
 
     box-shadow:
       0 10px 25px -5px rgba(0, 0, 0, 0.05),
@@ -493,62 +493,62 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 
     /* Immediate Right */
     .sector-carousel-card[data-pos="1"] {
-      transform: translate3d(calc(-50% + 290px), -48%, 0) scale(0.9);
+      transform: translate3d(calc(-50% + 255px), -48%, 0) scale(0.9);
       z-index: 20;
       opacity: 0.85;
     }
 
     .sector-carousel-card[data-pos="1"]:hover {
       opacity: 0.98;
-      transform: translate3d(calc(-50% + 290px), -50%, 0) scale(0.92);
+      transform: translate3d(calc(-50% + 255px), -50%, 0) scale(0.92);
     }
 
     /* Immediate Left */
     .sector-carousel-card[data-pos="-1"] {
-      transform: translate3d(calc(-50% - 290px), -48%, 0) scale(0.9);
+      transform: translate3d(calc(-50% - 255px), -48%, 0) scale(0.9);
       z-index: 20;
       opacity: 0.85;
     }
 
     .sector-carousel-card[data-pos="-1"]:hover {
       opacity: 0.98;
-      transform: translate3d(calc(-50% - 290px), -50%, 0) scale(0.92);
+      transform: translate3d(calc(-50% - 255px), -50%, 0) scale(0.92);
     }
 
     /* Far Right */
     .sector-carousel-card[data-pos="2"] {
-      transform: translate3d(calc(-50% + 530px), -46%, 0) scale(0.78);
+      transform: translate3d(calc(-50% + 465px), -46%, 0) scale(0.78);
       z-index: 10;
       opacity: 0.52;
     }
 
     .sector-carousel-card[data-pos="2"]:hover {
       opacity: 0.82;
-      transform: translate3d(calc(-50% + 530px), -48%, 0) scale(0.81);
+      transform: translate3d(calc(-50% + 465px), -48%, 0) scale(0.81);
     }
 
     /* Far Left */
     .sector-carousel-card[data-pos="-2"] {
-      transform: translate3d(calc(-50% - 530px), -46%, 0) scale(0.78);
+      transform: translate3d(calc(-50% - 465px), -46%, 0) scale(0.78);
       z-index: 10;
       opacity: 0.52;
     }
 
     .sector-carousel-card[data-pos="-2"]:hover {
       opacity: 0.82;
-      transform: translate3d(calc(-50% - 530px), -48%, 0) scale(0.81);
+      transform: translate3d(calc(-50% - 465px), -48%, 0) scale(0.81);
     }
 
     /* Hidden Cards */
     .sector-carousel-card[data-pos="hidden-right"] {
-      transform: translate3d(calc(-50% + 720px), -45%, 0) scale(0.65);
+      transform: translate3d(calc(-50% + 630px), -45%, 0) scale(0.65);
       z-index: 1;
       opacity: 0;
       pointer-events: none;
     }
 
     .sector-carousel-card[data-pos="hidden-left"] {
-      transform: translate3d(calc(-50% - 720px), -45%, 0) scale(0.65);
+      transform: translate3d(calc(-50% - 630px), -45%, 0) scale(0.65);
       z-index: 1;
       opacity: 0;
       pointer-events: none;
@@ -577,58 +577,58 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     }
 
     .sector-carousel-card[data-pos="1"] {
-      transform: translate3d(calc(-50% + 250px), -48%, 0) scale(0.88);
+      transform: translate3d(calc(-50% + 225px), -48%, 0) scale(0.88);
       z-index: 20;
       opacity: 0.85;
     }
 
     .sector-carousel-card[data-pos="1"]:hover {
       opacity: 0.98;
-      transform: translate3d(calc(-50% + 250px), -50%, 0) scale(0.91);
+      transform: translate3d(calc(-50% + 225px), -50%, 0) scale(0.91);
     }
 
     .sector-carousel-card[data-pos="-1"] {
-      transform: translate3d(calc(-50% - 250px), -48%, 0) scale(0.88);
+      transform: translate3d(calc(-50% - 225px), -48%, 0) scale(0.88);
       z-index: 20;
       opacity: 0.85;
     }
 
     .sector-carousel-card[data-pos="-1"]:hover {
       opacity: 0.98;
-      transform: translate3d(calc(-50% - 250px), -50%, 0) scale(0.91);
+      transform: translate3d(calc(-50% - 225px), -50%, 0) scale(0.91);
     }
 
     .sector-carousel-card[data-pos="2"] {
-      transform: translate3d(calc(-50% + 460px), -46%, 0) scale(0.76);
+      transform: translate3d(calc(-50% + 410px), -46%, 0) scale(0.76);
       z-index: 10;
       opacity: 0.52;
     }
 
     .sector-carousel-card[data-pos="2"]:hover {
       opacity: 0.82;
-      transform: translate3d(calc(-50% + 460px), -48%, 0) scale(0.79);
+      transform: translate3d(calc(-50% + 410px), -48%, 0) scale(0.79);
     }
 
     .sector-carousel-card[data-pos="-2"] {
-      transform: translate3d(calc(-50% - 460px), -46%, 0) scale(0.76);
+      transform: translate3d(calc(-50% - 410px), -46%, 0) scale(0.76);
       z-index: 10;
       opacity: 0.52;
     }
 
     .sector-carousel-card[data-pos="-2"]:hover {
       opacity: 0.82;
-      transform: translate3d(calc(-50% - 460px), -48%, 0) scale(0.79);
+      transform: translate3d(calc(-50% - 410px), -48%, 0) scale(0.79);
     }
 
     .sector-carousel-card[data-pos="hidden-right"] {
-      transform: translate3d(calc(-50% + 640px), -45%, 0) scale(0.65);
+      transform: translate3d(calc(-50% + 560px), -45%, 0) scale(0.65);
       z-index: 1;
       opacity: 0;
       pointer-events: none;
     }
 
     .sector-carousel-card[data-pos="hidden-left"] {
-      transform: translate3d(calc(-50% - 640px), -45%, 0) scale(0.65);
+      transform: translate3d(calc(-50% - 560px), -45%, 0) scale(0.65);
       z-index: 1;
       opacity: 0;
       pointer-events: none;
@@ -657,25 +657,25 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     }
 
     .sector-carousel-card[data-pos="1"] {
-      transform: translate3d(calc(-50% + 230px), -48%, 0) scale(0.86);
+      transform: translate3d(calc(-50% + 205px), -48%, 0) scale(0.86);
       z-index: 20;
       opacity: 0.78;
     }
 
     .sector-carousel-card[data-pos="1"]:hover {
       opacity: 0.95;
-      transform: translate3d(calc(-50% + 230px), -50%, 0) scale(0.89);
+      transform: translate3d(calc(-50% + 205px), -50%, 0) scale(0.89);
     }
 
     .sector-carousel-card[data-pos="-1"] {
-      transform: translate3d(calc(-50% - 230px), -48%, 0) scale(0.86);
+      transform: translate3d(calc(-50% - 205px), -48%, 0) scale(0.86);
       z-index: 20;
       opacity: 0.78;
     }
 
     .sector-carousel-card[data-pos="-1"]:hover {
       opacity: 0.95;
-      transform: translate3d(calc(-50% - 230px), -50%, 0) scale(0.89);
+      transform: translate3d(calc(-50% - 205px), -50%, 0) scale(0.89);
     }
 
     .sector-carousel-card[data-pos="2"],
@@ -710,13 +710,13 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     }
 
     .sector-carousel-card[data-pos="1"] {
-      transform: translate3d(calc(-50% + 82vw), -50%, 0) scale(0.88);
+      transform: translate3d(calc(-50% + 78vw), -50%, 0) scale(0.88);
       z-index: 15;
       opacity: 0.45;
     }
 
     .sector-carousel-card[data-pos="-1"] {
-      transform: translate3d(calc(-50% - 82vw), -50%, 0) scale(0.88);
+      transform: translate3d(calc(-50% - 78vw), -50%, 0) scale(0.88);
       z-index: 15;
       opacity: 0.45;
     }

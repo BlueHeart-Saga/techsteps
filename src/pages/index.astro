@@ -11,6 +11,8 @@ import StatCounter from '../components/content/StatCounter.astro';
 import TrustBadges from '../components/content/TrustBadges.astro';
 import Testimonials from '../components/content/Testimonials.astro';
 import CTA from '../components/global/cta.astro';
+import SectionBackground from '../components/SectionBackground.astro';
+import EcoJourneyBridge from '../components/content/EcoJourneyBridge.astro';
 import {
   getHomePage,
   getDivisions,
@@ -320,6 +322,9 @@ const divisionMetadata: Record<
   </Section> -->
 
   <!-- Section 4 — Our Services: Interactive Card Grid -->
+  <!-- Continuous Eco Journey Bridge: Hero -> Services (Right Gutter) -->
+  <EcoJourneyBridge side="right" type="sprout" rotation={15} offsetY="-top-6" delay="0s" />
+
   <ServicesCardGrid
     services={allServiceCards}
     heading={homePage?.services?.heading}
@@ -327,178 +332,176 @@ const divisionMetadata: Record<
     viewAllLink={homePage?.services?.viewAllLink}
   />
 
-  <!-- Section 5 — Why Choose TechSteps (Minimal 2×2 Layout) -->
+  <!-- Continuous Eco Journey Bridge: Services -> Process Lifecycle (Left Gutter) -->
+  <EcoJourneyBridge side="left" type="leaflet" rotation={-20} offsetY="-top-6" delay="-2s" />
+
+  <!-- Section 5 — Process: Visual Lifecycle -->
+  <Section theme="white" padding="py-8 md:py-10 lg:py-12" className="bg-white overflow-hidden border-t border-slate-200/60">
+    <Container>
+      <ProcessSteps lifecycle={homePage?.lifecycle} />
+    </Container>
+  </Section>
+
+  <!-- Continuous Eco Journey Bridge: Process -> Why Choose TechSteps (Right Gutter) -->
+  <EcoJourneyBridge side="right" type="branch" rotation={25} offsetY="-top-6" delay="-4s" />
+
+  <!-- Section 6 — Why Choose TechSteps (Minimal 2×2 Layout) -->
   <section
     id="why-choose-us"
-    class="why-choose-section relative py-8 sm:py-10 lg:py-12 bg-white text-slate-900 overflow-hidden scroll-mt-20 border-t border-slate-200/60"
+    class="why-choose-section relative py-8 sm:py-10 lg:py-12 bg-white text-slate-900 overflow-hidden scroll-mt-20 border-t border-slate-200/60 isolate"
     aria-labelledby="why-choose-heading"
   >
-    <!-- Soft radial ambient eco glow -->
-    <div
-      class="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-[#EEF7F2]/70 blur-3xl pointer-events-none select-none"
-      aria-hidden="true"
-    ></div>
+    <!-- Hero-style ambient glow & mild floating bubbles -->
+    <SectionBackground
+      variant="hero"
+      glow={true}
+      glowPosition="right"
+      showBubbles={true}
+      bubbleCount={3}
+    />
 
     <Container className="relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center">
+      <!-- Centered Section Header -->
+      <div class="why-choose-reveal mb-8 sm:mb-10 lg:mb-12 text-center max-w-3xl mx-auto">
+        <h2
+          id="why-choose-heading"
+          class="text-3xl sm:text-4xl lg:text-[44px] font-bold font-display text-slate-900 tracking-tight leading-[1.14] mb-3 sm:mb-4"
+        >
+          {homePage?.whyChoose?.heading || "Why Choose TechSteps?"}
+        </h2>
 
-        <!-- LEFT COLUMN: Heading + 2×2 Feature Layout -->
-        <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center">
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
+          {homePage?.whyChoose?.description || "TechSteps combines secure handling, reliable service, complete lifecycle solutions, and sustainability to deliver dependable IT asset management for organisations across the UK."}
+        </p>
+      </div>
 
-          <div class="why-choose-reveal mb-7 sm:mb-9">
-            <h2
-              id="why-choose-heading"
-              class="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-semibold font-display text-slate-900 tracking-tight leading-[1.14]"
-            >
-              {homePage?.whyChoose?.heading || "Why Choose TechSteps?"}
-            </h2>
+      <!-- 4 Features Grid: Across 4 Columns on Desktop -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
 
-            <p class="mt-4 sm:mt-5 text-lg sm:text-xl text-black leading-relaxed font-normal max-w-xl">
-              {homePage?.whyChoose?.description || "TechSteps combines secure handling, reliable service, complete lifecycle solutions, and sustainability to deliver dependable IT asset management for organisations across the UK."}
-            </p>
+        <!-- Feature 01 -->
+        <div
+          class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0 flex flex-col justify-between"
+          data-feature-index="1"
+        >
+          <div class="flex items-start gap-3.5">
+            <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight shrink-0">
+              01
+            </span>
+
+            <div class="pt-0.5">
+              <div class="flex items-center gap-2 mb-1.5">
+                <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                  {homePage?.whyChoose?.features?.[0]?.title || "Security & Compliance"}
+                </h3>
+              </div>
+
+              <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed">
+                {homePage?.whyChoose?.features?.[0]?.description || "Secure handling of IT assets and sensitive information, supported by responsible processes and appropriate documentation."}
+              </p>
+            </div>
           </div>
-
-          <!-- 2×2 Feature Grid — intentionally borderless -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 lg:gap-x-10 gap-y-7 sm:gap-y-9">
-
-            <!-- Feature 01 -->
-            <div
-              class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0"
-              data-feature-index="1"
-            >
-              <div class="flex items-start gap-3.5">
-                <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight">
-                  01
-                </span>
-
-                <div class="pt-0.5">
-                  <div class="flex items-center gap-2 mb-1.5">
-                    
-                    <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
-                      {homePage?.whyChoose?.features?.[0]?.title || "Security & Compliance"}
-                    </h3>
-                  </div>
-
-                  <p class="text-sm sm:text-[15px] text-black leading-relaxed">
-                    {homePage?.whyChoose?.features?.[0]?.description || "Secure handling of IT assets and sensitive information, supported by responsible processes and appropriate documentation."}
-                  </p>
-                </div>
-              </div>
-              <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
-            </div>
-
-            <!-- Feature 02 -->
-            <div
-              class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0"
-              data-feature-index="2"
-            >
-              <div class="flex items-start gap-3.5">
-                <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight">
-                  02
-                </span>
-
-                <div class="pt-0.5">
-                  <div class="flex items-center gap-2 mb-1.5">
-                    
-                    <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
-                      {homePage?.whyChoose?.features?.[1]?.title || "Complete Lifecycle Solutions"}
-                    </h3>
-                  </div>
-
-                  <p class="text-sm sm:text-[15px] text-black leading-relaxed">
-                    {homePage?.whyChoose?.features?.[1]?.description || "Integrated IT asset management, collection, and end-of-life services through a coordinated approach."}
-                  </p>
-                </div>
-              </div>
-              <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
-            </div>
-
-            <!-- Feature 03 -->
-            <div
-              class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0"
-              data-feature-index="3"
-            >
-              <div class="flex items-start gap-3.5">
-                <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight">
-                  03
-                </span>
-
-                <div class="pt-0.5">
-                  <div class="flex items-center gap-2 mb-1.5">
-                    
-                    <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
-                      {homePage?.whyChoose?.features?.[2]?.title || "Sustainable Outcomes"}
-                    </h3>
-                  </div>
-
-                  <p class="text-sm sm:text-[15px] text-black leading-relaxed">
-                    {homePage?.whyChoose?.features?.[2]?.description || "Promote responsible reuse, recycling, and resource management to support more sustainable business operations."}
-                  </p>
-                </div>
-              </div>
-              <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
-            </div>
-
-            <!-- Feature 04 -->
-            <div
-              class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0"
-              data-feature-index="4"
-            >
-              <div class="flex items-start gap-3.5">
-                <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight">
-                  04
-                </span>
-
-                <div class="pt-0.5">
-                  <div class="flex items-center gap-2 mb-1.5">
-                    
-                    <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
-                      {homePage?.whyChoose?.features?.[3]?.title || "Reliable Service"}
-                    </h3>
-                  </div>
-
-                  <p class="text-sm sm:text-[15px] text-black leading-relaxed">
-                    {homePage?.whyChoose?.features?.[3]?.description || "Dependable collection coordination, clear communication, and traceable processes with completion records where applicable."}
-                  </p>
-                </div>
-              </div>
-              <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
-            </div>
-
-          </div>
+          <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
         </div>
 
-        <!-- RIGHT COLUMN: Existing Team Image — unchanged -->
-        <div class="lg:col-span-6 xl:col-span-6 flex items-center justify-center">
-          <img
-            src={homePage?.whyChoose?.imageUrl || "/images/services/why choose us.webp"}
-            alt={homePage?.whyChoose?.imageAlt || "TechSteps team collaborating on certified IT lifecycle and compliance solutions"}
-            class="why-choose-img w-full h-[360px] sm:h-[460px] lg:h-[540px] xl:h-[580px] object-cover object-[center_35%] transition-transform duration-700 ease-out hover:scale-[1.025] select-none"
-            loading="lazy"
-            decoding="async"
-          />
+        <!-- Feature 02 -->
+        <div
+          class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0 flex flex-col justify-between"
+          data-feature-index="2"
+        >
+          <div class="flex items-start gap-3.5">
+            <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight shrink-0">
+              02
+            </span>
+
+            <div class="pt-0.5">
+              <div class="flex items-center gap-2 mb-1.5">
+                <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                  {homePage?.whyChoose?.features?.[1]?.title || "Complete Lifecycle Solutions"}
+                </h3>
+              </div>
+
+              <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed">
+                {homePage?.whyChoose?.features?.[1]?.description || "Integrated IT asset management, collection, and end-of-life services through a coordinated approach."}
+              </p>
+            </div>
+          </div>
+          <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
+        </div>
+
+        <!-- Feature 03 -->
+        <div
+          class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0 flex flex-col justify-between"
+          data-feature-index="3"
+        >
+          <div class="flex items-start gap-3.5">
+            <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight shrink-0">
+              03
+            </span>
+
+            <div class="pt-0.5">
+              <div class="flex items-center gap-2 mb-1.5">
+                <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                  {homePage?.whyChoose?.features?.[2]?.title || "Sustainable Outcomes"}
+                </h3>
+              </div>
+
+              <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed">
+                {homePage?.whyChoose?.features?.[2]?.description || "Promote responsible reuse, recycling, and resource management to support more sustainable business operations."}
+              </p>
+            </div>
+          </div>
+          <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
+        </div>
+
+        <!-- Feature 04 -->
+        <div
+          class="why-choose-feature-item why-choose-reveal group relative pl-1 sm:pl-0 flex flex-col justify-between"
+          data-feature-index="4"
+        >
+          <div class="flex items-start gap-3.5">
+            <span class="text-3xl sm:text-4xl font-semibold text-[#0F623A]/25 leading-none tracking-tight shrink-0">
+              04
+            </span>
+
+            <div class="pt-0.5">
+              <div class="flex items-center gap-2 mb-1.5">
+                <h3 class="text-base sm:text-lg font-semibold font-display text-slate-900 group-hover:text-[#0F623A] transition-colors duration-200 leading-snug">
+                  {homePage?.whyChoose?.features?.[3]?.title || "Reliable Service"}
+                </h3>
+              </div>
+
+              <p class="text-sm sm:text-[14.5px] text-slate-600 leading-relaxed">
+                {homePage?.whyChoose?.features?.[3]?.description || "Dependable collection coordination, clear communication, and traceable processes with completion records where applicable."}
+              </p>
+            </div>
+          </div>
+          <div class="mt-5 h-px bg-slate-200/80 group-hover:bg-[#0F623A]/30 transition-colors duration-300"></div>
         </div>
 
       </div>
     </Container>
   </section>
 
-  <!-- Section 6 — Process: Visual Lifecycle -->
-  <Section theme="white" padding="py-8 md:py-10 lg:py-12" className="bg-white overflow-hidden">
-    <Container>
-      <ProcessSteps lifecycle={homePage?.lifecycle} />
-    </Container>
-  </Section>
+  <!-- Continuous Eco Journey Bridge: Why Choose TechSteps -> Sectors (Left Gutter) -->
+  <EcoJourneyBridge side="left" type="sprout" rotation={-12} offsetY="-top-6" delay="-1.5s" />
 
   <!-- Section 7 — Sectors We Serve -->
-  <Section theme="slate" id="sectors" padding="py-8 sm:py-10 lg:py-12" className="relative overflow-hidden bg-white border-t border-slate-200/80">
+  <Section theme="slate" id="sectors" padding="py-8 sm:py-10 lg:py-12" className="relative overflow-hidden bg-white border-t border-slate-200/80 isolate">
+    <!-- Subtle ambient glow and mild floating bubbles (Hero style) -->
+    <SectionBackground
+      variant="hero"
+      glow={true}
+      glowPosition="left"
+      showBubbles={true}
+      bubbleCount={3}
+    />
 
     <Container className="relative z-10">
-      <div class="text-center max-w-3xl mx-auto space-y-3.5 mb-6 sm:mb-8">
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display text-slate-900 tracking-tight leading-[1.18]">
+      <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+        <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold font-display text-slate-900 tracking-tight leading-[1.14] mb-3 sm:mb-4">
           {homePage?.sectorsSection?.heading || "Supporting Businesses Across Every Sector"}
         </h2>
-        <p class="text-lg sm:text-xl text-black leading-relaxed font-normal max-w-2xl mx-auto">
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
           {homePage?.sectorsSection?.description || "TechSteps provides secure, sustainable, and reliable IT asset lifecycle, certified data destruction, and compliance-driven solutions across different industries."}
         </p>
       </div>
@@ -507,9 +510,14 @@ const divisionMetadata: Record<
     </Container>
   </Section>
 
+  <!-- Continuous Eco Journey Bridge: Sectors -> Testimonials (Right Gutter) -->
+  <EcoJourneyBridge side="right" type="leaflet" rotation={18} offsetY="-top-6" delay="-5s" />
+
   <!-- Section 8 — Client Reviews / Testimonials -->
   <Testimonials />
 
+  <!-- Continuous Eco Journey Bridge: Testimonials -> Final CTA (Left Gutter) -->
+  <EcoJourneyBridge side="left" type="branch" rotation={-24} offsetY="-top-6" delay="-3.5s" />
 
   <!-- Section 15 — Homepage Final CTA -->
   <CTA

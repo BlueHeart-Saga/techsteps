@@ -1,5 +1,6 @@
 ---
 import Container from '../layout/Container.astro';
+import SectionBackground from '../SectionBackground.astro';
 import { getTestimonials } from '../../lib/sanity/client';
 import type { TestimonialItem } from '../../lib/sanity/types';
 
@@ -19,29 +20,40 @@ const {
 
 const sanityTestimonials = await getTestimonials();
 
+// Default 6 enterprise testimonials ordered to match the client design mockup
 const fallbackTestimonials: TestimonialItem[] = [
   {
     id: 't1',
-    quote: 'Impressed by the security rigor, speed, and attention to detail from day one. TechSteps transformed our lifecycle compliance.',
+    quote: 'Pulled substantial value while ensuring secure data destruction. A professional and reliable service from start to finish.',
+    author: 'Rachel Adams',
+    role: 'Operations Director',
+    company: 'Enterprise Technology Corp',
+    industry: 'Technology',
+    rating: 5,
+    avatar: '/images/testimonials/avatar-6.jpg',
+  },
+  {
+    id: 't2',
+    quote: 'Impressed by the security rigor, speed, and attention to detail. Techsteps transformed our IT lifecycle process.',
     author: 'David Miller',
-    role: 'Head of Infrastructure Security',
+    role: 'Head of IT',
     company: 'Defence Prime Contractor',
     industry: 'Defence',
     rating: 5,
     avatar: '/images/testimonials/avatar-1.jpg',
   },
   {
-    id: 't2',
-    quote: 'A seamless experience from start to finish. Freed 4,000 sq ft of hospital ward space with zero data risk and verified audit trails.',
+    id: 't3',
+    quote: 'A seamless experience from start to finish. Flexible, reliable and great value. Highly recommended.',
     author: 'Sarah Jenkins',
-    role: 'Director of Health Records',
+    role: 'Facilities Manager',
     company: 'NHS Foundation Trust',
     industry: 'Healthcare',
     rating: 5,
     avatar: '/images/testimonials/avatar-2.jpg',
   },
   {
-    id: 't3',
+    id: 't4',
     quote: 'Reliable and trustworthy. Handled our weekend trading floor relocation and server migration with complete security and zero downtime.',
     author: 'James Roberts',
     role: 'Chief Technology Officer',
@@ -51,7 +63,7 @@ const fallbackTestimonials: TestimonialItem[] = [
     avatar: '/images/testimonials/avatar-3.jpg',
   },
   {
-    id: 't4',
+    id: 't5',
     quote: 'Exceeded all GGC zero-landfill mandates while delivering defensible Scope 3 carbon compliance and certified destruction.',
     author: 'Eleanor Vance',
     role: 'Governance & Information Director',
@@ -61,8 +73,8 @@ const fallbackTestimonials: TestimonialItem[] = [
     avatar: '/images/testimonials/avatar-4.jpg',
   },
   {
-    id: 't5',
-    quote: 'Digitized 80 years of irreplaceable historical research archives with 100% precision, full indexation, and BS 10008 legal admissibility.',
+    id: 't6',
+    quote: 'Digitized 80 years of irreplaceable historical research archives with 100% precision, full indexation, and legal admissibility.',
     author: 'Prof. Marcus Thorne',
     role: 'Dean of Research Operations',
     company: 'Russell Group University',
@@ -70,25 +82,15 @@ const fallbackTestimonials: TestimonialItem[] = [
     rating: 5,
     avatar: '/images/testimonials/avatar-5.jpg',
   },
-  {
-    id: 't6',
-    quote: 'Unlocked substantial rebate value from our retired enterprise server fleet with certified NIST 800-88 erasure and chain of custody.',
-    author: 'Rachel Adams',
-    role: 'Global Head of ESG & Sustainability',
-    company: 'Enterprise Technology Corp',
-    industry: 'Technology',
-    rating: 5,
-    avatar: '/images/testimonials/avatar-6.jpg',
-  },
 ];
 
 const distinctAvatars: Record<string, string> = {
+  'Rachel Adams': '/images/testimonials/avatar-6.jpg',
   'David Miller': '/images/testimonials/avatar-1.jpg',
   'Sarah Jenkins': '/images/testimonials/avatar-2.jpg',
   'James Roberts': '/images/testimonials/avatar-3.jpg',
   'Eleanor Vance': '/images/testimonials/avatar-4.jpg',
   'Prof. Marcus Thorne': '/images/testimonials/avatar-5.jpg',
-  'Rachel Adams': '/images/testimonials/avatar-6.jpg',
 };
 
 const rawSourceList: TestimonialItem[] = (customTestimonials && customTestimonials.length > 0)
@@ -97,25 +99,44 @@ const rawSourceList: TestimonialItem[] = (customTestimonials && customTestimonia
     ? sanityTestimonials
     : fallbackTestimonials;
 
-// Ensure each of the 6 testimonials uses a distinct, non-duplicated professional headshot
-const seenAvatars = new Set<string>();
-const sourceList: TestimonialItem[] = rawSourceList.map((item, index) => {
+// Prioritize the exact 3 cards shown in the user's reference mockup: Rachel Adams, David Miller, Sarah Jenkins
+const priorityAuthors = ['Rachel Adams', 'David Miller', 'Sarah Jenkins'];
+const mockOverrides: Record<string, Partial<TestimonialItem>> = {
+  'Rachel Adams': {
+    role: 'Operations Director',
+    quote: 'Pulled substantial value while ensuring secure data destruction. A professional and reliable service from start to finish.',
+  },
+  'David Miller': {
+    role: 'Head of IT',
+    quote: 'Impressed by the security rigor, speed, and attention to detail. Techsteps transformed our IT lifecycle process.',
+  },
+  'Sarah Jenkins': {
+    role: 'Facilities Manager',
+    quote: 'A seamless experience from start to finish. Flexible, reliable and great value. Highly recommended.',
+  },
+};
+
+const sortedList = [...rawSourceList].sort((a, b) => {
+  const indexA = priorityAuthors.indexOf(a.author);
+  const indexB = priorityAuthors.indexOf(b.author);
+  if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+  if (indexA !== -1) return -1;
+  if (indexB !== -1) return 1;
+  return 0;
+});
+
+const items: TestimonialItem[] = sortedList.map((item, index) => {
   const fallbackAvatar = distinctAvatars[item.author] || `/images/testimonials/avatar-${(index % 6) + 1}.jpg`;
-  let avatar = item.avatar || fallbackAvatar;
-  // If duplicate avatar is detected from source or Sanity, ensure each card gets its designated distinct headshot
-  if (seenAvatars.has(avatar)) {
-    avatar = fallbackAvatar;
-  }
-  seenAvatars.add(avatar);
+  const overrides = mockOverrides[item.author] || {};
   return {
     ...item,
-    avatar,
+    avatar: item.avatar || fallbackAvatar,
+    ...overrides,
   };
 });
 
-const sectionEyebrow = customEyebrow || 'Client testimonials';
 const sectionHeading = customHeading || 'What our clients say';
-const sectionDescription = customDescription || 'Discover how UK enterprises trust Techsteps for secure IT asset disposition, compliant records management, and certified data sanitisation.';
+const sectionDescription = customDescription || 'Discover how UK enterprises trust Techsteps for secure IT asset disposal, compliant records management, and certified data destruction.';
 
 function getInitials(name: string): string {
   if (!name) return 'TS';
@@ -125,130 +146,140 @@ function getInitials(name: string): string {
   }
   return name.slice(0, 2).toUpperCase();
 }
-
-// Since sourceList has 6 testimonials (< 8), repeat twice in each half
-// Half 1: 12 cards, Half 2: 12 cards -> Total: 24 cards
-// Both halves contain the exact same number of cards (12 cards each)
-const halfOne = [...sourceList, ...sourceList];
-const halfTwo = [...sourceList, ...sourceList];
-const allCards = [...halfOne, ...halfTwo];
-const uniqueCount = sourceList.length;
 ---
 
+<!-- =========================================================
+     CLIENT TESTIMONIALS SECTION (Clean, Minimal & Premium)
+     Matching Theme Design: Dark Green / White / Dark Green Cards with Soft Ambient Mint Glow
+========================================================= -->
 <section
   id="client-testimonials-section"
-  class="testimonials-marquee-section relative bg-white py-[68px] lg:pt-[104px] lg:pb-[96px] overflow-hidden text-slate-900 border-t border-slate-200/80 select-none"
+  class="relative bg-white pt-8 sm:pt-10 lg:pt-12 pb-12 sm:pb-14 lg:pb-16 overflow-hidden text-slate-900 border-t border-slate-200/60 isolate"
   aria-labelledby="testimonials-heading"
 >
+  <!-- Hero-style ambient glow & mild floating bubbles matching site theme -->
+  <SectionBackground
+    variant="hero"
+    glow={true}
+    glowPosition="right"
+    showBubbles={true}
+    bubbleCount={3}
+  />
 
+  <Container className="relative z-10">
 
-  <!-- Centred Section Header -->
-  <Container className="relative z-10 mb-10 sm:mb-14 lg:mb-16">
-    <div class="max-w-3xl mx-auto text-center">
-    <!-- Faint oversized decorative quote mark behind heading (rgba(15,98,58,.05)) -->
-    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none -z-10" aria-hidden="true">
-      <svg class="w-44 h-44 sm:w-60 sm:h-60 text-[#0F623A]/[0.05]" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-      </svg>
+    <!-- =====================================================
+         HEADER (Clean, Centered, Matching Site Theme)
+    ====================================================== -->
+    <div class="max-w-3xl mx-auto text-center mb-7 sm:mb-8 lg:mb-10">
+      
+      <!-- Main Headline -->
+      <h2
+        id="testimonials-heading"
+        class="text-3xl sm:text-4xl lg:text-[44px] font-bold font-display text-slate-900 tracking-tight leading-[1.14] mb-3 sm:mb-4"
+      >
+        {sectionHeading}
+      </h2>
+
+      <!-- Subtitle Description -->
+      {sectionDescription && (
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
+          {sectionDescription}
+        </p>
+      )}
     </div>
 
-    <!-- Eyebrow: Small uppercase green eyebrow with short lines either side -->
-    {/*<div class="inline-flex items-center justify-center gap-3 mb-3">
-      <span class="w-7 sm:w-10 h-[1.5px] bg-[#0F623A]/40" aria-hidden="true"></span>
-      <span class="text-xs sm:text-[13px] font-mono font-bold tracking-[0.22em] text-[#0F623A] uppercase">
-        {sectionEyebrow}
-      </span>
-      <span class="w-7 sm:w-10 h-[1.5px] bg-[#0F623A]/40" aria-hidden="true"></span>
-    </div>*/}
+    <!-- =====================================================
+         TESTIMONIALS SLIDER / CAROUSEL
+         Compact Cards with smooth programmatic slide scrolling
+    ====================================================== -->
+    <div class="testimonials-slider-container relative w-full" id="testimonials-slider-root">
+      
+      <!-- Cards Viewport -->
+      <div
+        class="testimonials-track relative flex items-stretch gap-5 sm:gap-6 lg:gap-7 overflow-x-auto py-2 pb-4 scrollbar-none snap-x snap-mandatory"
+        id="testimonials-track"
+        tabindex="0"
+        aria-label="Client testimonials list"
+      >
+        {items.map((item, idx) => {
+          // Alternating card styling pattern:
+          // Index 0: Dark Green
+          // Index 1: Pure White
+          // Index 2: Dark Green
+          // Index 3: Dark Green
+          // Index 4: Pure White
+          // Index 5: Dark Green
+          const isWhiteCard = (idx % 3 === 1);
 
-    <!-- Heading: Sentence-case, existing heading text -->
-    <h2
-      id="testimonials-heading"
-      class="text-3xl sm:text-4xl lg:text-[44px] font-semibold font-display text-slate-900 tracking-tight leading-[1.14] mb-3 sm:mb-4 text-balance"
-    >
-      {sectionHeading}
-    </h2>
-
-    <!-- Supporting description -->
-    {sectionDescription && (
-      <p class="text-lg sm:text-xl text-black leading-relaxed font-normal max-w-2xl mx-auto">
-        {sectionDescription}
-      </p>
-    )}
-    </div>
-  </Container>
-
-  <!-- ONE Horizontal Row of Cards inside Full-Width Container with Edge-Fade Masks -->
-  <div class="testimonial-marquee-wrapper relative w-full overflow-hidden">
-    <!-- Flex Marquee Track -->
-    <div
-      class="testimonial-track track"
-      id="testimonial-track"
-      role="region"
-      aria-label="Client review carousel"
-    >
-      {allCards.map((item, index) => {
-        // First `uniqueCount` items are read by screen readers; subsequent duplicate repetitions have aria-hidden="true"
-        const isDuplicate = index >= uniqueCount;
-        // Alternating card variant: every second card is dark variant (#0F623A to #083d24)
-        const isDark = (index % 2 === 1);
-
-        return (
-          <article
-            class={`testimonial-card ${isDark ? 'testimonial-card-dark' : 'testimonial-card-light'}`}
-            aria-hidden={isDuplicate ? 'true' : undefined}
-          >
-            <!-- Top: 44px rounded-square (12px radius) tile with green gradient & white quote-mark glyph -->
-            <div
-              class={`w-[44px] h-[44px] rounded-[12px] flex items-center justify-center shrink-0 shadow-xs ${
-                isDark
-                  ? 'bg-[#3FB33D] text-[#083d24]'
-                  : 'bg-gradient-to-br from-[#0F623A] to-[#083d24] text-white'
+          return (
+            <article
+              class={`testimonial-card-item snap-start flex-shrink-0 w-[80vw] sm:w-[320px] md:w-[330px] lg:w-[340px] xl:w-[350px] rounded-[20px] p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 ${
+                isWhiteCard
+                  ? 'bg-white border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]'
+                  : 'bg-gradient-to-br from-[#0A3D26] via-[#083520] to-[#052617] border border-white/10 shadow-[0_12px_30px_rgba(5,38,23,0.18)] hover:shadow-[0_18px_38px_rgba(5,38,23,0.26)] text-white'
               }`}
-              aria-hidden="true"
+              data-card-index={idx}
             >
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
-            </div>
-
-            <!-- Middle: Quote Text (19px, weight 500, line-height 1.5, 17px on mobile, never truncated) -->
-            <blockquote
-              class={`m-0 p-0 text-[17px] sm:text-[19px] font-medium leading-[1.5] flex-1 ${
-                isDark ? 'text-white' : 'text-slate-800'
-              }`}
-            >
-              "{item.quote}"
-            </blockquote>
-
-            <!-- Bottom: 1px divider + Avatar, Name, Role & Company -->
-            <div class="mt-auto space-y-[22px]">
-              <div
-                class={`h-[1px] w-full ${isDark ? 'bg-white/15' : 'bg-[#dbe7df]'}`}
-                aria-hidden="true"
-              ></div>
-
-              <div class="flex items-center gap-3.5">
-                <!-- Avatar: 46px circle with 2px #3FB33D ring -->
+              <!-- TOP: Quote Icon Badge + Review Rating -->
+              <div class="flex items-center justify-between mb-4 sm:mb-4.5">
+                <!-- Quote Badge -->
                 <div
-                  class={`relative shrink-0 w-[46px] h-[46px] rounded-full overflow-hidden ring-2 ring-[#3FB33D] ${
-                    isDark ? 'bg-white/10' : 'bg-[#EEF7F2]'
+                  class={`w-9 h-9 sm:w-10 sm:h-10 rounded-[12px] flex items-center justify-center shadow-xs ${
+                    isWhiteCard
+                      ? 'bg-[#86EFAC] text-[#0A3D26]'
+                      : 'bg-[#34D399] text-[#052617]'
+                  }`}
+                  aria-hidden="true"
+                >
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                  </svg>
+                </div>
+
+                <!-- 5-Star Subtle Accent -->
+                <div class="flex items-center gap-0.5 text-amber-400" aria-label="5 star rating">
+                  {[...Array(5)].map(() => (
+                    <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+
+              <!-- MIDDLE: Quote Content -->
+              <blockquote
+                class={`m-0 p-0 text-[14px] sm:text-[15px] leading-relaxed font-normal mb-5 flex-1 line-clamp-4 ${
+                  isWhiteCard ? 'text-slate-700' : 'text-white/95'
+                }`}
+              >
+                "{item.quote}"
+              </blockquote>
+
+              <!-- BOTTOM: Author Profile Details -->
+              <div class={`pt-3.5 border-t flex items-center gap-3 sm:gap-3.5 ${
+                isWhiteCard ? 'border-slate-100' : 'border-white/10'
+              }`}>
+                <!-- Circular Avatar with Eco Ring -->
+                <div
+                  class={`relative shrink-0 w-10 h-10 rounded-full overflow-hidden ring-2 ${
+                    isWhiteCard ? 'ring-[#0F623A]' : 'ring-[#34D399]'
                   }`}
                 >
                   {item.avatar ? (
                     <img
                       src={item.avatar}
-                      alt={isDuplicate ? '' : `${item.author} avatar`}
+                      alt={item.author}
                       class="w-full h-full object-cover"
-                      width="46"
-                      height="46"
+                      width="40"
+                      height="40"
                       loading="lazy"
                       decoding="async"
                     />
                   ) : (
                     <div
-                      class={`w-full h-full flex items-center justify-center font-bold text-sm ${
-                        isDark ? 'text-white' : 'text-[#0F623A]'
+                      class={`w-full h-full flex items-center justify-center font-bold text-xs ${
+                        isWhiteCard ? 'bg-[#EEF7F2] text-[#0F623A]' : 'bg-white/10 text-white'
                       }`}
                       aria-hidden="true"
                     >
@@ -257,193 +288,289 @@ const uniqueCount = sourceList.length;
                   )}
                 </div>
 
-                <!-- Name, Role and Company (No truncation, allowed to wrap naturally onto multiple lines) -->
+                <!-- Author Name & Job Role -->
                 <div class="min-w-0 flex-1">
                   <h3
-                    class={`text-base font-semibold leading-snug tracking-tight ${
-                      isDark ? 'text-white' : 'text-[#0F623A]'
+                    class={`text-[14.5px] sm:text-[15px] font-semibold leading-snug tracking-tight truncate ${
+                      isWhiteCard ? 'text-slate-900 font-display' : 'text-white font-display'
                     }`}
                   >
                     {item.author}
                   </h3>
-                  {/*<p
-                    class={`text-[13px] leading-snug mt-0.5 ${
-                      isDark ? 'text-emerald-100/85' : 'text-slate-600'
+                  <p
+                    class={`text-xs sm:text-[12.5px] leading-snug mt-0.5 truncate ${
+                      isWhiteCard ? 'text-slate-500 font-normal' : 'text-emerald-300 font-normal'
                     }`}
                   >
-                    {item.role}{item.company ? ` • ${item.company}` : ''}
-                  </p>*/}
+                    {item.role}
+                  </p>
                 </div>
               </div>
-            </div>
-          </article>
-        );
-      })}
-    </div>
-  </div>
+            </article>
+          );
+        })}
+      </div>
 
+      <!-- =====================================================
+           BOTTOM CONTROLS: PREV / DOTS / NEXT
+      ====================================================== -->
+      <div class="flex items-center justify-center gap-3 sm:gap-4 mt-7 sm:mt-8">
+        <!-- Previous Card Button -->
+        <button
+          type="button"
+          id="testimonials-prev-btn"
+          aria-label="Previous testimonial"
+          class="w-10 h-10 rounded-full bg-white text-slate-700 hover:text-[#0F623A] hover:border-[#0F623A] border border-slate-200/90 shadow-xs hover:shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#0F623A] shrink-0"
+        >
+          <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <!-- Pagination Dots -->
+        <div
+          class="testimonials-pagination-dots flex items-center justify-center gap-2"
+          id="testimonials-pagination"
+          role="tablist"
+          aria-label="Testimonial slides"
+        >
+          {items.map((_, dotIdx) => (
+            <button
+              type="button"
+              class={`testimonial-dot h-2.5 rounded-full transition-all duration-300 ${
+                dotIdx === 0 ? 'bg-[#0F623A] w-7' : 'bg-slate-300 hover:bg-slate-400 w-2.5'
+              }`}
+              data-slide-index={dotIdx}
+              aria-label={`Go to testimonial ${dotIdx + 1}`}
+              aria-selected={dotIdx === 0 ? 'true' : 'false'}
+            ></button>
+          ))}
+        </div>
+
+        <!-- Next Card Button -->
+        <button
+          type="button"
+          id="testimonials-next-btn"
+          aria-label="Next testimonial"
+          class="w-10 h-10 rounded-full bg-white text-slate-700 hover:text-[#0F623A] hover:border-[#0F623A] border border-slate-200/90 shadow-xs hover:shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#0F623A] shrink-0"
+        >
+          <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </Container>
 </section>
 
 <style>
-  /* ---------------------------------------------------- */
-  /* EDGE-FADE GRADIENT MASKS ON FULL-WIDTH TRACK WRAPPER */
-  /* ---------------------------------------------------- */
-  .testimonial-marquee-wrapper {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
-    padding: 12px 0 18px;
+  /* Clean horizontal scrollbar hiding for slick swiping */
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
-  /* ---------------------------------------------------- */
-  /* MARQUEE TRACK ANIMATION (PURE CSS)                   */
-  /* ---------------------------------------------------- */
-  .testimonial-track {
-    display: flex;
-    gap: 22px;
-    width: max-content;
-    animation: run 72s linear infinite;
-    will-change: transform;
-  }
-
-  /* Seamless loop: exactly -50% - 11px (half of 22px gap) */
-  @keyframes run {
-    to {
-      transform: translateX(calc(-50% - 11px));
-    }
-  }
-
-  /* Pause on hover, on focus-within, and via pause button toggle */
-  .testimonial-track:hover,
-  .testimonial-track:focus-within,
-  .testimonial-track.is-paused {
-    animation-play-state: paused;
-  }
-
-  /* ---------------------------------------------------- */
-  /* CARD STYLES                                          */
-  /* ---------------------------------------------------- */
-  .testimonial-card {
-    width: 290px;
-    padding: 24px 20px 20px;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    flex-shrink: 0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  @media (min-width: 640px) {
-    .testimonial-card {
-      width: 400px;
-      padding: 32px 30px 26px;
-    }
-  }
-
-  /* Light card variant */
-  .testimonial-card-light {
-    background-color: #ffffff;
-    border: 1px solid #dbe7df;
-    box-shadow: 0 10px 30px -5px rgba(15, 98, 58, 0.08);
-  }
-
-  .testimonial-card-light:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 36px -6px rgba(15, 98, 58, 0.16);
-  }
-
-  /* Dark card variant (every second card) */
-  .testimonial-card-dark {
-    background: linear-gradient(145deg, #0F623A 0%, #083d24 100%);
-    border: 1px solid rgba(63, 179, 61, 0.25);
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.22);
-  }
-
-  .testimonial-card-dark:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 40px -6px rgba(0, 0, 0, 0.38);
-  }
-
-  /* ---------------------------------------------------- */
-  /* REDUCED MOTION PREFERENCE (ACCESSIBILITY)            */
-  /* ---------------------------------------------------- */
-  @media (prefers-reduced-motion: reduce) {
-    .testimonial-marquee-wrapper {
-      mask-image: none !important;
-      -webkit-mask-image: none !important;
-      overflow-x: auto !important;
-      scroll-snap-type: x mandatory !important;
-      -webkit-overflow-scrolling: touch;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-
-    .testimonial-track {
-      animation: none !important;
-      width: auto !important;
-    }
-
-    .testimonial-card {
-      scroll-snap-align: center;
-    }
-
-    .testimonial-card[aria-hidden="true"] {
-      display: none !important;
-    }
-
-    .testimonial-card:hover {
-      transform: none !important;
-    }
-
-    .pause-control-wrapper {
-      display: none !important;
-    }
+  .testimonials-track {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
   }
 </style>
 
 <script is:inline>
   (() => {
-    const initPauseControl = () => {
-      const btn = document.getElementById('testimonial-pause-toggle');
-      const track = document.getElementById('testimonial-track');
-      const pauseIcon = document.getElementById('pause-icon');
-      const playIcon = document.getElementById('play-icon');
-      const btnText = document.getElementById('pause-btn-text');
+    const initTestimonialsCarousel = () => {
+      const track = document.getElementById('testimonials-track');
+      const dotsContainer = document.getElementById('testimonials-pagination');
+      const prevBtn = document.getElementById('testimonials-prev-btn');
+      const nextBtn = document.getElementById('testimonials-next-btn');
 
-      if (!btn || !track) return;
+      if (!track) return;
+      if (track.dataset.carouselInitialized === 'true') return;
+      track.dataset.carouselInitialized = 'true';
 
-      let isPaused = false;
+      const cards = Array.from(track.querySelectorAll('.testimonial-card-item'));
+      const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.testimonial-dot')) : [];
+      if (!cards.length) return;
 
-      btn.addEventListener('click', () => {
-        isPaused = !isPaused;
-        if (isPaused) {
-          track.classList.add('is-paused');
-          btn.setAttribute('aria-pressed', 'true');
-          btn.setAttribute('aria-label', 'Resume testimonial marquee animation');
-          if (pauseIcon) pauseIcon.classList.add('hidden');
-          if (playIcon) playIcon.classList.remove('hidden');
-          if (btnText) btnText.textContent = 'Resume animation';
-        } else {
-          track.classList.remove('is-paused');
-          btn.setAttribute('aria-pressed', 'false');
-          btn.setAttribute('aria-label', 'Pause testimonial marquee animation');
-          if (pauseIcon) pauseIcon.classList.remove('hidden');
-          if (playIcon) playIcon.classList.add('hidden');
-          if (btnText) btnText.textContent = 'Pause animation';
+      let currentIndex = 0;
+      let autoplayTimer = null;
+      let isProgrammaticScrolling = false;
+      let scrollDebounceTimer = null;
+      const AUTO_SCROLL_DELAY = 3800; // 3.8s per slide
+
+      const updateDots = (activeIndex) => {
+        dots.forEach((dot, idx) => {
+          const isActive = idx === activeIndex;
+          dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          if (isActive) {
+            dot.classList.remove('w-2.5', 'bg-slate-300', 'hover:bg-slate-400');
+            dot.classList.add('w-7', 'bg-[#0F623A]');
+          } else {
+            dot.classList.remove('w-7', 'bg-[#0F623A]');
+            dot.classList.add('w-2.5', 'bg-slate-300', 'hover:bg-slate-400');
+          }
+        });
+      };
+
+      const scrollToIndex = (index, smooth = true) => {
+        const totalCards = cards.length;
+        const maxScroll = track.scrollWidth - track.clientWidth;
+
+        if (maxScroll <= 0) return;
+
+        // Wrap around seamlessly
+        let targetIndex = index;
+        if (targetIndex >= totalCards) {
+          targetIndex = 0;
+        } else if (targetIndex < 0) {
+          targetIndex = totalCards - 1;
         }
+
+        currentIndex = targetIndex;
+        const targetCard = cards[currentIndex];
+
+        if (targetCard) {
+          isProgrammaticScrolling = true;
+
+          // Compute exact target left relative to the track
+          let targetLeft = targetCard.offsetLeft;
+          if (targetLeft > maxScroll) {
+            targetLeft = maxScroll;
+          }
+          if (targetLeft < 0) {
+            targetLeft = 0;
+          }
+
+          track.scrollTo({
+            left: targetLeft,
+            behavior: smooth ? 'smooth' : 'auto',
+          });
+
+          // Reset programmatic scrolling flag once the scroll transition settles
+          setTimeout(() => {
+            isProgrammaticScrolling = false;
+          }, 500);
+        }
+
+        updateDots(currentIndex);
+      };
+
+      const goToNext = () => {
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        // If at the end of the scroll track or on the last card, smoothly wrap to start
+        if (track.scrollLeft >= maxScroll - 25 || currentIndex >= cards.length - 1) {
+          scrollToIndex(0);
+        } else {
+          scrollToIndex(currentIndex + 1);
+        }
+      };
+
+      const goToPrev = () => {
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        // If at the beginning, wrap to the end
+        if (track.scrollLeft <= 25 || currentIndex <= 0) {
+          scrollToIndex(cards.length - 1);
+        } else {
+          scrollToIndex(currentIndex - 1);
+        }
+      };
+
+      // Button listeners
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          goToPrev();
+          resetAutoplay();
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          goToNext();
+          resetAutoplay();
+        });
+      }
+
+      // Dot click handling
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          scrollToIndex(idx);
+          resetAutoplay();
+        });
       });
+
+      // Synchronize active dot when user manually swipes/scrolls
+      track.addEventListener('scroll', () => {
+        if (isProgrammaticScrolling) return;
+
+        if (scrollDebounceTimer) clearTimeout(scrollDebounceTimer);
+        scrollDebounceTimer = setTimeout(() => {
+          const currentScroll = track.scrollLeft;
+          let closestIndex = 0;
+          let minDiff = Infinity;
+
+          cards.forEach((card, idx) => {
+            const diff = Math.abs(card.offsetLeft - currentScroll);
+            if (diff < minDiff) {
+              minDiff = diff;
+              closestIndex = idx;
+            }
+          });
+
+          currentIndex = closestIndex;
+          updateDots(currentIndex);
+        }, 80);
+      }, { passive: true });
+
+      // Autoplay engine
+      const startAutoplay = () => {
+        stopAutoplay();
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        autoplayTimer = setInterval(() => {
+          goToNext();
+        }, AUTO_SCROLL_DELAY);
+      };
+
+      const stopAutoplay = () => {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      };
+
+      const resetAutoplay = () => {
+        stopAutoplay();
+        startAutoplay();
+      };
+
+      // Hover, focus, and touch pause
+      track.addEventListener('mouseenter', stopAutoplay);
+      track.addEventListener('mouseleave', startAutoplay);
+      track.addEventListener('focusin', stopAutoplay);
+      track.addEventListener('focusout', startAutoplay);
+      track.addEventListener('touchstart', stopAutoplay, { passive: true });
+      track.addEventListener('touchend', resetAutoplay, { passive: true });
+
+      // Clean up when Astro transitions pages
+      document.addEventListener('astro:before-swap', () => {
+        stopAutoplay();
+        if (track) track.removeAttribute('data-carousel-initialized');
+      }, { once: true });
+
+      // Start auto scroll
+      startAutoplay();
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initPauseControl);
+      document.addEventListener('DOMContentLoaded', initTestimonialsCarousel);
     } else {
-      initPauseControl();
+      initTestimonialsCarousel();
     }
 
-    document.addEventListener('astro:page-load', initPauseControl);
+    document.addEventListener('astro:page-load', initTestimonialsCarousel);
   })();
 </script>
-

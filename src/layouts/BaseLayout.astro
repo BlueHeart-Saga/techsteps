@@ -114,5 +114,17 @@ const combinedSchemas = jsonLd
 
     <Footer />
     <CookieConsent />
+
+    <script>
+      import { initNavDropdowns } from '../lib/navDropdownController';
+
+      // Initialize on direct load
+      initNavDropdowns();
+
+      // Re-initialize on Astro ClientRouter page transitions
+      document.addEventListener('astro:page-load', () => {
+        initNavDropdowns();
+      });
+    </script>
   </body>
 </html>

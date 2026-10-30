@@ -458,6 +458,7 @@ div[class*="uppercase"][class*="text-xs"] {
   font-family: var(--font-sans) !important;
   font-size: 14.5px !important;
   line-height: 1.35 !important;
+  white-space: nowrap !important;
 }
 
 #services-megamenu-panel .services-left-col .all-services-link,
@@ -863,11 +864,14 @@ address {
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+#free-collection-megamenu-wrapper.scroll-dropdown-wrapper,
 #services-megamenu-wrapper.scroll-dropdown-wrapper,
 #sectors-dropdown-wrapper.scroll-dropdown-wrapper,
-#about-megamenu-wrapper.scroll-dropdown-wrapper {
+#about-megamenu-wrapper.scroll-dropdown-wrapper,
+.scroll-dropdown-wrapper {
   padding-left: 0 !important;
   padding-right: 0 !important;
+  max-width: 100% !important;
 }
 
 /* Reusable Dropdown Background Overlay & Page Blur */
@@ -888,6 +892,36 @@ address {
   opacity: 1;
   pointer-events: auto;
 }
+
+/* Guarantee invisible dropdown panels, drawers, & overlays NEVER intercept clicks or hover */
+#services-megamenu-panel:not(.pointer-events-auto),
+#services-megamenu-panel:not(.pointer-events-auto) *,
+#services-megamenu-panel:not(.pointer-events-auto)::before,
+#services-megamenu-panel:not(.pointer-events-auto)::after,
+#free-collection-megamenu-panel:not(.pointer-events-auto),
+#free-collection-megamenu-panel:not(.pointer-events-auto) *,
+#free-collection-megamenu-panel:not(.pointer-events-auto)::before,
+#free-collection-megamenu-panel:not(.pointer-events-auto)::after,
+#sectors-dropdown-panel:not(.pointer-events-auto),
+#sectors-dropdown-panel:not(.pointer-events-auto) *,
+#sectors-dropdown-panel:not(.pointer-events-auto)::before,
+#sectors-dropdown-panel:not(.pointer-events-auto)::after,
+#about-megamenu-panel:not(.pointer-events-auto),
+#about-megamenu-panel:not(.pointer-events-auto) *,
+#about-megamenu-panel:not(.pointer-events-auto)::before,
+#about-megamenu-panel:not(.pointer-events-auto)::after,
+#dropdown-backdrop:not(.active),
+#mobile-menu-drawer.translate-x-full,
+#mobile-menu-drawer.translate-x-full * {
+  pointer-events: none !important;
+}
+
+/* Ensure all website copy, paragraphs, and headings are always selectable and copyable */
+body, main, section, article, header, footer, h1, h2, h3, h4, h5, h6, p, li {
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+
 /* Remove horizontal border lines from all sections globally */
 section {
   border-top: none !important;

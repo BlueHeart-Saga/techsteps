@@ -2925,7 +2925,7 @@ export const defaultHomePageData: HomePageData = {
     buttonLink: '/services',
     secondaryButtonText: 'Contact Us',
     secondaryButtonLink: '/contact',
-    bgImageUrl: '/images/brand/hero section.webp',
+    bgImageUrl: '/images/brand/home-hero.png',
     mobileWorkerImageUrl: '/images/brand/hero-worker-mobile.webp',
   },
   intro: {
@@ -2940,7 +2940,8 @@ export const defaultHomePageData: HomePageData = {
   ],
   services: {
     eyebrow: 'OUR SERVICES',
-    heading: 'Services For The Complete Business Lifecycle',
+    heading: 'Complete Solutions for Every Stage of Your Business',
+    description: 'From IT asset management and secure data destruction to information management and business relocation, TechSteps delivers integrated services that help organisations operate securely, efficiently and responsibly.',
     cards: [
       {
         divisionNumber: 'DIVISION 01',
@@ -2953,28 +2954,28 @@ export const defaultHomePageData: HomePageData = {
       },
       {
         divisionNumber: 'DIVISION 02',
-        title: 'IT Lifecycle Services & Destruction',
+        title: 'IT Lifecycle Solutions',
         description: 'End-to-end IT asset disposition, secure collection, data sanitisation, refurbishment and ethical recycling.',
         image: { asset: { url: '/images/services/2.jpg' } },
-        imageAlt: 'IT Lifecycle Services & Destruction',
+        imageAlt: 'IT Lifecycle Solutions',
         buttonText: 'Explore',
         link: '/it-lifecycle-services-destruction',
       },
       {
         divisionNumber: 'DIVISION 03',
-        title: 'Secure Shredding & Document Integrity',
+        title: 'Secure Data Destruction',
         description: 'Secure destruction of confidential documents, media and products through accredited mobile and facility shredding.',
         image: { asset: { url: '/images/services/3.jpg' } },
-        imageAlt: 'Secure Shredding & Document Integrity',
+        imageAlt: 'Secure Data Destruction',
         buttonText: 'Explore',
         link: '/secure-shredding-document-integrity',
       },
       {
         divisionNumber: 'DIVISION 04',
-        title: 'Moving & Relocation Services',
+        title: 'Specialist Relocations',
         description: 'Specialist IT relocation, laboratory moves, museum and archive transportation, and corporate office moves.',
         image: { asset: { url: '/images/services/4.jpg' } },
-        imageAlt: 'Moving & Relocation Services',
+        imageAlt: 'Specialist Relocations',
         buttonText: 'Explore',
         link: '/moving-relocation-services',
       },

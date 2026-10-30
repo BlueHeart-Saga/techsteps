@@ -1,5 +1,6 @@
 ---
 import Container from '../layout/Container.astro';
+import SectionBackground from '../SectionBackground.astro';
 import { getHomePage } from '../../lib/sanity/client';
 
 interface Props {
@@ -66,7 +67,15 @@ const resolvedSecondaryHref = secondaryHref || secondaryButtonLink || defaultSec
     <div class="relative bg-[#0F623A] rounded-[24px] shadow-[0_20px_50px_rgba(15,98,58,0.22)] min-h-[260px] sm:min-h-[270px] md:min-h-[280px] lg:min-h-[300px] xl:min-h-[310px] overflow-visible">
       
       <!-- Background Clipped Layer: Subtle depth + Oversized Recycling Watermark on far right -->
-      <div class="absolute inset-0 rounded-[24px] overflow-hidden pointer-events-none select-none" aria-hidden="true">
+      <div class="absolute inset-0 rounded-[24px] overflow-hidden pointer-events-none select-none isolate" aria-hidden="true">
+        <!-- Subtle translucent floating circles on dark green -->
+        <SectionBackground
+          variant="bubbles"
+          theme="dark"
+          showBubbles={true}
+          bubbleCount={3}
+        />
+
         <!-- Subtle gradient overlay -->
         <div class="absolute inset-0 bg-gradient-to-br from-[#136b41]/40 via-transparent to-[#09351e]/50"></div>
         

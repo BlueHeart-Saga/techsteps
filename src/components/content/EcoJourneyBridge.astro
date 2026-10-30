@@ -1,0 +1,162 @@
+---
+interface Props {
+  side?: 'left' | 'right';
+  type?: 'sprout' | 'leaflet' | 'branch';
+  rotation?: number;
+  offsetY?: string;
+  delay?: string;
+  className?: string;
+}
+
+const {
+  side = 'right',
+  type = 'sprout',
+  rotation = 0,
+  offsetY = '-top-5 sm:-top-6',
+  delay = '0s',
+  className = '',
+} = Astro.props;
+
+// Unique ID for SVG linear gradients
+const uid = Math.random().toString(36).substring(2, 8);
+---
+
+<div class={`relative w-full h-0 pointer-events-none z-20 ${className}`} aria-hidden="true">
+  <div
+    class={`absolute ${offsetY} ${
+      side === 'right'
+        ? 'right-2.5 sm:right-5 md:right-8 lg:right-12 xl:right-16 2xl:right-24'
+        : 'left-2.5 sm:left-5 md:left-8 lg:left-12 xl:left-16 2xl:left-24'
+    } eco-leaf-bridge`}
+    style={`animation-delay: ${delay};`}
+  >
+    <div
+      class="w-7 h-7 sm:w-8 sm:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 transition-transform duration-500 select-none opacity-75 hover:opacity-100"
+      style={`transform: rotate(${rotation}deg);`}
+    >
+      {type === 'sprout' && (
+        <svg viewBox="0 0 64 64" fill="none" class="w-full h-full drop-shadow-[0_2px_8px_rgba(15,98,58,0.15)]">
+          <!-- Stem -->
+          <path
+            d="M20 54 C26 44, 32 36, 42 22"
+            stroke="#15803D"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            opacity="0.45"
+          />
+          <!-- Main leaf -->
+          <path
+            d="M42 22 C30 18, 22 28, 28 42 C40 40, 46 30, 42 22 Z"
+            fill={`url(#sprout-g1-${uid})`}
+            opacity="0.8"
+          />
+          <!-- Secondary accent leaf -->
+          <path
+            d="M32 34 C24 30, 16 38, 22 48 C32 46, 36 38, 32 34 Z"
+            fill={`url(#sprout-g2-${uid})`}
+            opacity="0.7"
+          />
+          <defs>
+            <linearGradient id={`sprout-g1-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4ADE80" />
+              <stop offset="100%" stop-color="#0F623A" />
+            </linearGradient>
+            <linearGradient id={`sprout-g2-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#86EFAC" />
+              <stop offset="100%" stop-color="#166534" />
+            </linearGradient>
+          </defs>
+        </svg>
+      )}
+
+      {type === 'leaflet' && (
+        <svg viewBox="0 0 54 54" fill="none" class="w-full h-full drop-shadow-[0_2px_6px_rgba(15,98,58,0.12)]">
+          <!-- Leaf blade -->
+          <path
+            d="M10 44 C12 28, 26 12, 44 10 C42 26, 28 42, 10 44 Z"
+            fill={`url(#leaflet-g1-${uid})`}
+            opacity="0.75"
+          />
+          <!-- Central vein -->
+          <path
+            d="M10 44 C22 34, 32 24, 44 10"
+            stroke="#166534"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            opacity="0.4"
+          />
+          <defs>
+            <linearGradient id={`leaflet-g1-${uid}`} x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#0F623A" />
+              <stop offset="60%" stop-color="#22C55E" />
+              <stop offset="100%" stop-color="#86EFAC" />
+            </linearGradient>
+          </defs>
+        </svg>
+      )}
+
+      {type === 'branch' && (
+        <svg viewBox="0 0 72 72" fill="none" class="w-full h-full drop-shadow-[0_2px_8px_rgba(15,98,58,0.14)]">
+          <!-- Stem -->
+          <path
+            d="M58 8 C46 22, 38 42, 22 62"
+            stroke="#15803D"
+            stroke-width="2"
+            stroke-linecap="round"
+            opacity="0.4"
+          />
+          <!-- Top leaf -->
+          <path
+            d="M48 22 C38 16, 32 26, 38 34 C46 32, 50 26, 48 22 Z"
+            fill={`url(#branch-g1-${uid})`}
+            opacity="0.75"
+          />
+          <!-- Middle leaf -->
+          <path
+            d="M38 36 C28 32, 24 40, 30 48 C38 46, 42 40, 38 36 Z"
+            fill={`url(#branch-g2-${uid})`}
+            opacity="0.8"
+          />
+          <!-- Tip leaf -->
+          <path
+            d="M58 8 C50 6, 46 14, 52 18 C58 18, 60 12, 58 8 Z"
+            fill={`url(#branch-g1-${uid})`}
+            opacity="0.65"
+          />
+          <defs>
+            <linearGradient id={`branch-g1-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4ADE80" />
+              <stop offset="100%" stop-color="#0F623A" />
+            </linearGradient>
+            <linearGradient id={`branch-g2-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#86EFAC" />
+              <stop offset="100%" stop-color="#15803D" />
+            </linearGradient>
+          </defs>
+        </svg>
+      )}
+    </div>
+  </div>
+</div>
+
+<style>
+  .eco-leaf-bridge {
+    animation: leafMicroFloat 8s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  @keyframes leafMicroFloat {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-8px) rotate(3deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eco-leaf-bridge {
+      animation: none;
+    }
+  }
+</style>

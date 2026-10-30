@@ -1,6 +1,7 @@
 ---
 import Container from '../layout/Container.astro';
 import HeroHeader from '../global/HeroHeader.astro';
+import SectionBackground from '../SectionBackground.astro';
 import { getHomePage } from '../../lib/sanity/client';
 
 const homePage = await getHomePage();
@@ -12,30 +13,38 @@ const hero = homePage?.hero;
 ========================= -->
 <section
   id="hero"
-  class="relative w-full bg-white select-none overflow-hidden"
+  class="relative w-full bg-white overflow-hidden flex flex-col justify-between lg:min-h-[100dvh] isolate"
 >
+  <!-- Ambient Mint Glow and Floating Bubbles -->
+  <SectionBackground
+    variant="glow"
+    glow={true}
+    glowPosition="right"
+    showBubbles={true}
+    bubbleCount={3}
+  />
+
   <!-- Top Hero Header -->
   <HeroHeader isHome={true} />
 
   <!-- Hero Content -->
-  <Container>
-    <!-- Removed the absolute positioning container so the image flows naturally -->
-    <div class="relative w-full py-8 sm:py-12 lg:py-16 flex flex-col justify-center">
+  <Container className="flex-1 flex flex-col justify-center w-full">
+    <div class="relative w-full py-8 sm:py-10 lg:py-4 xl:py-6 2xl:py-8 flex-1 flex flex-col justify-center">
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-10 2xl:gap-12 items-center">
 
         <!-- =========================
              HERO CONTENT (Left on Desktop, Top on Mobile)
         ========================= -->
-        <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
+        <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10 flex flex-col justify-center">
 
           <!-- Eyebrow Badge -->
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.18em] mb-3 sm:mb-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.18em] mb-3 sm:mb-4 w-fit">
             <span>{hero?.eyebrow || 'SUSTAINABLE IT RECYCLING'}</span>
           </div>
 
           <!-- Heading -->
-          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px] font-semibold text-slate-900 tracking-normal leading-[1.12] sm:leading-[1.1] max-w-xl">
+          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[42px] xl:text-[50px] 2xl:text-[56px] font-semibold text-slate-900 tracking-normal leading-[1.14] sm:leading-[1.12] lg:leading-[1.1] max-w-xl">
             {hero?.heading ? (
               hero.heading === 'Creating Value From Each Device' ? (
                 <>Creating Value<br class="hidden sm:inline" /> From Each Device</>
@@ -48,12 +57,12 @@ const hero = homePage?.hero;
           </h1>
 
           <!-- Description -->
-          <p class="mt-4 sm:mt-5 text-lg sm:text-xl lg:text-lg text-black max-w-lg leading-relaxed font-sans font-normal">
+          <p class="mt-3.5 sm:mt-4 lg:mt-4 xl:mt-5 text-base sm:text-lg lg:text-[16px] xl:text-[18px] text-slate-700 max-w-lg leading-relaxed font-sans font-normal">
             {hero?.description || 'Techsteps securely reuse and recycle retired IT assets, reducing waste while recovering maximum value responsibly.'}
           </p>
 
           <!-- CTA Buttons -->
-          <div class="mt-6 sm:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
+          <div class="mt-6 sm:mt-7 lg:mt-6 xl:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
             <a
               href={hero?.buttonLink || "/services"}
               class="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
@@ -75,22 +84,20 @@ const hero = homePage?.hero;
 
         <!-- =========================
              HERO IMAGE (Single Image for all screen sizes)
-             - On Mobile: Pushes below text in natural flow
-             - On Desktop: Moves to the right column
+             - On Mobile: Centered below text in natural flow
+             - On Desktop: Right column filling initial screen
         ========================= -->
-                <div class="lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end items-center w-full z-0">
-          <!-- Added inline style for the mask gradient -->
-          <div 
-            class="relative w-full max-w-[460px] lg:max-w-none lg:w-[110%] xl:w-[120%] lg:-mr-8 xl:-mr-12"
-            style="-webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%); mask-composite: intersect;"
-          >
+        <div class="lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end items-center w-full z-0 mt-6 lg:mt-0">
+          <div class="relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[460px] lg:max-w-none flex justify-center lg:justify-end items-center">
             <img
-              src={hero?.bgImageUrl || "/images/brand/hero section.webp"}
+              src="/images/brand/home-hero.png"
               alt={hero?.imageAlt || 'Techsteps sustainable IT recycling technician'}
-              class="w-full h-auto object-contain object-right mix-blend-multiply select-none mx-auto lg:ml-auto block"
+              class="w-full h-auto max-h-[360px] sm:max-h-[440px] md:max-h-[480px] lg:max-h-[min(540px,calc(100dvh-170px))] xl:max-h-[min(620px,calc(100dvh-180px))] 2xl:max-h-[min(700px,calc(100dvh-200px))] object-contain object-center lg:object-right select-none mx-auto lg:ml-auto block drop-shadow-sm"
               loading="eager"
               fetchpriority="high"
               decoding="sync"
+              width="1254"
+              height="1254"
             />
           </div>
         </div>
