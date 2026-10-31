@@ -105,23 +105,6 @@ const getInitialIllustration = (title: string, index: number): string => {
   return illustrations[index % illustrations.length];
 };
 
-const getRealImage = (title: string, currentImg: string, index: number): string => {
-  const t = (title || '').toLowerCase();
-  if (t.includes('it lifecycle') || t.includes('lifecycle')) {
-    return '/images/services/2.webp';
-  }
-  if (t.includes('information') || t.includes('archive') || t.includes('records')) {
-    return '/images/services/1.webp';
-  }
-  if (t.includes('shred') || t.includes('integrity')) {
-    return '/images/services/3.webp';
-  }
-  if (t.includes('relocation') || t.includes('mov')) {
-    return '/images/services/4.webp';
-  }
-  return currentImg || `/images/services/${(index % 4) + 1}.webp`;
-};
-
 const getHarmonizedTitle = (title: string): string => {
   const t = (title || '').toLowerCase();
   if (t.includes('lifecycle')) return 'IT Lifecycle Solutions';
@@ -161,7 +144,6 @@ const items = services
   .map((item, idx) => ({
     ...item,
     initialImage: getInitialIllustration(item.title, idx),
-    realImage: getRealImage(item.title, item.image, idx),
   }));
 
 ---
@@ -210,46 +192,23 @@ const items = services
           aria-labelledby={`service-title-${idx}`}
           role="region"
         >
-          <!-- UPPER PORTION: Image with Magical Cursor Lighting Reveal (Clickable Link to Service) -->
+          <!-- UPPER PORTION: Initial Illustration Image Only (No Box, No Borderlines) -->
           <a 
             href={item.link}
-            class="service-image-area magical-service-showcase relative w-full h-[240px] sm:h-[260px] lg:h-[270px] overflow-hidden rounded-2xl bg-transparent cursor-pointer flex items-center justify-center block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A]"
-            style="--mouse-x: -500px; --mouse-y: -500px; --brush-radius: 130px; --reveal-opacity: 0;"
+            class="service-image-area relative w-full h-[220px] sm:h-[240px] lg:h-[250px] cursor-pointer flex items-center justify-center block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A] transition-transform duration-300 group-hover:-translate-y-1"
             aria-label={`View ${item.title}`}
           >
-            <!-- 1. Base Layer: Initial Illustration Image (object-contain avoids image warping) -->
+            <!-- Show Image Only (No box frame, no borderlines) -->
             <img
               src={item.initialImage}
               alt={item.imageAlt}
-              class="service-initial-img w-full h-full object-contain object-center pointer-events-none z-10 transition-transform duration-500 group-hover:scale-105"
+              class="service-initial-img w-full h-full object-contain object-center transition-transform duration-500 ease-out group-hover:scale-105 select-none"
               loading={idx === 0 ? 'eager' : 'lazy'}
               decoding="async"
               width="600"
               height="400"
               onerror={`this.onerror=null; this.src='/images/services/hover/${idx + 1}.png';`}
             />
-
-            <!-- 2. Back Image (Real Photograph Revealed by Cursor Points Lighting) -->
-            <div
-              class="service-magic-reveal-layer absolute inset-0 w-full h-full pointer-events-none z-20 rounded-2xl overflow-hidden"
-              aria-hidden="true"
-            >
-              <img
-                src={item.realImage}
-                alt={`${item.title} - Real Service Facility & Operations`}
-                class="service-real-img absolute inset-0 w-full h-full object-cover object-center pointer-events-none rounded-2xl"
-                loading="lazy"
-                decoding="async"
-                width="600"
-                height="400"
-                onerror={`this.onerror=null; this.src='/images/services/${idx === 0 ? 2 : idx === 1 ? 1 : idx + 1}.webp';`}
-              />
-            </div>
-
-            <!-- 3. Cursor Points Lighting Overlay & Halo -->
-            <div class="magic-lighting-spotlight absolute inset-0 z-20 pointer-events-none" aria-hidden="true"></div>
-            <div class="magic-brush-rim absolute inset-0 z-20 pointer-events-none" aria-hidden="true"></div>
-
           </a>
 
           <!-- LOWER PORTION: Details directly below image (Locked alignment across all cards) -->
@@ -345,139 +304,13 @@ const items = services
     will-change: transform;
   }
 
-  /* =========================================================
-     MAGICAL CURSOR LIGHTING BRUSH REVEAL
-  ========================================================= */
-  .magical-service-showcase {
-    position: relative;
-    touch-action: pan-y;
-  }
-
-  .service-magic-reveal-layer {
-    opacity: var(--reveal-opacity, 0);
-    transition: opacity 0.3s ease;
-    mask-image: radial-gradient(
-      circle var(--brush-radius, 130px) at var(--mouse-x, -500px) var(--mouse-y, -500px),
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.95) 45%,
-      rgba(0, 0, 0, 0.35) 75%,
-      transparent 100%
-    );
-    -webkit-mask-image: radial-gradient(
-      circle var(--brush-radius, 130px) at var(--mouse-x, -500px) var(--mouse-y, -500px),
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.95) 45%,
-      rgba(0, 0, 0, 0.35) 75%,
-      transparent 100%
-    );
-    will-change: mask-image, -webkit-mask-image;
-  }
-
-  .magic-lighting-spotlight {
-    opacity: var(--reveal-opacity, 0);
-    transition: opacity 0.3s ease;
-    background: radial-gradient(
-      circle var(--brush-radius, 130px) at var(--mouse-x, -500px) var(--mouse-y, -500px),
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0.15) 45%,
-      rgba(15, 98, 58, 0.2) 70%,
-      transparent 100%
-    );
-    mix-blend-mode: overlay;
-    will-change: background;
-  }
-
-  .magic-brush-rim {
-    opacity: var(--reveal-opacity, 0);
-    transition: opacity 0.3s ease;
-    background: radial-gradient(
-      circle var(--brush-radius, 130px) at var(--mouse-x, -500px) var(--mouse-y, -500px),
-      transparent calc(var(--brush-radius, 130px) - 22px),
-      rgba(255, 255, 255, 0.5) calc(var(--brush-radius, 130px) - 4px),
-      rgba(15, 98, 58, 0.4) var(--brush-radius, 130px),
-      transparent calc(var(--brush-radius, 130px) + 10px)
-    );
-    mix-blend-mode: overlay;
-  }
-
-  .magic-hover-badge {
-    opacity: var(--reveal-opacity, 0);
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .service-item,
     .service-accent-bar,
-    .magic-hover-badge,
-    .service-magic-reveal-layer,
-    .magic-lighting-spotlight,
-    .magic-brush-rim {
+    .service-initial-img {
       transition: none !important;
       transform: none !important;
       animation: none !important;
     }
   }
 </style>
-
-<script is:inline>
-  (() => {
-    const initInteractiveServiceCards = () => {
-      const container = document.getElementById('services-interactive-grid');
-      if (!container) return;
-
-      // Magical Service Image Cursor Point Lighting Reveal
-      const showcases = Array.from(container.querySelectorAll('.magical-service-showcase'));
-      showcases.forEach((showcase) => {
-        if (showcase.dataset.init === 'true') return;
-        showcase.dataset.init = 'true';
-
-        let isInside = false;
-        let rafId = null;
-        let targetX = -500;
-        let targetY = -500;
-
-        function updateBrushPosition() {
-          if (showcase && isInside) {
-            showcase.style.setProperty('--mouse-x', `${targetX}px`);
-            showcase.style.setProperty('--mouse-y', `${targetY}px`);
-          }
-          rafId = null;
-        }
-
-        function handlePointerMove(e) {
-          if (!showcase) return;
-          const rect = showcase.getBoundingClientRect();
-          targetX = e.clientX - rect.left;
-          targetY = e.clientY - rect.top;
-
-          if (!isInside) {
-            isInside = true;
-            showcase.style.setProperty('--reveal-opacity', '1');
-          }
-
-          if (!rafId) {
-            rafId = requestAnimationFrame(updateBrushPosition);
-          }
-        }
-
-        function handlePointerLeave() {
-          if (!showcase) return;
-          isInside = false;
-          showcase.style.setProperty('--reveal-opacity', '0');
-        }
-
-        showcase.addEventListener('pointerenter', handlePointerMove);
-        showcase.addEventListener('pointermove', handlePointerMove);
-        showcase.addEventListener('pointerleave', handlePointerLeave);
-        showcase.addEventListener('pointercancel', handlePointerLeave);
-      });
-    };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initInteractiveServiceCards);
-    } else {
-      initInteractiveServiceCards();
-    }
-
-    document.addEventListener('astro:page-load', initInteractiveServiceCards);
-  })();
-</script>

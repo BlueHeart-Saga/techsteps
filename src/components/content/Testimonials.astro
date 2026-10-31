@@ -135,6 +135,14 @@ const items: TestimonialItem[] = sortedList.map((item, index) => {
   };
 });
 
+// Quadruplicate item sets to guarantee ultra-wide monitor coverage for continuous full-screen smooth scrolling
+const sliderItems = [
+  ...items.map((it, i) => ({ ...it, originalIndex: i, cloneId: `set0-${i}` })),
+  ...items.map((it, i) => ({ ...it, originalIndex: i, cloneId: `set1-${i}` })),
+  ...items.map((it, i) => ({ ...it, originalIndex: i, cloneId: `set2-${i}` })),
+  ...items.map((it, i) => ({ ...it, originalIndex: i, cloneId: `set3-${i}` })),
+];
+
 const sectionHeading = customHeading || 'What our clients say';
 const sectionDescription = customDescription || 'Discover how UK enterprises trust Techsteps for secure IT asset disposal, compliant records management, and certified data destruction.';
 
@@ -150,11 +158,11 @@ function getInitials(name: string): string {
 
 <!-- =========================================================
      CLIENT TESTIMONIALS SECTION (Clean, Minimal & Premium)
-     Matching Theme Design: Dark Green / White / Dark Green Cards with Soft Ambient Mint Glow
+     Full-Screen Smooth Auto-Scrolling Marquee with Reduced Card Widths
 ========================================================= -->
 <section
   id="client-testimonials-section"
-  class="relative bg-white pt-8 sm:pt-10 lg:pt-12 pb-12 sm:pb-14 lg:pb-16 overflow-hidden text-slate-900 border-t border-slate-200/60 isolate"
+  class="relative w-full max-w-none bg-white pt-8 sm:pt-10 lg:pt-12 pb-12 sm:pb-14 lg:pb-16 overflow-hidden text-slate-900 border-t border-slate-200/60 isolate"
   aria-labelledby="testimonials-heading"
 >
   <!-- Hero-style ambient glow & mild floating bubbles matching site theme -->
@@ -166,13 +174,9 @@ function getInitials(name: string): string {
     bubbleCount={3}
   />
 
+  <!-- 1. Header is inside Container for clean centered alignment with site layout -->
   <Container className="relative z-10">
-
-    <!-- =====================================================
-         HEADER (Clean, Centered, Matching Site Theme)
-    ====================================================== -->
-    <div class="max-w-3xl mx-auto text-center mb-7 sm:mb-8 lg:mb-10">
-      
+    <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-10 lg:mb-12">
       <!-- Main Headline -->
       <h2
         id="testimonials-heading"
@@ -188,381 +192,436 @@ function getInitials(name: string): string {
         </p>
       )}
     </div>
+  </Container>
 
-    <!-- =====================================================
-         TESTIMONIALS SLIDER / CAROUSEL
-         Compact Cards with smooth programmatic slide scrolling
-    ====================================================== -->
-    <div class="testimonials-slider-container relative w-full" id="testimonials-slider-root">
-      
-      <!-- Cards Viewport -->
+  <!-- 2. Testimonials Carousel breaks out to FULL SCREEN WIDTH (no max-w wrapping) -->
+  <div class="testimonials-fullwidth-wrapper relative w-full max-w-none overflow-hidden py-2 sm:py-3 select-none" id="testimonials-slider-root">
+    
+    <!-- Ambient Edge Fades: Soft, refined gradient mask on both screen edges -->
+    <div class="testimonials-edge-fade-left absolute left-0 top-0 bottom-0 w-8 sm:w-16 lg:w-24 bg-gradient-to-r from-white via-white/80 to-transparent z-20 pointer-events-none" aria-hidden="true"></div>
+    <div class="testimonials-edge-fade-right absolute right-0 top-0 bottom-0 w-8 sm:w-16 lg:w-24 bg-gradient-to-l from-white via-white/80 to-transparent z-20 pointer-events-none" aria-hidden="true"></div>
+
+    <!-- Viewport Wrapper (full screen width, strictly non-wrapping) -->
+    <div class="testimonials-viewport relative w-full max-w-none overflow-hidden" id="testimonials-viewport">
+      <!-- Animated Non-Wrapping Flex Track -->
       <div
-        class="testimonials-track relative flex items-stretch gap-5 sm:gap-6 lg:gap-7 overflow-x-auto py-2 pb-4 scrollbar-none snap-x snap-mandatory"
+        class="testimonials-track flex items-stretch gap-4.5 sm:gap-5.5 cursor-grab active:cursor-grabbing will-change-transform"
         id="testimonials-track"
         tabindex="0"
+        role="region"
         aria-label="Client testimonials list"
       >
-        {items.map((item, idx) => {
-          // Alternating card styling pattern:
+        {sliderItems.map((item, idx) => {
+          // Alternating card styling pattern based on original index:
           // Index 0: Dark Green
           // Index 1: Pure White
           // Index 2: Dark Green
           // Index 3: Dark Green
           // Index 4: Pure White
           // Index 5: Dark Green
-          const isWhiteCard = (idx % 3 === 1);
+          const isWhiteCard = (item.originalIndex % 3 === 1);
 
           return (
             <article
-              class={`testimonial-card-item snap-start flex-shrink-0 w-[80vw] sm:w-[320px] md:w-[330px] lg:w-[340px] xl:w-[350px] rounded-[20px] p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 ${
+              class={`testimonial-card-item flex-shrink-0 rounded-2xl p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 select-none ${
                 isWhiteCard
-                  ? 'bg-white border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]'
-                  : 'bg-gradient-to-br from-[#0A3D26] via-[#083520] to-[#052617] border border-white/10 shadow-[0_12px_30px_rgba(5,38,23,0.18)] hover:shadow-[0_18px_38px_rgba(5,38,23,0.26)] text-white'
+                  ? 'bg-white border border-slate-200/90 shadow-[0_6px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_14px_32px_rgba(0,0,0,0.08)] text-slate-900'
+                  : 'bg-gradient-to-br from-[#0A3D26] via-[#083520] to-[#052617] border border-white/10 shadow-[0_8px_24px_rgba(5,38,23,0.16)] hover:shadow-[0_16px_34px_rgba(5,38,23,0.24)] text-white'
               }`}
-              data-card-index={idx}
+              data-card-index={item.originalIndex}
+              data-clone-id={item.cloneId}
+              aria-roledescription="slide"
             >
-              <!-- TOP: Quote Icon Badge + Review Rating -->
-              <div class="flex items-center justify-between mb-4 sm:mb-4.5">
+              <!-- TOP: Quote Icon Badge + Review Rating & Verified Status -->
+              <div class="flex items-center justify-between gap-2 mb-3 sm:mb-3.5 flex-nowrap">
                 <!-- Quote Badge -->
                 <div
-                  class={`w-9 h-9 sm:w-10 sm:h-10 rounded-[12px] flex items-center justify-center shadow-xs ${
+                  class={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 shadow-xs transition-transform duration-300 ${
                     isWhiteCard
-                      ? 'bg-[#86EFAC] text-[#0A3D26]'
-                      : 'bg-[#34D399] text-[#052617]'
+                      ? 'bg-[#86EFAC]/40 text-[#0A3D26] border border-[#86EFAC]/50'
+                      : 'bg-[#34D399]/20 text-[#34D399] border border-[#34D399]/30'
                   }`}
                   aria-hidden="true"
                 >
-                  <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                   </svg>
                 </div>
 
-                <!-- 5-Star Subtle Accent -->
-                <div class="flex items-center gap-0.5 text-amber-400" aria-label="5 star rating">
-                  {[...Array(5)].map(() => (
-                    <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                <!-- 5-Star Subtle Accent + Verified Tag -->
+                <div class="flex items-center gap-1.5 shrink-0 flex-nowrap">
+                  <div class="flex items-center gap-0.5 text-amber-400 shrink-0" aria-label="5 star rating">
+                    {[...Array(5)].map(() => (
+                      <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <span
+                    class={`text-[10px] sm:text-[10.5px] font-semibold flex items-center gap-0.5 shrink-0 whitespace-nowrap ${
+                      isWhiteCard ? 'text-slate-500' : 'text-emerald-300/85'
+                    }`}
+                  >
+                    <svg class="w-3 h-3 text-[#0F623A] shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                     </svg>
-                  ))}
+                    Verified
+                  </span>
                 </div>
               </div>
 
               <!-- MIDDLE: Quote Content -->
               <blockquote
-                class={`m-0 p-0 text-[14px] sm:text-[15px] leading-relaxed font-normal mb-5 flex-1 line-clamp-4 ${
+                class={`m-0 p-0 text-[13px] sm:text-[13.5px] leading-relaxed font-normal mb-3.5 sm:mb-4 flex-1 min-h-[3.6rem] sm:min-h-[4rem] flex items-center ${
                   isWhiteCard ? 'text-slate-700' : 'text-white/95'
                 }`}
               >
                 "{item.quote}"
               </blockquote>
 
-              <!-- BOTTOM: Author Profile Details -->
-              <div class={`pt-3.5 border-t flex items-center gap-3 sm:gap-3.5 ${
+              <!-- BOTTOM: Author Profile Details + Organization -->
+              <div class={`pt-3 border-t flex items-center justify-between gap-2 ${
                 isWhiteCard ? 'border-slate-100' : 'border-white/10'
               }`}>
-                <!-- Circular Avatar with Eco Ring -->
-                <div
-                  class={`relative shrink-0 w-10 h-10 rounded-full overflow-hidden ring-2 ${
-                    isWhiteCard ? 'ring-[#0F623A]' : 'ring-[#34D399]'
-                  }`}
-                >
-                  {item.avatar ? (
-                    <img
-                      src={item.avatar}
-                      alt={item.author}
-                      class="w-full h-full object-cover"
-                      width="40"
-                      height="40"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <div
-                      class={`w-full h-full flex items-center justify-center font-bold text-xs ${
-                        isWhiteCard ? 'bg-[#EEF7F2] text-[#0F623A]' : 'bg-white/10 text-white'
-                      }`}
-                      aria-hidden="true"
-                    >
-                      {getInitials(item.author)}
-                    </div>
-                  )}
-                </div>
+                <div class="flex items-center gap-2.5 min-w-0 flex-1">
+                  <!-- Circular Avatar with Eco Ring -->
+                  <div
+                    class={`relative shrink-0 w-8.5 h-8.5 rounded-full overflow-hidden ring-2 ${
+                      isWhiteCard ? 'ring-[#0F623A]/30' : 'ring-[#34D399]/60'
+                    }`}
+                  >
+                    {item.avatar ? (
+                      <img
+                        src={item.avatar}
+                        alt={item.author}
+                        class="w-full h-full object-cover"
+                        width="34"
+                        height="34"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      <div
+                        class={`w-full h-full flex items-center justify-center font-bold text-xs ${
+                          isWhiteCard ? 'bg-[#EEF7F2] text-[#0F623A]' : 'bg-white/10 text-white'
+                        }`}
+                        aria-hidden="true"
+                      >
+                        {getInitials(item.author)}
+                      </div>
+                    )}
+                  </div>
 
-                <!-- Author Name & Job Role -->
-                <div class="min-w-0 flex-1">
-                  <h3
-                    class={`text-[14.5px] sm:text-[15px] font-semibold leading-snug tracking-tight truncate ${
-                      isWhiteCard ? 'text-slate-900 font-display' : 'text-white font-display'
-                    }`}
-                  >
-                    {item.author}
-                  </h3>
-                  <p
-                    class={`text-xs sm:text-[12.5px] leading-snug mt-0.5 truncate ${
-                      isWhiteCard ? 'text-slate-500 font-normal' : 'text-emerald-300 font-normal'
-                    }`}
-                  >
-                    {item.role}
-                  </p>
+                  <!-- Author Name & Job Role + Company -->
+                  <div class="min-w-0 flex-1">
+                    <h3
+                      class={`text-[13px] sm:text-[13.5px] font-semibold leading-snug tracking-tight truncate ${
+                        isWhiteCard ? 'text-slate-900 font-display' : 'text-white font-display'
+                      }`}
+                    >
+                      {item.author}
+                    </h3>
+                    <p
+                      class={`text-[11px] sm:text-[11.5px] leading-snug mt-0.5 truncate ${
+                        isWhiteCard ? 'text-slate-500 font-normal' : 'text-emerald-300 font-normal'
+                      }`}
+                      title={`${item.role}${item.company ? ` • ${item.company}` : ''}`}
+                    >
+                      {item.role}{item.company ? ` • ${item.company}` : ''}
+                    </p>
+                  </div>
                 </div>
               </div>
             </article>
           );
         })}
       </div>
-
-      <!-- =====================================================
-           BOTTOM CONTROLS: PREV / DOTS / NEXT
-      ====================================================== -->
-      <div class="flex items-center justify-center gap-3 sm:gap-4 mt-7 sm:mt-8">
-        <!-- Previous Card Button -->
-        <button
-          type="button"
-          id="testimonials-prev-btn"
-          aria-label="Previous testimonial"
-          class="w-10 h-10 rounded-full bg-white text-slate-700 hover:text-[#0F623A] hover:border-[#0F623A] border border-slate-200/90 shadow-xs hover:shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#0F623A] shrink-0"
-        >
-          <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-
-        <!-- Pagination Dots -->
-        <div
-          class="testimonials-pagination-dots flex items-center justify-center gap-2"
-          id="testimonials-pagination"
-          role="tablist"
-          aria-label="Testimonial slides"
-        >
-          {items.map((_, dotIdx) => (
-            <button
-              type="button"
-              class={`testimonial-dot h-2.5 rounded-full transition-all duration-300 ${
-                dotIdx === 0 ? 'bg-[#0F623A] w-7' : 'bg-slate-300 hover:bg-slate-400 w-2.5'
-              }`}
-              data-slide-index={dotIdx}
-              aria-label={`Go to testimonial ${dotIdx + 1}`}
-              aria-selected={dotIdx === 0 ? 'true' : 'false'}
-            ></button>
-          ))}
-        </div>
-
-        <!-- Next Card Button -->
-        <button
-          type="button"
-          id="testimonials-next-btn"
-          aria-label="Next testimonial"
-          class="w-10 h-10 rounded-full bg-white text-slate-700 hover:text-[#0F623A] hover:border-[#0F623A] border border-slate-200/90 shadow-xs hover:shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#0F623A] shrink-0"
-        >
-          <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
-
     </div>
-  </Container>
+
+
+  </div>
 </section>
 
 <style>
-  /* Clean horizontal scrollbar hiding for slick swiping */
-  .scrollbar-none::-webkit-scrollbar {
-    display: none;
+  .testimonials-fullwidth-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
   }
-  .scrollbar-none {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+
+  .testimonials-viewport {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 8px 0;
   }
 
   .testimonials-track {
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    gap: 18px;
+    width: max-content !important;
+    min-width: 100% !important;
+    will-change: transform;
+    align-items: stretch;
+  }
+
+  @media (min-width: 640px) {
+    .testimonials-track {
+      gap: 22px;
+    }
+  }
+
+  /* Compact, reduced-width testimonial cards that NEVER wrap */
+  .testimonial-card-item {
+    flex: 0 0 255px !important;
+    width: 255px !important;
+    min-width: 255px !important;
+    max-width: 255px !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box;
+    white-space: normal !important;
+    word-break: break-word;
+  }
+
+  @media (min-width: 640px) {
+    .testimonial-card-item {
+      flex: 0 0 275px !important;
+      width: 275px !important;
+      min-width: 275px !important;
+      max-width: 275px !important;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonial-card-item {
+      flex: 0 0 290px !important;
+      width: 290px !important;
+      min-width: 290px !important;
+      max-width: 290px !important;
+    }
   }
 </style>
 
 <script is:inline>
   (() => {
     const initTestimonialsCarousel = () => {
+      const root = document.getElementById('testimonials-slider-root');
+      const viewport = document.getElementById('testimonials-viewport');
       const track = document.getElementById('testimonials-track');
-      const dotsContainer = document.getElementById('testimonials-pagination');
       const prevBtn = document.getElementById('testimonials-prev-btn');
       const nextBtn = document.getElementById('testimonials-next-btn');
 
-      if (!track) return;
-      if (track.dataset.carouselInitialized === 'true') return;
-      track.dataset.carouselInitialized = 'true';
+      if (!track || !viewport || !root) return;
+      if (root.dataset.carouselInitialized === 'true') return;
+      root.dataset.carouselInitialized = 'true';
 
       const cards = Array.from(track.querySelectorAll('.testimonial-card-item'));
-      const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.testimonial-dot')) : [];
       if (!cards.length) return;
 
-      let currentIndex = 0;
-      let autoplayTimer = null;
-      let isProgrammaticScrolling = false;
-      let scrollDebounceTimer = null;
-      const AUTO_SCROLL_DELAY = 3800; // 3.8s per slide
+      const totalOriginal = 6;
+      let singleSetWidth = 0;
 
-      const updateDots = (activeIndex) => {
-        dots.forEach((dot, idx) => {
-          const isActive = idx === activeIndex;
-          dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
-          if (isActive) {
-            dot.classList.remove('w-2.5', 'bg-slate-300', 'hover:bg-slate-400');
-            dot.classList.add('w-7', 'bg-[#0F623A]');
+      const measureSetWidth = () => {
+        if (cards.length > totalOriginal) {
+          const firstCard = cards[0];
+          const nextSetFirstCard = cards[totalOriginal];
+          if (firstCard && nextSetFirstCard) {
+            const dist = nextSetFirstCard.getBoundingClientRect().left - firstCard.getBoundingClientRect().left;
+            if (dist > 100) return dist;
+          }
+        }
+        let w = 0;
+        const style = window.getComputedStyle(track);
+        const gap = parseFloat(style.gap || style.columnGap) || 20;
+        for (let i = 0; i < totalOriginal && i < cards.length; i++) {
+          w += cards[i].getBoundingClientRect().width + gap;
+        }
+        return w || 1800;
+      };
+
+      singleSetWidth = measureSetWidth();
+
+      let currentOffset = 0;
+      let isPaused = false;
+      let isDragging = false;
+      let dragStartX = 0;
+      let dragStartOffset = 0;
+      let hasDragged = false;
+      let nudgeAnimId = null;
+      let rafId = null;
+      let lastTimestamp = performance.now();
+
+      // Smooth auto-scroll speed: 36px per second (delta-time calculated for consistent 60Hz/120Hz/144Hz buttery motion)
+      const speedPxPerSec = 36;
+
+      const render = () => {
+        if (singleSetWidth > 0) {
+          while (currentOffset >= singleSetWidth) {
+            currentOffset -= singleSetWidth;
+          }
+          while (currentOffset < 0) {
+            currentOffset += singleSetWidth;
+          }
+        }
+        track.style.transform = `translate3d(-${currentOffset}px, 0, 0)`;
+      };
+
+      const tick = (now) => {
+        const delta = Math.min((now - lastTimestamp) / 1000, 0.1);
+        lastTimestamp = now;
+
+        if (!isPaused && !isDragging && !nudgeAnimId) {
+          currentOffset += speedPxPerSec * delta;
+          render();
+        }
+        rafId = requestAnimationFrame(tick);
+      };
+
+      rafId = requestAnimationFrame(tick);
+
+      // Smooth manual nudge for Prev and Next buttons
+      const smoothNudge = (distance) => {
+        if (nudgeAnimId) cancelAnimationFrame(nudgeAnimId);
+        const startOffset = currentOffset;
+        const startTime = performance.now();
+        const duration = 460;
+
+        const step = (now) => {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Smooth cubic ease out
+          const ease = 1 - Math.pow(1 - progress, 3);
+          currentOffset = startOffset + distance * ease;
+          render();
+
+          if (progress < 1) {
+            nudgeAnimId = requestAnimationFrame(step);
           } else {
-            dot.classList.remove('w-7', 'bg-[#0F623A]');
-            dot.classList.add('w-2.5', 'bg-slate-300', 'hover:bg-slate-400');
+            nudgeAnimId = null;
+            lastTimestamp = performance.now();
           }
-        });
+        };
+
+        nudgeAnimId = requestAnimationFrame(step);
       };
 
-      const scrollToIndex = (index, smooth = true) => {
-        const totalCards = cards.length;
-        const maxScroll = track.scrollWidth - track.clientWidth;
-
-        if (maxScroll <= 0) return;
-
-        // Wrap around seamlessly
-        let targetIndex = index;
-        if (targetIndex >= totalCards) {
-          targetIndex = 0;
-        } else if (targetIndex < 0) {
-          targetIndex = totalCards - 1;
-        }
-
-        currentIndex = targetIndex;
-        const targetCard = cards[currentIndex];
-
-        if (targetCard) {
-          isProgrammaticScrolling = true;
-
-          // Compute exact target left relative to the track
-          let targetLeft = targetCard.offsetLeft;
-          if (targetLeft > maxScroll) {
-            targetLeft = maxScroll;
-          }
-          if (targetLeft < 0) {
-            targetLeft = 0;
-          }
-
-          track.scrollTo({
-            left: targetLeft,
-            behavior: smooth ? 'smooth' : 'auto',
-          });
-
-          // Reset programmatic scrolling flag once the scroll transition settles
-          setTimeout(() => {
-            isProgrammaticScrolling = false;
-          }, 500);
-        }
-
-        updateDots(currentIndex);
+      const getCardStep = () => {
+        const firstCard = cards[0];
+        if (!firstCard) return 310;
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 20;
+        return firstCard.getBoundingClientRect().width + gap;
       };
 
-      const goToNext = () => {
-        const maxScroll = track.scrollWidth - track.clientWidth;
-        // If at the end of the scroll track or on the last card, smoothly wrap to start
-        if (track.scrollLeft >= maxScroll - 25 || currentIndex >= cards.length - 1) {
-          scrollToIndex(0);
-        } else {
-          scrollToIndex(currentIndex + 1);
-        }
-      };
-
-      const goToPrev = () => {
-        const maxScroll = track.scrollWidth - track.clientWidth;
-        // If at the beginning, wrap to the end
-        if (track.scrollLeft <= 25 || currentIndex <= 0) {
-          scrollToIndex(cards.length - 1);
-        } else {
-          scrollToIndex(currentIndex - 1);
-        }
-      };
-
-      // Button listeners
       if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-          goToPrev();
-          resetAutoplay();
+        prevBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          smoothNudge(-getCardStep());
         });
       }
 
       if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-          goToNext();
-          resetAutoplay();
+        nextBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          smoothNudge(getCardStep());
         });
       }
 
-      // Dot click handling
-      dots.forEach((dot, idx) => {
-        dot.addEventListener('click', () => {
-          scrollToIndex(idx);
-          resetAutoplay();
-        });
+      // Hover to pause with smooth timestamp recovery (zero jump when mouse exits)
+      root.addEventListener('mouseenter', () => { isPaused = true; });
+      root.addEventListener('mouseleave', () => {
+        isPaused = false;
+        lastTimestamp = performance.now();
+      });
+      root.addEventListener('focusin', () => { isPaused = true; });
+      root.addEventListener('focusout', () => {
+        isPaused = false;
+        lastTimestamp = performance.now();
       });
 
-      // Synchronize active dot when user manually swipes/scrolls
-      track.addEventListener('scroll', () => {
-        if (isProgrammaticScrolling) return;
-
-        if (scrollDebounceTimer) clearTimeout(scrollDebounceTimer);
-        scrollDebounceTimer = setTimeout(() => {
-          const currentScroll = track.scrollLeft;
-          let closestIndex = 0;
-          let minDiff = Infinity;
-
-          cards.forEach((card, idx) => {
-            const diff = Math.abs(card.offsetLeft - currentScroll);
-            if (diff < minDiff) {
-              minDiff = diff;
-              closestIndex = idx;
-            }
-          });
-
-          currentIndex = closestIndex;
-          updateDots(currentIndex);
-        }, 80);
-      }, { passive: true });
-
-      // Autoplay engine
-      const startAutoplay = () => {
-        stopAutoplay();
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-        autoplayTimer = setInterval(() => {
-          goToNext();
-        }, AUTO_SCROLL_DELAY);
+      // Touch & Pointer Drag
+      const onPointerDown = (clientX) => {
+        if (nudgeAnimId) {
+          cancelAnimationFrame(nudgeAnimId);
+          nudgeAnimId = null;
+        }
+        isDragging = true;
+        hasDragged = false;
+        dragStartX = clientX;
+        dragStartOffset = currentOffset;
       };
 
-      const stopAutoplay = () => {
-        if (autoplayTimer) {
-          clearInterval(autoplayTimer);
-          autoplayTimer = null;
+      const onPointerMove = (clientX) => {
+        if (!isDragging) return;
+        const deltaX = clientX - dragStartX;
+        if (Math.abs(deltaX) > 5) {
+          hasDragged = true;
+        }
+        currentOffset = dragStartOffset - deltaX;
+        render();
+      };
+
+      const onPointerUp = () => {
+        if (isDragging) {
+          isDragging = false;
+          lastTimestamp = performance.now();
         }
       };
 
-      const resetAutoplay = () => {
-        stopAutoplay();
-        startAutoplay();
-      };
+      viewport.addEventListener('mousedown', (e) => {
+        onPointerDown(e.clientX);
+      });
 
-      // Hover, focus, and touch pause
-      track.addEventListener('mouseenter', stopAutoplay);
-      track.addEventListener('mouseleave', startAutoplay);
-      track.addEventListener('focusin', stopAutoplay);
-      track.addEventListener('focusout', startAutoplay);
-      track.addEventListener('touchstart', stopAutoplay, { passive: true });
-      track.addEventListener('touchend', resetAutoplay, { passive: true });
+      window.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+          onPointerMove(e.clientX);
+        }
+      });
 
-      // Clean up when Astro transitions pages
+      window.addEventListener('mouseup', () => {
+        if (isDragging) {
+          onPointerUp();
+        }
+      });
+
+      viewport.addEventListener('touchstart', (e) => {
+        onPointerDown(e.touches[0].clientX);
+      }, { passive: true });
+
+      viewport.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+          onPointerMove(e.touches[0].clientX);
+        }
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', () => {
+        if (isDragging) {
+          onPointerUp();
+        }
+      }, { passive: true });
+
+      track.addEventListener('click', (e) => {
+        if (hasDragged) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
+
+      // Window resize re-measuring
+      window.addEventListener('resize', () => {
+        singleSetWidth = measureSetWidth();
+        render();
+      });
+
+      // Cleanup on Astro swap
       document.addEventListener('astro:before-swap', () => {
-        stopAutoplay();
-        if (track) track.removeAttribute('data-carousel-initialized');
+        if (rafId) cancelAnimationFrame(rafId);
+        if (nudgeAnimId) cancelAnimationFrame(nudgeAnimId);
+        root.removeAttribute('data-carousel-initialized');
       }, { once: true });
-
-      // Start auto scroll
-      startAutoplay();
     };
 
     if (document.readyState === 'loading') {

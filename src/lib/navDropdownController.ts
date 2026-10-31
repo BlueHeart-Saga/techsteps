@@ -176,9 +176,27 @@ function updateBackdrop() {
   if (!backdrop) return;
 
   if (activeMenuId) {
+    const heroHeader = document.getElementById('hero-header');
+    const scrolledHeader = document.getElementById('site-header');
+    const scrolledHeaderActive = scrolledHeader && !scrolledHeader.classList.contains('-translate-y-full');
+
+    if (scrolledHeaderActive && scrolledHeader) {
+      const floatingBar = scrolledHeader.querySelector('.max-w-\\[1240px\\]') || scrolledHeader;
+      const rect = floatingBar.getBoundingClientRect();
+      const topOffset = Math.max(0, Math.round(rect.bottom));
+      backdrop.style.top = `${topOffset}px`;
+    } else if (heroHeader) {
+      const rect = heroHeader.getBoundingClientRect();
+      const topOffset = Math.max(0, Math.round(rect.bottom));
+      backdrop.style.top = `${topOffset}px`;
+    } else {
+      backdrop.style.top = '0px';
+    }
+
     backdrop.classList.add('active');
   } else {
     backdrop.classList.remove('active');
+    backdrop.style.top = '';
   }
 }
 
@@ -560,6 +578,7 @@ export function initNavDropdowns() {
   const onWindowUpdate = () => {
     if (activeMenuId) {
       updatePositionForMenu(activeMenuId);
+      updateBackdrop();
     }
   };
   window.addEventListener('resize', onWindowUpdate, { passive: true });

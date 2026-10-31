@@ -154,22 +154,22 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 
 <div
   id="sector-carousel-root"
-  class="relative w-full max-w-[1440px] mx-auto py-4"
+  class="relative w-full max-w-[1440px] mx-auto py-2 sm:py-3"
   data-total={sectorItems.length}
   aria-roledescription="carousel"
   aria-label="Sectors We Serve Carousel"
 >
   <!-- Carousel Stage Wrapper -->
-  <div class="relative w-full flex items-center justify-center overflow-hidden py-6 sm:py-8">
+  <div class="relative w-full flex items-center justify-center overflow-hidden py-4 sm:py-6">
 
     <!-- Left Navigation Arrow -->
     <button
       type="button"
       id="sector-carousel-prev"
-      class="sector-carousel-nav-btn absolute left-2 sm:left-4 lg:left-6 xl:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.08)] text-[#0F623A] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:border-[#3FB33D] hover:bg-[#0F623A] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#0F623A] cursor-pointer group"
+      class="sector-carousel-nav-btn absolute left-2 sm:left-4 lg:left-6 xl:left-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.08)] text-[#0F623A] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:border-[#3FB33D] hover:bg-[#0F623A] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#0F623A] cursor-pointer group"
       aria-label="Previous Sector"
     >
-      <svg class="w-5 h-5 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <svg class="w-4.5 h-4.5 sm:w-5 sm:h-5 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
       </svg>
     </button>
@@ -178,10 +178,10 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     <button
       type="button"
       id="sector-carousel-next"
-      class="sector-carousel-nav-btn absolute right-2 sm:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.08)] text-[#0F623A] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:border-[#3FB33D] hover:bg-[#0F623A] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#0F623A] cursor-pointer group"
+      class="sector-carousel-nav-btn absolute right-2 sm:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.08)] text-[#0F623A] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:border-[#3FB33D] hover:bg-[#0F623A] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#0F623A] cursor-pointer group"
       aria-label="Next Sector"
     >
-      <svg class="w-5 h-5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <svg class="w-4.5 h-4.5 sm:w-5 sm:h-5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
       </svg>
     </button>
@@ -189,7 +189,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     <!-- Carousel 3D Cards Stage -->
     <div
       id="sector-carousel-stage"
-      class="sector-carousel-stage carousel-entering relative w-full h-[390px] sm:h-[415px] lg:h-[435px] xl:h-[450px] flex items-center justify-center"
+      class="sector-carousel-stage carousel-entering relative w-full h-[340px] sm:h-[360px] lg:h-[375px] xl:h-[390px] flex items-center justify-center"
     >
       {sectorItems.map((item, idx) => (
         <article
@@ -204,7 +204,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
         >
           <a
             href={`/sectors/${item.slug}`}
-            class="sector-card-inner relative w-full h-full bg-white rounded-[16px] p-3.5 sm:p-4 flex flex-col border border-slate-200/90 overflow-hidden text-left no-underline block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A] focus-visible:ring-offset-2"
+            class="sector-card-inner relative w-full h-full bg-white rounded-[16px] p-3 sm:p-3.5 flex flex-col border border-slate-200/90 overflow-hidden text-left no-underline block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F623A] focus-visible:ring-offset-2"
             tabindex={idx === 0 ? "0" : "-1"}
             aria-label={`Explore ${item.title}`}
           >
@@ -226,10 +226,10 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
             </div>
 
             <!-- Content Area -->
-            <div class="sector-card-content shrink-0 pt-2.5">
+            <div class="sector-card-content shrink-0 pt-2 sm:pt-2.5">
 
               <!-- Sector Title -->
-              <h3 class="sector-card-title text-[16.5px] sm:text-[18px] font-semibold font-display text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors line-clamp-2">
+              <h3 class="sector-card-title text-[15px] sm:text-[16.5px] font-semibold font-display text-slate-900 tracking-tight leading-snug group-hover:text-[#0F623A] transition-colors line-clamp-2">
                 {item.title}
               </h3>
 
@@ -244,15 +244,15 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 
                   <!-- Bottom Action CTA -->
                   <div class="sector-card-action pt-2 mt-2 border-t border-slate-100 flex items-center justify-between">
-                    <span class="sector-card-cta-label text-xs font-bold text-[#0F623A] tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors">
+                    <span class="sector-card-cta-label text-[11px] sm:text-xs font-bold text-[#0F623A] tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors">
                       <span>Explore Sector</span>
                     </span>
 
                     <span
-                      class="sector-card-arrow-btn w-7.5 h-7.5 rounded-full bg-white border border-[#0F623A]/35 text-[#0F623A] flex items-center justify-center shadow-xs transition-all duration-300"
+                      class="sector-card-arrow-btn w-6.5 h-6.5 sm:w-7 sm:h-7 rounded-full bg-white border border-[#0F623A]/35 text-[#0F623A] flex items-center justify-center shadow-xs transition-all duration-300"
                       aria-hidden="true"
                     >
-                      <svg class="w-3.5 h-3.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
                     </span>
@@ -269,7 +269,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 
   <!-- Pagination Indicators -->
   <div
-    class="sector-carousel-dots flex items-center justify-center gap-2 mt-4 sm:mt-6"
+    class="sector-carousel-dots flex items-center justify-center gap-2 mt-3 sm:mt-4"
     role="tablist"
     aria-label="Sectors carousel navigation"
   >
@@ -309,9 +309,9 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 78vw;
-    max-width: 290px;
-    height: 350px;
+    width: 72vw;
+    max-width: 255px;
+    height: 310px;
     will-change: transform, opacity;
 
     transition:
@@ -325,22 +325,22 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 
   @media (min-width: 640px) {
     .sector-carousel-card {
-      max-width: 305px;
-      height: 370px;
+      max-width: 265px;
+      height: 325px;
     }
   }
 
   @media (min-width: 1024px) {
     .sector-carousel-card {
-      max-width: 315px;
-      height: 385px;
+      max-width: 275px;
+      height: 335px;
     }
   }
 
   @media (min-width: 1280px) {
     .sector-carousel-card {
-      max-width: 330px;
-      height: 395px;
+      max-width: 290px;
+      height: 345px;
     }
   }
 
@@ -351,7 +351,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
   .sector-card-inner {
     display: flex;
     flex-direction: column;
-    padding: 14px;
+    padding: 12px;
 
     box-shadow:
       0 10px 25px -5px rgba(0, 0, 0, 0.05),
@@ -478,7 +478,7 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 
     /* Center Active */
     .sector-carousel-card[data-pos="0"] {
-      transform: translate3d(-50%, -53%, 0) scale(1.06);
+      transform: translate3d(-50%, -53%, 0) scale(1.05);
       z-index: 30;
       opacity: 1;
       cursor: default;
@@ -493,133 +493,53 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
 
     /* Immediate Right */
     .sector-carousel-card[data-pos="1"] {
-      transform: translate3d(calc(-50% + 255px), -48%, 0) scale(0.9);
+      transform: translate3d(calc(-50% + 225px), -48%, 0) scale(0.9);
       z-index: 20;
       opacity: 0.85;
     }
 
     .sector-carousel-card[data-pos="1"]:hover {
       opacity: 0.98;
-      transform: translate3d(calc(-50% + 255px), -50%, 0) scale(0.92);
+      transform: translate3d(calc(-50% + 225px), -50%, 0) scale(0.92);
     }
 
     /* Immediate Left */
     .sector-carousel-card[data-pos="-1"] {
-      transform: translate3d(calc(-50% - 255px), -48%, 0) scale(0.9);
+      transform: translate3d(calc(-50% - 225px), -48%, 0) scale(0.9);
       z-index: 20;
       opacity: 0.85;
     }
 
     .sector-carousel-card[data-pos="-1"]:hover {
       opacity: 0.98;
-      transform: translate3d(calc(-50% - 255px), -50%, 0) scale(0.92);
+      transform: translate3d(calc(-50% - 225px), -50%, 0) scale(0.92);
     }
 
     /* Far Right */
     .sector-carousel-card[data-pos="2"] {
-      transform: translate3d(calc(-50% + 465px), -46%, 0) scale(0.78);
+      transform: translate3d(calc(-50% + 410px), -46%, 0) scale(0.78);
       z-index: 10;
       opacity: 0.52;
     }
 
     .sector-carousel-card[data-pos="2"]:hover {
       opacity: 0.82;
-      transform: translate3d(calc(-50% + 465px), -48%, 0) scale(0.81);
+      transform: translate3d(calc(-50% + 410px), -48%, 0) scale(0.81);
     }
 
     /* Far Left */
     .sector-carousel-card[data-pos="-2"] {
-      transform: translate3d(calc(-50% - 465px), -46%, 0) scale(0.78);
+      transform: translate3d(calc(-50% - 410px), -46%, 0) scale(0.78);
       z-index: 10;
       opacity: 0.52;
     }
 
     .sector-carousel-card[data-pos="-2"]:hover {
       opacity: 0.82;
-      transform: translate3d(calc(-50% - 465px), -48%, 0) scale(0.81);
+      transform: translate3d(calc(-50% - 410px), -48%, 0) scale(0.81);
     }
 
     /* Hidden Cards */
-    .sector-carousel-card[data-pos="hidden-right"] {
-      transform: translate3d(calc(-50% + 630px), -45%, 0) scale(0.65);
-      z-index: 1;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .sector-carousel-card[data-pos="hidden-left"] {
-      transform: translate3d(calc(-50% - 630px), -45%, 0) scale(0.65);
-      z-index: 1;
-      opacity: 0;
-      pointer-events: none;
-    }
-  }
-
-  /* ========================================================
-     LARGE DESKTOP
-     1024px - 1279px
-     ======================================================== */
-
-  @media (min-width: 1024px) and (max-width: 1279px) {
-
-    .sector-carousel-card[data-pos="0"] {
-      transform: translate3d(-50%, -53%, 0) scale(1.05);
-      z-index: 30;
-      opacity: 1;
-      cursor: default;
-    }
-
-    .sector-carousel-card[data-pos="0"] .sector-card-inner {
-      border-color: rgba(15, 98, 58, 0.28);
-      box-shadow:
-        0 25px 60px -15px rgba(15, 98, 58, 0.22),
-        0 8px 24px -4px rgba(0, 0, 0, 0.06);
-    }
-
-    .sector-carousel-card[data-pos="1"] {
-      transform: translate3d(calc(-50% + 225px), -48%, 0) scale(0.88);
-      z-index: 20;
-      opacity: 0.85;
-    }
-
-    .sector-carousel-card[data-pos="1"]:hover {
-      opacity: 0.98;
-      transform: translate3d(calc(-50% + 225px), -50%, 0) scale(0.91);
-    }
-
-    .sector-carousel-card[data-pos="-1"] {
-      transform: translate3d(calc(-50% - 225px), -48%, 0) scale(0.88);
-      z-index: 20;
-      opacity: 0.85;
-    }
-
-    .sector-carousel-card[data-pos="-1"]:hover {
-      opacity: 0.98;
-      transform: translate3d(calc(-50% - 225px), -50%, 0) scale(0.91);
-    }
-
-    .sector-carousel-card[data-pos="2"] {
-      transform: translate3d(calc(-50% + 410px), -46%, 0) scale(0.76);
-      z-index: 10;
-      opacity: 0.52;
-    }
-
-    .sector-carousel-card[data-pos="2"]:hover {
-      opacity: 0.82;
-      transform: translate3d(calc(-50% + 410px), -48%, 0) scale(0.79);
-    }
-
-    .sector-carousel-card[data-pos="-2"] {
-      transform: translate3d(calc(-50% - 410px), -46%, 0) scale(0.76);
-      z-index: 10;
-      opacity: 0.52;
-    }
-
-    .sector-carousel-card[data-pos="-2"]:hover {
-      opacity: 0.82;
-      transform: translate3d(calc(-50% - 410px), -48%, 0) scale(0.79);
-    }
-
     .sector-carousel-card[data-pos="hidden-right"] {
       transform: translate3d(calc(-50% + 560px), -45%, 0) scale(0.65);
       z-index: 1;
@@ -636,14 +556,14 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
   }
 
   /* ========================================================
-     TABLET
-     768px - 1023px
+     LARGE DESKTOP
+     1024px - 1279px
      ======================================================== */
 
-  @media (min-width: 768px) and (max-width: 1023px) {
+  @media (min-width: 1024px) and (max-width: 1279px) {
 
     .sector-carousel-card[data-pos="0"] {
-      transform: translate3d(-50%, -52%, 0) scale(1.04);
+      transform: translate3d(-50%, -53%, 0) scale(1.04);
       z-index: 30;
       opacity: 1;
       cursor: default;
@@ -657,25 +577,105 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     }
 
     .sector-carousel-card[data-pos="1"] {
-      transform: translate3d(calc(-50% + 205px), -48%, 0) scale(0.86);
+      transform: translate3d(calc(-50% + 198px), -48%, 0) scale(0.88);
+      z-index: 20;
+      opacity: 0.85;
+    }
+
+    .sector-carousel-card[data-pos="1"]:hover {
+      opacity: 0.98;
+      transform: translate3d(calc(-50% + 198px), -50%, 0) scale(0.91);
+    }
+
+    .sector-carousel-card[data-pos="-1"] {
+      transform: translate3d(calc(-50% - 198px), -48%, 0) scale(0.88);
+      z-index: 20;
+      opacity: 0.85;
+    }
+
+    .sector-carousel-card[data-pos="-1"]:hover {
+      opacity: 0.98;
+      transform: translate3d(calc(-50% - 198px), -50%, 0) scale(0.91);
+    }
+
+    .sector-carousel-card[data-pos="2"] {
+      transform: translate3d(calc(-50% + 360px), -46%, 0) scale(0.76);
+      z-index: 10;
+      opacity: 0.52;
+    }
+
+    .sector-carousel-card[data-pos="2"]:hover {
+      opacity: 0.82;
+      transform: translate3d(calc(-50% + 360px), -48%, 0) scale(0.79);
+    }
+
+    .sector-carousel-card[data-pos="-2"] {
+      transform: translate3d(calc(-50% - 360px), -46%, 0) scale(0.76);
+      z-index: 10;
+      opacity: 0.52;
+    }
+
+    .sector-carousel-card[data-pos="-2"]:hover {
+      opacity: 0.82;
+      transform: translate3d(calc(-50% - 360px), -48%, 0) scale(0.79);
+    }
+
+    .sector-carousel-card[data-pos="hidden-right"] {
+      transform: translate3d(calc(-50% + 490px), -45%, 0) scale(0.65);
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .sector-carousel-card[data-pos="hidden-left"] {
+      transform: translate3d(calc(-50% - 490px), -45%, 0) scale(0.65);
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* ========================================================
+     TABLET
+     768px - 1023px
+     ======================================================== */
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+
+    .sector-carousel-card[data-pos="0"] {
+      transform: translate3d(-50%, -52%, 0) scale(1.03);
+      z-index: 30;
+      opacity: 1;
+      cursor: default;
+    }
+
+    .sector-carousel-card[data-pos="0"] .sector-card-inner {
+      border-color: rgba(15, 98, 58, 0.28);
+      box-shadow:
+        0 25px 60px -15px rgba(15, 98, 58, 0.22),
+        0 8px 24px -4px rgba(0, 0, 0, 0.06);
+    }
+
+    .sector-carousel-card[data-pos="1"] {
+      transform: translate3d(calc(-50% + 180px), -48%, 0) scale(0.86);
       z-index: 20;
       opacity: 0.78;
     }
 
     .sector-carousel-card[data-pos="1"]:hover {
       opacity: 0.95;
-      transform: translate3d(calc(-50% + 205px), -50%, 0) scale(0.89);
+      transform: translate3d(calc(-50% + 180px), -50%, 0) scale(0.89);
     }
 
     .sector-carousel-card[data-pos="-1"] {
-      transform: translate3d(calc(-50% - 205px), -48%, 0) scale(0.86);
+      transform: translate3d(calc(-50% - 180px), -48%, 0) scale(0.86);
       z-index: 20;
       opacity: 0.78;
     }
 
     .sector-carousel-card[data-pos="-1"]:hover {
       opacity: 0.95;
-      transform: translate3d(calc(-50% - 205px), -50%, 0) scale(0.89);
+      transform: translate3d(calc(-50% - 180px), -50%, 0) scale(0.89);
     }
 
     .sector-carousel-card[data-pos="2"],
@@ -710,13 +710,13 @@ const sectorItems: SectorItem[] = (sectors && sectors.length > 0)
     }
 
     .sector-carousel-card[data-pos="1"] {
-      transform: translate3d(calc(-50% + 78vw), -50%, 0) scale(0.88);
+      transform: translate3d(calc(-50% + 72vw), -50%, 0) scale(0.88);
       z-index: 15;
       opacity: 0.45;
     }
 
     .sector-carousel-card[data-pos="-1"] {
-      transform: translate3d(calc(-50% - 78vw), -50%, 0) scale(0.88);
+      transform: translate3d(calc(-50% - 72vw), -50%, 0) scale(0.88);
       z-index: 15;
       opacity: 0.45;
     }
