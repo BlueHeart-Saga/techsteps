@@ -108,13 +108,13 @@ const navItems = [
           if (item.type === 'services') {
             const isCollection =
               currentPath.startsWith('/services/collection') ||
-              currentPath === '/av-media-equipment-collection' ||
-              currentPath === '/computer-collection' ||
-              currentPath === '/laptop-collection' ||
-              currentPath === '/mobile-device-collection' ||
-              currentPath === '/monitor-screen-collection' ||
-              currentPath === '/printer-copier-collection' ||
-              currentPath === '/server-collection';
+              currentPath.startsWith('/av-media-equipment-collection') ||
+              currentPath.startsWith('/computer-collection') ||
+              currentPath.startsWith('/laptop-collection') ||
+              currentPath.startsWith('/mobile-device-collection') ||
+              currentPath.startsWith('/monitor-screen-collection') ||
+              currentPath.startsWith('/printer-copier-collection') ||
+              currentPath.startsWith('/server-collection');
 
             const isActive =
               (!isCollection && currentPath.startsWith('/services')) ||
@@ -147,13 +147,13 @@ const navItems = [
               currentPath.startsWith('/services/collection') ||
               currentPath.startsWith('/collection') ||
               currentPath === '/book-pickup' ||
-              currentPath === '/av-media-equipment-collection' ||
-              currentPath === '/computer-collection' ||
-              currentPath === '/laptop-collection' ||
-              currentPath === '/mobile-device-collection' ||
-              currentPath === '/monitor-screen-collection' ||
-              currentPath === '/printer-copier-collection' ||
-              currentPath === '/server-collection';
+              currentPath.startsWith('/av-media-equipment-collection') ||
+              currentPath.startsWith('/computer-collection') ||
+              currentPath.startsWith('/laptop-collection') ||
+              currentPath.startsWith('/mobile-device-collection') ||
+              currentPath.startsWith('/monitor-screen-collection') ||
+              currentPath.startsWith('/printer-copier-collection') ||
+              currentPath.startsWith('/server-collection');
 
             return (
               <a

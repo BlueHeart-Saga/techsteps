@@ -18,13 +18,13 @@ const isFreeCollectionActive =
   cleanPath.startsWith('/services/collection') ||
   cleanPath.startsWith('/collection') ||
   cleanPath === '/book-pickup' ||
-  cleanPath === '/av-media-equipment-collection' ||
-  cleanPath === '/computer-collection' ||
-  cleanPath === '/laptop-collection' ||
-  cleanPath === '/mobile-device-collection' ||
-  cleanPath === '/monitor-screen-collection' ||
-  cleanPath === '/printer-copier-collection' ||
-  cleanPath === '/server-collection';
+  cleanPath.startsWith('/av-media-equipment-collection') ||
+  cleanPath.startsWith('/computer-collection') ||
+  cleanPath.startsWith('/laptop-collection') ||
+  cleanPath.startsWith('/mobile-device-collection') ||
+  cleanPath.startsWith('/monitor-screen-collection') ||
+  cleanPath.startsWith('/printer-copier-collection') ||
+  cleanPath.startsWith('/server-collection');
 
 const isServicesActive =
   (!isFreeCollectionActive && cleanPath.startsWith('/services')) ||

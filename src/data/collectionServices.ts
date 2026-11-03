@@ -71,7 +71,7 @@ export interface CollectionServiceData {
 export const collectionServices: Record<string, CollectionServiceData> = {
   'av-media-equipment-collection': {
     slug: 'av-media-equipment-collection',
-    route: '/av-media-equipment-collection',
+    route: '/av-media-equipment-collection-services',
     navTitle: 'AV & Media Equipment Collection',
     title: 'AV & Media Equipment Collection',
     h1: 'Commercial AV & Media Equipment Collection Services',
@@ -239,7 +239,7 @@ export const collectionServices: Record<string, CollectionServiceData> = {
 
   'computer-collection': {
       "slug": "computer-collection",
-      "route": "/computer-collection",
+      "route": "/computer-collection-services",
       "navTitle": "Computer Collection",
       "title": "Computer Collection",
       "h1": "Computer Collection Services UK",
@@ -402,7 +402,7 @@ export const collectionServices: Record<string, CollectionServiceData> = {
 
   'laptop-collection': {
       "slug": "laptop-collection",
-      "route": "/laptop-collection",
+      "route": "/laptop-collection-services",
       "navTitle": "Laptop Collection",
       "title": "Laptop Collection",
       "h1": "Laptop Collection Services UK",
@@ -565,7 +565,7 @@ export const collectionServices: Record<string, CollectionServiceData> = {
 
   'mobile-device-collection': {
       "slug": "mobile-device-collection",
-      "route": "/mobile-device-collection",
+      "route": "/mobile-device-collection-services",
       "navTitle": "Mobile Device Collection",
       "title": "Mobile Device Collection",
       "h1": "Business Mobile and Tablet Collection Services UK",
@@ -728,7 +728,7 @@ export const collectionServices: Record<string, CollectionServiceData> = {
 
   'monitor-screen-collection': {
       "slug": "monitor-screen-collection",
-      "route": "/monitor-screen-collection",
+      "route": "/monitor-screen-collection-services",
       "navTitle": "Monitor & Screen Collection",
       "title": "Monitor & Screen Collection",
       "h1": "Monitor Collection Services UK: Safe Collection for Business Monitors",
@@ -891,7 +891,7 @@ export const collectionServices: Record<string, CollectionServiceData> = {
 
   'printer-copier-collection': {
       "slug": "printer-copier-collection",
-      "route": "/printer-copier-collection",
+      "route": "/printer-copier-collection-services",
       "navTitle": "Printer & Copier Collection",
       "title": "Printer & Copier Collection",
       "h1": "Printer Collection Services UK",
@@ -1054,7 +1054,7 @@ export const collectionServices: Record<string, CollectionServiceData> = {
 
   'server-collection': {
     slug: 'server-collection',
-    route: '/server-collection',
+    route: '/server-collection-services',
     navTitle: 'Server Collection',
     title: 'Server Collection',
     h1: 'Server Collection UK: Secure Collection for Enterprise Servers',

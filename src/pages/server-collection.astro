@@ -1,8 +1,3 @@
 ---
-import CollectionPageLayout from '../components/collection/CollectionPageLayout.astro';
-import { collectionServices } from '../data/collectionServices';
-
-const data = collectionServices['server-collection'];
+return Astro.redirect('/server-collection-services', 301);
 ---
-
-<CollectionPageLayout data={data} />

@@ -1,0 +1,8 @@
+---
+import CollectionPageLayout from '../components/collection/CollectionPageLayout.astro';
+import { collectionServices } from '../data/collectionServices';
+
+const data = collectionServices['av-media-equipment-collection'];
+---
+
+<CollectionPageLayout data={data} />

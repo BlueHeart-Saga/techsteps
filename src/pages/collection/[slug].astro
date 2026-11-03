@@ -3,10 +3,14 @@ import CollectionPageLayout from '../../components/collection/CollectionPageLayo
 import { collectionServices } from '../../data/collectionServices';
 
 export function getStaticPaths() {
-  return Object.keys(collectionServices).map((slug) => ({
-    params: { slug },
-    props: { data: collectionServices[slug] },
-  }));
+  const paths = [];
+  for (const [key, data] of Object.entries(collectionServices)) {
+    paths.push({ params: { slug: key }, props: { data } });
+    if (!key.endsWith('-services')) {
+      paths.push({ params: { slug: `${key}-services` }, props: { data } });
+    }
+  }
+  return paths;
 }
 
 const { data } = Astro.props;

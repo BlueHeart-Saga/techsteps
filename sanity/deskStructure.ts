@@ -200,7 +200,15 @@ export const deskStructure: StructureResolver = (S) =>
             .title('Services Main Page')
         ),
       S.documentTypeListItem('division').title('Operational Divisions (4)'),
-      S.documentTypeListItem('service').title('Certified Services (27)'),
+      S.documentTypeListItem('service').title('Certified Services & Collection (38)'),
+      S.listItem()
+        .title('IT Hardware Collection Pages (10)')
+        .id('collectionServicesQuick')
+        .child(
+          S.documentList()
+            .title('IT Collection Services & Equipment Pages')
+            .filter('_type == "service" && slug.current in ["computer-collection", "laptop-collection", "server-collection", "mobile-device-collection", "monitor-screen-collection", "printer-copier-collection", "av-media-equipment-collection", "all-equipement", "book-pickup", "collection-overview"]')
+        ),
 
       S.divider(),
 

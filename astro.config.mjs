@@ -67,6 +67,14 @@ export default defineConfig({
           '/insights/case-studies',
           '/sitemap.xml',
           '/sitemap-index.xml',
+          // Exclude legacy collection URLs since /...-services are canonical
+          '/av-media-equipment-collection',
+          '/computer-collection',
+          '/laptop-collection',
+          '/mobile-device-collection',
+          '/monitor-screen-collection',
+          '/printer-copier-collection',
+          '/server-collection',
           // Exclude single-level division aliases under /services/ (canonical division hubs are at root /information-management etc.)
           '/services/information-management',
           '/services/it-lifecycle',
@@ -191,13 +199,13 @@ export default defineConfig({
           path === '/it-lifecycle-services-destruction' ||
           path === '/secure-shredding-document-integrity' ||
           path === '/moving-relocation-services' ||
-          path === '/av-media-equipment-collection' ||
-          path === '/computer-collection' ||
-          path === '/laptop-collection' ||
-          path === '/mobile-device-collection' ||
-          path === '/monitor-screen-collection' ||
-          path === '/printer-copier-collection' ||
-          path === '/server-collection'
+          path === '/av-media-equipment-collection-services' ||
+          path === '/computer-collection-services' ||
+          path === '/laptop-collection-services' ||
+          path === '/mobile-device-collection-services' ||
+          path === '/monitor-screen-collection-services' ||
+          path === '/printer-copier-collection-services' ||
+          path === '/server-collection-services'
         ) {
           item.changefreq = EnumChangefreq.WEEKLY;
           item.priority = 0.9;
