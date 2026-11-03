@@ -1,8 +1,11 @@
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 
 // Load local data using Node experimental strip-types
 const dataModule = await import('../src/lib/sanity/data.ts');
+const locationsModule = await import('../src/data/locationsData.ts');
+const { locationsList } = locationsModule;
+
 const {
   siteSettings,
   divisions,
@@ -17,8 +20,20 @@ const {
   defaultInvestorsPage,
   defaultContactPage,
   defaultRequestCollectionPage,
+  defaultHomePageData,
+  defaultLeadershipPageData,
+  defaultGlobalPresencePageData,
+  defaultPeopleCulturePageData,
+  defaultServicesPageData,
+  defaultSectorsPageData,
+  defaultPartnersPageData,
+  defaultCertificationsPageData,
+  defaultOurCommitmentPageData,
+  defaultCaseStudiesPageData,
+  defaultLocationsPageData,
   testimonials,
 } = dataModule;
+
 
 const docs = [];
 
@@ -524,8 +539,183 @@ for (const tm of testimonials) {
   });
 }
 
+// 14. Core Singletons (HomePage, Leadership, Global Presence, People & Culture, Services, Sectors)
+const liveSingletonsPath = resolve('scripts/liveSingletons.json');
+if (existsSync(liveSingletonsPath)) {
+  const liveSingletons = JSON.parse(readFileSync(liveSingletonsPath, 'utf-8'));
+  for (const s of liveSingletons) {
+    const cleanDoc = { ...s };
+    delete cleanDoc._createdAt;
+    delete cleanDoc._updatedAt;
+    delete cleanDoc._rev;
+    delete cleanDoc._system;
+    docs.push(cleanDoc);
+  }
+} else {
+  docs.push({ _id: 'homePage', _type: 'homePage', ...defaultHomePageData });
+  docs.push({ _id: 'leadershipPage', _type: 'leadershipPage', ...defaultLeadershipPageData });
+  docs.push({ _id: 'globalPresencePage', _type: 'globalPresencePage', ...defaultGlobalPresencePageData });
+  docs.push({ _id: 'peopleCulturePage', _type: 'peopleCulturePage', ...defaultPeopleCulturePageData });
+  docs.push({ _id: 'servicesPage', _type: 'servicesPage', ...defaultServicesPageData });
+  docs.push({ _id: 'sectorsPage', _type: 'sectorsPage', ...defaultSectorsPageData });
+}
+
+// 15. Legal Pages (7 Documents)
+const legalPagesPath = resolve('scripts/legalPages.json');
+if (existsSync(legalPagesPath)) {
+  const legalPages = JSON.parse(readFileSync(legalPagesPath, 'utf-8'));
+  for (const lp of legalPages) {
+    const cleanDoc = { ...lp };
+    delete cleanDoc._createdAt;
+    delete cleanDoc._updatedAt;
+    delete cleanDoc._rev;
+    docs.push(cleanDoc);
+  }
+}
+
+// 16. Partners & Associations Page
+docs.push({
+  _id: 'partnersPage',
+  _type: 'partnersPage',
+  metaTitle: defaultPartnersPageData.metaTitle,
+  metaDescription: defaultPartnersPageData.metaDescription,
+  heroEyebrow: defaultPartnersPageData.heroEyebrow,
+  heroTitle: defaultPartnersPageData.heroTitle,
+  heroDescription: defaultPartnersPageData.heroDescription,
+  heroBadge: defaultPartnersPageData.heroBadge,
+  partners: (defaultPartnersPageData.partners || []).map((p, idx) => ({
+    _key: `partner_${idx + 1}`,
+    name: p.name,
+    category: p.category,
+    authority: p.authority,
+    logoUrl: p.logoUrl,
+    desc: p.desc,
+    quote: p.quote,
+    badge: p.badge,
+  })),
+  stats: (defaultPartnersPageData.stats || []).map((st, idx) => ({
+    _key: `pstat_${idx + 1}`,
+    value: st.value,
+    label: st.label,
+    description: st.description,
+  })),
+});
+
+// 17. Certifications & Accreditations Page
+docs.push({
+  _id: 'certificationsPage',
+  _type: 'certificationsPage',
+  metaTitle: defaultCertificationsPageData.metaTitle,
+  metaDescription: defaultCertificationsPageData.metaDescription,
+  heroEyebrow: defaultCertificationsPageData.heroEyebrow,
+  heroTitle: defaultCertificationsPageData.heroTitle,
+  heroDescription: defaultCertificationsPageData.heroDescription,
+  heroBadge: defaultCertificationsPageData.heroBadge,
+  accreditations: (defaultCertificationsPageData.accreditations || []).map((a, idx) => ({
+    _key: `accred_${idx + 1}`,
+    name: a.name,
+    categoryGroup: a.categoryGroup,
+    categoryLabel: a.categoryLabel,
+    authority: a.authority,
+    logoUrl: a.logoUrl,
+    desc: a.desc,
+    quote: a.quote,
+    standardCode: a.standardCode,
+  })),
+  stats: (defaultCertificationsPageData.stats || []).map((st, idx) => ({
+    _key: `cstat_${idx + 1}`,
+    value: st.value,
+    label: st.label,
+    description: st.description,
+  })),
+});
+
+// 18. Our Commitment Page
+docs.push({
+  _id: 'ourCommitmentPage',
+  _type: 'ourCommitmentPage',
+  metaTitle: defaultOurCommitmentPageData.metaTitle,
+  metaDescription: defaultOurCommitmentPageData.metaDescription,
+  heroEyebrow: defaultOurCommitmentPageData.heroEyebrow,
+  heroTitle: defaultOurCommitmentPageData.heroTitle,
+  heroDescription: defaultOurCommitmentPageData.heroDescription,
+  heroBadge: defaultOurCommitmentPageData.heroBadge,
+  commitments: (defaultOurCommitmentPageData.commitments || []).map((c, idx) => ({
+    _key: `commit_${idx + 1}`,
+    number: c.number,
+    title: c.title,
+    eyebrow: c.eyebrow,
+    tagline: c.tagline,
+    desc: c.desc,
+    bullets: c.bullets || [],
+    icon: c.icon,
+  })),
+  principles: (defaultOurCommitmentPageData.principles || []).map((pr, idx) => ({
+    _key: `princ_${idx + 1}`,
+    title: pr.title,
+    description: pr.description,
+    icon: pr.icon,
+  })),
+});
+
+// 19. Case Studies Overview Page
+docs.push({
+  _id: 'caseStudiesPage',
+  _type: 'caseStudiesPage',
+  metaTitle: defaultCaseStudiesPageData.metaTitle,
+  metaDescription: defaultCaseStudiesPageData.metaDescription,
+  heroEyebrow: defaultCaseStudiesPageData.heroEyebrow,
+  heroTitle: defaultCaseStudiesPageData.heroTitle,
+  heroDescription: defaultCaseStudiesPageData.heroDescription,
+});
+
+// 20. Locations Overview Page
+docs.push({
+  _id: 'locationsPage',
+  _type: 'locationsPage',
+  metaTitle: defaultLocationsPageData.metaTitle,
+  metaDescription: defaultLocationsPageData.metaDescription,
+  heroEyebrow: defaultLocationsPageData.heroEyebrow,
+  heroTitle: defaultLocationsPageData.heroTitle,
+  heroDescription: defaultLocationsPageData.heroDescription,
+  faqs: (defaultLocationsPageData.faqs || []).map((f, idx) => ({
+    _key: `loc_faq_${idx + 1}`,
+    question: f.question,
+    answer: f.answer,
+  })),
+});
+
+// 21. UK Regional Locations (All 26 Hubs)
+for (const loc of locationsList) {
+  docs.push({
+    _id: `loc-${loc.slug}`,
+    _type: 'location',
+    name: loc.name,
+    slug: { _type: 'slug', current: loc.slug },
+    region: loc.region,
+    countyOrArea: loc.countyOrArea || '',
+    seoTitle: loc.seoTitle || `Free IT Recycling Near Me in ${loc.name} | Techsteps`,
+    metaDescription: loc.metaDescription || loc.heroDescription || '',
+    tagline: loc.tagline || '',
+    heroDescription: loc.heroDescription || '',
+    rating: loc.rating || '4.9',
+    reviewCount: loc.reviewCount || 35,
+    localHubAddress: loc.localHubAddress || '',
+    phone: loc.phone || '+44 1784 640216',
+    leadTime: loc.leadTime || '24-48 Hours',
+    boroughsOrDistricts: loc.boroughsOrDistricts || [],
+    featuredTestimonial: loc.featuredTestimonial || null,
+    faqs: (loc.faqs || []).map((f, idx) => ({
+      _key: `faq_${idx + 1}`,
+      question: f.question,
+      answer: f.answer,
+    })),
+  });
+}
+
 const outputPath = resolve('sanity-seed.ndjson');
 const ndjsonContent = docs.map((doc) => JSON.stringify(doc)).join('\n') + '\n';
 writeFileSync(outputPath, ndjsonContent, 'utf-8');
 
 console.log(`Successfully generated ${docs.length} documents into ${outputPath}`);
+

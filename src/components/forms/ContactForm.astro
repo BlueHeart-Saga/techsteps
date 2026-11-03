@@ -125,14 +125,54 @@
     const form = document.getElementById('techsteps-contact-form') as HTMLFormElement | null;
     const successMsg = document.getElementById('contact-success');
 
-    if (!form || !successMsg) return;
+    if (!form || !successMsg || form.dataset.hasListener) return;
+    form.dataset.hasListener = 'true';
 
-    form.addEventListener('submit', (e) => {
-      if (!window.location.hostname.includes('netlify')) {
-        e.preventDefault();
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+      }
+
+      const formData = new FormData(form);
+      const data = {
+        formType: 'contact',
+        name: formData.get('name') || '',
+        company: formData.get('company') || '',
+        email: formData.get('email') || '',
+        phone: formData.get('phone') || '',
+        subject: formData.get('subject') || 'General Contact Enquiry',
+        message: formData.get('message') || '',
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const result = await res.json();
+        if (!res.ok || !result.success) {
+          throw new Error(result?.message || 'Failed to send message');
+        }
+
+        const refText = result.reference ? ` (Ref: ${result.reference})` : '';
+        successMsg.textContent = `Thank you for contacting Techsteps. Your enquiry has been routed to our UK support desk${refText} and a team member will reply shortly.`;
         successMsg.classList.remove('hidden');
         form.reset();
         successMsg.scrollIntoView({ behavior: 'smooth' });
+      } catch (err: any) {
+        console.error('Contact form error:', err);
+        alert(err?.message || 'Unable to send message right now. Please try again.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Message';
+        }
       }
     });
   }

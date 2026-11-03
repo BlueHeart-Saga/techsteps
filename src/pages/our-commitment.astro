@@ -3,27 +3,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
 import Container from '../components/layout/Container.astro';
 import CTA from '../components/global/cta.astro';
-import { getPeopleCulturePage } from '../lib/sanity/client';
+import { getOurCommitmentPage } from '../lib/sanity/client';
 
-const pageData = await getPeopleCulturePage();
+const pageData = await getOurCommitmentPage();
 
 const canonicalUrl = 'https://techsteps.co.uk/our-commitment';
+
+const pageTitle = pageData?.metaTitle || 'Our Commitment to Security, Quality & Sustainability — TechSteps UK';
+const pageDescription =
+  pageData?.metaDescription ||
+  'At TechSteps, our commitment goes beyond delivering services. We focus on protecting sensitive information, managing technology responsibly, maintaining operational accountability and helping organisations achieve sustainable outcomes.';
 
 const pageSchema = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
   '@id': `${canonicalUrl}#webpage`,
   url: canonicalUrl,
-  name: pageData?.metaTitle || 'Our Commitment to Security, Quality & Sustainability — TechSteps UK',
-  description:
-    pageData?.metaDescription ||
-    'At TechSteps, our commitment goes beyond delivering services. We focus on protecting sensitive information, managing technology responsibly, maintaining operational accountability and helping organisations achieve sustainable outcomes.',
+  name: pageTitle,
+  description: pageDescription,
   mainEntity: {
     '@id': 'https://techsteps.co.uk/#organization',
   },
 };
 
-const commitments = [
+const commitments = (pageData?.commitments && pageData.commitments.length > 0) ? pageData.commitments : [
+
   {
     number: '01',
     title: 'Data Security & Confidentiality',
@@ -159,8 +163,8 @@ const reviewSlides = [
 ---
 
 <BaseLayout
-  title="Our Commitment to Security, Quality & Sustainability — TechSteps UK"
-  description="At TechSteps, our commitment goes beyond delivering services. We focus on protecting sensitive information, managing technology responsibly, maintaining operational accountability and helping organisations achieve sustainable outcomes."
+  title={pageTitle}
+  description={pageDescription}
   canonicalUrl={canonicalUrl}
   jsonLd={pageSchema}
   hasHeroHeader={true}

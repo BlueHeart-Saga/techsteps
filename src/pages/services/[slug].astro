@@ -281,9 +281,12 @@ const sectorIconMap: Record<string, string> = {
 
 const filteredSectorCards = (service.relatedSectors && service.relatedSectors.length > 0)
   ? (detail.businessNeedsCards || []).filter((c) => {
-      return service.relatedSectors?.some((rs) => {
-        const mappedIcon = sectorIconMap[rs.toLowerCase()] || rs.toLowerCase();
-        return c.icon === mappedIcon || c.title.toLowerCase().includes(rs.toLowerCase());
+      return service.relatedSectors?.some((rs: any) => {
+        const str = typeof rs === 'string' ? rs : (rs?.slug?.current || rs?.slug || rs?.title || rs?._ref || '');
+        if (!str || typeof str !== 'string') return false;
+        const val = str.toLowerCase();
+        const mappedIcon = sectorIconMap[val] || val;
+        return c.icon === mappedIcon || (c.title && c.title.toLowerCase().includes(val));
       });
     })
   : detail.businessNeedsCards;
@@ -344,11 +347,16 @@ const matchingCaseStudy = (allCaseStudies || []).find((cs) => {
 
 // COMPACT RELATED SERVICES
 const resolvedRelatedServices = (service.relatedServices || [])
-  .map((rSlug) => {
-    const clean = rSlug.toLowerCase().replace(/-(uk|services|services-uk)$/, '');
+  .map((rSlug: any) => {
+    const raw = typeof rSlug === 'string'
+      ? rSlug
+      : (rSlug?.slug?.current || rSlug?.slug || rSlug?.title || rSlug?._ref?.replace(/^service-/, '') || '');
+    if (!raw || typeof raw !== 'string') return null;
+    const clean = raw.toLowerCase().replace(/-(uk|services|services-uk)$/, '');
     return allServices.find((s) => {
-      const sClean = s.slug?.toLowerCase().replace(/-(uk|services|services-uk)$/, '');
-      return s.slug?.toLowerCase() === rSlug.toLowerCase() || sClean === clean;
+      const sSlug = s.slug?.toLowerCase() || '';
+      const sClean = sSlug.replace(/-(uk|services|services-uk)$/, '');
+      return sSlug === raw.toLowerCase() || sClean === clean;
     });
   })
   .filter(Boolean) as Service[];

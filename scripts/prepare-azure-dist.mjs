@@ -24,6 +24,12 @@ fs.writeFileSync(
   'utf-8'
 );
 
+// Copy mail-service.cjs for Hostinger SMTP
+fs.copyFileSync(
+  path.resolve('scripts/mail-service.cjs'),
+  path.join(distDir, 'mail-service.cjs')
+);
+
 // Create production package.json for Azure
 const distPkg = {
   name: 'techsteps-azure-production',

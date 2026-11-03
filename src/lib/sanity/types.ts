@@ -1219,3 +1219,145 @@ export interface PeopleCulturePageData {
     secondaryHref?: string;
   };
 }
+
+export interface PartnerItem {
+  name: string;
+  category: string;
+  authority: string;
+  logoUrl?: string;
+  logo?: any;
+  desc: string;
+  quote: string;
+  badge: string;
+}
+
+export interface PartnersPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  heroEyebrow?: string;
+  heroTitle?: string;
+  heroDescription?: string;
+  heroBadge?: string;
+  partners?: PartnerItem[];
+  stats?: {
+    value: string;
+    label: string;
+    description?: string;
+  }[];
+  faqs?: {
+    question: string;
+    answer: string;
+  }[];
+}
+
+export interface AccreditationItem {
+  name: string;
+  categoryGroup: 'security' | 'quality' | 'environmental' | 'public' | string;
+  categoryLabel: string;
+  authority: string;
+  logoUrl?: string;
+  logo?: any;
+  desc: string;
+  quote: string;
+  standardCode: string;
+}
+
+export interface CertificationsPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  heroEyebrow?: string;
+  heroTitle?: string;
+  heroDescription?: string;
+  heroBadge?: string;
+  accreditations?: AccreditationItem[];
+  stats?: {
+    value: string;
+    label: string;
+    description?: string;
+  }[];
+  faqs?: {
+    question: string;
+    answer: string;
+  }[];
+}
+
+export interface CommitmentPillar {
+  number: string;
+  title: string;
+  eyebrow: string;
+  tagline: string;
+  desc: string;
+  bullets: string[];
+  icon: string;
+}
+
+export interface CommitmentPrinciple {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+export interface OurCommitmentPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  heroEyebrow?: string;
+  heroTitle?: string;
+  heroDescription?: string;
+  heroBadge?: string;
+  commitments?: CommitmentPillar[];
+  principles?: CommitmentPrinciple[];
+  faqs?: {
+    question: string;
+    answer: string;
+  }[];
+}
+
+export interface CaseStudiesPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  heroEyebrow?: string;
+  heroTitle?: string;
+  heroDescription?: string;
+}
+
+export interface LocationsPageData {
+  metaTitle?: string;
+  metaDescription?: string;
+  heroEyebrow?: string;
+  heroTitle?: string;
+  heroDescription?: string;
+  faqs?: {
+    question: string;
+    answer: string;
+  }[];
+}
+
+export interface LocationItem {
+  name: string;
+  slug: string;
+  region: string;
+  countyOrArea?: string;
+  seoTitle?: string;
+  metaDescription?: string;
+  tagline?: string;
+  heroDescription?: string;
+  rating?: string;
+  reviewCount?: number;
+  localHubAddress?: string;
+  phone?: string;
+  leadTime?: string;
+  boroughsOrDistricts?: string[];
+  featuredTestimonial?: {
+    author: string;
+    role: string;
+    company: string;
+    timeAgo: string;
+    text: string;
+    stars: number;
+  };
+  faqs?: {
+    question: string;
+    answer: string;
+  }[];
+}
+

@@ -21,6 +21,12 @@ import servicesPage from './servicesPage';
 import sectorsPage from './sectorsPage';
 import testimonial from './testimonial';
 import legalPage from './legalPage';
+import partnersPage from './partnersPage';
+import certificationsPage from './certificationsPage';
+import ourCommitmentPage from './ourCommitmentPage';
+import caseStudiesPage from './caseStudiesPage';
+import locationsPage from './locationsPage';
+import location from './location';
 
 export const schemaTypes = [
   // Objects
@@ -30,14 +36,19 @@ export const schemaTypes = [
   // Documents - Global Settings
   siteSettings,
 
-  // Documents - Pages
+  // Documents - Pages (Singletons)
   homePage,
   aboutPage,
   leadershipPage,
   globalPresencePage,
   peopleCulturePage,
+  partnersPage,
+  certificationsPage,
+  ourCommitmentPage,
   servicesPage,
   sectorsPage,
+  caseStudiesPage,
+  locationsPage,
   faqPage,
   sustainabilityPage,
   investorsPage,
@@ -48,9 +59,11 @@ export const schemaTypes = [
   division,
   service,
   sector,
+  location,
   stat,
   caseStudy,
   article,
   testimonial,
   legalPage,
 ];
+

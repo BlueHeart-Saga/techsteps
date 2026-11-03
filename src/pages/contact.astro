@@ -658,12 +658,7 @@ const breadcrumbs = [
         };
 
         try {
-          const API_URL =
-            window.location.hostname === "localhost" && window.location.port !== "8080"
-              ? "http://localhost:8080/api/contact"
-              : "/api/contact";
-
-          const response = await fetch(API_URL, {
+          const response = await fetch("/api/contact", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -693,8 +688,9 @@ const breadcrumbs = [
           }
 
           if (successMsg) {
+            const refText = result.reference ? ` (Ref: ${result.reference})` : '';
             successMsg.textContent =
-              "Thank you for contacting Techsteps. Your enquiry has been routed to our UK support desk and a team member will reply shortly.";
+              `Thank you for contacting Techsteps. Your enquiry has been routed to our UK support desk${refText} and a team member will reply shortly.`;
             successMsg.classList.remove(
               "hidden",
               "bg-red-50",

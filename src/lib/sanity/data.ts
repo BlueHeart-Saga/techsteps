@@ -19,6 +19,12 @@ import type {
   SectorsPageData,
   GlobalPresencePageData,
   PeopleCulturePageData,
+  PartnersPageData,
+  CertificationsPageData,
+  OurCommitmentPageData,
+  CaseStudiesPageData,
+  LocationsPageData,
+  LocationItem,
 } from './types';
 
 export const siteSettings: SiteSettings = {
@@ -3213,6 +3219,463 @@ export const defaultSectorsPageData: SectorsPageData = {
     secondaryButtonLink: '/services',
   },
 };
+
+export const defaultPartnersPageData: PartnersPageData = {
+  metaTitle: 'Partners & Associations — TechSteps UK',
+  metaDescription:
+    'Explore TechSteps strategic technology partners, industry associations, and public framework memberships driving responsible IT asset management across the UK.',
+  heroEyebrow: 'STRATEGIC ALLIANCES & ACCREDITATIONS',
+  heroTitle: 'Partners & Associations',
+  heroDescription:
+    'Collaborating with world-class security vendors, environmental bodies, and statutory governance frameworks to uphold the UK’s highest chain-of-custody standards.',
+  heroBadge: 'Nationwide Assured Alliances',
+  partners: [
+    {
+      name: 'Blancco Technology Group',
+      category: 'Certified Data Erasure',
+      authority: 'ADISA & NIST 800-88',
+      logoUrl: '/images/certifications/blancco.jpg',
+      desc: 'Global benchmark in automated, tamper-proof data sanitisation software across servers, storage arrays, PCs, and mobile devices.',
+      quote: 'Guarantees ADISA and NIST 800-88 compliant tamper-proof digital certificates of erasure across all enterprise IT assets.',
+      badge: 'ADISA Compliant',
+    },
+    {
+      name: 'Environment Agency',
+      category: 'Regulatory Licensing',
+      authority: 'Statutory UK Regulator',
+      logoUrl: '/images/certifications/environment-agency.png',
+      desc: 'Direct statutory licensing as an upper-tier carrier, broker, and dealer enforcing certified zero-landfill WEEE management.',
+      quote: 'Statutory upper-tier licensing ensuring legally compliant electronic waste collection, transit, and environmental duty-of-care.',
+      badge: 'Upper Tier Carrier',
+    },
+    {
+      name: 'BSI Assurance UK',
+      category: 'Standards & Auditing Body',
+      authority: 'UK Royal Charter Body',
+      logoUrl: '/images/certifications/bsi-kitemark.png',
+      desc: 'Independent auditor certifying TechSteps quality management systems, data security controls, and environmental safeguards.',
+      quote: 'Independent audit verification delivering the globally recognized gold standard of trust, operational rigor, and compliance.',
+      badge: 'BSI Verified',
+    },
+    {
+      name: 'Crown Commercial Service',
+      category: 'Public Sector Frameworks',
+      authority: 'Cabinet Office',
+      logoUrl: '/images/certifications/crown-commercial.png',
+      desc: 'Approved supplier across UK public procurement alliances, enabling direct, compliant engagement for NHS trusts and central government.',
+      quote: 'Pre-approved public sector supplier status facilitating compliant, competitive asset management for UK public bodies.',
+      badge: 'CCS Approved',
+    },
+    {
+      name: 'NHS IG Toolkit / DSPT',
+      category: 'Healthcare Governance',
+      authority: 'NHS England & Caldicott',
+      logoUrl: '/images/certifications/nhs.png',
+      desc: 'Full compliance with the NHS Data Security & Protection Toolkit, ensuring Caldicott Guardian principles and clinical data disposal.',
+      quote: 'Exceeding NHS Data Security & Protection Toolkit standards, safeguarding sensitive clinical patient archives.',
+      badge: 'DSPT Standards Met',
+    },
+    {
+      name: 'EcoVadis Sustainability',
+      category: 'ESG Assessment',
+      authority: 'Global ESG Platform',
+      logoUrl: '/images/certifications/ecovadis.png',
+      desc: 'Collaborative corporate network benchmarking corporate social responsibility, carbon reduction initiatives, and circular supply chains.',
+      quote: 'Independently audited ESG performance validating circular economy workflows and sustainable supply chain procurement.',
+      badge: 'ESG Audited',
+    },
+    {
+      name: 'National Cyber Security Centre',
+      category: 'Government Cyber Resilience',
+      authority: 'NCSC Technical Standard',
+      logoUrl: '/images/certifications/cas-sanitisation.jpg',
+      desc: 'Commercial service certification for the sanitisation of sensitive government media and cryptographic data destruction.',
+      quote: 'Government-grade cryptographic erasure and physical media sanitisation conforming to national cyber defence benchmarks.',
+      badge: 'CAS Certified',
+    },
+    {
+      name: 'Cyber Essentials Plus',
+      category: 'Cyber Defence',
+      authority: 'UK Gov. Assured',
+      logoUrl: '/images/certifications/cyber-essentials-plus.png',
+      desc: 'Hands-on technical verification defending our operational infrastructure and client custody registers against advanced cyber threats.',
+      quote: 'Technical audit verification ensuring resilient defences against internet-borne vulnerabilities across all operational systems.',
+      badge: 'Gov.UK Assured',
+    },
+    {
+      name: 'ADISA Industry Alliance',
+      category: 'ITAD Forensic Security',
+      authority: 'ADISA Asset Disposal',
+      logoUrl: '/images/certifications/bs-7858.png',
+      desc: 'Adherence to forensic data sanitisation standards, unannounced operational audits, and defensible custody tracking.',
+      quote: 'Unannounced operational audits and forensic data security benchmarks ensuring industry-leading ITAD chain of custody.',
+      badge: 'Forensic Standard',
+    },
+    {
+      name: 'PCI Security Standards',
+      category: 'Payment Hardware Security',
+      authority: 'PCI Standards Council',
+      logoUrl: '/images/certifications/pci-dss.png',
+      desc: 'Payment Card Industry alignment ensuring financial hardware destruction exceeds strict banking criteria.',
+      quote: 'Stringent cardholder data hardware destruction protocols meeting and exceeding global financial institution criteria.',
+      badge: 'Level 1 Criteria',
+    },
+    {
+      name: 'Diamond Industry Membership',
+      category: 'Commercial Logistics & ITAD',
+      authority: 'Industry Association',
+      logoUrl: '/images/certifications/diamond-member.png',
+      desc: 'Premier industry association tier recognising ongoing contributions to UK technology recycling, data protection, and circular innovation.',
+      quote: 'Premier commercial relocation and recycling standards ensuring safe, GPS-tracked transportation of corporate IT estates.',
+      badge: 'Premier Tier',
+    },
+    {
+      name: 'King’s Award for Enterprise',
+      category: 'Enterprise Honours',
+      authority: 'Royal Enterprise Award',
+      logoUrl: '/images/certifications/kings-award.jpg',
+      desc: 'Prestigious royal recognition honoring outstanding contribution to sustainable development and circular innovation.',
+      quote: 'Prestigious corporate honour celebrating enterprise leadership in sustainable innovation and circular economy advancement.',
+      badge: 'Sustainable Dev.',
+    },
+  ],
+  stats: [
+    { value: '100%', label: 'Audit Readiness', description: 'Zero audit discrepancies recorded across all verified collections.' },
+    { value: '0', label: 'Data Incidents', description: 'Flawless zero-compromise track record over 15+ years of operations.' },
+    { value: '12+', label: 'UK Regulatory Frameworks', description: 'Continuous compliance alignment across statutory UK bodies.' },
+    { value: '100%', label: 'Zero-to-Landfill', description: 'Certified cascading reuse and sustainable closed-loop recycling.' },
+  ],
+};
+
+export const defaultCertificationsPageData: CertificationsPageData = {
+  metaTitle: 'Certifications & Accreditations — TechSteps UK',
+  metaDescription:
+    'Comprehensive register of TechSteps accreditations and certifications including ISO 27001, ISO 9001, ISO 14001, ISO 45001, ADISA, BS EN 15713, and Cyber Essentials Plus.',
+  heroEyebrow: 'INDEPENDENTLY AUDITED TRUST',
+  heroTitle: 'Certifications & Accreditations',
+  heroDescription:
+    'Independently audited by UKAS-accredited certification bodies and government authorities, ensuring complete compliance and uncompromised security.',
+  heroBadge: '100% Certified Compliance',
+  accreditations: [
+    {
+      name: 'ISO 27001',
+      categoryGroup: 'security',
+      categoryLabel: 'Information Security',
+      logoUrl: '/images/certifications/iso-27001.png',
+      authority: 'UKAS Accredited Body',
+      desc: 'International standard for Information Security Management Systems (ISMS), governing end-to-end data sanitisation, custody tracking, and operational security.',
+      quote: 'Independently verified Information Security Management governing end-to-end data sanitisation, unbroken custody chains, and total operational security.',
+      standardCode: 'ISO/IEC 27001:2022',
+    },
+    {
+      name: 'ISO 9001',
+      categoryGroup: 'quality',
+      categoryLabel: 'Quality Management',
+      logoUrl: '/images/certifications/iso-9001.png',
+      authority: 'UKAS Accredited Body',
+      desc: 'Quality Management System validation ensuring consistent process rigor, operational efficiency, and customer satisfaction across all service lines.',
+      quote: 'Certified Quality Management ensuring consistent process rigor, operational efficiency, and flawless service delivery across every asset.',
+      standardCode: 'ISO 9001:2015',
+    },
+    {
+      name: 'ISO 14001',
+      categoryGroup: 'environmental',
+      categoryLabel: 'Environmental Management',
+      logoUrl: '/images/certifications/iso-14001.png',
+      authority: 'UKAS Accredited Body',
+      desc: 'Environmental Management System certification validating responsible recycling, energy efficiency, and certified zero-to-landfill circular economy workflows.',
+      quote: 'Validated Environmental Management guaranteeing certified zero-to-landfill e-waste processing and circular economy recycling workflows.',
+      standardCode: 'ISO 14001:2015',
+    },
+    {
+      name: 'ISO 45001',
+      categoryGroup: 'quality',
+      categoryLabel: 'Health & Safety',
+      logoUrl: '/images/certifications/iso-45001.png',
+      authority: 'UKAS Accredited Body',
+      desc: 'Occupational Health and Safety Management System protecting our workforce, logistics crews, and client sites during secure asset extraction.',
+      quote: 'Audited Occupational Health & Safety protocols safeguarding our engineering crews and client sites during secure asset decommissioning.',
+      standardCode: 'ISO 45001:2018',
+    },
+    {
+      name: 'BS EN 15713',
+      categoryGroup: 'security',
+      categoryLabel: 'Secure Destruction',
+      logoUrl: '/images/certifications/bs-en-15713.png',
+      authority: 'British Standards Inst.',
+      desc: 'European standard for the Secure Destruction of Confidential Material, encompassing physical shredding, degaussing, and disintegrator compliance.',
+      quote: 'European gold standard for Secure Destruction of Confidential Material through monitored high-security shredding and degaussing.',
+      standardCode: 'BS EN 15713:2009',
+    },
+    {
+      name: 'BS 7858:2012',
+      categoryGroup: 'quality',
+      categoryLabel: 'Personnel Vetting',
+      logoUrl: '/images/certifications/bs-7858.png',
+      authority: 'UK Security Industry',
+      desc: 'Code of practice for security screening of personnel employed in an environment where the security of people, property, or confidential information is at stake.',
+      quote: 'Strict security screening ensuring 100% of our logistics drivers and IT technicians pass 5-year criminal and financial vetting.',
+      standardCode: 'BS 7858 Vetted',
+    },
+    {
+      name: 'Cyber Essentials Plus',
+      categoryGroup: 'security',
+      categoryLabel: 'Cyber Resilience',
+      logoUrl: '/images/certifications/cyber-essentials-plus.png',
+      authority: 'UK National Cyber Centre',
+      desc: 'UK Government-backed certification verifying technical controls against internet-borne attacks, validated through hands-on technical audits.',
+      quote: 'Hands-on technical verification defending our operational infrastructure and client custody registers against advanced cyber threats.',
+      standardCode: 'Gov.UK Assured',
+    },
+    {
+      name: 'NCSC CAS Sanitisation',
+      categoryGroup: 'security',
+      categoryLabel: 'Government Security',
+      logoUrl: '/images/certifications/cas-sanitisation.jpg',
+      authority: 'NCSC Technical Standard',
+      desc: 'National Cyber Security Centre certified commercial service for the sanitisation of sensitive media and government-grade cryptographic erasure.',
+      quote: 'Government-grade cryptographic erasure and physical media sanitisation conforming to National Cyber Security Centre benchmarks.',
+      standardCode: 'CAS Certified',
+    },
+    {
+      name: 'Blancco Certified Partner',
+      categoryGroup: 'security',
+      categoryLabel: 'Data Sanitisation',
+      logoUrl: '/images/certifications/blancco.jpg',
+      authority: 'ADISA & NIST 800-88',
+      desc: 'Industry-leading certified data erasure partner delivering tamper-proof certificates of sanitisation compliant with DoD, NIST 800-88, and ADISA standards.',
+      quote: 'Automated certified data wiping generating legally defensible, tamper-proof audit certificates compliant with NIST 800-88 and ADISA.',
+      standardCode: 'ADISA Compliant',
+    },
+    {
+      name: 'Crown Commercial Service',
+      categoryGroup: 'public',
+      categoryLabel: 'Public Frameworks',
+      logoUrl: '/images/certifications/crown-commercial.png',
+      authority: 'Cabinet Office',
+      desc: 'Approved supplier across UK public sector procurement frameworks, enabling direct, compliant engagement for central and local government bodies.',
+      quote: 'Pre-approved public sector supplier status enabling fast, compliant procurement for UK central and local government authorities.',
+      standardCode: 'CCS Approved',
+    },
+    {
+      name: 'NHS IG Toolkit / DSPT',
+      categoryGroup: 'public',
+      categoryLabel: 'Healthcare Governance',
+      logoUrl: '/images/certifications/nhs.png',
+      authority: 'NHS England & Caldicott',
+      desc: 'Full compliance with the NHS Data Security and Protection Toolkit, ensuring Caldicott Guardian principles and secure healthcare informatics disposal.',
+      quote: 'Exceeding NHS Data Security & Protection Toolkit standards, safeguarding clinical records under strict Caldicott Guardian principles.',
+      standardCode: 'DSPT Standards Met',
+    },
+    {
+      name: 'Environment Agency',
+      categoryGroup: 'environmental',
+      categoryLabel: 'Environmental Authority',
+      logoUrl: '/images/certifications/environment-agency.png',
+      authority: 'Statutory Regulator',
+      desc: 'Licensed upper-tier carrier, broker, and dealer enforcing statutory compliance across WEEE and hazardous waste movements.',
+      quote: 'Statutory upper-tier carrier licensing guaranteeing legal compliance, hazardous e-waste duty of care, and zero landfill.',
+      standardCode: 'CBDU429188',
+    },
+    {
+      name: 'EcoVadis Sustainability',
+      categoryGroup: 'environmental',
+      categoryLabel: 'ESG Rating',
+      logoUrl: '/images/certifications/ecovadis.png',
+      desc: 'Evidence-based sustainability rating evaluating environmental stewardship, labor rights, and ethical corporate procurement.',
+      quote: 'Independent ESG assessment validating sustainable circular practices, Scope 3 reductions, and transparent reporting.',
+      standardCode: 'EcoVadis Rated',
+    },
+    {
+      name: 'King’s Award for Enterprise',
+      categoryGroup: 'quality',
+      categoryLabel: 'Royal Recognition',
+      logoUrl: '/images/certifications/kings-award.jpg',
+      desc: 'Highest official UK award for British businesses, recognising outstanding achievement in sustainable development and circular innovation.',
+      quote: 'Premier royal honour acknowledging proven excellence in circular electronics recycling and environmental leadership.',
+      standardCode: 'Royal Warranted',
+    },
+    {
+      name: 'PCI DSS Hardware Destruction',
+      categoryGroup: 'security',
+      categoryLabel: 'Financial Hardware',
+      logoUrl: '/images/certifications/pci-dss.png',
+      authority: 'PCI Security Council',
+      desc: 'Strict protocols for the decommission and destruction of payment card terminals, PIN entry devices, and financial transaction storage.',
+      quote: 'Forensic sanitisation and destruction of payment processing hardware meeting global financial cardholder mandates.',
+      standardCode: 'Level 1 Rigor',
+    },
+    {
+      name: 'Diamond Industry Membership',
+      categoryGroup: 'quality',
+      categoryLabel: 'Industry Alliance',
+      logoUrl: '/images/certifications/diamond-member.png',
+      authority: 'Industry Association',
+      desc: 'Elite tier membership reflecting leadership in ethical electronic asset handling, secure transport, and nationwide logistics integrity.',
+      quote: 'Highest industry standing ensuring rigorous peer-reviewed chain-of-custody protocols for enterprise hardware.',
+      standardCode: 'Premier Status',
+    },
+  ],
+  stats: [
+    { value: '100%', label: 'Compliance Audit Rate', description: 'Flawless pass rate across all external UKAS surveillance audits.' },
+    { value: '16', label: 'Certified Standards', description: 'Comprehensive coverage spanning data, safety, environment and cyber.' },
+    { value: '0', label: 'Breach Occurrences', description: 'Unblemished security record throughout all customer assignments.' },
+    { value: '100%', label: 'Vetted Field Force', description: 'Every logistics engineer undergoes rigorous 5-year BS 7858 screening.' },
+  ],
+};
+
+export const defaultOurCommitmentPageData: OurCommitmentPageData = {
+  metaTitle: 'Our Commitment to Security, Quality & Sustainability — TechSteps UK',
+  metaDescription:
+    'At TechSteps, our commitment goes beyond delivering services. We focus on protecting sensitive information, managing technology responsibly, maintaining operational accountability and helping organisations achieve sustainable outcomes.',
+  heroEyebrow: 'CORE VALUES & GOVERNANCE',
+  heroTitle: 'Our Commitment',
+  heroDescription:
+    'A formal pledge to uncompromising information security, operational excellence, circular resource recovery, and social responsibility across every asset we touch.',
+  heroBadge: 'Governance, Ethics & Trust',
+  commitments: [
+    {
+      number: '01',
+      title: 'Data Security & Confidentiality',
+      eyebrow: 'SECURITY FIRST',
+      tagline: 'Protecting sensitive information throughout the asset lifecycle.',
+      desc: 'We guarantee that all data-bearing hardware entrusted to us undergoes forensic digital sanitisation or complete physical destruction. Using automated Blancco software conforming to ADISA and NIST 800-88 benchmarks alongside BS EN 15713 cross-cut shredding, we eliminate data breach vulnerabilities.',
+      bullets: [
+        'ADISA & NIST 800-88 compliant cryptographic disk wiping',
+        'Tamper-proof serialized digital certificates of erasure',
+        'Dual-custody barcoded verification from initial collection',
+      ],
+      icon: 'shield',
+    },
+    {
+      number: '02',
+      title: 'Quality & Operational Excellence',
+      eyebrow: 'OPERATIONAL RIGOUR',
+      tagline: 'Consistent service delivery, transparent procedures and responsible handling.',
+      desc: 'Quality is an audited operational reality. From dedicated GPS-monitored fleet logistics to strict adherence to UKAS-accredited ISO 9001 management systems, our standardized workflows ensure predictable, legally defensible execution on every enterprise assignment.',
+      bullets: [
+        'ISO 9001 certified quality management protocols',
+        '5-year security-vetted collection personnel (BS 7858)',
+        'Defined service level agreements with dedicated account managers',
+      ],
+      icon: 'gear',
+    },
+    {
+      number: '03',
+      title: 'Environmental Responsibility',
+      eyebrow: 'CIRCULAR RECOVERY',
+      tagline: 'Encouraging reuse, value recovery and responsible recycling.',
+      desc: 'We champion the circular economy by prioritizing cascade component reuse and hardware remarketing before material refining. Operating under our statutory Environment Agency upper-tier license, we enforce a strict 100% zero-to-landfill guarantee across all electronic waste.',
+      bullets: [
+        'Statutory Environment Agency upper-tier carrier and broker licensing',
+        'Comprehensive 100% zero-to-landfill guarantee on all collected electronics',
+        'Detailed Scope 3 ESG carbon offset and raw material diversion reporting',
+      ],
+      icon: 'leaf',
+    },
+    {
+      number: '04',
+      title: 'Social Value & Community',
+      eyebrow: 'COMMUNITY ENGAGEMENT',
+      tagline: 'Supporting digital inclusion, education and community programs.',
+      desc: 'True sustainability encompasses human impact. We work with public sector and corporate clients to safely refurbish sanitised IT equipment, donating devices to UK schools, community hubs, and digital inclusion charities to bridge socioeconomic divides.',
+      bullets: [
+        'Structured digital inclusion donation programs for verified UK schools',
+        'Fair wage employer supporting accredited technician apprenticeships',
+        'Community partnerships creating measurable local social return on investment',
+      ],
+      icon: 'users',
+    },
+    {
+      number: '05',
+      title: 'Corporate Governance & Ethics',
+      eyebrow: 'UNCOMPROMISING INTEGRITY',
+      tagline: 'Transparent operations, statutory compliance and legal integrity.',
+      desc: 'Integrity underpins every contract. TechSteps maintains uncompromising compliance with the UK Modern Slavery Act 2015, Bribery Act 2010, and UK GDPR statutory guidelines, providing our clients with robust legal indemnity and defensible audit records.',
+      bullets: [
+        'Full compliance with the Modern Slavery Act 2015 and ethical auditing',
+        'Strict anti-bribery, whistleblowing, and transparent corporate governance',
+        'Independently audited financial transparency and legal compliance',
+      ],
+      icon: 'scale',
+    },
+  ],
+  principles: [
+    {
+      title: 'Accountability',
+      description: 'Taking full ownership from the instant custody is transferred to our secure vehicles until final serialized certificates are issued.',
+      icon: 'clipboard-check',
+    },
+    {
+      title: 'Transparency',
+      description: 'Providing client access to audit-ready tracking logs, video-monitored destruction proofs, and documented mass-balance records.',
+      icon: 'eye',
+    },
+    {
+      title: 'Continual Improvement',
+      description: 'Systematically reviewing workflows, adopting next-generation sanitisation tools, and lowering carbon emissions per asset handled.',
+      icon: 'trending-up',
+    },
+    {
+      title: 'Integrity & Compliance',
+      description: 'Holding ourselves to statutory standards far higher than minimum regulatory mandates, providing unyielding legal protection.',
+      icon: 'award',
+    },
+  ],
+};
+
+export const defaultCaseStudiesPageData: CaseStudiesPageData = {
+  metaTitle: 'Case Studies & Client Outcomes | Real-World ITAD & Digitization | Techsteps UK',
+  metaDescription:
+    'Review verified outcomes from Techsteps client engagements across banking, healthcare, and enterprise data centre relocations.',
+  heroEyebrow: 'CLIENT RESULTS',
+  heroTitle: 'Verified Case Studies',
+  heroDescription:
+    'Explore how Techsteps resolves high-stakes compliance, data sanitisation, and migration challenges for enterprise and public sector organisations.',
+};
+
+export const defaultLocationsPageData: LocationsPageData = {
+  metaTitle: 'UK IT Equipment Recycling & Collection Locations | TechSteps UK',
+  metaDescription:
+    'Free, secure, and carbon-negative IT equipment recycling collections across all 26 UK metro hubs and regions. ADISA-certified data destruction, WEEE compliance, and zero-landfill guarantee.',
+  heroEyebrow: 'NATIONWIDE UK COVERAGE',
+  heroTitle: 'UK IT Recycling & Collection Locations',
+  heroDescription:
+    'Rapid, GPS-tracked IT collections from your doorstep across England, Scotland, Wales and Northern Ireland. Free collection for 10 or more qualifying items.',
+  faqs: [
+    {
+      question: 'Do you offer free IT collection services throughout the entire UK?',
+      answer:
+        'Yes, TechSteps provides free collections for businesses, schools, healthcare providers, and charities nationwide when you have 10 or more qualifying devices (such as laptops, PCs, or servers). For remote or smaller quantities, we provide competitive low-emission logistics or tracked secure return boxes.',
+    },
+    {
+      question: 'How quickly can TechSteps collect IT assets from our regional office?',
+      answer:
+        'Across our core hubs—including Greater London, Birmingham, Manchester, Leeds, and Bristol—we typically schedule collections within 24 to 48 hours of booking. For urgent office relocations or decommissioning projects, same-day or dedicated timed slots can be arranged.',
+    },
+    {
+      question: 'What compliance certificates are provided after collection?',
+      answer:
+        'Every single collection, regardless of location, receives an Environment Agency compliant Waste Transfer Note (Duty of Care), an itemised asset inventory with serial numbers, a Certificate of Destruction/Sanitisation (ADISA & BS EN 15713 compliant), and a Carbon Offset Certificate.',
+    },
+    {
+      question: 'Can you coordinate collections across multiple UK office locations simultaneously?',
+      answer:
+        'Yes, our central corporate logistics team frequently coordinates multi-site rollouts and IT refreshes across dozens of regional branches simultaneously. You will receive a single dedicated account manager, unified asset reporting, and consolidated compliance paperwork.',
+    },
+    {
+      question: 'How do you ensure data security during transit from regional sites?',
+      answer:
+        'All collections are executed using our own GPS-tracked, solid-sided vehicles operated by security-vetted TechSteps personnel (BS 7858 vetted and DBS checked). Equipment is locked in heavy-duty tamper-evident security roll cages from your door to our ADISA-certified facilities.',
+    },
+    {
+      question: 'What types of business IT equipment do you collect across the UK?',
+      answer:
+        'We collect all enterprise IT hardware: laptops, desktop computers, rack servers, network switches, data storage arrays, monitors, mobile phones, tablets, printers, UPS systems, and associated cabling and peripheral devices.',
+    },
+  ],
+};
+
 
 
 

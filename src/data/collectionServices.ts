@@ -46,14 +46,19 @@ export interface CollectionServiceData {
   heroImage: string;
   heroImageAlt: string;
   heroBadge: string;
+  equipmentTypesEyebrow?: string;
   equipmentTypesHeading: string;
   equipmentTypesIntro: string;
   typesCollected: EquipmentTypeItem[];
+  processEyebrow?: string;
+  processHeading?: string;
   processIntro: string;
   processSteps: CollectionProcessStep[];
+  securityEyebrow?: string;
   securityHeading: string;
   securityIntro: string;
   securityPoints: SecurityPoint[];
+  circularEyebrow?: string;
   circularHeading: string;
   circularIntro: string;
   circularOptions: CircularOption[];
@@ -233,1001 +238,997 @@ export const collectionServices: Record<string, CollectionServiceData> = {
   },
 
   'computer-collection': {
-    slug: 'computer-collection',
-    route: '/computer-collection',
-    navTitle: 'Computer Collection',
-    title: 'Computer Collection',
-    h1: 'Enterprise Computer & Workstation Collection Services',
-    valueProposition:
-      'Reliable UK-wide collection for redundant desktop PCs, enterprise workstations, micro-towers, and corporate computer fleets with certified chain of custody and rigorous data protection.',
-    metaTitle: 'Computer Collection Services UK | Desktop PC & Workstation Disposal | TechSteps',
-    metaDescription:
-      'Secure nationwide collection for redundant business desktop PCs, computer towers, and workstations. Fully auditable chain of custody, data wiping, and compliant recycling.',
-    heroImage: '/images/collection/computer-collection-hero.jpg',
-    heroImageAlt: 'TechSteps desktop computer towers and workstations organised on secure logistics carts for collection',
-    heroBadge: 'Desktop PCs & Workstations',
-    equipmentTypesHeading: 'Desktop Computers & Workstations We Collect',
-    equipmentTypesIntro:
-      'From corporate office rollouts to high-performance graphic rendering workstations, we collect all desktop form factors regardless of manufacturer or specification.',
-    typesCollected: [
-      {
-        category: 'Corporate Desktop Towers & PCs',
-        description: 'Standard business workstation fleets and office towers.',
-        items: [
-          'Full-tower, mid-tower & mini-tower desktop PCs',
-          'Small Form Factor (SFF) & ultra-small business desktops',
-          'Micro-PCs, mini desktop boxes & modular computing units',
-          'Point-of-sale (POS) terminals & retail computer units',
-        ],
-      },
-      {
-        category: 'All-in-One (AIO) Systems',
-        description: 'Integrated desktop systems with built-in displays.',
-        items: [
-          'Commercial All-in-One Windows workstations',
-          'Apple iMacs, Mac Minis & Mac Studio desktops',
-          'Medical cart PCs & clinical touch terminals',
-          'Public kiosk computers & reception check-in systems',
-        ],
-      },
-      {
-        category: 'Precision & CAD Workstations',
-        description: 'High-performance computing and enterprise engineering rigs.',
-        items: [
-          'Multi-GPU graphics, animation & CAD workstations',
-          'Financial trading desk multi-display computers',
-          'Data modelling workstations & laboratory analysis PCs',
-          'Dual-socket Xeon & AMD Threadripper workstation towers',
-        ],
-      },
-      {
-        category: 'Peripherals & Ancillary Desktop Gear',
-        description: 'Associated computing accessories and desktop hardware.',
-        items: [
-          'Keyboards, mice, desktop barcode scanners & trackpads',
-          'Uninterruptible power supplies (UPS desktop units)',
-          'Docking stations, port replicators & external enclosures',
-          'Power bricks, kettle cables, internal components & RAM',
-        ],
-      },
-    ],
-    processIntro:
-      'Our established collection protocol provides seamless operational clearance from offices, IT rooms, and regional depots across the UK.',
-    processSteps: [
-      {
-        step: '01',
-        title: 'Inventory Review & Logistics Planning',
-        description:
-          'Share your asset count, location details, and security requirements. We allocate appropriate vehicle capacity, loading equipment, and time slots matching your facility schedule.',
-      },
-      {
-        step: '02',
-        title: 'Security-Vetted Collection Crew',
-        description:
-          'Trained logistics specialists arrive on site to securely load your desktop hardware into lockable roll cages and anti-static transport containers with minimal disruption to your workforce.',
-      },
-      {
-        step: '03',
-        title: 'Sealed Chain of Custody Transit',
-        description:
-          'Roll cages and containers are numbered and secured with tamper-evident seals. Vehicles are tracked via GPS throughout transit directly to our secure processing centre.',
-      },
-      {
-        step: '04',
-        title: 'Hardware Audit & Drive Sanitisation',
-        description:
-          'Assets are checked against collection manifests. Hard drives and NVMe drives are extracted for certified data erasure or high-grade physical destruction based on your security tier.',
-      },
-      {
-        step: '05',
-        title: 'Asset Reporting & Manifest Handover',
-        description:
-          'You receive fully itemised audit manifests showing serial numbers, asset tags, hardware specifications, data sanitisation logs, and Environment Agency waste documentation.',
-      },
-    ],
-    securityHeading: 'Data Protection & Drive Sanitisation Governance',
-    securityIntro:
-      'Desktop computers house sensitive corporate spreadsheets, databases, and client personal records. We enforce comprehensive data sanitisation protocols.',
-    securityPoints: [
-      {
-        title: 'Certified Data Destruction Pathways',
-        description:
-          'All mechanical HDDs, solid-state drives (SSDs), and NVMe modules undergo multipass overwriting compliant with international standards, or physical degaussing and hydraulic crushing for failed or end-of-life media.',
-      },
-      {
-        title: 'Asset Tag & Corporate Identification Removal',
-        description:
-          'Prior to any onward reuse or remarketing processing, all external corporate asset tags, company stickers, barcodes, and serial markings are cleanly removed to safeguard institutional anonymity.',
-      },
-      {
-        title: 'Audit Trail for Compliance & Auditing',
-        description:
-          'Serialized audit trails ensure your compliance and IT governance teams can satisfy GDPR, ISO 27001, and Cyber Essentials verification requirements without administrative friction.',
-      },
-    ],
-    circularHeading: 'Refurbishment Pathways & Circular Economy Recovery',
-    circularIntro:
-      'We champion extending the operational life of computing equipment before considering raw material recycling.',
-    circularOptions: [
-      {
-        title: 'Hardware Testing & Life Extension',
-        tag: 'Highest Value Pathway',
-        description:
-          'Modern business computers undergo diagnostic burn-in testing, thermal cleaning, and component upgrades to prepare them for secondary commercial deployment or corporate donation programmes.',
-      },
-      {
-        title: 'Component Harvesting & Spares',
-        tag: 'Resource Efficiency',
-        description:
-          'Processors, RAM modules, graphics cards, power supplies, and chassis fans are recovered from damaged units to maintain and repair functional desktop inventory.',
-      },
-      {
-        title: 'WEEE Treatment & Precious Metal Recovery',
-        tag: 'Certified Environmental Disposal',
-        description:
-          'Obsolete motherboards, circuitry, power units, and steel chassis are broken down into clean material fractions for domestic UK smelters and refiners under regulated environmental permits.',
-      },
-    ],
-    faqs: [
-      {
-        question: 'Do we need to remove the hard drives before you collect our desktop PCs?',
-        answer:
-          'No. Our team can collect computers with drives intact. We barcode and track every hard drive on arrival and perform certified sanitisation or destruction. Alternatively, we can collect loose drives if you prefer to de-mount them beforehand.',
-      },
-      {
-        question: 'Is there a minimum number of computers required for a collection?',
-        answer:
-          'We cater to both consolidated multi-site collections involving hundreds of workstations and smaller regional office collections. Contact our logistics team to confirm the most efficient logistics arrangement.',
-      },
-      {
-        question: 'Can you provide lockable roll cages in advance of the collection date?',
-        answer:
-          'Yes. We can deliver secure, sealable wheeled cages to your premises ahead of your scheduled collection date so your internal IT team can stage computers conveniently.',
-      },
-      {
-        question: 'Are cables, keyboards, and mice accepted alongside PC towers?',
-        answer:
-          'Yes. We accept all peripheral desktop accessories, mice, keyboards, docking stations, and power leads as part of the unified collection batch.',
-      },
-    ],
-    relatedServicesHeading: 'Related Hardware Collection Services',
-    relatedServicesIntro:
-      'Complement your desktop collection with our dedicated laptop, screen, and server disposal disciplines.',
-    relatedSlugs: [
-      'laptop-collection',
-      'monitor-screen-collection',
-      'server-collection',
-    ],
-  },
+      "slug": "computer-collection",
+      "route": "/computer-collection",
+      "navTitle": "Computer Collection",
+      "title": "Computer Collection",
+      "h1": "Computer Collection Services UK",
+      "valueProposition": "We arrange a suitable collection time, gather laptops and desktop computers from your premises, and make sure each item is handled and accounted for.",
+      "metaTitle": "Computer Collection Services UK | Techsteps",
+      "metaDescription": "Techsteps provides computer collection services UK businesses can rely on for collecting redundant desktop PCs, workstations and other IT equipment.",
+      "heroImage": "/images/collection/computer-collection-hero.jpg",
+      "heroImageAlt": "TechSteps desktop computer towers and workstations organised on secure logistics carts for collection",
+      "heroBadge": "Desktop PCs & Workstations",
+      "equipmentTypesEyebrow": "ACCEPTED COMPUTER EQUIPMENT",
+      "equipmentTypesHeading": "Types of Computers We Collect",
+      "equipmentTypesIntro": "Our computer collection covers a variety of equipment found in business environments, including everyday office computers, employee laptops, specialist workstations and associated hardware.",
+      "typesCollected": [
+        {
+          "category": "Desktop PCs & Office Computers",
+          "description": "Standard desktop PCs and tower computers used across different departments.",
+          "items": [
+            "Standard desktop PCs and tower computers",
+            "Small Form Factor (SFF) desktop systems",
+            "Mini PCs and micro desktop computers",
+            "Office computers used across different departments"
+          ]
+        },
+        {
+          "category": "Business Laptops & Notebooks",
+          "description": "Standard business laptops, mobile workstations and staff notebooks.",
+          "items": [
+            "Standard business laptops and notebooks",
+            "Lightweight and compact laptops",
+            "Mobile workstation laptops",
+            "Older laptops and unused notebook computers"
+          ]
+        },
+        {
+          "category": "Specialist Computers & Workstations",
+          "description": "High-performance computing workstations and precision design rigs.",
+          "items": [
+            "CAD and engineering workstation computers",
+            "Graphic design and video editing systems",
+            "High-performance computing workstations",
+            "Multi-screen trading and data analysis computers"
+          ]
+        },
+        {
+          "category": "Computer Accessories & Components",
+          "description": "Keyboards, power supplies, docks and internal computing components.",
+          "items": [
+            "Keyboards, mice and computer cables",
+            "Laptop chargers and power adapters",
+            "Docking stations and port replicators",
+            "RAM, internal components and external enclosures"
+          ]
+        }
+      ],
+      "processEyebrow": "OUR COLLECTION PROCESS",
+      "processHeading": "How Our Computer Collection Process Works",
+      "processIntro": "We keep computer collections straightforward, from the initial arrangements to the handling of equipment after collection.",
+      "processSteps": [
+        {
+          "step": "01",
+          "title": "Collection Planning",
+          "description": "We discuss the type and quantity of computers, collection location and preferred date to arrange a suitable collection."
+        },
+        {
+          "step": "02",
+          "title": "On-Site Collection",
+          "description": "Our team collects laptops, desktop PCs, workstations and associated equipment directly from your business premises."
+        },
+        {
+          "step": "03",
+          "title": "Safe Handling & Transportation",
+          "description": "Each item is carefully handled, loaded and prepared for transportation to avoid unnecessary damage during transit."
+        },
+        {
+          "step": "04",
+          "title": "Equipment Assessment",
+          "description": "Collected computers are checked and recorded, with data-bearing devices identified for the appropriate data sanitisation or destruction process."
+        },
+        {
+          "step": "05",
+          "title": "Records & Documentation",
+          "description": "Relevant collection records and supporting documentation are provided to help your business keep track of its retired computer equipment."
+        }
+      ],
+      "securityEyebrow": "DATA SECURITY & DRIVE SANITISATION",
+      "securityHeading": "Protecting Business Data During Computer Collection",
+      "securityIntro": "Our computer collection services UK take data security into account, ensuring business computers containing sensitive company and customer information are identified.",
+      "securityPoints": [
+        {
+          "title": "Secure Data Erasure & Destruction",
+          "description": "Hard drives and SSDs are identified for secure data erasure or physical destruction, depending on the agreed service."
+        },
+        {
+          "title": "Asset Identification & Label Removal",
+          "description": "Equipment details are recorded, with company labels, asset tags and identification stickers removed where required."
+        },
+        {
+          "title": "Collection Records & Documentation",
+          "description": "Relevant asset records and supporting documentation help businesses maintain clear records of their collected computer equipment."
+        }
+      ],
+      "circularEyebrow": "REUSE, RECOVERY & RESPONSIBLE RECYCLING",
+      "circularHeading": "Giving Collected Computers a Second Life",
+      "circularIntro": "Our approach focuses on keeping working equipment in use and recovering useful materials from devices that have reached the end of their life.",
+      "circularOptions": [
+        {
+          "title": "Computer Testing & Refurbishment",
+          "tag": "Testing & Refurbishment",
+          "description": "Suitable computers are checked for their condition and performance before being considered for refurbishment, reuse or resale."
+        },
+        {
+          "title": "Reusable Parts & Components",
+          "tag": "Component Recovery",
+          "description": "Working components such as RAM, processors, power supplies and other parts can be recovered from computers where suitable for further use."
+        },
+        {
+          "title": "Responsible Computer Recycling",
+          "tag": "Responsible Recycling",
+          "description": "Computers that are no longer suitable for reuse are directed towards appropriate recycling processes, helping recover valuable materials and reduce electronic waste."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What types of computers do you collect from businesses?",
+          "answer": "We collect a range of business computers, including desktop PCs, laptops, workstations, all-in-one systems, mini PCs and associated computer equipment."
+        },
+        {
+          "question": "Do you offer computer collection services across the UK?",
+          "answer": "Yes, we arrange computer collections for businesses across the UK, depending on the collection location, equipment quantity and service requirements."
+        },
+        {
+          "question": "How do I arrange a computer collection for my business?",
+          "answer": "You can contact our team with your collection location, equipment details and approximate quantity. We can then discuss your requirements and arrange a suitable collection."
+        },
+        {
+          "question": "What happens to computers after they are collected?",
+          "answer": "Collected computers are assessed to determine whether they are suitable for reuse, refurbishment, component recovery or responsible recycling."
+        },
+        {
+          "question": "Is my business data protected during computer collection?",
+          "answer": "Data-bearing devices are identified for appropriate data sanitisation or destruction. The process depends on the storage device condition and the agreed data security requirements."
+        },
+        {
+          "question": "Can you collect large quantities of office computers at once?",
+          "answer": "Yes, we can discuss collections involving multiple computers, office equipment clearances and larger IT asset replacements based on the volume and location."
+        },
+        {
+          "question": "Do you provide documentation after collecting business computers?",
+          "answer": "Relevant collection records and supporting documentation can be provided to help businesses maintain equipment records and track their retired IT assets."
+        }
+      ],
+      "relatedServicesHeading": "Explore Related Collection Disciplines",
+      "relatedServicesIntro": "Combine computer hardware collections with our complementary IT asset retirement services.",
+      "relatedSlugs": [
+        "laptop-collection",
+        "monitor-screen-collection",
+        "server-collection"
+      ]
+    },
 
   'laptop-collection': {
-    slug: 'laptop-collection',
-    route: '/laptop-collection',
-    navTitle: 'Laptop Collection',
-    title: 'Laptop Collection',
-    h1: 'Corporate Laptop & Notebook Collection Services',
-    valueProposition:
-      'Security-cleared nationwide collection for redundant business laptops, ultrabooks, MacBooks, and mobile workstations, featuring protected transit, battery compliance, and sanitisation.',
-    metaTitle: 'Laptop Collection Services UK | Corporate Notebook Disposal | TechSteps',
-    metaDescription:
-      'Secure UK collection for corporate laptops, MacBooks, and mobile workstations. Vetted logistics, lithium battery compliance, certified data erasure, and circular reuse.',
-    heroImage: '/images/collection/laptop-collection-hero.jpg',
-    heroImageAlt: 'TechSteps business laptops neatly arranged in foam-padded flight cases for secure corporate collection',
-    heroBadge: 'Business Laptops & Ultrabooks',
-    equipmentTypesHeading: 'Corporate Laptops & Mobile Workstations We Collect',
-    equipmentTypesIntro:
-      'We handle large-scale workplace laptop refreshes, remote worker device returns, and mixed mobile computing inventories across public and private sector organisations.',
-    typesCollected: [
-      {
-        category: 'Enterprise Business Laptops',
-        description: 'Standard corporate fleet devices from tier-one manufacturers.',
-        items: [
-          'Dell Latitude & XPS business laptops',
-          'Lenovo ThinkPad & ThinkBook corporate systems',
-          'HP EliteBook & ProBook enterprise notebooks',
-          'Microsoft Surface Pro, Surface Laptop & Book series',
-        ],
-      },
-      {
-        category: 'Apple MacBooks & Workstations',
-        description: 'Apple silicon and Intel-based macOS laptops.',
-        items: [
-          'Apple MacBook Air (M1, M2, M3 & Intel architectures)',
-          'Apple MacBook Pro 13, 14 & 16-inch models',
-          'T2-chip and Apple Silicon MDM-managed devices',
-          'Legacy unibody MacBooks and corporate loaners',
-        ],
-      },
-      {
-        category: 'Mobile Workstations & Rugged Units',
-        description: 'Demanding engineering, field, and clinical portable computers.',
-        items: [
-          'Precision CAD mobile workstations (Dell Precision, HP ZBook)',
-          'Rugged field laptops (Panasonic Toughbook, Getac)',
-          'Clinical and medical cart mobile computing units',
-          'High-performance developer and analytical notebooks',
-        ],
-      },
-      {
-        category: 'Laptop Docks, Chargers & Mobile Peripherals',
-        description: 'Charging and desktop interface hardware.',
-        items: [
-          'Thunderbolt & USB-C enterprise docking stations',
-          'OEM original power supplies, chargers & AC adapters',
-          'Privacy filters, laptop risers & peripheral hubs',
-          'Padded laptop carry bags, sleeves & security cables',
-        ],
-      },
-    ],
-    processIntro:
-      'Designed to streamline corporate refresh cycles while preserving continuous regulatory governance over every device.',
-    processSteps: [
-      {
-        step: '01',
-        title: 'Batch Scoping & Schedule Booking',
-        description:
-          'Specify your approximate device counts, operating systems, and building access criteria. We confirm dedicated collection slots and assign appropriately equipped collection transport.',
-      },
-      {
-        step: '02',
-        title: 'Specialised Padded Packing On-Site',
-        description:
-          'Our personnel pack laptops into multi-compartment foam-lined flight cases and cushioned tote boxes, preventing screen cracks, chassis bending, and battery impact damage.',
-      },
-      {
-        step: '03',
-        title: 'Tamper-Evident Transport Logistics',
-        description:
-          'Sealed transit boxes are loaded into tracked vehicles. Every consignment travels under signed Duty of Care transfer notes directly to our processing and sanitisation hub.',
-      },
-      {
-        step: '04',
-        title: 'Barcode Intake & Drive Erasure',
-        description:
-          'Each laptop is scanned into our tracking system. Solid-state drives and soldered flash modules undergo automated multipass data sanitisation with cryptographic verification.',
-      },
-      {
-        step: '05',
-        title: 'Detailed Certification & Reporting',
-        description:
-          'You receive complete audit documentation including serial numbers, asset tags, device health diagnostics, and individual data destruction certificates for your internal audit.',
-      },
-    ],
-    securityHeading: 'Data Confidentiality & Lithium Battery Safety Protocols',
-    securityIntro:
-      'Laptops present unique risks: they carry confidential local data and contain high-capacity lithium-ion batteries that require strict regulatory transport compliance.',
-    securityPoints: [
-      {
-        title: 'Cryptographic & Firmware Erasure',
-        description:
-          'Modern laptops utilise integrated NVMe drives and motherboard-soldered storage. We execute certified firmware-level erasure protocols compliant with NIST 800-88 standards to eradicate all residual company data.',
-      },
-      {
-        title: 'Lithium-Ion Battery Safety Handling',
-        description:
-          'Damaged, swollen, or defective batteries represent fire hazards. Our staff visually inspect every device on collection and isolate compromised cells in specialised fire-retardant safety containers in accordance with ADR transport guidance.',
-      },
-      {
-        title: 'MDM & Bios Lock Verification',
-        description:
-          'We inspect Apple DEP/MDM profiles, Intune registrations, and BIOS supervisor passwords, ensuring assets are clean and fully dereferenced from corporate tenant environments.',
-      },
-    ],
-    circularHeading: 'Refurbishment, Reuse & Closed-Loop Recycling',
-    circularIntro:
-      'Maximising laptop reuse creates the highest environmental and economic dividend for enterprise sustainability programmes.',
-    circularOptions: [
-      {
-        title: 'Testing, Grading & Secondary Deployment',
-        tag: 'Highest Environmental Value',
-        description:
-          'Viable laptops undergo component diagnostics, screen inspection, battery health assessment, and deep cosmetic cleaning to prepare them for enterprise redeployment, resale, or community giving.',
-      },
-      {
-        title: 'Spare Parts Harvesting',
-        tag: 'Waste Prevention',
-        description:
-          'Working keyboards, trackpads, LCD panels, and internal batteries are harvested from units with motherboard failures to extend the life of other enterprise fleet machines.',
-      },
-      {
-        title: 'Certified WEEE Materials Separation',
-        tag: 'Zero Landfill Commitment',
-        description:
-          'Heavily damaged or obsolete laptops are stripped down into clean fractions: lithium batteries, aluminium casings, copper heatpipes, and circuit boards for licensed UK refining.',
-      },
-    ],
-    faqs: [
-      {
-        question: 'Can you collect laptops from remote employees or only centralized offices?',
-        answer:
-          'We specialise in bulk collections from regional office hubs and IT consolidation depots. For distributed remote teams, we can coordinate scheduled consolidated batch pickups through your central locations.',
-      },
-      {
-        question: 'What happens to laptops with BIOS passwords or BitLocker encryption?',
-        answer:
-          'Our certified erasure tools interface directly at hardware level to purge drive sectors regardless of BitLocker status. We appreciate receiving master BIOS passwords when available, but can reset or replace affected motherboards where needed.',
-      },
-      {
-        question: 'Do we need to supply original boxes or packing materials?',
-        answer:
-          'No. Our logistics crews arrive fully equipped with protective foam-lined flight cases, anti-static packing sleeves, and secure wheeled containers, eliminating packing burden for your staff.',
-      },
-      {
-        question: 'How do you handle MacBooks enrolled in Apple Business Manager (ABM)?',
-        answer:
-          'We recommend releasing serial numbers from your ABM portal prior to or during collection. We can verify device activation status during intake audit and advise your administration team accordingly.',
-      },
-    ],
-    relatedServicesHeading: 'Complementary Collection Disciplines',
-    relatedServicesIntro:
-      'Bundle your laptop refresh with our comprehensive computer, mobile device, and monitor recycling services.',
-    relatedSlugs: [
-      'computer-collection',
-      'mobile-device-collection',
-      'monitor-screen-collection',
-    ],
-  },
+      "slug": "laptop-collection",
+      "route": "/laptop-collection",
+      "navTitle": "Laptop Collection",
+      "title": "Laptop Collection",
+      "h1": "Laptop Collection Services UK",
+      "valueProposition": "We collect your old business laptops from anywhere in the UK, wipe them securely and send you the certificate to prove it. No fuss, no stress.",
+      "metaTitle": "Laptop Collection Services UK | Techsteps",
+      "metaDescription": "Looking for laptop collection services UK? Techsteps collects redundant business laptops and notebooks, with careful handling and responsible reuse or recycling.",
+      "heroImage": "/images/collection/laptop-collection-hero.jpg",
+      "heroImageAlt": "TechSteps corporate laptops and notebooks prepared in foam-lined protective containers for secure collection",
+      "heroBadge": "Business Laptops & MacBooks",
+      "equipmentTypesEyebrow": "ACCEPTED HARDWARE SPECIFICATIONS",
+      "equipmentTypesHeading": "Laptops Workstations We Collect with Our Laptop Collection Services UK",
+      "equipmentTypesIntro": "Whether you’re running a company-wide refresh, getting devices back from remote staff or clearing out a mixed stockpile, our laptop collection services UK cover businesses, schools, healthcare providers of every size.",
+      "typesCollected": [
+        {
+          "category": "Everyday Business Laptops",
+          "description": "The machines most offices run on, from all the big names.",
+          "items": [
+            "Dell Latitude and XPS laptops",
+            "Lenovo ThinkPad and ThinkBook laptops",
+            "HP EliteBook and ProBook notebooks",
+            "Microsoft Surface Pro, Surface Laptop and Surface Book devices"
+          ]
+        },
+        {
+          "category": "Apple MacBooks",
+          "description": "Both Apple silicon and older Intel Macs.",
+          "items": [
+            "MacBook Air (M1, M2, M3 and Intel models)",
+            "MacBook Pro in 13, 14 and 16-inch sizes",
+            "T2-chip and Apple silicon Macs still locked to MDM",
+            "Older unibody MacBooks and spare loan machines"
+          ]
+        },
+        {
+          "category": "Mobile Workstations & Rugged Laptops",
+          "description": "Tough, powerful machines for engineers, field teams and clinical staff.",
+          "items": [
+            "CAD workstations such as Dell Precision and HP ZBook",
+            "Rugged field laptops like Panasonic Toughbook and Getac",
+            "Clinical and medical trolley computers",
+            "High-spec laptops used by developers and analysts"
+          ]
+        },
+        {
+          "category": "Docks, Chargers & Laptop Accessories",
+          "description": "The extras that usually get left in a drawer.",
+          "items": [
+            "Thunderbolt and USB-C docking stations",
+            "Original power adapters and chargers",
+            "Privacy screens, laptop stands and USB hubs",
+            "Padded laptop bags, sleeves and security cables"
+          ]
+        }
+      ],
+      "processEyebrow": "HOW THE LAPTOP COLLECTION PROCESS WORKS",
+      "processHeading": "How the Laptop Collection Process Works",
+      "processIntro": "Our laptop collection services in the UK keep every device accounted for, from your office door to the final certificate.",
+      "processSteps": [
+        {
+          "step": "01",
+          "title": "Tell Us What You Have & Pick a Date",
+          "description": "Share your rough laptop numbers, systems, and building access details. We’ll confirm a slot and send the right vehicle."
+        },
+        {
+          "step": "02",
+          "title": "Careful Packing at Your Site",
+          "description": "We pack each laptop on the spot in foam-lined cases and cushioned boxes, protecting screens, casings and batteries."
+        },
+        {
+          "step": "03",
+          "title": "Sealed and Tracked in Transit",
+          "description": "Sealed boxes travel in tracked vehicles with a signed Duty of Care note, straight to our secure wiping facility."
+        },
+        {
+          "step": "04",
+          "title": "Scanned In & Securely Wiped",
+          "description": "We barcode-scan each laptop on arrival, then wipe it with multiple overwrite passes and check to confirm nothing is left behind."
+        },
+        {
+          "step": "05",
+          "title": "Full Paperwork for Your Records",
+          "description": "You get an audit pack with serial numbers, asset tags, condition reports and a data destruction certificate for every laptop."
+        }
+      ],
+      "securityEyebrow": "CONFIDENTIALITY & GOVERNANCE",
+      "securityHeading": "Laptop Data Security & Battery Safety You Can Trust",
+      "securityIntro": "Laptops carry confidential company data and lithium-ion batteries that need careful handling. Our laptop collection services UK deal with both, so nothing is left to chance.",
+      "securityPoints": [
+        {
+          "title": "Secure Data Erasure",
+          "description": "Modern laptops often have storage soldered straight onto the motherboard. We wipe every drive at firmware level to NIST 800-88 standards, so no company data is left behind."
+        },
+        {
+          "title": "Safe Battery Handling",
+          "description": "Our team checks every laptop on collection and places any faulty battery in a fire-retardant container, following ADR transport guidance."
+        },
+        {
+          "title": "MDM & BIOS Lock Checks",
+          "description": "We check for Apple MDM profiles, Intune registrations and BIOS passwords, so every laptop is fully released from your company systems and ready to be reused or recycled."
+        }
+      ],
+      "circularEyebrow": "REUSE, RECOVERY & RESPONSIBLE RECYCLING",
+      "circularHeading": "Giving Collected Laptops a Second Life",
+      "circularIntro": "Our approach focuses on keeping working equipment in use and recovering useful materials from devices that have reached the end of their life.",
+      "circularOptions": [
+        {
+          "title": "Laptop Testing & Refurbishment",
+          "tag": "Testing & Refurbishment",
+          "description": "Laptops with life left are thoroughly tested, cleaned and prepared for reuse or resale, extending device lifespans."
+        },
+        {
+          "title": "Component & Screen Harvesting",
+          "tag": "Component Recovery",
+          "description": "Working screens, keyboards, RAM and internal parts are recovered from faulty machines to repair other devices."
+        },
+        {
+          "title": "Responsible Laptop Recycling",
+          "tag": "WEEE Recycling",
+          "description": "Laptops that cannot be reused are responsibly recycled through certified UK WEEE processes with zero landfill waste."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What are laptop collection services UK?",
+          "answer": "A specialist company collects your unwanted business laptops, wipes the data and reuses or recycles them. You get paperwork to prove it."
+        },
+        {
+          "question": "How do I dispose of old business laptops safely?",
+          "answer": "Use a certified collection provider. They wipe the data properly and give you an erasure certificate for your records."
+        },
+        {
+          "question": "Do I need to wipe my laptops before collection?",
+          "answer": "No, we do it for you. Every laptop is securely wiped and you get a certificate for each one."
+        },
+        {
+          "question": "Is it legal to throw away old laptops in the UK?",
+          "answer": "No. Laptops are electrical waste (WEEE) and hold data covered by UK GDPR, so they must be disposed of through an authorised route."
+        },
+        {
+          "question": "Can you collect laptops from more than one location?",
+          "answer": "Yes. We can collect from several sites in one booking and send you one combined report."
+        },
+        {
+          "question": "What happens to the laptops after collection?",
+          "answer": "They’re scanned in and wiped. Laptops with life left are reused, the rest are recycled, and unwipeable drives are destroyed."
+        },
+        {
+          "question": "Do you collect broken or damaged laptops?",
+          "answer": "Yes. Working, faulty, cracked or swollen-battery laptops are all accepted, and damaged batteries are handled safely."
+        }
+      ],
+      "relatedServicesHeading": "Explore Related Collection Disciplines",
+      "relatedServicesIntro": "Combine laptop fleets with desktop computers, mobile devices, and office hardware collections.",
+      "relatedSlugs": [
+        "computer-collection",
+        "mobile-device-collection",
+        "monitor-screen-collection"
+      ]
+    },
 
   'mobile-device-collection': {
-    slug: 'mobile-device-collection',
-    route: '/mobile-device-collection',
-    navTitle: 'Mobile Device Collection',
-    title: 'Mobile Device Collection',
-    h1: 'Enterprise Mobile Device & Tablet Collection Services',
-    valueProposition:
-      'Secure UK collection for corporate smartphones, tablets, iPads, and handheld enterprise terminals with certified factory sanitisation, MDM de-registration, and ethical recycling.',
-    metaTitle: 'Mobile Device Collection UK | Corporate Smartphone & Tablet Disposal | TechSteps',
-    metaDescription:
-      'Professional UK collection for business smartphones, tablets, iPads, and mobile terminals. Secure handling, certified erasure, MDM verification, and WEEE compliance.',
-    heroImage: '/images/collection/mobile-device-collection-hero.jpg',
-    heroImageAlt: 'TechSteps enterprise smartphones, iPads and handheld terminals organised in protective flight cases for collection',
-    heroBadge: 'Smartphones, Tablets & Terminals',
-    equipmentTypesHeading: 'Enterprise Mobile Technology We Collect',
-    equipmentTypesIntro:
-      'We collect mixed mobile fleets, frontline operational handhelds, and executive smartphone inventories from enterprises, logistics hubs, and healthcare organisations.',
-    typesCollected: [
-      {
-        category: 'Corporate Smartphones',
-        description: 'Standard business communication and staff mobile phones.',
-        items: [
-          'Apple iPhone corporate fleets (all generations)',
-          'Samsung Galaxy Enterprise Edition smartphones',
-          'Google Pixel business handsets',
-          'Rugged industrial smartphones & field communication units',
-        ],
-      },
-      {
-        category: 'Enterprise Tablets & iPads',
-        description: 'Touchscreen computing devices for field and office use.',
-        items: [
-          'Apple iPad, iPad Air, iPad Mini & iPad Pro tablets',
-          'Samsung Galaxy Tab commercial & rugged active devices',
-          'Microsoft Surface Go & enterprise touch tablets',
-          'Point-of-sale customer service display tablets',
-        ],
-      },
-      {
-        category: 'Warehousing & Handheld Terminals',
-        description: 'Barcoding, logistics, and data capture mobile terminals.',
-        items: [
-          'Zebra, Honeywell & Datalogic barcode scanners',
-          'Rugged mobile computers & inventory terminals',
-          'RFID handheld readers & mobile label printers',
-          'Vehicle-mounted mobile terminal computers',
-        ],
-      },
-      {
-        category: 'Mobile Accessories & Charging Stations',
-        description: 'Supporting peripheral hardware and multi-unit docks.',
-        items: [
-          'Multi-bay charging cradles & terminal docking banks',
-          'OEM charging blocks, USB-C/Lightning cables & adapters',
-          'Heavy-duty protective cases, styluses & holster straps',
-          'Spare lithium-ion mobile battery packs & power banks',
-        ],
-      },
-    ],
-    processIntro:
-      'Our mobile collection workflow guarantees every handset is tracked, verified, and processed with strict regulatory oversight.',
-    processSteps: [
-      {
-        step: '01',
-        title: 'Device Quantities & Scope Review',
-        description:
-          'Inform us of your estimated device count, brands, and current MDM status. We establish a prompt, secure collection itinerary suited to your facilities.',
-      },
-      {
-        step: '02',
-        title: 'Foam-Padded On-Site Packing',
-        description:
-          'Our personnel pack devices into purpose-built, foam-lined flight cases with individual slots, preventing scratch damage and protecting sensitive touchscreens during handling.',
-      },
-      {
-        step: '03',
-        title: 'Secure Tracked Transit',
-        description:
-          'Cases are closed with serialized security ties and transported directly to our secure facility in GPS-tracked vehicles under signed transfer documentation.',
-      },
-      {
-        step: '04',
-        title: 'Diagnostic Intake & Data Erasure',
-        description:
-          'IMEI and serial numbers are scanned. Every device undergoes automated diagnostic testing and cryptographic sanitisation using certified mobile erasure systems.',
-      },
-      {
-        step: '05',
-        title: 'Comprehensive Audit Reporting',
-        description:
-          'You receive itemised manifests showing make, model, IMEI, serial number, cosmetic grade, and data sanitisation confirmation for every collected device.',
-      },
-    ],
-    securityHeading: 'Data Protection, IMEI Auditing & MDM Protocols',
-    securityIntro:
-      'Mobile devices house enterprise email, multi-factor authentication tokens, VPN credentials, and confidential contacts requiring rigorous clearance.',
-    securityPoints: [
-      {
-        title: 'Certified Mobile Factory Purge',
-        description:
-          'We use specialized mobile erasure systems to execute factory firmware resets and cryptographic data purging that permanently overwrite all internal NAND memory partitions.',
-      },
-      {
-        title: 'MDM, iCloud & Knox Deregistration Check',
-        description:
-          'Each device is verified for active Apple ID/iCloud Activation Locks, Samsung Knox restrictions, or Google Factory Reset Protection (FRP) to ensure total decoupling from corporate infrastructure.',
-      },
-      {
-        title: 'SIM & SD Card Extraction and Shredding',
-        description:
-          'During intake, all SIM cards, micro-SD storage cards, and eSIM profiles are identified, physically removed, and securely cross-cut destroyed to prevent cellular or data leakage.',
-      },
-    ],
-    circularHeading: 'Circular Life Extension & Ethical Material Recovery',
-    circularIntro:
-      'Mobile devices represent rich concentrations of precious materials that should be reused or cleanly recovered.',
-    circularOptions: [
-      {
-        title: 'Refurbishment & Resale Ecosystems',
-        tag: 'Circular Economy Choice',
-        description:
-          'Functional smartphones and tablets undergo battery capacity testing, screen polishing, and firmware refreshes, preparing them for circular secondary commercial use.',
-      },
-      {
-        title: 'Screen & Component Harvesting',
-        tag: 'Part Reclaiming',
-        description:
-          'Cracked or liquid-damaged devices provide viable cameras, logic boards, microphone modules, and casing parts to maintain other working corporate devices.',
-      },
-      {
-        title: 'Refining of Battery & Rare-Earth Metals',
-        tag: 'WEEE Treatment',
-        description:
-          'Non-repairable units are processed through certified UK electronics refiners to extract gold, silver, palladium, cobalt, and lithium with zero landfill impact.',
-      },
-    ],
-    faqs: [
-      {
-        question: 'Do we need to remove screen locks and PINs before you collect our phones?',
-        answer:
-          'While removing passcodes and MDM accounts accelerates processing, our automated diagnostic software can perform hard firmware wipes on most commercial devices. We can advise on procedures for locked Apple devices.',
-      },
-      {
-        question: 'What happens if employee SIM cards are left inside the devices?',
-        answer:
-          'Our intake technicians manually eject every SIM tray and card slot. All discovered SIM and micro-SD cards are documented and destroyed in secure shredders, ensuring zero risk of phone number or data misuse.',
-      },
-      {
-        question: 'Can you collect devices with swollen or cracked lithium batteries?',
-        answer:
-          'Yes, but please inform us beforehand. We bring specialized fire-retardant ADR safety containers to transport damaged or swollen batteries safely in compliance with UK transport regulations.',
-      },
-      {
-        question: 'Do you provide certificate reports matching IMEI numbers?',
-        answer:
-          'Yes. Our final audit report itemises every device by its unique 15-digit IMEI number alongside serial and asset tag numbers, providing watertight proof for your compliance files.',
-      },
-    ],
-    relatedServicesHeading: 'Related Hardware Collection Services',
-    relatedServicesIntro:
-      'Integrate mobile collections with our enterprise laptop and desktop computer disposal workflows.',
-    relatedSlugs: [
-      'laptop-collection',
-      'computer-collection',
-      'av-media-equipment-collection',
-    ],
-  },
+      "slug": "mobile-device-collection",
+      "route": "/mobile-device-collection",
+      "navTitle": "Mobile Device Collection",
+      "title": "Mobile Device Collection",
+      "h1": "Business Mobile and Tablet Collection Services UK",
+      "valueProposition": "We collect your unused company phones, tablets and handheld scanners from anywhere in the UK, wipe them securely and give you the paperwork to prove it.",
+      "metaTitle": "Mobile Phone Collection Services UK | Techsteps",
+      "metaDescription": "Arrange mobile phone collection services UK businesses can rely on. Techsteps collects redundant business phones for data handling, reuse and recycling.",
+      "heroImage": "/images/collection/mobile-device-collection-hero.jpg",
+      "heroImageAlt": "TechSteps technicians inspecting corporate smartphones and tablets in anti-static cushioned sorting trays",
+      "heroBadge": "Mobile Devices & Scanners",
+      "equipmentTypesEyebrow": "ENTERPRISE MOBILE TECHNOLOGY WE COLLECT",
+      "equipmentTypesHeading": "Mobile Devices We Collect with Our Mobile Collection Services UK",
+      "equipmentTypesIntro": "We collect mixed phone fleets, warehouse handhelds and spare executive handsets from businesses, logistics depots and healthcare providers, however many you have.",
+      "typesCollected": [
+        {
+          "category": "Business Smartphones",
+          "description": "The everyday phones your staff use for work.",
+          "items": [
+            "iPhones from any year",
+            "Samsung Galaxy Enterprise Edition phones",
+            "Google Pixel business handsets",
+            "Rugged phones used on sites and in the field"
+          ]
+        },
+        {
+          "category": "Tablets & iPads",
+          "description": "Touchscreen devices for the office, the road and the shop floor.",
+          "items": [
+            "iPad, iPad Air, iPad Mini and iPad Pro models",
+            "Samsung Galaxy Tab standard and rugged Active tablets",
+            "Microsoft Surface Go and other work touchscreen tablets",
+            "Tablets used for payments and customer displays"
+          ]
+        },
+        {
+          "category": "Warehouse & Handheld Scanners",
+          "description": "The devices that keep stock and deliveries moving.",
+          "items": [
+            "Barcode scanners from Zebra, Honeywell and Datalogic",
+            "Rugged handheld computers and stock-taking terminals",
+            "RFID readers and portable label printers",
+            "Vehicle-mounted terminals used in forklifts and vans"
+          ]
+        },
+        {
+          "category": "Mobile Accessories & Charging Stations",
+          "description": "The extras that usually get left behind.",
+          "items": [
+            "Multi-bay charging cradles and docking stations",
+            "Original chargers, USB-C and Lightning cables and adapters",
+            "Tough cases, styluses and holster straps",
+            "Spare batteries and power banks"
+          ]
+        }
+      ],
+      "processEyebrow": "HOW THE MOBILE COLLECTION PROCESS WORKS",
+      "processHeading": "How the Mobile Collection Process Works",
+      "processIntro": "Our mobile collection services UK keep every device tracked and checked from your office to the final report.",
+      "processSteps": [
+        {
+          "step": "01",
+          "title": "Tell Us What You Have & Arrange a Date",
+          "description": "Share your rough device numbers, brands and MDM status. We’ll plan a quick, secure collection that fits around your sites."
+        },
+        {
+          "step": "02",
+          "title": "Safe Packing at Your Site",
+          "description": "We pack phones and tablets into foam-lined cases with individual slots, keeping screens scratch-free while they’re moved."
+        },
+        {
+          "step": "03",
+          "title": "Sealed and Tracked in Transit",
+          "description": "Cases are sealed with numbered security ties and travel in GPS-tracked vehicles, with signed paperwork, to our secure facility."
+        },
+        {
+          "step": "04",
+          "title": "Checked In & Securely Wiped",
+          "description": "We scan every IMEI and serial number, test each device and wipe it with certified mobile erasure software."
+        },
+        {
+          "step": "05",
+          "title": "Full Report for Your Records",
+          "description": "You get an itemised list showing make, model, IMEI, serial number, condition grade and wipe confirmation for every device."
+        }
+      ],
+      "securityEyebrow": "DATA PROTECTION, IMEI AUDITING & MDM PROTOCOLS",
+      "securityHeading": "Data Protection, IMEI Auditing & MDM Protocols",
+      "securityIntro": "Work phones and tablets hold company emails, login codes, VPN access and private contacts. Our mobile collection services UK make sure none of it leaves with the device.",
+      "securityPoints": [
+        {
+          "title": "Certified Data Wipe",
+          "description": "We use specialist mobile erasure software to factory reset every device and overwrite its internal storage, so nothing can be recovered afterwards."
+        },
+        {
+          "title": "MDM, iCloud & Knox Lock Checks",
+          "description": "We check each device for Apple iCloud Activation Lock, Samsung Knox restrictions and Google FRP, so it is fully released from your company systems."
+        },
+        {
+          "title": "SIM & SD Card Removal",
+          "description": "We find and remove every SIM card and memory card on arrival, then shred them, and we clear any eSIM profiles, so no data or network access is left behind."
+        }
+      ],
+      "circularEyebrow": "CIRCULAR LIFE EXTENSION & ETHICAL MATERIAL RECOVERY",
+      "circularHeading": "Circular Life Extension & Ethical Material Recovery",
+      "circularIntro": "Old phones and tablets are full of valuable materials. Our mobile collection services UK make sure they’re reused where possible and recycled properly when they’re not.",
+      "circularOptions": [
+        {
+          "title": "Refurbish & Resell",
+          "tag": "Refurbish & Resell",
+          "description": "Phones and tablets that still work have their battery health checked, screens polished and software refreshed, so they can go on to a second life with a new owner."
+        },
+        {
+          "title": "Parts Recovery",
+          "tag": "Parts Recovery",
+          "description": "Cracked or water-damaged devices still have usable cameras, logic boards, microphones and casings, which are pulled out and used to repair other working devices."
+        },
+        {
+          "title": "Responsible Recycling",
+          "tag": "Responsible Recycling",
+          "description": "Devices that can’t be repaired go to certified UK recyclers, who recover gold, silver, palladium, cobalt and lithium, with nothing sent to landfill."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What are mobile collection services UK?",
+          "answer": "A specialist company collects your unused business phones and tablets, wipes the data and reuses or recycles them. You get paperwork to prove it."
+        },
+        {
+          "question": "How do I dispose of old company phones safely?",
+          "answer": "Use a certified provider. They wipe every device, check it’s released from your MDM and give you a certificate for your records."
+        },
+        {
+          "question": "How do I wipe a work phone before recycling it?",
+          "answer": "A factory reset isn’t always enough. We use certified erasure software to overwrite the storage, so nothing can be recovered."
+        },
+        {
+          "question": "Can you collect phones that are still locked to our MDM?",
+          "answer": "Yes. We check for MDM, iCloud Activation Lock, Samsung Knox and Google FRP, and help you release each device before it’s reused or recycled."
+        },
+        {
+          "question": "What happens to the SIM and SD cards?",
+          "answer": "We remove every SIM and memory card on arrival and shred them. Any eSIM profiles are cleared too."
+        },
+        {
+          "question": "Is it legal to throw away old phones and tablets in the UK?",
+          "answer": "No. They’re electrical waste (WEEE) and hold data covered by UK GDPR, so they must go through an authorised disposal route."
+        },
+        {
+          "question": "Do you pay for old business phones and tablets?",
+          "answer": "Often, yes. Devices that still work can have resale value, which can offset the cost of collection."
+        }
+      ],
+      "relatedServicesHeading": "Related Hardware Collection Services",
+      "relatedServicesIntro": "Integrate mobile device disposal with laptops, desktop computers, and office IT collections.",
+      "relatedSlugs": [
+        "laptop-collection",
+        "computer-collection",
+        "monitor-screen-collection"
+      ]
+    },
 
   'monitor-screen-collection': {
-    slug: 'monitor-screen-collection',
-    route: '/monitor-screen-collection',
-    navTitle: 'Monitor & Screen Collection',
-    title: 'Monitor & Screen Collection',
-    h1: 'Enterprise Monitor & Screen Collection Services',
-    valueProposition:
-      'Safe, compliant nationwide collection for commercial computer monitors, dual-display setups, ultrawide curved panels, and interactive screens with specialised protective handling.',
-    metaTitle: 'Monitor & Screen Collection UK | Office Display Disposal | TechSteps',
-    metaDescription:
-      'Compliant UK collection for business computer monitors, curved screens, and commercial displays. Protective transit cages, WEEE compliance, and high recycling recovery.',
-    heroImage: '/images/collection/monitor-screen-collection-hero.jpg',
-    heroImageAlt: 'TechSteps commercial computer monitors and office screens secured in flight cases and rolling distribution cages',
-    heroBadge: 'Monitors & Commercial Displays',
-    equipmentTypesHeading: 'Display Technology & Screens We Collect',
-    equipmentTypesIntro:
-      'We collect the full spectrum of office computer monitors, curved workstations, touchscreens, and digital signage panels across the UK.',
-    typesCollected: [
-      {
-        category: 'Standard Office Displays',
-        description: 'Everyday corporate desktop monitors and dual-screen fleets.',
-        items: [
-          '21-inch to 27-inch business LED/LCD monitors',
-          'Height-adjustable enterprise desktop displays (Dell, HP, Lenovo)',
-          'Bezel-less dual-monitor workplace configurations',
-          'Standard 1080p and 1440p productivity panels',
-        ],
-      },
-      {
-        category: 'Professional & Ultra-Wide Screens',
-        description: 'Large-format and specialist creative workstation displays.',
-        items: [
-          '34-inch to 49-inch curved ultrawide panoramic monitors',
-          'Colour-calibrated 4K and 5K creative graphic monitors',
-          'High-refresh rate CAD and engineering displays',
-          'Medical diagnostic review screens and clinical monitors',
-        ],
-      },
-      {
-        category: 'Interactive Touchscreens & Digital Displays',
-        description: 'Commercial touch monitors and collaboration panels.',
-        items: [
-          'Interactive touchscreens and customer kiosk displays',
-          'Commercial digital signage screens and advertising panels',
-          'Industrial ruggedized touch monitors and panel PCs',
-          'Point-of-sale checkout monitors and customer-facing displays',
-        ],
-      },
-      {
-        category: 'Monitor Arms, Stands & Cabling',
-        description: 'Supporting ergonomics and mounting infrastructure.',
-        items: [
-          'Single, dual and quad monitor desk arms and gas-strut mounts',
-          'Original OEM desktop monitor stands and baseplates',
-          'DisplayPort, HDMI, USB-C and DVI connection leads',
-          'External power supply bricks, IEC cables and adapters',
-        ],
-      },
-    ],
-    processIntro:
-      'We remove the hazard and breakage risks associated with moving large quantities of fragile glass monitors from corporate premises.',
-    processSteps: [
-      {
-        step: '01',
-        title: 'Inventory Estimate & Booking',
-        description:
-          'Specify your monitor quantities, approximate screen sizes, and whether stands are detached. We schedule a convenient collection slot matching your building loading bay availability.',
-      },
-      {
-        step: '02',
-        title: 'Specialised Screen Protection On-Site',
-        description:
-          'Our personnel pack screens using slotted foam dividers, corrugated screen protectors, and dedicated padded roll cages to eliminate glass impact damage during clearance.',
-      },
-      {
-        step: '03',
-        title: 'Compliant Chain-of-Custody Transit',
-        description:
-          'Consignments are loaded onto tail-lift vehicles and secured with strapping. A formal Duty of Care waste transfer note is signed on site prior to dispatch.',
-      },
-      {
-        step: '04',
-        title: 'Testing, Grading & Sorting',
-        description:
-          'At our facility, monitors are unpacked, tested for panel health and dead pixels, and sorted into reuse candidates or certified material recycling streams.',
-      },
-      {
-        step: '05',
-        title: 'Reporting & Environmental Manifests',
-        description:
-          'You receive comprehensive audit manifests recording makes, models, screen dimensions, and recycling weight data for your corporate ESG reporting.',
-      },
-    ],
-    securityHeading: 'Safe Handling & Hazardous Waste Compliance',
-    securityIntro:
-      'Flat panel displays require careful handling due to mercury backlights in older models, fragile glass substrates, and hazardous substance regulations.',
-    securityPoints: [
-      {
-        title: 'Hazardous Waste Duty of Care Compliance',
-        description:
-          'Certain older display units (especially CCFL backlit screens) contain trace mercury and are classified as hazardous waste under UK regulations. We manage all consignment note documentation in full compliance with the Environment Agency.',
-      },
-      {
-        title: 'Zero Pressure Screen Packaging',
-        description:
-          'Improperly stacked monitors crack easily. We use custom vertical slotting to ensure zero face-to-face pressure, preserving screen integrity for functional remarketing.',
-      },
-      {
-        title: 'Complete Component Accounting',
-        description:
-          'We inventory power bricks, cables, and detachable stands alongside displays, ensuring no electronic peripherals are abandoned or improperly disposed of.',
-      },
-    ],
-    circularHeading: 'Refurbishment Opportunities & Circular Material Recycling',
-    circularIntro:
-      'By protecting display panels from damage during collection, we achieve industry-leading reuse and recycling rates.',
-    circularOptions: [
-      {
-        title: 'Panel Testing & Secondary Workspace Deployment',
-        tag: 'Circular Economy Focus',
-        description:
-          'Working monitors with clean panels and strong backlights are cleaned, safety tested (PAT), and repackaged for secondary business use or charitable distribution.',
-      },
-      {
-        title: 'Salvage of Power Boards & Stands',
-        tag: 'Component Recovery',
-        description:
-          'Units with cracked panels are disassembled to salvage internal power supply boards, logic boards, and ergonomic metal stands to repair other fleet monitors.',
-      },
-      {
-        title: 'Separation of Optical Films, Glass & Metals',
-        tag: 'WEEE Treatment Standards',
-        description:
-          'Unsalvageable displays are mechanically dismantled. Liquid crystal panels, diffusion sheets, LED light bars, and steel chassis are cleanly separated for specialist UK smelting.',
-      },
-    ],
-    faqs: [
-      {
-        question: 'Do we need to box the monitors before your team collects them?',
-        answer:
-          'No. TechSteps provides padded flight cases, foam slotted dividers, and protective roll cages. Our staff handle all packing and loading directly from your office floor or storage area.',
-      },
-      {
-        question: 'Do we need to keep the original stands attached to the monitors?',
-        answer:
-          'You can leave stands attached, or detach them if your screens were mounted on monitor arms. We collect both attached units and loose stands, arms, and cabling.',
-      },
-      {
-        question: 'Can you collect broken or cracked monitors alongside working units?',
-        answer:
-          'Yes. We collect all conditions of monitors. Broken or cracked units are isolated and routed directly for clean WEEE material recycling rather than testing.',
-      },
-      {
-        question: 'Do you collect older CRT monitors or only modern flat panels?',
-        answer:
-          'We primarily handle modern LCD, LED, and OLED commercial displays, but we can also safely collect legacy CRT displays under hazardous waste consignment protocols upon prior notice.',
-      },
-    ],
-    relatedServicesHeading: 'Related Hardware Collection Services',
-    relatedServicesIntro:
-      'Combine monitor collections with our comprehensive desktop, laptop, and server recycling programmes.',
-    relatedSlugs: [
-      'computer-collection',
-      'laptop-collection',
-      'av-media-equipment-collection',
-    ],
-  },
+      "slug": "monitor-screen-collection",
+      "route": "/monitor-screen-collection",
+      "navTitle": "Monitor & Screen Collection",
+      "title": "Monitor & Screen Collection",
+      "h1": "Monitor Collection Services UK: Safe Collection for Business Monitors",
+      "valueProposition": "Safe UK collection for old computer monitors, dual-screen setups, ultrawide displays, with careful handling and full compliance paperwork.",
+      "metaTitle": "Monitor Collection Services UK | Techsteps",
+      "metaDescription": "Choose Techsteps for monitor collection services UK businesses need. We collect redundant office displays for assessment, reuse and responsible recycling.",
+      "heroImage": "/images/collection/monitor-screen-collection-hero.jpg",
+      "heroImageAlt": "TechSteps commercial monitors and ultrawide displays packed safely in padded transport cages for collection",
+      "heroBadge": "Office Monitors & Displays",
+      "equipmentTypesEyebrow": "DISPLAY TECHNOLOGY & SCREENS WE COLLECT",
+      "equipmentTypesHeading": "Monitors and Screens We Collect with Our Monitor Collection Services UK",
+      "equipmentTypesIntro": "We collect office monitors, curved screens, touchscreens and digital signage from businesses of every size, whether it’s a few spare screens or a whole floor’s worth.",
+      "typesCollected": [
+        {
+          "category": "Standard Office Monitors",
+          "description": "The everyday screens on most desks, single or dual.",
+          "items": [
+            "21-inch to 27-inch LED and LCD monitors",
+            "Height-adjustable monitors from Dell, HP and Lenovo",
+            "Slim-bezel screens used in dual-monitor setups",
+            "Standard 1080p and 1440p office monitors"
+          ]
+        },
+        {
+          "category": "Large & Specialist Screens",
+          "description": "Bigger displays for design, engineering and healthcare teams.",
+          "items": [
+            "34-inch to 49-inch curved ultrawide monitors",
+            "Colour-accurate 4K and 5K design monitors",
+            "Fast refresh rate screens for CAD and engineering",
+            "Medical imaging and clinical review monitors"
+          ]
+        },
+        {
+          "category": "Touchscreens & Digital Displays",
+          "description": "Screens built for customers, meetings and public spaces.",
+          "items": [
+            "Interactive touchscreens and self-service kiosk displays",
+            "Digital signage and advertising screens",
+            "Rugged industrial touch monitors and panel PCs",
+            "Checkout monitors and customer-facing displays"
+          ]
+        },
+        {
+          "category": "Monitor Arms, Stands & Cables",
+          "description": "The extras that usually get left under the desk.",
+          "items": [
+            "Single, dual and quad monitor arms and gas-strut mounts",
+            "Original monitor stands and baseplates",
+            "DisplayPort, HDMI, USB-C and DVI cables",
+            "Power adapters, IEC cables and spare connectors"
+          ]
+        }
+      ],
+      "processEyebrow": "HOW THE MONITOR COLLECTION PROCESS WORKS",
+      "processHeading": "How the Monitor Collection Process Works",
+      "processIntro": "Our monitor collection services in the UK take the risk out of moving fragile glass screens, so nothing cracks on the way out of your building.",
+      "processSteps": [
+        {
+          "step": "01",
+          "title": "Tell Us What You Have & Book a Slot",
+          "description": "Share how many monitors you have, their rough sizes and whether the stands are attached. We’ll book a collection time that fits your loading bay."
+        },
+        {
+          "step": "02",
+          "title": "Careful Screen Packing On-Site",
+          "description": "We pack every screen using foam dividers, screen protectors and padded roll cages, so the glass stays safe while it’s cleared from your office."
+        },
+        {
+          "step": "03",
+          "title": "Strapped In & Fully Documented",
+          "description": "Monitors are loaded onto tail-lift vehicles and strapped down securely. A Duty of Care waste transfer note is signed on site before we leave."
+        },
+        {
+          "step": "04",
+          "title": "Tested, Graded & Sorted",
+          "description": "At our facility, we unpack each monitor, check the panel for dead pixels and sort it for reuse or certified recycling."
+        },
+        {
+          "step": "05",
+          "title": "Reports for Your Records",
+          "description": "You get a full list of makes, models, screen sizes and recycling weights, ready for your company’s ESG reporting."
+        }
+      ],
+      "securityEyebrow": "SAFE HANDLING & RESPONSIBLE DISPLAY RECYCLING",
+      "securityHeading": "Safe Handling & Responsible Display Recycling",
+      "securityIntro": "Flat-screen monitors need careful handling during collection due to fragile screens, internal components and materials that may require special disposal.",
+      "securityPoints": [
+        {
+          "title": "Safe Handling & Waste Management",
+          "description": "Some older monitors, particularly CCFL-backlit models, contain small amounts of mercury. These displays need appropriate handling and disposal in line with relevant waste regulations."
+        },
+        {
+          "title": "Careful Screen Packaging",
+          "description": "Monitors can easily crack or become damaged during transportation. We handle and pack displays carefully, keeping them separated to reduce pressure and avoid unnecessary damage."
+        },
+        {
+          "title": "Complete Equipment Recording",
+          "description": "We also account for associated items such as power adapters, connection cables and detachable stands, keeping the collected equipment together and properly recorded."
+        }
+      ],
+      "circularEyebrow": "REUSE, RECOVERY & RESPONSIBLE RECYCLING",
+      "circularHeading": "Monitor Refurbishment & Material Recovery",
+      "circularIntro": "By checking each collected display before recycling, we identify monitors that can be reused and recover valuable materials from equipment that is no longer suitable for further use.",
+      "circularOptions": [
+        {
+          "title": "Display Testing & Preparation for Reuse",
+          "tag": "Testing & Preparation",
+          "description": "Monitors in good working condition are cleaned and checked for screen quality, brightness and general performance before being prepared for refurbishment, resale or further business use."
+        },
+        {
+          "title": "Reusing Internal Parts & Accessories",
+          "tag": "Component Recovery",
+          "description": "Monitors with damaged screens may still have working components. Suitable circuit boards, power supplies, connecting parts and metal stands can be recovered for repairing other display units."
+        },
+        {
+          "title": "Recovery of Glass, Plastics & Metals",
+          "tag": "Responsible WEEE Recycling",
+          "description": "Displays that cannot be reused are dismantled through suitable recycling processes. Materials such as screen glass, plastic housings, internal circuits and metal frames are separated for further recovery and recycling."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What types of monitors do you collect?",
+          "answer": "We collect LCD, LED, LCD flat-panel monitors, desktop displays and business-use screens."
+        },
+        {
+          "question": "Do you collect monitors from business premises?",
+          "answer": "Yes, we arrange monitor collections directly from offices, workplaces and other business locations."
+        },
+        {
+          "question": "Can you collect large quantities of monitors?",
+          "answer": "Yes, we can discuss bulk collections involving multiple monitors and office display equipment."
+        },
+        {
+          "question": "What happens to monitors after collection?",
+          "answer": "Collected monitors are assessed for reuse, refurbishment, component recovery or responsible recycling."
+        },
+        {
+          "question": "Do you collect damaged or broken monitors?",
+          "answer": "Yes, we can collect damaged, faulty and non-working monitors for appropriate processing and recycling."
+        },
+        {
+          "question": "How should monitors be prepared for collection?",
+          "answer": "Monitors should be disconnected from power and other devices. Associated cables and accessories can be kept together."
+        },
+        {
+          "question": "Can you collect monitor cables and accessories too?",
+          "answer": "Yes, we can also collect compatible power adapters, display cables, stands and other monitor accessories."
+        }
+      ],
+      "relatedServicesHeading": "Explore Related Collection Disciplines",
+      "relatedServicesIntro": "Combine monitor collections with office desktop computers, laptops, and peripheral hardware clearance.",
+      "relatedSlugs": [
+        "computer-collection",
+        "laptop-collection",
+        "printer-copier-collection"
+      ]
+    },
 
   'printer-copier-collection': {
-    slug: 'printer-copier-collection',
-    route: '/printer-copier-collection',
-    navTitle: 'Printer & Copier Collection',
-    title: 'Printer & Copier Collection',
-    h1: 'Commercial Printer & Photocopier Collection Services',
-    valueProposition:
-      'Specialist nationwide collection for floor-standing multifunction copiers (MFPs), departmental laser printers, and plotter printers with hard drive sanitisation and heavy logistics handling.',
-    metaTitle: 'Printer & Copier Collection UK | Office Photocopier Disposal | TechSteps',
-    metaDescription:
-      'Expert UK collection for commercial printers, copiers, and MFPs. Internal hard drive data erasure, toner removal, heavy logistics, and compliant WEEE recycling.',
-    heroImage: '/images/collection/printer-copier-collection-hero.jpg',
-    heroImageAlt: 'TechSteps commercial office copiers and multifunction printers strapped onto pallets for secure business collection',
-    heroBadge: 'Office Printers & Photocopiers',
-    equipmentTypesHeading: 'Printing & Copying Equipment We Collect',
-    equipmentTypesIntro:
-      'We manage the heavy logistics and specialized handling required for enterprise printing fleets, lease-return copiers, and commercial production printers.',
-    typesCollected: [
-      {
-        category: 'Multifunction Photocopiers (MFPs)',
-        description: 'Heavy floor-standing departmental copy and scan centres.',
-        items: [
-          'A3/A4 commercial color multifunction copiers',
-          'Heavy-duty floor-standing office copy centres (Canon, Xerox, Ricoh, Konica Minolta)',
-          'High-volume corporate departmental print stations',
-          'Finishing units, booklet makers & high-capacity paper feeders',
-        ],
-      },
-      {
-        category: 'Desktop & Workgroup Laser Printers',
-        description: 'Compact business and network printing hardware.',
-        items: [
-          'High-speed network mono laser printers (HP LaserJet, Brother, Kyocera)',
-          'Colour workgroup desktop laser printers',
-          'Thermal barcode and warehouse label printers',
-          'Secure badge-release office desktop printers',
-        ],
-      },
-      {
-        category: 'Wide-Format & Production Plotters',
-        description: 'Large-scale engineering and design printing machines.',
-        items: [
-          'Architectural CAD plotters & wide-format roll printers (HP DesignJet)',
-          'Commercial graphics & photographic production printers',
-          'Floor-standing blueprint scanners & folding machines',
-          'Digital proofing and print-shop production equipment',
-        ],
-      },
-      {
-        category: 'Printing Consumables & Ancillaries',
-        description: 'Associated toners, cartridges, and spare parts.',
-        items: [
-          'Unopened and used toner cartridges and waste toner boxes',
-          'Drum units, fuser assemblies & transfer belts',
-          'Print servers, network interfaces & coin-op payment pods',
-          'Spare paper trays, sorting bins & pedestal cabinets',
-        ],
-      },
-    ],
-    processIntro:
-      'Handling bulky, heavy printing machinery requires specialized stair-climbing gear, pallet strapping, and tail-lift logistics.',
-    processSteps: [
-      {
-        step: '01',
-        title: 'Machine Specifications & Access Review',
-        description:
-          'Provide details of your printer models, floor locations, and whether lift access or stairs are involved. We assign the appropriate heavy-handling crew and equipment.',
-      },
-      {
-        step: '02',
-        title: 'Safe Rigging & On-Site Preparation',
-        description:
-          'Our trained staff disconnect devices, secure print heads and scanner glass, remove loose paper trays, and strap floor-standing units onto heavy-duty wheeled dollies.',
-      },
-      {
-        step: '03',
-        title: 'Hydraulic Tail-Lift Transport',
-        description:
-          'Printers are moved via ramps or stair-climbers to our tail-lift commercial vehicles and strapped securely to avoid transit tipping, traveling under formal Duty of Care transfer notes.',
-      },
-      {
-        step: '04',
-        title: 'Internal Hard Drive Extraction & Wipe',
-        description:
-          'Modern MFPs store print, scan, and email jobs on internal hard disks. Our technicians systematically remove every drive for certified data sanitisation.',
-      },
-      {
-        step: '05',
-        title: 'Environmental Manifest & Audit Handover',
-        description:
-          'You receive documented proof confirming serial numbers, internal drive destruction certificates, and compliant WEEE recycling or refurbishment outcomes.',
-      },
-    ],
-    securityHeading: 'Internal MFP Hard Drive Sanitisation & Toner Safety',
-    securityIntro:
-      'Enterprise copiers and MFPs represent overlooked cybersecurity vulnerabilities due to internal storage of confidential scanned documents.',
-    securityPoints: [
-      {
-        title: 'Mandatory Hard Drive Removal & Erasure',
-        description:
-          'Enterprise copiers store cached copies of every scanned contract, invoice, and executive document on internal SATA drives. We extract every internal hard drive and execute certified multipass erasure or physical shredding.',
-      },
-      {
-        title: 'Toner Spillage Prevention & Containment',
-        description:
-          'Residual chemical toner powder is a respiratory irritant and environmental pollutant. We seal all toner hoppers and waste toner containers prior to transit to prevent office contamination.',
-      },
-      {
-        title: 'Lease Handover & End-of-Life Documentation',
-        description:
-          'If your printers are returning to a leasing company, we can de-install, sanitize internal drives, and prepare audit-ready documentation showing compliance with lease return specifications.',
-      },
-    ],
-    circularHeading: 'Refurbishment Potential & WEEE Material Stewardship',
-    circularIntro:
-      'We focus on extending copier lifespan where viable, while ensuring environmentally sound disposal of end-of-life plastic and metal structures.',
-    circularOptions: [
-      {
-        title: 'Refurbishment for Secondary Lease',
-        tag: 'High-Value Resource Recovery',
-        description:
-          'Commercial copiers with low page counts undergo technical servicing, roller replacement, optical cleaning, and firmware updates for secondary enterprise deployment.',
-      },
-      {
-        title: 'Component & Sub-Assembly Harvesting',
-        tag: 'Modular Salvage',
-        description:
-          'Working fusers, laser units, power supplies, motors, and paper feed assemblies are reclaimed to maintain operating printer fleets.',
-      },
-      {
-        title: 'Clean Material Fraction Separation',
-        tag: 'WEEE Treatment',
-        description:
-          'Obsolete chassis are stripped of toner residue. Steel frames, copper electric motors, circuit boards, and ABS plastics are segregated for certified domestic UK recycling.',
-      },
-    ],
-    faqs: [
-      {
-        question: 'Do modern office photocopiers really have hard drives that store data?',
-        answer:
-          'Yes. Almost all commercial floor-standing copiers manufactured in the last 15 years contain internal hard disk drives that store unencrypted image files of scanned, printed, and emailed documents. We systematically remove and sanitize these drives.',
-      },
-      {
-        question: 'How do you handle heavy floor-standing copiers on upper office floors without lifts?',
-        answer:
-          'We operate powered stair-climbing machine movers and specialized ramping systems operated by trained heavy-handling technicians. Please alert us to stairs when booking your collection.',
-      },
-      {
-        question: 'What happens to the leftover toner cartridges inside the printers?',
-        answer:
-          'We securely seal cartridges during collection to prevent powder leaks. Intact, unopened cartridges are routed for cartridge recycling schemes, while waste toner is handled in accordance with chemical waste guidelines.',
-      },
-      {
-        question: 'Can you assist with lease-return collections for finance companies?',
-        answer:
-          'Yes. We regularly de-install, photograph, condition-report, and securely transport copiers on behalf of corporate clients returning hardware to leasing institutions.',
-      },
-    ],
-    relatedServicesHeading: 'Related Hardware Collection Services',
-    relatedServicesIntro:
-      'Combine your printing fleet clearance with our dedicated computer, monitor, and server disposal solutions.',
-    relatedSlugs: [
-      'computer-collection',
-      'monitor-screen-collection',
-      'server-collection',
-    ],
-  },
+      "slug": "printer-copier-collection",
+      "route": "/printer-copier-collection",
+      "navTitle": "Printer & Copier Collection",
+      "title": "Printer & Copier Collection",
+      "h1": "Printer Collection Services UK",
+      "valueProposition": "Reliable UK-wide collection for redundant office printers, multifunction photocopiers and large-format plotters with careful handling, secure transportation, and data protection.",
+      "metaTitle": "Printer Collection Services UK | Techsteps",
+      "metaDescription": "Techsteps provides printer collection services UK businesses need for collecting redundant office printers, photocopiers and commercial printing equipment.",
+      "heroImage": "/images/collection/printer-copier-collection-hero.jpg",
+      "heroImageAlt": "TechSteps commercial photocopiers and multi-function office printers prepared for hydraulic tail-lift loading",
+      "heroBadge": "Commercial Printers & Copiers",
+      "equipmentTypesEyebrow": "PRINTERS & PRINTING EQUIPMENT WE COLLECT",
+      "equipmentTypesHeading": "Types of Printing Equipment We Collect",
+      "equipmentTypesIntro": "Our printer collection services UK cover a range of business printing equipment, from everyday office printers and photocopiers to large printing systems used in design.",
+      "typesCollected": [
+        {
+          "category": "Commercial Photocopiers & MFPs",
+          "description": "Floor-standing multifunction copiers and enterprise print devices.",
+          "items": [
+            "Floor-standing A3 and A4 departmental multifunction copiers",
+            "High-volume enterprise laser multifunction printers (MFPs)",
+            "Network-connected copiers with scan, fax and email functionality",
+            "Card-authenticated and secure follow-me print units"
+          ]
+        },
+        {
+          "category": "Desktop & Office Laser Printers",
+          "description": "Workgroup laser printers, network printers and compact copiers.",
+          "items": [
+            "Workgroup mono and colour laser printers",
+            "Compact desktop network printers and label machines",
+            "Thermal receipt and specialized barcode printers",
+            "Departmental shared document printers and scanners"
+          ]
+        },
+        {
+          "category": "Wide-Format & Production Plotters",
+          "description": "Engineering, CAD and large-format graphics plotters.",
+          "items": [
+            "Large-format architectural and engineering CAD plotters",
+            "Commercial graphics and photographic production printers",
+            "Floor-standing blueprint scanners and folding machines",
+            "Digital proofing and print-shop production equipment"
+          ]
+        },
+        {
+          "category": "Printing Consumables & Ancillaries",
+          "description": "Associated toners, cartridges, and spare parts.",
+          "items": [
+            "Unopened and used toner cartridges and waste toner boxes",
+            "Drum units, fuser assemblies and transfer belts",
+            "Print servers, network interfaces and coin-op payment pods",
+            "Spare paper trays, sorting bins and pedestal cabinets"
+          ]
+        }
+      ],
+      "processEyebrow": "OUR PRINTER COLLECTION PROCESS",
+      "processHeading": "How the Collection Process Works",
+      "processIntro": "Office printers and photocopiers can be difficult to move due to their size, weight and delicate internal parts. We organise each collection with suitable handling and transportation arrangements.",
+      "processSteps": [
+        {
+          "step": "01",
+          "title": "Equipment Details & Collection Planning",
+          "description": "We discuss your printer models, equipment quantity, collection location and site access. This helps us plan the right collection arrangements for your business."
+        },
+        {
+          "step": "02",
+          "title": "On-Site Preparation & Handling",
+          "description": "Our collection team prepares the equipment for removal, disconnects printers where required and secures loose trays, cables and other detachable parts before moving them."
+        },
+        {
+          "step": "03",
+          "title": "Safe Loading & Transportation",
+          "description": "Printers and photocopiers are carefully moved from their original locations and loaded onto suitable collection vehicles to reduce the risk of damage during transportation."
+        },
+        {
+          "step": "04",
+          "title": "Internal Data Storage & Security",
+          "description": "Some multifunction printers store scanned documents and other information on internal hard drives. These storage devices are identified for the appropriate data erasure or destruction process."
+        },
+        {
+          "step": "05",
+          "title": "Collection Records & Documentation",
+          "description": "Equipment details are recorded during collection, with relevant documentation provided to help businesses track their retired printers and understand their reuse or recycling route."
+        }
+      ],
+      "securityEyebrow": "PRINTER DATA SECURITY & SAFE HANDLING",
+      "securityHeading": "Protecting Stored Data During Printer Collection",
+      "securityIntro": "We identify these devices during printer collection and consider the appropriate data security and handling requirements.",
+      "securityPoints": [
+        {
+          "title": "Internal Hard Drive Data Erasure",
+          "description": "Multifunction printers may contain internal hard drives that store copies of scanned and printed documents. These storage devices are securely wiped or physically destroyed."
+        },
+        {
+          "title": "Toner Handling & Safe Transportation",
+          "description": "We take care to secure toner cartridges and detachable containers to reduce spills during collection and transportation."
+        },
+        {
+          "title": "Lease Returns & Collection Records",
+          "description": "We can discuss removal arrangements, internal data handling and relevant collection records to support the equipment return process."
+        }
+      ],
+      "circularEyebrow": "REUSE, RECOVERY & RESPONSIBLE RECYCLING",
+      "circularHeading": "Printer Refurbishment & Material Recovery",
+      "circularIntro": "We aim to extend the useful life of printers and photocopiers where possible, while ensuring equipment that cannot be reused is directed towards appropriate recycling processes.",
+      "circularOptions": [
+        {
+          "title": "Preparing Copiers for Reuse",
+          "tag": "Equipment Refurbishment",
+          "description": "Commercial copiers in suitable condition are checked and serviced before being considered for refurbishment, resale or further business use. This may include cleaning, replacing worn parts and checking general performance."
+        },
+        {
+          "title": "Recovering Reusable Printer Parts",
+          "tag": "Component Recovery",
+          "description": "Working components such as fuser units, laser assemblies, power supplies, motors and paper feed mechanisms can be recovered where suitable for repairs or use in other printer systems."
+        },
+        {
+          "title": "Separating Materials for Recovery",
+          "tag": "Responsible WEEE Recycling",
+          "description": "Printers and photocopiers that are no longer suitable for reuse are dismantled through appropriate recycling processes. Materials such as steel, copper, circuit boards and plastic parts are separated for further recovery and recycling."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What types of printers do you collect from businesses?",
+          "answer": "We collect office printers, laser printers, multifunction printers, photocopiers, wide-format plotters and commercial printing equipment."
+        },
+        {
+          "question": "Do you offer printer collection services across the UK?",
+          "answer": "Yes, we arrange printer collections for businesses across the UK, depending on the collection location and equipment requirements."
+        },
+        {
+          "question": "Can you collect large commercial printers and photocopiers?",
+          "answer": "Yes, we can discuss collections involving large photocopiers, floor-standing multifunction printers and other heavy printing equipment."
+        },
+        {
+          "question": "What happens to printers after collection?",
+          "answer": "Collected printers are assessed for refurbishment, reuse, component recovery or responsible recycling, depending on their condition."
+        },
+        {
+          "question": "Is data stored inside multifunction printers?",
+          "answer": "Some multifunction printers contain internal hard drives that may store scanned documents and other business information."
+        },
+        {
+          "question": "Can you collect damaged or non-working printers?",
+          "answer": "Yes, we can discuss collecting faulty, damaged and non-working printers for suitable recycling and material recovery."
+        },
+        {
+          "question": "Do you provide documentation after printer collection?",
+          "answer": "Relevant collection records and supporting documentation can be provided to help businesses keep track of their collected printing equipment."
+        }
+      ],
+      "relatedServicesHeading": "Related Hardware Collection Services",
+      "relatedServicesIntro": "Combine printer and photocopier collections with desktop PC, monitor, and IT infrastructure clearance.",
+      "relatedSlugs": [
+        "computer-collection",
+        "monitor-screen-collection",
+        "server-collection"
+      ]
+    },
 
   'server-collection': {
     slug: 'server-collection',
     route: '/server-collection',
     navTitle: 'Server Collection',
     title: 'Server Collection',
-    h1: 'Enterprise Server & Data Centre Hardware Collection Services',
+    h1: 'Server Collection UK: Secure Collection for Enterprise Servers',
     valueProposition:
-      'High-security UK collection for redundant rackmount servers, blade enclosures, SAN storage arrays, and network infrastructure with serialized chain of custody and data sanitisation.',
-    metaTitle: 'Server Collection UK | Enterprise Data Centre Hardware Disposal | TechSteps',
+      'Secure UK collection for old rackmount servers, blade enclosures, storage arrays and network equipment, with full tracking and certified data wiping.',
+    metaTitle: 'Server Collection Services UK | Techsteps',
     metaDescription:
-      'High-security collection for enterprise rack servers, blade systems, SAN arrays, and networking hardware. Serialised tracking, military-grade data erasure, and WEEE compliance.',
+      'Techsteps offers server collection services UK businesses can use to manage redundant servers, networking equipment and retired IT hardware responsibly.',
     heroImage: '/images/collection/server-collection-hero.jpg',
-    heroImageAlt: 'TechSteps server collection technicians logging serialized enterprise rack servers into padded flight cases',
+    heroImageAlt:
+      'TechSteps server collection technicians logging serialized enterprise rack servers into padded flight cases',
     heroBadge: 'Data Centre & Rack Infrastructure',
-    equipmentTypesHeading: 'Enterprise Server & Network Equipment We Collect',
+    equipmentTypesEyebrow: 'ACCEPTED HARDWARE SPECIFICATIONS',
+    equipmentTypesHeading: 'Server Hardware We Collect with Our Server Collection UK Service',
     equipmentTypesIntro:
-      'We specialise in de-racking, packaging, and transporting mission-critical server hardware from enterprise data centres, colocation suites, and server rooms.',
+      'We take servers out of data centres, colocation suites and server rooms, from de-racking and packing to safe transport, so your team doesn’t have to lift a thing.',
     typesCollected: [
       {
         category: 'Rackmount & Blade Servers',
-        description: 'Standard enterprise compute nodes and dense architectures.',
+        description: 'The core compute machines most data centres run on.',
         items: [
-          '1U, 2U, 4U rackmount servers (Dell PowerEdge, HPE ProLiant, Cisco UCS, Lenovo ThinkSystem)',
-          'High-density blade server enclosures and blade modules',
-          'GPU-accelerated AI and machine-learning compute clusters',
-          'Tower enterprise servers and small business backup hosts',
+          '1U, 2U and 4U rackmount servers, including Dell PowerEdge, HPE ProLiant, Cisco UCS and Lenovo ThinkSystem',
+          'Blade server enclosures and individual blade modules',
+          'GPU servers used for AI and machine learning',
+          'Tower servers and small office backup machines',
         ],
       },
       {
-        category: 'Storage Arrays & Backup Infrastructure',
-        description: 'Enterprise SAN, NAS, and archive storage systems.',
+        category: 'Storage Arrays & Backup Equipment',
+        description: 'Everything used to store and protect your data.',
         items: [
-          'Storage Area Network (SAN) controllers & expansion disk shelves (NetApp, Dell EMC, Pure Storage)',
-          'Network Attached Storage (NAS) multi-bay appliances',
-          'Automated tape libraries, LTO autoloaders & tape drives',
-          'Direct-attached storage arrays & JBOD disk enclosures',
+          'SAN controllers and disk shelves from NetApp, Dell EMC and Pure Storage',
+          'Multi-bay NAS storage devices',
+          'Tape libraries, LTO autoloaders and tape drives',
+          'Direct-attached storage and JBOD disk enclosures',
         ],
       },
       {
-        category: 'Enterprise Networking & Security Hardware',
-        description: 'Core routing, switching, and edge security technology.',
+        category: 'Networking & Security Equipment',
+        description: 'The kit that keeps your network running and protected.',
         items: [
-          'Core and distribution network switches (Cisco Catalyst/Nexus, Arista, Juniper)',
-          'Next-generation firewalls & security appliances (Fortinet, Palo Alto, Check Point)',
-          'Load balancers, application delivery controllers & VPN gateways',
-          'Patch panels, fiber patch leads & copper interconnect looms',
+          'Core and distribution switches from Cisco, Arista and Juniper',
+          'Firewalls and security appliances from Fortinet, Palo Alto and Check Point',
+          'Load balancers, VPN gateways and application delivery controllers',
+          'Patch panels, fibre leads and copper cabling',
         ],
       },
       {
-        category: 'Data Centre Power & Environmental Ancillaries',
-        description: 'Power distribution, rack enclosures, and conditioning gear.',
+        category: 'Power & Rack Equipment',
+        description: 'The supporting gear that usually gets forgotten.',
         items: [
-          'Uninterruptible Power Supplies (UPS rackmount units & battery packs)',
-          'Smart Rack Power Distribution Units (PDUs) & transfer switches',
-          'Server rack enclosures (42U/48U), blanking panels & cable arms',
-          'Console drawers, rack KVM switches & terminal management pods',
+          'Rackmount UPS units and battery packs',
+          'Rack PDUs and transfer switches',
+          '42U and 48U server racks, blanking panels and cable arms',
+          'Console drawers, rack KVM switches and terminal servers',
         ],
       },
     ],
+    processEyebrow: 'HOW THE SERVER COLLECTION PROCESS WORKS',
+    processHeading: 'How the Server Collection Process Works',
     processIntro:
-      'Our data centre decommission protocol delivers audited clearance with zero disruption to live adjacent infrastructure.',
+      'Our server collection UK process clears your racks without disturbing any live equipment next to them, and gives you proof at every stage.',
     processSteps: [
       {
         step: '01',
-        title: 'Scope Audit & Colocation Access Protocol',
+        title: 'Review Your Kit & Arrange Site Access',
         description:
-          'We review your asset inventory, rack elevations, and facility security requirements, coordinating security clearance and loading dock permits with your colocation provider.',
+          'We go through your asset list, rack layouts and site security rules. We then sort out building clearance and loading dock access with your colocation provider.',
       },
       {
         step: '02',
-        title: 'Precision De-Racking by Vetted Personnel',
+        title: 'Careful De-Racking by Cleared Engineers',
         description:
-          'Security-cleared technicians carefully isolate, disconnect, and de-rack servers, labelling every cable loom and chassis with unique barcode tracking tags.',
+          'Our security-cleared engineers safely power down, disconnect and remove each server. Every cable bundle and chassis gets its own barcode label.',
       },
       {
         step: '03',
-        title: 'Padded Flight Case Transit & Tamper Seals',
+        title: 'Padded Cases & Tamper-Proof Seals',
         description:
-          'Equipment is placed into heavy-duty foam-lined server flight cases and secured with numbered tamper-evident seals before leaving the server hall.',
+          'Servers go into foam-lined flight cases and are locked with numbered tamper-evident seals before they leave the server room.',
       },
       {
         step: '04',
-        title: 'High-Grade Sanitisation & Drive Shredding',
+        title: 'Secure Wiping & Drive Shredding',
         description:
-          'At our secure facility, all SAS, SATA, and NVMe drives undergo certified multipass overwriting or physical shredding, with individual certificate logging.',
+          'At our secure facility, every SAS, SATA and NVMe drive is wiped with multiple passes or physically shredded, with a certificate logged for each one.',
       },
       {
         step: '05',
-        title: 'Full Serialised Manifest & ESG Reporting',
+        title: 'Complete Asset Report for Your Records',
         description:
-          'Your compliance team receives a comprehensive asset register documenting serial numbers, CPU/RAM configurations, drive disposition status, and WEEE recycling manifests.',
+          'Your compliance team gets a full asset register covering serial numbers, CPU and RAM specs, drive status and WEEE recycling paperwork.',
       },
     ],
+    securityEyebrow: 'HIGH-SECURITY CHAIN OF CUSTODY & DATA SANITISATION',
     securityHeading: 'High-Security Chain of Custody & Data Sanitisation',
     securityIntro:
-      'Server environments hold the most sensitive databases, customer identities, and intellectual property in your organization.',
+      'Your servers hold your most sensitive data, from customer records to company secrets. Our server collection UK service protects it at every step',
     securityPoints: [
       {
-        title: 'Multi-Drive Serialized Eradication',
+        title: 'Every Drive Logged and Wiped',
         description:
-          'Enterprise arrays hold hundreds of high-capacity SAS and NVMe drives. We log every drive by unique serial number and perform cryptographically validated sanitisation or 6mm cross-cut physical shredding.',
+          'Large storage arrays can hold hundreds of drives. We record each one by serial number, then either wipe it with verified sanitisation or shred it to 6mm particles.',
       },
       {
-        title: 'Security-Cleared Logistics Operators',
+        title: 'Vetted, Trained Collection Staff',
         description:
-          'All collection personnel are DBS checked and security vetted, trained in data centre access protocols, anti-static precautions, and confidential asset handling.',
+          'Everyone on our team is DBS checked and security vetted. They’re trained in data centre access rules, anti-static handling, and looking after confidential equipment.',
       },
       {
-        title: 'GPS-Tracked Dedicated Transport',
+        title: 'Dedicated, Tracked Vehicles',
         description:
-          'We do not co-mingle data centre server loads with uncontrolled freight. Consignments travel directly in satellite-tracked vehicles with deadlocked cargo bays.',
+          'Your servers never share a vehicle with general freight. They travel in GPS-tracked vehicles with locked cargo areas, straight to our secure facility.',
       },
     ],
-    circularHeading: 'Enterprise Remarketing & Environmental Recovery Pathways',
+    circularEyebrow: 'REUSE, RECOVERY & RESPONSIBLE RECYCLING',
+    circularHeading: 'Get Value From Your Old Servers, Responsibly Recycled',
     circularIntro:
-      'Enterprise server components retain substantial secondary life value when processed through certified testing channels.',
+      'Old servers still have value. Our server collection UK service tests, reuses and recycles your equipment, so you get something back and nothing goes to waste.',
     circularOptions: [
       {
-        title: 'Enterprise Server Remarketing & Refurbishment',
-        tag: 'Maximum Financial & ESG Return',
+        title: 'Resale & Refurbishment',
+        tag: 'Resale & Refurbishment',
         description:
-          'Modern rack servers and storage controllers undergo component stress testing, firmware clearing, and re-configuration for secondary enterprise colocation and cloud hosting.',
+          'Servers and storage controllers that still perform well are stress tested, cleared of old settings and reconfigured for resale to hosting and cloud providers.',
       },
       {
-        title: 'Component Harvesting: CPUs, RAM & Optics',
-        tag: 'Component Recovery',
+        title: 'Parts Recovery',
+        tag: 'Parts Recovery',
         description:
-          'Enterprise ECC RAM modules, Intel Xeon/AMD EPYC processors, optical transceivers, and redundant power supplies are harvested to maintain ongoing data centre estates.',
+          'ECC memory, Intel Xeon and AMD EPYC processors, optical transceivers and spare power supplies are pulled out and reused to keep other data centres running.',
       },
       {
-        title: 'Certified WEEE Materials Refinement',
-        tag: 'Circular Recycling',
+        title: 'Responsible Recycling',
+        tag: 'Responsible Recycling',
         description:
-          'Obsolete or damaged server chassis and server backplanes are separated into high-grade gold, silver, copper, and structural steel fractions for domestic UK recycling.',
+          'Damaged or outdated servers are broken down into gold, silver, copper and steel, then recycled in the UK under certified WEEE processes.',
       },
     ],
     faqs: [
       {
-        question: 'Can your team de-rack servers from active enterprise data centres?',
+        question: 'What is server collection UK?',
         answer:
-          'Yes. Our technicians are experienced in working in live Tier 3 and Tier 4 data centres. We follow strict anti-static and anti-snag protocols to ensure zero disturbance to adjacent active racks.',
+          'A specialist company removes your old servers from your site, wipes or shreds the drives and recycles or reuses the hardware. You get certificates to prove it.',
       },
       {
-        question: 'Do you offer on-site hard drive destruction before equipment leaves our server room?',
+        question: 'How do I dispose of old servers safely?',
         answer:
-          'Yes. We operate mobile hydraulic punchers and degaussing equipment that can physically crush or demagnetize hard drives on site in your presence before hardware leaves your facility.',
+          'Use a certified provider. They log every drive, destroy the data properly and give you paperwork for your audit records.',
       },
       {
-        question: 'How do you handle heavy enterprise UPS systems and battery strings?',
+        question: 'Is it safe to resell old servers?',
         answer:
-          'We collect rackmount and standalone UPS hardware. Sealed lead-acid (SLA) and lithium UPS battery strings are handled as hazardous electrical waste with full consignment note documentation.',
+          'Yes, as long as every drive is wiped or removed first. We clear the data to a certified standard and give you a certificate before anything is resold.',
       },
       {
-        question: 'What documentation do you provide for auditing and compliance bodies?',
+        question: 'Can you collect servers from a data centre or colocation site?',
         answer:
-          'You receive a complete serialized asset register including make, model, serial number, processor specification, RAM, drive counts, and individual certificates of data erasure or physical destruction.',
+          'Yes. We handle the de-racking, packing and transport, and sort out site access with your colocation provider.',
+      },
+      {
+        question: 'Do you destroy hard drives as well as wipe them?',
+        answer:
+          'Yes. Drives that can be wiped are wiped with verification. The rest are shredded, and each one is logged by serial number.',
+      },
+      {
+        question: 'Is it legal to throw away old servers in the UK?',
+        answer:
+          'No. Servers are electrical waste (WEEE) and hold data covered by UK GDPR, so they must go through an authorised disposal route.',
+      },
+      {
+        question: 'Do you pay for old servers?',
+        answer:
+          'Often, yes. Servers and parts that still have resale value can earn you money back, which can offset the cost of collection.',
       },
     ],
     relatedServicesHeading: 'Related Hardware Collection Services',

@@ -231,15 +231,72 @@ const { preselectedService = '', preselectedSector = '' } = Astro.props;
     const form = document.getElementById('techsteps-quote-form') as HTMLFormElement | null;
     const successMsg = document.getElementById('form-success');
 
-    if (!form || !successMsg) return;
+    if (!form || !successMsg || form.dataset.hasListener) return;
+    form.dataset.hasListener = 'true';
 
-    form.addEventListener('submit', (e) => {
-      // In static demo or if submitted via fetch
-      if (!window.location.hostname.includes('netlify')) {
-        e.preventDefault();
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting Request...';
+      }
+
+      const formData = new FormData(form);
+      const randomDigits = Math.floor(1000 + Math.random() * 9000);
+      const ref = `TS-QTE-${randomDigits}`;
+
+      const name = (formData.get('name') as string) || '';
+      const company = (formData.get('company') as string) || '';
+      const email = (formData.get('email') as string) || '';
+      const phone = (formData.get('phone') as string) || '';
+      const service = (formData.get('service') as string) || '';
+      const sector = (formData.get('sector') as string) || '';
+      const location = (formData.get('location') as string) || '';
+      const volume = (formData.get('approximate_requirements') as string) || '';
+      const message = (formData.get('message') as string) || '';
+      const preferredContact = (formData.get('preferred_contact') as string) || 'email';
+
+      const payload = {
+        formType: 'collection',
+        serviceType: service ? `Quote Request: ${service}` : 'Formal Quote Enquiry',
+        reference: ref,
+        name,
+        company,
+        email,
+        phone,
+        address: location,
+        outcome: `Sector: ${sector || 'Commercial'} | Preferred Contact: ${preferredContact}`,
+        details: `Service: ${service}. Volume/Scale: ${volume}.`,
+        notes: message || `Estimated Volume: ${volume}`,
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await res.json();
+        if (!res.ok || !result.success) {
+          throw new Error(result?.message || 'Failed to submit quote request');
+        }
+
+        const refText = result.reference || ref;
+        successMsg.textContent = `Thank you! Your quote enquiry (Ref: ${refText}) has been transmitted to our UK commercial logistics team. We will review your specification and respond within 2 business hours.`;
         successMsg.classList.remove('hidden');
         form.reset();
         successMsg.scrollIntoView({ behavior: 'smooth' });
+      } catch (err: any) {
+        console.error('Quote form submission error:', err);
+        alert(err?.message || 'Unable to submit your request right now. Please try again or contact us directly.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Request Formal Proposal';
+        }
       }
     });
   }

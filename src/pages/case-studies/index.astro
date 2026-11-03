@@ -3,33 +3,40 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import Section from '../../components/layout/Section.astro';
 import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
-import { getCaseStudies } from '../../lib/sanity/client';
+import { getCaseStudies, getCaseStudiesPage } from '../../lib/sanity/client';
 
 const breadcrumbs = [
   { name: 'Case Studies', url: '/case-studies' },
 ];
 
-const caseStudies = await getCaseStudies();
+const [caseStudies, pageData] = await Promise.all([
+  getCaseStudies(),
+  getCaseStudiesPage(),
+]);
+
+const pageTitle = pageData?.metaTitle || "Case Studies & Client Outcomes | Real-World ITAD & Digitization | Techsteps UK";
+const pageDescription = pageData?.metaDescription || "Review verified outcomes from Techsteps client engagements across banking, healthcare, and enterprise data centre relocations.";
 ---
 
 <BaseLayout
-  title="Case Studies & Client Outcomes | Real-World ITAD & Digitization | Techsteps UK"
-  description="Review verified outcomes from Techsteps client engagements across banking, healthcare, and enterprise data centre relocations."
+  title={pageTitle}
+  description={pageDescription}
 >
   <div class="bg-brand-navy text-white py-16">
     <Container>
       <Breadcrumbs items={breadcrumbs} theme="dark" />
       <div class="max-w-4xl space-y-4 mt-6">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Client Results</span>
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">{pageData?.heroEyebrow || "Client Results"}</span>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
-          Verified Case Studies
+          {pageData?.heroTitle || "Verified Case Studies"}
         </h1>
         <p class="text-base sm:text-lg text-slate-300">
-          Explore how Techsteps resolves high-stakes compliance, data sanitisation, and migration challenges for enterprise and public sector organisations.
+          {pageData?.heroDescription || "Explore how Techsteps resolves high-stakes compliance, data sanitisation, and migration challenges for enterprise and public sector organisations."}
         </p>
       </div>
     </Container>
   </div>
+
 
   <Section theme="white">
     <Container>

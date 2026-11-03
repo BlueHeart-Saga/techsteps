@@ -37,7 +37,6 @@ export const deskStructure: StructureResolver = (S) =>
             .documentId('aboutPage')
             .title('About Page Content & Values')
         ),
-
       S.listItem()
         .title('Leadership Page')
         .id('leadershipPage')
@@ -69,6 +68,36 @@ export const deskStructure: StructureResolver = (S) =>
         ),
 
       S.listItem()
+        .title('Partners & Associations Page')
+        .id('partnersPage')
+        .child(
+          S.document()
+            .schemaType('partnersPage')
+            .documentId('partnersPage')
+            .title('Partners, Strategic Alliances & Trust Networks')
+        ),
+
+      S.listItem()
+        .title('Certifications & Accreditations Page')
+        .id('certificationsPage')
+        .child(
+          S.document()
+            .schemaType('certificationsPage')
+            .documentId('certificationsPage')
+            .title('Certifications, Standards Register & Compliance')
+        ),
+
+      S.listItem()
+        .title('Our Commitment Page')
+        .id('ourCommitmentPage')
+        .child(
+          S.document()
+            .schemaType('ourCommitmentPage')
+            .documentId('ourCommitmentPage')
+            .title('Our Commitment to Security, Quality & Sustainability')
+        ),
+
+      S.listItem()
         .title('Services Main Page')
         .id('servicesPage')
         .child(
@@ -86,6 +115,26 @@ export const deskStructure: StructureResolver = (S) =>
             .schemaType('sectorsPage')
             .documentId('sectorsPage')
             .title('Industry Sectors Main Page & Hero')
+        ),
+
+      S.listItem()
+        .title('Case Studies Overview Page')
+        .id('caseStudiesPage')
+        .child(
+          S.document()
+            .schemaType('caseStudiesPage')
+            .documentId('caseStudiesPage')
+            .title('Verified Case Studies Overview')
+        ),
+
+      S.listItem()
+        .title('Locations Overview Page')
+        .id('locationsPage')
+        .child(
+          S.document()
+            .schemaType('locationsPage')
+            .documentId('locationsPage')
+            .title('UK IT Recycling & Collection Locations Directory')
         ),
 
       S.listItem()
@@ -169,14 +218,37 @@ export const deskStructure: StructureResolver = (S) =>
 
       S.divider(),
 
-      // 5. Insights, Case Studies & Proof
-      S.documentTypeListItem('article').title('Articles & Insights'),
+      // 5. UK Regional Locations Hubs
+      S.listItem()
+        .title('Locations Directory (Overview Page)')
+        .id('locationsPageQuick')
+        .child(
+          S.document()
+            .schemaType('locationsPage')
+            .documentId('locationsPage')
+            .title('UK Locations Directory')
+        ),
+      S.documentTypeListItem('location').title('UK Regional Locations (26)'),
+
+      S.divider(),
+
+      // 6. Insights, Case Studies & Proof
+      S.listItem()
+        .title('Case Studies Overview Page')
+        .id('caseStudiesPageQuick')
+        .child(
+          S.document()
+            .schemaType('caseStudiesPage')
+            .documentId('caseStudiesPage')
+            .title('Case Studies Overview')
+        ),
       S.documentTypeListItem('caseStudy').title('Enterprise Case Studies'),
+      S.documentTypeListItem('article').title('Articles & Insights'),
       S.documentTypeListItem('testimonial').title('Client Testimonials'),
       S.documentTypeListItem('stat').title('Accreditation Badges & Stats'),
 
       S.divider(),
 
-      // 6. Legal & Governance Pages
+      // 7. Legal & Governance Pages
       S.documentTypeListItem('legalPage').title('Legal & Governance Policies (7)'),
-    ]);
+    ]);

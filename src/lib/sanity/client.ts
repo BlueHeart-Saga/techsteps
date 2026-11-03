@@ -23,8 +23,14 @@ import {
   defaultHomePageData,
   defaultServicesPageData,
   defaultSectorsPageData,
+  defaultPartnersPageData,
+  defaultCertificationsPageData,
+  defaultOurCommitmentPageData,
+  defaultCaseStudiesPageData,
+  defaultLocationsPageData,
   testimonials,
 } from './data';
+import { locationsList } from '../../data/locationsData';
 import type {
   SiteSettings,
   Division,
@@ -47,8 +53,15 @@ import type {
   SectorsPageData,
   TestimonialItem,
   LegalPageData,
+  PartnersPageData,
+  CertificationsPageData,
+  OurCommitmentPageData,
+  CaseStudiesPageData,
+  LocationsPageData,
+  LocationItem,
 } from './types';
 import { getServiceCanonicalSlug } from '../routeHelpers';
+
 
 const env = (typeof import.meta !== 'undefined' && import.meta.env) ? import.meta.env : (typeof process !== 'undefined' ? process.env : {} as any);
 const projectId =
@@ -2020,3 +2033,251 @@ export async function getLegalPage(slug: string): Promise<LegalPageData | null> 
   }
   return null;
 }
+
+export async function getPartnersPage(): Promise<PartnersPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(
+        `*[_type == "partnersPage" && !(_id in path("drafts.**"))][0]{
+          metaTitle,
+          metaDescription,
+          heroEyebrow,
+          heroTitle,
+          heroDescription,
+          heroBadge,
+          partners[]{
+            name,
+            category,
+            authority,
+            logoUrl,
+            "logo": logo.asset->url,
+            desc,
+            quote,
+            badge
+          },
+          stats[]{
+            value,
+            label,
+            description
+          },
+          faqs[]{
+            question,
+            answer
+          }
+        }`
+      );
+      if (data) {
+        return {
+          ...defaultPartnersPageData,
+          ...data,
+          partners: data.partners && data.partners.length > 0 ? data.partners : defaultPartnersPageData.partners,
+          stats: data.stats && data.stats.length > 0 ? data.stats : defaultPartnersPageData.stats,
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Partners page from Sanity:', err);
+    }
+  }
+  return defaultPartnersPageData;
+}
+
+export async function getCertificationsPage(): Promise<CertificationsPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(
+        `*[_type == "certificationsPage" && !(_id in path("drafts.**"))][0]{
+          metaTitle,
+          metaDescription,
+          heroEyebrow,
+          heroTitle,
+          heroDescription,
+          heroBadge,
+          accreditations[]{
+            name,
+            categoryGroup,
+            categoryLabel,
+            authority,
+            logoUrl,
+            "logo": logo.asset->url,
+            desc,
+            quote,
+            standardCode
+          },
+          stats[]{
+            value,
+            label,
+            description
+          },
+          faqs[]{
+            question,
+            answer
+          }
+        }`
+      );
+      if (data) {
+        return {
+          ...defaultCertificationsPageData,
+          ...data,
+          accreditations:
+            data.accreditations && data.accreditations.length > 0
+              ? data.accreditations
+              : defaultCertificationsPageData.accreditations,
+          stats: data.stats && data.stats.length > 0 ? data.stats : defaultCertificationsPageData.stats,
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Certifications page from Sanity:', err);
+    }
+  }
+  return defaultCertificationsPageData;
+}
+
+export async function getOurCommitmentPage(): Promise<OurCommitmentPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(
+        `*[_type == "ourCommitmentPage" && !(_id in path("drafts.**"))][0]{
+          metaTitle,
+          metaDescription,
+          heroEyebrow,
+          heroTitle,
+          heroDescription,
+          heroBadge,
+          commitments[]{
+            number,
+            title,
+            eyebrow,
+            tagline,
+            desc,
+            bullets,
+            icon
+          },
+          principles[]{
+            title,
+            description,
+            icon
+          },
+          faqs[]{
+            question,
+            answer
+          }
+        }`
+      );
+      if (data) {
+        return {
+          ...defaultOurCommitmentPageData,
+          ...data,
+          commitments:
+            data.commitments && data.commitments.length > 0 ? data.commitments : defaultOurCommitmentPageData.commitments,
+          principles:
+            data.principles && data.principles.length > 0 ? data.principles : defaultOurCommitmentPageData.principles,
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Our Commitment page from Sanity:', err);
+    }
+  }
+  return defaultOurCommitmentPageData;
+}
+
+export async function getCaseStudiesPage(): Promise<CaseStudiesPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(
+        `*[_type == "caseStudiesPage" && !(_id in path("drafts.**"))][0]{
+          metaTitle,
+          metaDescription,
+          heroEyebrow,
+          heroTitle,
+          heroDescription
+        }`
+      );
+      if (data) {
+        return {
+          ...defaultCaseStudiesPageData,
+          ...data,
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Case Studies page from Sanity:', err);
+    }
+  }
+  return defaultCaseStudiesPageData;
+}
+
+export async function getLocationsPage(): Promise<LocationsPageData> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(
+        `*[_type == "locationsPage" && !(_id in path("drafts.**"))][0]{
+          metaTitle,
+          metaDescription,
+          heroEyebrow,
+          heroTitle,
+          heroDescription,
+          faqs[]{
+            question,
+            answer
+          }
+        }`
+      );
+      if (data) {
+        return {
+          ...defaultLocationsPageData,
+          ...data,
+          faqs: data.faqs && data.faqs.length > 0 ? data.faqs : defaultLocationsPageData.faqs,
+        };
+      }
+    } catch (err) {
+      console.error('Failed to fetch Locations page from Sanity:', err);
+    }
+  }
+  return defaultLocationsPageData;
+}
+
+export async function getLocations(): Promise<LocationItem[]> {
+  if (sanityClient) {
+    try {
+      const data = await sanityClient.fetch(
+        `*[_type == "location" && !(_id in path("drafts.**"))] | order(name asc){
+          name,
+          "slug": slug.current,
+          region,
+          countyOrArea,
+          tagline,
+          heroDescription,
+          rating,
+          reviewCount,
+          localHubAddress,
+          phone,
+          leadTime,
+          boroughsOrDistricts,
+          featuredTestimonial{
+            author,
+            role,
+            company,
+            timeAgo,
+            text,
+            stars
+          },
+          faqs[]{
+            question,
+            answer
+          }
+        }`
+      );
+      if (data && data.length > 0) {
+        return data;
+      }
+    } catch (err) {
+      console.error('Failed to fetch Locations from Sanity:', err);
+    }
+  }
+  return locationsList as LocationItem[];
+}
+
+export async function getLocationBySlug(slug: string): Promise<LocationItem | undefined> {
+  const allLocations = await getLocations();
+  return allLocations.find((loc) => loc.slug === slug);
+}
+

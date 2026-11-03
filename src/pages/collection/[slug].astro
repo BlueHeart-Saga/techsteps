@@ -1,0 +1,15 @@
+---
+import CollectionPageLayout from '../../components/collection/CollectionPageLayout.astro';
+import { collectionServices } from '../../data/collectionServices';
+
+export function getStaticPaths() {
+  return Object.keys(collectionServices).map((slug) => ({
+    params: { slug },
+    props: { data: collectionServices[slug] },
+  }));
+}
+
+const { data } = Astro.props;
+---
+
+<CollectionPageLayout data={data} />

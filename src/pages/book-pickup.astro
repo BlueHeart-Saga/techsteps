@@ -1184,22 +1184,104 @@ const pageDescription = "Book an IT equipment collection. Choose from Free Natio
     const forms = document.querySelectorAll<HTMLFormElement>('#form-free, #form-onsite, #form-box');
 
     forms.forEach((form) => {
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+        const originalBtnText = submitBtn ? submitBtn.textContent : '';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Submitting Booking...';
+        }
 
         // Generate friendly unique reference
         const randomDigits = Math.floor(1000 + Math.random() * 9000);
         const prefix = form.id === 'form-free' ? 'TS-FREE' : form.id === 'form-onsite' ? 'TS-SITE' : 'TS-BOX';
         const referenceCode = `${prefix}-${randomDigits}`;
+        const serviceType = form.dataset.serviceType || 'IT Asset Collection';
 
-        // Hide all tab panels
-        tabPanels.forEach((panel) => panel.classList.add('hidden'));
+        const formData = new FormData(form);
+        const fullName = (formData.get('fullName') as string) || '';
+        const company = (formData.get('company') as string) || '';
+        const email = (formData.get('email') as string) || '';
+        const phone = (formData.get('phone') as string) || '';
+        const rawAddress = (formData.get('address') as string) || '';
+        const postcode = (formData.get('postcode') as string) || '';
+        const fullAddress = postcode ? `${rawAddress}, ${postcode}` : rawAddress;
+        const preferredDate = (formData.get('preferredDate') as string) || '';
+        const outcome = (formData.get('outcome') as string) || '';
+        const notes = (formData.get('notes') as string) || '';
 
-        // Display confirmation modal
-        if (confirmationModal && confRefSpan) {
-          confRefSpan.textContent = referenceCode;
-          confirmationModal.classList.remove('hidden');
-          confirmationModal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const payload: Record<string, any> = {
+          formType: 'collection',
+          serviceType,
+          reference: referenceCode,
+          name: fullName,
+          company,
+          email,
+          phone,
+          address: fullAddress,
+          collectionDate: preferredDate,
+          outcome,
+          notes,
+        };
+
+        if (form.id === 'form-free') {
+          payload.laptops = (formData.get('laptops') as string) || '0';
+          payload.desktops = (formData.get('desktops') as string) || '0';
+          payload.servers = (formData.get('servers') as string) || '0';
+          payload.monitors = (formData.get('monitors') as string) || '0';
+          payload.mobiles = (formData.get('mobiles') as string) || '0';
+          payload.printers = (formData.get('printers') as string) || '0';
+        } else if (form.id === 'form-onsite') {
+          payload.driveCount = (formData.get('driveCount') as string) || '';
+          payload.vettingLevel = (formData.get('vettingLevel') as string) || '';
+          const activeServices: string[] = [];
+          if (formData.get('service_shredding')) activeServices.push('On-Site Hard Drive Physical Shredding');
+          if (formData.get('service_blancco')) activeServices.push('Witnessed Blancco Software Wiping');
+          if (formData.get('service_deracking')) activeServices.push('Data Centre De-Racking');
+          if (formData.get('service_degaussing')) activeServices.push('Magnetic Degaussing & Tape Destruction');
+          payload.disposalMethod = activeServices.join(', ');
+          payload.details = `Vetting Level: ${payload.vettingLevel}. Drives/SSDs: ${payload.driveCount}. Services: ${payload.disposalMethod}`;
+        } else if (form.id === 'form-box') {
+          const small = parseInt((formData.get('boxSmall') as string) || '0', 10);
+          const med = parseInt((formData.get('boxMedium') as string) || '0', 10);
+          const crate = parseInt((formData.get('boxCrate') as string) || '0', 10);
+          payload.boxCount = `Standard Laptop Box: ${small}, Multi-Device Box: ${med}, Storage Crate: ${crate}`;
+          payload.boxModel = (formData.get('boxModel') as string) || '';
+          payload.details = `Dispatch Model: ${payload.boxModel}. Boxes: ${payload.boxCount}`;
+        }
+
+        try {
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await res.json();
+          if (!res.ok || !result.success) {
+            throw new Error(result?.message || 'Failed to submit booking');
+          }
+
+          // Hide all tab panels
+          tabPanels.forEach((panel) => panel.classList.add('hidden'));
+
+          // Display confirmation modal
+          if (confirmationModal && confRefSpan) {
+            confRefSpan.textContent = result.reference || referenceCode;
+            confirmationModal.classList.remove('hidden');
+            confirmationModal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+          form.reset();
+        } catch (err: any) {
+          console.error('Booking submission error:', err);
+          alert(err?.message || 'Unable to submit your booking. Please check your connection or contact collection@techsteps.co.uk.');
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+          }
         }
       });
     });

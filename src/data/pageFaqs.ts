@@ -70,35 +70,35 @@ export const pageFaqs: Record<string, PageFaqConfig> = {
     heading: 'Frequently Asked Questions',
     intro: 'Key guidance on workplace desktop, workstation, and all-in-one computer collections.',
     faqs: [
-      {
-        question: 'Is computer collection free for business desktop systems?',
-        answer: 'Yes, qualifying quantities of commercial tower PCs, small form factor units, workstations, and all-in-one machines qualify for free nationwide collection. Contact our logistics desk to confirm your volume eligibility.',
-      },
-      {
-        question: 'Can you collect custom CAD and high-performance graphic workstations?',
-        answer: 'Yes. We handle precision workstations, engineering CAD computers, and data science towers, ensuring secure handling for high-specification GPUs, ECC memory modules, and multi-drive storage arrays.',
-      },
-      {
-        question: 'What should our internal IT team do before desktop collection?',
-        answer: 'We recommend detaching external peripherals you wish to retain and logging internal asset tag identifiers. However, our security-cleared personnel can assist with disconnects and on-site asset tagging if required.',
-      },
-      {
-        question: 'Can non-booting, damaged, or cannibalised PC cases be collected?',
-        answer: 'Yes. Computers with missing parts, failed power supplies, or cracked chassis are accepted. Functional components are reclaimed for circular spares, while damaged plastics and metals enter certified UK recycling streams.',
-      },
-      {
-        question: 'How are internal SATA and NVMe hard drives sanitized?',
-        answer: 'Drives are erased to HMG IS5 Enhanced standards using certified Blancco software. Unreadable or failing drives that cannot complete software sanitisation are physically shredded to 6mm particles.',
-      },
-      {
-        question: 'Do you collect desktop peripherals like keyboards, mice, and docks?',
-        answer: 'Yes. Power cords, display cables, keyboards, mice, and USB docking stations can be bundled into roll cages alongside your primary computer towers for complete WEEE recycling.',
-      },
-      {
-        question: 'What proof of disposal does our compliance team receive?',
-        answer: 'You will receive an itemised Asset Tracking Manifest listing each desktop chassis serial number, processor specification, hard drive serial, and corresponding certificate of sanitisation or destruction.',
-      },
-    ],
+        {
+          "question": "What types of computers do you collect from businesses?",
+          "answer": "We collect a range of business computers, including desktop PCs, laptops, workstations, all-in-one systems, mini PCs and associated computer equipment."
+        },
+        {
+          "question": "Do you offer computer collection services across the UK?",
+          "answer": "Yes, we arrange computer collections for businesses across the UK, depending on the collection location, equipment quantity and service requirements."
+        },
+        {
+          "question": "How do I arrange a computer collection for my business?",
+          "answer": "You can contact our team with your collection location, equipment details and approximate quantity. We can then discuss your requirements and arrange a suitable collection."
+        },
+        {
+          "question": "What happens to computers after they are collected?",
+          "answer": "Collected computers are assessed to determine whether they are suitable for reuse, refurbishment, component recovery or responsible recycling."
+        },
+        {
+          "question": "Is my business data protected during computer collection?",
+          "answer": "Data-bearing devices are identified for appropriate data sanitisation or destruction. The process depends on the storage device condition and the agreed data security requirements."
+        },
+        {
+          "question": "Can you collect large quantities of office computers at once?",
+          "answer": "Yes, we can discuss collections involving multiple computers, office equipment clearances and larger IT asset replacements based on the volume and location."
+        },
+        {
+          "question": "Do you provide documentation after collecting business computers?",
+          "answer": "Relevant collection records and supporting documentation can be provided to help businesses maintain equipment records and track their retired IT assets."
+        }
+      ],
   },
 
   'laptop-collection': {
@@ -106,35 +106,35 @@ export const pageFaqs: Record<string, PageFaqConfig> = {
     heading: 'Frequently Asked Questions',
     intro: 'Answers regarding enterprise notebook collections, battery compliance, and data security.',
     faqs: [
-      {
-        question: 'Is laptop collection free for corporate notebooks and ultrabooks?',
-        answer: 'Yes, qualifying corporate laptop batches qualify for free nationwide collection. Eligibility depends on quantity, model age, and collection location, confirmed during initial scoping.',
-      },
-      {
-        question: 'Can you collect laptops from remote employee home locations?',
-        answer: 'We offer secure consolidated logistics from corporate hubs, regional distribution points, and scheduled drop-in offices. For large remote workforces, we can supply tracked courier collection boxes.',
-      },
-      {
-        question: 'How are damaged or swollen laptop lithium batteries handled?',
-        answer: 'Laptops with swollen, compromised, or damaged lithium-ion batteries are isolated and packed in fire-retardant ADR-compliant hazardous transit containers in accordance with UK dangerous goods transport regulations.',
-      },
-      {
-        question: 'Do we need to remove BIOS and BitLocker passwords before collection?',
-        answer: 'While disabling management locks like Apple Find My, Computrace, and BIOS passwords facilitates higher remarketing value return, our technical workshop can securely wipe locked storage drives regardless.',
-      },
-      {
-        question: 'What happens to decommissioned laptops that still have market value?',
-        answer: 'Laptops with residual lifecycle value are thoroughly tested, cosmetically graded, sanitised, and remarketed through approved commercial channels, with financial return credited back to your organisation.',
-      },
-      {
-        question: 'Can Apple MacBooks, Chromebooks, and Windows laptops be mixed?',
-        answer: 'Yes. You can consolidate Windows business laptops, Apple MacBooks, Lenovo ThinkPads, Dell Latitudes, HP EliteBooks, and Chromebooks within the same collection booking.',
-      },
-      {
-        question: 'What documentation is provided for GDPR audit compliance?',
-        answer: 'We provide an itemised audit certificate recording every laptop serial number, asset tag, drive serial, erasure log, and statutory hazardous waste transfer note for lithium-ion battery stewardship.',
-      },
-    ],
+        {
+          "question": "What are laptop collection services UK?",
+          "answer": "A specialist company collects your unwanted business laptops, wipes the data and reuses or recycles them. You get paperwork to prove it."
+        },
+        {
+          "question": "How do I dispose of old business laptops safely?",
+          "answer": "Use a certified collection provider. They wipe the data properly and give you an erasure certificate for your records."
+        },
+        {
+          "question": "Do I need to wipe my laptops before collection?",
+          "answer": "No, we do it for you. Every laptop is securely wiped and you get a certificate for each one."
+        },
+        {
+          "question": "Is it legal to throw away old laptops in the UK?",
+          "answer": "No. Laptops are electrical waste (WEEE) and hold data covered by UK GDPR, so they must be disposed of through an authorised route."
+        },
+        {
+          "question": "Can you collect laptops from more than one location?",
+          "answer": "Yes. We can collect from several sites in one booking and send you one combined report."
+        },
+        {
+          "question": "What happens to the laptops after collection?",
+          "answer": "They’re scanned in and wiped. Laptops with life left are reused, the rest are recycled, and unwipeable drives are destroyed."
+        },
+        {
+          "question": "Do you collect broken or damaged laptops?",
+          "answer": "Yes. Working, faulty, cracked or swollen-battery laptops are all accepted, and damaged batteries are handled safely."
+        }
+      ],
   },
 
   'server-collection': {
@@ -142,35 +142,35 @@ export const pageFaqs: Record<string, PageFaqConfig> = {
     heading: 'Frequently Asked Questions',
     intro: 'Operational details on enterprise rackmount server, blade, and SAN array decommissioning.',
     faqs: [
-      {
-        question: 'What categories of enterprise server hardware do you collect?',
-        answer: 'We collect 1U–4U rackmount servers, blade chassis, tower servers, SAN/NAS storage arrays, tape library systems, and enterprise networking switches from private data centres and co-location sites.',
-      },
-      {
-        question: 'Can server collections be coordinated during live data centre decommissions?',
-        answer: 'Yes. Our engineers can work alongside your infrastructure team or independently handle de-racking, rail removal, cable disconnection, and palletised transit packing during scheduled maintenance windows.',
-      },
-      {
-        question: 'How is confidential enterprise data on server SAS/SATA/NVMe drives erased?',
-        answer: 'We perform certified multi-pass Blancco erasure across all drives simultaneously. Enterprise drives that fail erasure or are designated high-security are shredded on-site or off-site to DIN 66399 standards.',
-      },
-      {
-        question: 'Can heavy server racks, PDUs, and UPS battery systems be removed?',
-        answer: 'Yes. We remove complete 42U/48U server racks, smart PDUs, and lead-acid UPS battery systems. Hazardous battery enclosures are handled by ADR-licensed drivers with statutory consignment notes.',
-      },
-      {
-        question: 'Is server collection free for high-density enterprise environments?',
-        answer: 'Most corporate server decommissions qualify for completely free collection due to intrinsic component value. Server batches with modern processors often qualify for substantial asset revenue return.',
-      },
-      {
-        question: 'What security vetting do your data centre logistics drivers carry?',
-        answer: 'All TechSteps data centre personnel are BS 7858 security-vetted and hold valid UK security clearance. Transport is conducted using dedicated, GPS-tracked vehicles equipped with electronic load-locking.',
-      },
-      {
-        question: 'What post-collection audit reporting is delivered for data centre assets?',
-        answer: 'You receive full serialised manifest reports verifying chassis service tags, component CPU/RAM configurations, hard drive erasure logs, and formal WEEE environmental compliance certificates.',
-      },
-    ],
+        {
+          "question": "What is server collection UK?",
+          "answer": "A specialist company removes your old servers from your site, wipes or shreds the drives and recycles or reuses the hardware. You get certificates to prove it."
+        },
+        {
+          "question": "How do I dispose of old servers safely?",
+          "answer": "Use a certified provider. They log every drive, destroy the data properly and give you paperwork for your audit records."
+        },
+        {
+          "question": "Is it safe to resell old servers?",
+          "answer": "Yes, as long as every drive is wiped or removed first. We clear the data to a certified standard and give you a certificate before anything is resold."
+        },
+        {
+          "question": "Can you collect servers from a data centre or colocation site?",
+          "answer": "Yes. We handle the de-racking, packing and transport, and sort out site access with your colocation provider."
+        },
+        {
+          "question": "Do you destroy hard drives as well as wipe them?",
+          "answer": "Yes. Drives that can be wiped are wiped with verification. The rest are shredded, and each one is logged by serial number."
+        },
+        {
+          "question": "Is it legal to throw away old servers in the UK?",
+          "answer": "No. Servers are electrical waste (WEEE) and hold data covered by UK GDPR, so they must go through an authorised disposal route."
+        },
+        {
+          "question": "Do you pay for old servers?",
+          "answer": "Often, yes. Servers and parts that still have resale value can earn you money back, which can offset the cost of collection."
+        }
+      ],
   },
 
   'mobile-device-collection': {
@@ -178,35 +178,35 @@ export const pageFaqs: Record<string, PageFaqConfig> = {
     heading: 'Frequently Asked Questions',
     intro: 'Information on enterprise smartphone, tablet, iPad, and handheld terminal recovery.',
     faqs: [
-      {
-        question: 'What mobile devices and handheld technology can be collected?',
-        answer: 'We collect corporate smartphones, Apple iPads, Android tablets, ruggedised warehouse barcode scanners, handheld POS terminals, and cellular IoT modems from all major manufacturers.',
-      },
-      {
-        question: 'How do you remove MDM profiles and corporate management locks?',
-        answer: 'We recommend unassigning devices from your Microsoft Intune, Apple Business Manager (ABM), or Samsung Knox tenancy before dispatch. However, our technicians can verify and assist with hardware resets.',
-      },
-      {
-        question: 'How is data erased from solid-state smartphone storage?',
-        answer: 'We utilise certified mobile data erasure software that performs cryptographic sanitisation and factory firmware validation, generating an automated tamper-proof certificate for each IMEI number.',
-      },
-      {
-        question: 'Can you collect mobile devices with shattered screens or damaged ports?',
-        answer: 'Yes. We accept devices with cracked digitizers, degraded batteries, or liquid damage. Usable internal motherboards and camera modules are reclaimed, while damaged chassis are sustainably recycled.',
-      },
-      {
-        question: 'Is collection free for bulk corporate mobile device fleets?',
-        answer: 'Yes, qualifying business batches of smartphones and tablets qualify for free nationwide collection. High-value handsets are frequently remarketed, creating significant rebate value for your IT budget.',
-      },
-      {
-        question: 'Are cellular SIM cards and micro-SD memory cards destroyed?',
-        answer: 'During initial inventory intake, any SIM cards or removable flash memory cards discovered inside device trays are physically removed and shredded to prevent identity leakage.',
-      },
-      {
-        question: 'What documentation confirms mobile device data destruction?',
-        answer: 'We issue an itemised certificate displaying device make, model, IMEI, serial number, sanitisation timestamp, and binary verification confirmation for comprehensive GDPR audit readiness.',
-      },
-    ],
+        {
+          "question": "What are mobile collection services UK?",
+          "answer": "A specialist company collects your unused business phones and tablets, wipes the data and reuses or recycles them. You get paperwork to prove it."
+        },
+        {
+          "question": "How do I dispose of old company phones safely?",
+          "answer": "Use a certified provider. They wipe every device, check it’s released from your MDM and give you a certificate for your records."
+        },
+        {
+          "question": "How do I wipe a work phone before recycling it?",
+          "answer": "A factory reset isn’t always enough. We use certified erasure software to overwrite the storage, so nothing can be recovered."
+        },
+        {
+          "question": "Can you collect phones that are still locked to our MDM?",
+          "answer": "Yes. We check for MDM, iCloud Activation Lock, Samsung Knox and Google FRP, and help you release each device before it’s reused or recycled."
+        },
+        {
+          "question": "What happens to the SIM and SD cards?",
+          "answer": "We remove every SIM and memory card on arrival and shred them. Any eSIM profiles are cleared too."
+        },
+        {
+          "question": "Is it legal to throw away old phones and tablets in the UK?",
+          "answer": "No. They’re electrical waste (WEEE) and hold data covered by UK GDPR, so they must go through an authorised disposal route."
+        },
+        {
+          "question": "Do you pay for old business phones and tablets?",
+          "answer": "Often, yes. Devices that still work can have resale value, which can offset the cost of collection."
+        }
+      ],
   },
 
   'monitor-screen-collection': {
@@ -214,35 +214,35 @@ export const pageFaqs: Record<string, PageFaqConfig> = {
     heading: 'Frequently Asked Questions',
     intro: 'Guidance on desktop display, ultrawide screen, and commercial monitor recycling.',
     faqs: [
-      {
-        question: 'What types of display screens and monitors can TechSteps collect?',
-        answer: 'We collect office LCD/LED monitors, ultrawide curved displays, graphic design 4K monitors, touchscreen POS terminals, broadcast panels, and meeting room interactive digital whiteboards.',
-      },
-      {
-        question: 'How are display screens protected from shattering during collection?',
-        answer: 'We deploy padded flight cases, foam screen sleeves, and compartmentalised roll cages that prevent screen impact, bezel cracking, and glass shatter during loading and transit.',
-      },
-      {
-        question: 'Can older CCFL backlit monitors containing trace mercury be collected?',
-        answer: 'Yes. TechSteps is an Environment Agency licensed AATF compliant collector. Older fluorescent backlit displays are safely segregated and dismantled in hazardous waste handling chambers.',
-      },
-      {
-        question: 'Do monitor stands, VESA mounting arms, and cables need to be attached?',
-        answer: 'No. You can provide monitors with or without desk stands. We also collect uninstalled VESA desk arms, wall brackets, power supplies, and HDMI/DisplayPort cabling.',
-      },
-      {
-        question: 'Is monitor collection free for corporate office upgrades?',
-        answer: 'Monitors collected alongside computer towers, laptops, or servers typically qualify for free collection. Standalone screen-only collections are assessed based on batch size and panel technology.',
-      },
-      {
-        question: 'What proportion of collected display hardware is diverted from landfill?',
-        answer: '100% of collected screen hardware is diverted from landfill. Grade-A panels are re-deployed into circular reuse markets, while broken units are separated into glass, plastics, and circuit board metals.',
-      },
-      {
-        question: 'What environmental certificate is provided for monitor disposal?',
-        answer: 'You will receive a statutory Duty of Care Waste Transfer Note accompanied by an itemised serialised equipment manifest and certified WEEE recycling confirmation for ESG reporting.',
-      },
-    ],
+        {
+          "question": "What types of monitors do you collect?",
+          "answer": "We collect LCD, LED, LCD flat-panel monitors, desktop displays and business-use screens."
+        },
+        {
+          "question": "Do you collect monitors from business premises?",
+          "answer": "Yes, we arrange monitor collections directly from offices, workplaces and other business locations."
+        },
+        {
+          "question": "Can you collect large quantities of monitors?",
+          "answer": "Yes, we can discuss bulk collections involving multiple monitors and office display equipment."
+        },
+        {
+          "question": "What happens to monitors after collection?",
+          "answer": "Collected monitors are assessed for reuse, refurbishment, component recovery or responsible recycling."
+        },
+        {
+          "question": "Do you collect damaged or broken monitors?",
+          "answer": "Yes, we can collect damaged, faulty and non-working monitors for appropriate processing and recycling."
+        },
+        {
+          "question": "How should monitors be prepared for collection?",
+          "answer": "Monitors should be disconnected from power and other devices. Associated cables and accessories can be kept together."
+        },
+        {
+          "question": "Can you collect monitor cables and accessories too?",
+          "answer": "Yes, we can also collect compatible power adapters, display cables, stands and other monitor accessories."
+        }
+      ],
   },
 
   'printer-copier-collection': {
@@ -250,35 +250,35 @@ export const pageFaqs: Record<string, PageFaqConfig> = {
     heading: 'Frequently Asked Questions',
     intro: 'Information regarding office multifunction copiers, laser printers, and plotter collections.',
     faqs: [
-      {
-        question: 'What types of printing and copying equipment does TechSteps collect?',
-        answer: 'We collect floor-standing multifunction copiers (MFPs), commercial laser printers, high-volume production presses, wide-format architectural plotters, and desktop thermal label printers.',
-      },
-      {
-        question: 'Do modern office copiers contain internal hard drives with confidential data?',
-        answer: 'Yes. Commercial lease copiers store print, scan, fax, and email buffers on internal hard drives. Our team physically extracts these drives for certified data wiping or mechanical shredding.',
-      },
-      {
-        question: 'Can you collect heavy floor-standing copiers from upper floors without lifts?',
-        answer: 'Yes. Our logistics fleet is equipped with stair-climbing transport apparatus, heavy-duty floor protection runners, and tail-lift vehicles to navigate challenging stairwells and tight plant rooms.',
-      },
-      {
-        question: 'How are unused toner cartridges and consumable waste drums handled?',
-        answer: 'Installed and surplus toner cartridges, imaging drums, and fuser units are safely collected. Unused consumables in original packaging are remarketed, while spent units enter closed-loop toner recycling.',
-      },
-      {
-        question: 'Can expired printer leasing agreements be coordinated with collection?',
-        answer: 'Yes. We regularly assist corporate clients by collecting redundant print fleets, extracting internal hard drives for data security, and coordinating return documentation before lease expiration.',
-      },
-      {
-        question: 'Is printer and copier collection free for business facilities?',
-        answer: 'Collections combining copiers with IT hardware frequently qualify for free pickup. Standalone bulky copiers are evaluated based on model age, volume, and building egress complexity.',
-      },
-      {
-        question: 'What documentation confirms printer data erasure and recycling?',
-        answer: 'We provide an itemised certificate detailing machine model, serial number, extracted hard drive serial numbers, sanitisation verification, and compliant WEEE transfer documentation.',
-      },
-    ],
+        {
+          "question": "What types of printers do you collect from businesses?",
+          "answer": "We collect office printers, laser printers, multifunction printers, photocopiers, wide-format plotters and commercial printing equipment."
+        },
+        {
+          "question": "Do you offer printer collection services across the UK?",
+          "answer": "Yes, we arrange printer collections for businesses across the UK, depending on the collection location and equipment requirements."
+        },
+        {
+          "question": "Can you collect large commercial printers and photocopiers?",
+          "answer": "Yes, we can discuss collections involving large photocopiers, floor-standing multifunction printers and other heavy printing equipment."
+        },
+        {
+          "question": "What happens to printers after collection?",
+          "answer": "Collected printers are assessed for refurbishment, reuse, component recovery or responsible recycling, depending on their condition."
+        },
+        {
+          "question": "Is data stored inside multifunction printers?",
+          "answer": "Some multifunction printers contain internal hard drives that may store scanned documents and other business information."
+        },
+        {
+          "question": "Can you collect damaged or non-working printers?",
+          "answer": "Yes, we can discuss collecting faulty, damaged and non-working printers for suitable recycling and material recovery."
+        },
+        {
+          "question": "Do you provide documentation after printer collection?",
+          "answer": "Relevant collection records and supporting documentation can be provided to help businesses keep track of their collected printing equipment."
+        }
+      ],
   },
 
   'av-media-equipment-collection': {

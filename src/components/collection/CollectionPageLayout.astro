@@ -71,7 +71,7 @@ const serviceSchema = {
 
 // FAQ Data & Schema
 const faqConfig = getPageFaqs(data.slug);
-const faqs = faqConfig?.faqs || data.faqs;
+const faqs = data.faqs && data.faqs.length > 0 ? data.faqs : faqConfig?.faqs || [];
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -122,11 +122,6 @@ const relatedServices = data.relatedSlugs
         
         <!-- Left: Text content -->
         <div class="lg:col-span-7 space-y-5 sm:space-y-6">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#07572F]/10 border border-[#07572F]/20 text-[#07572F] text-xs font-bold uppercase tracking-wider">
-            <span class="w-2 h-2 rounded-full bg-[#07572F] animate-pulse"></span>
-            <span>{data.heroBadge}</span>
-          </div>
-
           <h1 class="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-semibold text-slate-900 tracking-tight leading-[1.12] font-display">
             {data.h1}
           </h1>
@@ -206,7 +201,7 @@ const relatedServices = data.relatedSlugs
     <Container size="normal">
       <div class="max-w-3xl mb-10 sm:mb-12">
         <span class="text-xs font-bold uppercase tracking-widest text-[#07572F] font-mono">
-          ACCEPTED HARDWARE SPECIFICATIONS
+          {data.equipmentTypesEyebrow || 'ACCEPTED HARDWARE SPECIFICATIONS'}
         </span>
         <h2 class="text-3xl sm:text-4xl lg:text-[40px] font-semibold text-slate-900 tracking-tight font-display mt-2 leading-[1.15]">
           {data.equipmentTypesHeading}
@@ -280,10 +275,10 @@ const relatedServices = data.relatedSlugs
     <Container size="normal">
       <div class="max-w-3xl mb-10 sm:mb-12">
         <span class="text-xs font-bold uppercase tracking-widest text-[#07572F] font-mono">
-          NATIONWIDE LOGISTICS DISCIPLINE
+          {data.processEyebrow || 'OUR COLLECTION PROCESS'}
         </span>
         <h2 class="text-3xl sm:text-4xl lg:text-[40px] font-semibold text-slate-900 tracking-tight font-display mt-2 leading-[1.15]">
-          How the Collection Process Works
+          {data.processHeading || 'How the Collection Process Works'}
         </h2>
         <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-normal mt-3">
           {data.processIntro}
@@ -319,7 +314,7 @@ const relatedServices = data.relatedSlugs
     <Container size="normal">
       <div class="max-w-3xl mb-10 sm:mb-12">
         <span class="text-xs font-bold uppercase tracking-widest text-[#07572F] font-mono">
-          CONFIDENTIALITY & GOVERNANCE
+          {data.securityEyebrow || 'CONFIDENTIALITY & GOVERNANCE'}
         </span>
         <h2 class="text-3xl sm:text-4xl lg:text-[40px] font-semibold text-slate-900 tracking-tight font-display mt-2 leading-[1.15]">
           {data.securityHeading}
@@ -360,7 +355,7 @@ const relatedServices = data.relatedSlugs
     <Container size="normal">
       <div class="max-w-3xl mb-10 sm:mb-12">
         <span class="text-xs font-bold uppercase tracking-widest text-[#07572F] font-mono">
-          ENVIRONMENTAL RESPONSIBILITY
+          {data.circularEyebrow || 'REUSE, RECOVERY & RESPONSIBLE RECYCLING'}
         </span>
         <h2 class="text-3xl sm:text-4xl lg:text-[40px] font-semibold text-slate-900 tracking-tight font-display mt-2 leading-[1.15]">
           {data.circularHeading}

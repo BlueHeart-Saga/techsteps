@@ -3,25 +3,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
 import Container from '../components/layout/Container.astro';
 import CTA from '../components/global/cta.astro';
-import { getSiteSettings } from '../lib/sanity/client';
+import { getSiteSettings, getCertificationsPage } from '../lib/sanity/client';
 
-const siteSettings = await getSiteSettings();
+const [siteSettings, pageData] = await Promise.all([
+  getSiteSettings(),
+  getCertificationsPage(),
+]);
 const canonicalUrl = 'https://techsteps.co.uk/certifications';
+
+const pageTitle = pageData?.metaTitle || 'Certifications & Accreditations — TechSteps UK';
+const pageDescription =
+  pageData?.metaDescription ||
+  'Comprehensive register of TechSteps accreditations and certifications including ISO 27001, ISO 9001, ISO 14001, ISO 45001, ADISA, BS EN 15713, and Cyber Essentials Plus.';
 
 const pageSchema = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
   '@id': `${canonicalUrl}#webpage`,
   url: canonicalUrl,
-  name: 'Certifications & Accreditations — TechSteps UK',
-  description:
-    'Comprehensive register of TechSteps accreditations and certifications including ISO 27001, ISO 9001, ISO 14001, ISO 45001, ADISA, BS EN 15713, and Cyber Essentials Plus.',
+  name: pageTitle,
+  description: pageDescription,
   mainEntity: {
     '@id': 'https://techsteps.co.uk/#organization',
   },
 };
 
-const accreditations = [
+const accreditations = (pageData?.accreditations && pageData.accreditations.length > 0) ? pageData.accreditations.map((a) => ({
+  ...a,
+  logo: a.logo || a.logoUrl || '/images/certifications/bsi-kitemark.png',
+})) : [
+
   {
     name: 'ISO 27001',
     categoryGroup: 'security',
@@ -230,8 +241,8 @@ const reviews = [
 ---
 
 <BaseLayout
-  title="Certifications & Accreditations — TechSteps UK"
-  description="Explore TechSteps industry certifications and compliance register: ISO 27001, ISO 9001, ISO 14001, ISO 45001, ADISA, BS EN 15713, Cyber Essentials Plus, and more."
+  title={pageTitle}
+  description={pageDescription}
   canonicalUrl={canonicalUrl}
   jsonLd={pageSchema}
   hasHeroHeader={true}

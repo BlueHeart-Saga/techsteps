@@ -3,25 +3,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroHeader from '../components/global/HeroHeader.astro';
 import Container from '../components/layout/Container.astro';
 import CTA from '../components/global/cta.astro';
-import { getSiteSettings } from '../lib/sanity/client';
+import { getSiteSettings, getPartnersPage } from '../lib/sanity/client';
 
-const siteSettings = await getSiteSettings();
+const [siteSettings, pageData] = await Promise.all([
+  getSiteSettings(),
+  getPartnersPage(),
+]);
 const canonicalUrl = 'https://techsteps.co.uk/partners';
+
+const pageTitle = pageData?.metaTitle || 'Partners & Associations — TechSteps UK';
+const pageDescription =
+  pageData?.metaDescription ||
+  'Explore TechSteps strategic technology partners, industry associations, and public framework memberships driving responsible IT asset management across the UK.';
 
 const pageSchema = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
   '@id': `${canonicalUrl}#webpage`,
   url: canonicalUrl,
-  name: 'Partners & Associations — TechSteps UK',
-  description:
-    'Explore TechSteps strategic technology partners, industry associations, and public framework memberships driving responsible IT asset management across the UK.',
+  name: pageTitle,
+  description: pageDescription,
   mainEntity: {
     '@id': 'https://techsteps.co.uk/#organization',
   },
 };
 
-const partners = [
+const partners = (pageData?.partners && pageData.partners.length > 0) ? pageData.partners.map((p) => ({
+  ...p,
+  logo: p.logo || p.logoUrl || '/images/certifications/bsi-kitemark.png',
+})) : [
+
   {
     name: 'Blancco Technology Group',
     category: 'Certified Data Erasure',
@@ -200,8 +211,8 @@ const reviewSlides = [
 ---
 
 <BaseLayout
-  title="Partners & Associations — TechSteps UK"
-  description="Explore TechSteps strategic technology partners, industry associations, and public framework memberships driving responsible IT asset management across the UK."
+  title={pageTitle}
+  description={pageDescription}
   canonicalUrl={canonicalUrl}
   jsonLd={pageSchema}
   hasHeroHeader={true}

@@ -5,6 +5,9 @@ import sitemap from '@astrojs/sitemap';
 import { EnumChangefreq } from 'sitemap';
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 
 const sanityProjectId =
@@ -236,7 +239,59 @@ export default defineConfig({
         name: 'dev-api-middleware',
         configureServer(server) {
           server.middlewares.use((req, res, next) => {
-            if (req.url === '/api/newsletter/subscribe' && req.method === 'POST') {
+            const rawUrl = req.url ? req.url.split('?')[0] : '';
+
+            // Handle /api/contact in dev server
+            if (rawUrl === '/api/contact' || rawUrl === '/api/contact/') {
+              res.setHeader('Access-Control-Allow-Origin', '*');
+              res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+              res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+              if (req.method === 'OPTIONS') {
+                res.statusCode = 204;
+                res.end();
+                return;
+              }
+
+              if (req.method === 'POST') {
+                let body = '';
+                req.on('data', (chunk) => {
+                  body += chunk;
+                });
+                req.on('end', async () => {
+                  try {
+                    const data = JSON.parse(body || '{}');
+                    const { sendContactEmail } = require('./scripts/mail-service.cjs');
+                    const result = await sendContactEmail(data);
+                    res.setHeader('Content-Type', 'application/json');
+                    res.statusCode = 200;
+                    res.end(
+                      JSON.stringify({
+                        success: true,
+                        message:
+                          data.formType === 'collection'
+                            ? 'Your collection request has been sent successfully.'
+                            : 'Your enquiry has been sent successfully.',
+                        reference: result.reference,
+                      })
+                    );
+                  } catch (err) {
+                    console.error('Dev API /api/contact error:', err);
+                    res.setHeader('Content-Type', 'application/json');
+                    res.statusCode = 500;
+                    res.end(
+                      JSON.stringify({
+                        success: false,
+                        message: err.message || 'Error processing email.',
+                      })
+                    );
+                  }
+                });
+                return;
+              }
+            }
+
+            if (rawUrl === '/api/newsletter/subscribe' && req.method === 'POST') {
               res.setHeader('Content-Type', 'application/json');
               res.statusCode = 200;
               res.end(JSON.stringify({ success: true, message: 'Subscribed successfully!' }));

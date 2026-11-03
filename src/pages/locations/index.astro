@@ -17,25 +17,32 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/layout/Container.astro';
 import FAQSection from '../../components/FAQSection.astro';
-import { locationsList } from '../../data/locationsData';
-import { getSiteSettings } from '../../lib/sanity/client';
+import { locationsList as defaultLocationsList } from '../../data/locationsData';
+import { getSiteSettings, getLocationsPage, getLocations } from '../../lib/sanity/client';
 
-const siteSettings = await getSiteSettings();
+const [siteSettings, pageData, locations] = await Promise.all([
+  getSiteSettings(),
+  getLocationsPage(),
+  getLocations(),
+]);
 
-const pageTitle = "UK IT Equipment Recycling & Collection Locations | TechSteps UK";
-const pageDescription = "Free, secure, and carbon-negative IT equipment recycling collections across all 26 UK metro hubs and regions. ADISA-certified data destruction, WEEE compliance, and zero-landfill guarantee.";
+const activeLocations = (locations && locations.length > 0) ? locations : defaultLocationsList;
+
+const pageTitle = pageData?.metaTitle || "UK IT Equipment Recycling & Collection Locations | TechSteps UK";
+const pageDescription = pageData?.metaDescription || "Free, secure, and carbon-negative IT equipment recycling collections across all 26 UK metro hubs and regions. ADISA-certified data destruction, WEEE compliance, and zero-landfill guarantee.";
 
 // Regional grouping
 const regions = [
-  { id: 'all', name: 'All Locations', count: locationsList.length },
-  { id: 'london-southeast', name: 'London & South East', count: locationsList.filter(l => ['Greater London', 'South East', 'East of England'].includes(l.region)).length },
-  { id: 'midlands', name: 'Midlands', count: locationsList.filter(l => l.region === 'Midlands').length },
-  { id: 'north', name: 'North of England', count: locationsList.filter(l => ['North West', 'Yorkshire', 'North East'].includes(l.region)).length },
-  { id: 'scotland-wales-ni', name: 'Scotland, Wales & NI', count: locationsList.filter(l => ['Scotland', 'Wales', 'Northern Ireland'].includes(l.region)).length },
-  { id: 'operations-centres', name: 'Operations Centres', count: locationsList.filter(l => ['dartford', 'stafford', 'hainault'].includes(l.slug)).length },
+  { id: 'all', name: 'All Locations', count: activeLocations.length },
+  { id: 'london-southeast', name: 'London & South East', count: activeLocations.filter(l => ['Greater London', 'South East', 'East of England'].includes(l.region)).length },
+  { id: 'midlands', name: 'Midlands', count: activeLocations.filter(l => l.region === 'Midlands').length },
+  { id: 'north', name: 'North of England', count: activeLocations.filter(l => ['North West', 'Yorkshire', 'North East'].includes(l.region)).length },
+  { id: 'scotland-wales-ni', name: 'Scotland, Wales & NI', count: activeLocations.filter(l => ['Scotland', 'Wales', 'Northern Ireland'].includes(l.region)).length },
+  { id: 'operations-centres', name: 'Operations Centres', count: activeLocations.filter(l => ['dartford', 'stafford', 'hainault'].includes(l.slug)).length },
 ];
 
-const masterFaqs = [
+const masterFaqs = (pageData?.faqs && pageData.faqs.length > 0) ? pageData.faqs : [
+
   {
     question: "Do you offer free IT collection services throughout the entire UK?",
     answer: "Yes, TechSteps provides free collections for businesses, schools, healthcare providers, and charities nationwide when you have 10 or more qualifying devices (such as laptops, PCs, or servers). For remote or smaller quantities, we provide competitive low-emission logistics or tracked secure return boxes."
@@ -219,7 +226,7 @@ const masterFaqs = [
             Browse All UK Collection Locations
           </h2>
           <p class="text-xs sm:text-sm text-slate-600 mt-1">
-            Showing <span id="visible-count" class="font-semibold text-emerald-800">{locationsList.length}</span> active operational areas with local vehicle dispatch.
+            Showing <span id="visible-count" class="font-semibold text-emerald-800">{activeLocations.length}</span> active operational areas with local vehicle dispatch.
           </p>
         </div>
 
@@ -289,7 +296,7 @@ const masterFaqs = [
 
       <!-- Locations Grid (All 26 Cards) -->
       <div id="locations-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {locationsList.map((loc) => {
+        {activeLocations.map((loc) => {
           let category = 'north';
           if (['Greater London', 'South East', 'East of England'].includes(loc.region)) category = 'london-southeast';
           if (loc.region === 'Midlands') category = 'midlands';
