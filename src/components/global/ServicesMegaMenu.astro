@@ -102,10 +102,20 @@ const servicePillars = defaultPillars.map((pillar) => {
         slug: getServiceCanonicalSlug(s.slug),
       }));
 
+  // Keep equipment collection URLs exclusively in FreeCollectionMegaMenu.astro.
+  // The IT Lifecycle submenu intentionally uses its six approved service links,
+  // even if Sanity returns additional collection entries for this division.
+  const menuSubLinks = pillar.id === 'it-lifecycle'
+    ? pillar.subLinks.map((s) => ({
+        name: s.name,
+        slug: getServiceCanonicalSlug(s.slug),
+      }))
+    : subLinks;
+
   return {
     ...pillar,
     title: matchedDiv?.title || pillar.title,
-    subLinks,
+    subLinks: menuSubLinks,
   };
 });
 const defaultActiveId = 'it-lifecycle';
@@ -414,4 +424,4 @@ const defaultPillar = servicePillars.find(p => p.id === defaultActiveId) || serv
       width: 100%;
     }
   }
-</style>
+</style>
