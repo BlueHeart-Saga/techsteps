@@ -50,7 +50,7 @@ export default defineType({
             defineField({ name: 'address', title: 'Street & Postcode', type: 'text', rows: 2, initialValue: 'Rickerscote Hall Ln, Stafford ST17 4HF' }),
           ],
         }),
-        defineField({ name: 'email', title: 'Contact Email', type: 'string', initialValue: 'enquiries@techsteps.co.uk' }),
+        defineField({ name: 'email', title: 'Contact Email', type: 'string', initialValue: 'collection@techsteps.co.uk' }),
         defineField({ name: 'phone', title: 'Direct Line Phone', type: 'string', initialValue: '+44 (0) 20 7946 0888' }),
         defineField({ name: 'freephone', title: 'Freephone Number', type: 'string', initialValue: '0800 083 4700' }),
         defineField({ name: 'socialHeading', title: 'Social Media Section Heading', type: 'string', initialValue: 'Follow our social media' }),

@@ -107,11 +107,16 @@ const inFlightRequests = new Map<string, Promise<any>>();
 const isDev = Boolean(env.DEV || (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production'));
 const SANITY_CACHE_TTL = isDev ? 1000 : 60 * 1000;
 
+let isNetworkUnavailable = false;
+
 export const sanityClient = rawSanityClient
   ? new Proxy(rawSanityClient, {
     get(target: any, prop: string | symbol, receiver: any) {
       if (prop === 'fetch') {
         return async function (query: string, params?: any, options?: any) {
+          if (isNetworkUnavailable) {
+            throw new Error('Sanity offline fallback');
+          }
           const key = typeof query === 'string' ? (query.trim() + (params ? JSON.stringify(params) : '')) : String(query);
           const now = Date.now();
           const cached = sanityCache.get(key);
@@ -129,6 +134,9 @@ export const sanityClient = rawSanityClient
             })
             .catch((err: any) => {
               inFlightRequests.delete(key);
+              if (err?.code === 'ENOTFOUND' || err?.message?.includes('fetch failed') || err?.cause?.code === 'ENOTFOUND') {
+                isNetworkUnavailable = true;
+              }
               throw err;
             });
           inFlightRequests.set(key, promise);
@@ -348,7 +356,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
             internalRef->_type == "sector" => "/sectors/" + internalRef->slug.current,
             internalRef->_type == "division" => "/" + internalRef->slug.current,
             internalRef->_type == "article" => "/insights/" + internalRef->slug.current,
-            internalRef->_type == "caseStudy" => "/case-studies/" + internalRef->slug.current,
+            internalRef->_type == "caseStudy" => "/services",
             "/"
           ),
           externalUrl

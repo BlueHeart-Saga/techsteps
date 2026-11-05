@@ -123,7 +123,7 @@ async function main() {
         {
           _key: 'sec_7',
           heading: '7. Data Protection Officer & Inquiries',
-          body: 'For questions regarding this policy or to exercise any data subject rights, please contact our Data Protection Officer directly at enquiries@techsteps.co.uk or by post to Data Protection Officer, Techsteps UK Limited, Techsteps House, Logistics Park, Crossways Boulevard, Dartford, Kent, DA2 6QJ. You also hold the right to lodge a formal complaint with the Information Commissioner\'s Office (ICO) at ico.org.uk or 0303 123 1113.',
+          body: 'For questions regarding this policy or to exercise any data subject rights, please contact our Data Protection Officer directly at collection@techsteps.co.uk or by post to Data Protection Officer, Techsteps UK Limited, Techsteps House, Logistics Park, Crossways Boulevard, Dartford, Kent, DA2 6QJ. You also hold the right to lodge a formal complaint with the Information Commissioner\'s Office (ICO) at ico.org.uk or 0303 123 1113.',
         },
       ],
     },
@@ -372,7 +372,7 @@ async function main() {
         {
           _key: 'sec_3',
           heading: '3. Feedback & Contact Assistance',
-          body: 'We welcome your feedback on the accessibility of the Techsteps website. If you encounter accessibility barriers or require documentation in an alternative format, please contact our Digital Accessibility Team at accessibility@techsteps.co.uk or call +44 (0) 20 7946 0888.',
+          body: 'We welcome your feedback on the accessibility of the Techsteps website. If you encounter accessibility barriers or require documentation in an alternative format, please contact our Digital Accessibility Team at collection@techsteps.co.uk or call +44 (0) 20 7946 0888.',
         },
       ],
     },

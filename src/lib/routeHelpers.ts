@@ -247,7 +247,12 @@ export function buildServicePaths(records: unknown) {
 
   const register = (slug: unknown, service: Service) => {
     const cleanSlug = normalizeRouteSlug(slug);
-    if (!cleanSlug || registeredSlugs.has(cleanSlug)) return;
+    if (
+      !cleanSlug ||
+      cleanSlug.endsWith('-uk') ||
+      cleanSlug.endsWith('-services-uk') ||
+      registeredSlugs.has(cleanSlug)
+    ) return;
     registeredSlugs.add(cleanSlug);
     paths.push({
       params: { slug: cleanSlug },
@@ -266,11 +271,8 @@ export function buildServicePaths(records: unknown) {
     const withoutServices = withoutUk.replace(/-services$/, '');
 
     register(withoutUk, service);
-    register(`${withoutUk}-uk`, service);
     register(withoutServices, service);
     register(`${withoutServices}-services`, service);
-    register(`${withoutServices}-services-uk`, service);
-    register(`${withoutServices}-uk`, service);
 
     const fallbackMatch = fallbackServices.find((f) => {
       if (!isValidService(f)) return false;
@@ -286,7 +288,6 @@ export function buildServicePaths(records: unknown) {
       const fbWithoutUk = fallbackMatch.slug.replace(/-uk$/, '');
       const fbWithoutServices = fbWithoutUk.replace(/-services$/, '');
       register(fbWithoutUk, service);
-      register(`${fbWithoutUk}-uk`, service);
       register(fbWithoutServices, service);
       register(`${fbWithoutServices}-services`, service);
     }
@@ -299,7 +300,6 @@ export function buildServicePaths(records: unknown) {
       const fbWithoutUk = fallback.slug.replace(/-uk$/, '');
       const fbWithoutServices = fbWithoutUk.replace(/-services$/, '');
       register(fbWithoutUk, fallback);
-      register(`${fbWithoutUk}-uk`, fallback);
       register(fbWithoutServices, fallback);
       register(`${fbWithoutServices}-services`, fallback);
     }
@@ -334,7 +334,12 @@ export function buildHierarchicalServicePaths(records: unknown) {
   const register = (division: unknown, slug: unknown, service: Service) => {
     const cleanDiv = normalizeRouteSlug(division);
     const cleanSlug = normalizeRouteSlug(slug);
-    if (!cleanDiv || !cleanSlug) return;
+    if (
+      !cleanDiv ||
+      !cleanSlug ||
+      cleanSlug.endsWith('-uk') ||
+      cleanSlug.endsWith('-services-uk')
+    ) return;
     const key = `${cleanDiv}/${cleanSlug}`;
     if (registered.has(key)) return;
     registered.add(key);
@@ -362,8 +367,6 @@ export function buildHierarchicalServicePaths(records: unknown) {
       rawSlug,
       withServices,
       withoutServices,
-      `${withoutServices}-uk`,
-      `${withServices}-uk`,
     ];
 
     for (const div of divVariants) {

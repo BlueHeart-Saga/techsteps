@@ -111,7 +111,7 @@ async function main() {
           title: 'Address 2',
           address: 'Rickerscote Hall Ln, Stafford ST17 4HF',
         },
-        email: 'enquiries@techsteps.co.uk',
+        email: 'collection@techsteps.co.uk',
         phone: '+44 (0) 20 7946 0888',
         freephone: '0800 083 4700',
         socialHeading: 'Follow our social media',

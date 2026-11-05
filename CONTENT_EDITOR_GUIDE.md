@@ -80,7 +80,7 @@ To update phone numbers, physical address, or corporate emails sitewide:
 1. Click **Site Settings** (this is a single configuration document).
 2. Update:
    * **Primary Phone Number**: e.g., `+44 (0) 20 7946 0888`
-   * **Primary Contact Email**: e.g., `enquiries@techsteps.co.uk`
+   * **Primary Contact Email**: e.g., `collection@techsteps.co.uk`
    * **UK Head Office Address**: Street, city, county, postcode.
    * **Operating Hours**: Displayed across the website and contact headers.
 3. Click **Publish**.

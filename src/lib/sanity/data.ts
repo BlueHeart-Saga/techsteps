@@ -40,7 +40,7 @@ export const siteSettings: SiteSettings = {
     country: 'United Kingdom',
   },
   phone: '+44 1784 640216',
-  email: 'enquiries@techsteps.co.uk',
+  email: 'collection@techsteps.co.uk',
   operatingHours: 'Monday – Friday: 08:00 – 18:00 GMT',
   socialLinks: {
     linkedin: 'https://www.linkedin.com/company/techsteps-uk/posts/?feedView=all',
@@ -3214,7 +3214,7 @@ export const defaultInvestorsPage: InvestorsPageData = {
     description: 'For shareholder enquiries, financial reporting, and governance information, please contact our investor relations team.',
     name: 'Investor Relations Desk',
     role: 'Corporate Communications & Governance',
-    email: 'investors@techsteps.co.uk',
+    email: 'collection@techsteps.co.uk',
     phone: '+44 1784 640216',
   },
 };
@@ -3232,7 +3232,7 @@ export const defaultContactPage: ContactPageData = {
   contactInfo: {
     address1: { title: 'Address 1', address: 'Unit B, Roebuck road\nHainault business park, IG6 3UF' },
     address2: { title: 'Address 2', address: 'Rickerscote Hall Ln, Stafford ST17 4HF' },
-    email: 'enquiries@techsteps.co.uk',
+    email: 'collection@techsteps.co.uk',
     phone: '+44 1784 640216',
     freephone: '+44 1784 640216',
     socialHeading: 'Follow our social media',
@@ -3242,8 +3242,8 @@ export const defaultContactPage: ContactPageData = {
     image: '/images/contact/contact-consultation.jpg',
   },
   directLines: [
-    { title: 'Head Office', description: 'Techsteps House, Logistics Park, Crossways Boulevard, Dartford, Kent DA2 6QJ', phone: '+44 1784 640216', email: 'enquiries@techsteps.co.uk' },
-    { title: 'Logistics Dispatch', description: 'Immediate operational collection booking and chain-of-custody tracking desk.', phone: '+44 1784 640216', email: 'dispatch@techsteps.co.uk' },
+    { title: 'Head Office', description: 'Techsteps House, Logistics Park, Crossways Boulevard, Dartford, Kent DA2 6QJ', phone: '+44 1784 640216', email: 'collection@techsteps.co.uk' },
+    { title: 'Logistics Dispatch', description: 'Immediate operational collection booking and chain-of-custody tracking desk.', phone: '+44 1784 640216', email: 'collection@techsteps.co.uk' },
   ],
 };
 

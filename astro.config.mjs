@@ -32,7 +32,8 @@ export default defineConfig({
   site: productionSite,
   trailingSlash: 'never',
   redirects: {
-    '/insights/case-studies': '/case-studies',
+    '/insights/case-studies': '/insights',
+    '/case-studies': '/services',
   },
 
   prefetch: {
@@ -85,7 +86,7 @@ export default defineConfig({
           '/services/secure-shredding-document-integrity',
         ]);
 
-        if (excludedExactPaths.has(path) || path.startsWith('/admin') || path.startsWith('/studio')) {
+        if (excludedExactPaths.has(path) || path.startsWith('/admin') || path.startsWith('/studio') || path.startsWith('/collection/')) {
           return false;
         }
 
