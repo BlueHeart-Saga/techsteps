@@ -4,78 +4,42 @@ import { getRequestCollectionPage } from '../../lib/sanity/client';
 
 const pageData = await getRequestCollectionPage();
 const hero = pageData?.hero;
+
+const imageSrc =
+  hero?.topImageUrl && hero.topImageUrl !== '/images/hero/Request a collection.webp'
+    ? hero.topImageUrl
+    : '/images/hero/request-collection-van.webp';
+
+const imageAlt = hero?.topImageAlt || 'TechSteps IT asset collection vehicle and technician';
 ---
 
 <section
   id="request-collection-hero"
-  class="relative w-full bg-white"
+  class="relative w-full bg-white overflow-hidden"
 >
-  <!-- Same Header as Homepage -->
+  <!-- Global Top Header with Navigation -->
   <HeroHeader isHome={true} />
 
-  <!-- Hero Content in same container as header -->
-  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="relative w-full min-h-[460px] sm:min-h-[500px] lg:min-h-[560px] flex flex-col justify-center">
-
-      <!-- Request Collection Hero Image (ends at right edge of header container) -->
-      <div class="absolute inset-y-0 right-0 w-full lg:w-[62%] overflow-hidden pointer-events-none select-none z-0">
-        <img
-          src={hero?.topImageUrl || "/images/hero/Request a collection.webp"}
-          alt=""
-          aria-hidden="true"
-          class="w-full h-full object-cover object-right pointer-events-none select-none"
-          loading="eager"
-          fetchpriority="high"
-          decoding="sync"
-        />
-        <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/30 lg:via-white/10 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white via-white/70 to-transparent pointer-events-none"></div>
-      </div>
-
-      <!-- Main Hero Content -->
-      <div
-        class="relative z-10 w-full
-               pt-4 sm:pt-8 lg:pt-12 xl:pt-14
-               pb-6 sm:pb-8 lg:pb-10"
-      >
+  <!-- Hero Main Content -->
+  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
     <div
-      class="grid grid-cols-1 lg:grid-cols-12
-             gap-8 lg:gap-8 xl:gap-10
-             items-center"
+      class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-12 items-center"
     >
-
-      <!-- HERO CONTENT -->
+      <!-- LEFT COLUMN: CONTENT -->
       <div
-        class="lg:col-span-6 xl:col-span-6
-               max-w-2xl lg:max-w-none
-               pt-2 sm:pt-4 z-10"
+        class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center z-10"
       >
-
-        <!-- Eyebrow -->
-        {/*<div
-          class="inline-flex items-center gap-2
-                 px-3 py-1
-                 rounded-full
-                 bg-[#0F623A]/10
-                 text-[#0F623A]
-                 text-xs sm:text-sm
-                 font-sans font-bold
-                 uppercase tracking-[0.18em]
-                 mb-3 sm:mb-4"
+        <!-- Eyebrow Badge -->
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.16em] mb-3 sm:mb-4 w-fit"
         >
-          <span>REQUEST A COLLECTION</span>
-        </div>*/}
+          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
+          <span>Request a Collection</span>
+        </div>
 
-        <!-- Heading -->
+        <!-- Main Heading -->
         <h1
-          class="font-display
-                 text-3xl sm:text-4xl md:text-5xl
-                 lg:text-[50px] xl:text-[56px]
-                 font-semibold
-                 text-slate-900
-                 tracking-normal
-                 leading-[1.12] sm:leading-[1.1]
-                 max-w-xl"
+          class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[50px] font-semibold text-slate-900 tracking-tight leading-[1.12] sm:leading-[1.1] max-w-xl"
         >
           {hero?.topHeading ? (
             hero.topHeading === 'Book Your IT Asset Collection' ? (
@@ -88,49 +52,24 @@ const hero = pageData?.hero;
           )}
         </h1>
 
-        <!-- Description -->
+        <!-- Subtitle / Description -->
         <p
-          class="mt-4 sm:mt-5
-                 text-lg sm:text-xl lg:text-lg
-                 text-black
-                 max-w-lg
-                 leading-relaxed
-                 font-sans font-normal"
+          class="mt-4 sm:mt-5 text-base sm:text-lg lg:text-[17px] text-slate-700 max-w-lg leading-relaxed font-sans font-normal"
         >
           {hero?.topDescription ||
-            "Arrange a secure, reliable collection of your IT equipment with TechSteps. Tell us what you need collected and our team will coordinate the next steps."}
+            "Arrange a secure, certified collection of your retired IT equipment with TechSteps. Tell us what you need collected and our logistics team will coordinate the pickup window."}
         </p>
 
         <!-- CTA Buttons -->
         <div
-          class="mt-6 sm:mt-8
-                 flex flex-wrap
-                 items-center
-                 gap-3.5 sm:gap-4"
+          class="mt-6 sm:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4"
         >
-
-          <!-- Schedule Collection -->
+          <!-- Primary CTA: Schedule Collection -->
           <a
             href={hero?.topButtonLink || "#collection-booking-form"}
-            class="inline-flex items-center justify-center
-                   gap-2.5
-                   px-6 sm:px-7
-                   py-3 sm:py-3.5
-                   rounded-[12px]
-                   bg-[#0F623A]
-                   hover:bg-[#0c4e2e]
-                   text-white
-                   text-sm sm:text-base
-                   font-bold
-                   shadow-md hover:shadow-lg
-                   transition-all duration-200
-                   hover:scale-[1.02]
-                   focus:outline-none
-                   focus:ring-2
-                   focus:ring-[#0F623A]"
+            class="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
           >
             <span>{hero?.topButtonText || "Schedule Collection"}</span>
-
             <svg
               class="w-4 h-4 text-white"
               fill="none"
@@ -146,71 +85,56 @@ const hero = pageData?.hero;
             </svg>
           </a>
 
-          <!-- Contact Us -->
+          <!-- Secondary CTA: Contact Us -->
           <a
             href={hero?.topSecondaryButtonLink || "/contact"}
-            class="inline-flex items-center justify-center
-                   px-6 sm:px-7
-                   py-3 sm:py-3.5
-                   rounded-[12px]
-                   bg-white
-                   hover:bg-slate-50
-                   border-2
-                   border-[#0F623A]
-                   hover:border-[#0c4e2e]
-                   text-[#0F623A]
-                   hover:text-[#0c4e2e]
-                   text-sm sm:text-base
-                   font-bold
-                   transition-all duration-200
-                   hover:scale-[1.02]
-                   shadow-xs
-                   focus:outline-none
-                   focus:ring-2
-                   focus:ring-[#0F623A]"
+            class="inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5 rounded-[12px] bg-white hover:bg-slate-50 border-2 border-[#0F623A] hover:border-[#0c4e2e] text-[#0F623A] hover:text-[#0c4e2e] text-sm sm:text-base font-bold transition-all duration-200 hover:scale-[1.02] shadow-xs focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
           >
             {hero?.topSecondaryButtonText || "Contact Us"}
           </a>
-
         </div>
 
-        <!-- Mobile Image -->
+        <!-- Trust Badges -->
         <div
-          class="lg:hidden
-                 w-full
-                 flex justify-center items-center
-                 mt-8 sm:mt-10"
+          class="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs sm:text-sm text-slate-600 font-medium"
         >
-          <div class="relative w-full max-w-[520px]">
-            <img
-              src={hero?.topMobileImageUrl || "/images/hero/Request a collection hero.webp"}
-              alt={hero?.topImageAlt || "TechSteps IT asset collection"}
-              class="w-full h-auto object-contain
-                     select-none mx-auto block"
-              loading="eager"
-              decoding="sync"
-            />
-          </div>
+          <span class="inline-flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[#0F623A] shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            Fast 2-Min Booking
+          </span>
+          <span class="inline-flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[#0F623A] shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            Nationwide UK Pickup
+          </span>
+          <span class="inline-flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[#0F623A] shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            Certified Data Sanitisation
+          </span>
         </div>
-
       </div>
 
-      <!-- Desktop Spacer -->
+      <!-- RIGHT COLUMN: IMAGE (No border, No box wrap, Clean & Responsive) -->
       <div
-        class="hidden lg:flex
-               lg:col-span-6 xl:col-span-6
-               items-center justify-end
-               min-h-[420px]
-               lg:min-h-[480px]
-               xl:min-h-[520px]
-               pointer-events-none"
-        aria-hidden="true"
+        class="lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end items-center w-full z-0 mt-4 lg:mt-0"
       >
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          class="w-full h-auto max-h-[380px] sm:max-h-[440px] md:max-h-[480px] lg:max-h-[500px] xl:max-h-[540px] object-contain select-none mx-auto lg:ml-auto block drop-shadow-sm"
+          loading="eager"
+          fetchpriority="high"
+          decoding="sync"
+          width="1024"
+          height="873"
+        />
       </div>
-
     </div>
-  </div>
-  </div>
   </div>
 </section>
 

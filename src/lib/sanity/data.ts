@@ -3259,8 +3259,8 @@ export const defaultRequestCollectionPage: RequestCollectionPageData = {
     topButtonLink: '#collection-booking-form',
     topSecondaryButtonText: 'Contact Us',
     topSecondaryButtonLink: '/contact',
-    topImageUrl: '/images/hero/Request a collection.webp',
-    topMobileImageUrl: '/images/hero/Request a collection hero.webp',
+    topImageUrl: '/images/hero/request-collection-van.webp',
+    topMobileImageUrl: '/images/hero/request-collection-van.webp',
     topImageAlt: 'TechSteps IT asset collection',
   },
   slaGuarantees: [
