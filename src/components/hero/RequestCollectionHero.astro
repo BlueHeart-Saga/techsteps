@@ -21,102 +21,19 @@ const imageAlt = hero?.topImageAlt || 'TechSteps IT asset collection vehicle and
   <HeroHeader isHome={true} />
 
   <!-- Hero Main Content -->
-  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-14">
     <div
       class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-12 items-center"
     >
-      <!-- LEFT COLUMN: CONTENT -->
+      <!-- LEFT COLUMN: SIMPLE HEADING ONLY (Feel-good quote) -->
       <div
         class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center z-10"
       >
-        <!-- Eyebrow Badge -->
-        <div
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.16em] mb-3 sm:mb-4 w-fit"
-        >
-          <span class="w-1.5 h-1.5 rounded-full bg-[#0F623A]"></span>
-          <span>Request a Collection</span>
-        </div>
-
-        <!-- Main Heading -->
         <h1
-          class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[50px] font-semibold text-slate-900 tracking-tight leading-[1.12] sm:leading-[1.1] max-w-xl"
+          class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[50px] font-semibold text-slate-900 tracking-tight leading-[1.22] sm:leading-[1.18] max-w-xl"
         >
-          {hero?.topHeading ? (
-            hero.topHeading === 'Book Your IT Asset Collection' ? (
-              <>Book Your IT Asset<br class="hidden sm:inline" /> Collection</>
-            ) : (
-              hero.topHeading
-            )
-          ) : (
-            <>Book Your IT Asset<br class="hidden sm:inline" /> Collection</>
-          )}
+          “Giving your tech a <span class="text-[#0F623A]">second life</span> — doing good for your business and our planet.”
         </h1>
-
-        <!-- Subtitle / Description -->
-        <p
-          class="mt-4 sm:mt-5 text-base sm:text-lg lg:text-[17px] text-slate-700 max-w-lg leading-relaxed font-sans font-normal"
-        >
-          {hero?.topDescription ||
-            "Arrange a secure, certified collection of your retired IT equipment with TechSteps. Tell us what you need collected and our logistics team will coordinate the pickup window."}
-        </p>
-
-        <!-- CTA Buttons -->
-        <div
-          class="mt-6 sm:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4"
-        >
-          <!-- Primary CTA: Schedule Collection -->
-          <a
-            href={hero?.topButtonLink || "#collection-booking-form"}
-            class="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-[12px] bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
-          >
-            <span>{hero?.topButtonText || "Schedule Collection"}</span>
-            <svg
-              class="w-4 h-4 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2.2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </a>
-
-          <!-- Secondary CTA: Contact Us -->
-          <a
-            href={hero?.topSecondaryButtonLink || "/contact"}
-            class="inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5 rounded-[12px] bg-white hover:bg-slate-50 border-2 border-[#0F623A] hover:border-[#0c4e2e] text-[#0F623A] hover:text-[#0c4e2e] text-sm sm:text-base font-bold transition-all duration-200 hover:scale-[1.02] shadow-xs focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
-          >
-            {hero?.topSecondaryButtonText || "Contact Us"}
-          </a>
-        </div>
-
-        <!-- Trust Badges -->
-        <div
-          class="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs sm:text-sm text-slate-600 font-medium"
-        >
-          <span class="inline-flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-[#0F623A] shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-            </svg>
-            Fast 2-Min Booking
-          </span>
-          <span class="inline-flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-[#0F623A] shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-            </svg>
-            Nationwide UK Pickup
-          </span>
-          <span class="inline-flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-[#0F623A] shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-            </svg>
-            Certified Data Sanitisation
-          </span>
-        </div>
       </div>
 
       <!-- RIGHT COLUMN: IMAGE (No border, No box wrap, Clean & Responsive) -->
