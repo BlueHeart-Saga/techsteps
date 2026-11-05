@@ -1,0 +1,102 @@
+---
+interface Props {
+  className?: string;
+  hideWaves?: boolean;
+  hideHeroCircles?: boolean;
+}
+
+const { className = '', hideWaves = false, hideHeroCircles = false } = Astro.props;
+---
+
+<div
+  class={`site-decorative-background pointer-events-none select-none absolute inset-0 w-full h-full overflow-hidden z-0 ${className}`}
+  aria-hidden="true"
+>
+  <!-- ========================================================
+       SECTION 1: HERO SECTION DECORATIONS (Top ~0% to 22%)
+       ======================================================== -->
+  {!hideHeroCircles && (
+    <>
+      <!-- Top-Left: Large thick teal outline circle arc (#146B5C) + outer/inner arcs -->
+      <div class="absolute top-[2.5%] sm:top-[3%] -left-[clamp(70px,10vw,140px)] w-[clamp(220px,28vw,420px)] aspect-square">
+        <!-- Outer concentric thin arc -->
+        <div class="absolute inset-0 rounded-full border-[1.5px] border-[#008F83]/50"></div>
+        <!-- Main thick teal circle arc (#146B5C) -->
+        <div class="absolute inset-[14px] sm:inset-[20px] rounded-full border-[10px] sm:border-[16px] border-[#146B5C]"></div>
+        <!-- Inner concentric thin arc -->
+        <div class="absolute inset-[40px] sm:inset-[55px] rounded-full border border-[#008F83]/30"></div>
+        <!-- Accent teal dot on lower right perimeter -->
+        <div class="absolute top-[76%] -right-1 w-2.5 h-2.5 rounded-full bg-[#146B5C]"></div>
+      </div>
+
+      <!-- Top-Right: Soft mint-green filled bubble (#D1F3EC) + thin outline + floating dots -->
+      <div class="absolute top-[1.5%] sm:top-[2%] -right-[clamp(70px,10vw,150px)] w-[clamp(240px,30vw,460px)] aspect-square">
+        <!-- Outer concentric thin arc -->
+        <div class="absolute -inset-[18px] sm:-inset-[28px] rounded-full border-[1.5px] border-[#008F83]/45"></div>
+        <!-- Main soft mint-green filled bubble (#D1F3EC) -->
+        <div class="w-full h-full rounded-full bg-[#D1F3EC]"></div>
+        <!-- Inner soft highlight -->
+        <div class="absolute inset-[30px] sm:inset-[45px] rounded-full bg-[#DDF7F1]/60"></div>
+        <!-- Floating solid teal dot (#008F83) -->
+        <div class="absolute top-[28%] -left-7 sm:-left-12 w-3 h-3 rounded-full bg-[#008F83]"></div>
+        <!-- Floating small mint dot (#D1F3EC) -->
+        <div class="absolute top-[18%] -left-2 sm:-left-4 w-2 h-2 rounded-full bg-[#A8E6D9]"></div>
+      </div>
+    </>
+  )}
+
+  <!-- ========================================================
+       SECTION 2: INTRODUCTION SECTION DECORATIONS (Top ~25% to 45%)
+       ======================================================== -->
+  <!-- Left Introduction: Intersecting thin circular arcs + accent dot -->
+  <div class="absolute top-[28%] -left-[clamp(50px,7vw,90px)] w-[clamp(160px,18vw,240px)] aspect-square">
+    <div class="w-full h-full rounded-full border-[1.5px] border-[#008F83]/50"></div>
+    <div class="absolute inset-[24px] rounded-full border border-[#008F83]/30"></div>
+    <!-- Accent teal dot (#146B5C) -->
+    <div class="absolute top-[48%] -right-5 sm:-right-6 w-2.5 h-2.5 rounded-full bg-[#146B5C]"></div>
+  </div>
+
+  <!-- Right Introduction: Solid teal node dot (#146B5C) on path peak -->
+  <div class="absolute top-[31%] right-[clamp(24px,4vw,70px)]">
+    <div class="w-4 h-4 rounded-full bg-[#146B5C] ring-4 ring-white shadow-xs"></div>
+    <div class="absolute -inset-6 rounded-full border border-[#008F83]/40"></div>
+  </div>
+
+  <!-- ========================================================
+       SECTION 3: SERVICES SECTION DECORATIONS (Top ~48% to 70%)
+       ======================================================== -->
+  <!-- Left Services: Soft mint bubble (#D1F3EC) + outer thin ring + dot along path -->
+  <div class="absolute top-[54%] -left-[clamp(60px,8vw,110px)] w-[clamp(180px,20vw,260px)] aspect-square">
+    <div class="w-full h-full rounded-full bg-[#D1F3EC]"></div>
+    <div class="absolute -inset-[16px] sm:-inset-[22px] rounded-full border-[1.5px] border-[#008F83]/45"></div>
+    <!-- Accent dot along trailing path -->
+    <div class="absolute top-[65%] -right-7 sm:-right-8 w-3 h-3 rounded-full bg-[#008F83]"></div>
+  </div>
+
+  <!-- Right Services: Soft mint bubble (#D1F3EC) + concentric thin arc -->
+  <div class="absolute top-[52%] -right-[clamp(60px,8vw,100px)] w-[clamp(190px,22vw,290px)] aspect-square">
+    <div class="w-full h-full rounded-full bg-[#D1F3EC]"></div>
+    <div class="absolute -inset-[18px] sm:-inset-[24px] rounded-full border-[1.5px] border-[#008F83]/45"></div>
+    <div class="absolute inset-[22px] rounded-full border border-[#008F83]/30"></div>
+  </div>
+
+  <!-- ========================================================
+       SECTION 4: CTA / FOOTER SECTION DECORATIONS (Top ~75% to 95%)
+       ======================================================== -->
+  <!-- Bottom-Left: Large thick teal outline circle arc (#146B5C) cropped at edge -->
+  <div class="absolute top-[82%] -left-[clamp(70px,10vw,140px)] w-[clamp(220px,28vw,400px)] aspect-square">
+    <div class="absolute inset-0 rounded-full border-[1.5px] border-[#008F83]/50"></div>
+    <div class="absolute inset-[14px] sm:inset-[20px] rounded-full border-[10px] sm:border-[16px] border-[#146B5C]"></div>
+    <div class="absolute inset-[40px] sm:inset-[55px] rounded-full border border-[#008F83]/30"></div>
+  </div>
+
+  <!-- Bottom-Right: Soft mint bubble (#D1F3EC) + floating dots near footer -->
+  <div class="absolute top-[89%] -right-[clamp(60px,8vw,100px)] w-[clamp(200px,24vw,360px)] aspect-square">
+    <div class="absolute -inset-[18px] sm:-inset-[24px] rounded-full border-[1.5px] border-[#008F83]/45"></div>
+    <div class="w-full h-full rounded-full bg-[#D1F3EC]"></div>
+    <!-- Floating teal dot (#008F83) -->
+    <div class="absolute top-[25%] -left-8 w-3 h-3 rounded-full bg-[#008F83]"></div>
+    <!-- Floating mint dot (#D1F3EC) -->
+    <div class="absolute top-[60%] -left-12 w-2.5 h-2.5 rounded-full bg-[#A8E6D9]"></div>
+  </div>
+</div>

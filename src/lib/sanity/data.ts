@@ -3225,7 +3225,7 @@ export const defaultContactPage: ContactPageData = {
   hero: {
     eyebrow: 'CONTACT US',
     title: 'Contact us',
-    subheading: 'Techsteps is ready to provide the right solution according to your needs',
+    subheading: 'Get in Touch',
     bgImage: '/images/brand/contact-hero-bg.jpg',
     heroImage: '/images/contact/Contact hero.webp',
   },

@@ -1,10 +1,8 @@
+"use client";
+
 import React, { createContext, useContext, useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import * as maplibregl from 'maplibre-gl';
-import { setWorkerUrl } from 'maplibre-gl';
-import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import 'maplibre-gl/dist/maplibre-gl.css';
-
-setWorkerUrl(workerUrl);
 import { WORLD_GEOJSON } from '@/lib/use-world-data';
 
 export type MapRef = maplibregl.Map;
@@ -61,9 +59,9 @@ export const Map = forwardRef<MapRef, MapProps>(({
     }
     if (typeof styles === 'string') return styles;
     if (styles && typeof styles === 'object') {
-      return styles.light || styles.dark || 'https://tiles.openfreemap.org/styles/bright';
+      return styles.light || styles.dark || 'https://tiles.openfreemap.org/styles/positron';
     }
-    return 'https://tiles.openfreemap.org/styles/bright';
+    return 'https://tiles.openfreemap.org/styles/positron';
   };
 
   const isFirstRender = useRef(true);
@@ -143,7 +141,7 @@ export const Map = forwardRef<MapRef, MapProps>(({
 
   return (
     <MapContext.Provider value={{ map: mapInstance, isLoaded, styleVersion }}>
-      <div className={`relative w-full h-full overflow-hidden rounded-[20px] `}>
+      <div className={`relative w-full h-full overflow-hidden rounded-[20px] ${className}`}>
         <div ref={containerRef} className="w-full h-full min-h-[400px]" />
         {children}
       </div>
@@ -265,114 +263,50 @@ export function MapGeoJSON({
   return null;
 }
 
-const mapStylesConfig: Record<StyleKey, { name: string; url: string; pitch: number }> = {
-  openstreetmap3d: {
-    name: "OpenStreetMap 3D",
-    url: "https://tiles.openfreemap.org/styles/liberty",
-    pitch: 60,
-  },
-  openstreetmap: {
-    name: "OpenStreetMap",
-    url: "https://tiles.openfreemap.org/styles/bright",
-    pitch: 0,
-  },
-  default: {
-    name: "Default (Carto)",
-    url: "https://tiles.openfreemap.org/styles/positron",
-    pitch: 0,
-  },
+const styles = {
+  default: undefined,
+  openstreetmap: "https://tiles.openfreemap.org/styles/bright",
+  openstreetmap3d: "https://tiles.openfreemap.org/styles/liberty",
 };
 
-type StyleKey = "openstreetmap3d" | "openstreetmap" | "default";
+type StyleKey = keyof typeof styles;
 
-const ADDRESS_LOCATIONS = {
-  address1: {
-    id: "address1",
-    label: "Address 1",
-    title: "Unit B, Roebuck road",
-    subtitle: "Hainault business park, IG6 3UF",
-    center: [0.1218, 51.6064] as [number, number],
-    zoom: 16.2,
-    bearing: -15,
-  },
-  address2: {
-    id: "address2",
-    label: "Address 2",
-    title: "Rickerscote Hall Ln",
-    subtitle: "Stafford ST17 4HF",
-    center: [-2.1044, 52.7809] as [number, number],
-    zoom: 16.2,
-    bearing: 15,
-  },
-};
-
-type AddressKey = keyof typeof ADDRESS_LOCATIONS;
-
-export function CustomStyleExample() {
+export function CustomStyleExample({ className = '' }: { className?: string } = {}) {
   const mapRef = useRef<MapRef>(null);
   const [style, setStyle] = useState<StyleKey>("openstreetmap3d");
-  const activeStyle = mapStylesConfig[style];
+  const selectedStyle = styles[style];
+  const is3D = style === "openstreetmap3d";
 
-  const handleStyleChange = (newKey: StyleKey) => {
-    setStyle(newKey);
-    const targetConfig = mapStylesConfig[newKey];
-    if (!mapRef.current) return;
-    try {
-      mapRef.current.easeTo({
-        pitch: targetConfig.pitch,
-        duration: 600,
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const flyTo = (key: AddressKey) => {
-    if (!mapRef.current) return;
-    const loc = ADDRESS_LOCATIONS[key];
-    const targetPitch = mapStylesConfig[style].pitch;
-    try {
-      mapRef.current.flyTo({
-        center: loc.center,
-        zoom: loc.zoom,
-        pitch: targetPitch,
-        bearing: loc.bearing,
-        duration: 1600,
-        essential: true,
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  // Re-apply camera pitch when a new style loads
   useEffect(() => {
-    if (!mapRef.current) return;
-    const targetConfig = mapStylesConfig[style];
-    const onStyleLoad = () => {
-      if (!mapRef.current) return;
-      try {
-        mapRef.current.easeTo({
-          pitch: targetConfig.pitch,
-          duration: 300,
-        });
-      } catch (e) { }
-    };
+    mapRef.current?.easeTo({ pitch: is3D ? 60 : 0, duration: 500 });
+  }, [is3D]);
 
-    mapRef.current.on('style.load', onStyleLoad);
-    return () => {
-      if (mapRef.current) {
-        mapRef.current.off('style.load', onStyleLoad);
-      }
-    };
-  }, [style]);
-
-  // Listen to address hover in the contact info list
+  // Listen to address hover / click from the left column (Hainault & Stafford Hubs)
   useEffect(() => {
     const handleLocationSwitch = (e: any) => {
-      const loc = e.detail?.location as AddressKey;
-      if (loc && ADDRESS_LOCATIONS[loc]) {
-        flyTo(loc);
+      const loc = e.detail?.location;
+      if (!mapRef.current) return;
+      if (loc === 'address1' || loc === 'hainault') {
+        mapRef.current.flyTo({
+          center: [0.1218, 51.6064],
+          zoom: 15,
+          pitch: is3D ? 60 : 0,
+          duration: 1200,
+        });
+      } else if (loc === 'address2' || loc === 'stafford') {
+        mapRef.current.flyTo({
+          center: [-2.1044, 52.7809],
+          zoom: 15,
+          pitch: is3D ? 60 : 0,
+          duration: 1200,
+        });
+      } else if (loc === 'all') {
+        mapRef.current.flyTo({
+          center: [-0.1276, 51.5074],
+          zoom: 11,
+          pitch: is3D ? 60 : 0,
+          duration: 1200,
+        });
       }
     };
 
@@ -380,30 +314,32 @@ export function CustomStyleExample() {
     return () => {
       window.removeEventListener('techsteps:switch-location', handleLocationSwitch);
     };
-  }, [style]);
+  }, [is3D]);
 
   return (
-    <div className="relative h-[480px] sm:h-[560px] w-full">
+    <div className={`relative h-[420px] w-full ${className}`}>
       <Map
         ref={mapRef}
-        center={ADDRESS_LOCATIONS.address1.center}
-        zoom={16.2}
-        pitch={activeStyle.pitch}
-        styles={activeStyle.url}
+        center={[-0.1276, 51.5074]}
+        zoom={15}
+        pitch={is3D ? 60 : 0}
+        styles={
+          selectedStyle
+            ? { light: selectedStyle, dark: selectedStyle }
+            : undefined
+        }
       >
         <MapGeoJSON data={WORLD_GEOJSON} />
       </Map>
-
-      {/* Style Selector Dropdown (Exact match to user screenshot) */}
-      <div className="absolute top-4 right-4 z-10">
+      <div className="absolute top-2 right-2 z-10">
         <select
           value={style}
-          onChange={(e) => handleStyleChange(e.target.value as StyleKey)}
-          className="bg-slate-900/90 text-white rounded-[12px] border border-slate-700 px-3.5 py-2 text-xs sm:text-sm font-semibold shadow-lg backdrop-blur-md outline-none cursor-pointer hover:bg-slate-800 transition-colors"
+          onChange={(e) => setStyle(e.target.value as StyleKey)}
+          className="bg-white/95 text-slate-800 rounded-md border border-slate-300 px-2 py-1 text-sm shadow backdrop-blur-xs outline-none cursor-pointer hover:bg-slate-50 transition-colors"
         >
-          <option value="openstreetmap3d">OpenStreetMap 3D</option>
-          <option value="openstreetmap">OpenStreetMap</option>
           <option value="default">Default (Carto)</option>
+          <option value="openstreetmap">OpenStreetMap</option>
+          <option value="openstreetmap3d">OpenStreetMap 3D</option>
         </select>
       </div>
     </div>
@@ -427,5 +363,3 @@ export function BlankMapExample() {
     </div>
   );
 }
-
-

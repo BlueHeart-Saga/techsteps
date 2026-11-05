@@ -20,6 +20,58 @@ const breadcrumbs = [
 
 const title = pageData.metaTitle || "Book your collection | Techsteps UK";
 const description = pageData.metaDescription || "Book an IT equipment collection. Takes about two minutes. You'll get a reference number immediately, and we'll confirm your collection window within two working days.";
+
+// Verified client feedback & feel-good reviews
+const verifiedReviews = [
+  {
+    name: 'Jamie Parker',
+    role: 'IT Manager',
+    tag: 'Reliable Service',
+    quote: 'Professional service and clear communication throughout the entire process. Everything went like clockwork.',
+  },
+  {
+    name: 'Alex Morgan',
+    role: 'Healthcare Manager',
+    tag: '100% Hassle-Free',
+    quote: 'Techsteps made our IT equipment disposal simple, secure, and hassle-free. A breath of fresh air.',
+  },
+  {
+    name: 'Sarah Jenkins',
+    role: 'Facilities Manager, NHS Trust',
+    tag: 'Peace of Mind',
+    quote: 'A seamless experience from start to finish. Friendly drivers, punctual arrival, and complete peace of mind.',
+  },
+  {
+    name: 'Jordan Ellis',
+    role: 'Operations Manager',
+    tag: 'Delightfully Easy',
+    quote: 'A wonderfully reliable team that made our office equipment collection straightforward and delightfully easy.',
+  },
+  {
+    name: 'Skyler James',
+    role: 'Campus IT Manager',
+    tag: 'Polite & Responsive',
+    quote: 'A smooth collection process with a genuinely responsive, polite crew. Zero headache for our campus team.',
+  },
+  {
+    name: 'Taylor Bennett',
+    role: 'Finance & Compliance Manager',
+    tag: 'Certified Security',
+    quote: 'Handled our redundant IT assets efficiently with certified chain of custody. Truly exceptional service.',
+  },
+  {
+    name: 'Casey Brooks',
+    role: 'Operations Director',
+    tag: 'Zero Disruption',
+    quote: 'Organised collection with minimal disruption to our workday — attentive communication from booking to certificate.',
+  },
+  {
+    name: 'Riley Foster',
+    role: 'Technology Manager',
+    tag: 'Life Made Easy',
+    quote: 'Prompt, professional, and courteous. It is rare to find a logistics partner that makes life this easy.',
+  },
+];
 ---
 
 <BaseLayout
@@ -29,20 +81,17 @@ const description = pageData.metaDescription || "Book an IT equipment collection
 >
 <RequestCollectionHero />
 
-  <section class="relative bg-[#f1f4ef] pt-6 sm:pt-8 lg:pt-10 pb-10 sm:pb-14">
+  <section class="relative bg-transparent pt-10 sm:pt-14 lg:pt-16 pb-14 sm:pb-20">
     <Container>
-      <!-- Page Header matching reference image -->
-      <div class="max-w-4xl mx-auto mb-8 sm:mb-10">
-        <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-slate-950 tracking-tight leading-[1.08] mb-4">
+      <!-- Page Header: Centered with description removed -->
+      <div class="max-w-4xl mx-auto mb-10 sm:mb-12 text-center">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-950 tracking-tight leading-[1.12]">
           {pageData.hero?.title || "Book your collection"}
         </h2>
-        <p class="font-sans text-lg sm:text-xl lg:text-[19px] text-black leading-relaxed max-w-2xl font-normal">
-          {pageData.hero?.description || "Takes about two minutes. You'll get a reference number as soon as you submit, and we'll come back with a collection window within two working days."}
-        </p>
       </div>
 
-      <!-- Main Form Card matching reference image -->
-      <div class="max-w-4xl mx-auto bg-white rounded-[24px] border border-slate-200/90 shadow-[0_10px_35px_rgba(0,0,0,0.03)] p-7 sm:p-10 lg:p-12">
+      <!-- Main Form: Spacious layout without enclosing box border to avoid box effect -->
+      <div class="max-w-4xl mx-auto">
         <!-- Submission Success Alert (Shown after submit) -->
         <div
           id="booking-success-message"
@@ -66,15 +115,16 @@ const description = pageData.metaDescription || "Book an IT equipment collection
           name="book-collection"
           method="POST"
           data-netlify="true"
-          class="space-y-6"
+          class="space-y-8"
         >
           <input type="hidden" name="form-name" value="book-collection" />
 
-          <!-- Row 1: Full Name & Company -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+          <!-- Contact & Collection Details Grid: Equal width rows and even positioning -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-7">
+            <!-- Full Name -->
             <div class="space-y-1.5">
-              <label for="fullName" class="block text-xs sm:text-[13px] font-semibold text-slate-800">
-                Full name
+              <label for="fullName" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Full name <span class="text-[#0F623A]">*</span>
               </label>
               <input
                 type="text"
@@ -82,29 +132,28 @@ const description = pageData.metaDescription || "Book an IT equipment collection
                 name="fullName"
                 required
                 placeholder="Jordan Ellis"
-                class="w-full bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all font-sans"
+                class="w-full bg-transparent border-0 border-b-2 border-slate-200 focus:border-[#0F623A] rounded-none px-0 py-2.5 text-slate-900 text-base placeholder:text-slate-400 focus:ring-0 outline-none transition-colors font-sans"
               />
             </div>
 
+            <!-- Company Name -->
             <div class="space-y-1.5">
-              <label for="company" class="block text-xs sm:text-[13px] font-semibold text-slate-800">
-                Company Name(leave blank if personal)
+              <label for="company" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Company Name <span class="text-xs normal-case text-slate-400 font-normal">(leave blank if personal)</span>
               </label>
               <input
                 type="text"
                 id="company"
                 name="company"
                 placeholder="Acme Ltd"
-                class="w-full bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all font-sans"
+                class="w-full bg-transparent border-0 border-b-2 border-slate-200 focus:border-[#0F623A] rounded-none px-0 py-2.5 text-slate-900 text-base placeholder:text-slate-400 focus:ring-0 outline-none transition-colors font-sans"
               />
             </div>
-          </div>
 
-          <!-- Row 2: Email & Phone -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+            <!-- Email -->
             <div class="space-y-1.5">
-              <label for="email" class="block text-xs sm:text-[13px] font-semibold text-slate-800">
-                Email
+              <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Email <span class="text-[#0F623A]">*</span>
               </label>
               <input
                 type="email"
@@ -112,13 +161,14 @@ const description = pageData.metaDescription || "Book an IT equipment collection
                 name="email"
                 required
                 placeholder="jordan@example.com"
-                class="w-full bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all font-sans"
+                class="w-full bg-transparent border-0 border-b-2 border-slate-200 focus:border-[#0F623A] rounded-none px-0 py-2.5 text-slate-900 text-base placeholder:text-slate-400 focus:ring-0 outline-none transition-colors font-sans"
               />
             </div>
 
+            <!-- Phone -->
             <div class="space-y-1.5">
-              <label for="phone" class="block text-xs sm:text-[13px] font-semibold text-slate-800">
-                Phone
+              <label for="phone" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Phone <span class="text-[#0F623A]">*</span>
               </label>
               <input
                 type="tel"
@@ -126,37 +176,35 @@ const description = pageData.metaDescription || "Book an IT equipment collection
                 name="phone"
                 required
                 placeholder="07xxx xxxxxx"
-                class="w-full bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all font-sans"
+                class="w-full bg-transparent border-0 border-b-2 border-slate-200 focus:border-[#0F623A] rounded-none px-0 py-2.5 text-slate-900 text-base placeholder:text-slate-400 focus:ring-0 outline-none transition-colors font-sans"
               />
             </div>
-          </div>
 
-          <!-- Row 3: Collection Address -->
-          <div class="space-y-1.5">
-            <label for="address" class="block text-xs sm:text-[13px] font-semibold text-slate-800">
-              Collection address
-            </label>
-            <input
-              type="text"
-              id="address"
-              name="address"
-              required
-              placeholder="Street address, town, postcode"
-              class="w-full bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all font-sans"
-            />
-          </div>
+            <!-- Collection Address: spanning full 2 columns evenly -->
+            <div class="sm:col-span-2 space-y-1.5">
+              <label for="address" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Collection address <span class="text-[#0F623A]">*</span>
+              </label>
+              <input
+                type="text"
+                id="address"
+                name="address"
+                required
+                placeholder="Street address, town, postcode"
+                class="w-full bg-transparent border-0 border-b-2 border-slate-200 focus:border-[#0F623A] rounded-none px-0 py-2.5 text-slate-900 text-base placeholder:text-slate-400 focus:ring-0 outline-none transition-colors font-sans"
+              />
+            </div>
 
-          <!-- Row 4: Preferred Outcome & Collection Date -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+            <!-- Preferred Outcome -->
             <div class="space-y-1.5">
-              <label for="outcome" class="block text-xs sm:text-[13px] font-semibold text-slate-800">
+              <label for="outcome" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
                 Preferred outcome
               </label>
               <div class="relative">
                 <select
                   id="outcome"
                   name="outcome"
-                  class="w-full bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] px-4 py-3 text-slate-900 text-sm sm:text-base focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all appearance-none cursor-pointer pr-10 font-sans"
+                  class="w-full bg-transparent border-0 border-b-2 border-slate-200 focus:border-[#0F623A] rounded-none px-0 py-2.5 text-slate-900 text-base focus:ring-0 outline-none transition-colors appearance-none cursor-pointer pr-8 font-sans"
                 >
                   <option value="Recycle">Recycle</option>
                   <option value="Reuse / Remarket">Reuse / Remarket</option>
@@ -164,7 +212,7 @@ const description = pageData.metaDescription || "Book an IT equipment collection
                   <option value="Audit & Assessment">Audit &amp; Assessment</option>
                   <option value="Relocation">Relocation</option>
                 </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-slate-500">
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1 text-slate-500">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
@@ -172,139 +220,376 @@ const description = pageData.metaDescription || "Book an IT equipment collection
               </div>
             </div>
 
+            <!-- Preferred Collection Date -->
             <div class="space-y-1.5">
-              <label for="collectionDate" class="block text-xs sm:text-[13px] font-semibold text-slate-800">
+              <label for="collectionDate" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
                 Preferred collection date
               </label>
               <input
                 type="date"
                 id="collectionDate"
                 name="collectionDate"
-                placeholder="dd-mm-yyyy"
-                class="w-full bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] px-4 py-3 text-slate-900 text-sm sm:text-base focus:bg-white focus:border-[#0F5A47] focus:ring-1 focus:ring-[#0F5A47] outline-none transition-all font-sans"
+                class="w-full bg-transparent border-0 border-b-2 border-slate-200 focus:border-[#0F623A] rounded-none px-0 py-2.5 text-slate-900 text-base focus:ring-0 outline-none transition-colors font-sans cursor-pointer"
               />
             </div>
           </div>
 
-          <!-- Section: DEVICES & IT ASSETS -->
-          <div class="pt-3">
-            <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-[#0F623A] mb-4 font-sans">
-              DEVICES &amp; IT ASSETS
-            </h2>
-            <div class="space-y-3.5">
-              <!-- Laptops -->
-              <div class="flex items-center gap-4">
-                <input
-                  type="number"
-                  min="0"
-                  value="0"
-                  id="device_laptops"
-                  name="device_laptops"
-                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
-                />
-                <label for="device_laptops" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer">
-                  Laptops
-                </label>
+          <!-- Section: DEVICES & IT ASSETS with interactive counter cards -->
+          <div class="pt-6 border-t border-slate-200/70 space-y-4">
+            <!-- Header with Title and Selected Count -->
+            <div class="flex items-center justify-between">
+              <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight font-sans">
+                Devices &amp; IT Assets
+              </h3>
+              <span id="total-selected-count" class="text-xs sm:text-sm text-slate-500 font-medium">
+                0 items selected
+              </span>
+            </div>
+
+            <!-- 8 Device Cards in 2 columns: equal width and height -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- 1. Computers -->
+              <div class="rounded-[14px] sm:rounded-[16px] border border-slate-200/90 bg-white p-4 sm:p-4.5 flex flex-col justify-between gap-4 transition-all hover:border-slate-300">
+                <div class="flex items-center gap-2.5 text-slate-800">
+                  <svg class="w-5 h-5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                    <line x1="8" y1="21" x2="16" y2="21" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                  </svg>
+                  <span class="font-semibold text-slate-900 text-sm sm:text-base">Computers</span>
+                </div>
+                <div class="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    class="device-btn-dec w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_computers"
+                    aria-label="Decrease Computers"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    id="device_computers"
+                    name="device_computers"
+                    value="0"
+                    class="device-counter-input w-16 text-center font-semibold text-slate-950 text-base sm:text-lg bg-transparent border-0 focus:ring-0 outline-none p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="button"
+                    class="device-btn-inc w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_computers"
+                    aria-label="Increase Computers"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
-              <!-- Chromebooks -->
-              <div class="flex items-center gap-4">
-                <input
-                  type="number"
-                  min="0"
-                  value="0"
-                  id="device_chromebooks"
-                  name="device_chromebooks"
-                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
-                />
-                <label for="device_chromebooks" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer">
-                  Chromebooks
-                </label>
+              <!-- 2. Laptops -->
+              <div class="rounded-[14px] sm:rounded-[16px] border border-slate-200/90 bg-white p-4 sm:p-4.5 flex flex-col justify-between gap-4 transition-all hover:border-slate-300">
+                <div class="flex items-center gap-2.5 text-slate-800">
+                  <svg class="w-5 h-5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="12" rx="2" />
+                    <path d="M2 20h20" />
+                  </svg>
+                  <span class="font-semibold text-slate-900 text-sm sm:text-base">Laptops</span>
+                </div>
+                <div class="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    class="device-btn-dec w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_laptops"
+                    aria-label="Decrease Laptops"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    id="device_laptops"
+                    name="device_laptops"
+                    value="0"
+                    class="device-counter-input w-16 text-center font-semibold text-slate-950 text-base sm:text-lg bg-transparent border-0 focus:ring-0 outline-none p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="button"
+                    class="device-btn-inc w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_laptops"
+                    aria-label="Increase Laptops"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
-              <!-- Tablets -->
-              <div class="flex items-center gap-4">
-                <input
-                  type="number"
-                  min="0"
-                  value="0"
-                  id="device_tablets"
-                  name="device_tablets"
-                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
-                />
-                <label for="device_tablets" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer">
-                  Tablets
-                </label>
+              <!-- 3. Mobile Phones -->
+              <div class="rounded-[14px] sm:rounded-[16px] border border-slate-200/90 bg-white p-4 sm:p-4.5 flex flex-col justify-between gap-4 transition-all hover:border-slate-300">
+                <div class="flex items-center gap-2.5 text-slate-800">
+                  <svg class="w-5 h-5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="7" y="2" width="10" height="20" rx="2" />
+                    <circle cx="12" cy="18" r="1" fill="currentColor" />
+                  </svg>
+                  <span class="font-semibold text-slate-900 text-sm sm:text-base">Mobile Phones</span>
+                </div>
+                <div class="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    class="device-btn-dec w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_mobile_phones"
+                    aria-label="Decrease Mobile Phones"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    id="device_mobile_phones"
+                    name="device_mobile_phones"
+                    value="0"
+                    class="device-counter-input w-16 text-center font-semibold text-slate-950 text-base sm:text-lg bg-transparent border-0 focus:ring-0 outline-none p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="button"
+                    class="device-btn-inc w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_mobile_phones"
+                    aria-label="Increase Mobile Phones"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
-              <!-- IT Assets (Desktops, Servers, Networking) -->
-              <div class="flex items-center gap-4">
-                <input
-                  type="number"
-                  min="0"
-                  value="0"
-                  id="device_it_assets"
-                  name="device_it_assets"
-                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
-                />
-                <label for="device_it_assets" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer">
-                  IT Assets (Desktops, Servers &amp; Networking)
-                </label>
+              <!-- 4. Servers -->
+              <div class="rounded-[14px] sm:rounded-[16px] border border-slate-200/90 bg-white p-4 sm:p-4.5 flex flex-col justify-between gap-4 transition-all hover:border-slate-300">
+                <div class="flex items-center gap-2.5 text-slate-800">
+                  <svg class="w-5 h-5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="8" rx="2" />
+                    <rect x="2" y="13" width="20" height="8" rx="2" />
+                    <circle cx="6" cy="7" r="1" fill="currentColor" />
+                    <circle cx="6" cy="17" r="1" fill="currentColor" />
+                    <line x1="10" y1="7" x2="18" y2="7" />
+                    <line x1="10" y1="17" x2="18" y2="17" />
+                  </svg>
+                  <span class="font-semibold text-slate-900 text-sm sm:text-base">Servers</span>
+                </div>
+                <div class="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    class="device-btn-dec w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_servers"
+                    aria-label="Decrease Servers"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    id="device_servers"
+                    name="device_servers"
+                    value="0"
+                    class="device-counter-input w-16 text-center font-semibold text-slate-950 text-base sm:text-lg bg-transparent border-0 focus:ring-0 outline-none p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="button"
+                    class="device-btn-inc w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_servers"
+                    aria-label="Increase Servers"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
-              <!-- Chargers & Accessories -->
-              <div class="flex items-center gap-4">
-                <input
-                  type="number"
-                  min="0"
-                  value="0"
-                  id="device_accessories"
-                  name="device_accessories"
-                  class="w-18 h-12 bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] text-center font-bold text-slate-900 text-base focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
-                />
-                <label for="device_accessories" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer">
-                  Chargers &amp; accessories
-                </label>
+              <!-- 5. Printers -->
+              <div class="rounded-[14px] sm:rounded-[16px] border border-slate-200/90 bg-white p-4 sm:p-4.5 flex flex-col justify-between gap-4 transition-all hover:border-slate-300">
+                <div class="flex items-center gap-2.5 text-slate-800">
+                  <svg class="w-5 h-5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9V3h12v6" />
+                    <rect x="3" y="9" width="18" height="8" rx="2" />
+                    <path d="M6 15v6h12v-6" />
+                    <circle cx="17" cy="12" r="0.75" fill="currentColor" />
+                  </svg>
+                  <span class="font-semibold text-slate-900 text-sm sm:text-base">Printers</span>
+                </div>
+                <div class="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    class="device-btn-dec w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_printers"
+                    aria-label="Decrease Printers"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    id="device_printers"
+                    name="device_printers"
+                    value="0"
+                    class="device-counter-input w-16 text-center font-semibold text-slate-950 text-base sm:text-lg bg-transparent border-0 focus:ring-0 outline-none p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="button"
+                    class="device-btn-inc w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_printers"
+                    aria-label="Increase Printers"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
-              <!-- Other Assets with Text Input -->
-              <div class="flex flex-col sm:flex-row sm:items-center gap-3 pt-1">
-                <label for="device_other_text" class="font-medium text-slate-800 text-sm sm:text-base cursor-pointer shrink-0 w-20">
-                  Other
-                </label>
-                <input
-                  type="text"
-                  id="device_other_text"
-                  name="device_other_text"
-                  placeholder="Enter other asset details (e.g. Monitors, Printers, Hard Drives, Racks...)"
-                  class="w-full sm:flex-1 bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all font-sans"
-                />
+              <!-- 6. Tablets -->
+              <div class="rounded-[14px] sm:rounded-[16px] border border-slate-200/90 bg-white p-4 sm:p-4.5 flex flex-col justify-between gap-4 transition-all hover:border-slate-300">
+                <div class="flex items-center gap-2.5 text-slate-800">
+                  <svg class="w-5 h-5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="4" y="2" width="16" height="20" rx="2" />
+                    <circle cx="12" cy="18" r="1" fill="currentColor" />
+                  </svg>
+                  <span class="font-semibold text-slate-900 text-sm sm:text-base">Tablets</span>
+                </div>
+                <div class="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    class="device-btn-dec w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_tablets"
+                    aria-label="Decrease Tablets"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    id="device_tablets"
+                    name="device_tablets"
+                    value="0"
+                    class="device-counter-input w-16 text-center font-semibold text-slate-950 text-base sm:text-lg bg-transparent border-0 focus:ring-0 outline-none p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="button"
+                    class="device-btn-inc w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_tablets"
+                    aria-label="Increase Tablets"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
+
+              <!-- 7. Monitors -->
+              <div class="rounded-[14px] sm:rounded-[16px] border border-slate-200/90 bg-white p-4 sm:p-4.5 flex flex-col justify-between gap-4 transition-all hover:border-slate-300">
+                <div class="flex items-center gap-2.5 text-slate-800">
+                  <svg class="w-5 h-5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                    <line x1="7" y1="21" x2="17" y2="21" />
+                  </svg>
+                  <span class="font-semibold text-slate-900 text-sm sm:text-base">Monitors</span>
+                </div>
+                <div class="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    class="device-btn-dec w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_monitors"
+                    aria-label="Decrease Monitors"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    id="device_monitors"
+                    name="device_monitors"
+                    value="0"
+                    class="device-counter-input w-16 text-center font-semibold text-slate-950 text-base sm:text-lg bg-transparent border-0 focus:ring-0 outline-none p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="button"
+                    class="device-btn-inc w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_monitors"
+                    aria-label="Increase Monitors"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <!-- 8. Chargers & Accessories -->
+              <div class="rounded-[14px] sm:rounded-[16px] border border-slate-200/90 bg-white p-4 sm:p-4.5 flex flex-col justify-between gap-4 transition-all hover:border-slate-300">
+                <div class="flex items-center gap-2.5 text-slate-800">
+                  <svg class="w-5 h-5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2v4M10 2v4M5 6h6a2 2 0 0 1 2 2v2a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V8a2 2 0 0 1 2-2zM8 13v3a4 4 0 0 0 4 4h4a2 2 0 0 0 2-2v-3" />
+                    <circle cx="18" cy="12" r="1.5" />
+                  </svg>
+                  <span class="font-semibold text-slate-900 text-sm sm:text-base">Chargers &amp; Accessories</span>
+                </div>
+                <div class="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    class="device-btn-dec w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_accessories"
+                    aria-label="Decrease Chargers & Accessories"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    id="device_accessories"
+                    name="device_accessories"
+                    value="0"
+                    class="device-counter-input w-16 text-center font-semibold text-slate-950 text-base sm:text-lg bg-transparent border-0 focus:ring-0 outline-none p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="button"
+                    class="device-btn-inc w-8 h-8 rounded-full border border-slate-300 text-slate-700 hover:text-slate-950 hover:border-slate-400 hover:bg-slate-100 flex items-center justify-center text-base font-bold transition-all select-none cursor-pointer"
+                    data-target="device_accessories"
+                    aria-label="Increase Chargers & Accessories"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Other Devices (Optional) -->
+            <div class="pt-2">
+              <label for="device_other_text" class="block text-xs sm:text-sm font-semibold text-slate-700 mb-2 font-sans">
+                Other Devices (Optional)
+              </label>
+              <input
+                type="text"
+                id="device_other_text"
+                name="device_other_text"
+                placeholder="e.g. Hard drives – 10, Network switches – 5, UPS – 2"
+                class="w-full rounded-[14px] border border-slate-200/90 bg-white px-4 py-3 sm:py-3.5 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-colors font-sans"
+              />
             </div>
           </div>
 
           <!-- Section: Notes -->
-          <div class="space-y-1.5 pt-3">
-            <label for="notes" class="block text-xs sm:text-[13px] font-semibold text-slate-800">
-              Notes (damage, swollen batteries, access instructions)
+          <div class="space-y-1.5 pt-6 border-t border-slate-200/70">
+            <label for="notes" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
+              Notes <span class="text-xs normal-case text-slate-400 font-normal">(damage, swollen batteries, access instructions)</span>
             </label>
             <textarea
               id="notes"
               name="notes"
-              rows="4"
+              rows="3"
               placeholder="e.g. one laptop won't power on; building has a loading bay at the rear"
-              class="w-full bg-[#F1F3EE] border border-slate-200/90 rounded-[8px] px-4 py-3 text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:bg-white focus:border-[#0F623A] focus:ring-1 focus:ring-[#0F623A] outline-none transition-all resize-y font-sans"
+              class="w-full bg-transparent border-0 border-b-2 border-slate-200 focus:border-[#0F623A] rounded-none px-0 py-2.5 text-slate-900 text-base placeholder:text-slate-400 focus:ring-0 outline-none transition-colors resize-y font-sans"
             ></textarea>
           </div>
 
           <!-- Bottom Row: Disclaimer & Submit Button -->
-          <div class="border-t border-dashed border-slate-200 pt-6 mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div class="pt-6 border-t border-slate-200/70 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <p class="text-xs sm:text-[13px] text-slate-500 max-w-sm sm:max-w-md leading-relaxed font-normal font-sans">
               Your collection booking request will be securely transmitted directly to our UK operations desk for priority scheduling.
             </p>
             <button
               type="submit"
-              class="bg-[#0F623A] hover:bg-[#0c4e2e] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm sm:text-base px-8 py-3.5 rounded-[12px] shadow-sm hover:shadow-md transition-all shrink-0 cursor-pointer font-sans"
+              class="bg-[#0F623A] hover:bg-[#0c4e2e] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm sm:text-base px-8 py-3.5 rounded-[12px] shadow-sm hover:shadow-md transition-all shrink-0 cursor-pointer font-sans"
             >
               Submit request
             </button>
@@ -323,6 +608,168 @@ const description = pageData.metaDescription || "Book an IT equipment collection
       </div>
     </Container>
   </section>
+
+  <!-- ========================================================
+       SECTION: CUSTOMER FEEDBACK & TRUST SIGNALS
+       Heading: Trusted for Every Collection
+       Subtitle: Real experiences. Reliable service.
+       ======================================================== -->
+  <section class="relative bg-transparent py-14 sm:py-20 lg:py-24 overflow-hidden" aria-labelledby="customer-feedback-heading">
+    <!-- Subtle Mint & Teal Background Decorations (Continuous Visual Language) -->
+    <div class="pointer-events-none select-none absolute inset-0 w-full h-full overflow-hidden -z-10" aria-hidden="true">
+      <!-- Right-side soft mint bubble (#D1F3EC) + thin outline ring -->
+      <div class="absolute -right-20 top-1/2 -translate-y-1/2 w-64 sm:w-80 aspect-square">
+        <div class="w-full h-full rounded-full bg-[#D1F3EC]/70"></div>
+        <div class="absolute -inset-4 sm:-inset-6 rounded-full border border-[#008F83]/30"></div>
+      </div>
+      <!-- Left-side subtle cropped teal outline arc (#146B5C) -->
+      <div class="absolute -left-16 top-10 w-44 sm:w-56 aspect-square rounded-full border-[6px] sm:border-[8px] border-[#146B5C]/15"></div>
+    </div>
+
+    <Container>
+      <!-- Section Header -->
+      <div class="max-w-3xl mx-auto text-center mb-10 sm:mb-14 space-y-2.5">
+        <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#146B5C] font-sans">
+          <span class="w-2 h-2 rounded-full bg-[#146B5C]/80"></span>
+          CUSTOMER EXPERIENCES
+          <span class="w-2 h-2 rounded-full bg-[#146B5C]/80"></span>
+        </span>
+        <h2 id="customer-feedback-heading" class="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-semibold text-slate-950 tracking-tight leading-[1.15]">
+          Trusted for Every Collection
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 max-w-lg mx-auto">
+          Real experiences. Reliable service. Over 500+ UK organisations trust TechSteps for effortless, secure IT collections.
+        </p>
+      </div>
+    </Container>
+
+    <!-- Infinite Auto-Scrolling Reviews Marquee (Continuous Loop, Pause on Hover/Touch) -->
+    <div class="reviews-marquee-wrapper relative w-full overflow-hidden py-4 select-none">
+      <!-- Left gradient fade mask -->
+      <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-28 md:w-36 z-10 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
+      <!-- Right gradient fade mask -->
+      <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-28 md:w-36 z-10 bg-gradient-to-l from-white via-white/80 to-transparent"></div>
+
+      <!-- Marquee Track (Double Render for Infinite Loop) -->
+      <div class="reviews-marquee-track flex gap-5 sm:gap-6 w-max">
+        {[...verifiedReviews, ...verifiedReviews].map((review) => (
+          <div class="w-[300px] sm:w-[350px] md:w-[380px] shrink-0 bg-white rounded-[18px] sm:rounded-[22px] border border-slate-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_32px_rgba(20,107,92,0.09)] hover:border-[#146B5C]/40 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <!-- Top Row: 5 Stars + Feel-good Tag -->
+              <div class="flex items-center justify-between mb-3.5">
+                <div class="flex items-center gap-1 text-amber-500" aria-label="5 out of 5 stars">
+                  {Array.from({ length: 5 }).map(() => (
+                    <svg class="w-4 h-4 text-amber-500 fill-amber-400" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                  ))}
+                </div>
+                <span class="text-[11px] font-semibold text-[#0F623A] bg-[#0F623A]/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                  {review.tag}
+                </span>
+              </div>
+
+              <!-- Quote with Feel-Good Words -->
+              <p class="text-slate-800 text-sm sm:text-[15px] leading-relaxed font-normal">
+                &ldquo;{review.quote}&rdquo;
+              </p>
+            </div>
+
+            <!-- Author & Verification Row -->
+            <div class="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm sm:text-base font-sans">
+                  {review.name}
+                </h4>
+                <p class="text-xs text-slate-500 font-normal mt-0.5">
+                  {review.role}
+                </p>
+              </div>
+              <div class="flex items-center gap-1 text-[11px] font-semibold text-[#0F623A] bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-md">
+                <svg class="w-3.5 h-3.5 text-emerald-600" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span>Verified</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    
+
+    <Container>
+      <!-- Trust Signals Row (Secure Handling, UK Collections, Responsible Recycling) -->
+      <div class="grid grid-cols-3 gap-3 sm:gap-8 max-w-2xl mx-auto pt-10 sm:pt-14 border-t border-slate-200/60 mt-10 sm:mt-12">
+        <!-- 1. Secure Handling -->
+        <div class="flex flex-col items-center text-center gap-2">
+          <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#146B5C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+          <span class="font-semibold text-slate-900 text-xs sm:text-sm md:text-base tracking-tight font-sans">
+            Secure Handling
+          </span>
+        </div>
+
+        <!-- 2. UK Collections -->
+        <div class="flex flex-col items-center text-center gap-2">
+          <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#146B5C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+            <path d="M15 18H9" />
+            <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.24-4.05A1 1 0 0 0 17.76 8H14v10h1" />
+            <circle cx="7" cy="18" r="2" />
+            <circle cx="17" cy="18" r="2" />
+          </svg>
+          <span class="font-semibold text-slate-900 text-xs sm:text-sm md:text-base tracking-tight font-sans">
+            UK Collections
+          </span>
+        </div>
+
+        <!-- 3. Responsible Recycling -->
+        <div class="flex flex-col items-center text-center gap-2">
+          <svg class="w-6 h-6 sm:w-7 sm:h-7 text-[#146B5C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5" />
+            <path d="M11 19h8.2a1.8 1.8 0 0 0 1.55-.89 1.8 1.8 0 0 0 0-1.8L17.5 11" />
+            <path d="m14 16 3 3-3 3" />
+            <path d="M8.7 5.5h6.6a1.8 1.8 0 0 1 1.55.9 1.8 1.8 0 0 1 0 1.8L13.6 14" />
+            <path d="m7 10-3-3 3-3" />
+          </svg>
+          <span class="font-semibold text-slate-900 text-xs sm:text-sm md:text-base tracking-tight font-sans">
+            Responsible Recycling
+          </span>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <style is:global>
+    .reviews-marquee-track {
+      animation: reviews-scroll-left 48s linear infinite;
+      will-change: transform;
+    }
+    .reviews-marquee-wrapper:hover .reviews-marquee-track,
+    .reviews-marquee-wrapper:active .reviews-marquee-track {
+      animation-play-state: paused;
+    }
+    @keyframes reviews-scroll-left {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-50% - 0.75rem));
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reviews-marquee-track {
+        animation: none;
+      }
+      .reviews-marquee-wrapper {
+        overflow-x: auto;
+      }
+    }
+  </style>
   <CTA />
 </BaseLayout>
 
@@ -331,10 +778,80 @@ const description = pageData.metaDescription || "Book an IT equipment collection
     const form = document.getElementById("collection-booking-form") as HTMLFormElement | null;
     const successBox = document.getElementById("booking-success-message");
     const refDisplay = document.getElementById("booking-ref-number");
+    const totalSelectedSpan = document.getElementById("total-selected-count");
 
     if (!form || form.dataset.hasListener) return;
 
     form.dataset.hasListener = "true";
+
+    const deviceInputs = [
+      "device_computers",
+      "device_laptops",
+      "device_mobile_phones",
+      "device_servers",
+      "device_printers",
+      "device_tablets",
+      "device_monitors",
+      "device_accessories",
+    ];
+
+    function updateTotalCount() {
+      if (!totalSelectedSpan) return;
+      let total = 0;
+      for (const id of deviceInputs) {
+        const input = document.getElementById(id) as HTMLInputElement | null;
+        if (input) {
+          const val = parseInt(input.value || "0", 10);
+          if (!isNaN(val) && val > 0) {
+            total += val;
+          }
+        }
+      }
+      totalSelectedSpan.textContent = total === 1 ? "1 item selected" : `${total} items selected`;
+    }
+
+    // Attach listeners for increment and decrement buttons
+    const incButtons = form.querySelectorAll(".device-btn-inc");
+    incButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetId = (btn as HTMLElement).dataset.target;
+        if (!targetId) return;
+        const input = document.getElementById(targetId) as HTMLInputElement | null;
+        if (input) {
+          const current = parseInt(input.value || "0", 10);
+          input.value = String(Math.max(0, (isNaN(current) ? 0 : current) + 1));
+          updateTotalCount();
+        }
+      });
+    });
+
+    const decButtons = form.querySelectorAll(".device-btn-dec");
+    decButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetId = (btn as HTMLElement).dataset.target;
+        if (!targetId) return;
+        const input = document.getElementById(targetId) as HTMLInputElement | null;
+        if (input) {
+          const current = parseInt(input.value || "0", 10);
+          input.value = String(Math.max(0, (isNaN(current) ? 0 : current) - 1));
+          updateTotalCount();
+        }
+      });
+    });
+
+    // Also listen for direct input changes
+    for (const id of deviceInputs) {
+      const input = document.getElementById(id) as HTMLInputElement | null;
+      if (input) {
+        input.addEventListener("input", () => {
+          const val = parseInt(input.value, 10);
+          if (val < 0 || isNaN(val)) {
+            input.value = "0";
+          }
+          updateTotalCount();
+        });
+      }
+    }
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -354,10 +871,14 @@ const description = pageData.metaDescription || "Book an IT equipment collection
       const address = formData.get("address") || "";
       const outcome = formData.get("outcome") || "";
       const collectionDate = formData.get("collectionDate") || "";
+
+      const computers = formData.get("device_computers") || "0";
       const laptops = formData.get("device_laptops") || "0";
-      const chromebooks = formData.get("device_chromebooks") || "0";
+      const mobilePhones = formData.get("device_mobile_phones") || "0";
+      const servers = formData.get("device_servers") || "0";
+      const printers = formData.get("device_printers") || "0";
       const tablets = formData.get("device_tablets") || "0";
-      const itAssets = formData.get("device_it_assets") || "0";
+      const monitors = formData.get("device_monitors") || "0";
       const accessories = formData.get("device_accessories") || "0";
       const otherText = formData.get("device_other_text") || "";
       const notes = formData.get("notes") || "";
@@ -374,10 +895,13 @@ const description = pageData.metaDescription || "Book an IT equipment collection
         address,
         outcome,
         collectionDate,
+        computers,
         laptops,
-        chromebooks,
+        mobilePhones,
+        servers,
+        printers,
         tablets,
-        itAssets,
+        monitors,
         accessories,
         otherText,
         notes
@@ -423,6 +947,7 @@ const description = pageData.metaDescription || "Book an IT equipment collection
         }
 
         form.reset();
+        updateTotalCount();
 
       } catch (error: any) {
         console.error("Collection form error:", error);

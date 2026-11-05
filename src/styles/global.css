@@ -930,3 +930,27 @@ section {
   border-top: none !important;
   border-bottom: none !important;
 }
+
+
+/* ========================================================
+   TechSteps Continuous Decorative Background System
+   ======================================================== */
+.site-canvas {
+  background-color: #ffffff;
+}
+
+#main-content {
+  background-color: transparent;
+}
+
+/* Page sections on the white canvas have transparent backgrounds
+   so the global decorative background system flows seamlessly across section boundaries */
+#main-content > section.bg-white,
+#main-content > section.bg-slate-50\/70,
+#main-content > section.bg-\[\#f1f4ef\],
+#main-content > div > section.bg-white,
+.why-choose-section.bg-white,
+#hero.bg-white,
+#request-collection-hero.bg-white {
+  background-color: transparent !important;
+}
