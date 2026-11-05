@@ -45,7 +45,7 @@ export const siteSettings: SiteSettings = {
   socialLinks: {
     linkedin: 'https://www.linkedin.com/company/techsteps-uk/posts/?feedView=all',
     instagram: 'https://www.instagram.com/techsteps_official/',
-    twitter: 'https://twitter.com/techsteps_uk',
+
     facebook: 'http://facebook.com/profile.php?id=61584942775645',
   },
   headerContactButtonText: 'Contact Us',
