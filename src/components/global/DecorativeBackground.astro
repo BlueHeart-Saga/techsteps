@@ -3,9 +3,15 @@ interface Props {
   className?: string;
   hideWaves?: boolean;
   hideHeroCircles?: boolean;
+  hideHeroLeftCircle?: boolean;
 }
 
-const { className = '', hideWaves = false, hideHeroCircles = false } = Astro.props;
+const {
+  className = '',
+  hideWaves = false,
+  hideHeroCircles = false,
+  hideHeroLeftCircle = true,
+} = Astro.props;
 ---
 
 <div
@@ -17,17 +23,19 @@ const { className = '', hideWaves = false, hideHeroCircles = false } = Astro.pro
        ======================================================== -->
   {!hideHeroCircles && (
     <>
-      <!-- Top-Left: Large thick teal outline circle arc (#146B5C) + outer/inner arcs -->
-      <div class="absolute top-[2.5%] sm:top-[3%] -left-[clamp(70px,10vw,140px)] w-[clamp(220px,28vw,420px)] aspect-square">
-        <!-- Outer concentric thin arc -->
-        <div class="absolute inset-0 rounded-full border-[1.5px] border-[#008F83]/50"></div>
-        <!-- Main thick teal circle arc (#146B5C) -->
-        <div class="absolute inset-[14px] sm:inset-[20px] rounded-full border-[10px] sm:border-[16px] border-[#146B5C]"></div>
-        <!-- Inner concentric thin arc -->
-        <div class="absolute inset-[40px] sm:inset-[55px] rounded-full border border-[#008F83]/30"></div>
-        <!-- Accent teal dot on lower right perimeter -->
-        <div class="absolute top-[76%] -right-1 w-2.5 h-2.5 rounded-full bg-[#146B5C]"></div>
-      </div>
+      <!-- Top-Left: Large thick teal outline circle arc (#146B5C) + outer/inner arcs (Avoided by default per user request) -->
+      {!hideHeroLeftCircle && (
+        <div class="absolute top-[2.5%] sm:top-[3%] -left-[clamp(70px,10vw,140px)] w-[clamp(220px,28vw,420px)] aspect-square">
+          <!-- Outer concentric thin arc -->
+          <div class="absolute inset-0 rounded-full border-[1.5px] border-[#008F83]/50"></div>
+          <!-- Main thick teal circle arc (#146B5C) -->
+          <div class="absolute inset-[14px] sm:inset-[20px] rounded-full border-[10px] sm:border-[16px] border-[#146B5C]"></div>
+          <!-- Inner concentric thin arc -->
+          <div class="absolute inset-[40px] sm:inset-[55px] rounded-full border border-[#008F83]/30"></div>
+          <!-- Accent teal dot on lower right perimeter -->
+          <div class="absolute top-[76%] -right-1 w-2.5 h-2.5 rounded-full bg-[#146B5C]"></div>
+        </div>
+      )}
 
       <!-- Top-Right: Soft mint-green filled bubble (#D1F3EC) + thin outline + floating dots -->
       <div class="absolute top-[1.5%] sm:top-[2%] -right-[clamp(70px,10vw,150px)] w-[clamp(240px,30vw,460px)] aspect-square">
