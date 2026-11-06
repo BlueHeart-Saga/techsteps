@@ -366,18 +366,11 @@ const officialEmail = siteSettings.email || 'collection@techsteps.co.uk';
           </div>
         </div>
 
-        <!-- RIGHT: PROFESSIONAL CONTACT FORM (Compact Rounded Layout matching Ref: e9443735.png) -->
+        <!-- RIGHT: PROFESSIONAL CONTACT FORM (Transparent borderless container with bottom-border inputs, ref: request-a-quote.astro & Image e9443735.png) -->
         <div class="lg:col-span-7">
-          <div
-            class="relative
-                   bg-white
-                   rounded-[22px] sm:rounded-[26px]
-                   border border-slate-200/90
-                   shadow-[0_10px_30px_rgba(15,23,42,0.04)]
-                   p-5 sm:p-7 lg:p-8"
-          >
+          <div class="relative w-full py-1 sm:py-2">
             <!-- Form heading: Eyebrow "LET'S CONNECT", Heading "How Can We Help?", Description -->
-            <div class="mb-5 sm:mb-6">
+            <div class="mb-6 sm:mb-8">
               <p
                 class="text-xs
                        font-bold
@@ -389,7 +382,7 @@ const officialEmail = siteSettings.email || 'collection@techsteps.co.uk';
               </p>
 
               <h2
-                class="text-2xl sm:text-3xl lg:text-[32px]
+                class="text-2xl sm:text-3xl lg:text-[34px]
                        font-semibold
                        font-display
                        text-slate-900
@@ -411,24 +404,24 @@ const officialEmail = siteSettings.email || 'collection@techsteps.co.uk';
               </p>
             </div>
 
-            <!-- Contact Form with Compact Rounded Inputs & Clear Uppercase Labels -->
+            <!-- Contact Form with Underline / Bottom-Border Inputs (Ref: request-a-quote.astro) -->
             <form
-              class="space-y-4 sm:space-y-4.5"
+              class="space-y-6 sm:space-y-7"
               id="techsteps-contact-form"
             >
               <!-- Hidden Honeypot Field for Spam Protection -->
               <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
               <!-- Row 1: Name & Company (Ref: e9443735.png) -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-4.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                 <!-- Name -->
-                <div class="space-y-1">
+                <div class="space-y-2">
                   <label
                     for="contact-name"
-                    class="block text-[11px] sm:text-xs
+                    class="block text-xs
                            font-bold
                            uppercase
-                           tracking-[0.14em]
+                           tracking-wider
                            text-slate-800"
                   >
                     NAME <span class="text-red-500 font-bold">*</span>
@@ -441,32 +434,31 @@ const officialEmail = siteSettings.email || 'collection@techsteps.co.uk';
                     required
                     placeholder="Enter your name"
                     class="w-full
-                           bg-slate-50/50
-                           hover:bg-slate-50/80
-                           focus:bg-white
-                           border border-slate-200/90
+                           bg-transparent
+                           border-0 border-b-2
+                           border-slate-200
                            focus:border-[#146B5C]
-                           rounded-[10px]
-                           px-3.5
-                           py-2.5
-                           text-sm
-                           font-medium
+                           rounded-none
+                           px-0
+                           py-2
                            text-slate-900
+                           text-sm sm:text-base
                            placeholder:text-slate-400
+                           focus:ring-0
                            outline-none
-                           transition-all duration-200
-                           focus:ring-2 focus:ring-[#146B5C]/15"
+                           transition-colors
+                           font-sans"
                   />
                 </div>
 
                 <!-- Company -->
-                <div class="space-y-1">
+                <div class="space-y-2">
                   <label
                     for="contact-company"
-                    class="block text-[11px] sm:text-xs
+                    class="block text-xs
                            font-bold
                            uppercase
-                           tracking-[0.14em]
+                           tracking-wider
                            text-slate-800"
                   >
                     COMPANY
@@ -478,35 +470,34 @@ const officialEmail = siteSettings.email || 'collection@techsteps.co.uk';
                     name="company"
                     placeholder="Enter company name"
                     class="w-full
-                           bg-slate-50/50
-                           hover:bg-slate-50/80
-                           focus:bg-white
-                           border border-slate-200/90
+                           bg-transparent
+                           border-0 border-b-2
+                           border-slate-200
                            focus:border-[#146B5C]
-                           rounded-[10px]
-                           px-3.5
-                           py-2.5
-                           text-sm
-                           font-medium
+                           rounded-none
+                           px-0
+                           py-2
                            text-slate-900
+                           text-sm sm:text-base
                            placeholder:text-slate-400
+                           focus:ring-0
                            outline-none
-                           transition-all duration-200
-                           focus:ring-2 focus:ring-[#146B5C]/15"
+                           transition-colors
+                           font-sans"
                   />
                 </div>
               </div>
 
               <!-- Row 2: Phone & Email (Ref: e9443735.png) -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-4.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                 <!-- Phone -->
-                <div class="space-y-1">
+                <div class="space-y-2">
                   <label
                     for="contact-phone"
-                    class="block text-[11px] sm:text-xs
+                    class="block text-xs
                            font-bold
                            uppercase
-                           tracking-[0.14em]
+                           tracking-wider
                            text-slate-800"
                   >
                     PHONE <span class="text-red-500 font-bold">*</span>
@@ -519,32 +510,31 @@ const officialEmail = siteSettings.email || 'collection@techsteps.co.uk';
                     required
                     placeholder="Enter phone number"
                     class="w-full
-                           bg-slate-50/50
-                           hover:bg-slate-50/80
-                           focus:bg-white
-                           border border-slate-200/90
+                           bg-transparent
+                           border-0 border-b-2
+                           border-slate-200
                            focus:border-[#146B5C]
-                           rounded-[10px]
-                           px-3.5
-                           py-2.5
-                           text-sm
-                           font-medium
+                           rounded-none
+                           px-0
+                           py-2
                            text-slate-900
+                           text-sm sm:text-base
                            placeholder:text-slate-400
+                           focus:ring-0
                            outline-none
-                           transition-all duration-200
-                           focus:ring-2 focus:ring-[#146B5C]/15"
+                           transition-colors
+                           font-sans"
                   />
                 </div>
 
                 <!-- Email -->
-                <div class="space-y-1">
+                <div class="space-y-2">
                   <label
                     for="contact-email"
-                    class="block text-[11px] sm:text-xs
+                    class="block text-xs
                            font-bold
                            uppercase
-                           tracking-[0.14em]
+                           tracking-wider
                            text-slate-800"
                   >
                     EMAIL <span class="text-red-500 font-bold">*</span>
@@ -557,33 +547,32 @@ const officialEmail = siteSettings.email || 'collection@techsteps.co.uk';
                     required
                     placeholder="Enter email address"
                     class="w-full
-                           bg-slate-50/50
-                           hover:bg-slate-50/80
-                           focus:bg-white
-                           border border-slate-200/90
+                           bg-transparent
+                           border-0 border-b-2
+                           border-slate-200
                            focus:border-[#146B5C]
-                           rounded-[10px]
-                           px-3.5
-                           py-2.5
-                           text-sm
-                           font-medium
+                           rounded-none
+                           px-0
+                           py-2
                            text-slate-900
+                           text-sm sm:text-base
                            placeholder:text-slate-400
+                           focus:ring-0
                            outline-none
-                           transition-all duration-200
-                           focus:ring-2 focus:ring-[#146B5C]/15"
+                           transition-colors
+                           font-sans"
                   />
                 </div>
               </div>
 
               <!-- Row 3: Subject (Ref: e9443735.png) -->
-              <div class="space-y-1">
+              <div class="space-y-2">
                 <label
                   for="contact-subject"
-                  class="block text-[11px] sm:text-xs
+                  class="block text-xs
                          font-bold
                          uppercase
-                         tracking-[0.14em]
+                         tracking-wider
                          text-slate-800"
                 >
                   SUBJECT <span class="text-red-500 font-bold">*</span>
@@ -596,32 +585,31 @@ const officialEmail = siteSettings.email || 'collection@techsteps.co.uk';
                   required
                   placeholder="How can our logistics team help?"
                   class="w-full
-                         bg-slate-50/50
-                         hover:bg-slate-50/80
-                         focus:bg-white
-                         border border-slate-200/90
+                         bg-transparent
+                         border-0 border-b-2
+                         border-slate-200
                          focus:border-[#146B5C]
-                         rounded-[10px]
-                         px-3.5
-                         py-2.5
-                         text-sm
-                         font-medium
+                         rounded-none
+                         px-0
+                         py-2
                          text-slate-900
+                         text-sm sm:text-base
                          placeholder:text-slate-400
+                         focus:ring-0
                          outline-none
-                         transition-all duration-200
-                         focus:ring-2 focus:ring-[#146B5C]/15"
+                         transition-colors
+                         font-sans"
                 />
               </div>
 
-              <!-- Row 4: Message (100–120px height, Ref: e9443735.png) -->
-              <div class="space-y-1">
+              <!-- Row 4: Message (Ref: e9443735.png) -->
+              <div class="space-y-2">
                 <label
                   for="contact-message"
-                  class="block text-[11px] sm:text-xs
+                  class="block text-xs
                          font-bold
                          uppercase
-                         tracking-[0.14em]
+                         tracking-wider
                          text-slate-800"
                 >
                   MESSAGE <span class="text-red-500 font-bold">*</span>
@@ -634,36 +622,36 @@ const officialEmail = siteSettings.email || 'collection@techsteps.co.uk';
                   rows="3"
                   placeholder="Write your message here..."
                   class="w-full
-                         bg-slate-50/50
-                         hover:bg-slate-50/80
-                         focus:bg-white
-                         border border-slate-200/90
+                         bg-transparent
+                         border-0 border-b-2
+                         border-slate-200
                          focus:border-[#146B5C]
-                         rounded-[10px]
-                         px-3.5
-                         py-2.5
-                         h-[110px]
-                         min-h-[100px]
-                         max-h-[120px]
-                         text-sm
-                         font-medium
+                         rounded-none
+                         px-0
+                         py-2
+                         h-[100px]
+                         min-h-[80px]
+                         max-h-[140px]
                          text-slate-900
+                         text-sm sm:text-base
                          placeholder:text-slate-400
+                         focus:ring-0
                          outline-none
-                         transition-all duration-200
-                         focus:ring-2 focus:ring-[#146B5C]/15
+                         transition-colors
+                         font-sans
                          resize-none"
                 ></textarea>
               </div>
 
-              <!-- Submit Button (#146B5C rounded-rectangle CTA with arrow, Ref: e9443735.png) -->
-              <div class="pt-2">
+              <!-- Submit Button (#146B5C rounded pill CTA with arrow, Ref: e9443735.png) -->
+              <div class="pt-3 sm:pt-4">
                 <button
                   type="submit"
                   class="group
                          w-full
                          min-h-[48px]
-                         px-6
+                         px-8
+                         py-3.5
                          rounded-full
                          bg-[#146B5C]
                          hover:bg-[#0D5549]

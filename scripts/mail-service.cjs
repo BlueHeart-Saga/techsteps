@@ -2,6 +2,7 @@
  * Techsteps Mail Service
  * Powered by Hostinger SMTP
  * Handles internal notifications to collection@techsteps.co.uk and customer auto-thanks confirmations.
+ * Redesigned to match TechSteps executive email template specification (Ref: media_1793942971339_c03dc313.png).
  */
 const nodemailer = require('nodemailer');
 require('dotenv').config();
@@ -45,73 +46,391 @@ function createTransporter() {
 }
 
 // =========================================================================
-// HTML TEMPLATE: INTERNAL COLLECTION & BOOKING NOTIFICATION
+// SHARED EMAIL COMPONENTS (Header, Compliance Badges, Footer)
 // =========================================================================
-function generateCollectionHtml(data) {
-  const ref = escapeHtml(data.reference || 'TS-COL-PENDING');
-  const serviceType = escapeHtml(data.serviceType || 'IT Asset Collection');
-  const name = escapeHtml(data.name || 'Not provided');
+
+function renderEmailHeader() {
+  return `
+    <!-- Top Green Accent Line -->
+    <tr>
+      <td style="background-color:#146B5C; height:4px; font-size:1px; line-height:1px;">&nbsp;</td>
+    </tr>
+    <!-- Header: Logo & Tagline -->
+    <tr>
+      <td style="padding:24px 32px 18px 32px; background-color:#FFFFFF;">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td align="left" valign="middle">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td valign="middle">
+                    <img src="https://techsteps.co.uk/images/brand/logo.png" width="34" height="34" alt="Techsteps" style="display:block; border:0; outline:none; text-decoration:none;" />
+                  </td>
+                  <td valign="middle" style="padding-left:10px;">
+                    <div style="font-size:22px; font-weight:800; letter-spacing:-0.03em; line-height:1; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      <span style="color:#146B5C;">Tech</span><span style="color:#0F172A;">steps</span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td align="right" valign="middle">
+              <div style="font-size:12px; font-weight:700; color:#146B5C; letter-spacing:0.02em; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Sustainable IT Asset Lifecycle &amp; Security
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  `;
+}
+
+function renderComplianceAndFooter() {
+  return `
+    <!-- Guaranteed Compliance & Standards Badges -->
+    <tr>
+      <td style="padding:0 32px 28px 32px; background-color:#FFFFFF;">
+        <div style="text-align:center; font-size:11px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#146B5C; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+          GUARANTEED COMPLIANCE &amp; STANDARDS
+        </div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="6">
+          <tr>
+            <td width="25%" align="center" style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:8px; padding:10px 6px;">
+              <div style="font-size:11.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">ISO 27001 / 9001</div>
+              <div style="font-size:9.5px; color:#64748B; margin-top:2px;">Info Security Certified</div>
+            </td>
+            <td width="25%" align="center" style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:8px; padding:10px 6px;">
+              <div style="font-size:11.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">100% Zero-Landfill</div>
+              <div style="font-size:9.5px; color:#64748B; margin-top:2px;">Circular IT Mandate</div>
+            </td>
+            <td width="25%" align="center" style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:8px; padding:10px 6px;">
+              <div style="font-size:11.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">ADISA &amp; GDPR</div>
+              <div style="font-size:9.5px; color:#64748B; margin-top:2px;">Auditable Data Erasure</div>
+            </td>
+            <td width="25%" align="center" style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:8px; padding:10px 6px;">
+              <div style="font-size:11.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">GPS Transit</div>
+              <div style="font-size:9.5px; color:#64748B; margin-top:2px;">Real-time Chain of Custody</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- Footer: Social, Legal Links & Copyright -->
+    <tr>
+      <td style="background-color:#FAFCFA; border-top:1px solid #EBF2EC; padding:24px 32px; text-align:center;">
+        <!-- Social Icons (Clean, No Twitter/X) -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+          <tr>
+            <td style="padding:0 6px;">
+              <a href="https://www.facebook.com" target="_blank" style="text-decoration:none; display:inline-block; width:28px; height:28px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:28px; font-size:13px; font-weight:bold; font-family:sans-serif;">f</a>
+            </td>
+            <td style="padding:0 6px;">
+              <a href="https://techsteps.co.uk" target="_blank" style="text-decoration:none; display:inline-block; width:28px; height:28px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:28px; font-size:13px; font-weight:bold; font-family:sans-serif;">&#x1F310;</a>
+            </td>
+            <td style="padding:0 6px;">
+              <a href="https://www.linkedin.com/company/techsteps-uk/" target="_blank" style="text-decoration:none; display:inline-block; width:28px; height:28px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:28px; font-size:12px; font-weight:bold; font-family:sans-serif;">in</a>
+            </td>
+            <td style="padding:0 6px;">
+              <a href="https://www.instagram.com" target="_blank" style="text-decoration:none; display:inline-block; width:28px; height:28px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:28px; font-size:13px; font-weight:bold; font-family:sans-serif;">&#x1F4F7;</a>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Legal Links -->
+        <div style="font-size:11.5px; color:#64748B; margin-bottom:8px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+          <a href="https://techsteps.co.uk/privacy-policy" style="color:#64748B; text-decoration:underline;">Privacy Notice</a>
+          &nbsp;&bull;&nbsp;
+          <a href="https://techsteps.co.uk/terms-and-conditions" style="color:#64748B; text-decoration:underline;">Terms of Collection</a>
+          &nbsp;&bull;&nbsp;
+          <a href="https://techsteps.co.uk/information-security-policy" style="color:#64748B; text-decoration:underline;">Information Security</a>
+        </div>
+
+        <!-- Copyright -->
+        <div style="font-size:11px; color:#94A3B8; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+          &copy; 2026 Techsteps UK Limited. All rights reserved.
+        </div>
+      </td>
+    </tr>
+  `;
+}
+
+// =========================================================================
+// HTML TEMPLATE: CUSTOMER AUTO-THANKS CONFIRMATION (CONTACT)
+// Re-engineered to EXACTLY match mockup media_1793942971339_c03dc313.png
+// =========================================================================
+function generateCustomerContactConfirmationHtml(data) {
+  const ref = escapeHtml(data.reference || 'TS-ENQ-88219');
+  const rawName = (data.name || 'Valued Client').trim();
+  const firstName = escapeHtml(rawName.split(' ')[0] || 'there');
+  const fullName = escapeHtml(rawName);
   const company = escapeHtml(data.company || 'Not specified');
   const email = escapeHtml(data.email || 'Not provided');
   const phone = escapeHtml(data.phone || 'Not provided');
-  const address = escapeHtml(data.address || 'Not provided').replace(/\n/g, '<br/>');
-  const outcome = escapeHtml(data.outcome || 'Not specified');
-  const collectionDate = escapeHtml(data.collectionDate || data.preferredDate || 'Flexible / As soon as possible');
-  const notes = escapeHtml(data.notes || data.message || data.details || '').trim() || 'None provided';
-
-  // Build hardware/asset table rows based on what fields are present
-  const assetRows = [];
-
-  if (data.laptops && data.laptops !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Laptops / MacBooks:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.laptops)}</td></tr>`);
-  if (data.desktops && data.desktops !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Desktop PCs &amp; Towers:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.desktops)}</td></tr>`);
-  if (data.chromebooks && data.chromebooks !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Chromebooks:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.chromebooks)}</td></tr>`);
-  if (data.tablets && data.tablets !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Tablets / iPads:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.tablets)}</td></tr>`);
-  if (data.servers && data.servers !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Servers &amp; Storage Arrays:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.servers)}</td></tr>`);
-  if (data.monitors && data.monitors !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Monitors &amp; Screens:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.monitors)}</td></tr>`);
-  if (data.mobiles && data.mobiles !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Mobile Phones:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.mobiles)}</td></tr>`);
-  if (data.printers && data.printers !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Printers / Copiers:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.printers)}</td></tr>`);
-  if (data.itAssets && data.itAssets !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">IT Assets / Networking:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.itAssets)}</td></tr>`);
-  if (data.accessories && data.accessories !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Accessories / Cabling:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.accessories)}</td></tr>`);
-  if (data.drives && data.drives !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Hard Drives for Destruction:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.drives)}</td></tr>`);
-  if (data.tapes && data.tapes !== '0') assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Backup Tapes / Media:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.tapes)}</td></tr>`);
-  if (data.boxCount) assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Courier Box Count:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.boxCount)}</td></tr>`);
-  if (data.deviceTypes) assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Box Device Types:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.deviceTypes)}</td></tr>`);
-  if (data.disposalMethod) assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Disposal Method:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.disposalMethod)}</td></tr>`);
-  if (data.witness) assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Witnessing Preference:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.witness)}</td></tr>`);
-  if (data.otherText && data.otherText.trim()) assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Other Assets:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.otherText)}</td></tr>`);
-  if (data.details && data.details.trim()) assetRows.push(`<tr><td style="color:#5C6B62; padding:4px 0;">Items to Collect:</td><td style="font-weight:700; color:#12181A; padding:4px 0;">${escapeHtml(data.details)}</td></tr>`);
-
-  const assetTableContent = assetRows.length > 0
-    ? `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size:14px;">${assetRows.join('')}</table>`
-    : `<div style="font-size:13px; color:#5C6B62; font-style:italic;">No specific counts enumerated (see notes below).</div>`;
+  const subject = escapeHtml(data.subject || 'IT Equipment Collection & Data Sanitisation');
+  const message = escapeHtml(data.message || '').trim() || 'No specific message text provided.';
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechSteps Collection Request - ${ref}</title>
+  <title>Thank You for Contacting Techsteps - #${ref}</title>
 </head>
 <body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F4F7F4; padding:32px 12px;">
     <tr>
       <td align="center">
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width:680px; background-color:#FFFFFF; border-radius:12px; overflow:hidden; border:1px solid #D9E4D9; box-shadow:0 4px 16px rgba(0,0,0,0.06);">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width:660px; background-color:#FFFFFF; border-radius:14px; overflow:hidden; border:1px solid #D9E4D9; box-shadow:0 6px 24px rgba(15,23,42,0.06);">
           
-          <!-- Corporate Header -->
+          ${renderEmailHeader()}
+
+          <!-- Headline & Intro Paragraph -->
           <tr>
-            <td style="background-color:#0F623A; padding:28px 32px; text-align:left;">
-              <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <td style="padding:10px 32px 16px 32px; background-color:#FFFFFF;">
+              <h1 style="margin:0 0 10px 0; font-size:26px; font-weight:800; color:#0F172A; line-height:1.25; letter-spacing:-0.02em; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Thank you for contacting Techsteps!
+              </h1>
+              <p style="margin:0; font-size:14px; color:#475569; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                We've received your message and inquiry. A dedicated IT lifecycle and sustainability specialist is reviewing your requirements and will get back to you shortly.
+              </p>
+            </td>
+          </tr>
+
+          <!-- 3-Column Metadata Stat Bar (Ref: Mockup) -->
+          <tr>
+            <td style="padding:0 32px 20px 32px; background-color:#FFFFFF;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-top:1px solid #E2E8F0; border-bottom:1px solid #E2E8F0; padding:12px 0;">
+                <tr>
+                  <td width="33%" align="left" valign="top" style="padding:8px 8px 8px 0;">
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      TICKET REFERENCE
+                    </div>
+                    <div style="font-size:14px; font-weight:800; color:#0F172A; font-family:Consolas, Monaco, monospace;">
+                      #${ref}
+                    </div>
+                  </td>
+                  <td width="34%" align="left" valign="top" style="padding:8px; border-left:1px solid #F1F5F9;">
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      ESTIMATED RESPONSE
+                    </div>
+                    <div style="font-size:13px; font-weight:700; color:#146B5C; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      &#x23F1; Within 2 Working Hours
+                    </div>
+                  </td>
+                  <td width="33%" align="left" valign="top" style="padding:8px 0 8px 8px; border-left:1px solid #F1F5F9;">
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      LOGISTICS DESK
+                    </div>
+                    <div style="font-size:12.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Dartford Central &amp; UK Nationwide
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Salutation & Context Paragraph -->
+          <tr>
+            <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
+              <div style="font-size:15px; font-weight:700; color:#0F172A; margin-bottom:8px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Hi ${firstName},
+              </div>
+              <p style="margin:0; font-size:13.5px; color:#334155; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Thank you for reaching out to <strong style="color:#0F172A;">Techsteps UK</strong>. Whether you have questions regarding our zero-landfill IT asset disposition, secure certified data destruction, or scheduling a free corporate hardware collection, our compliance and operations team is here to assist.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Contact Details & Inquiry Summary Card (Soft Mint) -->
+          <tr>
+            <td style="padding:0 32px 24px 32px; background-color:#FFFFFF;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F0FAF5; border:1px solid #D6EFE5; border-radius:12px; padding:20px;">
+                <!-- Card Header -->
                 <tr>
                   <td>
-                    <div style="font-size:24px; font-weight:700; color:#FFFFFF; letter-spacing:-0.02em; line-height:1.2;">
-                      Tech<span style="color:#B8EC4C;">steps</span>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td width="36" valign="middle">
+                          <div style="width:30px; height:30px; border-radius:8px; background-color:#E1F4EC; color:#146B5C; text-align:center; line-height:30px; font-size:15px; font-weight:bold;">
+                            &#x1F4C4;
+                          </div>
+                        </td>
+                        <td valign="middle" style="padding-left:10px;">
+                          <div style="font-size:14.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                            Your Contact Details &amp; Inquiry Summary
+                          </div>
+                          <div style="font-size:11px; color:#64748B; margin-top:1px;">
+                            Information submitted via Techsteps Contact Form
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Divider -->
+                <tr>
+                  <td style="padding:12px 0 14px 0;">
+                    <div style="border-bottom:1px solid #D8EFE4; height:1px; line-height:1px;">&nbsp;</div>
+                  </td>
+                </tr>
+
+                <!-- 2-Column Fields Grid -->
+                <tr>
+                  <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size:13px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      <tr>
+                        <td width="50%" valign="top" style="padding-bottom:14px; padding-right:8px;">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            FULL NAME
+                          </div>
+                          <div style="font-size:13px; font-weight:700; color:#0F172A;">
+                            ${fullName}
+                          </div>
+                        </td>
+                        <td width="50%" valign="top" style="padding-bottom:14px; padding-left:8px;">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            ORGANISATION
+                          </div>
+                          <div style="font-size:13px; font-weight:700; color:#0F172A;">
+                            ${company}
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="50%" valign="top" style="padding-bottom:14px; padding-right:8px;">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            EMAIL ADDRESS
+                          </div>
+                          <div style="font-size:13px; font-weight:600; color:#0F172A;">
+                            ${email}
+                          </div>
+                        </td>
+                        <td width="50%" valign="top" style="padding-bottom:14px; padding-left:8px;">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            CONTACT PHONE
+                          </div>
+                          <div style="font-size:13px; font-weight:600; color:#0F172A;">
+                            ${phone}
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" valign="top">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            PRIMARY INTEREST / SERVICE
+                          </div>
+                          <div style="font-size:13px; font-weight:700; color:#146B5C;">
+                            ${subject}
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Nested Message Card (White inner card) -->
+                <tr>
+                  <td style="padding-top:14px;">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF; border:1px solid #D4ECE1; border-radius:10px; padding:14px 16px;">
+                      <tr>
+                        <td>
+                          <div style="font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:6px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                            &#x1F4AC; YOUR SUBMITTED MESSAGE:
+                          </div>
+                          <div style="font-size:13px; font-style:italic; color:#334155; line-height:1.6; font-family:Georgia, serif, sans-serif;">
+                            &ldquo;${message}&rdquo;
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+
+          <!-- WHAT HAPPENS NEXT? Timeline Section -->
+          <tr>
+            <td style="padding:0 32px 20px 32px; background-color:#FFFFFF;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
+                <tr>
+                  <td align="left" style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                    WHAT HAPPENS NEXT?
+                  </td>
+                  <td align="right" style="padding-left:12px;">
+                    <div style="border-bottom:1px solid #E2E8F0; height:1px; line-height:1px;">&nbsp;</div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Step 1 -->
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+                <tr>
+                  <td width="36" valign="top" style="padding-right:12px;">
+                    <div style="width:24px; height:24px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">1</div>
+                  </td>
+                  <td valign="top">
+                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Specialist Review <span style="display:inline-block; margin-left:6px; background-color:#D1F3EC; color:#146B5C; font-size:9.5px; font-weight:800; padding:2px 7px; border-radius:9999px; vertical-align:middle; letter-spacing:0.04em;">IN PROGRESS</span>
                     </div>
-                    <div style="font-size:18px; font-weight:600; color:#FFFFFF; margin-top:8px;">
-                      ${serviceType} Booking
+                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Our technical solutions team reviews your project requirements and inventory scope within <strong style="color:#0F172A;">2 working hours</strong>.
                     </div>
-                    <div style="font-size:13px; font-weight:400; color:#D1EAD9; letter-spacing:0.02em; margin-top:2px;">
-                      Hostinger SMTP Live Form Dispatch
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Step 2 -->
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+                <tr>
+                  <td width="36" valign="top" style="padding-right:12px;">
+                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">2</div>
+                  </td>
+                  <td valign="top">
+                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Tailored Proposal or Call
+                    </div>
+                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      A dedicated account manager will reply with your custom proposal, logistics options, or direct scheduling link.
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Step 3 -->
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+                <tr>
+                  <td width="36" valign="top" style="padding-right:12px;">
+                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">3</div>
+                  </td>
+                  <td valign="top">
+                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Fast-Track Free Collection
+                    </div>
+                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Once approved, our satellite-tracked collection vehicles arrive with tamper-evident bins and legal consignment transfer notes.
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Step 4 -->
+              <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="36" valign="top" style="padding-right:12px;">
+                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">4</div>
+                  </td>
+                  <td valign="top">
+                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Audit &amp; Compliance Certificates
+                    </div>
+                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Following secure processing, receive certified Certificates of Data Destruction (COD) and Scope 3 carbon offset documentation.
                     </div>
                   </td>
                 </tr>
@@ -119,17 +438,14 @@ function generateCollectionHtml(data) {
             </td>
           </tr>
 
-          <!-- Reference Highlight Box -->
+          <!-- Urgent Request Box -->
           <tr>
-            <td style="padding:28px 32px 16px 32px;">
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#EBF5F0; border-left:5px solid #0F623A; border-radius:6px;">
+            <td style="padding:0 32px 24px 32px; background-color:#FFFFFF;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F0FAF7; border:1px solid #9DE0CF; border-radius:10px; padding:14px 18px; text-align:center;">
                 <tr>
-                  <td style="padding:16px 20px;">
-                    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#0F5A47;">
-                      BOOKING REFERENCE
-                    </div>
-                    <div style="font-size:22px; font-weight:800; color:#0F623A; font-family:Consolas, Monaco, monospace; letter-spacing:0.04em; margin-top:4px;">
-                      ${ref}
+                  <td align="center">
+                    <div style="font-size:13px; color:#334155; line-height:1.5; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Urgent request or immediate booking? Call our direct logistics desk at <a href="tel:+441784640216" style="color:#146B5C; font-weight:700; text-decoration:none;">+44 1784 640216</a> or reply directly to this email.
                     </div>
                   </td>
                 </tr>
@@ -137,89 +453,7 @@ function generateCollectionHtml(data) {
             </td>
           </tr>
 
-          <!-- Customer Details -->
-          <tr>
-            <td style="padding:10px 32px 20px 32px;">
-              <div style="font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#0F5A47; border-bottom:2px solid #EAEFEA; padding-bottom:6px; margin-bottom:14px;">
-                Contact Details
-              </div>
-              <table width="100%" border="0" cellpadding="6" cellspacing="0" style="font-size:14px;">
-                <tr>
-                  <td width="35%" style="color:#5C6B62; font-weight:500;">Full Name:</td>
-                  <td width="65%" style="color:#12181A; font-weight:600;">${name}</td>
-                </tr>
-                <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Company:</td>
-                  <td style="color:#12181A; font-weight:600;">${company}</td>
-                </tr>
-                <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Email:</td>
-                  <td style="color:#0F623A; font-weight:600;">
-                    <a href="mailto:${email}" style="color:#0F623A; text-decoration:none; font-weight:600;">${email}</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Telephone:</td>
-                  <td style="color:#12181A; font-weight:600;">
-                    <a href="tel:${phone}" style="color:#12181A; text-decoration:none; font-weight:600;">${phone}</a>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- Collection Logistics -->
-          <tr>
-            <td style="padding:10px 32px 20px 32px;">
-              <div style="font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#0F5A47; border-bottom:2px solid #EAEFEA; padding-bottom:6px; margin-bottom:14px;">
-                Logistics &amp; Scheduling
-              </div>
-              <table width="100%" border="0" cellpadding="6" cellspacing="0" style="font-size:14px;">
-                <tr>
-                  <td width="35%" style="color:#5C6B62; font-weight:500; vertical-align:top;">Address / Postcode:</td>
-                  <td width="65%" style="color:#12181A; font-weight:600; vertical-align:top; line-height:1.5;">${address}</td>
-                </tr>
-                <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Preferred Date:</td>
-                  <td style="color:#12181A; font-weight:600;">${collectionDate}</td>
-                </tr>
-                <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Preferred Outcome:</td>
-                  <td style="color:#0F623A; font-weight:700;">${outcome}</td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- Assets Breakdown -->
-          <tr>
-            <td style="padding:10px 32px 20px 32px;">
-              <div style="font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#0F5A47; border-bottom:2px solid #EAEFEA; padding-bottom:6px; margin-bottom:14px;">
-                Hardware &amp; Equipment Specified
-              </div>
-              ${assetTableContent}
-            </td>
-          </tr>
-
-          <!-- Notes -->
-          <tr>
-            <td style="padding:10px 32px 28px 32px;">
-              <div style="font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#0F5A47; border-bottom:2px solid #EAEFEA; padding-bottom:6px; margin-bottom:14px;">
-                Instructions / Notes
-              </div>
-              <div style="background-color:#F8FAF8; border:1px solid #E5EBE5; border-radius:6px; padding:14px 18px; font-size:14px; color:#12181A; line-height:1.6; white-space:pre-line;">
-                ${notes}
-              </div>
-            </td>
-          </tr>
-
-          <!-- Corporate Footer -->
-          <tr>
-            <td style="background-color:#F4F7F4; border-top:1px solid #D9E4D9; padding:22px 32px; text-align:center;">
-              <div style="font-size:13px; font-weight:700; color:#0F623A;">Techsteps IT Lifecycle &amp; Collection Services</div>
-              <div style="font-size:11px; color:#6B7B70; margin-top:6px;">This notification was automatically dispatched from the Techsteps website via Hostinger SMTP.</div>
-            </td>
-          </tr>
+          ${renderComplianceAndFooter()}
 
         </table>
       </td>
@@ -231,158 +465,319 @@ function generateCollectionHtml(data) {
 
 // =========================================================================
 // HTML TEMPLATE: CUSTOMER AUTO-THANKS CONFIRMATION (COLLECTION)
+// Re-engineered with identical high-end aesthetic tailored for collections
 // =========================================================================
 function generateCustomerCollectionConfirmationHtml(data) {
-  const ref = escapeHtml(data.reference || 'TS-COL-PENDING');
-  const serviceType = escapeHtml(data.serviceType || 'IT Asset Collection');
-  const name = escapeHtml(data.name || 'Valued Customer');
+  const ref = escapeHtml(data.reference || 'TS-COL-88219');
+  const rawName = (data.name || 'Valued Client').trim();
+  const firstName = escapeHtml(rawName.split(' ')[0] || 'there');
+  const fullName = escapeHtml(rawName);
   const company = escapeHtml(data.company || 'Not specified');
-  const email = escapeHtml(data.email || '');
+  const email = escapeHtml(data.email || 'Not provided');
   const phone = escapeHtml(data.phone || 'Not provided');
-  const address = escapeHtml(data.address || 'Not provided').replace(/\n/g, '<br/>');
+  const address = escapeHtml(data.address || 'Not specified').replace(/\n/g, '<br/>');
   const collectionDate = escapeHtml(data.collectionDate || data.preferredDate || 'Flexible / As soon as possible');
+  const serviceType = escapeHtml(data.serviceType || 'IT Asset Collection & Data Sanitisation');
+  const outcome = escapeHtml(data.outcome || 'Certified IT Asset Disposal & Recycling');
+  const notes = escapeHtml(data.notes || data.message || data.details || '').trim();
+
+  // Summary counts string for quick glance
+  const assetCounts = [];
+  if (data.laptops && data.laptops !== '0') assetCounts.push(`${data.laptops} Laptops`);
+  if (data.computers && data.computers !== '0') assetCounts.push(`${data.computers} PCs`);
+  if (data.desktops && data.desktops !== '0') assetCounts.push(`${data.desktops} Desktop PCs`);
+  if (data.servers && data.servers !== '0') assetCounts.push(`${data.servers} Servers`);
+  if (data.monitors && data.monitors !== '0') assetCounts.push(`${data.monitors} Monitors`);
+  if (data.mobilePhones && data.mobilePhones !== '0') assetCounts.push(`${data.mobilePhones} Mobiles`);
+  if (data.mobiles && data.mobiles !== '0') assetCounts.push(`${data.mobiles} Mobiles`);
+  if (data.tablets && data.tablets !== '0') assetCounts.push(`${data.tablets} Tablets`);
+  if (data.printers && data.printers !== '0') assetCounts.push(`${data.printers} Printers`);
+  if (data.drives && data.drives !== '0') assetCounts.push(`${data.drives} Hard Drives`);
+  if (data.accessories && data.accessories !== '0') assetCounts.push(`Accessories`);
+  if (data.boxCount) assetCounts.push(`${data.boxCount}`);
+  if (data.details) assetCounts.push(`${data.details}`);
+
+  const assetsSummaryText = assetCounts.length > 0 ? escapeHtml(assetCounts.join(', ')) : 'Corporate hardware & IT equipment';
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Techsteps Collection Booking Confirmed - ${ref}</title>
+  <title>Thank You for Booking Your Techsteps Collection - #${ref}</title>
 </head>
 <body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F4F7F4; padding:32px 12px;">
     <tr>
       <td align="center">
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width:680px; background-color:#FFFFFF; border-radius:12px; overflow:hidden; border:1px solid #D9E4D9; box-shadow:0 4px 16px rgba(0,0,0,0.06);">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width:660px; background-color:#FFFFFF; border-radius:14px; overflow:hidden; border:1px solid #D9E4D9; box-shadow:0 6px 24px rgba(15,23,42,0.06);">
           
-          <!-- Corporate Header -->
+          ${renderEmailHeader()}
+
+          <!-- Headline & Intro Paragraph -->
           <tr>
-            <td style="background-color:#0F623A; padding:28px 32px; text-align:left;">
-              <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <td style="padding:10px 32px 16px 32px; background-color:#FFFFFF;">
+              <h1 style="margin:0 0 10px 0; font-size:26px; font-weight:800; color:#0F172A; line-height:1.25; letter-spacing:-0.02em; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Thank you for booking your Techsteps collection!
+              </h1>
+              <p style="margin:0; font-size:14px; color:#475569; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                We've received your collection booking. A dedicated IT logistics and compliance coordinator is reviewing your requirements and will confirm your pickup window shortly.
+              </p>
+            </td>
+          </tr>
+
+          <!-- 3-Column Metadata Stat Bar -->
+          <tr>
+            <td style="padding:0 32px 20px 32px; background-color:#FFFFFF;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-top:1px solid #E2E8F0; border-bottom:1px solid #E2E8F0; padding:12px 0;">
+                <tr>
+                  <td width="33%" align="left" valign="top" style="padding:8px 8px 8px 0;">
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      BOOKING REFERENCE
+                    </div>
+                    <div style="font-size:14px; font-weight:800; color:#0F172A; font-family:Consolas, Monaco, monospace;">
+                      #${ref}
+                    </div>
+                  </td>
+                  <td width="34%" align="left" valign="top" style="padding:8px; border-left:1px solid #F1F5F9;">
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      ESTIMATED RESPONSE
+                    </div>
+                    <div style="font-size:13px; font-weight:700; color:#146B5C; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      &#x23F1; Within 2 Working Hours
+                    </div>
+                  </td>
+                  <td width="33%" align="left" valign="top" style="padding:8px 0 8px 8px; border-left:1px solid #F1F5F9;">
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      LOGISTICS DESK
+                    </div>
+                    <div style="font-size:12.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      UK Operations (Hainault &amp; Stafford)
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Salutation & Context Paragraph -->
+          <tr>
+            <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
+              <div style="font-size:15px; font-weight:700; color:#0F172A; margin-bottom:8px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Hi ${firstName},
+              </div>
+              <p style="margin:0; font-size:13.5px; color:#334155; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Thank you for choosing <strong style="color:#0F172A;">Techsteps UK</strong>. Whether you have redundant laptops, desktop PCs, server infrastructure, or require certified data destruction, our secure logistics team is coordinating your booking.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Booking & Collection Summary Card (Soft Mint) -->
+          <tr>
+            <td style="padding:0 32px 24px 32px; background-color:#FFFFFF;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F0FAF5; border:1px solid #D6EFE5; border-radius:12px; padding:20px;">
                 <tr>
                   <td>
-                    <div style="font-size:24px; font-weight:700; color:#FFFFFF; letter-spacing:-0.02em; line-height:1.2;">
-                      Tech<span style="color:#B8EC4C;">steps</span>
-                    </div>
-                    <div style="font-size:18px; font-weight:600; color:#FFFFFF; margin-top:8px;">
-                      Thank You — Collection Request Received
-                    </div>
-                    <div style="font-size:13px; font-weight:400; color:#D1EAD9; letter-spacing:0.02em; margin-top:2px;">
-                      Your reference number: <strong style="color:#FFFFFF; font-family:monospace;">${ref}</strong>
-                    </div>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td width="36" valign="middle">
+                          <div style="width:30px; height:30px; border-radius:8px; background-color:#E1F4EC; color:#146B5C; text-align:center; line-height:30px; font-size:15px; font-weight:bold;">
+                            &#x1F4E6;
+                          </div>
+                        </td>
+                        <td valign="middle" style="padding-left:10px;">
+                          <div style="font-size:14.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                            Your Contact Details &amp; Collection Summary
+                          </div>
+                          <div style="font-size:11px; color:#64748B; margin-top:1px;">
+                            Information submitted via Techsteps Collection Booking Form
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
+
+                <!-- Divider -->
+                <tr>
+                  <td style="padding:12px 0 14px 0;">
+                    <div style="border-bottom:1px solid #D8EFE4; height:1px; line-height:1px;">&nbsp;</div>
+                  </td>
+                </tr>
+
+                <!-- 2-Column Fields Grid -->
+                <tr>
+                  <td>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size:13px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      <tr>
+                        <td width="50%" valign="top" style="padding-bottom:14px; padding-right:8px;">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            FULL NAME
+                          </div>
+                          <div style="font-size:13px; font-weight:700; color:#0F172A;">
+                            ${fullName}
+                          </div>
+                        </td>
+                        <td width="50%" valign="top" style="padding-bottom:14px; padding-left:8px;">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            ORGANISATION
+                          </div>
+                          <div style="font-size:13px; font-weight:700; color:#0F172A;">
+                            ${company}
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="50%" valign="top" style="padding-bottom:14px; padding-right:8px;">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            EMAIL ADDRESS
+                          </div>
+                          <div style="font-size:13px; font-weight:600; color:#0F172A;">
+                            ${email}
+                          </div>
+                        </td>
+                        <td width="50%" valign="top" style="padding-bottom:14px; padding-left:8px;">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            CONTACT PHONE
+                          </div>
+                          <div style="font-size:13px; font-weight:600; color:#0F172A;">
+                            ${phone}
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="50%" valign="top" style="padding-bottom:14px; padding-right:8px;">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            COLLECTION ADDRESS
+                          </div>
+                          <div style="font-size:13px; font-weight:600; color:#0F172A; line-height:1.4;">
+                            ${address}
+                          </div>
+                        </td>
+                        <td width="50%" valign="top" style="padding-bottom:14px; padding-left:8px;">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            PREFERRED DATE
+                          </div>
+                          <div style="font-size:13px; font-weight:600; color:#0F172A;">
+                            ${collectionDate}
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" valign="top">
+                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                            EQUIPMENT / SERVICE SCOPE
+                          </div>
+                          <div style="font-size:13px; font-weight:700; color:#146B5C;">
+                            ${assetsSummaryText}
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Notes Card (if provided) -->
+                ${notes ? `
+                <tr>
+                  <td style="padding-top:14px;">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF; border:1px solid #D4ECE1; border-radius:10px; padding:14px 16px;">
+                      <tr>
+                        <td>
+                          <div style="font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:6px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                            &#x1F4AC; YOUR SUBMITTED NOTES &amp; INSTRUCTIONS:
+                          </div>
+                          <div style="font-size:13px; font-style:italic; color:#334155; line-height:1.6; font-family:Georgia, serif, sans-serif;">
+                            &ldquo;${notes}&rdquo;
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                ` : ''}
+
               </table>
             </td>
           </tr>
 
-          <!-- Greeting & Intro -->
+          <!-- WHAT HAPPENS NEXT? Timeline Section -->
           <tr>
-            <td style="padding:28px 32px 16px 32px;">
-              <div style="font-size:16px; font-weight:600; color:#12181A; margin-bottom:8px;">
-                Dear ${name},
-              </div>
-              <p style="font-size:14px; color:#47564D; line-height:1.6; margin:0 0 16px 0;">
-                Thank you for choosing Techsteps for your <strong>${serviceType}</strong>. We have successfully logged your booking request in our logistics management system.
-              </p>
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#EBF5F0; border-left:5px solid #0F623A; border-radius:6px;">
+            <td style="padding:0 32px 20px 32px; background-color:#FFFFFF;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
                 <tr>
-                  <td style="padding:16px 20px;">
-                    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#0F5A47;">
-                      OFFICIAL BOOKING REFERENCE
-                    </div>
-                    <div style="font-size:22px; font-weight:800; color:#0F623A; font-family:Consolas, Monaco, monospace; letter-spacing:0.04em; margin-top:4px;">
-                      ${ref}
-                    </div>
-                    <div style="font-size:12px; color:#47564D; margin-top:4px;">
-                      Please quote this reference in any correspondence with our operations desk.
-                    </div>
+                  <td align="left" style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                    WHAT HAPPENS NEXT?
+                  </td>
+                  <td align="right" style="padding-left:12px;">
+                    <div style="border-bottom:1px solid #E2E8F0; height:1px; line-height:1px;">&nbsp;</div>
                   </td>
                 </tr>
               </table>
-            </td>
-          </tr>
 
-          <!-- Request Summary -->
-          <tr>
-            <td style="padding:10px 32px 20px 32px;">
-              <div style="font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#0F5A47; border-bottom:2px solid #EAEFEA; padding-bottom:6px; margin-bottom:14px;">
-                Your Booking Details
-              </div>
-              <table width="100%" border="0" cellpadding="6" cellspacing="0" style="font-size:14px;">
-                <tr>
-                  <td width="35%" style="color:#5C6B62; font-weight:500;">Service Requested:</td>
-                  <td width="65%" style="color:#12181A; font-weight:600;">${serviceType}</td>
-                </tr>
-                <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Company / Organisation:</td>
-                  <td style="color:#12181A; font-weight:600;">${company}</td>
-                </tr>
-                <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Collection Address:</td>
-                  <td style="color:#12181A; font-weight:600; line-height:1.5;">${address}</td>
-                </tr>
-                <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Preferred Date:</td>
-                  <td style="color:#12181A; font-weight:600;">${collectionDate}</td>
-                </tr>
-                <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Contact Phone:</td>
-                  <td style="color:#12181A; font-weight:600;">${phone}</td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- What Happens Next Timeline -->
-          <tr>
-            <td style="padding:10px 32px 24px 32px;">
-              <div style="font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#0F5A47; border-bottom:2px solid #EAEFEA; padding-bottom:6px; margin-bottom:14px;">
-                What Happens Next?
-              </div>
-              
-              <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td width="36" valign="top" style="padding-right:12px; padding-bottom:16px;">
-                    <div style="width:28px; height:28px; border-radius:50%; background-color:#0F623A; color:#FFFFFF; text-align:center; line-height:28px; font-weight:700; font-size:13px;">1</div>
-                  </td>
-                  <td valign="top" style="padding-bottom:16px;">
-                    <div style="font-size:14px; font-weight:700; color:#12181A;">Logistics &amp; Booking Review</div>
-                    <div style="font-size:13px; color:#5C6B62; line-height:1.5; margin-top:2px;">
-                      Our regional routing coordinators review your access instructions, hardware specifications, and location.
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td width="36" valign="top" style="padding-right:12px; padding-bottom:16px;">
-                    <div style="width:28px; height:28px; border-radius:50%; background-color:#0F623A; color:#FFFFFF; text-align:center; line-height:28px; font-weight:700; font-size:13px;">2</div>
-                  </td>
-                  <td valign="top" style="padding-bottom:16px;">
-                    <div style="font-size:14px; font-weight:700; color:#12181A;">Time Slot &amp; Driver Allocation</div>
-                    <div style="font-size:13px; color:#5C6B62; line-height:1.5; margin-top:2px;">
-                      We contact you via email or phone to confirm the exact collection window, vehicle arrival time, and assigned vetted driver.
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td width="36" valign="top" style="padding-right:12px; padding-bottom:16px;">
-                    <div style="width:28px; height:28px; border-radius:50%; background-color:#0F623A; color:#FFFFFF; text-align:center; line-height:28px; font-weight:700; font-size:13px;">3</div>
-                  </td>
-                  <td valign="top" style="padding-bottom:16px;">
-                    <div style="font-size:14px; font-weight:700; color:#12181A;">Secure Collection &amp; Chain-of-Custody</div>
-                    <div style="font-size:13px; color:#5C6B62; line-height:1.5; margin-top:2px;">
-                      Upon collection, our security-cleared personnel issue a signed transfer manifest and Duty of Care transfer note.
-                    </div>
-                  </td>
-                </tr>
+              <!-- Step 1 -->
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
                 <tr>
                   <td width="36" valign="top" style="padding-right:12px;">
-                    <div style="width:28px; height:28px; border-radius:50%; background-color:#0F623A; color:#FFFFFF; text-align:center; line-height:28px; font-weight:700; font-size:13px;">4</div>
+                    <div style="width:24px; height:24px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">1</div>
                   </td>
                   <td valign="top">
-                    <div style="font-size:14px; font-weight:700; color:#12181A;">Asset Audit &amp; Certificate of Destruction</div>
-                    <div style="font-size:13px; color:#5C6B62; line-height:1.5; margin-top:2px;">
-                      After high-security processing at our accredited facility, you receive a complete itemised audit report and legally certified destruction documentation.
+                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Logistics Review &amp; Routing <span style="display:inline-block; margin-left:6px; background-color:#D1F3EC; color:#146B5C; font-size:9.5px; font-weight:800; padding:2px 7px; border-radius:9999px; vertical-align:middle; letter-spacing:0.04em;">IN PROGRESS</span>
+                    </div>
+                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Our regional transport team reviews your address, site access requirements, and device quantities.
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Step 2 -->
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+                <tr>
+                  <td width="36" valign="top" style="padding-right:12px;">
+                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">2</div>
+                  </td>
+                  <td valign="top">
+                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Pickup Window Confirmation
+                    </div>
+                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      You receive a formal confirmation with your exact arrival window, vetted driver details, and vehicle registration.
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Step 3 -->
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+                <tr>
+                  <td width="36" valign="top" style="padding-right:12px;">
+                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">3</div>
+                  </td>
+                  <td valign="top">
+                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      GPS-Tracked Free Collection
+                    </div>
+                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Directly employed, security-cleared personnel collect your equipment in GPS-tracked vehicles with Duty of Care transfer notes.
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Step 4 -->
+              <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="36" valign="top" style="padding-right:12px;">
+                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">4</div>
+                  </td>
+                  <td valign="top">
+                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Certified Destruction &amp; Waste Transfer Audit
+                    </div>
+                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Full itemised audit reports and serialized Certificates of Data Destruction (COD) issued upon completion.
                     </div>
                   </td>
                 </tr>
@@ -390,23 +785,22 @@ function generateCustomerCollectionConfirmationHtml(data) {
             </td>
           </tr>
 
-          <!-- Contact / Questions Callout -->
+          <!-- Urgent Request Box -->
           <tr>
-            <td style="padding:0 32px 28px 32px;">
-              <div style="background-color:#F8FAF8; border:1px solid #E5EBE5; border-radius:8px; padding:16px 20px; font-size:13px; color:#47564D; line-height:1.5;">
-                <strong>Need to modify your request or have urgent requirements?</strong><br/>
-                Simply reply directly to this email or contact our support desk at <a href="mailto:collection@techsteps.co.uk" style="color:#0F623A; font-weight:600; text-decoration:none;">collection@techsteps.co.uk</a> quoting reference <strong>${ref}</strong>.
-              </div>
+            <td style="padding:0 32px 24px 32px; background-color:#FFFFFF;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F0FAF7; border:1px solid #9DE0CF; border-radius:10px; padding:14px 18px; text-align:center;">
+                <tr>
+                  <td align="center">
+                    <div style="font-size:13px; color:#334155; line-height:1.5; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Urgent request or immediate booking? Call our direct logistics desk at <a href="tel:+441784640216" style="color:#146B5C; font-weight:700; text-decoration:none;">+44 1784 640216</a> or reply directly to this email.
+                    </div>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
-          <!-- Corporate Footer -->
-          <tr>
-            <td style="background-color:#F4F7F4; border-top:1px solid #D9E4D9; padding:22px 32px; text-align:center;">
-              <div style="font-size:13px; font-weight:700; color:#0F623A;">Techsteps IT Lifecycle &amp; Collection Services</div>
-              <div style="font-size:11px; color:#6B7B70; margin-top:6px;">This is an automated confirmation email sent to ${escapeHtml(email)}.</div>
-            </td>
-          </tr>
+          ${renderComplianceAndFooter()}
 
         </table>
       </td>
@@ -418,6 +812,7 @@ function generateCustomerCollectionConfirmationHtml(data) {
 
 // =========================================================================
 // HTML TEMPLATE: INTERNAL CONTACT ENQUIRY NOTIFICATION
+// Dispatched to collection@techsteps.co.uk
 // =========================================================================
 function generateContactHtml(data) {
   const ref = escapeHtml(data.reference || 'TS-ENQ-PENDING');
@@ -433,79 +828,89 @@ function generateContactHtml(data) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechSteps Contact Enquiry - ${subject}</title>
+  <title>TechSteps Contact Enquiry - #${ref}</title>
 </head>
 <body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F4F7F4; padding:32px 12px;">
     <tr>
       <td align="center">
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width:680px; background-color:#FFFFFF; border-radius:12px; overflow:hidden; border:1px solid #D9E4D9; box-shadow:0 4px 16px rgba(0,0,0,0.06);">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width:660px; background-color:#FFFFFF; border-radius:14px; overflow:hidden; border:1px solid #D9E4D9; box-shadow:0 6px 24px rgba(15,23,42,0.06);">
           
-          <tr style="background-color:#0F623A;">
-            <td style="padding:28px 32px; text-align:left;">
-              <div style="font-size:24px; font-weight:700; color:#FFFFFF; letter-spacing:-0.02em;">
-                Tech<span style="color:#B8EC4C;">steps</span>
-              </div>
-              <div style="font-size:18px; font-weight:600; color:#FFFFFF; margin-top:8px;">
-                Website Contact Enquiry
-              </div>
-              <div style="font-size:13px; color:#D1EAD9; margin-top:2px;">
-                Ref: ${ref} &bull; Service: ${subject}
+          ${renderEmailHeader()}
+
+          <!-- Internal Notice Banner -->
+          <tr>
+            <td style="padding:10px 32px 18px 32px; background-color:#FFFFFF;">
+              <div style="background-color:#0F172A; border-radius:10px; padding:16px 20px; color:#FFFFFF;">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td align="left">
+                      <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#B8EC4C;">
+                        NEW WEBSITE ENQUIRY
+                      </div>
+                      <div style="font-size:18px; font-weight:800; color:#FFFFFF; margin-top:2px;">
+                        ${subject}
+                      </div>
+                    </td>
+                    <td align="right" valign="top">
+                      <div style="display:inline-block; background-color:#1E293B; border:1px solid #334155; border-radius:6px; padding:4px 10px; font-size:12px; font-weight:800; font-family:Consolas, Monaco, monospace; color:#FFFFFF;">
+                        #${ref}
+                      </div>
+                    </td>
+                  </tr>
+                </table>
               </div>
             </td>
           </tr>
 
+          <!-- Sender Information Table -->
           <tr>
-            <td style="padding:24px 32px 16px 32px;">
-              <div style="font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#0F5A47; border-bottom:2px solid #EAEFEA; padding-bottom:6px; margin-bottom:14px;">
-                Sender Information
+            <td style="padding:0 32px 20px 32px; background-color:#FFFFFF;">
+              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Sender &amp; Client Details
               </div>
-              <table width="100%" border="0" cellpadding="6" cellspacing="0" style="font-size:14px;">
-                <tr>
-                  <td width="35%" style="color:#5C6B62; font-weight:500;">Full Name:</td>
-                  <td width="65%" style="color:#12181A; font-weight:600;">${name}</td>
+              <table width="100%" border="0" cellpadding="8" cellspacing="0" style="font-size:13.5px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                <tr style="background-color:#F8FAF9;">
+                  <td width="35%" style="color:#64748B; font-weight:600;">Full Name:</td>
+                  <td width="65%" style="color:#0F172A; font-weight:700;">${name}</td>
                 </tr>
                 <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Company:</td>
-                  <td style="color:#12181A; font-weight:600;">${company}</td>
+                  <td style="color:#64748B; font-weight:600;">Company / Organisation:</td>
+                  <td style="color:#0F172A; font-weight:700;">${company}</td>
                 </tr>
-                <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Email:</td>
-                  <td style="color:#0F623A; font-weight:600;">
-                    <a href="mailto:${email}" style="color:#0F623A; text-decoration:none;">${email}</a>
+                <tr style="background-color:#F8FAF9;">
+                  <td style="color:#64748B; font-weight:600;">Email Address:</td>
+                  <td style="color:#146B5C; font-weight:700;">
+                    <a href="mailto:${email}" style="color:#146B5C; text-decoration:none;">${email}</a>
                   </td>
                 </tr>
                 <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Telephone:</td>
-                  <td style="color:#12181A; font-weight:600;">
-                    <a href="tel:${phone}" style="color:#12181A; text-decoration:none;">${phone}</a>
+                  <td style="color:#64748B; font-weight:600;">Phone Number:</td>
+                  <td style="color:#0F172A; font-weight:700;">
+                    <a href="tel:${phone}" style="color:#0F172A; text-decoration:none;">${phone}</a>
                   </td>
                 </tr>
-                <tr>
-                  <td style="color:#5C6B62; font-weight:500;">Subject / Service:</td>
-                  <td style="color:#0F623A; font-weight:700;">${subject}</td>
+                <tr style="background-color:#F8FAF9;">
+                  <td style="color:#64748B; font-weight:600;">Service / Subject:</td>
+                  <td style="color:#146B5C; font-weight:800;">${subject}</td>
                 </tr>
               </table>
             </td>
           </tr>
 
+          <!-- Message Body -->
           <tr>
-            <td style="padding:10px 32px 28px 32px;">
-              <div style="font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#0F5A47; border-bottom:2px solid #EAEFEA; padding-bottom:6px; margin-bottom:14px;">
+            <td style="padding:0 32px 28px 32px; background-color:#FFFFFF;">
+              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Message Content
               </div>
-              <div style="background-color:#F8FAF8; border:1px solid #E5EBE5; border-radius:6px; padding:16px 18px; font-size:14px; color:#12181A; line-height:1.6; white-space:pre-line;">
+              <div style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:10px; padding:18px 20px; font-size:13.5px; color:#1E293B; line-height:1.65; white-space:pre-line; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 ${message}
               </div>
             </td>
           </tr>
 
-          <tr>
-            <td style="background-color:#F4F7F4; border-top:1px solid #D9E4D9; padding:20px 32px; text-align:center;">
-              <div style="font-size:13px; font-weight:700; color:#0F623A;">Techsteps Corporate Communications</div>
-              <div style="font-size:11px; color:#6B7B70; margin-top:4px;">Dispatched securely via Hostinger SMTP</div>
-            </td>
-          </tr>
+          ${renderComplianceAndFooter()}
 
         </table>
       </td>
@@ -516,71 +921,165 @@ function generateContactHtml(data) {
 }
 
 // =========================================================================
-// HTML TEMPLATE: CUSTOMER AUTO-THANKS CONFIRMATION (CONTACT)
+// HTML TEMPLATE: INTERNAL COLLECTION & BOOKING NOTIFICATION
+// Dispatched to collection@techsteps.co.uk
 // =========================================================================
-function generateCustomerContactConfirmationHtml(data) {
-  const ref = escapeHtml(data.reference || 'TS-ENQ-PENDING');
-  const name = escapeHtml(data.name || 'Valued Customer');
-  const subject = escapeHtml(data.subject || 'General Enquiry');
-  const email = escapeHtml(data.email || '');
+function generateCollectionHtml(data) {
+  const ref = escapeHtml(data.reference || 'TS-COL-PENDING');
+  const serviceType = escapeHtml(data.serviceType || 'IT Asset Collection Booking');
+  const name = escapeHtml(data.name || 'Not provided');
+  const company = escapeHtml(data.company || 'Not specified');
+  const email = escapeHtml(data.email || 'Not provided');
+  const phone = escapeHtml(data.phone || 'Not provided');
+  const address = escapeHtml(data.address || 'Not provided').replace(/\n/g, '<br/>');
+  const outcome = escapeHtml(data.outcome || 'Not specified');
+  const collectionDate = escapeHtml(data.collectionDate || data.preferredDate || 'Flexible / As soon as possible');
+  const notes = escapeHtml(data.notes || data.message || data.details || '').trim() || 'None provided';
+
+  // Build hardware/asset table rows based on what fields are present
+  const assetRows = [];
+  if (data.computers && data.computers !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Desktop PCs &amp; Towers:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.computers)}</td></tr>`);
+  if (data.desktops && data.desktops !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Desktop PCs &amp; Towers:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.desktops)}</td></tr>`);
+  if (data.laptops && data.laptops !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Laptops / MacBooks:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.laptops)}</td></tr>`);
+  if (data.chromebooks && data.chromebooks !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Chromebooks:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.chromebooks)}</td></tr>`);
+  if (data.tablets && data.tablets !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Tablets / iPads:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.tablets)}</td></tr>`);
+  if (data.servers && data.servers !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Servers &amp; Storage Arrays:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.servers)}</td></tr>`);
+  if (data.monitors && data.monitors !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Monitors &amp; Screens:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.monitors)}</td></tr>`);
+  if (data.mobilePhones && data.mobilePhones !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Mobile Phones:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.mobilePhones)}</td></tr>`);
+  if (data.mobiles && data.mobiles !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Mobile Phones:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.mobiles)}</td></tr>`);
+  if (data.printers && data.printers !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Printers / Copiers:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.printers)}</td></tr>`);
+  if (data.itAssets && data.itAssets !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">IT Assets / Networking:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.itAssets)}</td></tr>`);
+  if (data.accessories && data.accessories !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Accessories / Cabling:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.accessories)}</td></tr>`);
+  if (data.drives && data.drives !== '0') assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Hard Drives for Destruction:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.drives)}</td></tr>`);
+  if (data.driveCount) assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Drives / SSDs Count:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.driveCount)}</td></tr>`);
+  if (data.boxCount) assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Courier Box Count:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.boxCount)}</td></tr>`);
+  if (data.disposalMethod) assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Disposal Method / Services:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.disposalMethod)}</td></tr>`);
+  if (data.otherText && data.otherText.trim()) assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Other Assets:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.otherText)}</td></tr>`);
+  if (data.details && data.details.trim()) assetRows.push(`<tr><td style="color:#64748B; padding:6px 0;">Item Details:</td><td style="font-weight:700; color:#0F172A; padding:6px 0;">${escapeHtml(data.details)}</td></tr>`);
+
+  const assetTableContent = assetRows.length > 0
+    ? `<table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size:13.5px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">${assetRows.join('')}</table>`
+    : `<div style="font-size:13px; color:#64748B; font-style:italic;">No specific counts enumerated (see notes below).</div>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You for Contacting Techsteps</title>
+  <title>TechSteps Collection Request - #${ref}</title>
 </head>
 <body style="margin:0; padding:0; background-color:#F4F7F4; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing:antialiased; color:#12181A;">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F4F7F4; padding:32px 12px;">
     <tr>
       <td align="center">
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width:680px; background-color:#FFFFFF; border-radius:12px; overflow:hidden; border:1px solid #D9E4D9; box-shadow:0 4px 16px rgba(0,0,0,0.06);">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="max-width:660px; background-color:#FFFFFF; border-radius:14px; overflow:hidden; border:1px solid #D9E4D9; box-shadow:0 6px 24px rgba(15,23,42,0.06);">
           
-          <tr style="background-color:#0F623A;">
-            <td style="padding:28px 32px; text-align:left;">
-              <div style="font-size:24px; font-weight:700; color:#FFFFFF; letter-spacing:-0.02em;">
-                Tech<span style="color:#B8EC4C;">steps</span>
-              </div>
-              <div style="font-size:18px; font-weight:600; color:#FFFFFF; margin-top:8px;">
-                Thank You for Getting in Touch
-              </div>
-              <div style="font-size:13px; color:#D1EAD9; margin-top:2px;">
-                Reference: <strong style="color:#FFFFFF; font-family:monospace;">${ref}</strong>
-              </div>
-            </td>
-          </tr>
+          ${renderEmailHeader()}
 
+          <!-- Internal Notice Banner -->
           <tr>
-            <td style="padding:28px 32px 20px 32px;">
-              <div style="font-size:16px; font-weight:600; color:#12181A; margin-bottom:8px;">
-                Dear ${name},
+            <td style="padding:10px 32px 18px 32px; background-color:#FFFFFF;">
+              <div style="background-color:#0F172A; border-radius:10px; padding:16px 20px; color:#FFFFFF;">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td align="left">
+                      <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#B8EC4C;">
+                        COLLECTION BOOKING DISPATCH
+                      </div>
+                      <div style="font-size:18px; font-weight:800; color:#FFFFFF; margin-top:2px;">
+                        ${serviceType}
+                      </div>
+                    </td>
+                    <td align="right" valign="top">
+                      <div style="display:inline-block; background-color:#1E293B; border:1px solid #334155; border-radius:6px; padding:4px 10px; font-size:12px; font-weight:800; font-family:Consolas, Monaco, monospace; color:#FFFFFF;">
+                        #${ref}
+                      </div>
+                    </td>
+                  </tr>
+                </table>
               </div>
-              <p style="font-size:14px; color:#47564D; line-height:1.6; margin:0 0 16px 0;">
-                Thank you for contacting Techsteps regarding <strong>${subject}</strong>. Your enquiry has been received by our UK support team.
-              </p>
-              
-              <div style="background-color:#EBF5F0; border-left:5px solid #0F623A; border-radius:6px; padding:16px 20px; margin-bottom:20px;">
-                <div style="font-size:14px; font-weight:700; color:#0F623A; margin-bottom:4px;">
-                  What Happens Next?
-                </div>
-                <div style="font-size:13px; color:#47564D; line-height:1.5;">
-                  A specialist from our UK commercial &amp; logistics desk will review your details and respond within <strong>2 to 4 business hours</strong>.
-                </div>
-              </div>
-
-              <p style="font-size:13px; color:#6B7B70; line-height:1.5; margin:0;">
-                If your requirement is urgent, or you would like to speak to an advisor right away, please call our UK operations desk on <strong style="color:#12181A;">0800 123 4567</strong> quoting reference <strong>${ref}</strong>.
-              </p>
             </td>
           </tr>
 
+          <!-- Contact Details -->
           <tr>
-            <td style="background-color:#F4F7F4; border-top:1px solid #D9E4D9; padding:22px 32px; text-align:center;">
-              <div style="font-size:13px; font-weight:700; color:#0F623A;">Techsteps IT Lifecycle, Document &amp; Relocation Services</div>
-              <div style="font-size:11px; color:#6B7B70; margin-top:6px;">This confirmation was automatically generated for ${escapeHtml(email)}.</div>
+            <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
+              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Client &amp; Contact Information
+              </div>
+              <table width="100%" border="0" cellpadding="8" cellspacing="0" style="font-size:13.5px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                <tr style="background-color:#F8FAF9;">
+                  <td width="35%" style="color:#64748B; font-weight:600;">Full Name:</td>
+                  <td width="65%" style="color:#0F172A; font-weight:700;">${name}</td>
+                </tr>
+                <tr>
+                  <td style="color:#64748B; font-weight:600;">Company / Organisation:</td>
+                  <td style="color:#0F172A; font-weight:700;">${company}</td>
+                </tr>
+                <tr style="background-color:#F8FAF9;">
+                  <td style="color:#64748B; font-weight:600;">Email Address:</td>
+                  <td style="color:#146B5C; font-weight:700;">
+                    <a href="mailto:${email}" style="color:#146B5C; text-decoration:none;">${email}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="color:#64748B; font-weight:600;">Telephone:</td>
+                  <td style="color:#0F172A; font-weight:700;">
+                    <a href="tel:${phone}" style="color:#0F172A; text-decoration:none;">${phone}</a>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
+
+          <!-- Logistics & Scheduling -->
+          <tr>
+            <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
+              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Logistics &amp; Scheduling
+              </div>
+              <table width="100%" border="0" cellpadding="8" cellspacing="0" style="font-size:13.5px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                <tr style="background-color:#F8FAF9;">
+                  <td width="35%" style="color:#64748B; font-weight:600; vertical-align:top;">Collection Address:</td>
+                  <td width="65%" style="color:#0F172A; font-weight:700; vertical-align:top; line-height:1.4;">${address}</td>
+                </tr>
+                <tr>
+                  <td style="color:#64748B; font-weight:600;">Preferred Date:</td>
+                  <td style="color:#0F172A; font-weight:700;">${collectionDate}</td>
+                </tr>
+                <tr style="background-color:#F8FAF9;">
+                  <td style="color:#64748B; font-weight:600;">Required Outcome:</td>
+                  <td style="color:#146B5C; font-weight:800;">${outcome}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Equipment Breakdown -->
+          <tr>
+            <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
+              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Hardware &amp; Equipment Specified
+              </div>
+              <div style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:10px; padding:14px 18px;">
+                ${assetTableContent}
+              </div>
+            </td>
+          </tr>
+
+          <!-- Notes -->
+          <tr>
+            <td style="padding:0 32px 28px 32px; background-color:#FFFFFF;">
+              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Special Instructions / Notes
+              </div>
+              <div style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:10px; padding:16px 18px; font-size:13.5px; color:#1E293B; line-height:1.6; white-space:pre-line;">
+                ${notes}
+              </div>
+            </td>
+          </tr>
+
+          ${renderComplianceAndFooter()}
 
         </table>
       </td>
@@ -619,11 +1118,11 @@ async function sendContactEmail(data) {
 
   if (isCollection) {
     const serviceTitle = data.serviceType || 'IT Asset Collection Request';
-    internalSubject = `TechSteps ${serviceTitle} - ${reference} (${data.company || data.name || 'New Client'})`;
+    internalSubject = `TechSteps ${serviceTitle} - #${reference} (${data.company || data.name || 'New Client'})`;
     internalHtml = generateCollectionHtml(data);
     internalPlainText = `
 Techsteps ${serviceTitle}
-Reference: ${reference}
+Reference: #${reference}
 
 Name: ${data.name || ''}
 Company: ${data.company || ''}
@@ -637,32 +1136,32 @@ Notes / Items:
 ${data.notes || data.message || data.details || 'None provided'}
     `.trim();
 
-    customerSubject = `Techsteps Collection Request Received - ${reference}`;
+    customerSubject = `Thank you for booking your Techsteps collection! [Ref: #${reference}]`;
     customerHtml = generateCustomerCollectionConfirmationHtml(data);
     customerPlainText = `
-Techsteps Collection Request Received
-Reference: ${reference}
+Thank you for booking your Techsteps collection!
+Reference: #${reference}
 
 Dear ${data.name || 'Valued Customer'},
 
-Thank you for your IT collection booking. We have successfully logged your request under reference ${reference}.
-Our logistics coordination desk will confirm your collection window within two working days.
+Thank you for choosing Techsteps UK. We have successfully logged your collection booking request in our logistics management system under reference #${reference}.
+Our logistics coordination desk will confirm your collection window within 2 working hours.
 
-Collection Address: ${data.address || ''}
+Collection Address: ${data.address || 'As specified'}
 Preferred Date: ${data.collectionDate || data.preferredDate || 'Flexible'}
 
-If you need assistance, please reply directly to this email quoting reference ${reference}.
+Urgent request or immediate booking? Call our direct logistics desk at +44 1784 640216 or reply directly to this email.
 
 Techsteps UK
     `.trim();
 
   } else {
-    const sub = data.subject || 'General Enquiry';
-    internalSubject = `Techsteps Contact Enquiry - ${sub} (${data.name || 'Website Visitor'})`;
+    const sub = data.subject || 'General Website Enquiry';
+    internalSubject = `Techsteps Contact Enquiry - ${sub} [Ref: #${reference}] (${data.name || 'Website Visitor'})`;
     internalHtml = generateContactHtml(data);
     internalPlainText = `
 Techsteps Website Contact Enquiry
-Reference: ${reference}
+Reference: #${reference}
 
 Name: ${data.name || ''}
 Company: ${data.company || ''}
@@ -674,15 +1173,17 @@ Message:
 ${data.message || ''}
     `.trim();
 
-    customerSubject = `Thank you for contacting Techsteps [Ref: ${reference}]`;
+    customerSubject = `Thank you for contacting Techsteps! [Ref: #${reference}]`;
     customerHtml = generateCustomerContactConfirmationHtml(data);
     customerPlainText = `
-Thank You for Contacting Techsteps
-Reference: ${reference}
+Thank you for contacting Techsteps!
+Reference: #${reference}
 
 Dear ${data.name || 'Valued Customer'},
 
-Thank you for getting in touch regarding ${sub}. Our team has received your message and will reply within 2 to 4 business hours.
+Thank you for reaching out to Techsteps UK regarding ${sub}. We have received your enquiry and our team will get back to you within 2 working hours.
+
+Urgent request or immediate booking? Call our direct logistics desk at +44 1784 640216 or reply directly to this email.
 
 Techsteps UK
     `.trim();
@@ -700,11 +1201,12 @@ Techsteps UK
   });
   console.log(`[Techsteps Mail] Internal notification sent! Message ID: ${internalResult.messageId}`);
 
-  // 2. Dispatch Customer Auto-Thanks Confirmation (if customer provided an email address)
-  if (data.email && data.email.includes('@')) {
+  // 2. Dispatch Customer Auto-Thanks Confirmation (if customer provided a valid email address)
+  let customerResult = null;
+  if (data.email && data.email.includes('@') && !data.email.endsWith('@example.com')) {
     console.log(`[Techsteps Mail] Sending auto-thanks confirmation to customer: ${data.email}...`);
     try {
-      const customerResult = await transporter.sendMail({
+      customerResult = await transporter.sendMail({
         from: config.from,
         to: data.email,
         replyTo: config.receiver,
@@ -716,12 +1218,15 @@ Techsteps UK
     } catch (custErr) {
       console.error(`[Techsteps Mail] Customer confirmation email warning (internal email was delivered):`, custErr.message);
     }
+  } else {
+    console.log(`[Techsteps Mail] Customer confirmation skipped (test or omitted email: ${data.email})`);
   }
 
   return {
     success: true,
     reference: reference,
     messageId: internalResult.messageId,
+    customerMessageId: customerResult ? customerResult.messageId : null,
   };
 }
 
