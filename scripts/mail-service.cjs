@@ -67,7 +67,7 @@ function renderEmailHeader() {
                     <img src="https://techsteps.co.uk/images/brand/logo.png" width="34" height="34" alt="Techsteps" style="display:block; border:0; outline:none; text-decoration:none;" />
                   </td>
                   <td valign="middle" style="padding-left:10px;">
-                    <div style="font-size:22px; font-weight:800; letter-spacing:-0.03em; line-height:1; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                    <div style="font-size:22px; font-weight:700; letter-spacing:-0.03em; line-height:1; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                       <span style="color:#146B5C;">Tech</span><span style="color:#0F172A;">steps</span>
                     </div>
                   </td>
@@ -75,7 +75,7 @@ function renderEmailHeader() {
               </table>
             </td>
             <td align="right" valign="middle">
-              <div style="font-size:12px; font-weight:700; color:#146B5C; letter-spacing:0.02em; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <div style="font-size:12px; font-weight:600; color:#146B5C; letter-spacing:0.02em; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Sustainable IT Asset Lifecycle &amp; Security
               </div>
             </td>
@@ -91,64 +91,80 @@ function renderComplianceAndFooter() {
     <!-- Guaranteed Compliance & Standards Badges -->
     <tr>
       <td style="padding:0 32px 28px 32px; background-color:#FFFFFF;">
-        <div style="text-align:center; font-size:11px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#146B5C; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+        <div style="text-align:center; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#146B5C; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
           GUARANTEED COMPLIANCE &amp; STANDARDS
         </div>
         <table width="100%" border="0" cellpadding="0" cellspacing="6">
           <tr>
             <td width="25%" align="center" style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:8px; padding:10px 6px;">
-              <div style="font-size:11.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">ISO 27001 / 9001</div>
-              <div style="font-size:9.5px; color:#64748B; margin-top:2px;">Info Security Certified</div>
+              <div style="font-size:11.5px; font-weight:600; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">ISO 27001 / 9001</div>
+              <div style="font-size:9.5px; font-weight:400; color:#64748B; margin-top:2px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">Info Security Certified</div>
             </td>
             <td width="25%" align="center" style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:8px; padding:10px 6px;">
-              <div style="font-size:11.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">100% Zero-Landfill</div>
-              <div style="font-size:9.5px; color:#64748B; margin-top:2px;">Circular IT Mandate</div>
+              <div style="font-size:11.5px; font-weight:600; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">100% Zero-Landfill</div>
+              <div style="font-size:9.5px; font-weight:400; color:#64748B; margin-top:2px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">Circular IT Mandate</div>
             </td>
             <td width="25%" align="center" style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:8px; padding:10px 6px;">
-              <div style="font-size:11.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">ADISA &amp; GDPR</div>
-              <div style="font-size:9.5px; color:#64748B; margin-top:2px;">Auditable Data Erasure</div>
+              <div style="font-size:11.5px; font-weight:600; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">ADISA &amp; GDPR</div>
+              <div style="font-size:9.5px; font-weight:400; color:#64748B; margin-top:2px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">Auditable Data Erasure</div>
             </td>
             <td width="25%" align="center" style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:8px; padding:10px 6px;">
-              <div style="font-size:11.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">GPS Transit</div>
-              <div style="font-size:9.5px; color:#64748B; margin-top:2px;">Real-time Chain of Custody</div>
+              <div style="font-size:11.5px; font-weight:600; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">GPS Transit</div>
+              <div style="font-size:9.5px; font-weight:400; color:#64748B; margin-top:2px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">Real-time Chain of Custody</div>
             </td>
           </tr>
         </table>
       </td>
     </tr>
 
-    <!-- Footer: Social, Legal Links & Copyright -->
+    <!-- Footer: Social, Centered Legal Links & Corporate Details -->
     <tr>
-      <td style="background-color:#FAFCFA; border-top:1px solid #EBF2EC; padding:24px 32px; text-align:center;">
-        <!-- Social Icons (Clean, No Twitter/X) -->
-        <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+      <td style="background-color:#FAFCFA; border-top:1px solid #EBF2EC; padding:26px 32px; text-align:center;">
+        <!-- Social Icons (Clean, Premium PNG Icons, No Emojis, No Twitter/X) -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto 16px auto;">
           <tr>
-            <td style="padding:0 6px;">
-              <a href="https://www.facebook.com" target="_blank" style="text-decoration:none; display:inline-block; width:28px; height:28px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:28px; font-size:13px; font-weight:bold; font-family:sans-serif;">f</a>
+            <td style="padding:0 6px;" align="center">
+              <a href="https://www.facebook.com" target="_blank" title="Facebook" style="text-decoration:none; display:inline-block;">
+                <img src="https://techsteps.co.uk/images/email/icon-facebook.png" width="26" height="26" alt="Facebook" style="display:block; border:0; outline:none; border-radius:50%;" />
+              </a>
             </td>
-            <td style="padding:0 6px;">
-              <a href="https://techsteps.co.uk" target="_blank" style="text-decoration:none; display:inline-block; width:28px; height:28px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:28px; font-size:13px; font-weight:bold; font-family:sans-serif;">&#x1F310;</a>
+            <td style="padding:0 6px;" align="center">
+              <a href="https://techsteps.co.uk" target="_blank" title="Techsteps Official Website" style="text-decoration:none; display:inline-block;">
+                <img src="https://techsteps.co.uk/images/email/icon-website.png" width="26" height="26" alt="Website" style="display:block; border:0; outline:none; border-radius:50%;" />
+              </a>
             </td>
-            <td style="padding:0 6px;">
-              <a href="https://www.linkedin.com/company/techsteps-uk/" target="_blank" style="text-decoration:none; display:inline-block; width:28px; height:28px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:28px; font-size:12px; font-weight:bold; font-family:sans-serif;">in</a>
+            <td style="padding:0 6px;" align="center">
+              <a href="https://www.linkedin.com/company/techsteps-uk/" target="_blank" title="LinkedIn" style="text-decoration:none; display:inline-block;">
+                <img src="https://techsteps.co.uk/images/email/icon-linkedin.png" width="26" height="26" alt="LinkedIn" style="display:block; border:0; outline:none; border-radius:50%;" />
+              </a>
             </td>
-            <td style="padding:0 6px;">
-              <a href="https://www.instagram.com" target="_blank" style="text-decoration:none; display:inline-block; width:28px; height:28px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:28px; font-size:13px; font-weight:bold; font-family:sans-serif;">&#x1F4F7;</a>
+            <td style="padding:0 6px;" align="center">
+              <a href="https://www.instagram.com" target="_blank" title="Instagram" style="text-decoration:none; display:inline-block;">
+                <img src="https://techsteps.co.uk/images/email/icon-instagram.png" width="26" height="26" alt="Instagram" style="display:block; border:0; outline:none; border-radius:50%;" />
+              </a>
             </td>
           </tr>
         </table>
 
-        <!-- Legal Links -->
-        <div style="font-size:11.5px; color:#64748B; margin-bottom:8px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-          <a href="https://techsteps.co.uk/privacy-policy" style="color:#64748B; text-decoration:underline;">Privacy Notice</a>
-          &nbsp;&bull;&nbsp;
-          <a href="https://techsteps.co.uk/terms-and-conditions" style="color:#64748B; text-decoration:underline;">Terms of Collection</a>
-          &nbsp;&bull;&nbsp;
-          <a href="https://techsteps.co.uk/information-security-policy" style="color:#64748B; text-decoration:underline;">Information Security</a>
-        </div>
+        <!-- Centered Legal Page Links (Semibold, Segoe UI) -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto 10px auto;">
+          <tr>
+            <td align="center" style="font-size:12px; font-weight:600; color:#64748B; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; text-align:center;">
+              <a href="https://techsteps.co.uk/privacy-policy" target="_blank" style="color:#64748B; text-decoration:underline;">Privacy Notice</a>
+              <span style="color:#CBD5E1; margin:0 8px;">&bull;</span>
+              <a href="https://techsteps.co.uk/terms-and-conditions" target="_blank" style="color:#64748B; text-decoration:underline;">Terms of Collection</a>
+              <span style="color:#CBD5E1; margin:0 8px;">&bull;</span>
+              <a href="https://techsteps.co.uk/information-security-policy" target="_blank" style="color:#64748B; text-decoration:underline;">Information Security</a>
+              <span style="color:#CBD5E1; margin:0 8px;">&bull;</span>
+              <a href="https://techsteps.co.uk/cookie-policy" target="_blank" style="color:#64748B; text-decoration:underline;">Cookie Policy</a>
+            </td>
+          </tr>
+        </table>
 
-        <!-- Copyright -->
-        <div style="font-size:11px; color:#94A3B8; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+        <!-- Centered Corporate Details & Copyright -->
+        <div style="font-size:11px; font-weight:400; color:#94A3B8; text-align:center; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+          Techsteps UK Limited &bull; Logistics Park, Crossways Boulevard, Dartford, Kent DA2 6QJ<br/>
+          Sustainable IT Asset Lifecycle, Secure Data Destruction &amp; Certified Hardware Recovery<br/>
           &copy; 2026 Techsteps UK Limited. All rights reserved.
         </div>
       </td>
@@ -189,43 +205,26 @@ function generateCustomerContactConfirmationHtml(data) {
           <!-- Headline & Intro Paragraph -->
           <tr>
             <td style="padding:10px 32px 16px 32px; background-color:#FFFFFF;">
-              <h1 style="margin:0 0 10px 0; font-size:26px; font-weight:800; color:#0F172A; line-height:1.25; letter-spacing:-0.02em; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <h1 style="margin:0 0 10px 0; font-size:24px; font-weight:700; color:#0F172A; line-height:1.25; letter-spacing:-0.02em; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Thank you for contacting Techsteps!
               </h1>
-              <p style="margin:0; font-size:14px; color:#475569; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                We've received your message and inquiry. A dedicated IT lifecycle and sustainability specialist is reviewing your requirements and will get back to you shortly.
+              <p style="margin:0; font-size:14px; font-weight:400; color:#475569; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                We've received your message and enquiry. A dedicated IT lifecycle and sustainability specialist is reviewing your requirements and will get back to you shortly.
               </p>
             </td>
           </tr>
 
-          <!-- 3-Column Metadata Stat Bar (Ref: Mockup) -->
+          <!-- Reference Status Bar (Clean, Executive) -->
           <tr>
-            <td style="padding:0 32px 20px 32px; background-color:#FFFFFF;">
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-top:1px solid #E2E8F0; border-bottom:1px solid #E2E8F0; padding:12px 0;">
+            <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:8px; padding:10px 16px;">
                 <tr>
-                  <td width="33%" align="left" valign="top" style="padding:8px 8px 8px 0;">
-                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      TICKET REFERENCE
-                    </div>
-                    <div style="font-size:14px; font-weight:800; color:#0F172A; font-family:Consolas, Monaco, monospace;">
-                      #${ref}
-                    </div>
+                  <td align="left" valign="middle">
+                    <span style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">TICKET REFERENCE:</span>
+                    <span style="font-size:14px; font-weight:600; color:#146B5C; font-family:Consolas, Monaco, monospace; margin-left:8px;">#${ref}</span>
                   </td>
-                  <td width="34%" align="left" valign="top" style="padding:8px; border-left:1px solid #F1F5F9;">
-                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      ESTIMATED RESPONSE
-                    </div>
-                    <div style="font-size:13px; font-weight:700; color:#146B5C; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      &#x23F1; Within 2 Working Hours
-                    </div>
-                  </td>
-                  <td width="33%" align="left" valign="top" style="padding:8px 0 8px 8px; border-left:1px solid #F1F5F9;">
-                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      LOGISTICS DESK
-                    </div>
-                    <div style="font-size:12.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Dartford Central &amp; UK Nationwide
-                    </div>
+                  <td align="right" valign="middle">
+                    <span style="display:inline-block; background-color:#E1F4EC; color:#146B5C; font-size:11px; font-weight:600; padding:4px 12px; border-radius:9999px; letter-spacing:0.02em; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">Enquiry Received</span>
                   </td>
                 </tr>
               </table>
@@ -235,11 +234,11 @@ function generateCustomerContactConfirmationHtml(data) {
           <!-- Salutation & Context Paragraph -->
           <tr>
             <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
-              <div style="font-size:15px; font-weight:700; color:#0F172A; margin-bottom:8px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <div style="font-size:15px; font-weight:600; color:#0F172A; margin-bottom:8px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Hi ${firstName},
               </div>
-              <p style="margin:0; font-size:13.5px; color:#334155; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                Thank you for reaching out to <strong style="color:#0F172A;">Techsteps UK</strong>. Whether you have questions regarding our zero-landfill IT asset disposition, secure certified data destruction, or scheduling a free corporate hardware collection, our compliance and operations team is here to assist.
+              <p style="margin:0; font-size:13.5px; font-weight:400; color:#334155; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Thank you for reaching out to <strong style="color:#0F172A; font-weight:600;">Techsteps UK</strong>. Whether you have questions regarding our zero-landfill IT asset disposition, secure certified data destruction, or scheduling a free corporate hardware collection, our compliance and operations team is here to assist.
               </p>
             </td>
           </tr>
@@ -253,16 +252,11 @@ function generateCustomerContactConfirmationHtml(data) {
                   <td>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td width="36" valign="middle">
-                          <div style="width:30px; height:30px; border-radius:8px; background-color:#E1F4EC; color:#146B5C; text-align:center; line-height:30px; font-size:15px; font-weight:bold;">
-                            &#x1F4C4;
-                          </div>
-                        </td>
-                        <td valign="middle" style="padding-left:10px;">
-                          <div style="font-size:14.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                        <td valign="middle">
+                          <div style="font-size:14.5px; font-weight:600; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                             Your Contact Details &amp; Inquiry Summary
                           </div>
-                          <div style="font-size:11px; color:#64748B; margin-top:1px;">
+                          <div style="font-size:11px; font-weight:400; color:#64748B; margin-top:2px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                             Information submitted via Techsteps Contact Form
                           </div>
                         </td>
@@ -284,46 +278,46 @@ function generateCustomerContactConfirmationHtml(data) {
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size:13px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                       <tr>
                         <td width="50%" valign="top" style="padding-bottom:14px; padding-right:8px;">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             FULL NAME
                           </div>
-                          <div style="font-size:13px; font-weight:700; color:#0F172A;">
+                          <div style="font-size:13.5px; font-weight:600; color:#0F172A;">
                             ${fullName}
                           </div>
                         </td>
                         <td width="50%" valign="top" style="padding-bottom:14px; padding-left:8px;">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             ORGANISATION
                           </div>
-                          <div style="font-size:13px; font-weight:700; color:#0F172A;">
+                          <div style="font-size:13.5px; font-weight:600; color:#0F172A;">
                             ${company}
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td width="50%" valign="top" style="padding-bottom:14px; padding-right:8px;">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             EMAIL ADDRESS
                           </div>
-                          <div style="font-size:13px; font-weight:600; color:#0F172A;">
+                          <div style="font-size:13.5px; font-weight:600; color:#0F172A;">
                             ${email}
                           </div>
                         </td>
                         <td width="50%" valign="top" style="padding-bottom:14px; padding-left:8px;">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             CONTACT PHONE
                           </div>
-                          <div style="font-size:13px; font-weight:600; color:#0F172A;">
+                          <div style="font-size:13.5px; font-weight:600; color:#0F172A;">
                             ${phone}
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td colspan="2" valign="top">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             PRIMARY INTEREST / SERVICE
                           </div>
-                          <div style="font-size:13px; font-weight:700; color:#146B5C;">
+                          <div style="font-size:13.5px; font-weight:600; color:#146B5C;">
                             ${subject}
                           </div>
                         </td>
@@ -332,16 +326,16 @@ function generateCustomerContactConfirmationHtml(data) {
                   </td>
                 </tr>
 
-                <!-- Nested Message Card (White inner card) -->
+                <!-- Nested Message Card (White inner card, No Emoji) -->
                 <tr>
                   <td style="padding-top:14px;">
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF; border:1px solid #D4ECE1; border-radius:10px; padding:14px 16px;">
                       <tr>
                         <td>
-                          <div style="font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:6px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                            &#x1F4AC; YOUR SUBMITTED MESSAGE:
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; margin-bottom:6px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                            SUBMITTED MESSAGE
                           </div>
-                          <div style="font-size:13px; font-style:italic; color:#334155; line-height:1.6; font-family:Georgia, serif, sans-serif;">
+                          <div style="font-size:13px; font-weight:400; font-style:italic; color:#334155; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                             &ldquo;${message}&rdquo;
                           </div>
                         </td>
@@ -354,98 +348,14 @@ function generateCustomerContactConfirmationHtml(data) {
             </td>
           </tr>
 
-          <!-- WHAT HAPPENS NEXT? Timeline Section -->
-          <tr>
-            <td style="padding:0 32px 20px 32px; background-color:#FFFFFF;">
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
-                <tr>
-                  <td align="left" style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                    WHAT HAPPENS NEXT?
-                  </td>
-                  <td align="right" style="padding-left:12px;">
-                    <div style="border-bottom:1px solid #E2E8F0; height:1px; line-height:1px;">&nbsp;</div>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Step 1 -->
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
-                <tr>
-                  <td width="36" valign="top" style="padding-right:12px;">
-                    <div style="width:24px; height:24px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">1</div>
-                  </td>
-                  <td valign="top">
-                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Specialist Review <span style="display:inline-block; margin-left:6px; background-color:#D1F3EC; color:#146B5C; font-size:9.5px; font-weight:800; padding:2px 7px; border-radius:9999px; vertical-align:middle; letter-spacing:0.04em;">IN PROGRESS</span>
-                    </div>
-                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Our technical solutions team reviews your project requirements and inventory scope within <strong style="color:#0F172A;">2 working hours</strong>.
-                    </div>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Step 2 -->
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
-                <tr>
-                  <td width="36" valign="top" style="padding-right:12px;">
-                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">2</div>
-                  </td>
-                  <td valign="top">
-                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Tailored Proposal or Call
-                    </div>
-                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      A dedicated account manager will reply with your custom proposal, logistics options, or direct scheduling link.
-                    </div>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Step 3 -->
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
-                <tr>
-                  <td width="36" valign="top" style="padding-right:12px;">
-                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">3</div>
-                  </td>
-                  <td valign="top">
-                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Fast-Track Free Collection
-                    </div>
-                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Once approved, our satellite-tracked collection vehicles arrive with tamper-evident bins and legal consignment transfer notes.
-                    </div>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Step 4 -->
-              <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td width="36" valign="top" style="padding-right:12px;">
-                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">4</div>
-                  </td>
-                  <td valign="top">
-                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Audit &amp; Compliance Certificates
-                    </div>
-                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Following secure processing, receive certified Certificates of Data Destruction (COD) and Scope 3 carbon offset documentation.
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- Urgent Request Box -->
+          <!-- Urgent Request Box (Clean, Semibold, Segoe UI) -->
           <tr>
             <td style="padding:0 32px 24px 32px; background-color:#FFFFFF;">
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F0FAF7; border:1px solid #9DE0CF; border-radius:10px; padding:14px 18px; text-align:center;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F0FAF7; border:1px solid #BFEADF; border-radius:10px; padding:14px 18px; text-align:center;">
                 <tr>
                   <td align="center">
-                    <div style="font-size:13px; color:#334155; line-height:1.5; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Urgent request or immediate booking? Call our direct logistics desk at <a href="tel:+441784640216" style="color:#146B5C; font-weight:700; text-decoration:none;">+44 1784 640216</a> or reply directly to this email.
+                    <div style="font-size:13px; font-weight:600; color:#334155; line-height:1.5; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Urgent request or immediate booking? Call our direct logistics desk at <a href="tel:+441784640216" style="color:#146B5C; font-weight:600; text-decoration:none;">+44 1784 640216</a> or reply directly to this email.
                     </div>
                   </td>
                 </tr>
@@ -517,43 +427,26 @@ function generateCustomerCollectionConfirmationHtml(data) {
           <!-- Headline & Intro Paragraph -->
           <tr>
             <td style="padding:10px 32px 16px 32px; background-color:#FFFFFF;">
-              <h1 style="margin:0 0 10px 0; font-size:26px; font-weight:800; color:#0F172A; line-height:1.25; letter-spacing:-0.02em; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <h1 style="margin:0 0 10px 0; font-size:24px; font-weight:700; color:#0F172A; line-height:1.25; letter-spacing:-0.02em; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Thank you for booking your Techsteps collection!
               </h1>
-              <p style="margin:0; font-size:14px; color:#475569; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <p style="margin:0; font-size:14px; font-weight:400; color:#475569; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 We've received your collection booking. A dedicated IT logistics and compliance coordinator is reviewing your requirements and will confirm your pickup window shortly.
               </p>
             </td>
           </tr>
 
-          <!-- 3-Column Metadata Stat Bar -->
+          <!-- Reference Status Bar (Clean, Executive) -->
           <tr>
-            <td style="padding:0 32px 20px 32px; background-color:#FFFFFF;">
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-top:1px solid #E2E8F0; border-bottom:1px solid #E2E8F0; padding:12px 0;">
+            <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:8px; padding:10px 16px;">
                 <tr>
-                  <td width="33%" align="left" valign="top" style="padding:8px 8px 8px 0;">
-                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      BOOKING REFERENCE
-                    </div>
-                    <div style="font-size:14px; font-weight:800; color:#0F172A; font-family:Consolas, Monaco, monospace;">
-                      #${ref}
-                    </div>
+                  <td align="left" valign="middle">
+                    <span style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">BOOKING REFERENCE:</span>
+                    <span style="font-size:14px; font-weight:600; color:#146B5C; font-family:Consolas, Monaco, monospace; margin-left:8px;">#${ref}</span>
                   </td>
-                  <td width="34%" align="left" valign="top" style="padding:8px; border-left:1px solid #F1F5F9;">
-                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      ESTIMATED RESPONSE
-                    </div>
-                    <div style="font-size:13px; font-weight:700; color:#146B5C; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      &#x23F1; Within 2 Working Hours
-                    </div>
-                  </td>
-                  <td width="33%" align="left" valign="top" style="padding:8px 0 8px 8px; border-left:1px solid #F1F5F9;">
-                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#64748B; margin-bottom:4px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      LOGISTICS DESK
-                    </div>
-                    <div style="font-size:12.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      UK Operations (Hainault &amp; Stafford)
-                    </div>
+                  <td align="right" valign="middle">
+                    <span style="display:inline-block; background-color:#E1F4EC; color:#146B5C; font-size:11px; font-weight:600; padding:4px 12px; border-radius:9999px; letter-spacing:0.02em; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">Booking Logged</span>
                   </td>
                 </tr>
               </table>
@@ -563,11 +456,11 @@ function generateCustomerCollectionConfirmationHtml(data) {
           <!-- Salutation & Context Paragraph -->
           <tr>
             <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
-              <div style="font-size:15px; font-weight:700; color:#0F172A; margin-bottom:8px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <div style="font-size:15px; font-weight:600; color:#0F172A; margin-bottom:8px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Hi ${firstName},
               </div>
-              <p style="margin:0; font-size:13.5px; color:#334155; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                Thank you for choosing <strong style="color:#0F172A;">Techsteps UK</strong>. Whether you have redundant laptops, desktop PCs, server infrastructure, or require certified data destruction, our secure logistics team is coordinating your booking.
+              <p style="margin:0; font-size:13.5px; font-weight:400; color:#334155; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                Thank you for choosing <strong style="color:#0F172A; font-weight:600;">Techsteps UK</strong>. Whether you have redundant laptops, desktop PCs, server infrastructure, or require certified data destruction, our secure logistics team is coordinating your booking.
               </p>
             </td>
           </tr>
@@ -580,16 +473,11 @@ function generateCustomerCollectionConfirmationHtml(data) {
                   <td>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td width="36" valign="middle">
-                          <div style="width:30px; height:30px; border-radius:8px; background-color:#E1F4EC; color:#146B5C; text-align:center; line-height:30px; font-size:15px; font-weight:bold;">
-                            &#x1F4E6;
-                          </div>
-                        </td>
-                        <td valign="middle" style="padding-left:10px;">
-                          <div style="font-size:14.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                        <td valign="middle">
+                          <div style="font-size:14.5px; font-weight:600; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                             Your Contact Details &amp; Collection Summary
                           </div>
-                          <div style="font-size:11px; color:#64748B; margin-top:1px;">
+                          <div style="font-size:11px; font-weight:400; color:#64748B; margin-top:2px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                             Information submitted via Techsteps Collection Booking Form
                           </div>
                         </td>
@@ -611,64 +499,64 @@ function generateCustomerCollectionConfirmationHtml(data) {
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size:13px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                       <tr>
                         <td width="50%" valign="top" style="padding-bottom:14px; padding-right:8px;">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             FULL NAME
                           </div>
-                          <div style="font-size:13px; font-weight:700; color:#0F172A;">
+                          <div style="font-size:13.5px; font-weight:600; color:#0F172A;">
                             ${fullName}
                           </div>
                         </td>
                         <td width="50%" valign="top" style="padding-bottom:14px; padding-left:8px;">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             ORGANISATION
                           </div>
-                          <div style="font-size:13px; font-weight:700; color:#0F172A;">
+                          <div style="font-size:13.5px; font-weight:600; color:#0F172A;">
                             ${company}
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td width="50%" valign="top" style="padding-bottom:14px; padding-right:8px;">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             EMAIL ADDRESS
                           </div>
-                          <div style="font-size:13px; font-weight:600; color:#0F172A;">
+                          <div style="font-size:13.5px; font-weight:600; color:#0F172A;">
                             ${email}
                           </div>
                         </td>
                         <td width="50%" valign="top" style="padding-bottom:14px; padding-left:8px;">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             CONTACT PHONE
                           </div>
-                          <div style="font-size:13px; font-weight:600; color:#0F172A;">
+                          <div style="font-size:13.5px; font-weight:600; color:#0F172A;">
                             ${phone}
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td width="50%" valign="top" style="padding-bottom:14px; padding-right:8px;">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             COLLECTION ADDRESS
                           </div>
-                          <div style="font-size:13px; font-weight:600; color:#0F172A; line-height:1.4;">
+                          <div style="font-size:13.5px; font-weight:600; color:#0F172A; line-height:1.4;">
                             ${address}
                           </div>
                         </td>
                         <td width="50%" valign="top" style="padding-bottom:14px; padding-left:8px;">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             PREFERRED DATE
                           </div>
-                          <div style="font-size:13px; font-weight:600; color:#0F172A;">
+                          <div style="font-size:13.5px; font-weight:600; color:#0F172A;">
                             ${collectionDate}
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td colspan="2" valign="top">
-                          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:3px;">
                             EQUIPMENT / SERVICE SCOPE
                           </div>
-                          <div style="font-size:13px; font-weight:700; color:#146B5C;">
+                          <div style="font-size:13.5px; font-weight:600; color:#146B5C;">
                             ${assetsSummaryText}
                           </div>
                         </td>
@@ -677,17 +565,17 @@ function generateCustomerCollectionConfirmationHtml(data) {
                   </td>
                 </tr>
 
-                <!-- Notes Card (if provided) -->
+                <!-- Notes Card (if provided, No Emoji) -->
                 ${notes ? `
                 <tr>
                   <td style="padding-top:14px;">
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF; border:1px solid #D4ECE1; border-radius:10px; padding:14px 16px;">
                       <tr>
                         <td>
-                          <div style="font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#64748B; margin-bottom:6px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                            &#x1F4AC; YOUR SUBMITTED NOTES &amp; INSTRUCTIONS:
+                          <div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; margin-bottom:6px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                            SUBMITTED NOTES &amp; INSTRUCTIONS
                           </div>
-                          <div style="font-size:13px; font-style:italic; color:#334155; line-height:1.6; font-family:Georgia, serif, sans-serif;">
+                          <div style="font-size:13px; font-weight:400; font-style:italic; color:#334155; line-height:1.6; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                             &ldquo;${notes}&rdquo;
                           </div>
                         </td>
@@ -701,98 +589,14 @@ function generateCustomerCollectionConfirmationHtml(data) {
             </td>
           </tr>
 
-          <!-- WHAT HAPPENS NEXT? Timeline Section -->
-          <tr>
-            <td style="padding:0 32px 20px 32px; background-color:#FFFFFF;">
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
-                <tr>
-                  <td align="left" style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                    WHAT HAPPENS NEXT?
-                  </td>
-                  <td align="right" style="padding-left:12px;">
-                    <div style="border-bottom:1px solid #E2E8F0; height:1px; line-height:1px;">&nbsp;</div>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Step 1 -->
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
-                <tr>
-                  <td width="36" valign="top" style="padding-right:12px;">
-                    <div style="width:24px; height:24px; border-radius:50%; background-color:#146B5C; color:#FFFFFF; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">1</div>
-                  </td>
-                  <td valign="top">
-                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Logistics Review &amp; Routing <span style="display:inline-block; margin-left:6px; background-color:#D1F3EC; color:#146B5C; font-size:9.5px; font-weight:800; padding:2px 7px; border-radius:9999px; vertical-align:middle; letter-spacing:0.04em;">IN PROGRESS</span>
-                    </div>
-                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Our regional transport team reviews your address, site access requirements, and device quantities.
-                    </div>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Step 2 -->
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
-                <tr>
-                  <td width="36" valign="top" style="padding-right:12px;">
-                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">2</div>
-                  </td>
-                  <td valign="top">
-                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Pickup Window Confirmation
-                    </div>
-                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      You receive a formal confirmation with your exact arrival window, vetted driver details, and vehicle registration.
-                    </div>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Step 3 -->
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
-                <tr>
-                  <td width="36" valign="top" style="padding-right:12px;">
-                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">3</div>
-                  </td>
-                  <td valign="top">
-                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      GPS-Tracked Free Collection
-                    </div>
-                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Directly employed, security-cleared personnel collect your equipment in GPS-tracked vehicles with Duty of Care transfer notes.
-                    </div>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Step 4 -->
-              <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td width="36" valign="top" style="padding-right:12px;">
-                    <div style="width:24px; height:24px; border-radius:50%; background-color:#E2E8F0; color:#475569; text-align:center; line-height:24px; font-weight:800; font-size:11.5px; font-family:'Segoe UI', sans-serif;">4</div>
-                  </td>
-                  <td valign="top">
-                    <div style="font-size:13.5px; font-weight:700; color:#0F172A; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Certified Destruction &amp; Waste Transfer Audit
-                    </div>
-                    <div style="font-size:12.5px; color:#475569; line-height:1.5; margin-top:3px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Full itemised audit reports and serialized Certificates of Data Destruction (COD) issued upon completion.
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- Urgent Request Box -->
+          <!-- Urgent Request Box (Clean, Semibold, Segoe UI) -->
           <tr>
             <td style="padding:0 32px 24px 32px; background-color:#FFFFFF;">
-              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F0FAF7; border:1px solid #9DE0CF; border-radius:10px; padding:14px 18px; text-align:center;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#F0FAF7; border:1px solid #BFEADF; border-radius:10px; padding:14px 18px; text-align:center;">
                 <tr>
                   <td align="center">
-                    <div style="font-size:13px; color:#334155; line-height:1.5; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
-                      Urgent request or immediate booking? Call our direct logistics desk at <a href="tel:+441784640216" style="color:#146B5C; font-weight:700; text-decoration:none;">+44 1784 640216</a> or reply directly to this email.
+                    <div style="font-size:13px; font-weight:600; color:#334155; line-height:1.5; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+                      Urgent request or immediate booking? Call our direct logistics desk at <a href="tel:+441784640216" style="color:#146B5C; font-weight:600; text-decoration:none;">+44 1784 640216</a> or reply directly to this email.
                     </div>
                   </td>
                 </tr>
@@ -866,33 +670,33 @@ function generateContactHtml(data) {
           <!-- Sender Information Table -->
           <tr>
             <td style="padding:0 32px 20px 32px; background-color:#FFFFFF;">
-              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Sender &amp; Client Details
               </div>
               <table width="100%" border="0" cellpadding="8" cellspacing="0" style="font-size:13.5px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 <tr style="background-color:#F8FAF9;">
                   <td width="35%" style="color:#64748B; font-weight:600;">Full Name:</td>
-                  <td width="65%" style="color:#0F172A; font-weight:700;">${name}</td>
+                  <td width="65%" style="color:#0F172A; font-weight:600;">${name}</td>
                 </tr>
                 <tr>
                   <td style="color:#64748B; font-weight:600;">Company / Organisation:</td>
-                  <td style="color:#0F172A; font-weight:700;">${company}</td>
+                  <td style="color:#0F172A; font-weight:600;">${company}</td>
                 </tr>
                 <tr style="background-color:#F8FAF9;">
                   <td style="color:#64748B; font-weight:600;">Email Address:</td>
-                  <td style="color:#146B5C; font-weight:700;">
+                  <td style="color:#146B5C; font-weight:600;">
                     <a href="mailto:${email}" style="color:#146B5C; text-decoration:none;">${email}</a>
                   </td>
                 </tr>
                 <tr>
                   <td style="color:#64748B; font-weight:600;">Phone Number:</td>
-                  <td style="color:#0F172A; font-weight:700;">
+                  <td style="color:#0F172A; font-weight:600;">
                     <a href="tel:${phone}" style="color:#0F172A; text-decoration:none;">${phone}</a>
                   </td>
                 </tr>
                 <tr style="background-color:#F8FAF9;">
                   <td style="color:#64748B; font-weight:600;">Service / Subject:</td>
-                  <td style="color:#146B5C; font-weight:800;">${subject}</td>
+                  <td style="color:#146B5C; font-weight:600;">${subject}</td>
                 </tr>
               </table>
             </td>
@@ -901,7 +705,7 @@ function generateContactHtml(data) {
           <!-- Message Body -->
           <tr>
             <td style="padding:0 32px 28px 32px; background-color:#FFFFFF;">
-              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Message Content
               </div>
               <div style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:10px; padding:18px 20px; font-size:13.5px; color:#1E293B; line-height:1.65; white-space:pre-line; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
@@ -1004,27 +808,27 @@ function generateCollectionHtml(data) {
           <!-- Contact Details -->
           <tr>
             <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
-              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Client &amp; Contact Information
               </div>
               <table width="100%" border="0" cellpadding="8" cellspacing="0" style="font-size:13.5px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 <tr style="background-color:#F8FAF9;">
                   <td width="35%" style="color:#64748B; font-weight:600;">Full Name:</td>
-                  <td width="65%" style="color:#0F172A; font-weight:700;">${name}</td>
+                  <td width="65%" style="color:#0F172A; font-weight:600;">${name}</td>
                 </tr>
                 <tr>
                   <td style="color:#64748B; font-weight:600;">Company / Organisation:</td>
-                  <td style="color:#0F172A; font-weight:700;">${company}</td>
+                  <td style="color:#0F172A; font-weight:600;">${company}</td>
                 </tr>
                 <tr style="background-color:#F8FAF9;">
                   <td style="color:#64748B; font-weight:600;">Email Address:</td>
-                  <td style="color:#146B5C; font-weight:700;">
+                  <td style="color:#146B5C; font-weight:600;">
                     <a href="mailto:${email}" style="color:#146B5C; text-decoration:none;">${email}</a>
                   </td>
                 </tr>
                 <tr>
                   <td style="color:#64748B; font-weight:600;">Telephone:</td>
-                  <td style="color:#0F172A; font-weight:700;">
+                  <td style="color:#0F172A; font-weight:600;">
                     <a href="tel:${phone}" style="color:#0F172A; text-decoration:none;">${phone}</a>
                   </td>
                 </tr>
@@ -1035,21 +839,21 @@ function generateCollectionHtml(data) {
           <!-- Logistics & Scheduling -->
           <tr>
             <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
-              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Logistics &amp; Scheduling
               </div>
               <table width="100%" border="0" cellpadding="8" cellspacing="0" style="font-size:13.5px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 <tr style="background-color:#F8FAF9;">
                   <td width="35%" style="color:#64748B; font-weight:600; vertical-align:top;">Collection Address:</td>
-                  <td width="65%" style="color:#0F172A; font-weight:700; vertical-align:top; line-height:1.4;">${address}</td>
+                  <td width="65%" style="color:#0F172A; font-weight:600; vertical-align:top; line-height:1.4;">${address}</td>
                 </tr>
                 <tr>
                   <td style="color:#64748B; font-weight:600;">Preferred Date:</td>
-                  <td style="color:#0F172A; font-weight:700;">${collectionDate}</td>
+                  <td style="color:#0F172A; font-weight:600;">${collectionDate}</td>
                 </tr>
                 <tr style="background-color:#F8FAF9;">
                   <td style="color:#64748B; font-weight:600;">Required Outcome:</td>
-                  <td style="color:#146B5C; font-weight:800;">${outcome}</td>
+                  <td style="color:#146B5C; font-weight:600;">${outcome}</td>
                 </tr>
               </table>
             </td>
@@ -1058,7 +862,7 @@ function generateCollectionHtml(data) {
           <!-- Equipment Breakdown -->
           <tr>
             <td style="padding:0 32px 18px 32px; background-color:#FFFFFF;">
-              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Hardware &amp; Equipment Specified
               </div>
               <div style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:10px; padding:14px 18px;">
@@ -1070,7 +874,7 @@ function generateCollectionHtml(data) {
           <!-- Notes -->
           <tr>
             <td style="padding:0 32px 28px 32px; background-color:#FFFFFF;">
-              <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+              <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#146B5C; border-bottom:2px solid #E2E8F0; padding-bottom:6px; margin-bottom:14px; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
                 Special Instructions / Notes
               </div>
               <div style="background-color:#F8FAF9; border:1px solid #E2E8F0; border-radius:10px; padding:16px 18px; font-size:13.5px; color:#1E293B; line-height:1.6; white-space:pre-line;">
