@@ -22,7 +22,7 @@ async function run() {
 
   console.log('Current mainNav order:');
   (settings.mainNav || []).forEach((item, i) => {
-    console.log(`  ${i + 1}. ${item.label} → ${item.externalUrl || (item.internalRef ? '[ref]' : '')}`);
+    console.log(`  ${i + 1}. ${item.label}  ${item.externalUrl || (item.internalRef ? '[ref]' : '')}`);
   });
 
   // Reorder: move "About Us" to be just before "Contact"

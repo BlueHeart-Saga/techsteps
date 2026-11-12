@@ -2378,7 +2378,7 @@
           "eyebrow": "OUR SERVICES",
           "heading": "Services For The Complete Business Lifecycle",
           "viewAllLink": "/services",
-          "viewAllText": "Explore →"
+          "viewAllText": "Explore "
         },
         "statistics": [
           {
@@ -2652,7 +2652,7 @@
           "eyebrow": "Get Started",
           "heading": "Let's Find the Right Solution for Your Organisation.",
           "primaryButtonLink": "/contact",
-          "primaryButtonText": "Get In Touch →",
+          "primaryButtonText": "Get In Touch ",
           "secondaryButtonLink": "/request-a-quote",
           "secondaryButtonText": "Request a Collection"
         },
@@ -2771,7 +2771,7 @@
           "eyebrow": "Work With Techsteps",
           "heading": "Let's Build the Right Solution for Your Sector.",
           "primaryButtonLink": "/contact",
-          "primaryButtonText": "Get In Touch →",
+          "primaryButtonText": "Get In Touch ",
           "secondaryButtonLink": "/services",
           "secondaryButtonText": "Explore Our Services"
         },

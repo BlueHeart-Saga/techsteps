@@ -123,7 +123,7 @@ export default defineType({
         defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string', initialValue: 'Work With Techsteps' }),
         defineField({ name: 'heading', title: 'Heading', type: 'string', initialValue: "Let's Build the Right Solution for Your Sector." }),
         defineField({ name: 'description', title: 'Description', type: 'text', rows: 2 }),
-        defineField({ name: 'primaryButtonText', title: 'Primary Button Text', type: 'string', initialValue: 'Get In Touch →' }),
+        defineField({ name: 'primaryButtonText', title: 'Primary Button Text', type: 'string', initialValue: 'Get In Touch ' }),
         defineField({ name: 'primaryButtonLink', title: 'Primary Button Link', type: 'string', initialValue: '/contact' }),
         defineField({ name: 'secondaryButtonText', title: 'Secondary Button Text', type: 'string', initialValue: 'Explore Our Services' }),
         defineField({ name: 'secondaryButtonLink', title: 'Secondary Button Link', type: 'string', initialValue: '/services' }),

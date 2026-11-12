@@ -13,7 +13,7 @@ export const InlineNewsletter: React.FC<InlineNewsletterProps> = ({
   categorySlug,
   categoryName,
   placeholder = "corporate.email@company.co.uk",
-  buttonText = "Subscribe →",
+  buttonText = "Subscribe ",
 }) => {
   const [email, setEmail] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,7 +41,7 @@ export const InlineNewsletter: React.FC<InlineNewsletterProps> = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           email,
           categorySlug: categorySlug || "global",
           categoryName: categoryName || "All Insights"

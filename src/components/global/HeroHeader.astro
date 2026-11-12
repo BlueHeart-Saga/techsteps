@@ -33,6 +33,8 @@ const isServicesActive =
   cleanPath === '/secure-shredding-document-integrity' ||
   cleanPath === '/moving-relocation-services';
 
+const isITSupportActive = cleanPath.startsWith('/it-support');
+
 const isSectorsActive = cleanPath.startsWith('/sectors');
 const isInsightsActive = cleanPath.startsWith('/insights');
 const isAboutActive =
@@ -93,7 +95,7 @@ const isAboutActive =
 
       <!-- MAIN NAVIGATION -->
       <nav
-        class="hidden lg:flex items-center h-full ml-8 xl:ml-10 gap-6 xl:gap-8 font-sans text-[15px] xl:text-[16px] font-medium tracking-tight text-slate-800"
+        class="hidden lg:flex items-center h-full ml-5 xl:ml-8 2xl:ml-10 gap-4 xl:gap-6 2xl:gap-8 font-sans text-[14.5px] xl:text-[15.5px] 2xl:text-[16px] font-medium tracking-tight text-slate-800"
         aria-label="Main Navigation"
       >
 
@@ -111,6 +113,22 @@ const isAboutActive =
           role="button"
         >
           Free Collection
+        </a>
+
+        <!-- IT SUPPORT -->
+        <a
+          href="javascript:void(0)"
+          id="hero-it-support-menu-trigger"
+          data-route-active={isITSupportActive ? "true" : "false"}
+          class={`nav-link it-support-megamenu-toggle py-2 px-0 transition-colors duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#07572F] rounded-sm whitespace-nowrap ${
+            isITSupportActive ? 'active text-[#07572F]' : 'hover:text-[#07572F]'
+          }`}
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-controls="it-support-megamenu-panel"
+          role="button"
+        >
+          IT Support
         </a>
 
         <!-- SERVICES -->

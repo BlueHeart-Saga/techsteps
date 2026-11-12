@@ -507,7 +507,7 @@
         "text": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 11a3 3 0 11-6 0 3 3 0 016 0z\" /> </svg> </div> <div class=\"space-y-1\"> <h3 class=\"text-base sm:text-lg font-bold font-display text-slate-900\"> TechSteps India Operations </h3> <p class=\"text-sm sm:text-base text-slate-600 leading-relaxed font-sans\"> Regional Technology Support & Global Coordination Hub"
       },
       {
-        "text": "</svg> <span>24/7 Global Asset Tracking</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>International Liaison Desk</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Multi-Timezone Coverage</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Centralized Data Integrity</span> </li> </ul> </div> <div class=\"pt-4 flex items-center gap-4\"> <a href=\"/contact\" class=\"inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold rounded-xl shadow-sm hover:shadow-md transition-all duration-200\" > <span>Contact Regional Team</span> <span aria-hidden=\"true\">→</span> </a> </div> </div> </div> </Container> </section> <!-- ===================================================== LOCATION 2: UNITED KINGDOM (Information Left, Image Right) ====================================================== --> <section id=\"location-uk\" class=\"py-20 lg:py-28 bg-[#F8FAF9] border-b border-slate-200/80 scroll-mt-24\"> <Container> <div class=\"grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center\"> <!-- LEFT: Location Information --> <div class=\"lg:col-span-6 space-y-6\"> <div class=\"inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono\"> 02 · GLOBAL HEADQUARTERS </div> <h2 class=\"text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-slate-900 tracking-tight leading-tight\"> United Kingdom </h2> <p class=\"text-base sm:text-lg text-slate-700 leading-relaxed font-sans text-justify\"> The sovereign operational core of TechSteps. From our audited headquarters and high-security regional facilities in Hainault and Stafford, we direct nationwide collections, ADISA-certified sanitisation, and accredited zero-landfill electronic recycling."
+        "text": "</svg> <span>24/7 Global Asset Tracking</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>International Liaison Desk</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Multi-Timezone Coverage</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Centralized Data Integrity</span> </li> </ul> </div> <div class=\"pt-4 flex items-center gap-4\"> <a href=\"/contact\" class=\"inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold rounded-xl shadow-sm hover:shadow-md transition-all duration-200\" > <span>Contact Regional Team</span> <span aria-hidden=\"true\"></span> </a> </div> </div> </div> </Container> </section> <!-- ===================================================== LOCATION 2: UNITED KINGDOM (Information Left, Image Right) ====================================================== --> <section id=\"location-uk\" class=\"py-20 lg:py-28 bg-[#F8FAF9] border-b border-slate-200/80 scroll-mt-24\"> <Container> <div class=\"grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center\"> <!-- LEFT: Location Information --> <div class=\"lg:col-span-6 space-y-6\"> <div class=\"inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 border border-[#0F623A]/25 text-[#0F623A] text-xs font-bold uppercase tracking-widest font-mono\"> 02 · GLOBAL HEADQUARTERS </div> <h2 class=\"text-3xl sm:text-4xl lg:text-5xl font-bold font-display text-slate-900 tracking-tight leading-tight\"> United Kingdom </h2> <p class=\"text-base sm:text-lg text-slate-700 leading-relaxed font-sans text-justify\"> The sovereign operational core of TechSteps. From our audited headquarters and high-security regional facilities in Hainault and Stafford, we direct nationwide collections, ADISA-certified sanitisation, and accredited zero-landfill electronic recycling."
       },
       {
         "text": "Our United States presence facilitates multinational corporate relocations, cross-border technology disposition, and unified governance for transatlantic enterprise organisations."
@@ -519,7 +519,7 @@
         "text": "</svg> </div> <div class=\"space-y-1\"> <h3 class=\"text-base sm:text-lg font-bold font-display text-slate-900\"> TechSteps US Partner Facility & Regional Liaison </h3> <p class=\"text-sm sm:text-base text-slate-600 leading-relaxed font-sans\"> Transatlantic Corporate Operations & Asset Disposition Liaison"
       },
       {
-        "text": "</svg> <span>Transatlantic Asset Relocation</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Unified Scope 3 Carbon Reporting</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Standardized Asset Registers</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Enterprise Account Coordination</span> </li> </ul> </div> <div class=\"pt-4 flex items-center gap-4\"> <a href=\"/contact\" class=\"inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold rounded-xl shadow-sm hover:shadow-md transition-all duration-200\" > <span>Inquire About US Services</span> <span aria-hidden=\"true\">→</span> </a> </div> </div> </div> </Container> </section> <!-- ===================================================== 5. BRANDED GLOBAL STATEMENT ====================================================== --> <section class=\"py-20 lg:py-28 bg-[#0A331E] relative overflow-hidden text-white border-b border-emerald-950\"> <!-- Ambient Depth & Watermark --> <div class=\"absolute inset-0 bg-gradient-to-br from-[#136b41]/30 via-transparent to-[#072415]/60 pointer-events-none\"></div> <img src=\"/images/brand/cta-watermark-alpha.png\" alt=\"\" aria-hidden=\"true\" class=\"absolute right-0 bottom-0 h-full w-auto max-w-[40%] object-contain object-right-bottom opacity-10 pointer-events-none select-none hidden lg:block\" /> <Container class=\"relative z-10\"> <div class=\"max-w-3xl mx-auto text-center space-y-6\"> <span class=\"text-xs font-mono font-bold tracking-widest text-[#3FB33D] uppercase block\"> OUR COMMITMENT </span> <h2 class=\"text-3xl sm:text-4xl lg:text-5xl font-bold font-display tracking-tight text-white leading-tight\"> One Global Approach. Local Expertise. </h2> <p class=\"text-lg sm:text-xl lg:text-[22px] text-emerald-100/90 leading-relaxed font-sans max-w-2xl mx-auto font-normal\"> Across every market, our approach remains the same: protect what matters, recover what has value and manage technology responsibly."
+        "text": "</svg> <span>Transatlantic Asset Relocation</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Unified Scope 3 Carbon Reporting</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Standardized Asset Registers</span> </li> <li class=\"flex items-center gap-2\"> <svg class=\"w-4 h-4 text-[#3FB33D] shrink-0\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" /></svg> <span>Enterprise Account Coordination</span> </li> </ul> </div> <div class=\"pt-4 flex items-center gap-4\"> <a href=\"/contact\" class=\"inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0F623A] hover:bg-[#0c4e2e] text-white text-sm sm:text-base font-semibold rounded-xl shadow-sm hover:shadow-md transition-all duration-200\" > <span>Inquire About US Services</span> <span aria-hidden=\"true\"></span> </a> </div> </div> </div> </Container> </section> <!-- ===================================================== 5. BRANDED GLOBAL STATEMENT ====================================================== --> <section class=\"py-20 lg:py-28 bg-[#0A331E] relative overflow-hidden text-white border-b border-emerald-950\"> <!-- Ambient Depth & Watermark --> <div class=\"absolute inset-0 bg-gradient-to-br from-[#136b41]/30 via-transparent to-[#072415]/60 pointer-events-none\"></div> <img src=\"/images/brand/cta-watermark-alpha.png\" alt=\"\" aria-hidden=\"true\" class=\"absolute right-0 bottom-0 h-full w-auto max-w-[40%] object-contain object-right-bottom opacity-10 pointer-events-none select-none hidden lg:block\" /> <Container class=\"relative z-10\"> <div class=\"max-w-3xl mx-auto text-center space-y-6\"> <span class=\"text-xs font-mono font-bold tracking-widest text-[#3FB33D] uppercase block\"> OUR COMMITMENT </span> <h2 class=\"text-3xl sm:text-4xl lg:text-5xl font-bold font-display tracking-tight text-white leading-tight\"> One Global Approach. Local Expertise. </h2> <p class=\"text-lg sm:text-xl lg:text-[22px] text-emerald-100/90 leading-relaxed font-sans max-w-2xl mx-auto font-normal\"> Across every market, our approach remains the same: protect what matters, recover what has value and manage technology responsibly."
       },
       {
         "text": "BS 7858 vetted personnel, tamper-evident seals, and satellite telematics tracking on every consignment."
@@ -554,23 +554,23 @@
       },
       {
         "href": "#location-india",
-        "text": "1. India →"
+        "text": "1. India "
       },
       {
         "href": "#location-uk",
-        "text": "2. United Kingdom (HQ) →"
+        "text": "2. United Kingdom (HQ) "
       },
       {
         "href": "#location-usa",
-        "text": "3. United States →"
+        "text": "3. United States "
       },
       {
         "href": "/contact",
-        "text": "<span>Contact Regional Team</span> <span aria-hidden=\"true\">→</span>"
+        "text": "<span>Contact Regional Team</span> <span aria-hidden=\"true\"></span>"
       },
       {
         "href": "/request-a-collection",
-        "text": "<span>Request a Collection</span> <span aria-hidden=\"true\">→</span>"
+        "text": "<span>Request a Collection</span> <span aria-hidden=\"true\"></span>"
       },
       {
         "href": "/contact",
@@ -578,7 +578,7 @@
       },
       {
         "href": "/contact",
-        "text": "<span>Inquire About US Services</span> <span aria-hidden=\"true\">→</span>"
+        "text": "<span>Inquire About US Services</span> <span aria-hidden=\"true\"></span>"
       }
     ],
     "hardcodedArrays": []
@@ -752,7 +752,7 @@
         "text": "Provide controlled access, retrieval and ongoing management when required."
       },
       {
-        "text": "Explore →"
+        "text": "Explore "
       }
     ],
     "buttons": [
@@ -1033,7 +1033,7 @@
         "text": "Related Techsteps Services"
       },
       {
-        "text": "</svg> </a> ))} </div> </div> <!-- Back / Forward nav --> <div class=\"mt-12 pt-8 border-t border-slate-200 flex items-center justify-between\"> <a href=\"/insights\" class=\"inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-[#2D6A4F] transition-colors\" > <svg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" viewBox=\"0 0 24 24\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7 16l-4-4m0 0l4-4m-4 4h18\"/> </svg> All Insights </a> <a href=\"/request-a-quote\" class=\"inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm\" > Speak to Our Team → </a> </div> </div> <!-- Sidebar --> <aside class=\"hidden lg:block space-y-6 sticky top-24\"> <!-- Author card --> <div class=\"bg-[#f7f8f5] rounded-2xl p-6 border border-slate-200\"> <p class=\"text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4\">Written by"
+        "text": "</svg> </a> ))} </div> </div> <!-- Back / Forward nav --> <div class=\"mt-12 pt-8 border-t border-slate-200 flex items-center justify-between\"> <a href=\"/insights\" class=\"inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-[#2D6A4F] transition-colors\" > <svg class=\"w-4 h-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" viewBox=\"0 0 24 24\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7 16l-4-4m0 0l4-4m-4 4h18\"/> </svg> All Insights </a> <a href=\"/request-a-quote\" class=\"inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#2D6A4F] hover:bg-[#245a41] text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm\" > Speak to Our Team  </a> </div> </div> <!-- Sidebar --> <aside class=\"hidden lg:block space-y-6 sticky top-24\"> <!-- Author card --> <div class=\"bg-[#f7f8f5] rounded-2xl p-6 border border-slate-200\"> <p class=\"text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4\">Written by"
       },
       {
         "text": "Expert in information security and technology lifecycle compliance at Techsteps UK."
@@ -1051,15 +1051,15 @@
     "buttons": [
       {
         "href": "/request-a-quote",
-        "text": "Speak to Our Team →"
+        "text": "Speak to Our Team "
       },
       {
         "href": "/contact",
-        "text": "Get in Touch →"
+        "text": "Get in Touch "
       },
       {
         "href": "/insights",
-        "text": "View all →"
+        "text": "View all "
       }
     ],
     "hardcodedArrays": []
@@ -1227,7 +1227,7 @@
         "text": "Recover value through refurbishment or process end-of-life items via zero-landfill WEEE streams."
       },
       {
-        "text": "Explore →"
+        "text": "Explore "
       }
     ],
     "buttons": [
@@ -1503,7 +1503,7 @@
         "text": "Precision re-racking, structured patching, power-up testing, and final inventory sign-off."
       },
       {
-        "text": "Explore →"
+        "text": "Explore "
       }
     ],
     "buttons": [
@@ -1843,7 +1843,7 @@
         "text": "Receive serialized Certificate of Destruction while shredded paper and metals are 100% recycled."
       },
       {
-        "text": "Explore →"
+        "text": "Explore "
       }
     ],
     "buttons": [
@@ -2042,7 +2042,7 @@
         "text": "Provide controlled access, retrieval and ongoing management when required."
       },
       {
-        "text": "Explore →"
+        "text": "Explore "
       }
     ],
     "buttons": [
@@ -2151,7 +2151,7 @@
         "text": "Recover value through refurbishment or process end-of-life items via zero-landfill WEEE streams."
       },
       {
-        "text": "Explore →"
+        "text": "Explore "
       }
     ],
     "buttons": [
@@ -2260,7 +2260,7 @@
         "text": "Precision re-racking, structured patching, power-up testing, and final inventory sign-off."
       },
       {
-        "text": "Explore →"
+        "text": "Explore "
       }
     ],
     "buttons": [
@@ -2369,7 +2369,7 @@
         "text": "Receive serialized Certificate of Destruction while shredded paper and metals are 100% recycled."
       },
       {
-        "text": "Explore →"
+        "text": "Explore "
       }
     ],
     "buttons": [

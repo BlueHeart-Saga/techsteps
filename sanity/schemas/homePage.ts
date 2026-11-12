@@ -279,7 +279,7 @@ export default defineType({
                     name: 'viewAllText',
                     title: 'View All Button Text',
                     type: 'string',
-                    description: 'Example: EXPLORE ALL 27 CERTIFIED SERVICES →',
+                    description: 'Example: EXPLORE ALL 27 CERTIFIED SERVICES ',
                 }),
 
                 defineField({

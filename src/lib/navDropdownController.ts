@@ -34,6 +34,13 @@ const MENUS: MenuConfig[] = [
     cardId: 'free-collection-megamenu-card',
   },
   {
+    id: 'it-support',
+    triggerSelector: '.it-support-megamenu-toggle, #it-support-menu-trigger, #hero-it-support-menu-trigger',
+    panelId: 'it-support-megamenu-panel',
+    wrapperId: 'it-support-megamenu-wrapper',
+    cardId: 'it-support-megamenu-card',
+  },
+  {
     id: 'services',
     triggerSelector: '.services-megamenu-toggle, #services-menu-trigger',
     panelId: 'services-megamenu-panel',

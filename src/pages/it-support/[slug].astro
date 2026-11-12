@@ -1,0 +1,369 @@
+---
+/**
+ * Dynamic Subservice Detail Page (src/pages/it-support/[slug].astro)
+ * Full SEO-friendly, production-ready route for individual IT support services
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/layout/Container.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import CTA from '../../components/global/cta.astro';
+import {
+  allITSubServices,
+  getITServiceBySlug,
+  getITServiceExpandedFaqs,
+  itSupportCategories,
+} from '../../data/itSupportServices';
+
+export async function getStaticPaths() {
+  return allITSubServices.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+
+// If a subservice has a custom designated route (e.g. Office Relocation), redirect to it
+if (service.customRoute) {
+  return Astro.redirect(service.customRoute, 301);
+}
+
+const currentCategory = itSupportCategories.find((c) => c.id === service.categorySlug);
+const siblingServices = currentCategory?.services.filter((s) => s.slug !== service.slug) || [];
+const serviceFaqs = getITServiceExpandedFaqs(service);
+
+const pageTitle = `${service.name} | UK IT Support & Solutions | TechSteps`;
+const pageDescription = service.shortDescription;
+const canonicalUrl = `https://techsteps.co.uk/it-support/${service.slug}`;
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://techsteps.co.uk',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'IT Support',
+      item: 'https://techsteps.co.uk/it-support',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: service.name,
+      item: canonicalUrl,
+    },
+  ],
+};
+
+// FAQ Schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: serviceFaqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={canonicalUrl}
+  jsonLd={[breadcrumbSchema, faqSchema]}
+>
+  <!-- =====================================================
+       1. HERO SECTION (NO EYEBROW TAGS)
+  ====================================================== -->
+  <section class="relative pt-8 sm:pt-12 pb-14 sm:pb-16 bg-gradient-to-b from-[#F2F8F5] via-white to-white border-b border-slate-100">
+    <Container>
+      <!-- Clean Breadcrumb -->
+      <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-6" aria-label="Breadcrumbs">
+        <a href="/" class="hover:text-[#07572F] transition-colors">Home</a>
+        <span class="text-slate-300">/</span>
+        <a href="/it-support" class="hover:text-[#07572F] transition-colors">IT Support</a>
+        <span class="text-slate-300">/</span>
+        <span class="text-slate-800 font-semibold">{service.name}</span>
+      </nav>
+
+      <div class="max-w-4xl">
+        <!-- Headline directly below breadcrumbs (Eyebrow tags removed as requested) -->
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-[1.15] mb-5">
+          {service.name}
+        </h1>
+
+        <!-- Long Description -->
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal mb-8 max-w-3xl">
+          {service.longDescription}
+        </p>
+
+        <!-- CTA Action Bar -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+          <a
+            href={`/request-a-quote?service=${service.slug}`}
+            class="inline-flex items-center justify-center h-12 px-7 rounded-[12px] bg-[#07572F] hover:bg-[#054324] text-white font-sans text-[15px] font-semibold tracking-tight transition-all duration-150 shadow-md hover:shadow-lg"
+          >
+            Request a Quote for {service.name} &rarr;
+          </a>
+          <a
+            href="tel:+441784640216"
+            class="inline-flex items-center justify-center h-12 px-6 rounded-[12px] border border-slate-300 hover:border-[#07572F] bg-white hover:bg-slate-50 text-slate-800 font-sans text-[15px] font-semibold tracking-tight transition-all duration-150 gap-2"
+          >
+            <svg class="w-4 h-4 text-[#07572F]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <span>+44 1784 640216</span>
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       2. KEY BENEFITS & TECHNICAL CAPABILITIES GRID
+  ====================================================== -->
+  <section class="py-14 sm:py-20 bg-white">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
+        
+        <!-- Key Benefits -->
+        <div class="rounded-[20px] bg-[#FAFDFB] border border-slate-200/80 p-6 sm:p-8">
+          <div class="flex items-center gap-2 mb-6">
+            <span class="w-7 h-7 rounded-full bg-[#EAF5F1] text-[#07572F] flex items-center justify-center text-sm font-bold">✓</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Key Business Benefits</h2>
+          </div>
+
+          <ul class="space-y-4">
+            {service.benefits.map((benefit) => (
+              <li class="flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-[#07572F] text-white flex items-center justify-center text-xs shrink-0 mt-0.5">✓</span>
+                <span class="text-sm sm:text-[15px] text-slate-700 leading-snug font-medium">{benefit}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Technical Capabilities -->
+        <div class="rounded-[20px] bg-white border border-slate-200/80 p-6 sm:p-8 shadow-xs">
+          <div class="flex items-center gap-2 mb-6">
+            <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-800 flex items-center justify-center text-sm font-bold">⚙</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Core Capabilities</h2>
+          </div>
+
+          <ul class="space-y-4">
+            {service.features.map((feature) => (
+              <li class="flex items-start gap-3">
+                <span class="w-2 h-2 rounded-full bg-[#07572F] shrink-0 mt-2"></span>
+                <span class="text-sm sm:text-[15px] text-slate-700 leading-snug">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       3. HIGH-LEVEL ENTERPRISE SECTION: SLA & ARCHITECTURE MATRIX
+       (Added as requested for high-level enterprise page depth)
+  ====================================================== -->
+  <section class="py-16 sm:py-20 bg-[#F4F8F5] border-y border-slate-200/80">
+    <Container>
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#07572F] mb-2 font-mono">
+          ACCREDITED UK INFRASTRUCTURE
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight font-display">
+          Enterprise SLA Guarantees &amp; Operational Standards
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+          Built for demanding UK corporate, legal, healthcare, and financial environments where uptime, cybersecurity, and regulatory compliance are non-negotiable.
+        </p>
+      </div>
+
+      <!-- 4 Pillars Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- 1. Multi-Tier Escalation -->
+        <div class="p-6 rounded-[20px] bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-[12px] bg-[#EAF5F1] text-[#07572F] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Multi-Tier Escalation</h3>
+            <p class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+              Immediate Tier-2 engineer intake without automated call queues, with direct escalation to senior infrastructure architects.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs font-semibold text-[#07572F]">
+            15-Min Priority Triage
+          </div>
+        </div>
+
+        <!-- 2. Nationwide Dispatch -->
+        <div class="p-6 rounded-[20px] bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-[12px] bg-[#EAF5F1] text-[#07572F] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Nationwide On-Site Fleet</h3>
+            <p class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+              Dedicated field engineers dispatched from regional UK hubs with diagnostic gear, loan hardware, and replacement components.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs font-semibold text-[#07572F]">
+            4-Hour Emergency Dispatch
+          </div>
+        </div>
+
+        <!-- 3. Certified Security -->
+        <div class="p-6 rounded-[20px] bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-[12px] bg-[#EAF5F1] text-[#07572F] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">ISO 27001 Security</h3>
+            <p class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+              AES 256-bit encrypted connections, Cyber Essentials Plus accreditation, and immutable audit logs ensuring strict GDPR compliance.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs font-semibold text-[#07572F]">
+            Bank-Grade Encryption
+          </div>
+        </div>
+
+        <!-- 4. Transparent Governance -->
+        <div class="p-6 rounded-[20px] bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-[12px] bg-[#EAF5F1] text-[#07572F] flex items-center justify-center mb-4">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Transparent Governance</h3>
+            <p class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+              Real-time ticket tracking, 99.4% first-contact resolution, dedicated Technical Account Managers, and zero long-term lock-in.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs font-semibold text-[#07572F]">
+            99.4% First-Contact Fix
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       4. OPERATIONAL WORKFLOW (4-STEP PROCESS)
+  ====================================================== -->
+  <section class="py-14 sm:py-20 bg-white border-b border-slate-100">
+    <Container>
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#07572F] mb-2 font-mono">
+          OPERATIONAL WORKFLOW
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight font-display">
+          How TechSteps Delivers {service.name}
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-6 rounded-[18px] bg-slate-50 border border-slate-200/80 shadow-2xs">
+          <div class="w-10 h-10 rounded-[10px] bg-[#EAF5F1] text-[#07572F] font-bold text-base flex items-center justify-center mb-4">1</div>
+          <h3 class="text-base font-bold text-slate-900 mb-1.5">Rapid Triage</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Ticket logged via portal, phone hotline, or automated telemetry with priority SLA tagging.</p>
+        </div>
+
+        <div class="p-6 rounded-[18px] bg-slate-50 border border-slate-200/80 shadow-2xs">
+          <div class="w-10 h-10 rounded-[10px] bg-[#EAF5F1] text-[#07572F] font-bold text-base flex items-center justify-center mb-4">2</div>
+          <h3 class="text-base font-bold text-slate-900 mb-1.5">Diagnostic Analysis</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Certified engineers conduct root-cause diagnostics via secure remote session or field dispatch.</p>
+        </div>
+
+        <div class="p-6 rounded-[18px] bg-slate-50 border border-slate-200/80 shadow-2xs">
+          <div class="w-10 h-10 rounded-[10px] bg-[#EAF5F1] text-[#07572F] font-bold text-base flex items-center justify-center mb-4">3</div>
+          <h3 class="text-base font-bold text-slate-900 mb-1.5">Permanent Resolution</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Implementation of tested configurations, component swaps, firmware updates, or patches.</p>
+        </div>
+
+        <div class="p-6 rounded-[18px] bg-slate-50 border border-slate-200/80 shadow-2xs">
+          <div class="w-10 h-10 rounded-[10px] bg-[#EAF5F1] text-[#07572F] font-bold text-base flex items-center justify-center mb-4">4</div>
+          <h3 class="text-base font-bold text-slate-900 mb-1.5">Verification &amp; Close</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">User verification, automated telemetry audit, and post-incident documentation sign-off.</p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- =====================================================
+       5. FREQUENTLY ASKED QUESTIONS (8 TO 10 Q&As)
+       (Uses exact unified FAQSection design as free-collection subpages)
+  ====================================================== -->
+  <FAQSection
+    eyebrow="COMMON QUESTIONS"
+    title={`Frequently Asked Questions About ${service.name}`}
+    subtitle={`Everything you need to know about our ${service.name} SLA guarantees, engineering workflows, and UK-wide service coverage.`}
+    faqs={serviceFaqs}
+    sectionId="faqs"
+  />
+
+  <!-- =====================================================
+       6. RELATED SERVICES IN SAME CATEGORY
+  ====================================================== -->
+  {siblingServices.length > 0 && (
+    <section class="py-12 bg-white border-t border-slate-100">
+      <Container>
+        <div class="max-w-4xl mx-auto">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-lg font-bold text-slate-900">
+              More Services in {service.category}
+            </h3>
+            <a href="/it-support" class="text-xs font-semibold text-[#07572F] hover:underline">
+              All IT Support &rarr;
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {siblingServices.map((sibling) => {
+              const href = sibling.customRoute || `/it-support/${sibling.slug}`;
+              return (
+                <a
+                  href={href}
+                  class="p-4 rounded-[12px] bg-slate-50 border border-slate-200/80 hover:border-[#07572F]/50 hover:bg-[#F2F8F5] transition-colors block group"
+                >
+                  <div class="text-xs font-semibold text-[#07572F] mb-1">{sibling.sla}</div>
+                  <div class="text-sm font-bold text-slate-900 group-hover:text-[#07572F] transition-colors">
+                    {sibling.name}
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- =====================================================
+       7. GLOBAL CTA COMPONENT
+  ====================================================== -->
+  <CTA />
+</BaseLayout>

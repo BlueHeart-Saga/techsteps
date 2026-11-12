@@ -112,7 +112,7 @@ export default defineType({
         defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string', initialValue: 'Get Started' }),
         defineField({ name: 'heading', title: 'Heading', type: 'string', initialValue: "Let's Find the Right Solution for Your Organisation." }),
         defineField({ name: 'description', title: 'Description', type: 'text', rows: 2 }),
-        defineField({ name: 'primaryButtonText', title: 'Primary Button Text', type: 'string', initialValue: 'Get In Touch →' }),
+        defineField({ name: 'primaryButtonText', title: 'Primary Button Text', type: 'string', initialValue: 'Get In Touch ' }),
         defineField({ name: 'primaryButtonLink', title: 'Primary Button Link', type: 'string', initialValue: '/contact' }),
         defineField({ name: 'secondaryButtonText', title: 'Secondary Button Text', type: 'string', initialValue: 'Request a Collection' }),
         defineField({ name: 'secondaryButtonLink', title: 'Secondary Button Link', type: 'string', initialValue: '/request-a-quote' }),
