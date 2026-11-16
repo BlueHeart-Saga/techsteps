@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { processDistCss } from './downlevel-css-safari.mjs';
 
 const distDir = path.resolve('dist');
 const scriptPath = path.resolve('scripts/azure-server.js');
@@ -9,7 +10,14 @@ if (!fs.existsSync(distDir)) {
   process.exit(1);
 }
 
-// Copy Azure server script
+// 1. Downlevel CSS for legacy Safari compatibility (@layer, @property, oklch, dvh)
+try {
+  processDistCss(distDir);
+} catch (err) {
+  console.error('[prepare-azure-dist] Error during Safari CSS downleveling:', err);
+}
+
+// 2. Copy Azure server script
 const serverCode = fs.readFileSync(scriptPath, 'utf-8');
 
 fs.writeFileSync(

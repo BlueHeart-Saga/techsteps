@@ -52,6 +52,16 @@ export default defineConfig({
   },
   integrations: [
     react(),
+    {
+      name: 'safari-legacy-css-compat',
+      hooks: {
+        'astro:build:done': async ({ dir }) => {
+          const { processDistCss } = await import('./scripts/downlevel-css-safari.mjs');
+          const { fileURLToPath } = await import('node:url');
+          processDistCss(fileURLToPath(dir));
+        },
+      },
+    },
     sanity({
       projectId: sanityProjectId,
       dataset: sanityDataset,
