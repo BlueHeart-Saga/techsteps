@@ -1,5 +1,5 @@
 ---
-import HeroHeader from '../global/HeroHeader.astro';
+import PageHero from './PageHero.astro';
 import type { Sector } from '../../lib/sanity/types';
 
 interface Props {
@@ -8,69 +8,64 @@ interface Props {
 
 const { sector } = Astro.props;
 
-const sectorBgImages: Record<string, string> = {
-  defence: '/images/sectors/Defence and aerospace.webp',
-  nhs: '/images/sectors/health care.webp',
-  healthcare: '/images/sectors/health care.webp',
-  finance: '/images/sectors/financial.webp',
-  'financial-services': '/images/sectors/Financial services.webp',
-  'central-government': '/images/sectors/central covernment.webp',
-  government: '/images/sectors/central covernment.webp',
-  'education-universities': '/images/sectors/univercites and education.webp',
-  education: '/images/sectors/univercites and education.webp',
-  'legal-professional-services': '/images/sectors/corparate and legal.webp',
-  legal: '/images/sectors/corparate and legal.webp',
-  'manufacturing-engineering': '/images/sectors/manuacturing and engineering.webp',
-  manufacturing: '/images/sectors/manuacturing and engineering.webp',
-  'it-technology': '/images/sectors/IT and Technology.webp',
-  technology: '/images/sectors/IT and Technology.webp',
+// Dedicated transparent cutout hero images for sector sub-pages (from public/images/sectors/sub-pages-hero)
+const sectorHeroImages: Record<string, string> = {
+  // Defence & Aerospace
+  defence: '/images/sectors/sub-pages-hero/defence.webp',
+  'defence-aerospace': '/images/sectors/sub-pages-hero/defence.webp',
+
+  // NHS & Healthcare Trusts
+  nhs: '/images/sectors/sub-pages-hero/healthcare.webp',
+  healthcare: '/images/sectors/sub-pages-hero/healthcare.webp',
+
+  // Central Government & Public Sector
+  'central-government': '/images/sectors/sub-pages-hero/centeal.webp',
+  government: '/images/sectors/sub-pages-hero/centeal.webp',
+
+  // Education & Universities
+  'education-universities': '/images/sectors/sub-pages-hero/Education and univercities.webp',
+  education: '/images/sectors/sub-pages-hero/Education and univercities.webp',
+
+  // Corporate & Legal
+  'legal-professional-services': '/images/sectors/sub-pages-hero/corparate and legal.webp',
+  'corporate-legal': '/images/sectors/sub-pages-hero/corparate and legal.webp',
+  legal: '/images/sectors/sub-pages-hero/corparate and legal.webp',
+  corporate: '/images/sectors/sub-pages-hero/corparate and legal.webp',
+
+  // Manufacturing & Engineering
+  'manufacturing-engineering': '/images/sectors/sub-pages-hero/manufacturing and engineering.webp',
+  manufacturing: '/images/sectors/sub-pages-hero/manufacturing and engineering.webp',
+
+  // IT & Technology
+  'it-technology': '/images/sectors/sub-pages-hero/IT and technolog.webp',
+  technology: '/images/sectors/sub-pages-hero/IT and technolog.webp',
+
+  // Financial & Banking Institutions
+  finance: '/images/sectors/sub-pages-hero/collection services.webp',
+  'financial-services': '/images/sectors/sub-pages-hero/collection services.webp',
 };
 
-const bgImage = sectorBgImages[sector.slug] || '/images/brand/hero section.webp';
+const heroImage = sectorHeroImages[sector.slug] || '/images/sectors/sub-pages-hero/collection services.webp';
 ---
 
 <!-- =========================
-     SECTOR HERO SECTION
-     Ref: HeroHome.astro (Same height, light styling, no dark overlay)
+     SECTOR SUB-PAGE HERO SECTION
+     Ref: services sub pages heros (Left content, right cutout image, clean white background)
 ========================= -->
-<section
-  id="sector-hero"
-  class="relative w-full bg-white"
->
-  <!-- Top Hero Header (Integrated light hero navbar) -->
-  <HeroHeader isHome={true} />
-
-  <!-- Hero Content in same container as header -->
-  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="relative w-full min-h-[460px] sm:min-h-[500px] lg:min-h-[560px] flex flex-col justify-center">
-
-      <!-- Contained Image Wrapper (ends at right edge of header container) -->
-      <div class="absolute inset-y-0 right-0 w-full lg:w-[62%] overflow-hidden pointer-events-none select-none z-0">
-        <img
-          src={bgImage}
-          alt=""
-          aria-hidden="true"
-          class="w-full h-full object-cover object-right pointer-events-none select-none"
-          loading="eager"
-          fetchpriority="high"
-          decoding="sync"
-        />
-        <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/30 lg:via-white/10 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white via-white/70 to-transparent pointer-events-none"></div>
-      </div>
-
-      <!-- Main Hero Content Container -->
-      <div
-        class="relative z-10 w-full
-               pt-4 sm:pt-8 lg:pt-12 xl:pt-14
-               pb-6 sm:pb-8 lg:pb-10"
-      >
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
-
-      <!-- =========================
-           HERO CONTENT (Left)
-      ========================= -->
-      <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-2 sm:pt-4 z-10">
+<div class="relative bg-white">
+  <PageHero
+    breadcrumbs={[]}
+    layout="custom"
+    showDivider={true}
+    dividerColor="#ffffff"
+    minHeight="min-h-[400px] sm:min-h-[450px] lg:min-h-[500px]"
+    noOverlay={true}
+    theme="light"
+    contained={true}
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+      <!-- HERO CONTENT (Left) -->
+      <div class="lg:col-span-6 xl:col-span-6 max-w-2xl lg:max-w-none pt-0 z-10">
 
         <!-- Breadcrumb Navigation -->
         <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-semibold text-slate-600 mb-3 sm:mb-4">
@@ -81,15 +76,10 @@ const bgImage = sectorBgImages[sector.slug] || '/images/brand/hero section.webp'
           <span class="text-slate-900 font-bold">{sector.title}</span>
         </nav>
 
-        <!-- Eyebrow Badge -->
-        {/*<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F623A]/10 text-[#0F623A] text-xs sm:text-sm font-sans font-bold uppercase tracking-[0.18em] mb-3 sm:mb-4">
-          <span>{sector.eyebrow || 'SECTOR SOLUTIONS'}</span>
-        </div>*/}
-
         <!-- Main Sector Title -->
         <h1
           class="font-display
-                 text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[56px]
+                 text-3xl sm:text-4xl md:text-5xl lg:text-[50px] xl:text-[54px]
                  font-semibold
                  text-slate-900
                  tracking-normal
@@ -99,106 +89,91 @@ const bgImage = sectorBgImages[sector.slug] || '/images/brand/hero section.webp'
           {sector.title}
         </h1>
 
-        <!-- Sector Subheading / Description -->
+        <!-- Sector Tagline / Description -->
         <p
           class="mt-4 sm:mt-5
-                 text-lg sm:text-xl lg:text-lg
+                 text-base sm:text-lg lg:text-[19px]
                  text-black
-                 max-w-lg
+                 max-w-xl
                  leading-relaxed
                  font-sans font-normal"
         >
           {sector.tagline || sector.summary}
         </p>
 
-        <!-- Call to Action Buttons -->
-        <div
-          class="mt-6 sm:mt-8
-                 flex flex-wrap
-                 items-center
-                 gap-3.5 sm:gap-4"
-        >
+        <!-- Primary CTA Buttons (Ref: Services Sub-Page Hero) -->
+        <div class="mt-6 sm:mt-8 flex flex-wrap items-center gap-4">
           <a
-            href={`/request-a-quote?sector=${encodeURIComponent(sector.slug)}`}
+            href={`/request-a-collection?sector=${encodeURIComponent(sector.slug)}`}
             class="inline-flex items-center justify-center
                    gap-2.5
-                   px-6 sm:px-7
-                   py-3 sm:py-3.5
+                   px-7 sm:px-8
+                   py-3.5 sm:py-4
                    rounded-[12px]
                    bg-[#0F623A] hover:bg-[#0c4e2e]
                    text-white
-                   text-sm sm:text-base
+                   text-base sm:text-lg
                    font-bold
                    shadow-md hover:shadow-lg
                    transition-all duration-200
-                   hover:scale-[1.02]
+                   hover:scale-[1.01]
                    focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
           >
             <span>Request a Collection</span>
             <svg
-              class="w-4 h-4 text-white"
+              class="w-5 h-5 text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
               stroke-width="2.2"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </a>
 
           <a
             href="/services"
             class="inline-flex items-center justify-center
-                   px-6 sm:px-7
-                   py-3 sm:py-3.5
+                   px-6 py-3.5
                    rounded-[12px]
                    bg-white hover:bg-slate-50
-                   border-2 border-[#0F623A] hover:border-[#0c4e2e]
-                   text-[#0F623A] hover:text-[#0c4e2e]
-                   text-sm sm:text-base
-                   font-bold
-                   transition-all duration-200
-                   hover:scale-[1.02]
-                   shadow-xs
-                   focus:outline-none focus:ring-2 focus:ring-[#0F623A]"
+                   border border-slate-300
+                   text-slate-800 hover:text-black
+                   text-base
+                   font-semibold
+                   transition-colors duration-200"
           >
             Explore Services
           </a>
         </div>
 
-        <!-- Mobile & Tablet Visual Stack (Below Text on <lg) -->
-        <div class="lg:hidden w-full flex justify-center items-center mt-8 sm:mt-10">
-          <div class="relative w-full max-w-[460px]">
-            <img
-              src={bgImage}
-              alt={sector.heroAlt || `TechSteps ${sector.title} specialist operations`}
-              class="w-full h-auto object-contain drop-shadow-md select-none mx-auto block rounded-[20px]"
-              loading="eager"
-              decoding="sync"
-            />
+        <!-- Compliance & Standards Badges -->
+        {sector.complianceStandards && sector.complianceStandards.length > 0 && (
+          <div class="mt-8 pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-2 sm:gap-2.5">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 mr-1">Standards:</span>
+            {sector.complianceStandards.slice(0, 4).map((std: string) => (
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-[#0F623A] border border-emerald-200/70">
+                <svg class="w-3.5 h-3.5 text-[#0F623A]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                {std}
+              </span>
+            ))}
           </div>
-        </div>
-
+        )}
       </div>
 
-      <!-- =========================
-           HERO SPACER (Right on Desktop)
-      ========================= -->
-      <div class="hidden lg:flex lg:col-span-6 xl:col-span-6 items-center justify-end min-h-[420px] lg:min-h-[480px] xl:min-h-[520px] pointer-events-none" aria-hidden="true">
+      <!-- HERO IMAGE (Right on Desktop, Below on Mobile) -->
+      <div class="flex lg:col-span-6 xl:col-span-6 items-center justify-center lg:justify-end relative z-0 mt-8 lg:mt-0">
+        <img
+          src={heroImage}
+          alt={sector.heroAlt || `TechSteps ${sector.title} specialist operations`}
+          class="w-full max-w-[540px] sm:max-w-[580px] lg:max-w-[620px] xl:max-w-[660px] max-h-[500px] lg:max-h-[540px] object-contain select-none pointer-events-none drop-shadow-sm"
+          loading="eager"
+          fetchpriority="high"
+          decoding="sync"
+        />
       </div>
-
     </div>
-  </div>
-  </div>
-  </div>
-</section>
-
-<style>
-  #sector-hero {
-    background: #FFFFFF;
-  }
-</style>
+  </PageHero>
+</div>

@@ -1458,7 +1458,7 @@ export const services: Service[] = [
     divisionSlug: 'it-lifecycle-services-destruction',
     divisionTitle: 'IT Lifecycle Services & Destruction',
     summary: 'Safe UK collection for old computer monitors, dual-screen setups, ultrawide displays, with careful handling and full compliance paperwork.',
-    heroImage: '/images/collection/monitor-collection-hero.jpg',
+    heroImage: '/images/collection/monitor-screen-collection-hero.jpg',
     heroAlt: 'Office desktop computer monitors and curved screens ready for collection',
     customerProblem: 'Office screens are fragile, bulky, and older CCFL units contain hazardous materials like mercury that require specialist WEEE treatment.',
     solution: 'Techsteps provides safe, padded roll-cage collection for corporate displays, ultrawide monitors, and commercial screens with rigorous pixel testing and zero-landfill glass recovery.',

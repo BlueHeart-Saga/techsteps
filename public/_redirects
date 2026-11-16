@@ -20,3 +20,25 @@
 # Sitemap resolution
 /sitemap.xml      /sitemap-index.xml  200
 
+
+# IT Asset Management redirects (indexed URL fix)
+/it-asset-management-services-uk/  /services/it-asset-tracking-services  301!
+/it-asset-management-services-uk   /services/it-asset-tracking-services  301!
+/it-asset-management-services/     /services/it-asset-tracking-services  301!
+/it-asset-management-services      /services/it-asset-tracking-services  301!
+/it-asset-management/              /services/it-asset-tracking-services  301!
+/it-asset-management               /services/it-asset-tracking-services  301!
+/it-asset-management-uk/           /services/it-asset-tracking-services  301!
+/it-asset-management-uk            /services/it-asset-tracking-services  301!
+/it-asset-tracking-services-uk/    /services/it-asset-tracking-services  301!
+/it-asset-tracking-services-uk     /services/it-asset-tracking-services  301!
+/it-asset-tracking-uk/             /services/it-asset-tracking-services  301!
+/it-asset-tracking-uk              /services/it-asset-tracking-services  301!
+/services/it-asset-management-services-uk/ /services/it-asset-tracking-services 301!
+/services/it-asset-management-services-uk  /services/it-asset-tracking-services 301!
+/services/it-asset-management-uk/          /services/it-asset-tracking-services 301!
+/services/it-asset-management-uk           /services/it-asset-tracking-services 301!
+/services/it-asset-tracking-services-uk/   /services/it-asset-tracking-services 301!
+/services/it-asset-tracking-services-uk    /services/it-asset-tracking-services 301!
+/services/it-asset-tracking-uk/            /services/it-asset-tracking-services 301!
+/services/it-asset-tracking-uk             /services/it-asset-tracking-services 301!

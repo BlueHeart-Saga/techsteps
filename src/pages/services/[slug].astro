@@ -34,6 +34,11 @@ const service = isValidService(propsService)
   : buildServicePaths(allServices).find((path) => path.params.slug === requestedSlug)?.props.service;
 
 if (!service) {
+  const fallbackCanonical = getServiceCanonicalSlug(requestedSlug);
+  if (fallbackCanonical) {
+    const search = Astro.url.search || '';
+    return Astro.redirect(`/services/${fallbackCanonical}${search}`, 301);
+  }
   return Astro.rewrite('/404');
 }
 

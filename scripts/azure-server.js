@@ -91,6 +91,13 @@ const CANONICAL_SERVICE_MAP = {
   'it-asset-tracking': 'it-asset-tracking-services',
   'it-asset-tracking-services': 'it-asset-tracking-services',
   'it-asset-tracking-uk': 'it-asset-tracking-services',
+  'it-asset-tracking-services-uk': 'it-asset-tracking-services',
+  'it-asset-management': 'it-asset-tracking-services',
+  'it-asset-management-services': 'it-asset-tracking-services',
+  'it-asset-management-uk': 'it-asset-tracking-services',
+  'it-asset-management-services-uk': 'it-asset-tracking-services',
+  'itam': 'it-asset-tracking-services',
+  'itat': 'it-asset-tracking-services',
   'remarketing-recycling': 'remarketing-recycling-services',
   'remarketing-recycling-services': 'remarketing-recycling-services',
   'remarketing-recycling-uk': 'remarketing-recycling-services',
@@ -244,6 +251,26 @@ function readRequestBody(req) {
   });
 }
 
+
+// Root-level 301 redirects for legacy indexed URLs
+const ROOT_REDIRECTS = {
+  '/it-asset-management-services-uk': '/services/it-asset-tracking-services',
+  '/it-asset-management-services': '/services/it-asset-tracking-services',
+  '/it-asset-management': '/services/it-asset-tracking-services',
+  '/it-asset-management-uk': '/services/it-asset-tracking-services',
+  '/it-asset-tracking-services-uk': '/services/it-asset-tracking-services',
+  '/it-asset-tracking-uk': '/services/it-asset-tracking-services',
+  '/it-asset-disposition-services-uk': '/services/it-asset-disposition-services',
+  '/it-asset-disposition-uk': '/services/it-asset-disposition-services',
+  '/about': '/about-us',
+  '/contact-us': '/contact',
+  '/request-quote': '/request-a-quote',
+  '/quote': '/request-a-quote',
+  '/terms': '/terms-and-conditions',
+  '/insights/case-studies': '/insights',
+  '/case-studies': '/services',
+};
+
 const server = http.createServer((req, res) => {
   let pathname = '';
   let parsedUrl = null;
@@ -252,6 +279,18 @@ const server = http.createServer((req, res) => {
     pathname = decodeURIComponent(parsedUrl.pathname);
   } catch {
     pathname = req.url || '';
+  }
+
+  // Root 301 redirects for legacy indexed URLs
+  const cleanPath = (pathname || '').replace(/\/+$/, '') || '/';
+  if (ROOT_REDIRECTS[cleanPath]) {
+    const search = (parsedUrl && parsedUrl.search) ? parsedUrl.search : '';
+    res.writeHead(301, {
+      'Location': `${ROOT_REDIRECTS[cleanPath]}${search}`,
+      'Cache-Control': 'public, max-age=31536000',
+    });
+    res.end();
+    return;
   }
 
   // Canonical HTTP 301 redirects for TechSteps sub-services

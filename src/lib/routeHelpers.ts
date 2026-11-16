@@ -99,6 +99,9 @@ export const CANONICAL_SERVICE_SLUGS: Record<string, string> = {
   'it-asset-tracking-services-uk': 'it-asset-tracking-services',
   'it-asset-management-services': 'it-asset-tracking-services',
   'it-asset-management': 'it-asset-tracking-services',
+  'it-asset-management-services-uk': 'it-asset-tracking-services',
+  'it-asset-management-uk': 'it-asset-tracking-services',
+  'it-asset-tracking-uk': 'it-asset-tracking-services',
   'itam': 'it-asset-tracking-services',
   'itat': 'it-asset-tracking-services',
 

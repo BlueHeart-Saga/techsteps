@@ -34,6 +34,16 @@ export default defineConfig({
   redirects: {
     '/insights/case-studies': '/insights',
     '/case-studies': '/services',
+    '/it-asset-management-services-uk': '/services/it-asset-tracking-services',
+    '/it-asset-management-services': '/services/it-asset-tracking-services',
+    '/it-asset-management': '/services/it-asset-tracking-services',
+    '/it-asset-management-uk': '/services/it-asset-tracking-services',
+    '/it-asset-tracking-services-uk': '/services/it-asset-tracking-services',
+    '/it-asset-tracking-uk': '/services/it-asset-tracking-services',
+    '/services/it-asset-management-services-uk': '/services/it-asset-tracking-services',
+    '/services/it-asset-management-uk': '/services/it-asset-tracking-services',
+    '/services/it-asset-tracking-services-uk': '/services/it-asset-tracking-services',
+    '/services/it-asset-tracking-uk': '/services/it-asset-tracking-services',
   },
 
   prefetch: {
@@ -68,6 +78,12 @@ export default defineConfig({
           '/insights/case-studies',
           '/sitemap.xml',
           '/sitemap-index.xml',
+          '/it-asset-management-services-uk',
+          '/it-asset-management-services',
+          '/it-asset-management',
+          '/it-asset-management-uk',
+          '/it-asset-tracking-services-uk',
+          '/it-asset-tracking-uk',
           // Exclude legacy collection URLs since /...-services are canonical
           '/av-media-equipment-collection',
           '/computer-collection',
